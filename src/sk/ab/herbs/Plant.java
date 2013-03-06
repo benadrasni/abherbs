@@ -28,9 +28,10 @@ public class Plant {
 
   private ArrayList<String> photo_urls;
 
-  public Plant(int plantId, String title) {
-    this.plantId = plantId;
-    this.title = title;
+  public Plant(PlantHeader plantHeader) {
+    this.plantId = plantHeader.getPlantId();
+    this.title = plantHeader.getTitle();
+    this.family = plantHeader.getFamily();
   }
 
   public int getPlantId() {

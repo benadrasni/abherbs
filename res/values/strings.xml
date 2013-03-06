@@ -28,4 +28,7 @@
     <string name="plant_info">Info</string>
     <string name="plant_gallery">Gallery</string>
     <string name="plant_taxonomy">Taxonomy</string>
+
+    <string name="plant_title">title</string>
+    <string name="plant_family">family</string>
 </resources>

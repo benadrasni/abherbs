@@ -27,4 +27,6 @@
     <dimen name="list_item_family_icon_height">50dp</dimen>
     <dimen name="list_item_family_icon_top">275dp</dimen>
     <dimen name="list_item_family_icon_left">20dp</dimen>
+
+    <dimen name="attr_padding">20dp</dimen>
 </resources>

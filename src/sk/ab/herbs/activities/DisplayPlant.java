@@ -56,10 +56,9 @@ public class DisplayPlant extends SherlockFragmentActivity implements ActionBar.
 
   @Override
   public void onStart() {
-    super.onStart();
     PlantHeader plantHeader = getIntent().getExtras().getParcelable("plantHeader");
-
-    setPlant(plantHeader);
+    setPlant(new Plant(plantHeader));
+    super.onStart();
   }
 
   @Override
@@ -102,14 +101,11 @@ public class DisplayPlant extends SherlockFragmentActivity implements ActionBar.
     return taxonomyFragment;
   }
 
-  private void setPlant(PlantHeader plantHeader) {
-    Plant plant = getPlant(plantHeader);
-    setTitle(plant.getTitle());
-//    getSupportActionBar().setIcon(plant.getIconRes());
+  private void setPlant(Plant plant) {
+    this.plant = plant;
   }
 
-  private Plant getPlant(PlantHeader plantHeader) {
-    plant = new Plant(plantHeader.getPlantId(), plantHeader.getTitle());
+  public Plant getPlant() {
     return plant;
   }
 }
