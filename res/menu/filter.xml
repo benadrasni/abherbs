@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/count"
+          android:icon="@drawable/count"
+          android:showAsAction="always"
+          android:actionLayout="@layout/filter_count"
+          android:visible="true">
+    </item>
+    <item android:id="@+id/clear"
+          android:title="@string/clear"
+          android:showAsAction="never"
+          android:orderInCategory="1">
+    </item>
+    <item android:id="@+id/about"
+          android:title="@string/about"
+          android:showAsAction="never"
+          android:orderInCategory="2">
+    </item>
+</menu>

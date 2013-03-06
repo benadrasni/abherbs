@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:paddingTop="10dp" android:paddingBottom="10dp" android:paddingRight="10dp">
+
+    <Button android:id="@+id/countButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/count"
+            android:textColor="@color/MenuWhite"
+            android:clickable="true"
+            android:onClick="showResultsMenu"/>
+
+</LinearLayout>

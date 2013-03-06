@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ab:plantHeaders</string>
+
+    <string name="flower_color">Blütenfarbe</string>
+    <string name="habitats">Vorposten</string>
+    <string name="flower_shape">flower shape</string>
+    <string name="number_of_petals">petal count</string>
+</resources>

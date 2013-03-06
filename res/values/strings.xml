@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ab:herbs</string>
+
+    <string name="about">About</string>
+    <string name="clear">Clear filter</string>
+    <string name="about_msg">&lt;b>ab:plants&lt;/b> is an application.</string>
+
+    <string name="color_of_flower">color of flowers</string>
+    <string name="color_of_flower_message">What\'s color of flowers? Choose the closest one. Don\'t be afraid return back and change selection.</string>
+
+    <string name="habitats">habitats</string>
+    <string name="habitat_meadow">meadows or grasslands</string>
+    <string name="habitat_garden">gardens or fields</string>
+    <string name="habitat_wetland">moorlands or wetlands</string>
+    <string name="habitat_forest">woodlands or forests</string>
+    <string name="habitat_rock">rocks or mountains</string>
+    <string name="habitat_tree">trees or bushes</string>
+    <string name="habitat_message">What\'s around you? Identify plant\'s habitat.</string>
+
+    <string name="number_of_petals">number of petals</string>
+    <string name="nop_4">4 or less</string>
+    <string name="nop_5">5</string>
+    <string name="nop_many">more than 5</string>
+    <string name="nop_bisymmetric">bisymmetric</string>
+    <string name="number_of_petals_message">Is a flower bisymmetric? No? Then how many petals it has?</string>
+
+    <string name="plant_info">Info</string>
+    <string name="plant_gallery">Gallery</string>
+    <string name="plant_taxonomy">Taxonomy</string>
+</resources>

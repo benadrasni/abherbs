@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:custom="http://schemas.android.com/apk/res/sk.ab.herbs"
+
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4" android:paddingLeft="10dp" android:paddingTop="20dp" android:paddingRight="10dp"
+            android:paddingBottom="15dp">
+        <sk.ab.commons.BaseImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/ib4"
+                android:layout_gravity="center"
+                android:text="@string/nop_4"
+                android:gravity="end"
+                android:background="@drawable/nop_4"
+                custom:valueId="1"
+                android:layout_weight="6"/>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" android:padding="10dp">
+        </LinearLayout>
+        <sk.ab.commons.BaseImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/ib5"
+                android:layout_gravity="center"
+                android:text="@string/nop_5"
+                android:gravity="end"
+                android:background="@drawable/nop_5"
+                custom:valueId="2"
+                android:layout_weight="6"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4" android:paddingLeft="10dp" android:paddingTop="15dp" android:paddingRight="10dp"
+            android:paddingBottom="20dp">
+        <sk.ab.commons.BaseImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/ibMany"
+                android:text="@string/nop_many"
+                android:gravity="end"
+                android:background="@drawable/nop_many"
+                custom:valueId="3"
+                android:layout_weight="6"/>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+        </LinearLayout>
+        <sk.ab.commons.BaseImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/ibBisymmetric"
+                android:text="@string/nop_bisymmetric"
+                android:gravity="end"
+                android:background="@drawable/nop_bisymmetric"
+                custom:valueId="4"
+                android:layout_weight="6"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:paddingLeft="10dp" android:paddingRight="10dp">
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:text="@string/number_of_petals_message"
+                  android:lines="2"
+                  android:textStyle="italic"
+                  android:textSize="12dp"
+                  android:gravity="center">
+
+        </TextView>
+    </LinearLayout>
+</LinearLayout>

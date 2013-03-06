@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:custom="http://schemas.android.com/apk/res/sk.ab.herbs"
+
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4" android:paddingLeft="10dp" android:paddingTop="20dp" android:paddingRight="10dp"
+            android:paddingBottom="15dp">
+        <sk.ab.commons.BaseImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/ibWhite"
+                android:layout_gravity="center"
+                android:background="@drawable/white"
+                custom:valueId="1"
+                android:layout_weight="6"/>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+        </LinearLayout>
+        <sk.ab.commons.BaseImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/ibYellow"
+                android:layout_gravity="center"
+                android:background="@drawable/yellow"
+                custom:valueId="2"
+                android:layout_weight="6"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4" android:paddingLeft="10dp" android:paddingTop="15dp" android:paddingRight="10dp"
+            android:paddingBottom="20dp">
+        <sk.ab.commons.BaseImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/ibRed"
+                android:background="@drawable/red"
+                custom:valueId="3" android:layout_weight="6"/>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+        </LinearLayout>
+        <sk.ab.commons.BaseImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/ibBlue"
+                android:background="@drawable/blue"
+                custom:valueId="4" android:layout_weight="6"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2" android:paddingLeft="10dp" android:paddingRight="10dp"
+            android:paddingBottom="20dp" android:paddingTop="0dp">
+        <sk.ab.commons.BaseImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/ibBrown"
+                android:background="@drawable/green"
+                android:layout_weight="1"
+                custom:valueId="7"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingLeft="10dp" android:paddingRight="10dp">
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:text="@string/color_of_flower_message"
+                  android:lines="2"
+                  android:textStyle="italic"
+                  android:textSize="12dp"
+                  android:gravity="center">
+
+        </TextView>
+    </LinearLayout>
+</LinearLayout>
