@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:paddingLeft="@dimen/list_padding"
+              android:paddingRight="@dimen/list_padding"
+              android:orientation="horizontal">
+
+    <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+        <GridView android:id="@+id/plantGallery"
+                  android:numColumns="auto_fit"
+                  android:gravity="center"
+                  android:columnWidth="100dp"
+                  android:padding="@dimen/list_padding"
+                  android:verticalSpacing="@dimen/list_spacing"
+                  android:horizontalSpacing="@dimen/list_spacing"
+                  android:stretchMode="columnWidth"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/CardsForeground">
+
+        </GridView>
+
+        <View android:id="@+id/bottomInfo"
+              android:layout_width="match_parent"
+              android:layout_height="5dp"
+              android:layout_below="@+id/plantGallery"
+              android:background="@drawable/list_item_shadow_bottom"/>
+    </RelativeLayout>
+</LinearLayout>

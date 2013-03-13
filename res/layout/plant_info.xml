@@ -1,50 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/plantInfoLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent"
-            android:src="@drawable/flower_parts" android:scaleType="fitEnd" />
+    <TextView android:id="@+id/plant_species_value"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:gravity="center"
+              android:textAppearance="@android:style/TextAppearance.Holo.Large"/>
 
-    <TableLayout android:id="@+id/tableLayout"
+    <TextView android:id="@+id/plant_species_latin_value"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:gravity="center"
+              android:textStyle="italic"
+              android:textAppearance="@android:style/TextAppearance.Holo.Small"/>
+
+    <LinearLayout android:id="@+id/tableLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <TableRow android:id="@+id/tableRow1"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:padding="5dip" >
-
-            <TextView android:id="@+id/plant_title"
+        <LinearLayout android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:layout_weight="2">
+            <TextView android:id="@+id/plant_flowers"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:textAppearance="@android:style/TextAppearance.Small"
-                      android:text="@string/plant_title"/>
+                      android:textAppearance="@android:style/TextAppearance.Small"/>
 
-            <TextView android:id="@+id/plant_title_value"
+            <TextView android:id="@+id/plant_stem"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:paddingLeft="@dimen/attr_padding"
-                      android:textAppearance="@android:style/TextAppearance.Medium"/>
-        </TableRow>
-        <TableRow android:id="@+id/tableRow2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:padding="5dip" >
+                      android:textAppearance="@android:style/TextAppearance.Small"/>
 
-            <TextView android:id="@+id/plant_family"
+            <TextView android:id="@+id/plant_leaves"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:textAppearance="@android:style/TextAppearance.Small"
-                      android:text="@string/plant_family"/>
+                      android:textAppearance="@android:style/TextAppearance.Small"/>
 
-            <TextView android:id="@+id/plant_family_value"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:paddingLeft="@dimen/attr_padding"
-                      android:textAppearance="@android:style/TextAppearance.Medium"
-                      android:textStyle="italic"/>
-        </TableRow>
-    </TableLayout>
-</FrameLayout>
+        </LinearLayout>
+
+        <ImageView android:id="@+id/plant_background"
+                   android:layout_width="0dp"
+                   android:layout_height="fill_parent"
+                   android:layout_weight="1"/>
+    </LinearLayout>
+
+    <TextView android:id="@+id/plant_habitat"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textAppearance="@android:style/TextAppearance.Small"/>
+
+</LinearLayout>

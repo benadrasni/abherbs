@@ -28,5 +28,21 @@
     <dimen name="list_item_family_icon_top">275dp</dimen>
     <dimen name="list_item_family_icon_left">20dp</dimen>
 
+    <dimen name="thumbnail_photo_width">50dp</dimen>
+    <dimen name="thumbnail_photo_height">50dp</dimen>
+
     <dimen name="attr_padding">20dp</dimen>
+    <dimen name="taxonomy_padding">10dp</dimen>
+    <dimen name="taxonomy_padding1">12dp</dimen>
+    <dimen name="taxonomy_padding2">14dp</dimen>
+    <dimen name="taxonomy_padding3">16dp</dimen>
+    <dimen name="taxonomy_padding4">18dp</dimen>
+    <dimen name="taxonomy_padding5">20dp</dimen>
+    <dimen name="taxonomy_padding6">22dp</dimen>
+    <dimen name="taxonomy_padding7">24dp</dimen>
+    <dimen name="taxonomy_padding8">26dp</dimen>
+    <dimen name="taxonomy_padding9">28dp</dimen>
+    <dimen name="taxonomy_padding10">30dp</dimen>
+
+    <dimen name="card_taxonomy_separator_height">15dp</dimen>
 </resources>

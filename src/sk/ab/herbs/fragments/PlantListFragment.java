@@ -56,8 +56,8 @@ public class PlantListFragment extends ListFragment {
   private DrawableManager drawableManager;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    drawableManager = new DrawableManager();
-		return inflater.inflate(R.layout.result_list, null);
+    drawableManager = new DrawableManager(getResources());
+		return inflater.inflate(R.layout.list, null);
 	}
 
 	public void onActivityCreated(Bundle savedInstanceState) {

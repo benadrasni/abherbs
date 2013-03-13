@@ -30,11 +30,11 @@ public class ListPlants extends SherlockFragmentActivity {
     super.onCreate(savedInstanceState);
 
     // set the Content View
-    setContentView(R.layout.result_list_frame);
+    setContentView(R.layout.list_frame);
     plantsFragment = new PlantListFragment();
     getSupportFragmentManager()
         .beginTransaction()
-        .replace(R.id.result_list_frame, plantsFragment)
+        .replace(R.id.list_frame, plantsFragment)
         .commit();
 
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -16,6 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.ListPlants"/>
-        <activity android:name=".activities.DisplayPlant"/>
+        <activity android:name=".activities.DisplayPlant"
+                android:theme="@style/Theme.Sherlock.Light.NoActionBar"/>
     </application>
 </manifest>

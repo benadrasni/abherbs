@@ -2,4 +2,14 @@
 <resources>
     <color name="MenuGrey">#303030</color>
     <color name="MenuWhite">#F3F3F3</color>
+
+    <color name="CardsBackground">#e5e5e5</color>
+    <color name="CardsForeground">#FFFFFF</color>
+    <color name="CardTitle">#707070</color>
+    <color name="CardSubTitle">#8d8d8d</color>
+    <color name="CardText">#b5b5b5</color>
+    <color name="CardShadowStart">#e5e5e5</color>
+    <color name="CardShadowCenter">#d4d4d4</color>
+    <color name="CardShadowEnd">#d3d3d3</color>
+
 </resources>

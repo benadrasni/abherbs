@@ -30,5 +30,30 @@
     <string name="plant_taxonomy">Taxonomy</string>
 
     <string name="plant_title">title</string>
+    <string name="plant_flowers">flowers</string>
+    <string name="plant_fruits">fruits</string>
+    <string name="plant_leafs">leaves</string>
+    <string name="plant_inflorescence">inflorescence</string>
+    <string name="plant_color_of_flowers">color of flowers</string>
+    <string name="plant_number_of_petals">number of petals</string>
+    <string name="plant_sepal">sepal</string>
+    <string name="plant_leaf_shape">leaf shape</string>
+    <string name="plant_leaf_margin">leaf margin</string>
+    <string name="plant_leaf_venation">leaf venation</string>
+    <string name="plant_leaf_arrangement">leaf arrangement</string>
+    <string name="plant_stem">stem</string>
+    <string name="plant_root">root</string>
+    <string name="plant_habitat">habitat</string>
+
+    <string name="plant_domain">domain</string>
+    <string name="plant_kingdom">kingdom</string>
+    <string name="plant_subkingdom">subkingdom</string>
+    <string name="plant_line">line</string>
+    <string name="plant_branch">branch</string>
+    <string name="plant_phylum">phylum</string>
+    <string name="plant_class">class</string>
+    <string name="plant_order">order</string>
     <string name="plant_family">family</string>
+    <string name="plant_genus">genus</string>
+    <string name="plant_species">species</string>
 </resources>

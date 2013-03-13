@@ -2,9 +2,11 @@ package sk.ab.herbs.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
@@ -33,10 +35,29 @@ public class PlantInfoFragment extends Fragment {
   private void fillPlant() {
     Plant plant = ((DisplayPlant)getActivity()).getPlant();
 
-    TextView title = (TextView) getView().findViewById(R.id.plant_title_value);
-    title.setText(plant.getTitle());
+    ImageView background = (ImageView) getView().findViewById(R.id.plant_background);
+    if (plant.getBack_url() != null) {
+      //((DisplayPlant) getActivity()).getDrawableManager().fetchDrawableOnThread(plant.getBack_url(), background);
+      background.setImageResource(R.drawable.background);
+    }
 
-    TextView family = (TextView) getView().findViewById(R.id.plant_family_value);
-    family.setText(plant.getFamily());
+    TextView title = (TextView) getView().findViewById(R.id.plant_species_value);
+    title.setText(plant.getSpecies());
+
+    TextView title_latin = (TextView) getView().findViewById(R.id.plant_species_latin_value);
+    title_latin.setText(plant.getSpecies_latin());
+
+    TextView flowers = (TextView) getView().findViewById(R.id.plant_flowers);
+    flowers.setText(Html.fromHtml(plant.getDescWithHighlight(plant.getFlower())));
+
+    TextView stem = (TextView) getView().findViewById(R.id.plant_stem);
+    stem.setText(Html.fromHtml(plant.getDescWithHighlight(plant.getStem())));
+
+    TextView leaves = (TextView) getView().findViewById(R.id.plant_leaves);
+    leaves.setText(Html.fromHtml(plant.getDescWithHighlight(plant.getLeaf())));
+
+    TextView habitat = (TextView) getView().findViewById(R.id.plant_habitat);
+    habitat.setText(Html.fromHtml(plant.getDescWithHighlight(plant.getHabitat())));
+
   }
 }

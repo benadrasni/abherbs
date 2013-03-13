@@ -8,7 +8,9 @@ import sk.ab.herbs.Plant;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 import sk.ab.herbs.TestPlants;
-import sk.ab.herbs.fragments.*;
+import sk.ab.herbs.fragments.PlantGalleryFragment;
+import sk.ab.herbs.fragments.PlantInfoFragment;
+import sk.ab.herbs.fragments.PlantTaxonomyFragment;
 import sk.ab.tools.DrawableManager;
 
 /**
@@ -18,7 +20,7 @@ import sk.ab.tools.DrawableManager;
  * Time: 16:59
  * To change this template use File | Settings | File Templates.
  */
-public class DisplayPlant extends SherlockFragmentActivity {
+public class DisplayPlantTabs extends SherlockFragmentActivity implements ActionBar.TabListener {
   private DrawableManager drawableManager;
 
   private Plant plant;
@@ -35,13 +37,26 @@ public class DisplayPlant extends SherlockFragmentActivity {
     drawableManager = new DrawableManager(getResources());
 
     // set the Content View
-    setContentView(R.layout.list_frame);
+    setContentView(R.layout.plant_content_frame);
 
-    PlantCardsFragment plantCardsFragment = new PlantCardsFragment();
-    getSupportFragmentManager()
-        .beginTransaction()
-        .replace(R.id.list_frame, plantCardsFragment)
-        .commit();
+    getSupportActionBar().setDisplayShowHomeEnabled(false);
+    getSupportActionBar().setDisplayShowTitleEnabled(false);
+    getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+    ActionBar.Tab tab = getSupportActionBar().newTab();
+    tab.setText(R.string.plant_info);
+    tab.setTabListener(this);
+    getSupportActionBar().addTab(tab);
+
+    tab = getSupportActionBar().newTab();
+    tab.setText(R.string.plant_gallery);
+    tab.setTabListener(this);
+    getSupportActionBar().addTab(tab);
+
+    tab = getSupportActionBar().newTab();
+    tab.setText(R.string.plant_taxonomy);
+    tab.setTabListener(this);
+    getSupportActionBar().addTab(tab);
   }
 
   @Override
@@ -49,6 +64,25 @@ public class DisplayPlant extends SherlockFragmentActivity {
     PlantHeader plantHeader = getIntent().getExtras().getParcelable("plantHeader");
     setPlant(TestPlants.getPlant(plantHeader.getPlantId()));
     super.onStart();
+  }
+
+  @Override
+  public void onTabReselected(ActionBar.Tab tab, FragmentTransaction transaction) {
+  }
+
+  @Override
+  public void onTabSelected(ActionBar.Tab tab, FragmentTransaction transaction) {
+    if(getResources().getString(R.string.plant_info).equals(tab.getText())) {
+      transaction.replace(R.id.plant_content_frame, getInfoFragment());
+    } else if(getResources().getString(R.string.plant_gallery).equals(tab.getText())) {
+      transaction.replace(R.id.plant_content_frame, getGalleryFragment());
+    } else if(getResources().getString(R.string.plant_taxonomy).equals(tab.getText())) {
+      transaction.replace(R.id.plant_content_frame, getTaxonomyFragment());
+    }
+  }
+
+  @Override
+  public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction transaction) {
   }
 
   public DrawableManager getDrawableManager() {
