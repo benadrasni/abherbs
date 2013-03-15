@@ -98,6 +98,12 @@ public class TestPlants {
     photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp1.png");
     photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp2.png");
     photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp3.png");
+    photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp1.png");
+    photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp2.png");
+    photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp3.png");
+    photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp1.png");
+    photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp2.png");
+    photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp3.png");
     plant.setPhoto_urls(photo_urls);
 
     plants.put(1, plant);

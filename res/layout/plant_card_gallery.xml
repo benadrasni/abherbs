@@ -10,24 +10,24 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent">
 
-        <GridView android:id="@+id/plantGallery"
-                  android:numColumns="auto_fit"
-                  android:gravity="center"
-                  android:columnWidth="100dp"
-                  android:padding="@dimen/list_padding"
-                  android:verticalSpacing="@dimen/list_spacing"
-                  android:horizontalSpacing="@dimen/list_spacing"
-                  android:stretchMode="columnWidth"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:background="@color/CardsForeground">
+        <com.devsmart.android.ui.HorizontalListView
+                android:id="@+id/plant_thumbnails"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/thumbnails_height"
+                android:padding="@dimen/thumbnails_padding"
+                android:background="@color/CardsForeground"/>
 
-        </GridView>
+        <ImageView android:id="@+id/plant_photo"
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/list_item_photo_height"
+                   android:scaleType="centerCrop"
+                   android:layout_below="@+id/plant_thumbnails"
+                   android:background="@color/CardsForeground"/>
 
         <View android:id="@+id/bottomInfo"
               android:layout_width="match_parent"
               android:layout_height="5dp"
-              android:layout_below="@+id/plantGallery"
+              android:layout_below="@+id/plant_photo"
               android:background="@drawable/list_item_shadow_bottom"/>
     </RelativeLayout>
 </LinearLayout>

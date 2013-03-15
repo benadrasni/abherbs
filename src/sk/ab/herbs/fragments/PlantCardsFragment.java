@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+
+import com.devsmart.android.ui.HorizontalListView;
+
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlant;
@@ -47,8 +50,6 @@ public class PlantCardsFragment extends ListFragment {
         setVisibility(v, R.id.plant_info);
         v.invalidate();
         break;
-      case CARD_GALLERY:
-        break;
     }
   }
 
@@ -62,25 +63,48 @@ public class PlantCardsFragment extends ListFragment {
   }
 
   public class ThumbnailAdapter extends ArrayAdapter<String> {
+    String data[];
+    ImageView imageView;
 
-    Context context;
-    int layoutResourceId;
-    String data[] = null;
-
-    public ThumbnailAdapter(Context context, int layoutResourceId, String[] data) {
-      super(context, layoutResourceId, data);
-      this.context = context;
-      this.layoutResourceId = layoutResourceId;
+    public ThumbnailAdapter(Context context, String[] data, ImageView imageView) {
+      super(context, 0);
       this.data = data;
+      this.imageView = imageView;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    @Override
+    public int getCount() {
+      return data.length;
+    }
+
+    @Override
+    public String getItem(int position) {
+      return null;
+    }
+
+    @Override
+    public long getItemId(int position) {
+      return 0;
+    }
+
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
       if (convertView == null) {
-        convertView = LayoutInflater.from(context).inflate(layoutResourceId, null);
+        convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.thumbnail, null);
       }
-      ((ImageView)convertView).setImageResource(android.R.color.transparent);
-      drawableManager.fetchDrawableOnThread(getThumbnailUrl(data[position]), ((ImageView)convertView));
+      ImageView thumbnail = (ImageView)convertView.findViewById(R.id.image);
+      drawableManager.fetchDrawableOnThread(getThumbnailUrl(data[position]), thumbnail);
+
+      thumbnail.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          String url = data[position];
+          if (url != null) {
+            drawableManager.fetchDrawableOnThread(url, imageView);
+          }
+        }
+      });
 
       return convertView;
     }
@@ -96,7 +120,7 @@ public class PlantCardsFragment extends ListFragment {
       super(context, 0);
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
       Plant plant = ((DisplayPlant) getActivity()).getPlant();
 
       if (convertView == null) {
@@ -113,13 +137,14 @@ public class PlantCardsFragment extends ListFragment {
             break;
           case CARD_GALLERY:
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_gallery, null);
-            GridView gridView = (GridView) convertView.findViewById(R.id.plantGallery);
+            HorizontalListView thumbnails = (HorizontalListView) convertView.findViewById(R.id.plant_thumbnails);
+            ImageView imageView = (ImageView) convertView.findViewById(R.id.plant_photo);
 
             String[] data = new String[plant.getPhoto_urls().size()];
             plant.getPhoto_urls().toArray(data);
 
-            ThumbnailAdapter adapter = new ThumbnailAdapter(getContext(), R.layout.thumbnail, data);
-            gridView.setAdapter(adapter);
+            ThumbnailAdapter adapter = new ThumbnailAdapter(getContext(), data, imageView);
+            thumbnails.setAdapter(adapter);
             break;
         }
       }
