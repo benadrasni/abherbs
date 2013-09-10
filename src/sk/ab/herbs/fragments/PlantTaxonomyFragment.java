@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
-import sk.ab.herbs.activities.DisplayPlant;
+import sk.ab.herbs.activities.DisplayPlantActivity;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,7 +30,7 @@ public class PlantTaxonomyFragment extends Fragment {
   }
 
   private void fillPlant() {
-    Plant plant = ((DisplayPlant)getActivity()).getPlant();
+    Plant plant = ((DisplayPlantActivity)getActivity()).getPlant();
 
     TextView species = (TextView) getView().findViewById(R.id.plant_species_value);
     species.setText(plant.getSpeciesShort());

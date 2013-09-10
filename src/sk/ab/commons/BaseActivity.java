@@ -12,7 +12,8 @@ import com.actionbarsherlock.view.MenuItem;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
 import sk.ab.herbs.*;
-import sk.ab.herbs.activities.ListPlants;
+import sk.ab.herbs.activities.ListPlantsActivity;
+import sk.ab.herbs.fragments.HerbCountResponderFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,13 +23,15 @@ import java.util.Map;
 public class BaseActivity extends SlidingFragmentActivity {
   private final Map<Integer, Object> filter = new HashMap<Integer, Object>();
 
+  protected int count;
   protected int position;
   protected List<BaseFilterFragment> filterAttributes;
   protected List<PlantHeader> results;
   protected Fragment mContent;
 	protected PropertyListFragment mPropertyMenu;
+  protected HerbCountResponderFragment responder;
 
-	@Override
+  @Override
 	public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
@@ -37,6 +40,9 @@ public class BaseActivity extends SlidingFragmentActivity {
 
     SlidingMenu sm = getSlidingMenu();
     sm.setMode(SlidingMenu.LEFT);
+
+    FragmentManager     fm = getSupportFragmentManager();
+    FragmentTransaction ft = fm.beginTransaction();
 
     // check if the content frame contains the menu frame
     if (findViewById(R.id.filter_menu_frame) == null) {
@@ -50,10 +56,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 
       // left menu
       mPropertyMenu = new PropertyListFragment();
-      getSupportFragmentManager()
-          .beginTransaction()
-          .replace(R.id.filter_menu_frame, mPropertyMenu)
-          .commit();
+      ft.replace(R.id.filter_menu_frame, mPropertyMenu);
     } else {
       // add a dummy view
       View v = new View(this);
@@ -61,6 +64,13 @@ public class BaseActivity extends SlidingFragmentActivity {
       getSlidingMenu().setSlidingEnabled(false);
       getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
     }
+
+    responder = (HerbCountResponderFragment) fm.findFragmentByTag("RESTResponder");
+    if (responder == null) {
+      responder = new HerbCountResponderFragment();
+      ft.add(responder, "RESTResponder");
+    }
+    ft.commit();
 	}
 
 	@Override
@@ -70,7 +80,8 @@ public class BaseActivity extends SlidingFragmentActivity {
         toggle();
         break;
       case R.id.clear:
-        getFilter().clear();
+        filter.clear();
+        responder.getCount();
         unlockMenu();
         results = TestPlants.getInitial();
         invalidateOptionsMenu();
@@ -90,7 +101,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 
     MenuItem item = menu.findItem(R.id.count);
     Button b = (Button)item.getActionView().findViewById(R.id.countButton);
-    b.setText(""+results.size());
+    b.setText(""+count);
 
     return super.onPrepareOptionsMenu(menu);
   }
@@ -123,6 +134,8 @@ public class BaseActivity extends SlidingFragmentActivity {
 
       ImageView checkImageView = (ImageView)v.findViewById(R.id.row_check);
       checkImageView.setVisibility(View.VISIBLE);
+
+      responder.getCount();
     }
   }
 
@@ -136,11 +149,14 @@ public class BaseActivity extends SlidingFragmentActivity {
   }
 
   public void showResultsMenu(View v) {
-    //showSecondaryMenu();
-    Intent intent = new Intent(getBaseContext(), ListPlants.class);
+    Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
     intent.putParcelableArrayListExtra("results", (ArrayList<PlantHeader>)getResults());
     intent.putExtra("position", position);
     startActivity(intent);
+  }
+
+  public void setCount(int count) {
+    this.count = count;
   }
 
   public List<BaseFilterFragment> getFilterAttributes() {

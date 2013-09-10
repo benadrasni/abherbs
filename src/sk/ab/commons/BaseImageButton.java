@@ -14,7 +14,7 @@ import sk.ab.herbs.R;
  * Time: 18:54
  */
 public class BaseImageButton extends Button {
-  private int valueId;
+  private Integer valueId;
 
   public BaseImageButton(Context context) {
     super(context);
@@ -33,7 +33,7 @@ public class BaseImageButton extends Button {
     addListenerOnButton();
   }
 
-  public int getValueId() {
+  public Integer getValueId() {
     return valueId;
   }
 
@@ -61,19 +61,22 @@ public class BaseImageButton extends Button {
           BaseActivity host = (BaseActivity) view.getContext();
           host.addToFilter(valueId);
 
-          for(int i = host.getPosition()+1; i < host.getFilterAttributes().size(); i++) {
-            BaseFilterFragment fragment = host.getFilterAttributes().get(i);
-            if (host.getFilter().get(fragment.getAttributeId()) == null) {
-              host.switchContent(i, fragment);
-              break;
+          host.setResults();
+
+          if (host.getPosition() == host.getFilterAttributes().size() - 1) {
+            host.showResultsMenu(view);
+          } else {
+            for(int i = host.getPosition()+1; i < host.getFilterAttributes().size(); i++) {
+              BaseFilterFragment fragment = host.getFilterAttributes().get(i);
+              if (host.getFilter().get(fragment.getAttributeId()) == null) {
+                host.switchContent(i, fragment);
+                break;
+              }
             }
           }
-
-          host.setResults();
         }
       }
 
     });
-
   }
 }

@@ -9,11 +9,19 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.ImageView;
 import com.google.webp.libwebp;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,30 +47,25 @@ public class DrawableManager {
   }
 
   public Drawable fetchDrawable(String urlString) {
-    if (drawableMap.containsKey(urlString)) {
-      return drawableMap.get(urlString);
-    }
-
     Log.d(this.getClass().getSimpleName(), "image url:" + urlString);
     try {
       InputStream is = new java.net.URL(urlString).openStream();
 
       Drawable drawable;
-//      if (urlString.endsWith("webp")) {
-//        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//        int next = is.read();
-//        while (next > -1) {
-//          bos.write(next);
-//          next = is.read();
-//        }
-//        bos.flush();
-//        byte[] webp = bos.toByteArray();
-//
-//        is.read(webp);
-//        drawable = new BitmapDrawable(resources, webpToBitmap(webp));
-//      } else {
+      if (urlString.endsWith("webp")) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        int next = is.read();
+        while (next > -1) {
+          bos.write(next);
+          next = is.read();
+        }
+        bos.flush();
+        byte[] webp = bos.toByteArray();
+
+        drawable = new BitmapDrawable(resources, webpToBitmap(webp));
+      } else {
         drawable = Drawable.createFromStream(is, "src");
-//      }
+      }
 
       if (drawable != null) {
         drawableMap.put(urlString, drawable);
@@ -107,7 +110,7 @@ public class DrawableManager {
     thread.start();
   }
 
-  private Bitmap webpToBitmap(byte[] encoded) {
+  synchronized private Bitmap webpToBitmap(byte[] encoded) {
     int[] width = new int[] { 0 };
     int[] height = new int[] { 0 };
     byte[] decoded = libwebp.WebPDecodeARGB(encoded, encoded.length, width, height);

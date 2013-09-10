@@ -14,9 +14,9 @@ import sk.ab.herbs.fragments.NumbersOfPetals;
 
 import java.util.ArrayList;
 
-public class FilterPlants extends BaseActivity {
+public class FilterPlantsActivity extends BaseActivity {
 
-  public FilterPlants() {
+  public FilterPlantsActivity() {
     filterAttributes = new ArrayList<BaseFilterFragment>();
     filterAttributes.add(new ColorOfFlowers());
     filterAttributes.add(new Habitats());

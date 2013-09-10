@@ -13,7 +13,7 @@ import com.devsmart.android.ui.HorizontalListView;
 
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
-import sk.ab.herbs.activities.DisplayPlant;
+import sk.ab.herbs.activities.DisplayPlantActivity;
 import sk.ab.tools.DrawableManager;
 
 public class PlantCardsFragment extends ListFragment {
@@ -64,12 +64,10 @@ public class PlantCardsFragment extends ListFragment {
 
   public class ThumbnailAdapter extends ArrayAdapter<String> {
     String data[];
-    ImageView imageView;
 
-    public ThumbnailAdapter(Context context, String[] data, ImageView imageView) {
+    public ThumbnailAdapter(Context context, String[] data) {
       super(context, 0);
       this.data = data;
-      this.imageView = imageView;
     }
 
     @Override
@@ -89,12 +87,14 @@ public class PlantCardsFragment extends ListFragment {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-
       if (convertView == null) {
         convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.thumbnail, null);
       }
       ImageView thumbnail = (ImageView)convertView.findViewById(R.id.image);
       drawableManager.fetchDrawableOnThread(getThumbnailUrl(data[position]), thumbnail);
+
+      View rl = (View)parent.getParent();
+      final ImageView imageView = (ImageView)rl.findViewById(R.id.plant_photo);
 
       thumbnail.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -121,7 +121,7 @@ public class PlantCardsFragment extends ListFragment {
     }
 
     public View getView(final int position, View convertView, final ViewGroup parent) {
-      Plant plant = ((DisplayPlant) getActivity()).getPlant();
+      Plant plant = ((DisplayPlantActivity) getActivity()).getPlant();
 
       if (convertView == null) {
         switch (position) {
@@ -138,12 +138,11 @@ public class PlantCardsFragment extends ListFragment {
           case CARD_GALLERY:
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_gallery, null);
             HorizontalListView thumbnails = (HorizontalListView) convertView.findViewById(R.id.plant_thumbnails);
-            ImageView imageView = (ImageView) convertView.findViewById(R.id.plant_photo);
 
             String[] data = new String[plant.getPhoto_urls().size()];
             plant.getPhoto_urls().toArray(data);
 
-            ThumbnailAdapter adapter = new ThumbnailAdapter(getContext(), data, imageView);
+            ThumbnailAdapter adapter = new ThumbnailAdapter(getContext(), data);
             thumbnails.setAdapter(adapter);
             break;
         }
@@ -224,6 +223,12 @@ public class PlantCardsFragment extends ListFragment {
           TextView habitat = (TextView) convertView.findViewById(R.id.plant_habitat);
           habitat.setText(Html.fromHtml(plant.getDescWithHighlight(plant.getHabitat())));
 
+          break;
+        case CARD_GALLERY:
+          ImageView image = (ImageView) convertView.findViewById(R.id.plant_photo);
+          if (plant.getPhoto_urls().get(0) != null) {
+            drawableManager.fetchDrawableOnThread(plant.getPhoto_urls().get(0), image);
+          }
           break;
       }
 

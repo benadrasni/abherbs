@@ -98,12 +98,6 @@ public class TestPlants {
     photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp1.png");
     photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp2.png");
     photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp3.png");
-    photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp1.png");
-    photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp2.png");
-    photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp3.png");
-    photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp1.png");
-    photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp2.png");
-    photo_urls.add("https://commondatastorage.googleapis.com/abplants/CapselleBursaPastoris/cbp3.png");
     plant.setPhoto_urls(photo_urls);
 
     plants.put(1, plant);
@@ -117,6 +111,7 @@ public class TestPlants {
     List<PlantHeader> plantHeaders = new ArrayList<PlantHeader>();
     Random r = new Random();
     int count = r.nextInt(prevCount);
+    if (count == 0) count++;
     int i = 0;
     for (PlantHeader plantHeader : TestPlants.plantHeaders) {
       if (i == count) break;

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
-import sk.ab.herbs.activities.DisplayPlant;
+import sk.ab.herbs.activities.DisplayPlantActivity;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,11 +33,11 @@ public class PlantInfoFragment extends Fragment {
   }
 
   private void fillPlant() {
-    Plant plant = ((DisplayPlant)getActivity()).getPlant();
+    Plant plant = ((DisplayPlantActivity)getActivity()).getPlant();
 
     ImageView background = (ImageView) getView().findViewById(R.id.plant_background);
     if (plant.getBack_url() != null) {
-      //((DisplayPlant) getActivity()).getDrawableManager().fetchDrawableOnThread(plant.getBack_url(), background);
+      //((DisplayPlantActivity) getActivity()).getDrawableManager().fetchDrawableOnThread(plant.getBack_url(), background);
       background.setImageResource(R.drawable.background);
     }
 

@@ -18,7 +18,7 @@ import sk.ab.tools.DrawableManager;
  * Time: 16:59
  * To change this template use File | Settings | File Templates.
  */
-public class DisplayPlant extends SherlockFragmentActivity {
+public class DisplayPlantActivity extends SherlockFragmentActivity {
   private DrawableManager drawableManager;
 
   private Plant plant;

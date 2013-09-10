@@ -21,7 +21,7 @@
                 android:text="@string/nop_4"
                 android:gravity="end"
                 android:background="@drawable/nop_4"
-                custom:valueId="1"
+                custom:valueId="@integer/nop_4"
                 android:layout_weight="6"/>
         <LinearLayout
                 android:orientation="vertical"
@@ -37,7 +37,7 @@
                 android:text="@string/nop_5"
                 android:gravity="end"
                 android:background="@drawable/nop_5"
-                custom:valueId="2"
+                custom:valueId="@integer/nop_5"
                 android:layout_weight="6"/>
     </LinearLayout>
     <LinearLayout
@@ -53,7 +53,7 @@
                 android:text="@string/nop_many"
                 android:gravity="end"
                 android:background="@drawable/nop_many"
-                custom:valueId="3"
+                custom:valueId="@integer/nop_many"
                 android:layout_weight="6"/>
         <LinearLayout
                 android:orientation="vertical"
@@ -68,7 +68,7 @@
                 android:text="@string/nop_bisymmetric"
                 android:gravity="end"
                 android:background="@drawable/nop_bisymmetric"
-                custom:valueId="4"
+                custom:valueId="@integer/nop_bisymmetric"
                 android:layout_weight="6"/>
     </LinearLayout>
     <LinearLayout

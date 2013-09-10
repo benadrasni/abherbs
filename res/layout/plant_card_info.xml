@@ -30,28 +30,28 @@
                     <TextView android:id="@+id/plant_flower"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:textAppearance="@android:style/TextAppearance.Holo.Small"
+                              android:textAppearance="@android:style/TextAppearance.Small"
                               android:text="Kvety sú usporiadané v riedkom strapci s vrcholovým paokolíkom. Štyri biele okvetné lístky."
                               android:textColor="@color/CardText"/>
 
                     <TextView android:id="@+id/plant_fruit"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:textAppearance="@android:style/TextAppearance.Holo.Small"
+                              android:textAppearance="@android:style/TextAppearance.Small"
                               android:text="Plody sú trojuholníkovité až klinovito srdcovité."
                               android:textColor="@color/CardText"/>
 
                     <TextView android:id="@+id/plant_leaf"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:textAppearance="@android:style/TextAppearance.Holo.Small"
+                              android:textAppearance="@android:style/TextAppearance.Small"
                               android:text="Listy v prízemnej ružici sú gravicovité až perovito dielne. Listy vo vrcholovej časti byle sú celistvookrajové."
                               android:textColor="@color/CardText"/>
 
                     <TextView android:id="@+id/plant_stem"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              android:textAppearance="@android:style/TextAppearance.Holo.Small"
+                              android:textAppearance="@android:style/TextAppearance.Small"
                               android:text="Byľ je bohato rozkonárená."
                               android:textColor="@color/CardText"/>
 
@@ -59,7 +59,7 @@
 
                 <ImageView android:id="@+id/plant_background"
                            android:layout_width="0dp"
-                           android:layout_height="wrap_content"
+                           android:layout_height="match_parent"
                            android:layout_weight="1"
                            android:paddingTop="@dimen/list_padding"
                            android:paddingBottom="@dimen/list_padding"/>
@@ -76,7 +76,7 @@
                 <TextView android:id="@+id/plant_habitat"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
-                          android:textAppearance="@android:style/TextAppearance.Holo.Small"
+                          android:textAppearance="@android:style/TextAppearance.Small"
                           android:text="Vyskytuje sa v burinových porastoch na poliach, vo vinohradoch a v záhradách, na železničných násypoch, rumoviskách a popri cestách."
                           android:textColor="@color/CardText"/>
 

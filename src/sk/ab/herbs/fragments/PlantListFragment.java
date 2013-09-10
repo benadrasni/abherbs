@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import sk.ab.herbs.Constants;
-import sk.ab.herbs.activities.DisplayPlant;
+import sk.ab.herbs.activities.DisplayPlantActivity;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
-import sk.ab.herbs.activities.ListPlants;
+import sk.ab.herbs.activities.ListPlantsActivity;
 import sk.ab.tools.DrawableManager;
 import sk.ab.tools.GetResource;
 
@@ -68,8 +68,8 @@ public class PlantListFragment extends ListFragment {
 
   @Override
   public void onListItemClick(ListView lv, View v, int position, long id) {
-    Intent intent = new Intent(getActivity().getBaseContext(), DisplayPlant.class);
-    intent.putExtra("plantHeader", ((ListPlants)getActivity()).getPlants().get(position));
+    Intent intent = new Intent(getActivity().getBaseContext(), DisplayPlantActivity.class);
+    intent.putExtra("plantHeader", ((ListPlantsActivity)getActivity()).getPlants().get(position));
     startActivity(intent);
   }
 

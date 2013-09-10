@@ -17,7 +17,7 @@ import java.util.List;
  * Time: 18:00
  * To change this template use File | Settings | File Templates.
  */
-public class ListPlants extends SherlockFragmentActivity {
+public class ListPlantsActivity extends SherlockFragmentActivity {
   private PlantListFragment plantsFragment;
 
   private List<PlantHeader> plants;
