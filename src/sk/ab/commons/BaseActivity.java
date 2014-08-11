@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.*;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
 import sk.ab.herbs.*;
@@ -92,7 +92,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-    getSupportMenuInflater().inflate(R.menu.filter, menu);
+    getMenuInflater().inflate(R.menu.filter, menu);
 		return true;
 	}
 

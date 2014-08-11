@@ -1,9 +1,7 @@
 package sk.ab.herbs.activities;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
@@ -18,7 +16,7 @@ import sk.ab.tools.DrawableManager;
  * Time: 16:59
  * To change this template use File | Settings | File Templates.
  */
-public class DisplayPlantActivity extends SherlockFragmentActivity {
+public class DisplayPlantActivity extends ActionBarActivity {
   private DrawableManager drawableManager;
 
   private Plant plant;

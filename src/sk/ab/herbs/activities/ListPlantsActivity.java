@@ -1,10 +1,10 @@
 package sk.ab.herbs.activities;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import sk.ab.herbs.*;
 import sk.ab.herbs.fragments.PlantListFragment;
 
@@ -17,7 +17,7 @@ import java.util.List;
  * Time: 18:00
  * To change this template use File | Settings | File Templates.
  */
-public class ListPlantsActivity extends SherlockFragmentActivity {
+public class ListPlantsActivity extends ActionBarActivity {
   private PlantListFragment plantsFragment;
 
   private List<PlantHeader> plants;
@@ -50,7 +50,7 @@ public class ListPlantsActivity extends SherlockFragmentActivity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    getSupportMenuInflater().inflate(R.menu.result_list, menu);
+    getMenuInflater().inflate(R.menu.result_list, menu);
     return true;
   }
 

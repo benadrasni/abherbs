@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.ImageView;
-import com.google.webp.libwebp;
+//import com.google.webp.libwebp;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
@@ -37,9 +37,9 @@ public class DrawableManager {
   private Resources resources;
   private final Map<String, Drawable> drawableMap;
 
-  static {
-    System.loadLibrary("webp");
-  }
+//  static {
+//    System.loadLibrary("webp");
+//  }
 
   public DrawableManager(Resources resources) {
     this.resources = resources;
@@ -52,20 +52,20 @@ public class DrawableManager {
       InputStream is = new java.net.URL(urlString).openStream();
 
       Drawable drawable;
-      if (urlString.endsWith("webp")) {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        int next = is.read();
-        while (next > -1) {
-          bos.write(next);
-          next = is.read();
-        }
-        bos.flush();
-        byte[] webp = bos.toByteArray();
-
-        drawable = new BitmapDrawable(resources, webpToBitmap(webp));
-      } else {
+//      if (urlString.endsWith("webp")) {
+//        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//        int next = is.read();
+//        while (next > -1) {
+//          bos.write(next);
+//          next = is.read();
+//        }
+//        bos.flush();
+//        byte[] webp = bos.toByteArray();
+//
+//        drawable = new BitmapDrawable(resources, webpToBitmap(webp));
+//      } else {
         drawable = Drawable.createFromStream(is, "src");
-      }
+//      }
 
       if (drawable != null) {
         drawableMap.put(urlString, drawable);
@@ -110,14 +110,14 @@ public class DrawableManager {
     thread.start();
   }
 
-  synchronized private Bitmap webpToBitmap(byte[] encoded) {
-    int[] width = new int[] { 0 };
-    int[] height = new int[] { 0 };
-    byte[] decoded = libwebp.WebPDecodeARGB(encoded, encoded.length, width, height);
-
-    int[] pixels = new int[decoded.length / 4];
-    ByteBuffer.wrap(decoded).asIntBuffer().get(pixels);
-
-    return Bitmap.createBitmap(pixels, width[0], height[0], Bitmap.Config.ARGB_8888);
-  }
+//  synchronized private Bitmap webpToBitmap(byte[] encoded) {
+//    int[] width = new int[] { 0 };
+//    int[] height = new int[] { 0 };
+//    byte[] decoded = libwebp.WebPDecodeARGB(encoded, encoded.length, width, height);
+//
+//    int[] pixels = new int[decoded.length / 4];
+//    ByteBuffer.wrap(decoded).asIntBuffer().get(pixels);
+//
+//    return Bitmap.createBitmap(pixels, width[0], height[0], Bitmap.Config.ARGB_8888);
+//  }
 }

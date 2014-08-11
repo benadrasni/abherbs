@@ -3,7 +3,7 @@ package sk.ab.herbs.activities;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Html;
-import com.actionbarsherlock.view.MenuItem;
+import android.view.MenuItem;
 import sk.ab.commons.BaseFilterFragment;
 import sk.ab.herbs.R;
 import sk.ab.herbs.TestPlants;
