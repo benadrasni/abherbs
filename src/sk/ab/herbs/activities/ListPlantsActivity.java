@@ -1,12 +1,16 @@
 package sk.ab.herbs.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import sk.ab.herbs.*;
 import sk.ab.herbs.fragments.PlantListFragment;
+import sk.ab.herbs.fragments.rest.HerbDetailResponderFragment;
 
 import java.util.List;
 
@@ -15,66 +19,96 @@ import java.util.List;
  * User: adrian
  * Date: 28.2.2013
  * Time: 18:00
- * To change this template use File | Settings | File Templates.
+ * <p/>
+ *
  */
 public class ListPlantsActivity extends ActionBarActivity {
-  private PlantListFragment plantsFragment;
+    private PlantListFragment plantsFragment;
+    private List<PlantHeader> plants;
+    private PlantHeader plantHeader;
 
-  private List<PlantHeader> plants;
+    private HerbDetailResponderFragment detailResponder;
 
-  /**
-   * Called when the commons is first created.
-   */
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
 
-    // set the Content View
-    setContentView(R.layout.list_frame);
-    plantsFragment = new PlantListFragment();
-    getSupportFragmentManager()
-        .beginTransaction()
-        .replace(R.id.list_frame, plantsFragment)
-        .commit();
+    /**
+     * Called when the commons is first created.
+     */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-  }
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
 
-  @Override
-  public void onStart() {
-    super.onStart();
-    plants = getIntent().getExtras().getParcelableArrayList("results");
+        setContentView(R.layout.list_frame);
+        plantsFragment = new PlantListFragment();
 
-    plantsFragment.recreateList(plants);
-  }
+        ft.replace(R.id.list_frame, plantsFragment);
 
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.result_list, menu);
-    return true;
-  }
+        detailResponder = (HerbDetailResponderFragment) fm.findFragmentByTag("RESTDetailResponder");
+        if (detailResponder == null) {
+            detailResponder = new HerbDetailResponderFragment();
+            ft.add(detailResponder, "RESTDetailResponder");
+        }
 
-  @Override
-  public boolean onPrepareOptionsMenu(Menu menu) {
+        ft.commit();
 
-    MenuItem item = menu.findItem(R.id.count);
-    Button b = (Button)item.getActionView().findViewById(R.id.countButton);
-    b.setText(""+plants.size());
-
-    return super.onPrepareOptionsMenu(menu);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case android.R.id.home:
-        finish();
-        break;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    return super.onOptionsItemSelected(item);
-  }
 
-  public List<PlantHeader> getPlants() {
-    return plants;
-  }
+    @Override
+    public void onStart() {
+        super.onStart();
+        plants = getIntent().getExtras().getParcelableArrayList("results");
+
+        plantsFragment.recreateList(plants);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.result_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        MenuItem item = menu.findItem(R.id.count);
+        Button b = (Button) item.getActionView().findViewById(R.id.countButton);
+        b.setText("" + plants.size());
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public List<PlantHeader> getPlants() {
+        return plants;
+    }
+
+    public PlantHeader getPlantHeader() {
+        return plantHeader;
+    }
+
+    public void setPlantHeader(PlantHeader plantHeader) {
+        this.plantHeader = plantHeader;
+    }
+
+    public void setPlant(Plant plant) {
+        Intent intent = new Intent(getBaseContext(), DisplayPlantActivity.class);
+        intent.putExtra("plant", plant);
+        startActivity(intent);
+    }
+
+    public HerbDetailResponderFragment getDetailResponder() {
+        return detailResponder;
+    }
 }

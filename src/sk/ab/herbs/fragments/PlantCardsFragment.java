@@ -226,7 +226,7 @@ public class PlantCardsFragment extends ListFragment {
           break;
         case CARD_GALLERY:
           ImageView image = (ImageView) convertView.findViewById(R.id.plant_photo);
-          if (plant.getPhoto_urls().get(0) != null) {
+          if (plant.getPhoto_urls().size() > 0 && plant.getPhoto_urls().get(0) != null) {
             drawableManager.fetchDrawableOnThread(plant.getPhoto_urls().get(0), image);
           }
           break;

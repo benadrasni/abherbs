@@ -68,9 +68,9 @@ public class PlantListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView lv, View v, int position, long id) {
-        Intent intent = new Intent(getActivity().getBaseContext(), DisplayPlantActivity.class);
-        intent.putExtra("plantHeader", ((ListPlantsActivity) getActivity()).getPlants().get(position));
-        startActivity(intent);
+        ListPlantsActivity activity = (ListPlantsActivity) getActivity();
+        activity.setPlantHeader(activity.getPlants().get(position));
+        activity.getDetailResponder().getDetail();
     }
 
     public void recreateList(List<PlantHeader> plants) {

@@ -45,7 +45,7 @@ public class HerbListResponderFragment extends RESTResponderFragment {
 
             Bundle params = new Bundle();
             StringBuffer query = new StringBuffer("{");
-            query.append("\"langId\":1");
+            query.append("\"langId\":0");
             StringBuffer attributes = new StringBuffer();
 
             if (!activity.getFilter().isEmpty()) {
@@ -68,7 +68,7 @@ public class HerbListResponderFragment extends RESTResponderFragment {
 
             query.append(",\"attributes\":[");
             query.append(Constants.PLANT_NAME);
-            query.append("," + Constants.PLANT_URL);
+            query.append("," + Constants.PLANT_PHOTO_URL);
             query.append("," + Constants.PLANT_FAMILY);
             query.append("]");
 
@@ -109,16 +109,16 @@ public class HerbListResponderFragment extends RESTResponderFragment {
                 String plantId = keys.next();
                 JSONObject attributes = herbList.getJSONObject(plantId);
                 JSONArray name = null;
-                if (attributes.has(""+Constants.PLANT_NAME)) {
-                    name = attributes.getJSONArray(""+Constants.PLANT_NAME);
+                if (attributes.has(""+Constants.PLANT_NAME+"_0")) {
+                    name = attributes.getJSONArray(""+Constants.PLANT_NAME+"_0");
                 }
                 JSONArray url = null;
-                if (attributes.has(""+Constants.PLANT_URL)) {
-                    url = attributes.getJSONArray(""+Constants.PLANT_URL);
+                if (attributes.has(""+Constants.PLANT_PHOTO_URL +"_0")) {
+                    url = attributes.getJSONArray(""+Constants.PLANT_PHOTO_URL +"_0");
                 }
                 JSONArray family = null;
-                if (attributes.has(""+Constants.PLANT_FAMILY)) {
-                    family = attributes.getJSONArray(""+Constants.PLANT_FAMILY);
+                if (attributes.has(""+Constants.PLANT_FAMILY+"_0")) {
+                    family = attributes.getJSONArray(""+Constants.PLANT_FAMILY+"_0");
                 }
 
                 PlantHeader plantHeader = new PlantHeader(Integer.parseInt(plantId),
