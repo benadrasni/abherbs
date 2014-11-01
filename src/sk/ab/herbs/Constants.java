@@ -1,5 +1,9 @@
 package sk.ab.herbs;
 
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: adrian
@@ -7,6 +11,11 @@ package sk.ab.herbs;
  * Time: 20:02
  */
 public class Constants {
+    public final static Map<String, Integer> LANGUAGES;
+    public final static String LANGUAGE_DEFAULT_KEY = "language_default";
+    public final static String LANGUAGE_EN = "en";
+    public final static String LANGUAGE_SK = "sk";
+
     public final static String REST_ENDPOINT = "http://appsresource.appspot.com/rest/";
     //public final static String REST_ENDPOINT = "http://localhost:8880/rest/";
     public final static String REST_COUNT = "count";
@@ -61,4 +70,15 @@ public class Constants {
     public final static int PLANT_GENUS_LATIN = 392;
     public final static int PLANT_SPECIES = 49;
     public final static int PLANT_SPECIES_LATIN = 286;
+
+    static {
+        LANGUAGES = new HashMap<String, Integer>();
+        LANGUAGES.put(LANGUAGE_EN, 0);
+        LANGUAGES.put(LANGUAGE_SK, 1);
+    }
+
+    public static int getLanguage() {
+        Integer language = LANGUAGES.get(Locale.getDefault().getLanguage());
+        return language == null ? 0 : language;
+    }
 }

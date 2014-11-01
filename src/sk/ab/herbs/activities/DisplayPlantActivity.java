@@ -1,16 +1,13 @@
 package sk.ab.herbs.activities;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import sk.ab.herbs.Plant;
-import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
-import sk.ab.herbs.TestPlants;
-import sk.ab.herbs.fragments.*;
-import sk.ab.herbs.fragments.rest.HerbDetailResponderFragment;
-import sk.ab.herbs.fragments.rest.HerbListResponderFragment;
+import sk.ab.herbs.fragments.PlantCardsFragment;
+import sk.ab.herbs.fragments.PlantGalleryFragment;
+import sk.ab.herbs.fragments.PlantInfoFragment;
+import sk.ab.herbs.fragments.PlantTaxonomyFragment;
 import sk.ab.tools.DrawableManager;
 
 /**

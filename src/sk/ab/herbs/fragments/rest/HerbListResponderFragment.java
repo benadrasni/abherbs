@@ -14,7 +14,10 @@ import sk.ab.herbs.activities.FilterPlantsActivity;
 import sk.ab.herbs.service.RESTResponderFragment;
 import sk.ab.herbs.service.RESTService;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -45,7 +48,7 @@ public class HerbListResponderFragment extends RESTResponderFragment {
 
             Bundle params = new Bundle();
             StringBuffer query = new StringBuffer("{");
-            query.append("\"langId\":0");
+            query.append("\"langId\":"+Constants.getLanguage());
             StringBuffer attributes = new StringBuffer();
 
             if (!activity.getFilter().isEmpty()) {

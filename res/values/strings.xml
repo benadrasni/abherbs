@@ -4,7 +4,12 @@
 
     <string name="about">About</string>
     <string name="clear">Clear filter</string>
-    <string name="about_msg">&lt;b>ab:plants&lt;/b> is an application.</string>
+    <string name="language">Languages</string>
+    <string name="en">English</string>
+    <string name="locale_en">Locale in English!</string>
+    <string name="sk">Slovenčina</string>
+    <string name="locale_sk">Lokalizácia v slovenčine!</string>
+    <string name="about_msg">&lt;b>ab:herbs&lt;/b> is an application.</string>
 
     <string name="color_of_flower">color of flowers</string>
     <string name="color_of_flower_message">What\'s color of flowers? Choose the closest one. Don\'t be afraid return back and change selection.</string>

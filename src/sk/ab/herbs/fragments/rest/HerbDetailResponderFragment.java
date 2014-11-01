@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.PlantHeader;
-import sk.ab.herbs.activities.DisplayPlantActivity;
 import sk.ab.herbs.activities.ListPlantsActivity;
 import sk.ab.herbs.service.RESTResponderFragment;
 import sk.ab.herbs.service.RESTService;
@@ -40,7 +39,7 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
 
             Bundle params = new Bundle();
             StringBuffer query = new StringBuffer("{");
-            query.append("\"langId\":0");
+            query.append("\"langId\":"+Constants.getLanguage());
             query.append(",\"objectId\":"+activity.getPlantHeader().getPlantId());
             query.append("}");
 

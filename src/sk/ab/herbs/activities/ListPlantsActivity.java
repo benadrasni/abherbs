@@ -8,7 +8,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import sk.ab.herbs.*;
+import sk.ab.herbs.Plant;
+import sk.ab.herbs.PlantHeader;
+import sk.ab.herbs.R;
 import sk.ab.herbs.fragments.PlantListFragment;
 import sk.ab.herbs.fragments.rest.HerbDetailResponderFragment;
 
@@ -20,7 +22,7 @@ import java.util.List;
  * Date: 28.2.2013
  * Time: 18:00
  * <p/>
- *
+ * Display list of plants which satisfied a filter
  */
 public class ListPlantsActivity extends ActionBarActivity {
     private PlantListFragment plantsFragment;

@@ -1,25 +1,30 @@
 package sk.ab.commons;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.*;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
-import sk.ab.herbs.*;
+import sk.ab.herbs.Constants;
+import sk.ab.herbs.PlantHeader;
+import sk.ab.herbs.R;
 import sk.ab.herbs.activities.ListPlantsActivity;
 import sk.ab.herbs.fragments.rest.HerbCountResponderFragment;
 import sk.ab.herbs.fragments.rest.HerbListResponderFragment;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BaseActivity extends SlidingFragmentActivity {
     private final Map<Integer, Object> filter = new HashMap<Integer, Object>();
@@ -92,8 +97,16 @@ public class BaseActivity extends SlidingFragmentActivity {
                 countResponder.getCount();
                 unlockMenu();
                 listResponder.getList();
-                //results = TestPlants.getInitial();
                 invalidateOptionsMenu();
+                break;
+            case R.id.en:
+                changeLocale(Constants.LANGUAGE_EN);
+                Toast.makeText(this, R.string.locale_en, Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.sk:
+                changeLocale(Constants.LANGUAGE_SK);
+                Toast.makeText(this, R.string.locale_sk, Toast.LENGTH_LONG).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -181,8 +194,6 @@ public class BaseActivity extends SlidingFragmentActivity {
     }
 
     public void setResults() {
-        //results = TestPlants.getPlants(results.size());
-        //invalidateOptionsMenu();
         listResponder.getList();
     }
 
@@ -197,5 +208,17 @@ public class BaseActivity extends SlidingFragmentActivity {
 
     public int getPosition() {
         return position;
+    }
+
+    protected void changeLocale(String language) {
+        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        editor.putString(Constants.LANGUAGE_DEFAULT_KEY, language);
+        editor.commit();
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
 }
