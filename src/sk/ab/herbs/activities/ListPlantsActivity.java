@@ -30,6 +30,7 @@ public class ListPlantsActivity extends ActionBarActivity {
     private PlantHeader plantHeader;
 
     private HerbDetailResponderFragment detailResponder;
+    private boolean idle = true;
 
 
     /**
@@ -107,10 +108,19 @@ public class ListPlantsActivity extends ActionBarActivity {
     public void setPlant(Plant plant) {
         Intent intent = new Intent(getBaseContext(), DisplayPlantActivity.class);
         intent.putExtra("plant", plant);
+        setIdle(true);
         startActivity(intent);
     }
 
     public HerbDetailResponderFragment getDetailResponder() {
         return detailResponder;
+    }
+
+    public boolean isIdle() {
+        return idle;
+    }
+
+    public void setIdle(boolean setting) {
+        idle = setting;
     }
 }
