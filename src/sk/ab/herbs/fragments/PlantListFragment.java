@@ -28,25 +28,27 @@ public class PlantListFragment extends ListFragment {
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
+            PlantHeader plantHeader = getItem(position);
+
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_row, null);
             }
 
             ImageView photo = (ImageView) convertView.findViewById(R.id.plant_photo);
             photo.setImageResource(android.R.color.transparent);
-            if (getItem(position).getUrl() != null) {
-                drawableManager.fetchDrawableOnThread(getItem(position).getUrl(), photo);
+            if (plantHeader.getUrl() != null) {
+                drawableManager.fetchDrawableOnThread(plantHeader.getUrl(), photo);
             }
 
             TextView title = (TextView) convertView.findViewById(R.id.plant_title);
-            title.setText(getItem(position).getTitle());
+            title.setText(plantHeader.getTitle());
 
             TextView family = (TextView) convertView.findViewById(R.id.plant_family);
-            family.setText(getItem(position).getFamily());
+            family.setText(plantHeader.getFamily());
 
             ImageView family_icon = (ImageView) convertView.findViewById(R.id.family_icon);
             family_icon.setImageResource(GetResource.getResourceDrawable(Constants.FAMILY +
-                    Constants.RESOURCE_SEPARATOR + getItem(position).getFamilyId(), getActivity().getBaseContext(),
+                    Constants.RESOURCE_SEPARATOR + plantHeader.getFamilyId(), getActivity().getBaseContext(),
                     R.drawable.home));
 
             return convertView;

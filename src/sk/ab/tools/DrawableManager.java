@@ -13,100 +13,68 @@ import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
 
-//import com.google.webp.libwebp;
-
 /**
  * Created with IntelliJ IDEA.
  * User: adrian
  * Date: 2.3.2013
  * Time: 11:19
- *
  */
 public class DrawableManager {
-  private Resources resources;
-  private final Map<String, Drawable> drawableMap;
+    private Resources resources;
+    private final Map<String, Drawable> drawableMap;
 
-//  static {
-//    System.loadLibrary("webp");
-//  }
-
-  public DrawableManager(Resources resources) {
-    this.resources = resources;
-    this.drawableMap = new HashMap<String, Drawable>();
-  }
-
-  public Drawable fetchDrawable(String urlString) {
-    Log.d(this.getClass().getSimpleName(), "image url:" + urlString);
-    try {
-      InputStream is = new java.net.URL(urlString).openStream();
-
-      Drawable drawable;
-//      if (urlString.endsWith("webp")) {
-//        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//        int next = is.read();
-//        while (next > -1) {
-//          bos.write(next);
-//          next = is.read();
-//        }
-//        bos.flush();
-//        byte[] webp = bos.toByteArray();
-//
-//        drawable = new BitmapDrawable(resources, webpToBitmap(webp));
-//      } else {
-        drawable = Drawable.createFromStream(is, "src");
-//      }
-
-      if (drawable != null) {
-        drawableMap.put(urlString, drawable);
-        Log.d(this.getClass().getSimpleName(), "got a thumbnail drawable: " + drawable.getBounds() + ", "
-            + drawable.getIntrinsicHeight() + "," + drawable.getIntrinsicWidth() + ", "
-            + drawable.getMinimumHeight() + "," + drawable.getMinimumWidth());
-      } else {
-        Log.w(this.getClass().getSimpleName(), "could not get thumbnail");
-      }
-
-      return drawable;
-    } catch (MalformedURLException e) {
-      Log.e(this.getClass().getSimpleName(), "fetchDrawable failed", e);
-      return null;
-    } catch (IOException e) {
-      Log.e(this.getClass().getSimpleName(), "fetchDrawable failed", e);
-      return null;
-    }
-  }
-
-  public void fetchDrawableOnThread(final String urlString, final ImageView imageView) {
-    if (drawableMap.containsKey(urlString)) {
-      imageView.setImageDrawable(drawableMap.get(urlString));
+    public DrawableManager(Resources resources) {
+        this.resources = resources;
+        this.drawableMap = new HashMap<String, Drawable>();
     }
 
-    final Handler handler = new Handler() {
-      @Override
-      public void handleMessage(Message message) {
-        imageView.setImageDrawable((Drawable) message.obj);
-      }
-    };
+    public Drawable fetchDrawable(String urlString) {
+        Log.d(this.getClass().getSimpleName(), "image url:" + urlString);
+        try {
+            InputStream is = new java.net.URL(urlString).openStream();
 
-    Thread thread = new Thread() {
-      @Override
-      public void run() {
-        //TODO : set imageView to a "pending" image
-        Drawable drawable = fetchDrawable(urlString);
-        Message message = handler.obtainMessage(1, drawable);
-        handler.sendMessage(message);
-      }
-    };
-    thread.start();
-  }
+            Drawable drawable = Drawable.createFromStream(is, "src");
 
-//  synchronized private Bitmap webpToBitmap(byte[] encoded) {
-//    int[] width = new int[] { 0 };
-//    int[] height = new int[] { 0 };
-//    byte[] decoded = libwebp.WebPDecodeARGB(encoded, encoded.length, width, height);
-//
-//    int[] pixels = new int[decoded.length / 4];
-//    ByteBuffer.wrap(decoded).asIntBuffer().get(pixels);
-//
-//    return Bitmap.createBitmap(pixels, width[0], height[0], Bitmap.Config.ARGB_8888);
-//  }
+            if (drawable != null) {
+                drawableMap.put(urlString, drawable);
+                Log.d(this.getClass().getSimpleName(), "got a thumbnail drawable: " + drawable.getBounds() + ", "
+                        + drawable.getIntrinsicHeight() + "," + drawable.getIntrinsicWidth() + ", "
+                        + drawable.getMinimumHeight() + "," + drawable.getMinimumWidth());
+            } else {
+                Log.w(this.getClass().getSimpleName(), "could not get thumbnail");
+            }
+
+            return drawable;
+        } catch (MalformedURLException e) {
+            Log.e(this.getClass().getSimpleName(), "fetchDrawable failed", e);
+            return null;
+        } catch (IOException e) {
+            Log.e(this.getClass().getSimpleName(), "fetchDrawable failed", e);
+            return null;
+        }
+    }
+
+    public void fetchDrawableOnThread(final String urlString, final ImageView imageView) {
+        if (drawableMap.containsKey(urlString)) {
+            imageView.setImageDrawable(drawableMap.get(urlString));
+        } else {
+            final Handler handler = new Handler() {
+                @Override
+                public void handleMessage(Message message) {
+                    imageView.setImageDrawable((Drawable) message.obj);
+                }
+            };
+
+            Thread thread = new Thread() {
+                @Override
+                public void run() {
+                    //TODO : set imageView to a "pending" image
+                    Drawable drawable = fetchDrawable(urlString);
+                    Message message = handler.obtainMessage(1, drawable);
+                    handler.sendMessage(message);
+                }
+            };
+            thread.start();
+        }
+    }
 }
