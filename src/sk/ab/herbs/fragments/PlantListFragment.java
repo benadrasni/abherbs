@@ -63,6 +63,7 @@ public class PlantListFragment extends ListFragment {
         return inflater.inflate(R.layout.list, null);
     }
 
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         adapter = new PropertyAdapter(getActivity());
@@ -71,19 +72,17 @@ public class PlantListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView lv, View v, int position, long id) {
+        lv.setEnabled(false);
         ListPlantsActivity activity = (ListPlantsActivity) getActivity();
-        if (activity.isIdle()) {
-            activity.setIdle(false);
-            activity.setPlantHeader(activity.getPlants().get(position));
-            activity.getDetailResponder().getDetail();
-        }
+        activity.setPlantHeader(activity.getPlants().get(position));
+        activity.getDetailResponder().getDetail();
     }
 
     public void recreateList(List<PlantHeader> plants) {
         adapter.clear();
-
         for (PlantHeader plantHeader : plants) {
             adapter.add(plantHeader);
         }
+        getListView().setEnabled(true);
     }
 }
