@@ -97,6 +97,35 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
                 if (attributes.has(""+Constants.PLANT_SPECIES_LATIN+"_0")) {
                     result.setSpecies_latin(attributes.getJSONArray(""+Constants.PLANT_SPECIES_LATIN+"_0").getString(0));
                 }
+
+                if (attributes.has(""+Constants.PLANT_DOMAIN+"_0")) {
+                    result.setDomain(attributes.getJSONArray(""+Constants.PLANT_DOMAIN+"_0").getString(0));
+                }
+                if (attributes.has(""+Constants.PLANT_KINGDOM+"_0")) {
+                    result.setKingdom(attributes.getJSONArray(""+Constants.PLANT_KINGDOM+"_0").getString(0));
+                }
+                if (attributes.has(""+Constants.PLANT_SUBKINGDOM+"_0")) {
+                    result.setSubkingdom(attributes.getJSONArray(""+Constants.PLANT_SUBKINGDOM+"_0").getString(0));
+                }
+                if (attributes.has(""+Constants.PLANT_LINE+"_0")) {
+                    result.setLine(attributes.getJSONArray(""+Constants.PLANT_LINE+"_0").getString(0));
+                }
+                if (attributes.has(""+Constants.PLANT_BRANCH+"_0")) {
+                    result.setBranch(attributes.getJSONArray(""+Constants.PLANT_BRANCH+"_0").getString(0));
+                }
+                if (attributes.has(""+Constants.PLANT_PHYLUM+"_0")) {
+                    result.setPhylum(attributes.getJSONArray(""+Constants.PLANT_PHYLUM+"_0").getString(0));
+                }
+                if (attributes.has(""+Constants.PLANT_CLS+"_0")) {
+                    result.setCls(attributes.getJSONArray(""+Constants.PLANT_CLS+"_0").getString(0));
+                }
+                if (attributes.has(""+Constants.PLANT_ORDER+"_0")) {
+                    result.setOrder(attributes.getJSONArray(""+Constants.PLANT_ORDER+"_0").getString(0));
+                }
+                if (attributes.has(""+Constants.PLANT_GENUS+"_0")) {
+                    result.setGenus(attributes.getJSONArray(""+Constants.PLANT_GENUS+"_0").getString(0));
+                }
+
                 int rank = 0;
                 List<String> photo_urls = new ArrayList<String>();
                 while (attributes.has(""+Constants.PLANT_PHOTO_URL+"_"+rank)) {

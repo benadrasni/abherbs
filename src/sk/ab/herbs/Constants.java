@@ -54,13 +54,13 @@ public class Constants {
     public final static int PLANT_KINGDOM_LATIN = 293;
     public final static int PLANT_SUBKINGDOM = 385;
     public final static int PLANT_SUBKINGDOM_LATIN = 390;
-    public final static int PLANT_LINE = 391;
+    public final static int PLANT_LINE = 386;
     public final static int PLANT_LINE_LATIN = 390;
-    public final static int PLANT_BRANCH = 386;
+    public final static int PLANT_BRANCH = 387;
     public final static int PLANT_BRANCH_LATIN = 390;
-    public final static int PLANT_PHYLUM = 391;
+    public final static int PLANT_PHYLUM = 388;
     public final static int PLANT_PHYLUM_LATIN = 390;
-    public final static int PLANT_CLS = 391;
+    public final static int PLANT_CLS = 389;
     public final static int PLANT_CLS_LATIN = 390;
     public final static int PLANT_ORDER = 390;
     public final static int PLANT_ORDER_LATIN = 390;
