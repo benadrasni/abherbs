@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="MenuGrey">#303030</color>
+    <color name="MenuLightGrey">#B5B4B4</color>
     <color name="MenuWhite">#F3F3F3</color>
 
     <color name="CardsBackground">#e5e5e5</color>

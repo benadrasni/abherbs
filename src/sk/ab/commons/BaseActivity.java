@@ -38,6 +38,8 @@ public class BaseActivity extends SlidingFragmentActivity {
     protected HerbCountResponderFragment countResponder;
     protected HerbListResponderFragment listResponder;
 
+    private Button countButton;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,11 +95,11 @@ public class BaseActivity extends SlidingFragmentActivity {
                 toggle();
                 break;
             case R.id.clear:
+                loading();
                 filter.clear();
                 countResponder.getCount();
                 unlockMenu();
                 listResponder.getList();
-                invalidateOptionsMenu();
                 break;
             case R.id.en:
                 changeLocale(Constants.LANGUAGE_EN);
@@ -115,16 +117,14 @@ public class BaseActivity extends SlidingFragmentActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.filter, menu);
+        MenuItem item = menu.findItem(R.id.count);
+        countButton = (Button) item.getActionView().findViewById(R.id.countButton);
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
-        MenuItem item = menu.findItem(R.id.count);
-        Button b = (Button) item.getActionView().findViewById(R.id.countButton);
-        b.setText("" + count);
-
+        countButton.setText("" + count);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -148,6 +148,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 
     public void addToFilter(Object object) {
         if (mContent instanceof BaseFilterFragment) {
+            loading();
             filter.put(getCurrentFragment().getAttributeId(), object);
             getCurrentFragment().setLock(true);
 
@@ -179,6 +180,8 @@ public class BaseActivity extends SlidingFragmentActivity {
 
     public void setCount(int count) {
         this.count = count;
+        countButton.setEnabled(true);
+        //invalidateOptionsMenu();
     }
 
     public List<BaseFilterFragment> getFilterAttributes() {
@@ -208,6 +211,11 @@ public class BaseActivity extends SlidingFragmentActivity {
 
     public int getPosition() {
         return position;
+    }
+
+    public void loading() {
+        countButton.setEnabled(false);
+        countButton.setBackgroundResource(R.drawable.loading);
     }
 
     protected void changeLocale(String language) {

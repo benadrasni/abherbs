@@ -79,7 +79,6 @@ public class HerbCountResponderFragment extends RESTResponderFragment {
     if (code == 200 && result != null) {
       BaseActivity activity = (BaseActivity)getActivity();
       activity.setCount(getCountFromJson(result));
-      activity.invalidateOptionsMenu();
     }
     else {
       Log.e(TAG, "Failed to load data. Check your internet settings.");

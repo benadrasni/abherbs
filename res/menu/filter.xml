@@ -2,7 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/count"
-          android:icon="@drawable/count"
           app:showAsAction="always"
           app:actionLayout="@layout/filter_count"
           android:visible="true">

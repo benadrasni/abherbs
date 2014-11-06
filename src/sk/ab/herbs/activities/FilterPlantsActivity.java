@@ -24,8 +24,6 @@ public class FilterPlantsActivity extends BaseActivity {
         filterAttributes.add(new ColorOfFlowers());
         filterAttributes.add(new Habitats());
         filterAttributes.add(new NumbersOfPetals());
-
-        results = TestPlants.getInitial();
     }
 
     /**
