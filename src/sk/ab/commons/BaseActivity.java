@@ -1,5 +1,6 @@
 package sk.ab.commons;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +48,11 @@ public class BaseActivity extends SlidingFragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
+        changeLocale(language);
+        count = preferences.getInt(Constants.COUNT_KEY, 0);
 
         // set the Content View
         setContentView(R.layout.filter_content_frame);
@@ -108,10 +115,15 @@ public class BaseActivity extends SlidingFragmentActivity {
                 changeLocale(Constants.LANGUAGE_EN);
                 Toast.makeText(this, R.string.locale_en, Toast.LENGTH_LONG).show();
                 break;
-
             case R.id.sk:
                 changeLocale(Constants.LANGUAGE_SK);
                 Toast.makeText(this, R.string.locale_sk, Toast.LENGTH_LONG).show();
+                break;
+            case R.id.about:
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.about)
+                        .setMessage(Html.fromHtml(getString(R.string.about_msg)))
+                        .show();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -201,8 +213,13 @@ public class BaseActivity extends SlidingFragmentActivity {
 
     public void setCount(int count) {
         this.count = count;
+        if (filter.size() == 0) {
+            SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(Constants.COUNT_KEY, count);
+            editor.commit();
+        }
         countButton.setEnabled(true);
-        //invalidateOptionsMenu();
     }
 
     public List<BaseFilterFragment> getFilterAttributes() {

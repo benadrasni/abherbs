@@ -36,10 +36,6 @@ public class FilterPlantsActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
-        changeLocale(language);
-
         if (savedInstanceState != null) {
             mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
         }
@@ -51,18 +47,5 @@ public class FilterPlantsActivity extends BaseActivity {
                 .beginTransaction()
                 .replace(R.id.filter_content_frame, mContent)
                 .commit();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.about:
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.about)
-                        .setMessage(Html.fromHtml(getString(R.string.about_msg)))
-                        .show();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

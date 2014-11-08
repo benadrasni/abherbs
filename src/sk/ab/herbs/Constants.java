@@ -12,6 +12,7 @@ import java.util.Map;
  */
 public class Constants {
     public final static Map<String, Integer> LANGUAGES;
+    public final static String COUNT_KEY = "count";
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";

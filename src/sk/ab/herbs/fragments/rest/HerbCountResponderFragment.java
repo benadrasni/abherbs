@@ -25,13 +25,6 @@ import java.util.Map;
 public class HerbCountResponderFragment extends RESTResponderFragment {
   private static String TAG = HerbCountResponderFragment.class.getName();
 
-  @Override
-  public void onActivityCreated(Bundle savedInstanceState) {
-    super.onActivityCreated(savedInstanceState);
-
-    getCount();
-  }
-
   public void getCount() {
     FilterPlantsActivity activity = (FilterPlantsActivity) getActivity();
 
