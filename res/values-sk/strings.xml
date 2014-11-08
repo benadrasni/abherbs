@@ -2,9 +2,59 @@
 <resources>
     <string name="app_name">ab:herbs</string>
 
+    <string name="about">O aplikácii</string>
+    <string name="clear">Zmaž filter</string>
+    <string name="language">Jazyky</string>
+    <string name="about_msg">&lt;b>ab:herbs&lt;/b> je aplikácia.</string>
+
     <string name="color_of_flower">farba kvetov</string>
     <string name="color_of_flower_message">Akej farby sú kvety? Vyber tú najbližšiu. Vždy sa môžeš vrátiť a vybrať inú.</string>
 
-    <string name="habitats">stanovište</string>
+    <string name="habitats">lokalita</string>
+    <string name="habitat_meadow">lúky a trávnaté porasty</string>
+    <string name="habitat_garden">polia a záhrady</string>
+    <string name="habitat_wetland">mokrade</string>
+    <string name="habitat_forest">lesy</string>
+    <string name="habitat_rock">vrcholky hôr a skaly</string>
+    <string name="habitat_tree">stromy a kry</string>
+    <string name="habitat_message">Kde sa nachádzaš? Identifikuj lokalitu.</string>
+
     <string name="number_of_petals">počet lupeňov</string>
+    <string name="nop_4">4 alebo menej</string>
+    <string name="nop_5">5</string>
+    <string name="nop_many">viac ako 5</string>
+    <string name="nop_bisymmetric">symetrický podľa jednej osi</string>
+    <string name="number_of_petals_message">Je kvet symetrický iba podľa jednej osi? Nie? Tak koľko má lupeňov?</string>
+
+    <string name="plant_info">Info</string>
+    <string name="plant_gallery">Galéria</string>
+    <string name="plant_taxonomy">Taxonómia</string>
+
+    <string name="plant_title">názov</string>
+    <string name="plant_flowers">kvety</string>
+    <string name="plant_fruits">plody</string>
+    <string name="plant_leafs">listy</string>
+    <string name="plant_inflorescence">súkvetie</string>
+    <string name="plant_color_of_flowers">farba kvetov</string>
+    <string name="plant_number_of_petals">počet lupeňov</string>
+    <string name="plant_sepal">sepal</string>
+    <string name="plant_leaf_shape">tvar listov</string>
+    <string name="plant_leaf_margin">okraj listov</string>
+    <string name="plant_leaf_venation">žilnatosť listov</string>
+    <string name="plant_leaf_arrangement">usporiadanie listov</string>
+    <string name="plant_stem">stonka</string>
+    <string name="plant_root">koreň</string>
+    <string name="plant_habitat">lokalita</string>
+
+    <string name="plant_domain">domain</string>
+    <string name="plant_kingdom">kingdom</string>
+    <string name="plant_subkingdom">subkingdom</string>
+    <string name="plant_line">line</string>
+    <string name="plant_branch">branch</string>
+    <string name="plant_phylum">phylum</string>
+    <string name="plant_class">trieda</string>
+    <string name="plant_order">rad</string>
+    <string name="plant_family">čeľaď</string>
+    <string name="plant_genus">rod</string>
+    <string name="plant_species">druh</string>
 </resources>

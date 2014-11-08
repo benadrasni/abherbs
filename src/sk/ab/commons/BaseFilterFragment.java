@@ -10,39 +10,44 @@ import com.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public abstract class BaseFilterFragment extends Fragment {
 
-  protected int attributeId;
-  protected int title;
-  protected int iconRes;
-  protected int layout;
-  protected boolean lock;
+    protected int attributeId;
+    protected int title;
+    protected int iconRes;
+    protected int layout;
+    protected boolean lock;
 
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    getActivity().setTitle(title);
-    if (getActivity() instanceof SlidingFragmentActivity) {
-      ActionBarActivity activity = (ActionBarActivity)getActivity();
-      activity.getSupportActionBar().setIcon(iconRes);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getActivity().setTitle(title);
+        if (getActivity() instanceof SlidingFragmentActivity) {
+            ActionBarActivity activity = (ActionBarActivity) getActivity();
+            activity.getSupportActionBar().setIcon(iconRes);
+        }
+
+        return inflater.inflate(layout, null);
     }
 
-    return inflater.inflate(layout, null);
-  }
+    public int getAttributeId() {
+        return attributeId;
+    }
 
-  public int getAttributeId() {
-    return attributeId;
-  }
+    public int getTitle() {
+        return title;
+    }
 
-  public int getTitle() {
-    return title;
-  }
+    public int getIconRes() {
+        return iconRes;
+    }
 
-  public int getIconRes() {
-    return iconRes;
-  }
+    public int getLayout() {
+        return layout;
+    }
 
-  public boolean isLock() {
-    return lock;
-  }
+    public boolean isLock() {
+        return lock;
+    }
 
-  public void setLock(boolean lock) {
-    this.lock = lock;
-  }
+    public void setLock(boolean lock) {
+        this.lock = lock;
+    }
+
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -39,6 +41,7 @@ public class BaseActivity extends SlidingFragmentActivity {
     protected HerbListResponderFragment listResponder;
 
     private Button countButton;
+    private AnimationDrawable loadingAnimation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,6 +122,7 @@ public class BaseActivity extends SlidingFragmentActivity {
         getMenuInflater().inflate(R.menu.filter, menu);
         MenuItem item = menu.findItem(R.id.count);
         countButton = (Button) item.getActionView().findViewById(R.id.countButton);
+        loadingAnimation = (AnimationDrawable) getResources().getDrawable(R.drawable.loading);
         return true;
     }
 
@@ -126,6 +130,23 @@ public class BaseActivity extends SlidingFragmentActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         countButton.setText("" + count);
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void onConfigurationChanged (Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
+        changeLocale(language);
+
+        for(BaseFilterFragment filterFragment : filterAttributes) {
+            ViewGroup viewGroup = (ViewGroup)filterFragment.getView();
+            if (viewGroup != null) {
+                viewGroup.removeAllViewsInLayout();
+                getLayoutInflater().inflate(filterFragment.getLayout(), viewGroup);
+            }
+        }
     }
 
     public void switchContent(int position, final BaseFilterFragment fragment) {
@@ -215,7 +236,8 @@ public class BaseActivity extends SlidingFragmentActivity {
 
     public void loading() {
         countButton.setEnabled(false);
-        countButton.setBackgroundResource(R.drawable.loading);
+        countButton.setBackground(loadingAnimation);
+        loadingAnimation.start();
     }
 
     protected void changeLocale(String language) {
