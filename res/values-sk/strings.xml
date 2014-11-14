@@ -31,20 +31,20 @@
     <string name="plant_taxonomy">Taxonómia</string>
 
     <string name="plant_title">názov</string>
-    <string name="plant_flowers">kvety</string>
-    <string name="plant_fruits">plody</string>
-    <string name="plant_leafs">listy</string>
-    <string name="plant_inflorescence">súkvetie</string>
-    <string name="plant_color_of_flowers">farba kvetov</string>
-    <string name="plant_number_of_petals">počet lupeňov</string>
-    <string name="plant_sepal">sepal</string>
-    <string name="plant_leaf_shape">tvar listov</string>
-    <string name="plant_leaf_margin">okraj listov</string>
-    <string name="plant_leaf_venation">žilnatosť listov</string>
-    <string name="plant_leaf_arrangement">usporiadanie listov</string>
-    <string name="plant_stem">stonka</string>
-    <string name="plant_root">koreň</string>
-    <string name="plant_habitat">lokalita</string>
+    <string name="plant_flowers">Kvety</string>
+    <string name="plant_fruits">Plody</string>
+    <string name="plant_leaves">Listy</string>
+    <string name="plant_inflorescence">Súkvetie</string>
+    <string name="plant_color_of_flowers">Farba kvetov</string>
+    <string name="plant_number_of_petals">Počet lupeňov</string>
+    <string name="plant_sepal">Okvetné lístky</string>
+    <string name="plant_leaf_shape">Tvar listov</string>
+    <string name="plant_leaf_margin">Okraj listov</string>
+    <string name="plant_leaf_venation">Žilnatosť listov</string>
+    <string name="plant_leaf_arrangement">Usporiadanie listov</string>
+    <string name="plant_stem">Stonka</string>
+    <string name="plant_root">Koreň</string>
+    <string name="plant_habitat">Lokalita</string>
 
     <string name="plant_domain">domain</string>
     <string name="plant_kingdom">kingdom</string>

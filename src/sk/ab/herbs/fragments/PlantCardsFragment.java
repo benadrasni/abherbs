@@ -214,19 +214,24 @@ public class PlantCardsFragment extends ListFragment {
                     }
 
                     TextView flower = (TextView) convertView.findViewById(R.id.plant_flower);
-                    flower.setText(Html.fromHtml(plant.getDescWithHighlight(plant.getFlower())));
+                    flower.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_flowers),
+                            plant.getFlower())));
 
                     TextView fruit = (TextView) convertView.findViewById(R.id.plant_fruit);
-                    fruit.setText(Html.fromHtml(plant.getDescWithHighlight(plant.getFruit())));
+                    fruit.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_fruits),
+                            plant.getFruit())));
 
                     TextView leaf = (TextView) convertView.findViewById(R.id.plant_leaf);
-                    leaf.setText(Html.fromHtml(plant.getDescWithHighlight(plant.getLeaf())));
+                    leaf.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_leaves),
+                            plant.getLeaf())));
 
                     TextView stem = (TextView) convertView.findViewById(R.id.plant_stem);
-                    stem.setText(Html.fromHtml(plant.getDescWithHighlight(plant.getStem())));
+                    stem.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_stem),
+                            plant.getStem())));
 
                     TextView habitat = (TextView) convertView.findViewById(R.id.plant_habitat);
-                    habitat.setText(Html.fromHtml(plant.getDescWithHighlight(plant.getHabitat())));
+                    habitat.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_habitat),
+                            plant.getHabitat())));
 
                     break;
                 case CARD_GALLERY:

@@ -194,9 +194,9 @@ public class Plant implements Parcelable {
         }
     }
 
-    public String getDescWithHighlight(String desc) {
+    public String getDescWithHighlight(String label, String desc) {
         if (desc.indexOf(' ') > -1) {
-            return "<b>" + desc.substring(0, desc.indexOf(' ')) + "</b>" + desc.substring(desc.indexOf(' '));
+            return "<b>" + label + ":</b> " + desc;
         } else {
             return desc;
         }

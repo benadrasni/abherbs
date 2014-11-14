@@ -48,16 +48,16 @@ public class PlantInfoFragment extends Fragment {
     title_latin.setText(plant.getSpecies_latin());
 
     TextView flowers = (TextView) getView().findViewById(R.id.plant_flowers);
-    flowers.setText(Html.fromHtml(plant.getDescWithHighlight(plant.getFlower())));
+    flowers.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_flowers), plant.getFlower())));
 
     TextView stem = (TextView) getView().findViewById(R.id.plant_stem);
-    stem.setText(Html.fromHtml(plant.getDescWithHighlight(plant.getStem())));
+    stem.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_stem), plant.getStem())));
 
     TextView leaves = (TextView) getView().findViewById(R.id.plant_leaves);
-    leaves.setText(Html.fromHtml(plant.getDescWithHighlight(plant.getLeaf())));
+    leaves.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_leaves), plant.getLeaf())));
 
     TextView habitat = (TextView) getView().findViewById(R.id.plant_habitat);
-    habitat.setText(Html.fromHtml(plant.getDescWithHighlight(plant.getHabitat())));
+    habitat.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_habitat), plant.getHabitat())));
 
   }
 }

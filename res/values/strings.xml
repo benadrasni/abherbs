@@ -35,20 +35,20 @@
     <string name="plant_taxonomy">Taxonomy</string>
 
     <string name="plant_title">title</string>
-    <string name="plant_flowers">flowers</string>
-    <string name="plant_fruits">fruits</string>
-    <string name="plant_leafs">leaves</string>
-    <string name="plant_inflorescence">inflorescence</string>
-    <string name="plant_color_of_flowers">color of flowers</string>
-    <string name="plant_number_of_petals">number of petals</string>
-    <string name="plant_sepal">sepal</string>
-    <string name="plant_leaf_shape">leaf shape</string>
-    <string name="plant_leaf_margin">leaf margin</string>
-    <string name="plant_leaf_venation">leaf venation</string>
-    <string name="plant_leaf_arrangement">leaf arrangement</string>
-    <string name="plant_stem">stem</string>
-    <string name="plant_root">root</string>
-    <string name="plant_habitat">habitat</string>
+    <string name="plant_flowers">Flowers</string>
+    <string name="plant_fruits">Fruits</string>
+    <string name="plant_leaves">Leaves</string>
+    <string name="plant_inflorescence">Inflorescence</string>
+    <string name="plant_color_of_flowers">Color of flowers</string>
+    <string name="plant_number_of_petals">Number of petals</string>
+    <string name="plant_sepal">Sepal</string>
+    <string name="plant_leaf_shape">Leaf shape</string>
+    <string name="plant_leaf_margin">Leaf margin</string>
+    <string name="plant_leaf_venation">Leaf venation</string>
+    <string name="plant_leaf_arrangement">Leaf arrangement</string>
+    <string name="plant_stem">Stem</string>
+    <string name="plant_root">Root</string>
+    <string name="plant_habitat">Habitat</string>
 
     <string name="plant_domain">domain</string>
     <string name="plant_kingdom">kingdom</string>

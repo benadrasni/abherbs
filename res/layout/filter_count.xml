@@ -11,6 +11,6 @@
             android:background="@drawable/count"
             android:textColor="@color/MenuWhite"
             android:clickable="true"
-            android:onClick="showResultsMenu"/>
+            android:onClick="loadResults"/>
 
 </LinearLayout>

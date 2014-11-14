@@ -27,6 +27,7 @@ import sk.ab.herbs.R;
 import sk.ab.herbs.activities.ListPlantsActivity;
 import sk.ab.herbs.fragments.rest.HerbCountResponderFragment;
 import sk.ab.herbs.fragments.rest.HerbListResponderFragment;
+import sk.ab.tools.Utils;
 
 import java.util.*;
 
@@ -36,7 +37,6 @@ public class BaseActivity extends SlidingFragmentActivity {
     protected int count;
     protected int position;
     protected List<BaseFilterFragment> filterAttributes;
-    protected List<PlantHeader> results;
     protected Fragment mContent;
     protected PropertyListFragment mPropertyMenu;
     protected HerbCountResponderFragment countResponder;
@@ -51,7 +51,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
-        changeLocale(language);
+        Utils.changeLocale(this, language);
         count = preferences.getInt(Constants.COUNT_KEY, 0);
 
         // set the Content View
@@ -109,14 +109,13 @@ public class BaseActivity extends SlidingFragmentActivity {
                 filter.clear();
                 countResponder.getCount();
                 unlockMenu();
-                listResponder.getList();
                 break;
             case R.id.en:
-                changeLocale(Constants.LANGUAGE_EN);
+                Utils.changeLocale(this, Constants.LANGUAGE_EN);
                 Toast.makeText(this, R.string.locale_en, Toast.LENGTH_LONG).show();
                 break;
             case R.id.sk:
-                changeLocale(Constants.LANGUAGE_SK);
+                Utils.changeLocale(this, Constants.LANGUAGE_SK);
                 Toast.makeText(this, R.string.locale_sk, Toast.LENGTH_LONG).show();
                 break;
             case R.id.about:
@@ -150,7 +149,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
-        changeLocale(language);
+        Utils.changeLocale(this, language);
 
         for(BaseFilterFragment filterFragment : filterAttributes) {
             ViewGroup viewGroup = (ViewGroup)filterFragment.getView();
@@ -204,11 +203,9 @@ public class BaseActivity extends SlidingFragmentActivity {
         switchContent(0, filterAttributes.get(0));
     }
 
-    public void showResultsMenu(View v) {
-        Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
-        intent.putParcelableArrayListExtra("results", (ArrayList<PlantHeader>) getResults());
-        intent.putExtra("position", position);
-        startActivity(intent);
+    public void loadResults(View view) {
+        loading();
+        listResponder.getList();
     }
 
     public void setCount(int count) {
@@ -220,24 +217,20 @@ public class BaseActivity extends SlidingFragmentActivity {
             editor.commit();
         }
         countButton.setEnabled(true);
+        invalidateOptionsMenu();
     }
 
     public List<BaseFilterFragment> getFilterAttributes() {
         return filterAttributes;
     }
 
-    public List<PlantHeader> getResults() {
-        return results;
-    }
-
     public void setResults(List<PlantHeader> herbs) {
-        this.results = herbs;
+        Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
+        intent.putParcelableArrayListExtra("results", (ArrayList<PlantHeader>) herbs);
+        intent.putExtra("position", position);
+        startActivity(intent);
+        invalidateOptionsMenu();
     }
-
-    public void setResults() {
-        listResponder.getList();
-    }
-
 
     public Map<Integer, Object> getFilter() {
         return filter;
@@ -251,21 +244,10 @@ public class BaseActivity extends SlidingFragmentActivity {
         return position;
     }
 
-    public void loading() {
+    private void loading() {
+        countButton.setText("");
         countButton.setEnabled(false);
         countButton.setBackground(loadingAnimation);
         loadingAnimation.start();
-    }
-
-    protected void changeLocale(String language) {
-        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        editor.putString(Constants.LANGUAGE_DEFAULT_KEY, language);
-        editor.commit();
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
 }

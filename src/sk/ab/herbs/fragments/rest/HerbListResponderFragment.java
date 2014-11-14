@@ -31,13 +31,6 @@ import java.util.Map;
 public class HerbListResponderFragment extends RESTResponderFragment {
     private static String TAG = HerbListResponderFragment.class.getName();
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        getList();
-    }
-
     public void getList() {
         FilterPlantsActivity activity = (FilterPlantsActivity) getActivity();
 
@@ -95,7 +88,6 @@ public class HerbListResponderFragment extends RESTResponderFragment {
         if (code == 200 && result != null) {
             BaseActivity activity = (BaseActivity) getActivity();
             activity.setResults(getListFromJson(result));
-            activity.invalidateOptionsMenu();
         } else {
             Log.e(TAG, "Failed to load data. Check your internet settings.");
         }

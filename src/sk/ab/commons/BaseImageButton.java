@@ -61,10 +61,8 @@ public class BaseImageButton extends Button {
           BaseActivity host = (BaseActivity) view.getContext();
           host.addToFilter(valueId);
 
-          host.setResults();
-
           if (host.getPosition() == host.getFilterAttributes().size() - 1) {
-            host.showResultsMenu(view);
+            host.loadResults(view);
           } else {
             for(int i = host.getPosition()+1; i < host.getFilterAttributes().size(); i++) {
               BaseFilterFragment fragment = host.getFilterAttributes().get(i);
