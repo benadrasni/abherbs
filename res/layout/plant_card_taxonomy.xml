@@ -35,6 +35,15 @@
                       android:textAppearance="@android:style/TextAppearance.Small"
                       android:textColor="@color/CardSubTitle"/>
 
+            <TextView android:id="@+id/plant_alt_names"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center"
+                      android:gravity="center"
+                      android:textStyle="italic"
+                      android:textAppearance="@android:style/TextAppearance.Small"
+                      android:textColor="@color/CardSubTitle"/>
+
             <LinearLayout android:id="@+id/plant_taxonomy"
                           android:layout_width="match_parent"
                           android:layout_height="match_parent"

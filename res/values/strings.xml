@@ -36,6 +36,7 @@
 
     <string name="plant_title">title</string>
     <string name="plant_flowers">Flowers</string>
+    <string name="plant_inflorescences">Inflorescence</string>
     <string name="plant_fruits">Fruits</string>
     <string name="plant_leaves">Leaves</string>
     <string name="plant_inflorescence">Inflorescence</string>

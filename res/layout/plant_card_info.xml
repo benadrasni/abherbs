@@ -33,6 +33,12 @@
                               android:textAppearance="@android:style/TextAppearance.Small"
                               android:textColor="@color/CardText"/>
 
+                    <TextView android:id="@+id/plant_inflorescence"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:textAppearance="@android:style/TextAppearance.Small"
+                              android:textColor="@color/CardText"/>
+
                     <TextView android:id="@+id/plant_fruit"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
@@ -40,12 +46,6 @@
                               android:textColor="@color/CardText"/>
 
                     <TextView android:id="@+id/plant_leaf"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:textAppearance="@android:style/TextAppearance.Small"
-                              android:textColor="@color/CardText"/>
-
-                    <TextView android:id="@+id/plant_stem"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:textAppearance="@android:style/TextAppearance.Small"
@@ -68,6 +68,12 @@
                           android:paddingLeft="@dimen/list_padding"
                           android:orientation="vertical" android:visibility="visible"
                           android:paddingRight="@dimen/list_padding" android:paddingBottom="@dimen/list_padding">
+
+                <TextView android:id="@+id/plant_stem"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:textAppearance="@android:style/TextAppearance.Small"
+                          android:textColor="@color/CardText"/>
 
                 <TextView android:id="@+id/plant_habitat"
                           android:layout_width="wrap_content"

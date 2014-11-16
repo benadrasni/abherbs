@@ -33,6 +33,7 @@ public class Constants {
     public final static int NUMBER_OF_PETALS_ID = 238;
 
     public final static int PLANT_NAME = 49;
+    public final static int PLANT_ALT_NAMES = 398;
     public final static int PLANT_PHOTO_URL = 395;
     public final static int PLANT_IMAGE_URL = 293;
     public final static int PLANT_STEM = 290;
@@ -43,7 +44,7 @@ public class Constants {
     public final static int PLANT_FLOWER_COLOR = 294;
     public final static int PLANT_NUMBER_OF_PETALS = 301;
     public final static int PLANT_SEPAL = 293;
-    public final static int PLANT_INFLORESCENCE = 293;
+    public final static int PLANT_INFLORESCENCE = 396;
     public final static int PLANT_LEAF_SHAPE = 293;
     public final static int PLANT_LEAF_MARGIN = 293;
     public final static int PLANT_LEAF_VENATION = 293;

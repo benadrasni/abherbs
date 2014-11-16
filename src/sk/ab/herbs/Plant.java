@@ -43,6 +43,7 @@ public class Plant implements Parcelable {
     private String stem;
     private String root;
     private List<String> photo_urls;
+    private List<String> names;
     private String domain;
     private String domain_latin;
     private String kingdom;
@@ -117,10 +118,16 @@ public class Plant implements Parcelable {
         species = in.readString();
         species_latin = in.readString();
 
+        names = new ArrayList<String>();
+        int n = in.readInt();
+        for(int i=0; i < n; i++) {
+            names.add(in.readString());
+        }
+
         photo_urls = new ArrayList<String>();
-        String url;
-        while ((url = in.readString()) != null) {
-            photo_urls.add(url);
+        n = in.readInt();
+        for(int i=0; i < n; i++) {
+            photo_urls.add(in.readString());
         }
     }
 
@@ -171,11 +178,24 @@ public class Plant implements Parcelable {
         destination.writeString(species);
         destination.writeString(species_latin);
 
+        if (names != null) {
+            destination.writeInt(names.size());
+            for(String name : names) {
+                destination.writeString(name);
+            }
+        } else {
+            destination.writeInt(0);
+        }
+
         if (photo_urls != null) {
+            destination.writeInt(photo_urls.size());
             for(String url : photo_urls) {
                 destination.writeString(url);
             }
+        } else {
+            destination.writeInt(0);
         }
+
     }
 
     public String getSpeciesShort() {
@@ -195,12 +215,11 @@ public class Plant implements Parcelable {
     }
 
     public String getDescWithHighlight(String label, String desc) {
-        if (desc.indexOf(' ') > -1) {
-            return "<b>" + label + ":</b> " + desc;
-        } else {
-            return desc;
+        String text = "<b>" + label + ":</b> ";
+        if (desc != null) {
+            text = text + desc;
         }
-
+        return text;
     }
 
     // getters and setters
@@ -525,4 +544,13 @@ public class Plant implements Parcelable {
     public void setPhoto_urls(List<String> photo_urls) {
         this.photo_urls = photo_urls;
     }
+
+    public List<String> getNames() {
+        return names;
+    }
+
+    public void setNames(List<String> names) {
+        this.names = names;
+    }
+
 }

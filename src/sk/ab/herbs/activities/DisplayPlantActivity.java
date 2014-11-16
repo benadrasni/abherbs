@@ -9,10 +9,6 @@ import sk.ab.herbs.Constants;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.fragments.PlantCardsFragment;
-import sk.ab.herbs.fragments.PlantGalleryFragment;
-import sk.ab.herbs.fragments.PlantInfoFragment;
-import sk.ab.herbs.fragments.PlantTaxonomyFragment;
-import sk.ab.tools.DrawableManager;
 import sk.ab.tools.Utils;
 
 /**
@@ -24,12 +20,7 @@ import sk.ab.tools.Utils;
  * Activity for displaying selected plant
  */
 public class DisplayPlantActivity extends ActionBarActivity {
-    private DrawableManager drawableManager;
-
     private Plant plant;
-    private PlantInfoFragment infoFragment;
-    private PlantGalleryFragment galleryFragment;
-    private PlantTaxonomyFragment taxonomyFragment;
 
     /**
      * Called when the commons is first created.
@@ -37,7 +28,6 @@ public class DisplayPlantActivity extends ActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        drawableManager = new DrawableManager(getResources());
 
         setContentView(R.layout.list_frame);
 
@@ -65,33 +55,7 @@ public class DisplayPlantActivity extends ActionBarActivity {
         Utils.changeLocale(this, language);
     }
 
-
-    public DrawableManager getDrawableManager() {
-        return drawableManager;
-    }
-
     public Plant getPlant() {
         return plant;
-    }
-
-    private PlantInfoFragment getInfoFragment() {
-        if (infoFragment == null) {
-            infoFragment = new PlantInfoFragment();
-        }
-        return infoFragment;
-    }
-
-    private PlantGalleryFragment getGalleryFragment() {
-        if (galleryFragment == null) {
-            galleryFragment = new PlantGalleryFragment();
-        }
-        return galleryFragment;
-    }
-
-    private PlantTaxonomyFragment getTaxonomyFragment() {
-        if (taxonomyFragment == null) {
-            taxonomyFragment = new PlantTaxonomyFragment();
-        }
-        return taxonomyFragment;
     }
 }

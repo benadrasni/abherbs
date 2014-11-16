@@ -32,6 +32,7 @@
 
     <string name="plant_title">názov</string>
     <string name="plant_flowers">Kvety</string>
+    <string name="plant_inflorescences">Súkvetie</string>
     <string name="plant_fruits">Plody</string>
     <string name="plant_leaves">Listy</string>
     <string name="plant_inflorescence">Súkvetie</string>

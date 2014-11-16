@@ -82,6 +82,9 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
                 if (attributes.has(""+Constants.PLANT_FLOWER +"_0")) {
                     result.setFlower(attributes.getJSONArray("" + Constants.PLANT_FLOWER + "_0").getString(0));
                 }
+                if (attributes.has(""+Constants.PLANT_INFLORESCENCE +"_0")) {
+                    result.setInflorescence(attributes.getJSONArray("" + Constants.PLANT_INFLORESCENCE + "_0").getString(0));
+                }
                 if (attributes.has(""+Constants.PLANT_FRUIT+"_0")) {
                     result.setFruit(attributes.getJSONArray("" + Constants.PLANT_FRUIT + "_0").getString(0));
                 }
@@ -127,12 +130,21 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
                 }
 
                 int rank = 0;
+                List<String> names = new ArrayList<String>();
+                while (attributes.has(""+Constants.PLANT_ALT_NAMES+"_"+rank)) {
+                    names.add(attributes.getJSONArray(""+Constants.PLANT_ALT_NAMES+"_"+rank).getString(0));
+                    rank++;
+                }
+                result.setNames(names);
+
+                rank = 0;
                 List<String> photo_urls = new ArrayList<String>();
                 while (attributes.has(""+Constants.PLANT_PHOTO_URL+"_"+rank)) {
                     photo_urls.add(attributes.getJSONArray(""+Constants.PLANT_PHOTO_URL+"_"+rank).getString(0));
                     rank++;
                 }
                 result.setPhoto_urls(photo_urls);
+
             }
 
         } catch (JSONException e) {

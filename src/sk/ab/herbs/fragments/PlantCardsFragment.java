@@ -159,6 +159,12 @@ public class PlantCardsFragment extends ListFragment {
                     species.setText(plant.getSpecies());
                     TextView species_latin = (TextView) convertView.findViewById(R.id.plant_species_latin);
                     species_latin.setText(plant.getSpecies_latin());
+                    TextView namesView = (TextView) convertView.findViewById(R.id.plant_alt_names);
+                    StringBuffer names = new StringBuffer();
+                    for(String name: plant.getNames()) {
+                        names.append(", " + name);
+                    }
+                    namesView.setText(names.length() > 0 ? names.toString().substring(2) : "");
 
                     TextView family = (TextView) convertView.findViewById(R.id.plant_family);
                     family.setText(plant.getFamily());
@@ -216,6 +222,10 @@ public class PlantCardsFragment extends ListFragment {
                     TextView flower = (TextView) convertView.findViewById(R.id.plant_flower);
                     flower.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_flowers),
                             plant.getFlower())));
+
+                    TextView inflorescence = (TextView) convertView.findViewById(R.id.plant_inflorescence);
+                    inflorescence.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_inflorescences),
+                            plant.getInflorescence())));
 
                     TextView fruit = (TextView) convertView.findViewById(R.id.plant_fruit);
                     fruit.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_fruits),
