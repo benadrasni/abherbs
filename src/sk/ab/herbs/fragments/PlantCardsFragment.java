@@ -164,7 +164,11 @@ public class PlantCardsFragment extends ListFragment {
                     for(String name: plant.getNames()) {
                         names.append(", " + name);
                     }
-                    namesView.setText(names.length() > 0 ? names.toString().substring(2) : "");
+                    if (names.length() > 0) {
+                        namesView.setText(names.toString().substring(2));
+                    } else {
+                        namesView.setVisibility(View.GONE);
+                    }
 
                     TextView family = (TextView) convertView.findViewById(R.id.plant_family);
                     family.setText(plant.getFamily());
