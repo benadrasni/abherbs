@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import sk.ab.herbs.Constants;
@@ -132,7 +133,10 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
                 int rank = 0;
                 List<String> names = new ArrayList<String>();
                 while (attributes.has(""+Constants.PLANT_ALT_NAMES+"_"+rank)) {
-                    names.add(attributes.getJSONArray(""+Constants.PLANT_ALT_NAMES+"_"+rank).getString(0));
+                    JSONArray values = attributes.getJSONArray(""+Constants.PLANT_ALT_NAMES+"_"+rank);
+                    if (values.getInt(2) == Constants.getLanguage()) {
+                        names.add(values.getString(0));
+                    }
                     rank++;
                 }
                 result.setNames(names);
