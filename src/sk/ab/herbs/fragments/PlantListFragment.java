@@ -2,7 +2,7 @@ package sk.ab.herbs.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +21,14 @@ import java.util.List;
 
 public class PlantListFragment extends ListFragment {
 
+    static class ViewHolder {
+        TextView title;
+        TextView family;
+        ImageView familyIcon;
+        ImageView photo;
+        int position;
+    }
+
     public class PropertyAdapter extends ArrayAdapter<PlantHeader> {
 
         public PropertyAdapter(Context context) {
@@ -30,24 +38,28 @@ public class PlantListFragment extends ListFragment {
         public View getView(int position, View convertView, ViewGroup parent) {
             PlantHeader plantHeader = getItem(position);
 
+            ViewHolder viewHolder;
+
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_row, null);
+                viewHolder = new ViewHolder();
+                viewHolder.title = (TextView) convertView.findViewById(R.id.plant_title);
+                viewHolder.family = (TextView) convertView.findViewById(R.id.plant_family);
+                viewHolder.familyIcon = (ImageView) convertView.findViewById(R.id.family_icon);
+                viewHolder.photo = (ImageView) convertView.findViewById(R.id.plant_photo);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
             }
+            viewHolder.photo.setImageResource(android.R.color.transparent);
 
-            ImageView photo = (ImageView) convertView.findViewById(R.id.plant_photo);
-            photo.setImageResource(android.R.color.transparent);
             if (plantHeader.getUrl() != null) {
-                drawableManager.fetchDrawableOnThread(plantHeader.getUrl(), photo);
+                drawableManager.fetchDrawableOnThread(plantHeader.getUrl(), viewHolder.photo);
             }
 
-            TextView title = (TextView) convertView.findViewById(R.id.plant_title);
-            title.setText(plantHeader.getTitle());
-
-            TextView family = (TextView) convertView.findViewById(R.id.plant_family);
-            family.setText(plantHeader.getFamily());
-
-            ImageView family_icon = (ImageView) convertView.findViewById(R.id.family_icon);
-            family_icon.setImageResource(GetResource.getResourceDrawable(Constants.FAMILY +
+            viewHolder.title.setText(plantHeader.getTitle());
+            viewHolder.family.setText(plantHeader.getFamily());
+            viewHolder.familyIcon.setImageResource(GetResource.getResourceDrawable(Constants.FAMILY +
                     Constants.RESOURCE_SEPARATOR + plantHeader.getFamilyId(), getActivity().getBaseContext(),
                     R.drawable.home));
 

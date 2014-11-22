@@ -1,18 +1,16 @@
 package sk.ab.herbs.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.Button;
-import sk.ab.commons.BaseFilterFragment;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.PlantHeader;
@@ -31,7 +29,7 @@ import java.util.List;
  * <p/>
  * Display list of plants which satisfied a filter
  */
-public class ListPlantsActivity extends ActionBarActivity {
+public class ListPlantsActivity extends Activity {
     private PlantListFragment plantsFragment;
     private List<PlantHeader> plants;
     private PlantHeader plantHeader;
@@ -42,7 +40,7 @@ public class ListPlantsActivity extends ActionBarActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FragmentManager fm = getSupportFragmentManager();
+        FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
         setContentView(R.layout.list_frame);
@@ -58,7 +56,7 @@ public class ListPlantsActivity extends ActionBarActivity {
 
         ft.commit();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

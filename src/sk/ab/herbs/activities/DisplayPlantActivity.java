@@ -1,10 +1,10 @@
 package sk.ab.herbs.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
@@ -19,7 +19,7 @@ import sk.ab.tools.Utils;
  * <p/>
  * Activity for displaying selected plant
  */
-public class DisplayPlantActivity extends ActionBarActivity {
+public class DisplayPlantActivity extends Activity {
     private Plant plant;
 
     /**
@@ -32,7 +32,7 @@ public class DisplayPlantActivity extends ActionBarActivity {
         setContentView(R.layout.list_frame);
 
         PlantCardsFragment plantCardsFragment = new PlantCardsFragment();
-        getSupportFragmentManager()
+        getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.list_frame, plantCardsFragment)
                 .commit();

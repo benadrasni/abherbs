@@ -1,26 +1,18 @@
 package sk.ab.commons;
 
-import android.app.AlertDialog;
+import android.app.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-import com.slidingmenu.lib.SlidingMenu;
-import com.slidingmenu.lib.app.SlidingFragmentActivity;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
@@ -31,12 +23,13 @@ import sk.ab.tools.Utils;
 
 import java.util.*;
 
-public class BaseActivity extends SlidingFragmentActivity {
+public class BaseActivity extends Activity {
     private final Map<Integer, Object> filter = new HashMap<Integer, Object>();
 
     protected int count;
     protected int position;
     protected List<BaseFilterFragment> filterAttributes;
+    protected DrawerLayout mDrawerLayout;
     protected Fragment mContent;
     protected PropertyListFragment mPropertyMenu;
     protected HerbCountResponderFragment countResponder;
@@ -54,35 +47,13 @@ public class BaseActivity extends SlidingFragmentActivity {
         Utils.changeLocale(this, language);
         count = preferences.getInt(Constants.COUNT_KEY, 0);
 
-        // set the Content View
-        setContentView(R.layout.filter_content_frame);
+        setContentView(R.layout.base_activity);
 
-        SlidingMenu sm = getSlidingMenu();
-        sm.setMode(SlidingMenu.LEFT);
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-
-        // check if the content frame contains the menu frame
-        if (findViewById(R.id.filter_menu_frame) == null) {
-            setBehindContentView(R.layout.filter_menu_frame);
-            sm.setSlidingEnabled(true);
-            sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-            sm.setFadeDegree(0.35f);
-            sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
-            // show home as up so we can toggle
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-            // left menu
-            mPropertyMenu = new PropertyListFragment();
-            ft.replace(R.id.filter_menu_frame, mPropertyMenu);
-        } else {
-            // add a dummy view
-            View v = new View(this);
-            setBehindContentView(v);
-            getSlidingMenu().setSlidingEnabled(false);
-            getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
-        }
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mPropertyMenu = (PropertyListFragment)fm.findFragmentById(R.id.menu_fragment);
 
         countResponder = (HerbCountResponderFragment) fm.findFragmentByTag("RESTCountResponder");
         if (countResponder == null) {
@@ -96,13 +67,20 @@ public class BaseActivity extends SlidingFragmentActivity {
         }
 
         ft.commit();
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                toggle();
+                if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                    mDrawerLayout.closeDrawer(Gravity.LEFT);
+                } else {
+                    mDrawerLayout.openDrawer(Gravity.LEFT);
+                }
                 break;
             case R.id.clear:
                 loading();
@@ -162,7 +140,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 
     public void switchContent(int position, final BaseFilterFragment fragment) {
         if (!getCurrentFragment().equals(fragment)) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.filter_content_frame, fragment);
             fragmentTransaction.addToBackStack(fragment.getTag());
             fragmentTransaction.commit();
@@ -170,12 +148,7 @@ public class BaseActivity extends SlidingFragmentActivity {
             this.mContent = fragment;
             this.position = position;
         }
-        Handler h = new Handler();
-        h.postDelayed(new Runnable() {
-            public void run() {
-                getSlidingMenu().showContent();
-            }
-        }, 50);
+        mDrawerLayout.closeDrawers();
     }
 
     public void addToFilter(Object object) {

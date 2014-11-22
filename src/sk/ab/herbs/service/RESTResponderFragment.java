@@ -3,7 +3,7 @@ package sk.ab.herbs.service;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 
 
 /**
