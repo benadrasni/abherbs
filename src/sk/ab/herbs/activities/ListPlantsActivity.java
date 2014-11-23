@@ -1,6 +1,5 @@
 package sk.ab.herbs.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +7,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -29,7 +29,7 @@ import java.util.List;
  * <p/>
  * Display list of plants which satisfied a filter
  */
-public class ListPlantsActivity extends Activity {
+public class ListPlantsActivity extends ActionBarActivity {
     private PlantListFragment plantsFragment;
     private List<PlantHeader> plants;
     private PlantHeader plantHeader;
@@ -56,7 +56,7 @@ public class ListPlantsActivity extends Activity {
 
         ft.commit();
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class ListPlantsActivity extends Activity {
     }
 
     public void setPlant(Plant plant) {
-        Intent intent = new Intent(getBaseContext(), DisplayPlantActivity.class);
+        Intent intent = new Intent(getBaseContext(), DisplayPlantActivityOld.class);
         intent.putExtra("plant", plant);
         startActivity(intent);
     }

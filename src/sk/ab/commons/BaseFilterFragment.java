@@ -2,6 +2,7 @@ package sk.ab.commons;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,8 @@ public abstract class BaseFilterFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle(title);
-        getActivity().getActionBar().setIcon(iconRes);
+        ActionBarActivity activity = (ActionBarActivity) getActivity();
+        activity.getSupportActionBar().setIcon(iconRes);
 
         return inflater.inflate(layout, null);
     }

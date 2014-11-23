@@ -15,6 +15,7 @@ import com.devsmart.android.ui.HorizontalListView;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
+import sk.ab.herbs.activities.DisplayPlantActivityOld;
 import sk.ab.tools.DrawableManager;
 
 public class PlantCardsFragment extends ListFragment {

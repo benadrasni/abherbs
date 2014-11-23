@@ -8,6 +8,8 @@ import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.text.Html;
 import android.view.*;
 import android.widget.Button;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
+import sk.ab.herbs.activities.DisplayPlantActivity;
 import sk.ab.herbs.activities.ListPlantsActivity;
 import sk.ab.herbs.fragments.rest.HerbCountResponderFragment;
 import sk.ab.herbs.fragments.rest.HerbListResponderFragment;
@@ -23,13 +26,14 @@ import sk.ab.tools.Utils;
 
 import java.util.*;
 
-public class BaseActivity extends Activity {
+public class BaseActivity extends ActionBarActivity {
     private final Map<Integer, Object> filter = new HashMap<Integer, Object>();
 
     protected int count;
     protected int position;
     protected List<BaseFilterFragment> filterAttributes;
     protected DrawerLayout mDrawerLayout;
+    protected ActionBarDrawerToggle mDrawerToggle;
     protected Fragment mContent;
     protected PropertyListFragment mPropertyMenu;
     protected HerbCountResponderFragment countResponder;
@@ -45,7 +49,7 @@ public class BaseActivity extends Activity {
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
         Utils.changeLocale(this, language);
-        count = preferences.getInt(Constants.COUNT_KEY, 0);
+        count = preferences.getInt(Constants.COUNT_KEY, R.integer.number_of_flowers);
 
         setContentView(R.layout.base_activity);
 
@@ -54,6 +58,21 @@ public class BaseActivity extends Activity {
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mPropertyMenu = (PropertyListFragment)fm.findFragmentById(R.id.menu_fragment);
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name) {
+
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(getCurrentFragment().getTitle());
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle(getCurrentFragment().getTitle());
+            }
+        };
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         countResponder = (HerbCountResponderFragment) fm.findFragmentByTag("RESTCountResponder");
         if (countResponder == null) {
@@ -68,8 +87,9 @@ public class BaseActivity extends Activity {
 
         ft.commit();
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        mDrawerToggle.syncState();
     }
 
     @Override
@@ -111,6 +131,12 @@ public class BaseActivity extends Activity {
         getMenuInflater().inflate(R.menu.filter, menu);
         MenuItem item = menu.findItem(R.id.count);
         countButton = (Button) item.getActionView().findViewById(R.id.countButton);
+        countButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadResults();
+            }
+        });
         loadingAnimation = (AnimationDrawable) getResources().getDrawable(R.drawable.loading);
         return true;
     }
@@ -149,6 +175,7 @@ public class BaseActivity extends Activity {
             this.position = position;
         }
         mDrawerLayout.closeDrawers();
+        mDrawerToggle.syncState();
     }
 
     public void addToFilter(Object object) {
@@ -176,7 +203,7 @@ public class BaseActivity extends Activity {
         switchContent(0, filterAttributes.get(0));
     }
 
-    public void loadResults(View view) {
+    public void loadResults() {
         loading();
         listResponder.getList();
     }
@@ -197,8 +224,16 @@ public class BaseActivity extends Activity {
         return filterAttributes;
     }
 
+//    public void setResults(List<PlantHeader> herbs) {
+//        Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
+//        intent.putParcelableArrayListExtra("results", (ArrayList<PlantHeader>) herbs);
+//        intent.putExtra("position", position);
+//        startActivity(intent);
+//        invalidateOptionsMenu();
+//    }
+
     public void setResults(List<PlantHeader> herbs) {
-        Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
+        Intent intent = new Intent(getBaseContext(), DisplayPlantActivity.class);
         intent.putParcelableArrayListExtra("results", (ArrayList<PlantHeader>) herbs);
         intent.putExtra("position", position);
         startActivity(intent);

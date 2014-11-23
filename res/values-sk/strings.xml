@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ab:herbs</string>
+    <string name="app_name">Čo to tu kvitne?</string>
 
     <string name="about">O aplikácii</string>
     <string name="clear">Zmaž filter</string>
@@ -25,6 +25,8 @@
     <string name="nop_many">viac ako 5</string>
     <string name="nop_bisymmetric">symetrický podľa jednej osi</string>
     <string name="number_of_petals_message">Je kvet symetrický iba podľa jednej osi? Nie? Tak koľko má lupeňov?</string>
+
+    <string name="list_info">Vyber si jednu</string>
 
     <string name="plant_info">Info</string>
     <string name="plant_gallery">Galéria</string>

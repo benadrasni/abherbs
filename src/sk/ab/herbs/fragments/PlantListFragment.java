@@ -13,6 +13,7 @@ import android.widget.TextView;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
+import sk.ab.herbs.activities.DisplayPlantActivity;
 import sk.ab.herbs.activities.ListPlantsActivity;
 import sk.ab.tools.DrawableManager;
 import sk.ab.tools.GetResource;
@@ -26,7 +27,6 @@ public class PlantListFragment extends ListFragment {
         TextView family;
         ImageView familyIcon;
         ImageView photo;
-        int position;
     }
 
     public class PropertyAdapter extends ArrayAdapter<PlantHeader> {
@@ -84,10 +84,13 @@ public class PlantListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView lv, View v, int position, long id) {
-        lv.setEnabled(false);
-        ListPlantsActivity activity = (ListPlantsActivity) getActivity();
+        //lv.setEnabled(false);
+        //ListPlantsActivity activity = (ListPlantsActivity) getActivity();
+        DisplayPlantActivity activity = (DisplayPlantActivity) getActivity();
         activity.setPlantHeader(activity.getPlants().get(position));
         activity.getDetailResponder().getDetail();
+        activity.getDrawerLayout().closeDrawers();
+        activity.getDrawerToggle().syncState();
     }
 
     public void recreateList(List<PlantHeader> plants) {
@@ -95,6 +98,6 @@ public class PlantListFragment extends ListFragment {
         for (PlantHeader plantHeader : plants) {
             adapter.add(plantHeader);
         }
-        getListView().setEnabled(true);
+        //getListView().setEnabled(true);
     }
 }

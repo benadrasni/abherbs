@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ab:herbs</string>
+    <string name="app_name">What\'s those flowers?</string>
 
     <string name="about">About</string>
     <string name="clear">Clear filter</string>
@@ -29,6 +29,8 @@
     <string name="nop_many">more than 5</string>
     <string name="nop_bisymmetric">bisymmetric</string>
     <string name="number_of_petals_message">Is a flower bisymmetric? No? Then how many petals it has?</string>
+
+    <string name="list_info">Pick one</string>
 
     <string name="plant_info">Info</string>
     <string name="plant_gallery">Gallery</string>
