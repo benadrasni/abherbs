@@ -8,8 +8,8 @@
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/list_padding"
-        android:paddingRight="@dimen/list_padding">
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp">
 
         <ImageView
             android:id="@+id/plant_photo"

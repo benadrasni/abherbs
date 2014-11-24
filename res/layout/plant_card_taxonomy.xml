@@ -18,22 +18,13 @@
                       android:background="@color/CardsForeground"
                       android:padding="@dimen/list_padding">
 
-            <TextView android:id="@+id/plant_species"
+            <TextView android:id="@+id/plant_species_latin"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:layout_gravity="center"
                       android:gravity="center"
                       android:textAppearance="@android:style/TextAppearance.Large"
                       android:textColor="@color/CardTitle"/>
-
-            <TextView android:id="@+id/plant_species_latin"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_gravity="center"
-                      android:gravity="center"
-                      android:textStyle="italic"
-                      android:textAppearance="@android:style/TextAppearance.Small"
-                      android:textColor="@color/CardSubTitle"/>
 
             <TextView android:id="@+id/plant_alt_names"
                       android:layout_width="wrap_content"

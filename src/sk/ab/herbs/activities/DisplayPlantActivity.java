@@ -7,14 +7,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.text.Html;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import sk.ab.herbs.Constants;
@@ -47,6 +50,10 @@ public class DisplayPlantActivity extends ActionBarActivity {
 
     private HerbDetailResponderFragment detailResponder;
 
+    private Button countButton;
+    private AnimationDrawable loadingAnimation;
+
+
     /**
      * Called when the commons is first created.
      */
@@ -62,7 +69,7 @@ public class DisplayPlantActivity extends ActionBarActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.plant_drawer_layout);
         mResultMenu = (PlantListFragment)fm.findFragmentById(R.id.list_fragment);
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.list_info, R.string.app_name) {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.list_info, R.string.list_info) {
 
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -77,6 +84,7 @@ public class DisplayPlantActivity extends ActionBarActivity {
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerLayout.openDrawer(Gravity.LEFT);
+        getSupportActionBar().setTitle(R.string.list_info);
 
         detailResponder = (HerbDetailResponderFragment) fm.findFragmentByTag("RESTDetailResponder");
         if (detailResponder == null) {
@@ -104,6 +112,15 @@ public class DisplayPlantActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.filter, menu);
+        MenuItem item = menu.findItem(R.id.count);
+        countButton = (Button) item.getActionView().findViewById(R.id.countButton);
+        loadingAnimation = (AnimationDrawable) getResources().getDrawable(R.drawable.loading);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -112,6 +129,22 @@ public class DisplayPlantActivity extends ActionBarActivity {
                 } else {
                     mDrawerLayout.openDrawer(Gravity.LEFT);
                 }
+                break;
+            case R.id.clear:
+                break;
+            case R.id.en:
+                Utils.changeLocale(this, Constants.LANGUAGE_EN);
+                Toast.makeText(this, R.string.locale_en, Toast.LENGTH_LONG).show();
+                break;
+            case R.id.sk:
+                Utils.changeLocale(this, Constants.LANGUAGE_SK);
+                Toast.makeText(this, R.string.locale_sk, Toast.LENGTH_LONG).show();
+                break;
+            case R.id.about:
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.about)
+                        .setMessage(Html.fromHtml(getString(R.string.about_msg)))
+                        .show();
                 break;
         }
         return super.onOptionsItemSelected(item);

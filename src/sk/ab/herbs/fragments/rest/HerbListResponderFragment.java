@@ -10,9 +10,9 @@ import org.json.JSONObject;
 import sk.ab.commons.BaseActivity;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.PlantHeader;
-import sk.ab.herbs.activities.FilterPlantsActivity;
 import sk.ab.herbs.service.RESTResponderFragment;
 import sk.ab.herbs.service.RESTService;
+import sk.ab.tools.DrawableManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,7 +32,7 @@ public class HerbListResponderFragment extends RESTResponderFragment {
     private static String TAG = HerbListResponderFragment.class.getName();
 
     public void getList() {
-        FilterPlantsActivity activity = (FilterPlantsActivity) getActivity();
+        BaseActivity activity = (BaseActivity) getActivity();
 
         if (activity != null) {
 
@@ -121,6 +121,8 @@ public class HerbListResponderFragment extends RESTResponderFragment {
                         url != null ? url.getString(0) : "",
                         family != null ? family.getString(0) : "",
                         family != null ? Integer.parseInt(family.getString(1)) : 0);
+
+                DrawableManager.getDrawableManager().fetchDrawableOnThread(plantHeader.getUrl());
 
                 result.add(plantHeader);
             }

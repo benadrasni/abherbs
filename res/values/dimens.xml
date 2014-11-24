@@ -18,7 +18,7 @@
 
     <dimen name="shadow_width">0dp</dimen>
 
-    <dimen name="list_padding">0dp</dimen>
+    <dimen name="list_padding">10dp</dimen>
     <dimen name="list_spacing">0dp</dimen>
     <dimen name="list_item_photo_height">300dp</dimen>
     <dimen name="list_item_padding_left">60dp</dimen>

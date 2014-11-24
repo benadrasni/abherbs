@@ -14,7 +14,6 @@ import sk.ab.herbs.Constants;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
-import sk.ab.herbs.activities.ListPlantsActivity;
 import sk.ab.tools.DrawableManager;
 import sk.ab.tools.GetResource;
 
@@ -54,7 +53,7 @@ public class PlantListFragment extends ListFragment {
             viewHolder.photo.setImageResource(android.R.color.transparent);
 
             if (plantHeader.getUrl() != null) {
-                drawableManager.fetchDrawableOnThread(plantHeader.getUrl(), viewHolder.photo);
+                DrawableManager.getDrawableManager().fetchDrawableOnThread(plantHeader.getUrl(), viewHolder.photo);
             }
 
             viewHolder.title.setText(plantHeader.getTitle());
@@ -68,10 +67,8 @@ public class PlantListFragment extends ListFragment {
     }
 
     private PropertyAdapter adapter;
-    private DrawableManager drawableManager;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        drawableManager = new DrawableManager(getResources());
         return inflater.inflate(R.layout.list, null);
     }
 
@@ -84,8 +81,6 @@ public class PlantListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView lv, View v, int position, long id) {
-        //lv.setEnabled(false);
-        //ListPlantsActivity activity = (ListPlantsActivity) getActivity();
         DisplayPlantActivity activity = (DisplayPlantActivity) getActivity();
         activity.setPlantHeader(activity.getPlants().get(position));
         activity.getDetailResponder().getDetail();

@@ -15,7 +15,6 @@ import com.devsmart.android.ui.HorizontalListView;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
-import sk.ab.herbs.activities.DisplayPlantActivityOld;
 import sk.ab.tools.DrawableManager;
 
 public class PlantCardsFragment extends ListFragment {
@@ -25,10 +24,7 @@ public class PlantCardsFragment extends ListFragment {
     private static final int CARD_INFO = 1;
     private static final int CARD_GALLERY = 2;
 
-    private DrawableManager drawableManager;
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        drawableManager = new DrawableManager(getResources());
         return inflater.inflate(R.layout.list, null);
     }
 
@@ -95,7 +91,7 @@ public class PlantCardsFragment extends ListFragment {
                     convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.thumbnail, null);
                 }
                 ImageView thumbnail = (ImageView) convertView.findViewById(R.id.image);
-                drawableManager.fetchDrawableOnThread(getThumbnailUrl(url), thumbnail);
+                DrawableManager.getDrawableManager().fetchDrawableOnThread(getThumbnailUrl(url), thumbnail);
 
                 View rl = (View) parent.getParent();
                 final ImageView imageView = (ImageView) rl.findViewById(R.id.plant_photo);
@@ -103,7 +99,7 @@ public class PlantCardsFragment extends ListFragment {
                 thumbnail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        drawableManager.fetchDrawableOnThread(url, imageView);
+                        DrawableManager.getDrawableManager().fetchDrawableOnThread(url, imageView);
                     }
                 });
             }
@@ -156,8 +152,8 @@ public class PlantCardsFragment extends ListFragment {
 
             switch (position) {
                 case CARD_TAXONOMY:
-                    TextView species = (TextView) convertView.findViewById(R.id.plant_species);
-                    species.setText(plant.getSpecies());
+                    //TextView species = (TextView) convertView.findViewById(R.id.plant_species);
+                    //species.setText(plant.getSpecies());
                     TextView species_latin = (TextView) convertView.findViewById(R.id.plant_species_latin);
                     species_latin.setText(plant.getSpecies_latin());
                     TextView namesView = (TextView) convertView.findViewById(R.id.plant_alt_names);
@@ -221,7 +217,7 @@ public class PlantCardsFragment extends ListFragment {
                     ImageView drawing = (ImageView) convertView.findViewById(R.id.plant_background);
                     drawing.setImageResource(android.R.color.transparent);
                     if (plant.getBack_url() != null) {
-                        drawableManager.fetchDrawableOnThread(plant.getBack_url(), drawing);
+                        DrawableManager.getDrawableManager().fetchDrawableOnThread(plant.getBack_url(), drawing);
                     }
 
                     TextView flower = (TextView) convertView.findViewById(R.id.plant_flower);
@@ -252,7 +248,7 @@ public class PlantCardsFragment extends ListFragment {
                 case CARD_GALLERY:
                     ImageView image = (ImageView) convertView.findViewById(R.id.plant_photo);
                     if (plant.getPhoto_urls().size() > 0 && plant.getPhoto_urls().get(0) != null) {
-                        drawableManager.fetchDrawableOnThread(plant.getPhoto_urls().get(0), image);
+                        DrawableManager.getDrawableManager().fetchDrawableOnThread(plant.getPhoto_urls().get(0), image);
                     }
                     break;
             }

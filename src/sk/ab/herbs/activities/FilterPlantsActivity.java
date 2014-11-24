@@ -9,6 +9,7 @@ import sk.ab.herbs.fragments.Habitats;
 import sk.ab.herbs.fragments.NumbersOfPetals;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FilterPlantsActivity extends BaseActivity {
 

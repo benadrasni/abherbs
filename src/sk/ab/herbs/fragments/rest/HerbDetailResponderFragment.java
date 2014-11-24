@@ -11,7 +11,6 @@ import sk.ab.herbs.Constants;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.activities.DisplayPlantActivity;
-import sk.ab.herbs.activities.ListPlantsActivity;
 import sk.ab.herbs.service.RESTResponderFragment;
 import sk.ab.herbs.service.RESTService;
 
@@ -32,7 +31,6 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
     private static String TAG = HerbDetailResponderFragment.class.getName();
 
     public void getDetail() {
-        //ListPlantsActivity activity = (ListPlantsActivity) getActivity();
         DisplayPlantActivity activity = (DisplayPlantActivity) getActivity();
 
         if (activity != null) {
@@ -60,7 +58,6 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
     public void onRESTResult(int code, String result) {
 
         if (code == 200 && result != null) {
-            //ListPlantsActivity activity = (ListPlantsActivity) getActivity();
             DisplayPlantActivity activity = (DisplayPlantActivity) getActivity();
             activity.setPlant(getDetailFromJson(activity.getPlantHeader(), result));
             activity.invalidateOptionsMenu();

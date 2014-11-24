@@ -1,6 +1,8 @@
 package sk.ab.tools;
 
 import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -20,16 +22,32 @@ import java.util.Map;
  * Time: 11:19
  */
 public class DrawableManager {
-    private Resources resources;
-    private final Map<String, Drawable> drawableMap;
+    private static DrawableManager drawableManager = new DrawableManager();
+    private static final Map<String, DownloadedDrawable> drawableMap = new HashMap<String, DownloadedDrawable>();
+
+    private class DownloadedDrawable {
+        private Drawable drawable;
+        private ImageView imageView;
+
+        public Drawable getDrawable() {
+            return drawable;
+        }
+
+        public void setDrawable(Drawable drawable) {
+            this.drawable = drawable;
+        }
+
+        private ImageView getImageView() {
+            return imageView;
+        }
+
+        private void setImageView(ImageView imageView) {
+            this.imageView = imageView;
+        }
+    }
 
     private class DownloadFilesTask extends AsyncTask<String, Void, Drawable> {
         private String url;
-        private final WeakReference<ImageView> imageViewReference;
-
-        public DownloadFilesTask(final ImageView imageView) {
-            imageViewReference = new WeakReference<ImageView>(imageView);
-        }
 
         protected Drawable doInBackground(String... urls) {
             url = urls[0];
@@ -39,14 +57,14 @@ public class DrawableManager {
         protected void onPostExecute(Drawable result) {
             if (result != null) {
 
-                drawableMap.put(url, result);
+                DownloadedDrawable dd = drawableMap.get(url);
+                dd.setDrawable(result);
                 Log.d(this.getClass().getSimpleName(), "got a drawable: " + result.getBounds() + ", "
                         + result.getIntrinsicHeight() + "," + result.getIntrinsicWidth() + ", "
                         + result.getMinimumHeight() + "," + result.getMinimumWidth());
 
-                if (imageViewReference != null) {
-                    ImageView imageView = imageViewReference.get();
-                    imageView.setImageDrawable(result);
+                if (dd.getImageView() != null) {
+                    dd.getImageView().setImageDrawable(result);
                 }
             } else {
                 Log.w(this.getClass().getSimpleName(), "could not get drawable");
@@ -54,9 +72,11 @@ public class DrawableManager {
         }
     }
 
-    public DrawableManager(Resources resources) {
-        this.resources = resources;
-        this.drawableMap = new HashMap<String, Drawable>();
+    public static DrawableManager getDrawableManager() {
+        return drawableManager;
+    }
+
+    private DrawableManager() {
     }
 
     public Drawable fetchDrawable(String urlString) {
@@ -83,11 +103,31 @@ public class DrawableManager {
     }
 
     public void fetchDrawableOnThread(final String urlString, final ImageView imageView) {
-        if (drawableMap.containsKey(urlString)) {
-            imageView.setImageDrawable(drawableMap.get(urlString));
+        DownloadedDrawable dd = drawableMap.get(urlString);
+        if (dd != null) {
+            Drawable d = dd.getDrawable();
+            if (d != null) {
+                imageView.setImageDrawable(d);
+            } else {
+                dd.setImageView(imageView);
+            }
         } else {
-            DownloadFilesTask task = new DownloadFilesTask(imageView);
-            task.execute(urlString);
+            executeDownload(urlString, imageView);
         }
     }
+
+    public void fetchDrawableOnThread(final String urlString) {
+        if (!drawableMap.containsKey(urlString)) {
+            executeDownload(urlString, null);
+        }
+    }
+
+    private void executeDownload(final String urlString, final ImageView imageView) {
+        DownloadedDrawable dd = new DownloadedDrawable();
+        dd.setImageView(imageView);
+        drawableMap.put(urlString, dd);
+        DownloadFilesTask task = new DownloadFilesTask();
+        task.execute(urlString);
+    }
+
 }

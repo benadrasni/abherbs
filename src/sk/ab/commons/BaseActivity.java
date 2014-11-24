@@ -19,7 +19,6 @@ import sk.ab.herbs.Constants;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
-import sk.ab.herbs.activities.ListPlantsActivity;
 import sk.ab.herbs.fragments.rest.HerbCountResponderFragment;
 import sk.ab.herbs.fragments.rest.HerbListResponderFragment;
 import sk.ab.tools.Utils;
@@ -220,24 +219,16 @@ public class BaseActivity extends ActionBarActivity {
         invalidateOptionsMenu();
     }
 
-    public List<BaseFilterFragment> getFilterAttributes() {
-        return filterAttributes;
-    }
-
-//    public void setResults(List<PlantHeader> herbs) {
-//        Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
-//        intent.putParcelableArrayListExtra("results", (ArrayList<PlantHeader>) herbs);
-//        intent.putExtra("position", position);
-//        startActivity(intent);
-//        invalidateOptionsMenu();
-//    }
-
     public void setResults(List<PlantHeader> herbs) {
         Intent intent = new Intent(getBaseContext(), DisplayPlantActivity.class);
         intent.putParcelableArrayListExtra("results", (ArrayList<PlantHeader>) herbs);
         intent.putExtra("position", position);
         startActivity(intent);
         invalidateOptionsMenu();
+    }
+
+    public List<BaseFilterFragment> getFilterAttributes() {
+        return filterAttributes;
     }
 
     public Map<Integer, Object> getFilter() {
