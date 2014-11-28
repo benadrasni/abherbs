@@ -4,8 +4,12 @@
 
     <string name="about">O aplikácii</string>
     <string name="clear">Zmaž filter</string>
-    <string name="language">Jazyky</string>
+    <string name="settings">Nastavenia</string>
+    <string name="pref_language">Preferovaný jazyk</string>
+    <string name="pref_also_english">Zobraz anglický text</string>
+    <string name="pref_also_english_summary">ak text v preferovanom jazyku neexistuje</string>
     <string name="about_msg">&lt;b>ab:herbs&lt;/b> je aplikácia.</string>
+    <string name="help">Help</string>
 
     <string name="color_of_flower">farba kvetov</string>
     <string name="color_of_flower_message">Akej farby sú kvety? Vyber tú najbližšiu. Vždy sa môžeš vrátiť a vybrať inú.</string>
@@ -26,6 +30,7 @@
     <string name="nop_bisymmetric">symetrický podľa jednej osi</string>
     <string name="number_of_petals_message">Je kvet symetrický iba podľa jednej osi? Nie? Tak koľko má lupeňov?</string>
 
+    <string name="display_info">Je to tá?</string>
     <string name="list_info">Vyber si jednu</string>
 
     <string name="plant_info">Info</string>

@@ -10,11 +10,9 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.text.Html;
 import android.view.*;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
@@ -26,6 +24,7 @@ import sk.ab.tools.Utils;
 import java.util.*;
 
 public class BaseActivity extends ActionBarActivity {
+    private Locale locale;
     private final Map<Integer, Object> filter = new HashMap<Integer, Object>();
 
     protected int count;
@@ -46,8 +45,8 @@ public class BaseActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
-        Utils.changeLocale(this, language);
+        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
+        locale = Utils.changeLocale(this, language);
         count = preferences.getInt(Constants.COUNT_KEY, R.integer.number_of_flowers);
 
         setContentView(R.layout.base_activity);
@@ -92,6 +91,15 @@ public class BaseActivity extends ActionBarActivity {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        if (!locale.equals(Locale.getDefault())) {
+            recreate();
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -100,26 +108,6 @@ public class BaseActivity extends ActionBarActivity {
                 } else {
                     mDrawerLayout.openDrawer(Gravity.LEFT);
                 }
-                break;
-            case R.id.clear:
-                loading();
-                filter.clear();
-                countResponder.getCount();
-                unlockMenu();
-                break;
-            case R.id.en:
-                Utils.changeLocale(this, Constants.LANGUAGE_EN);
-                Toast.makeText(this, R.string.locale_en, Toast.LENGTH_LONG).show();
-                break;
-            case R.id.sk:
-                Utils.changeLocale(this, Constants.LANGUAGE_SK);
-                Toast.makeText(this, R.string.locale_sk, Toast.LENGTH_LONG).show();
-                break;
-            case R.id.about:
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.about)
-                        .setMessage(Html.fromHtml(getString(R.string.about_msg)))
-                        .show();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -134,6 +122,16 @@ public class BaseActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 loadResults();
+            }
+        });
+        countButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                loading();
+                filter.clear();
+                countResponder.getCount();
+                unlockMenu();
+                return true;
             }
         });
         loadingAnimation = (AnimationDrawable) getResources().getDrawable(R.drawable.loading);
@@ -160,6 +158,12 @@ public class BaseActivity extends ActionBarActivity {
                 viewGroup.removeAllViewsInLayout();
                 getLayoutInflater().inflate(filterFragment.getLayout(), viewGroup);
             }
+        }
+
+        ViewGroup viewGroup = (ViewGroup)mPropertyMenu.getView();
+        if (viewGroup != null) {
+            viewGroup.removeAllViewsInLayout();
+            getLayoutInflater().inflate(R.layout.property_list, viewGroup);
         }
     }
 
@@ -197,7 +201,9 @@ public class BaseActivity extends ActionBarActivity {
         for (int i = mPropertyMenu.getListView().getFirstVisiblePosition(); i <= mPropertyMenu.getListView().getLastVisiblePosition(); i++) {
             View v = mPropertyMenu.getListView().getChildAt(i);
             ImageView checkImageView = (ImageView) v.findViewById(R.id.row_check);
-            checkImageView.setVisibility(View.GONE);
+            if (checkImageView != null) {
+                checkImageView.setVisibility(View.GONE);
+            }
         }
         switchContent(0, filterAttributes.get(0));
     }
@@ -244,8 +250,8 @@ public class BaseActivity extends ActionBarActivity {
     }
 
     private void loading() {
-        countButton.setText("");
         countButton.setEnabled(false);
+        countButton.setText("");
         countButton.setBackground(loadingAnimation);
         loadingAnimation.start();
     }

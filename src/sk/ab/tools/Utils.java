@@ -18,7 +18,7 @@ import java.util.Locale;
  */
 public class Utils {
 
-    public static void changeLocale(Activity activity, String language) {
+    public static Locale changeLocale(Activity activity, String language) {
         SharedPreferences preferences = activity.getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         Locale locale = new Locale(language);
@@ -29,5 +29,6 @@ public class Utils {
         editor.commit();
         activity.getBaseContext().getResources().updateConfiguration(config,
                 activity.getBaseContext().getResources().getDisplayMetrics());
+        return locale;
     }
 }

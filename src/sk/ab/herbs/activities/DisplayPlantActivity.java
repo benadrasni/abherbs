@@ -73,7 +73,7 @@ public class DisplayPlantActivity extends ActionBarActivity {
 
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(plantHeader != null ? plantHeader.getTitle() : "");
+                getSupportActionBar().setTitle(R.string.display_info);
             }
 
             public void onDrawerOpened(View drawerView) {
@@ -116,6 +116,13 @@ public class DisplayPlantActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.filter, menu);
         MenuItem item = menu.findItem(R.id.count);
         countButton = (Button) item.getActionView().findViewById(R.id.countButton);
+        countButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                return true;
+            }
+        });
         loadingAnimation = (AnimationDrawable) getResources().getDrawable(R.drawable.loading);
         return true;
     }
@@ -129,22 +136,6 @@ public class DisplayPlantActivity extends ActionBarActivity {
                 } else {
                     mDrawerLayout.openDrawer(Gravity.LEFT);
                 }
-                break;
-            case R.id.clear:
-                break;
-            case R.id.en:
-                Utils.changeLocale(this, Constants.LANGUAGE_EN);
-                Toast.makeText(this, R.string.locale_en, Toast.LENGTH_LONG).show();
-                break;
-            case R.id.sk:
-                Utils.changeLocale(this, Constants.LANGUAGE_SK);
-                Toast.makeText(this, R.string.locale_sk, Toast.LENGTH_LONG).show();
-                break;
-            case R.id.about:
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.about)
-                        .setMessage(Html.fromHtml(getString(R.string.about_msg)))
-                        .show();
                 break;
         }
         return super.onOptionsItemSelected(item);

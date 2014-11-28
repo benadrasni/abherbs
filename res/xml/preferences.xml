@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+            android:key="prefLanguage"
+            android:entries="@array/languages"
+            android:summary="@string/pref_language_summary"
+            android:entryValues="@array/languagesValues"
+            android:title="@string/pref_language" />
+
+    <CheckBoxPreference
+            android:key="prefAlsoEnglish"
+            android:summary="@string/pref_also_english_summary"
+            android:title="@string/pref_also_english" />
+</PreferenceScreen>

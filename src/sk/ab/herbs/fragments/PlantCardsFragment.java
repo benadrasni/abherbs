@@ -152,8 +152,8 @@ public class PlantCardsFragment extends ListFragment {
 
             switch (position) {
                 case CARD_TAXONOMY:
-                    //TextView species = (TextView) convertView.findViewById(R.id.plant_species);
-                    //species.setText(plant.getSpecies());
+                    TextView species = (TextView) convertView.findViewById(R.id.plant_species);
+                    species.setText(plant.getSpecies());
                     TextView species_latin = (TextView) convertView.findViewById(R.id.plant_species_latin);
                     species_latin.setText(plant.getSpecies_latin());
                     TextView namesView = (TextView) convertView.findViewById(R.id.plant_alt_names);

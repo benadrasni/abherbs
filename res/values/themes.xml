@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- the theme applied to the application or activity -->
+    <style name="Theme.Application" parent="@style/Theme.AppCompat.Light" />
+
     <style name="HerbsActionBarTheme"
-           parent="@style/Theme.AppCompat.Light">
+           parent="@style/Theme.Application">
         <item name="android:actionBarStyle">@style/HerbsActionBar</item>
 
         <!-- Support library compatibility -->
@@ -12,7 +13,26 @@
     <!-- ActionBar styles -->
     <style name="HerbsActionBar"
            parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@color/MenuGrey</item>
+        <item name="android:background">@color/MenuWhite</item>
+
+        <!-- Support library compatibility -->
+        <item name="background">@color/MenuWhite</item>
+    </style>
+
+
+    <style name="Theme.Settings" parent="@style/Theme.Application">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+
+        <item name="toolbarStyle">@style/Widget.Toolbar</item>
+    </style>
+
+    <style name="Widget.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:navigationIcon">?attr/homeAsUpIndicator</item>
+        <item name="navigationIcon">?attr/homeAsUpIndicator</item>
+
+        <item name="android:background">@color/MenuWhite</item>
 
         <!-- Support library compatibility -->
         <item name="background">@color/MenuWhite</item>
