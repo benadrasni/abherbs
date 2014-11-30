@@ -1,25 +1,20 @@
 package sk.ab.herbs.activities;
 
-import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.text.Html;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.PlantHeader;
@@ -51,8 +46,6 @@ public class DisplayPlantActivity extends ActionBarActivity {
     private HerbDetailResponderFragment detailResponder;
 
     private Button countButton;
-    private AnimationDrawable loadingAnimation;
-
 
     /**
      * Called when the commons is first created.
@@ -83,8 +76,6 @@ public class DisplayPlantActivity extends ActionBarActivity {
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerLayout.openDrawer(Gravity.LEFT);
-        getSupportActionBar().setTitle(R.string.list_info);
 
         detailResponder = (HerbDetailResponderFragment) fm.findFragmentByTag("RESTDetailResponder");
         if (detailResponder == null) {
@@ -106,6 +97,12 @@ public class DisplayPlantActivity extends ActionBarActivity {
         if (plants.size() > 0) {
             setPlantHeader(plants.get(0));
             getDetailResponder().getDetail();
+            if (plants.size() > 1) {
+                mDrawerLayout.openDrawer(Gravity.LEFT);
+                getSupportActionBar().setTitle(R.string.list_info);
+            } else {
+                getSupportActionBar().setTitle(R.string.display_info);
+            }
         }
 
         mResultMenu.recreateList(plants);
@@ -116,15 +113,28 @@ public class DisplayPlantActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.filter, menu);
         MenuItem item = menu.findItem(R.id.count);
         countButton = (Button) item.getActionView().findViewById(R.id.countButton);
+        countButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         countButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
+                Intent intent = new Intent(DisplayPlantActivity.this, FilterPlantsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 return true;
             }
         });
-        loadingAnimation = (AnimationDrawable) getResources().getDrawable(R.drawable.loading);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        countButton.setText("" + plants.size());
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override

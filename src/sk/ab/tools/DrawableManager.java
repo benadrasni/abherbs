@@ -1,8 +1,5 @@
 package sk.ab.tools;
 
-import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -10,9 +7,10 @@ import android.widget.ImageView;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,7 +25,11 @@ public class DrawableManager {
 
     private class DownloadedDrawable {
         private Drawable drawable;
-        private ImageView imageView;
+        private List<ImageView> imageViews;
+
+        public DownloadedDrawable() {
+            imageViews = new ArrayList<ImageView>();
+        }
 
         public Drawable getDrawable() {
             return drawable;
@@ -37,12 +39,8 @@ public class DrawableManager {
             this.drawable = drawable;
         }
 
-        private ImageView getImageView() {
-            return imageView;
-        }
-
-        private void setImageView(ImageView imageView) {
-            this.imageView = imageView;
+        private List<ImageView> getImageViews() {
+            return imageViews;
         }
     }
 
@@ -59,12 +57,15 @@ public class DrawableManager {
 
                 DownloadedDrawable dd = drawableMap.get(url);
                 dd.setDrawable(result);
-                Log.d(this.getClass().getSimpleName(), "got a drawable: " + result.getBounds() + ", "
+                Log.d(this.getClass().getSimpleName(), "got a drawable: "
+                        + result.getBounds() + ", "
                         + result.getIntrinsicHeight() + "," + result.getIntrinsicWidth() + ", "
                         + result.getMinimumHeight() + "," + result.getMinimumWidth());
 
-                if (dd.getImageView() != null) {
-                    dd.getImageView().setImageDrawable(result);
+                if (dd.getImageViews().size() > 0) {
+                    for(ImageView iw : dd.getImageViews()) {
+                        iw.setImageDrawable(result);
+                    }
                 }
             } else {
                 Log.w(this.getClass().getSimpleName(), "could not get drawable");
@@ -109,7 +110,7 @@ public class DrawableManager {
             if (d != null) {
                 imageView.setImageDrawable(d);
             } else {
-                dd.setImageView(imageView);
+                dd.getImageViews().add(imageView);
             }
         } else {
             executeDownload(urlString, imageView);
@@ -124,7 +125,9 @@ public class DrawableManager {
 
     private void executeDownload(final String urlString, final ImageView imageView) {
         DownloadedDrawable dd = new DownloadedDrawable();
-        dd.setImageView(imageView);
+        if (imageView != null) {
+            dd.getImageViews().add(imageView);
+        }
         drawableMap.put(urlString, dd);
         DownloadFilesTask task = new DownloadFilesTask();
         task.execute(urlString);

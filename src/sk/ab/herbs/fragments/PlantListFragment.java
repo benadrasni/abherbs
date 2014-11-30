@@ -93,6 +93,5 @@ public class PlantListFragment extends ListFragment {
         for (PlantHeader plantHeader : plants) {
             adapter.add(plantHeader);
         }
-        //getListView().setEnabled(true);
     }
 }

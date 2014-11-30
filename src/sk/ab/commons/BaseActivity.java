@@ -159,12 +159,6 @@ public class BaseActivity extends ActionBarActivity {
                 getLayoutInflater().inflate(filterFragment.getLayout(), viewGroup);
             }
         }
-
-        ViewGroup viewGroup = (ViewGroup)mPropertyMenu.getView();
-        if (viewGroup != null) {
-            viewGroup.removeAllViewsInLayout();
-            getLayoutInflater().inflate(R.layout.property_list, viewGroup);
-        }
     }
 
     public void switchContent(int position, final BaseFilterFragment fragment) {
@@ -176,6 +170,7 @@ public class BaseActivity extends ActionBarActivity {
 
             this.mContent = fragment;
             this.position = position;
+            getSupportActionBar().setTitle(fragment.getTitle());
         }
         mDrawerLayout.closeDrawers();
         mDrawerToggle.syncState();
@@ -223,14 +218,15 @@ public class BaseActivity extends ActionBarActivity {
         }
         countButton.setEnabled(true);
         invalidateOptionsMenu();
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     public void setResults(List<PlantHeader> herbs) {
         Intent intent = new Intent(getBaseContext(), DisplayPlantActivity.class);
         intent.putParcelableArrayListExtra("results", (ArrayList<PlantHeader>) herbs);
-        intent.putExtra("position", position);
         startActivity(intent);
         invalidateOptionsMenu();
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     public List<BaseFilterFragment> getFilterAttributes() {
@@ -254,5 +250,7 @@ public class BaseActivity extends ActionBarActivity {
         countButton.setText("");
         countButton.setBackground(loadingAnimation);
         loadingAnimation.start();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 }
