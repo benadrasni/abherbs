@@ -14,5 +14,4 @@
             android:textColor="@color/MenuGrey"
             android:textSize="@dimen/abc_text_size_menu_material"
             android:clickable="true"/>
-
 </LinearLayout>
