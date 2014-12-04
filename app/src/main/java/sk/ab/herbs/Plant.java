@@ -200,7 +200,7 @@ public class Plant implements Parcelable {
 
     public String getSpeciesShort() {
         if (species.indexOf(' ') > -1) {
-            return species.substring(0, 1) + "." + species.substring(species.indexOf(' ') + 1);
+            return species.substring(0, 1) + "" + species.substring(species.indexOf(' ') + 1);
         } else {
             return species;
         }
@@ -208,7 +208,7 @@ public class Plant implements Parcelable {
 
     public String getSpecies_latinShort() {
         if (species_latin.indexOf(' ') > -1) {
-            return species_latin.substring(0, 1) + "." + species_latin.substring(species_latin.indexOf(' ') + 1);
+            return species_latin.substring(0, 1) + "" + species_latin.substring(species_latin.indexOf(' ') + 1);
         } else {
             return species_latin;
         }

@@ -3,6 +3,7 @@ package sk.ab.herbs.fragments;
 import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.devsmart.android.ui.HorizontalListView;
+import android.support.v7.widget.RecyclerView;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
@@ -60,51 +61,49 @@ public class PlantCardsFragment extends ListFragment {
         }
     }
 
-    public class ThumbnailAdapter extends ArrayAdapter<String> {
-        String data[];
+    public class ThumbnailAdapter extends RecyclerView.Adapter<ThumbnailAdapter.ViewHolder> {
+        private String urls[];
+        private View cardGallery;
 
-        public ThumbnailAdapter(Context context, String[] data) {
-            super(context, 0);
-            this.data = data;
-        }
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            ImageView mImageView;
 
-        @Override
-        public int getCount() {
-            return data.length;
-        }
-
-        @Override
-        public String getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            final String url = data[position];
-            if (url != null) {
-                if (convertView == null) {
-                    convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.thumbnail, null);
-                }
-                ImageView thumbnail = (ImageView) convertView.findViewById(R.id.image);
-                DrawableManager.getDrawableManager().fetchDrawableOnThread(getThumbnailUrl(url), thumbnail);
-
-                View rl = (View) parent.getParent();
-                final ImageView imageView = (ImageView) rl.findViewById(R.id.plant_photo);
-
-                thumbnail.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DrawableManager.getDrawableManager().fetchDrawableOnThread(url, imageView);
-                    }
-                });
+            public ViewHolder(View v) {
+                super(v);
+                mImageView = (ImageView) v.findViewById(R.id.image);
             }
+        }
 
-            return convertView;
+        public ThumbnailAdapter(String[] urls) {
+            this.urls = urls;
+        }
+
+        @Override
+        public ThumbnailAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.thumbnail, parent, false);
+            cardGallery = (View) parent.getParent();
+            return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            final String url = urls[position];
+            DrawableManager.getDrawableManager().fetchDrawableOnThread(getThumbnailUrl(url),
+                    holder.mImageView);
+
+            final ImageView imageView = (ImageView) cardGallery.findViewById(R.id.plant_photo);
+
+            holder.mImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DrawableManager.getDrawableManager().fetchDrawableOnThread(url, imageView);
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return urls.length;
         }
 
         private String getThumbnailUrl(String url) {
@@ -138,13 +137,18 @@ public class PlantCardsFragment extends ListFragment {
                         info.setVisibility(View.GONE);
                         break;
                     case CARD_GALLERY:
-                        convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_gallery, null);
-                        HorizontalListView thumbnails = (HorizontalListView) convertView.findViewById(R.id.plant_thumbnails);
+                        convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_gallery, parent, false);
+                        RecyclerView thumbnails = (RecyclerView) convertView.findViewById(R.id.plant_thumbnails);
 
-                        String[] data = new String[plant.getPhoto_urls().size()];
-                        plant.getPhoto_urls().toArray(data);
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                        layoutManager.scrollToPosition(0);
+                        thumbnails.setLayoutManager(layoutManager);
 
-                        ThumbnailAdapter adapter = new ThumbnailAdapter(getContext(), data);
+                        String[] urls = new String[plant.getPhoto_urls().size()];
+                        plant.getPhoto_urls().toArray(urls);
+
+                        ThumbnailAdapter adapter = new ThumbnailAdapter(urls);
                         thumbnails.setAdapter(adapter);
                         break;
                 }

@@ -12,7 +12,6 @@
     <application android:label="@string/app_name"
                  android:icon="@drawable/home"
                  android:theme="@style/Theme.Application"
-                 android:debuggable="true"
                  android:name=".HerbsApp">
 
         <meta-data android:name="com.google.android.gms.analytics.globalConfigResource"
