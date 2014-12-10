@@ -40,12 +40,14 @@ public class HerbListResponderFragment extends RESTResponderFragment {
             intent.setData(Uri.parse(Constants.REST_ENDPOINT + Constants.REST_LIST));
 
             Bundle params = new Bundle();
-            StringBuffer query = new StringBuffer("{");
-            query.append("\"langId\":"+Constants.getLanguage());
-            StringBuffer attributes = new StringBuffer();
+            StringBuilder query = new StringBuilder("{");
+            query.append("\"langId\":\"");
+            query.append(Constants.getLanguage());
+            query.append("\"");
+            StringBuilder attributes = new StringBuilder();
 
             if (!activity.getFilter().isEmpty()) {
-                for (Map.Entry<Integer, Object> entry : activity.getFilter().entrySet()) {
+                for (Map.Entry<Integer, Integer> entry : activity.getFilter().entrySet()) {
                     if (attributes.length() > 0) {
                         attributes.append(",");
                     }
@@ -94,7 +96,7 @@ public class HerbListResponderFragment extends RESTResponderFragment {
     }
 
     private static List<PlantHeader> getListFromJson(String json) {
-        List<PlantHeader> result = new ArrayList<PlantHeader>();
+        List<PlantHeader> result = new ArrayList<>();
 
         try {
             JSONObject herbList = new JSONObject(json);

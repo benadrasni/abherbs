@@ -8,6 +8,5 @@
     <screenName name="sk.ab.herbs.activities.DisplayPlantActivity">
         HerbsApp DisplayPlant
     </screenName>
-    <!--  The following value should be replaced with correct property id. -->
     <string name="ga_trackingId">UA-56892333-1</string>
 </resources>

@@ -98,7 +98,7 @@ public class DisplayPlantActivity extends ActionBarActivity {
             setPlantHeader(plants.get(0));
             getDetailResponder().getDetail();
             if (plants.size() > 1) {
-                mDrawerLayout.openDrawer(Gravity.LEFT);
+                mDrawerLayout.openDrawer(Gravity.START);
                 getSupportActionBar().setTitle(R.string.list_info);
             } else {
                 getSupportActionBar().setTitle(R.string.display_info);
@@ -141,10 +141,10 @@ public class DisplayPlantActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
-                    mDrawerLayout.closeDrawer(Gravity.LEFT);
+                if (mDrawerLayout.isDrawerOpen(Gravity.START)) {
+                    mDrawerLayout.closeDrawer(Gravity.START);
                 } else {
-                    mDrawerLayout.openDrawer(Gravity.LEFT);
+                    mDrawerLayout.openDrawer(Gravity.START);
                 }
                 break;
         }

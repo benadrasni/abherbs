@@ -25,7 +25,11 @@ public class PlantCardsFragment extends ListFragment {
     private static final int CARD_INFO = 1;
     private static final int CARD_GALLERY = 2;
 
+    private int thumbnail_position;
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        thumbnail_position = 0;
         return inflater.inflate(R.layout.list, null);
     }
 
@@ -49,15 +53,6 @@ public class PlantCardsFragment extends ListFragment {
                 setVisibility(v, R.id.plant_info);
                 v.invalidate();
                 break;
-        }
-    }
-
-    private void setVisibility(View v, int resId) {
-        View view = v.findViewById(resId);
-        if (view.isShown()) {
-            view.setVisibility(View.GONE);
-        } else {
-            view.setVisibility(View.VISIBLE);
         }
     }
 
@@ -86,7 +81,7 @@ public class PlantCardsFragment extends ListFragment {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, final int position) {
             final String url = urls[position];
             DrawableManager.getDrawableManager().fetchDrawableOnThread(getThumbnailUrl(url),
                     holder.mImageView);
@@ -96,6 +91,7 @@ public class PlantCardsFragment extends ListFragment {
             holder.mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    thumbnail_position = position;
                     DrawableManager.getDrawableManager().fetchDrawableOnThread(url, imageView);
                 }
             });
@@ -142,7 +138,7 @@ public class PlantCardsFragment extends ListFragment {
 
                         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                        layoutManager.scrollToPosition(0);
+                        layoutManager.scrollToPosition(thumbnail_position);
                         thumbnails.setLayoutManager(layoutManager);
 
                         String[] urls = new String[plant.getPhoto_urls().size()];
@@ -161,9 +157,10 @@ public class PlantCardsFragment extends ListFragment {
                     TextView species_latin = (TextView) convertView.findViewById(R.id.plant_species_latin);
                     species_latin.setText(plant.getSpecies_latin());
                     TextView namesView = (TextView) convertView.findViewById(R.id.plant_alt_names);
-                    StringBuffer names = new StringBuffer();
+                    StringBuilder names = new StringBuilder();
                     for(String name: plant.getNames()) {
-                        names.append(", " + name);
+                        names.append(", ");
+                        names.append(name);
                     }
                     if (names.length() > 0) {
                         namesView.setText(names.toString().substring(2));
@@ -251,13 +248,25 @@ public class PlantCardsFragment extends ListFragment {
                     break;
                 case CARD_GALLERY:
                     ImageView image = (ImageView) convertView.findViewById(R.id.plant_photo);
-                    if (plant.getPhoto_urls().size() > 0 && plant.getPhoto_urls().get(0) != null) {
+                    if (plant.getPhoto_urls().size() > thumbnail_position && plant.getPhoto_urls().get(thumbnail_position) != null) {
+                        DrawableManager.getDrawableManager().fetchDrawableOnThread(plant.getPhoto_urls().get(thumbnail_position), image);
+                    } else if (plant.getPhoto_urls().size() > 0 && plant.getPhoto_urls().get(0) != null) {
                         DrawableManager.getDrawableManager().fetchDrawableOnThread(plant.getPhoto_urls().get(0), image);
                     }
+
                     break;
             }
 
             return convertView;
+        }
+    }
+
+    private void setVisibility(View v, int resId) {
+        View view = v.findViewById(resId);
+        if (view.isShown()) {
+            view.setVisibility(View.GONE);
+        } else {
+            view.setVisibility(View.VISIBLE);
         }
     }
 }

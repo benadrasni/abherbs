@@ -13,10 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.*;
 import android.widget.Button;
 import android.widget.ImageView;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 import sk.ab.herbs.Constants;
-import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
@@ -28,7 +25,7 @@ import java.util.*;
 
 public class BaseActivity extends ActionBarActivity {
     private Locale locale;
-    private final Map<Integer, Object> filter = new HashMap<Integer, Object>();
+    private final Map<Integer, Integer> filter = new HashMap<>();
 
     protected int count;
     protected int position;
@@ -106,10 +103,10 @@ public class BaseActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
-                    mDrawerLayout.closeDrawer(Gravity.LEFT);
+                if (mDrawerLayout.isDrawerOpen(Gravity.START)) {
+                    mDrawerLayout.closeDrawer(Gravity.START);
                 } else {
-                    mDrawerLayout.openDrawer(Gravity.LEFT);
+                    mDrawerLayout.openDrawer(Gravity.START);
                 }
                 break;
         }
@@ -179,10 +176,10 @@ public class BaseActivity extends ActionBarActivity {
         mDrawerToggle.syncState();
     }
 
-    public void addToFilter(Object object) {
+    public void addToFilter(Integer valueId) {
         if (mContent instanceof BaseFilterFragment) {
             loading();
-            filter.put(getCurrentFragment().getAttributeId(), object);
+            filter.put(getCurrentFragment().getAttributeId(), valueId);
             getCurrentFragment().setLock(true);
 
             int visiblePosition = mPropertyMenu.getListView().getFirstVisiblePosition();
@@ -217,7 +214,7 @@ public class BaseActivity extends ActionBarActivity {
             SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putInt(Constants.COUNT_KEY, count);
-            editor.commit();
+            editor.apply();
         }
         countButton.setEnabled(true);
         invalidateOptionsMenu();
@@ -236,7 +233,7 @@ public class BaseActivity extends ActionBarActivity {
         return filterAttributes;
     }
 
-    public Map<Integer, Object> getFilter() {
+    public Map<Integer, Integer> getFilter() {
         return filter;
     }
 

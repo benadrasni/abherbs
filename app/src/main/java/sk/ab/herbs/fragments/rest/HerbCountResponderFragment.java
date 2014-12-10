@@ -34,12 +34,14 @@ public class HerbCountResponderFragment extends RESTResponderFragment {
       intent.setData(Uri.parse(Constants.REST_ENDPOINT + Constants.REST_COUNT));
 
       Bundle params = new Bundle();
-      StringBuffer query = new StringBuffer("{");
-      query.append("\"objectTypeId\":\"" + Constants.FLOWERS + "\"");
-      StringBuffer attributes = new StringBuffer();
+      StringBuilder query = new StringBuilder("{");
+      query.append("\"objectTypeId\":\"");
+      query.append(Constants.FLOWERS);
+      query.append("\"");
+      StringBuilder attributes = new StringBuilder();
 
       if (!activity.getFilter().isEmpty()) {
-        for(Map.Entry<Integer, Object> entry : activity.getFilter().entrySet()) {
+        for(Map.Entry<Integer, Integer> entry : activity.getFilter().entrySet()) {
           if (attributes.length() > 0) {
               attributes.append(",");
           }
