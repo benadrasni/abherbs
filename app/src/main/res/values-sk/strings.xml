@@ -6,6 +6,15 @@
     <string name="clear">Zmaž filter</string>
     <string name="settings">Nastavenia</string>
     <string name="pref_language">Preferovaný jazyk</string>
+    <string name="pref_language_summary"></string>
+    <string-array name="languages">
+        <item>English</item>
+        <item>Slovenčina</item>
+    </string-array>
+    <string-array name="languagesValues">
+        <item>en</item>
+        <item>sk</item>
+    </string-array>
     <string name="pref_also_english">Zobraz anglický text</string>
     <string name="pref_also_english_summary">ak text v preferovanom jazyku neexistuje</string>
     <string name="about_msg">&lt;b>ab:herbs&lt;/b> je aplikácia.</string>

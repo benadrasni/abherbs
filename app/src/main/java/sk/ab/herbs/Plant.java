@@ -28,6 +28,7 @@ public class Plant implements Parcelable {
     private int plantId;
     private String title;
     private String back_url;
+    private String description;
     private String flower;
     private String fruit;
     private String leaf;
@@ -81,6 +82,7 @@ public class Plant implements Parcelable {
         plantId = in.readInt();
         title = in.readString();
         back_url = in.readString();
+        description = in.readString();
         flower = in.readString();
         fruit = in.readString();
         leaf = in.readString();
@@ -141,6 +143,7 @@ public class Plant implements Parcelable {
         destination.writeInt(plantId);
         destination.writeString(title);
         destination.writeString(back_url);
+        destination.writeString(description);
         destination.writeString(flower);
         destination.writeString(fruit);
         destination.writeString(leaf);
@@ -238,6 +241,14 @@ public class Plant implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getBack_url() {

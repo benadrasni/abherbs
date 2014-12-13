@@ -39,9 +39,11 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
             intent.setData(Uri.parse(Constants.REST_ENDPOINT + Constants.REST_DETAIL));
 
             Bundle params = new Bundle();
-            StringBuffer query = new StringBuffer("{");
-            query.append("\"langId\":"+Constants.getLanguage());
-            query.append(",\"objectId\":"+activity.getPlantHeader().getPlantId());
+            StringBuilder query = new StringBuilder("{");
+            query.append("\"langId\":");
+            query.append(Constants.getLanguage());
+            query.append(",\"objectId\":");
+            query.append(activity.getPlantHeader().getPlantId());
             query.append("}");
 
             params.putString("query", query.toString());
@@ -79,6 +81,9 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
                 JSONObject attributes = herbList.getJSONObject(plantId);
                 if (attributes.has(""+Constants.PLANT_IMAGE_URL+"_0")) {
                     result.setBack_url(attributes.getJSONArray("" + Constants.PLANT_IMAGE_URL + "_0").getString(0));
+                }
+                if (attributes.has(""+Constants.PLANT_DESCRIPTION +"_0")) {
+                    result.setDescription(attributes.getJSONArray("" + Constants.PLANT_DESCRIPTION + "_0").getString(0));
                 }
                 if (attributes.has(""+Constants.PLANT_FLOWER +"_0")) {
                     result.setFlower(attributes.getJSONArray("" + Constants.PLANT_FLOWER + "_0").getString(0));
@@ -131,7 +136,7 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
                 }
 
                 int rank = 0;
-                List<String> names = new ArrayList<String>();
+                List<String> names = new ArrayList<>();
                 while (attributes.has(""+Constants.PLANT_ALT_NAMES+"_"+rank)) {
                     JSONArray values = attributes.getJSONArray(""+Constants.PLANT_ALT_NAMES+"_"+rank);
                     if (values.getInt(2) == Constants.getLanguage()) {
@@ -142,7 +147,7 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
                 result.setNames(names);
 
                 rank = 0;
-                List<String> photo_urls = new ArrayList<String>();
+                List<String> photo_urls = new ArrayList<>();
                 while (attributes.has(""+Constants.PLANT_PHOTO_URL+"_"+rank)) {
                     photo_urls.add(attributes.getJSONArray(""+Constants.PLANT_PHOTO_URL+"_"+rank).getString(0));
                     rank++;

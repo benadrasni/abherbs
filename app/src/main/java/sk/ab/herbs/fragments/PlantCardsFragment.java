@@ -221,6 +221,9 @@ public class PlantCardsFragment extends ListFragment {
                         DrawableManager.getDrawableManager().fetchDrawableOnThread(plant.getBack_url(), drawing);
                     }
 
+                    TextView description = (TextView) convertView.findViewById(R.id.plant_description);
+                    description.setText(plant.getDescription() != null ? plant.getDescription() : "");
+
                     TextView flower = (TextView) convertView.findViewById(R.id.plant_flower);
                     flower.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_flowers),
                             plant.getFlower())));

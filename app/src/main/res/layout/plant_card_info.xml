@@ -17,6 +17,21 @@
                       android:orientation="vertical">
 
             <LinearLayout android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/list_padding"
+                android:orientation="vertical"
+                android:paddingRight="@dimen/list_padding"
+                android:paddingTop="@dimen/list_padding">
+
+                <TextView android:id="@+id/plant_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.Holo.Small"
+                    android:textColor="@color/CardText"/>
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
                           android:layout_height="wrap_content"
                           android:orientation="horizontal">
 
@@ -24,7 +39,6 @@
                               android:layout_height="wrap_content"
                               android:orientation="vertical"
                               android:paddingLeft="@dimen/list_padding"
-                              android:paddingTop="@dimen/list_padding"
                               android:layout_weight="2">
 
                     <TextView android:id="@+id/plant_flower"
