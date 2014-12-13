@@ -13,7 +13,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.*;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import sk.ab.herbs.Constants;
+import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
@@ -43,6 +48,10 @@ public class BaseActivity extends ActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Tracker tracker = ((HerbsApp)getApplication()).getTracker();
+        tracker.setScreenName(this.getClass().getSimpleName());
+        tracker.send(new HitBuilders.AppViewBuilder().build());
 
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());

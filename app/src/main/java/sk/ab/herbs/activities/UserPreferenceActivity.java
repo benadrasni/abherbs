@@ -8,6 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 import sk.ab.herbs.fragments.UserPreferenceFragment;
 
@@ -25,6 +30,11 @@ public class UserPreferenceActivity extends PreferenceActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Tracker tracker = ((HerbsApp)getApplication()).getTracker();
+        tracker.setScreenName(this.getClass().getSimpleName());
+        tracker.send(new HitBuilders.AppViewBuilder().build());
+
         getFragmentManager().beginTransaction().replace(R.id.content_wrapper,
                 new UserPreferenceFragment()).commit();
 

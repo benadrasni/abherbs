@@ -15,7 +15,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import sk.ab.herbs.Constants;
+import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
@@ -53,6 +58,10 @@ public class DisplayPlantActivity extends ActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Tracker tracker = ((HerbsApp)getApplication()).getTracker();
+        tracker.setScreenName(this.getClass().getSimpleName());
+        tracker.send(new HitBuilders.AppViewBuilder().build());
 
         setContentView(R.layout.plant_activity);
 
