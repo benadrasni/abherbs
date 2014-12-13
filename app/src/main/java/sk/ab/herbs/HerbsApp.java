@@ -15,9 +15,9 @@ import java.util.HashMap;
  * <p/>
  */
 public class HerbsApp extends Application {
-    public HerbsApp() {
-        super();
-    }
+    private static final String PROPERTY_ID = "UA-56892333-1";
+
+    private Tracker tracker;
 
     @Override
     public void onCreate() {
@@ -26,5 +26,11 @@ public class HerbsApp extends Application {
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
         analytics.getLogger().setLogLevel(Logger.LogLevel.VERBOSE);
         analytics.enableAutoActivityReports(this);
+
+        tracker = analytics.newTracker(PROPERTY_ID);
+    }
+
+    public synchronized Tracker getTracker() {
+        return tracker;
     }
 }
