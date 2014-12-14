@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
 import sk.ab.tools.DrawableManager;
+import sk.ab.tools.Margin;
 
 public class PlantCardsFragment extends ListFragment {
     private static final String THUMBNAIL_DIR = "/.thumbnails";
@@ -47,10 +50,6 @@ public class PlantCardsFragment extends ListFragment {
         switch (position) {
             case CARD_TAXONOMY:
                 setVisibility(v, R.id.plant_taxonomy);
-                v.invalidate();
-                break;
-            case CARD_INFO:
-                setVisibility(v, R.id.plant_info);
                 v.invalidate();
                 break;
         }
@@ -120,38 +119,10 @@ public class PlantCardsFragment extends ListFragment {
         public View getView(final int position, View convertView, final ViewGroup parent) {
             Plant plant = ((DisplayPlantActivity) getActivity()).getPlant();
 
-            if (convertView == null) {
-                switch (position) {
-                    case CARD_TAXONOMY:
-                        convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_taxonomy, null);
-                        View taxonomy = convertView.findViewById(R.id.plant_taxonomy);
-                        taxonomy.setVisibility(View.GONE);
-                        break;
-                    case CARD_INFO:
-                        convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_info, null);
-                        View info = convertView.findViewById(R.id.plant_info);
-                        info.setVisibility(View.GONE);
-                        break;
-                    case CARD_GALLERY:
-                        convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_gallery, parent, false);
-                        RecyclerView thumbnails = (RecyclerView) convertView.findViewById(R.id.plant_thumbnails);
-
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                        layoutManager.scrollToPosition(thumbnail_position);
-                        thumbnails.setLayoutManager(layoutManager);
-
-                        String[] urls = new String[plant.getPhoto_urls().size()];
-                        plant.getPhoto_urls().toArray(urls);
-
-                        ThumbnailAdapter adapter = new ThumbnailAdapter(urls);
-                        thumbnails.setAdapter(adapter);
-                        break;
-                }
-            }
-
             switch (position) {
                 case CARD_TAXONOMY:
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_taxonomy, null);
+
                     TextView species = (TextView) convertView.findViewById(R.id.plant_species);
                     species.setText(plant.getSpecies());
                     TextView species_latin = (TextView) convertView.findViewById(R.id.plant_species_latin);
@@ -215,41 +186,90 @@ public class PlantCardsFragment extends ListFragment {
 
                     break;
                 case CARD_INFO:
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_info, null);
+
                     ImageView drawing = (ImageView) convertView.findViewById(R.id.plant_background);
                     drawing.setImageResource(android.R.color.transparent);
                     if (plant.getBack_url() != null) {
-                        DrawableManager.getDrawableManager().fetchDrawableOnThread(plant.getBack_url(), drawing);
+                        drawing.setImageDrawable(DrawableManager.getDrawableManager().fetchDrawable(plant.getBack_url()));
                     }
 
-                    TextView description = (TextView) convertView.findViewById(R.id.plant_description);
-                    description.setText(plant.getDescription() != null ? plant.getDescription() : "");
+                    TextView upImage = (TextView) convertView.findViewById(R.id.up_image);
+                    upImage.setText(plant.getDescription());
 
-                    TextView flower = (TextView) convertView.findViewById(R.id.plant_flower);
-                    flower.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_flowers),
-                            plant.getFlower())));
+                    TextView aroundImage = (TextView) convertView.findViewById(R.id.around_image);
 
-                    TextView inflorescence = (TextView) convertView.findViewById(R.id.plant_inflorescence);
-                    inflorescence.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_inflorescences),
-                            plant.getInflorescence())));
+                    StringBuilder text = new StringBuilder();
+                    text.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_flowers),
+                            plant.getFlower()));
+                    text.append(System.getProperty ("line.separator"));
+                    text.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_inflorescences),
+                            plant.getInflorescence()));
+                    text.append(System.getProperty ("line.separator"));
+                    text.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_fruits),
+                            plant.getFruit()));
+                    text.append(System.getProperty ("line.separator"));
+                    text.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_leaves),
+                            plant.getLeaf()));
+                    text.append(System.getProperty ("line.separator"));
+                    text.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_stem),
+                            plant.getStem()));
+                    text.append(System.getProperty ("line.separator"));
+                    text.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_habitat),
+                            plant.getHabitat()));
 
-                    TextView fruit = (TextView) convertView.findViewById(R.id.plant_fruit);
-                    fruit.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_fruits),
-                            plant.getFruit())));
+                    drawing.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                    int leftMargin = drawing.getMeasuredWidth() + 10;
+                    int height = drawing.getMeasuredHeight();
+                    SpannableString ss = new SpannableString(Html.fromHtml(text.toString()));
+                    ss.setSpan(new Margin(height/(int)(aroundImage.getLineHeight()*aroundImage.getLineSpacingMultiplier()+aroundImage.getLineSpacingExtra()),
+                            leftMargin), 0, ss.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
-                    TextView leaf = (TextView) convertView.findViewById(R.id.plant_leaf);
-                    leaf.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_leaves),
-                            plant.getLeaf())));
+                    aroundImage.setText(ss);
 
-                    TextView stem = (TextView) convertView.findViewById(R.id.plant_stem);
-                    stem.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_stem),
-                            plant.getStem())));
-
-                    TextView habitat = (TextView) convertView.findViewById(R.id.plant_habitat);
-                    habitat.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_habitat),
-                            plant.getHabitat())));
+//                    TextView description = (TextView) convertView.findViewById(R.id.plant_description);
+//                    description.setText(plant.getDescription());
+//
+//                    TextView flower = (TextView) convertView.findViewById(R.id.plant_flower);
+//                    flower.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_flowers),
+//                            plant.getFlower())));
+//
+//                    TextView inflorescence = (TextView) convertView.findViewById(R.id.plant_inflorescence);
+//                    inflorescence.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_inflorescences),
+//                            plant.getInflorescence())));
+//
+//                    TextView fruit = (TextView) convertView.findViewById(R.id.plant_fruit);
+//                    fruit.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_fruits),
+//                            plant.getFruit())));
+//
+//                    TextView leaf = (TextView) convertView.findViewById(R.id.plant_leaf);
+//                    leaf.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_leaves),
+//                            plant.getLeaf())));
+//
+//                    TextView stem = (TextView) convertView.findViewById(R.id.plant_stem);
+//                    stem.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_stem),
+//                            plant.getStem())));
+//
+//                    TextView habitat = (TextView) convertView.findViewById(R.id.plant_habitat);
+//                    habitat.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_habitat),
+//                            plant.getHabitat())));
 
                     break;
                 case CARD_GALLERY:
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_gallery, parent, false);
+                    RecyclerView thumbnails = (RecyclerView) convertView.findViewById(R.id.plant_thumbnails);
+
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                    layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                    layoutManager.scrollToPosition(thumbnail_position);
+                    thumbnails.setLayoutManager(layoutManager);
+
+                    String[] urls = new String[plant.getPhoto_urls().size()];
+                    plant.getPhoto_urls().toArray(urls);
+
+                    ThumbnailAdapter adapter = new ThumbnailAdapter(urls);
+                    thumbnails.setAdapter(adapter);
+
                     ImageView image = (ImageView) convertView.findViewById(R.id.plant_photo);
                     if (plant.getPhoto_urls().size() > thumbnail_position && plant.getPhoto_urls().get(thumbnail_position) != null) {
                         DrawableManager.getDrawableManager().fetchDrawableOnThread(plant.getPhoto_urls().get(thumbnail_position), image);

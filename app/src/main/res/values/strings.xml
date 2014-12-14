@@ -7,7 +7,7 @@
     <string name="clear">Clear filter</string>
     <string name="settings">Settings</string>
     <string name="pref_language">Preferred language</string>
-    <string name="pref_language_summary"></string>
+    <string name="pref_language_summary"/>
     <string-array name="languages">
         <item>English</item>
         <item>Slovenčina</item>
@@ -45,6 +45,7 @@
     <string name="plant_info">Info</string>
     <string name="plant_gallery">Gallery</string>
     <string name="plant_taxonomy">Taxonomy</string>
+    <string name="image_desc">Plant illustration</string>
 
     <string name="plant_title">title</string>
     <string name="plant_flowers">Flowers</string>
