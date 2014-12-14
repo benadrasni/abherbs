@@ -56,7 +56,7 @@ public class BaseActivity extends ActionBarActivity {
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
         locale = Utils.changeLocale(this, language);
-        count = preferences.getInt(Constants.COUNT_KEY, R.integer.number_of_flowers);
+        count = preferences.getInt(Constants.COUNT_KEY, Constants.NUMBER_OF_PLANTS);
 
         setContentView(R.layout.base_activity);
 

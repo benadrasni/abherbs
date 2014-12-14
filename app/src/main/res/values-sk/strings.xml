@@ -6,7 +6,7 @@
     <string name="clear">Zmaž filter</string>
     <string name="settings">Nastavenia</string>
     <string name="pref_language">Preferovaný jazyk</string>
-    <string name="pref_language_summary"></string>
+    <string name="pref_language_summary"/>
     <string-array name="languages">
         <item>English</item>
         <item>Slovenčina</item>
@@ -45,6 +45,7 @@
     <string name="plant_info">Info</string>
     <string name="plant_gallery">Galéria</string>
     <string name="plant_taxonomy">Taxonómia</string>
+    <string name="image_desc">Ilustrácia</string>
 
     <string name="plant_title">názov</string>
     <string name="plant_flowers">Kvety</string>

@@ -80,7 +80,7 @@ public class DrawableManager {
     private DrawableManager() {
     }
 
-    public Drawable fetchDrawable(String urlString) {
+    public synchronized Drawable fetchDrawable(String urlString) {
         Log.d(this.getClass().getSimpleName(), "image url:" + urlString);
         try {
             InputStream inputStream = null;

@@ -11,6 +11,8 @@ import java.util.Map;
  * Time: 20:02
  */
 public class Constants {
+    public final static int NUMBER_OF_PLANTS = 22;
+
     public final static Map<String, Integer> LANGUAGES;
     public final static String COUNT_KEY = "count";
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";

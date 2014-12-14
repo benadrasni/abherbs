@@ -47,7 +47,8 @@
             <LinearLayout android:id="@+id/plant_taxonomy"
                           android:layout_width="match_parent"
                           android:layout_height="match_parent"
-                          android:orientation="vertical">
+                          android:orientation="vertical"
+                          android:visibility="gone">
 
                 <View   android:layout_width="1dp"
                         android:layout_height="@dimen/card_taxonomy_separator_height"

@@ -1,107 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:paddingLeft="@dimen/list_padding"
-              android:paddingRight="@dimen/list_padding"
-              android:orientation="horizontal">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/list_padding"
+    android:paddingRight="@dimen/list_padding">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/plantInfoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/CardsForeground"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_width="match_parent">
+            android:paddingLeft="@dimen/list_padding"
+            android:paddingRight="@dimen/list_padding"
+            android:paddingTop="@dimen/list_padding">
 
-        <LinearLayout android:id="@+id/plantInfoLayout"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:background="@color/CardsForeground"
-                      android:orientation="vertical">
+            <TextView
+                android:id="@+id/up_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Holo.Small"
+                android:textColor="@color/CardText" />
 
-            <LinearLayout android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/list_padding"
-                android:orientation="vertical"
-                android:paddingRight="@dimen/list_padding"
-                android:paddingTop="@dimen/list_padding">
-
-                <TextView android:id="@+id/plant_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@android:style/TextAppearance.Holo.Small"
-                    android:textColor="@color/CardText"/>
-
-            </LinearLayout>
-
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal">
-
-                <LinearLayout android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              android:orientation="vertical"
-                              android:paddingLeft="@dimen/list_padding"
-                              android:layout_weight="2">
-
-                    <TextView android:id="@+id/plant_flower"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:textAppearance="@android:style/TextAppearance.Small"
-                              android:textColor="@color/CardText"/>
-
-                    <TextView android:id="@+id/plant_inflorescence"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:textAppearance="@android:style/TextAppearance.Small"
-                              android:textColor="@color/CardText"/>
-
-                    <TextView android:id="@+id/plant_fruit"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:textAppearance="@android:style/TextAppearance.Small"
-                              android:textColor="@color/CardText"/>
-
-                    <TextView android:id="@+id/plant_leaf"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:textAppearance="@android:style/TextAppearance.Small"
-                              android:textColor="@color/CardText"/>
-
-                </LinearLayout>
-
-                <ImageView android:id="@+id/plant_background"
-                           android:layout_width="0dp"
-                           android:layout_height="match_parent"
-                           android:layout_weight="1"
-                           android:paddingTop="@dimen/list_padding"
-                           android:paddingBottom="@dimen/list_padding"/>
-
-            </LinearLayout>
-
-            <LinearLayout android:id="@+id/plant_info"
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:paddingLeft="@dimen/list_padding"
-                          android:orientation="vertical" android:visibility="visible"
-                          android:paddingRight="@dimen/list_padding" android:paddingBottom="@dimen/list_padding">
-
-                <TextView android:id="@+id/plant_stem"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
-
-                <TextView android:id="@+id/plant_habitat"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
-
-            </LinearLayout>
         </LinearLayout>
 
-        <View android:id="@+id/bottomInfo"
-              android:layout_width="match_parent"
-              android:layout_height="5dp"
-              android:layout_below="@+id/plantInfoLayout"
-              android:background="@drawable/list_item_shadow_bottom"/>
-    </RelativeLayout>
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/list_padding"
+            android:paddingLeft="@dimen/list_padding">
+
+            <TextView
+                android:id="@+id/around_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText" />
+
+            <ImageView
+                android:id="@+id/plant_background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/image_desc"
+                android:minWidth="150dp"
+                android:minHeight="300dp"
+                android:scaleType="fitCenter"
+                android:paddingBottom="@dimen/list_padding"
+                android:paddingTop="@dimen/list_padding" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/bottomInfo"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/plantInfoLayout"
+        android:background="@drawable/list_item_shadow_bottom" />
+</RelativeLayout>
