@@ -2,7 +2,7 @@ package sk.ab.herbs.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.app.ListFragment;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +40,7 @@ public class PlantListFragment extends ListFragment {
             ViewHolder viewHolder;
 
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_row, null);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_row, parent, false);
                 viewHolder = new ViewHolder();
                 viewHolder.title = (TextView) convertView.findViewById(R.id.plant_title);
                 viewHolder.family = (TextView) convertView.findViewById(R.id.plant_family);
@@ -69,7 +69,7 @@ public class PlantListFragment extends ListFragment {
     private PropertyAdapter adapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.list, null);
+        return inflater.inflate(R.layout.list, container, false);
     }
 
     @Override

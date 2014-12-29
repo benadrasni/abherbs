@@ -1,12 +1,14 @@
 package sk.ab.commons;
 
-import android.app.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -30,14 +32,14 @@ import java.util.*;
 
 public class BaseActivity extends ActionBarActivity {
     private Locale locale;
-    private final Map<Integer, Integer> filter = new HashMap<>();
 
-    protected int count;
-    protected int position;
+    private Map<Integer, Integer> filter;
+    private int count;
+    private BaseFilterFragment mContent;
+
     protected List<BaseFilterFragment> filterAttributes;
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mDrawerToggle;
-    protected Fragment mContent;
     protected PropertyListFragment mPropertyMenu;
     protected HerbCountResponderFragment countResponder;
     protected HerbListResponderFragment listResponder;
@@ -47,7 +49,7 @@ public class BaseActivity extends ActionBarActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(null);
 
         Tracker tracker = ((HerbsApp)getApplication()).getTracker();
         tracker.setScreenName(this.getClass().getSimpleName());
@@ -57,11 +59,12 @@ public class BaseActivity extends ActionBarActivity {
         String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
         locale = Utils.changeLocale(this, language);
         count = preferences.getInt(Constants.COUNT_KEY, Constants.NUMBER_OF_PLANTS);
+        filter = new HashMap<>();
 
         setContentView(R.layout.base_activity);
 
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mPropertyMenu = (PropertyListFragment)fm.findFragmentById(R.id.menu_fragment);
@@ -93,6 +96,10 @@ public class BaseActivity extends ActionBarActivity {
         }
 
         ft.commit();
+
+        if (mContent == null && filterAttributes.size() > 0) {
+            switchContent(filterAttributes.get(0));
+        }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -170,35 +177,53 @@ public class BaseActivity extends ActionBarActivity {
         }
     }
 
-    public void switchContent(int position, final BaseFilterFragment fragment) {
-        if (!getCurrentFragment().equals(fragment)) {
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.filter_content_frame, fragment);
-            fragmentTransaction.addToBackStack(fragment.getTag());
+    @Override
+    public void onBackPressed() {
+        FragmentManager fm = getSupportFragmentManager();
+        int count = fm.getBackStackEntryCount();
+        if (count > 0) {
+            FragmentManager.BackStackEntry backEntry = fm.getBackStackEntryAt(count-1);
+            String str = backEntry.getName();
+            Fragment fragment = fm.findFragmentByTag(str);
+            if (fragment instanceof BaseFilterFragment) {
+                mContent = (BaseFilterFragment)fragment;
+                getSupportActionBar().setTitle(mContent.getTitle());
+                closeDrawer();
+            }
+        }
+        super.onBackPressed();
+    }
+
+
+    public void switchContent(final BaseFilterFragment fragment) {
+        if (getCurrentFragment() == null || !getCurrentFragment().equals(fragment)) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            if (getCurrentFragment() != null) {
+                fragmentTransaction.addToBackStack(getCurrentFragment().getTag());
+            }
+            fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttributeId());
             fragmentTransaction.commit();
 
-            this.mContent = fragment;
-            this.position = position;
-            getSupportActionBar().setTitle(fragment.getTitle());
+            mContent = fragment;
+            getSupportActionBar().setTitle(mContent.getTitle());
         }
-        mDrawerLayout.closeDrawers();
-        mDrawerToggle.syncState();
+
+        closeDrawer();
     }
 
     public void addToFilter(Integer valueId) {
-        if (mContent instanceof BaseFilterFragment) {
-            loading();
-            filter.put(getCurrentFragment().getAttributeId(), valueId);
-            getCurrentFragment().setLock(true);
+        loading();
+        filter.put(getCurrentFragment().getAttributeId(), valueId);
+        getCurrentFragment().setLock(true);
 
-            int visiblePosition = mPropertyMenu.getListView().getFirstVisiblePosition();
-            View v = mPropertyMenu.getListView().getChildAt(position - visiblePosition);
+        int visiblePosition = mPropertyMenu.getListView().getFirstVisiblePosition();
+        int position = filterAttributes.indexOf(getCurrentFragment());
+        View v = mPropertyMenu.getListView().getChildAt(position - visiblePosition);
 
-            ImageView checkImageView = (ImageView) v.findViewById(R.id.row_check);
-            checkImageView.setVisibility(View.VISIBLE);
+        ImageView checkImageView = (ImageView) v.findViewById(R.id.row_check);
+        checkImageView.setVisibility(View.VISIBLE);
 
-            countResponder.getCount();
-        }
+        countResponder.getCount();
     }
 
     public void unlockMenu() {
@@ -209,7 +234,7 @@ public class BaseActivity extends ActionBarActivity {
                 checkImageView.setVisibility(View.GONE);
             }
         }
-        switchContent(0, filterAttributes.get(0));
+        switchContent(filterAttributes.get(0));
     }
 
     public void loadResults() {
@@ -242,17 +267,13 @@ public class BaseActivity extends ActionBarActivity {
         return filterAttributes;
     }
 
-    public Map<Integer, Integer> getFilter() {
-        return filter;
-    }
+    public Map<Integer, Integer> getFilter() { return filter; }
 
     public BaseFilterFragment getCurrentFragment() {
-        return (BaseFilterFragment) mContent;
+        return mContent;
     }
 
-    public int getPosition() {
-        return position;
-    }
+    public int getCurrentPosition() { return filterAttributes.indexOf(mContent); }
 
     private void loading() {
         countButton.setEnabled(false);
@@ -261,5 +282,10 @@ public class BaseActivity extends ActionBarActivity {
         loadingAnimation.start();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    private void closeDrawer() {
+        mDrawerLayout.closeDrawers();
+        mDrawerToggle.syncState();
     }
 }

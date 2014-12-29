@@ -3,6 +3,7 @@ package sk.ab.herbs.fragments;
 import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Html;
 import android.text.SpannableString;
@@ -31,9 +32,9 @@ public class PlantCardsFragment extends ListFragment {
     private int thumbnail_position;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         thumbnail_position = 0;
-        return inflater.inflate(R.layout.list, null);
+        return inflater.inflate(R.layout.list, container, false);
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -121,7 +122,7 @@ public class PlantCardsFragment extends ListFragment {
 
             switch (position) {
                 case CARD_TAXONOMY:
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_taxonomy, null);
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_taxonomy, parent, false);
 
                     TextView species = (TextView) convertView.findViewById(R.id.plant_species);
                     species.setText(plant.getSpecies());
@@ -186,7 +187,7 @@ public class PlantCardsFragment extends ListFragment {
 
                     break;
                 case CARD_INFO:
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_info, null);
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_info, parent, false);
 
                     ImageView drawing = (ImageView) convertView.findViewById(R.id.plant_background);
                     drawing.setImageResource(android.R.color.transparent);
