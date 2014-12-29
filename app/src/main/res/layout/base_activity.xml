@@ -5,9 +5,9 @@
         android:layout_height="match_parent">
     <!-- The main content view -->
     <FrameLayout
-            android:id="@+id/filter_content_frame"
+            android:id="@+id/filter_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
     <!-- The navigation drawer -->
     <LinearLayout android:id="@+id/left_drawer"
               android:layout_width="280dp"
@@ -18,7 +18,6 @@
                 android:id="@+id/menu_fragment"
                 android:name="sk.ab.commons.PropertyListFragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_height="match_parent"/>
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

@@ -4,7 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.ListFragment;
+import android.support.v4.app.ListFragment;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +16,7 @@ public class PropertyListFragment extends ListFragment {
     private PropertyAdapter adapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.property_list, null);
+        return inflater.inflate(R.layout.property_list, container, false);
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -44,8 +44,7 @@ public class PropertyListFragment extends ListFragment {
         PropertyItem item = adapter.getItem(position);
         switch (item.getType()) {
             case PropertyItem.TYPE_FILTER:
-                BaseFilterFragment filterFragment = (BaseFilterFragment)item;
-                switchFragment(position, filterFragment);
+                ((BaseActivity) getActivity()).switchContent((BaseFilterFragment)item);
                 break;
             case PropertyItem.TYPE_SETTING:
                 BaseSetting setting = (BaseSetting)item;
@@ -65,16 +64,6 @@ public class PropertyListFragment extends ListFragment {
                 break;
         }
 
-    }
-
-    private void switchFragment(int position, BaseFilterFragment fragment) {
-        if (getActivity() == null)
-            return;
-
-        if (getActivity() instanceof BaseActivity) {
-            BaseActivity ba = (BaseActivity) getActivity();
-            ba.switchContent(position, fragment);
-        }
     }
 
     public class PropertyAdapter extends ArrayAdapter<PropertyItem> {

@@ -1,13 +1,13 @@
 package sk.ab.herbs.activities;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -69,8 +69,8 @@ public class DisplayPlantActivity extends ActionBarActivity {
 
         setContentView(R.layout.plant_activity);
 
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.plant_drawer_layout);
         mResultMenu = (PlantListFragment)fm.findFragmentById(R.id.list_fragment);

@@ -61,13 +61,12 @@ public class BaseImageButton extends Button {
           BaseActivity host = (BaseActivity) view.getContext();
           host.addToFilter(valueId);
 
-          if (host.getPosition() == host.getFilterAttributes().size() - 1) {
+          if (host.getCurrentPosition() == host.getFilterAttributes().size() - 1) {
             host.loadResults();
           } else {
-            for(int i = host.getPosition()+1; i < host.getFilterAttributes().size(); i++) {
-              BaseFilterFragment fragment = host.getFilterAttributes().get(i);
+            for(BaseFilterFragment fragment : host.getFilterAttributes()) {
               if (host.getFilter().get(fragment.getAttributeId()) == null) {
-                host.switchContent(i, fragment);
+                host.switchContent(fragment);
                 break;
               }
             }
