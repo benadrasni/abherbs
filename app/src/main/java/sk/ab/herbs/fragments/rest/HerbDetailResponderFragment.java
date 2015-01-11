@@ -9,8 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.Plant;
-import sk.ab.herbs.PlantHeader;
-import sk.ab.herbs.activities.DisplayPlantActivity;
+import sk.ab.herbs.activities.ListPlantsActivity;
 import sk.ab.herbs.service.RESTResponderFragment;
 import sk.ab.herbs.service.RESTService;
 
@@ -30,8 +29,8 @@ import java.util.List;
 public class HerbDetailResponderFragment extends RESTResponderFragment {
     private static String TAG = HerbDetailResponderFragment.class.getName();
 
-    public void getDetail() {
-        DisplayPlantActivity activity = (DisplayPlantActivity) getActivity();
+    public void getDetail(int plantId) {
+        ListPlantsActivity activity = (ListPlantsActivity) getActivity();
 
         if (activity != null) {
 
@@ -43,7 +42,7 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
             query.append("\"langId\":");
             query.append(Constants.getLanguage());
             query.append(",\"objectId\":");
-            query.append(activity.getPlantHeader().getPlantId());
+            query.append(plantId);
             query.append("}");
 
             params.putString("query", query.toString());
@@ -60,18 +59,16 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
     public void onRESTResult(int code, String result) {
 
         if (code == 200 && result != null) {
-            DisplayPlantActivity activity = (DisplayPlantActivity) getActivity();
-            activity.setPlant(getDetailFromJson(activity.getPlantHeader(), result));
+            ListPlantsActivity activity = (ListPlantsActivity) getActivity();
+            activity.setPlant(getDetailFromJson(result));
             activity.invalidateOptionsMenu();
         } else {
             Log.e(TAG, "Failed to load data. Check your internet settings.");
         }
     }
 
-    private static Plant getDetailFromJson(PlantHeader plantHeader, String json) {
-        Plant result = new Plant(plantHeader);
-        result.setSpecies(plantHeader.getTitle());
-
+    private static Plant getDetailFromJson(String json) {
+        Plant result = null;
         try {
             JSONObject herbList = new JSONObject(json);
             Iterator<String> keys = herbList.keys();
@@ -79,6 +76,15 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
 
                 String plantId = keys.next();
                 JSONObject attributes = herbList.getJSONObject(plantId);
+                result = new Plant(Integer.parseInt(plantId));
+                if (attributes.has(""+Constants.PLANT_NAME+"_0")) {
+                    String name = attributes.getJSONArray("" + Constants.PLANT_NAME + "_0").getString(0);
+                    result.setTitle(name);
+                    result.setSpecies(name);
+                }
+                if (attributes.has(""+Constants.PLANT_FAMILY+"_0")) {
+                    result.setFamily(attributes.getJSONArray("" + Constants.PLANT_FAMILY + "_0").getString(0));
+                }
                 if (attributes.has(""+Constants.PLANT_IMAGE_URL+"_0")) {
                     result.setBack_url(attributes.getJSONArray("" + Constants.PLANT_IMAGE_URL + "_0").getString(0));
                 }
@@ -155,11 +161,9 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
                 result.setPhoto_urls(photo_urls);
 
             }
-
         } catch (JSONException e) {
             Log.e(TAG, "Failed to parse JSON.", e);
         }
-
         return result;
     }
 

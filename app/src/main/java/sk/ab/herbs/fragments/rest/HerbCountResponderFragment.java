@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONTokener;
-import sk.ab.commons.BaseActivity;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.activities.FilterPlantsActivity;
 import sk.ab.herbs.service.RESTResponderFragment;
@@ -72,7 +71,7 @@ public class HerbCountResponderFragment extends RESTResponderFragment {
   public void onRESTResult(int code, String result) {
 
     if (code == 200 && result != null) {
-      BaseActivity activity = (BaseActivity)getActivity();
+      FilterPlantsActivity activity = (FilterPlantsActivity)getActivity();
       activity.setCount(getCountFromJson(result));
     }
     else {

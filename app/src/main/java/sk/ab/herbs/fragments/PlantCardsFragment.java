@@ -1,9 +1,9 @@
 package sk.ab.herbs.fragments;
 
-import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ListFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Html;
 import android.text.SpannableString;
@@ -192,7 +192,7 @@ public class PlantCardsFragment extends ListFragment {
                     ImageView drawing = (ImageView) convertView.findViewById(R.id.plant_background);
                     drawing.setImageResource(android.R.color.transparent);
                     if (plant.getBack_url() != null) {
-                        drawing.setImageDrawable(DrawableManager.getDrawableManager().fetchDrawable(plant.getBack_url()));
+                        DrawableManager.getDrawableManager().fetchDrawableOnThread(plant.getBack_url(), drawing);
                     }
 
                     TextView upImage = (TextView) convertView.findViewById(R.id.up_image);
@@ -227,34 +227,6 @@ public class PlantCardsFragment extends ListFragment {
                             leftMargin), 0, ss.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
                     aroundImage.setText(ss);
-
-//                    TextView description = (TextView) convertView.findViewById(R.id.plant_description);
-//                    description.setText(plant.getDescription());
-//
-//                    TextView flower = (TextView) convertView.findViewById(R.id.plant_flower);
-//                    flower.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_flowers),
-//                            plant.getFlower())));
-//
-//                    TextView inflorescence = (TextView) convertView.findViewById(R.id.plant_inflorescence);
-//                    inflorescence.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_inflorescences),
-//                            plant.getInflorescence())));
-//
-//                    TextView fruit = (TextView) convertView.findViewById(R.id.plant_fruit);
-//                    fruit.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_fruits),
-//                            plant.getFruit())));
-//
-//                    TextView leaf = (TextView) convertView.findViewById(R.id.plant_leaf);
-//                    leaf.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_leaves),
-//                            plant.getLeaf())));
-//
-//                    TextView stem = (TextView) convertView.findViewById(R.id.plant_stem);
-//                    stem.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_stem),
-//                            plant.getStem())));
-//
-//                    TextView habitat = (TextView) convertView.findViewById(R.id.plant_habitat);
-//                    habitat.setText(Html.fromHtml(plant.getDescWithHighlight(getResources().getString(R.string.plant_habitat),
-//                            plant.getHabitat())));
-
                     break;
                 case CARD_GALLERY:
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_gallery, parent, false);

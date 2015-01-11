@@ -13,7 +13,7 @@ import android.widget.TextView;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
-import sk.ab.herbs.activities.DisplayPlantActivity;
+import sk.ab.herbs.activities.ListPlantsActivity;
 import sk.ab.tools.DrawableManager;
 import sk.ab.tools.GetResource;
 
@@ -81,11 +81,13 @@ public class PlantListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView lv, View v, int position, long id) {
-        DisplayPlantActivity activity = (DisplayPlantActivity) getActivity();
-        activity.setPlantHeader(activity.getPlants().get(position));
-        activity.getDetailResponder().getDetail();
-        activity.getDrawerLayout().closeDrawers();
-        activity.getDrawerToggle().syncState();
+        ListPlantsActivity activity = (ListPlantsActivity) getActivity();
+        activity.selectPlant(position);
+//        DisplayPlantActivity activity = (DisplayPlantActivity) getActivity();
+//        activity.setPlantHeader(activity.getPlants().get(position));
+//        activity.getDetailResponder().getDetail();
+//        activity.getDrawerLayout().closeDrawers();
+//        activity.getDrawerToggle().syncState();
     }
 
     public void recreateList(List<PlantHeader> plants) {
