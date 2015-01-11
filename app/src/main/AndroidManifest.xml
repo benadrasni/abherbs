@@ -25,6 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".activities.ListPlantsActivity"
+                  android:theme="@style/HerbsActionBarTheme"
+                  android:configChanges="orientation|screenSize|locale"/>
         <activity android:name=".activities.DisplayPlantActivity"
                   android:theme="@style/HerbsActionBarTheme"
                   android:configChanges="orientation|screenSize|locale"/>

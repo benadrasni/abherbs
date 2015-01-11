@@ -10,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+
+import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
+import sk.ab.herbs.activities.FilterPlantsActivity;
 
 public class PropertyListFragment extends ListFragment {
     private PropertyAdapter adapter;
@@ -23,18 +26,15 @@ public class PropertyListFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
         adapter = new PropertyAdapter(getActivity());
 
-        if (getActivity() instanceof BaseActivity) {
-            BaseActivity activity = (BaseActivity) getActivity();
-            for (BaseFilterFragment fragment : activity.getFilterAttributes()) {
-                adapter.add(fragment);
-            }
-
-            adapter.add(new PropertyDivider());
-
-            adapter.add(new Setting(R.string.settings));
-            adapter.add(new Setting(R.string.help));
-            adapter.add(new Setting(R.string.about));
+        for (BaseFilterFragment fragment : ((HerbsApp)getActivity().getApplication()).getFilterAttributes()) {
+            adapter.add(fragment);
         }
+
+        adapter.add(new PropertyDivider());
+
+        adapter.add(new Setting(R.string.settings));
+        adapter.add(new Setting(R.string.help));
+        adapter.add(new Setting(R.string.about));
 
         setListAdapter(adapter);
     }
@@ -44,7 +44,9 @@ public class PropertyListFragment extends ListFragment {
         PropertyItem item = adapter.getItem(position);
         switch (item.getType()) {
             case PropertyItem.TYPE_FILTER:
-                ((BaseActivity) getActivity()).switchContent((BaseFilterFragment)item);
+                if (getActivity() instanceof FilterPlantsActivity) {
+                    ((FilterPlantsActivity) getActivity()).switchContent((BaseFilterFragment) item);
+                }
                 break;
             case PropertyItem.TYPE_SETTING:
                 BaseSetting setting = (BaseSetting)item;

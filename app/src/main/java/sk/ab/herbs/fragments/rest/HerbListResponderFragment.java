@@ -7,9 +7,9 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import sk.ab.commons.BaseActivity;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.PlantHeader;
+import sk.ab.herbs.activities.FilterPlantsActivity;
 import sk.ab.herbs.service.RESTResponderFragment;
 import sk.ab.herbs.service.RESTService;
 import sk.ab.tools.DrawableManager;
@@ -32,7 +32,7 @@ public class HerbListResponderFragment extends RESTResponderFragment {
     private static String TAG = HerbListResponderFragment.class.getName();
 
     public void getList() {
-        BaseActivity activity = (BaseActivity) getActivity();
+        FilterPlantsActivity activity = (FilterPlantsActivity) getActivity();
 
         if (activity != null) {
 
@@ -88,7 +88,7 @@ public class HerbListResponderFragment extends RESTResponderFragment {
     public void onRESTResult(int code, String result) {
 
         if (code == 200 && result != null) {
-            BaseActivity activity = (BaseActivity) getActivity();
+            FilterPlantsActivity activity = (FilterPlantsActivity) getActivity();
             activity.setResults(getListFromJson(result));
         } else {
             Log.e(TAG, "Failed to load data. Check your internet settings.");
