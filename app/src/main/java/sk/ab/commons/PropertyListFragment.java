@@ -46,6 +46,12 @@ public class PropertyListFragment extends ListFragment {
             case PropertyItem.TYPE_FILTER:
                 if (getActivity() instanceof FilterPlantsActivity) {
                     ((FilterPlantsActivity) getActivity()).switchContent((BaseFilterFragment) item);
+                } else {
+                    ((BaseActivity)getActivity()).loading();
+                    Intent intent = new Intent(getActivity(), FilterPlantsActivity.class);
+                    intent.putExtra("position", ((HerbsApp)getActivity().getApplication()).getFilterAttributes().indexOf(item));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                 }
                 break;
             case PropertyItem.TYPE_SETTING:
@@ -55,6 +61,12 @@ public class PropertyListFragment extends ListFragment {
                         Intent intent = new Intent();
                         intent.setClassName(getActivity(), "sk.ab.herbs.activities.UserPreferenceActivity");
                         startActivity(intent);
+                        break;
+                    case R.string.help:
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle(R.string.help)
+                                .setMessage(Html.fromHtml(getString(R.string.help_msg)))
+                                .show();
                         break;
                     case R.string.about:
                         new AlertDialog.Builder(getActivity())

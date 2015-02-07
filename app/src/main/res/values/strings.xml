@@ -19,6 +19,8 @@
     <string name="pref_also_english">Use English</string>
     <string name="pref_also_english_summary">when no text in preferred language exists</string>
     <string name="help">Help</string>
+    <string name="help_msg">&lt;b>Simple press&lt;/b> on count with red background will jump to a list of filtered plants.&lt;br/>
+        &lt;b>Long press&lt;/b> on count will reset filter.&lt;br/></string>
 
     <string name="color_of_flower">color of flowers</string>
     <string name="color_of_flower_message">What\'s color of flowers? Choose the closest one. Don\'t be afraid return back and change selection.</string>
@@ -45,9 +47,12 @@
     <string name="plant_info">Info</string>
     <string name="plant_gallery">Gallery</string>
     <string name="plant_taxonomy">Taxonomy</string>
+    <string name="plant_sources">Sources</string>
     <string name="image_desc">Plant illustration</string>
 
     <string name="plant_title">title</string>
+    <string name="plant_height">Height</string>
+    <string name="plant_flowering">Flowering</string>
     <string name="plant_flowers">Flowers</string>
     <string name="plant_inflorescences">Inflorescence</string>
     <string name="plant_fruits">Fruits</string>

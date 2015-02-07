@@ -3,18 +3,25 @@ package sk.ab.commons;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
+import sk.ab.herbs.R;
 import sk.ab.tools.Utils;
 
 /**
@@ -27,6 +34,8 @@ public abstract class BaseActivity extends ActionBarActivity {
 
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mDrawerToggle;
+    protected Button countButton;
+    protected AnimationDrawable loadingAnimation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +44,25 @@ public abstract class BaseActivity extends ActionBarActivity {
         Tracker tracker = ((HerbsApp)getApplication()).getTracker();
         tracker.setScreenName(this.getClass().getSimpleName());
         tracker.send(new HitBuilders.AppViewBuilder().build());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.filter, menu);
+        MenuItem item = menu.findItem(R.id.count);
+        countButton = (Button) item.getActionView().findViewById(R.id.countButton);
+        loadingAnimation = (AnimationDrawable) getResources().getDrawable(R.drawable.loading);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        countButton.setText("" + ((HerbsApp)getApplication()).getCount());
+        if (((HerbsApp)getApplication()).getCount() <= Constants.LIST_THRESHOLD) {
+            countButton.setBackgroundColor(Color.RED);
+            countButton.setTextColor(Color.WHITE);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -63,5 +91,16 @@ public abstract class BaseActivity extends ActionBarActivity {
     protected void closeDrawer() {
         mDrawerLayout.closeDrawers();
         mDrawerToggle.syncState();
+    }
+
+    protected void loading() {
+        if (countButton != null) {
+            countButton.setEnabled(false);
+            countButton.setText("");
+            countButton.setBackground(loadingAnimation);
+            loadingAnimation.start();
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
     }
 }

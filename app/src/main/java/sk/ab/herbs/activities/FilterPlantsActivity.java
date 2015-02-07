@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,7 +11,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.*;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import sk.ab.commons.BaseActivity;
@@ -39,16 +37,11 @@ import java.util.*;
 public class FilterPlantsActivity extends BaseActivity {
     private Locale locale;
 
-    private Map<Integer, Integer> filter;
-    private int count;
     private BaseFilterFragment mContent;
 
     protected PropertyListFragment mPropertyMenu;
     protected HerbCountResponderFragment countResponder;
     protected HerbListResponderFragment listResponder;
-
-    private Button countButton;
-    private AnimationDrawable loadingAnimation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,8 +50,7 @@ public class FilterPlantsActivity extends BaseActivity {
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
         locale = Utils.changeLocale(this, language);
-        count = preferences.getInt(Constants.COUNT_KEY, Constants.NUMBER_OF_PLANTS);
-        filter = new HashMap<>();
+        ((HerbsApp)getApplication()).setCount(preferences.getInt(Constants.COUNT_KEY, Constants.NUMBER_OF_PLANTS));
 
         setContentView(R.layout.base_activity);
 
@@ -96,10 +88,6 @@ public class FilterPlantsActivity extends BaseActivity {
 
         ft.commit();
 
-        if (mContent == null && getFilterAttributes().size() > 0) {
-            switchContent(getFilterAttributes().get(0));
-        }
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         mDrawerToggle.syncState();
@@ -111,38 +99,40 @@ public class FilterPlantsActivity extends BaseActivity {
 
         if (!locale.equals(Locale.getDefault())) {
             recreate();
+        } else {
+            int position = getCurrentPosition();
+            if (getIntent().getExtras() != null) {
+                position = getIntent().getExtras().getInt("position");
+            }
+            switchContent(getFilterAttributes().get(position));
+            if (!getFilter().isEmpty()) {
+                removeFromFilter();
+            }
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.filter, menu);
-        MenuItem item = menu.findItem(R.id.count);
-        countButton = (Button) item.getActionView().findViewById(R.id.countButton);
+        super.onCreateOptionsMenu(menu);
         countButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadResults();
+                if (((HerbsApp)getApplication()).getCount() <= Constants.LIST_THRESHOLD) {
+                    loadResults();
+                }
             }
         });
         countButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 loading();
-                filter.clear();
+                getFilter().clear();
                 countResponder.getCount();
                 unlockMenu();
                 return true;
             }
         });
-        loadingAnimation = (AnimationDrawable) getResources().getDrawable(R.drawable.loading);
         return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        countButton.setText("" + count);
-        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -167,8 +157,8 @@ public class FilterPlantsActivity extends BaseActivity {
             String str = backEntry.getName();
             Fragment fragment = fm.findFragmentByTag(str);
             if (fragment instanceof BaseFilterFragment) {
-                mContent = (BaseFilterFragment)fragment;
-                getSupportActionBar().setTitle(mContent.getTitle());
+                setCurrentFragment((BaseFilterFragment)fragment);
+                removeFromFilter();
                 closeDrawer();
             }
         }
@@ -185,8 +175,7 @@ public class FilterPlantsActivity extends BaseActivity {
             fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttributeId());
             fragmentTransaction.commit();
 
-            mContent = fragment;
-            getSupportActionBar().setTitle(mContent.getTitle());
+            setCurrentFragment(fragment);
         }
 
         closeDrawer();
@@ -194,27 +183,27 @@ public class FilterPlantsActivity extends BaseActivity {
 
     public void addToFilter(Integer valueId) {
         loading();
-        filter.put(getCurrentFragment().getAttributeId(), valueId);
+        getFilter().put(getCurrentFragment().getAttributeId(), valueId);
         getCurrentFragment().setLock(true);
-
-        int visiblePosition = mPropertyMenu.getListView().getFirstVisiblePosition();
-        int position = getFilterAttributes().indexOf(getCurrentFragment());
-        View v = mPropertyMenu.getListView().getChildAt(position - visiblePosition);
-
-        ImageView checkImageView = (ImageView) v.findViewById(R.id.row_check);
-        checkImageView.setVisibility(View.VISIBLE);
+        mPropertyMenu.getListView().invalidateViews();
 
         countResponder.getCount();
     }
 
+    public void removeFromFilter() {
+        loading();
+        getFilter().remove(getCurrentFragment().getAttributeId());
+        getCurrentFragment().setLock(false);
+        mPropertyMenu.getListView().invalidateViews();
+
+        countResponder.getCount();
+    }
+
+
     public void unlockMenu() {
-        for (int i = mPropertyMenu.getListView().getFirstVisiblePosition(); i <= mPropertyMenu.getListView().getLastVisiblePosition(); i++) {
-            View v = mPropertyMenu.getListView().getChildAt(i);
-            ImageView checkImageView = (ImageView) v.findViewById(R.id.row_check);
-            if (checkImageView != null) {
-                checkImageView.setVisibility(View.GONE);
-            }
-        }
+        for (BaseFilterFragment filterFragment : getFilterAttributes())
+                filterFragment.setLock(false);
+        mPropertyMenu.getListView().invalidateViews();
         switchContent(getFilterAttributes().get(0));
     }
 
@@ -224,8 +213,8 @@ public class FilterPlantsActivity extends BaseActivity {
     }
 
     public void setCount(int count) {
-        this.count = count;
-        if (filter.size() == 0) {
+        ((HerbsApp)getApplication()).setCount(count);
+        if (getFilter().isEmpty()) {
             SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putInt(Constants.COUNT_KEY, count);
@@ -248,21 +237,22 @@ public class FilterPlantsActivity extends BaseActivity {
         return ((HerbsApp)getApplication()).getFilterAttributes();
     }
 
-    public Map<Integer, Integer> getFilter() { return filter; }
+    public Map<Integer, Integer> getFilter() { return ((HerbsApp)getApplication()).getFilter(); }
 
     public BaseFilterFragment getCurrentFragment() {
         return mContent;
     }
 
-    public int getCurrentPosition() { return getFilterAttributes().indexOf(mContent); }
+    public void setCurrentFragment(BaseFilterFragment fragment) {
+        mContent = fragment;
+        getSupportActionBar().setTitle(mContent.getTitle());
+    }
 
-    private void loading() {
-        countButton.setEnabled(false);
-        countButton.setText("");
-        countButton.setBackground(loadingAnimation);
-        loadingAnimation.start();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    public int getCurrentPosition() {
+        int position = 0;
+        if (mContent != null)
+            position = getFilterAttributes().indexOf(mContent);
+        return position;
     }
 }
 
