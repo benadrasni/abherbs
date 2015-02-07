@@ -8,6 +8,7 @@ import com.google.android.gms.analytics.Tracker;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import sk.ab.commons.BaseFilterFragment;
 import sk.ab.herbs.fragments.ColorOfFlowers;
@@ -26,6 +27,8 @@ public class HerbsApp extends Application {
 
     private Tracker tracker;
     private List<BaseFilterFragment> filterAttributes;
+    private Map<Integer, Integer> filter;
+    private int count;
 
     @Override
     public void onCreate() {
@@ -41,6 +44,8 @@ public class HerbsApp extends Application {
         filterAttributes.add(new ColorOfFlowers());
         filterAttributes.add(new Habitats());
         filterAttributes.add(new NumbersOfPetals());
+
+        filter = new HashMap<>();
     }
 
     public synchronized Tracker getTracker() {
@@ -49,5 +54,17 @@ public class HerbsApp extends Application {
 
     public List<BaseFilterFragment> getFilterAttributes() {
         return filterAttributes;
+    }
+
+    public Map<Integer, Integer> getFilter() {
+        return filter;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }

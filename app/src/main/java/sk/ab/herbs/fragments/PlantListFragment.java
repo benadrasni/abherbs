@@ -83,11 +83,6 @@ public class PlantListFragment extends ListFragment {
     public void onListItemClick(ListView lv, View v, int position, long id) {
         ListPlantsActivity activity = (ListPlantsActivity) getActivity();
         activity.selectPlant(position);
-//        DisplayPlantActivity activity = (DisplayPlantActivity) getActivity();
-//        activity.setPlantHeader(activity.getPlants().get(position));
-//        activity.getDetailResponder().getDetail();
-//        activity.getDrawerLayout().closeDrawers();
-//        activity.getDrawerToggle().syncState();
     }
 
     public void recreateList(List<PlantHeader> plants) {

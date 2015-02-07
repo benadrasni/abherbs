@@ -28,6 +28,10 @@ public class Plant implements Parcelable {
     private int plantId;
     private String title;
     private String back_url;
+    private int height_from;
+    private int height_to;
+    private int flowering_from;
+    private int flowering_to;
     private String description;
     private String flower;
     private String fruit;
@@ -43,8 +47,9 @@ public class Plant implements Parcelable {
     private String leaf_arrangement;
     private String stem;
     private String root;
-    private List<String> photo_urls;
     private List<String> names;
+    private List<String> photo_urls;
+    private List<String> source_urls;
     private String domain;
     private String domain_latin;
     private String kingdom;
@@ -72,16 +77,14 @@ public class Plant implements Parcelable {
         this.plantId = plantId;
     }
 
-    public Plant(PlantHeader plantHeader) {
-        this.plantId = plantHeader.getPlantId();
-        this.title = plantHeader.getTitle();
-        this.family = plantHeader.getFamily();
-    }
-
     public Plant(Parcel in) {
         plantId = in.readInt();
         title = in.readString();
         back_url = in.readString();
+        height_from = in.readInt();
+        height_to = in.readInt();
+        flowering_from = in.readInt();
+        flowering_to = in.readInt();
         description = in.readString();
         flower = in.readString();
         fruit = in.readString();
@@ -131,6 +134,12 @@ public class Plant implements Parcelable {
         for(int i=0; i < n; i++) {
             photo_urls.add(in.readString());
         }
+
+        source_urls = new ArrayList<String>();
+        n = in.readInt();
+        for(int i=0; i < n; i++) {
+            source_urls.add(in.readString());
+        }
     }
 
     @Override
@@ -143,6 +152,10 @@ public class Plant implements Parcelable {
         destination.writeInt(plantId);
         destination.writeString(title);
         destination.writeString(back_url);
+        destination.writeInt(height_from);
+        destination.writeInt(height_to);
+        destination.writeInt(flowering_from);
+        destination.writeInt(flowering_to);
         destination.writeString(description);
         destination.writeString(flower);
         destination.writeString(fruit);
@@ -199,6 +212,15 @@ public class Plant implements Parcelable {
             destination.writeInt(0);
         }
 
+        if (source_urls != null) {
+            destination.writeInt(source_urls.size());
+            for(String url : source_urls) {
+                destination.writeString(url);
+            }
+        } else {
+            destination.writeInt(0);
+        }
+
     }
 
     public String getSpeciesShort() {
@@ -243,6 +265,38 @@ public class Plant implements Parcelable {
         this.title = title;
     }
 
+    public int getHeight_from() {
+        return height_from;
+    }
+
+    public void setHeight_from(int height_from) {
+        this.height_from = height_from;
+    }
+
+    public int getHeight_to() {
+        return height_to;
+    }
+
+    public void setHeight_to(int height_to) {
+        this.height_to = height_to;
+    }
+
+    public int getFlowering_from() {
+        return flowering_from;
+    }
+
+    public void setFlowering_from(int flowering_from) {
+        this.flowering_from = flowering_from;
+    }
+
+    public int getFlowering_to() {
+        return flowering_to;
+    }
+
+    public void setFlowering_to(int flowering_to) {
+        this.flowering_to = flowering_to;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -260,7 +314,6 @@ public class Plant implements Parcelable {
     }
 
     public String getFlower() {
-        ;
         return flower;
     }
 
@@ -564,4 +617,11 @@ public class Plant implements Parcelable {
         this.names = names;
     }
 
+    public List<String> getSource_urls() {
+        return source_urls;
+    }
+
+    public void setSource_urls(List<String> source_urls) {
+        this.source_urls = source_urls;
+    }
 }

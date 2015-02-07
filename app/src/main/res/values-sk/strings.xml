@@ -19,6 +19,8 @@
     <string name="pref_also_english_summary">ak text v preferovanom jazyku neexistuje</string>
     <string name="about_msg">&lt;b>ab:herbs&lt;/b> je aplikácia.</string>
     <string name="help">Pomoc</string>
+    <string name="help_msg">&lt;b>Jednoduché stlačenie&lt;/b> počítadla s červeným pozadím zobrazí zoznam vyfiltrovaných rastlín.&lt;br/>
+        &lt;b>Dlhé stlačenie&lt;/b> počítadla vynuluje filter.</string>
 
     <string name="color_of_flower">farba kvetov</string>
     <string name="color_of_flower_message">Akej farby sú kvety? Vyber tú najbližšiu. Vždy sa môžeš vrátiť a vybrať inú.</string>
@@ -48,6 +50,8 @@
     <string name="image_desc">Ilustrácia</string>
 
     <string name="plant_title">názov</string>
+    <string name="plant_height">Výška</string>
+    <string name="plant_flowering">Kvitne</string>
     <string name="plant_flowers">Kvety</string>
     <string name="plant_inflorescences">Súkvetie</string>
     <string name="plant_fruits">Plody</string>

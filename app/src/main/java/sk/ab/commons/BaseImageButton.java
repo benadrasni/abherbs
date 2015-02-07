@@ -62,7 +62,7 @@ public class BaseImageButton extends Button {
                     FilterPlantsActivity host = (FilterPlantsActivity) view.getContext();
                     host.addToFilter(valueId);
 
-                    if (host.getCurrentPosition() == host.getFilterAttributes().size() - 1) {
+                    if (host.getFilterAttributes().size() == host.getFilter().size()) {
                         host.loadResults();
                     } else {
                         for (BaseFilterFragment fragment : host.getFilterAttributes()) {

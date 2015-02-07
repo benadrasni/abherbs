@@ -88,6 +88,18 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
                 if (attributes.has(""+Constants.PLANT_IMAGE_URL+"_0")) {
                     result.setBack_url(attributes.getJSONArray("" + Constants.PLANT_IMAGE_URL + "_0").getString(0));
                 }
+                if (attributes.has(""+Constants.PLANT_HEIGHT_FROM +"_0")) {
+                    result.setHeight_from(attributes.getJSONArray("" + Constants.PLANT_HEIGHT_FROM + "_0").getInt(0));
+                }
+                if (attributes.has(""+Constants.PLANT_HEIGHT_TO +"_0")) {
+                    result.setHeight_to(attributes.getJSONArray("" + Constants.PLANT_HEIGHT_TO + "_0").getInt(0));
+                }
+                if (attributes.has(""+Constants.PLANT_FLOWERING_FROM +"_0")) {
+                    result.setFlowering_from(attributes.getJSONArray("" + Constants.PLANT_FLOWERING_FROM + "_0").getInt(0));
+                }
+                if (attributes.has(""+Constants.PLANT_FLOWERING_TO +"_0")) {
+                    result.setFlowering_to(attributes.getJSONArray("" + Constants.PLANT_FLOWERING_TO + "_0").getInt(0));
+                }
                 if (attributes.has(""+Constants.PLANT_DESCRIPTION +"_0")) {
                     result.setDescription(attributes.getJSONArray("" + Constants.PLANT_DESCRIPTION + "_0").getString(0));
                 }
@@ -160,6 +172,13 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
                 }
                 result.setPhoto_urls(photo_urls);
 
+                rank = 0;
+                List<String> source_urls = new ArrayList<>();
+                while (attributes.has(""+Constants.PLANT_SOURCE_URL+"_"+rank)) {
+                    source_urls.add(attributes.getJSONArray(""+Constants.PLANT_SOURCE_URL+"_"+rank).getString(0));
+                    rank++;
+                }
+                result.setSource_urls(source_urls);
             }
         } catch (JSONException e) {
             Log.e(TAG, "Failed to parse JSON.", e);

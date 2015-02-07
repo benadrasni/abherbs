@@ -11,13 +11,15 @@ import java.util.Map;
  * Time: 20:02
  */
 public class Constants {
-    public final static int NUMBER_OF_PLANTS = 63;
+    public final static int NUMBER_OF_PLANTS = 82;
+    public final static int LIST_THRESHOLD = 20;
 
     public final static Map<String, Integer> LANGUAGES;
     public final static String COUNT_KEY = "count";
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";
+    public final static String HEIGHT_UNIT = "cm";
 
     public final static String REST_ENDPOINT = "http://appsresource.appspot.com/rest/";
     //public final static String REST_ENDPOINT = "http://localhost:8880/rest/";
@@ -37,7 +39,12 @@ public class Constants {
     public final static int PLANT_NAME = 49;
     public final static int PLANT_ALT_NAMES = 398;
     public final static int PLANT_PHOTO_URL = 395;
+    public final static int PLANT_SOURCE_URL = 402;
     public final static int PLANT_IMAGE_URL = 293;
+    public final static int PLANT_HEIGHT_FROM = 403;
+    public final static int PLANT_HEIGHT_TO = 404;
+    public final static int PLANT_FLOWERING_FROM = 405;
+    public final static int PLANT_FLOWERING_TO = 406;
     public final static int PLANT_DESCRIPTION = 400;
     public final static int PLANT_STEM = 290;
     public final static int PLANT_FLOWER = 287;

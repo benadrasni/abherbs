@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
+
+import sk.ab.herbs.Constants;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
 import sk.ab.tools.DrawableManager;
 import sk.ab.tools.Margin;
+import sk.ab.tools.Utils;
 
 public class PlantCardsFragment extends ListFragment {
     private static final String THUMBNAIL_DIR = "/.thumbnails";
@@ -28,6 +32,7 @@ public class PlantCardsFragment extends ListFragment {
     private static final int CARD_TAXONOMY = 0;
     private static final int CARD_INFO = 1;
     private static final int CARD_GALLERY = 2;
+    private static final int CARD_SOURCES = 3;
 
     private int thumbnail_position;
 
@@ -43,6 +48,7 @@ public class PlantCardsFragment extends ListFragment {
         adapter.add(CARD_TAXONOMY);
         adapter.add(CARD_INFO);
         adapter.add(CARD_GALLERY);
+        adapter.add(CARD_SOURCES);
         setListAdapter(adapter);
     }
 
@@ -53,7 +59,12 @@ public class PlantCardsFragment extends ListFragment {
                 setVisibility(v, R.id.plant_taxonomy);
                 v.invalidate();
                 break;
+            case CARD_SOURCES:
+                setVisibility(v, R.id.plant_sources);
+                v.invalidate();
+                break;
         }
+        lv.setSelection(position);
     }
 
     public class ThumbnailAdapter extends RecyclerView.Adapter<ThumbnailAdapter.ViewHolder> {
@@ -195,6 +206,14 @@ public class PlantCardsFragment extends ListFragment {
                         DrawableManager.getDrawableManager().fetchDrawableOnThread(plant.getBack_url(), drawing);
                     }
 
+                    TextView firstRow = (TextView) convertView.findViewById(R.id.first_row);
+                    StringBuilder firstRowText = new StringBuilder();
+                    firstRowText.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_height),
+                            ""+plant.getHeight_from()+"-"+plant.getHeight_to())+" "+Constants.HEIGHT_UNIT+"   ");
+                    firstRowText.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_flowering),
+                            ""+ Utils.getMonthName(plant.getFlowering_from()-1)+"-"+Utils.getMonthName(plant.getFlowering_to() - 1)));
+                    firstRow.setText(Html.fromHtml(firstRowText.toString()));
+
                     TextView upImage = (TextView) convertView.findViewById(R.id.up_image);
                     upImage.setText(plant.getDescription());
 
@@ -249,6 +268,22 @@ public class PlantCardsFragment extends ListFragment {
                     } else if (plant.getPhoto_urls().size() > 0 && plant.getPhoto_urls().get(0) != null) {
                         DrawableManager.getDrawableManager().fetchDrawableOnThread(plant.getPhoto_urls().get(0), image);
                     }
+
+                    break;
+                case CARD_SOURCES:
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_sources, parent, false);
+                    TextView sources = (TextView) convertView.findViewById(R.id.plant_source_urls);
+
+                    String[] source_urls = new String[plant.getSource_urls().size()];
+                    plant.getSource_urls().toArray(source_urls);
+
+                    StringBuilder textUrl = new StringBuilder();
+                    for (String url : source_urls) {
+                        textUrl.append(url);
+                        textUrl.append("<br/>");
+                    }
+
+                    sources.setText(Html.fromHtml(textUrl.toString()));
 
                     break;
             }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import sk.ab.herbs.Constants;
 
+import java.util.Calendar;
 import java.util.Locale;
 
 /**
@@ -30,5 +31,15 @@ public class Utils {
         activity.getBaseContext().getResources().updateConfiguration(config,
                 activity.getBaseContext().getResources().getDisplayMetrics());
         return locale;
+    }
+
+    public static String getMonthName(int monthNumber) {
+        String monthName = "";
+        if(monthNumber>=0 && monthNumber<12) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.MONTH, monthNumber);
+            monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+        }
+        return monthName;
     }
 }

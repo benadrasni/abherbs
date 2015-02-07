@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import sk.ab.commons.BaseActivity;
+import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.fragments.PlantCardsFragment;
@@ -27,8 +28,6 @@ public class DisplayPlantActivity extends BaseActivity {
     static final String STATE_PLANT = "plant";
 
     private Plant plant;
-
-    private Button countButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,9 +74,7 @@ public class DisplayPlantActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.filter, menu);
-        MenuItem item = menu.findItem(R.id.count);
-        countButton = (Button) item.getActionView().findViewById(R.id.countButton);
+        super.onCreateOptionsMenu(menu);
         countButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +84,7 @@ public class DisplayPlantActivity extends BaseActivity {
         countButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                loading();
                 Intent intent = new Intent(DisplayPlantActivity.this, FilterPlantsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -94,12 +92,6 @@ public class DisplayPlantActivity extends BaseActivity {
             }
         });
         return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        countButton.setText("" + 0);
-        return super.onPrepareOptionsMenu(menu);
     }
 
     public Plant getPlant() {
