@@ -215,37 +215,31 @@ public class PlantCardsFragment extends ListFragment {
                     firstRow.setText(Html.fromHtml(firstRowText.toString()));
 
                     TextView upImage = (TextView) convertView.findViewById(R.id.up_image);
-                    upImage.setText(plant.getDescription());
+                    upImage.setText(Html.fromHtml(plant.getDescription()));
 
-                    TextView aroundImage = (TextView) convertView.findViewById(R.id.around_image);
+                    TextView nextToImage = (TextView) convertView.findViewById(R.id.next_to_image);
 
                     StringBuilder text = new StringBuilder();
                     text.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_flowers),
                             plant.getFlower()));
-                    text.append(System.getProperty ("line.separator"));
+                    text.append("<br/>");
                     text.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_inflorescences),
                             plant.getInflorescence()));
-                    text.append(System.getProperty ("line.separator"));
+                    text.append("<br/>");
                     text.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_fruits),
                             plant.getFruit()));
-                    text.append(System.getProperty ("line.separator"));
+                    text.append("<br/>");
                     text.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_leaves),
                             plant.getLeaf()));
-                    text.append(System.getProperty ("line.separator"));
+                    text.append("<br/>");
                     text.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_stem),
                             plant.getStem()));
-                    text.append(System.getProperty ("line.separator"));
-                    text.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_habitat),
-                            plant.getHabitat()));
 
-                    drawing.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                    int leftMargin = drawing.getMeasuredWidth() + 10;
-                    int height = drawing.getMeasuredHeight();
-                    SpannableString ss = new SpannableString(Html.fromHtml(text.toString()));
-                    ss.setSpan(new Margin(height/(int)(aroundImage.getLineHeight()*aroundImage.getLineSpacingMultiplier()+aroundImage.getLineSpacingExtra()),
-                            leftMargin), 0, ss.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+                    nextToImage.setText(Html.fromHtml(text.toString()));
 
-                    aroundImage.setText(ss);
+                    TextView bellowImage = (TextView) convertView.findViewById(R.id.bellow_image);
+                    bellowImage.setText(Html.fromHtml(plant.getDescWithHighlight(getResources()
+                                    .getString(R.string.plant_habitat), plant.getHabitat())));
                     break;
                 case CARD_GALLERY:
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_card_gallery, parent, false);

@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.*;
-import android.widget.ImageView;
 
 import sk.ab.commons.BaseActivity;
 import sk.ab.commons.BaseFilterFragment;
@@ -117,7 +116,8 @@ public class FilterPlantsActivity extends BaseActivity {
         countButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (((HerbsApp)getApplication()).getCount() <= Constants.LIST_THRESHOLD) {
+                if (((HerbsApp)getApplication()).getCount() <= Constants.LIST_THRESHOLD
+                        && ((HerbsApp)getApplication()).getCount() > 0) {
                     loadResults();
                 }
             }

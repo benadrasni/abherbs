@@ -58,7 +58,8 @@ public abstract class BaseActivity extends ActionBarActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         countButton.setText("" + ((HerbsApp)getApplication()).getCount());
-        if (((HerbsApp)getApplication()).getCount() <= Constants.LIST_THRESHOLD) {
+        if (((HerbsApp)getApplication()).getCount() <= Constants.LIST_THRESHOLD
+                && ((HerbsApp)getApplication()).getCount() > 0) {
             countButton.setBackgroundColor(Color.RED);
             countButton.setTextColor(Color.WHITE);
         }
