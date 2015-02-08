@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.FilterPlantsActivity;
@@ -98,9 +99,14 @@ public class PropertyListFragment extends ListFragment {
                     icon.setImageResource(filterFragment.getIconRes());
                     TextView title = (TextView) convertView.findViewById(R.id.row_title);
                     title.setText(filterFragment.getTitle());
-                    ImageView lock = (ImageView) convertView.findViewById(R.id.row_check);
-                    lock.setVisibility(filterFragment.isLock() ? View.VISIBLE : View.INVISIBLE);
-
+                    TextView value = (TextView) convertView.findViewById(R.id.row_value);
+                    Integer valueId = ((HerbsApp)getActivity().getApplication()).getFilter().get(filterFragment.getAttributeId());
+                    if (valueId != null) {
+                        int resId = Constants.getValueResource(getResources(), valueId);
+                        if (resId > 0) {
+                            value.setText(getResources().getText(resId));
+                        }
+                    }
                     break;
                 case PropertyItem.TYPE_DIVIDER:
                     break;

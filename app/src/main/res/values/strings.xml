@@ -23,6 +23,11 @@
         &lt;b>Long press&lt;/b> on count will reset filter.&lt;br/></string>
 
     <string name="color_of_flower">color of flowers</string>
+    <string name="color_white">white</string>
+    <string name="color_yellow">yellow</string>
+    <string name="color_red">red, pink</string>
+    <string name="color_blue">blue, purple</string>
+    <string name="color_green">green, brown, black</string>
     <string name="color_of_flower_message">What\'s color of flowers? Choose the closest one. Don\'t be afraid return back and change selection.</string>
 
     <string name="habitats">habitats</string>
