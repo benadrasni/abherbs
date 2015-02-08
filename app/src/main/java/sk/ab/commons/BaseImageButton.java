@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 
+import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.FilterPlantsActivity;
 
@@ -62,7 +63,8 @@ public class BaseImageButton extends Button {
                     FilterPlantsActivity host = (FilterPlantsActivity) view.getContext();
                     host.addToFilter(valueId);
 
-                    if (host.getFilterAttributes().size() == host.getFilter().size()) {
+                    if (host.getFilterAttributes().size() == host.getFilter().size()
+                            && ((HerbsApp)host.getApplication()).getCount() > 0) {
                         host.loadResults();
                     } else {
                         for (BaseFilterFragment fragment : host.getFilterAttributes()) {
