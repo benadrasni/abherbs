@@ -15,6 +15,7 @@ import java.util.List;
 
 import sk.ab.commons.BaseActivity;
 import sk.ab.commons.BaseFilterFragment;
+import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
@@ -81,6 +82,7 @@ public class ListPlantsActivity extends BaseActivity {
             @Override
             public boolean onLongClick(View v) {
                 loading();
+                ((HerbsApp)getApplication()).getFilter().clear();
                 Intent intent = new Intent(ListPlantsActivity.this, FilterPlantsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
