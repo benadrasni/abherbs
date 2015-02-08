@@ -85,6 +85,7 @@ public class DisplayPlantActivity extends BaseActivity {
             @Override
             public boolean onLongClick(View v) {
                 loading();
+                ((HerbsApp)getApplication()).getFilter().clear();
                 Intent intent = new Intent(DisplayPlantActivity.this, FilterPlantsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
