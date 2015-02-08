@@ -1,5 +1,7 @@
 package sk.ab.herbs;
 
+import android.content.res.Resources;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -73,5 +75,42 @@ public class Constants {
     public static int getLanguage() {
         Integer language = LANGUAGES.get(Locale.getDefault().getLanguage());
         return language == null ? 0 : language;
+    }
+
+    public static int getValueResource(Resources resources, int valueId) {
+        int result = 0;
+        if (valueId == resources.getInteger(R.integer.cof_white)) {
+            result = R.string.color_white;
+        } else if (valueId == resources.getInteger(R.integer.cof_yellow)) {
+            result = R.string.color_yellow;
+        } else if (valueId == resources.getInteger(R.integer.cof_red)) {
+            result = R.string.color_red;
+        } else if (valueId == resources.getInteger(R.integer.cof_blue)) {
+            result = R.string.color_blue;
+        } else if (valueId == resources.getInteger(R.integer.cof_green)) {
+            result = R.string.color_green;
+        } else if (valueId == resources.getInteger(R.integer.ph_meadows)) {
+            result = R.string.habitat_meadow;
+        } else if (valueId == resources.getInteger(R.integer.ph_gardens)) {
+            result = R.string.habitat_garden;
+        } else if (valueId == resources.getInteger(R.integer.ph_moorlands)) {
+            result = R.string.habitat_wetland;
+        } else if (valueId == resources.getInteger(R.integer.ph_woodlands)) {
+            result = R.string.habitat_forest;
+        } else if (valueId == resources.getInteger(R.integer.ph_rocks)) {
+            result = R.string.habitat_rock;
+        } else if (valueId == resources.getInteger(R.integer.ph_trees)) {
+            result = R.string.habitat_tree;
+        } else if (valueId == resources.getInteger(R.integer.nop_4)) {
+            result = R.string.nop_4;
+        } else if (valueId == resources.getInteger(R.integer.nop_5)) {
+            result = R.string.nop_5;
+        } else if (valueId == resources.getInteger(R.integer.nop_many)) {
+            result = R.string.nop_many;
+        } else if (valueId == resources.getInteger(R.integer.nop_bisymmetric)) {
+            result = R.string.nop_bisymmetric;
+        }
+
+        return result;
     }
 }

@@ -23,6 +23,11 @@
         &lt;b>Dlhé stlačenie&lt;/b> počítadla vynuluje filter.</string>
 
     <string name="color_of_flower">farba kvetov</string>
+    <string name="color_white">biela</string>
+    <string name="color_yellow">žltá</string>
+    <string name="color_red">červená, ružová</string>
+    <string name="color_blue">modrá, fialová</string>
+    <string name="color_green">zelená, hnedá, čierna</string>
     <string name="color_of_flower_message">Akej farby sú kvety? Vyber tú najbližšiu. Vždy sa môžeš vrátiť a vybrať inú.</string>
 
     <string name="habitats">lokalita</string>
