@@ -2,7 +2,6 @@ package sk.ab.herbs.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -14,7 +13,6 @@ import android.view.WindowManager;
 import java.util.List;
 
 import sk.ab.commons.BaseActivity;
-import sk.ab.commons.BaseFilterFragment;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.PlantHeader;
