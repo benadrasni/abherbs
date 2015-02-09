@@ -10,7 +10,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.*;
+import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import sk.ab.commons.BaseActivity;
 import sk.ab.commons.BaseFilterFragment;
@@ -22,8 +30,6 @@ import sk.ab.herbs.R;
 import sk.ab.herbs.fragments.rest.HerbCountResponderFragment;
 import sk.ab.herbs.fragments.rest.HerbListResponderFragment;
 import sk.ab.tools.Utils;
-
-import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.

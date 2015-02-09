@@ -4,20 +4,21 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import sk.ab.herbs.Constants;
-import sk.ab.herbs.PlantHeader;
-import sk.ab.herbs.activities.FilterPlantsActivity;
-import sk.ab.herbs.service.RESTResponderFragment;
-import sk.ab.herbs.service.RESTService;
-import sk.ab.tools.DrawableManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import sk.ab.herbs.Constants;
+import sk.ab.herbs.PlantHeader;
+import sk.ab.herbs.activities.FilterPlantsActivity;
+import sk.ab.herbs.service.RESTResponderFragment;
+import sk.ab.herbs.service.RESTService;
 
 
 /**
@@ -123,8 +124,6 @@ public class HerbListResponderFragment extends RESTResponderFragment {
                         url != null ? url.getString(0) : "",
                         family != null ? family.getString(0) : "",
                         family != null ? Integer.parseInt(family.getString(1)) : 0);
-
-                DrawableManager.getDrawableManager().fetchDrawableOnThread(plantHeader.getUrl());
 
                 result.add(plantHeader);
             }

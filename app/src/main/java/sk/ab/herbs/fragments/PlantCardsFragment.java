@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ListFragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +14,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.support.v7.widget.RecyclerView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import sk.ab.herbs.Constants;
+import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
-import sk.ab.tools.DrawableManager;
-import sk.ab.tools.Margin;
 import sk.ab.tools.Utils;
 
 public class PlantCardsFragment extends ListFragment {
@@ -94,8 +92,8 @@ public class PlantCardsFragment extends ListFragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
             final String url = urls[position];
-            DrawableManager.getDrawableManager().fetchDrawableOnThread(getThumbnailUrl(url),
-                    holder.mImageView);
+            ImageLoader.getInstance().displayImage(getThumbnailUrl(url), holder.mImageView,
+                    ((HerbsApp)getActivity().getApplication()).getOptions());
 
             final ImageView imageView = (ImageView) cardGallery.findViewById(R.id.plant_photo);
 
@@ -103,7 +101,8 @@ public class PlantCardsFragment extends ListFragment {
                 @Override
                 public void onClick(View v) {
                     thumbnail_position = position;
-                    DrawableManager.getDrawableManager().fetchDrawableOnThread(url, imageView);
+                    ImageLoader.getInstance().displayImage(url, imageView,
+                            ((HerbsApp)getActivity().getApplication()).getOptions());
                 }
             });
         }
@@ -203,7 +202,9 @@ public class PlantCardsFragment extends ListFragment {
                     ImageView drawing = (ImageView) convertView.findViewById(R.id.plant_background);
                     drawing.setImageResource(android.R.color.transparent);
                     if (plant.getBack_url() != null) {
-                        DrawableManager.getDrawableManager().fetchDrawableOnThread(plant.getBack_url(), drawing);
+                        ImageLoader.getInstance().displayImage(plant.getBack_url(), drawing,
+                                ((HerbsApp)getActivity().getApplication()).getOptions());
+
                     }
 
                     TextView firstRow = (TextView) convertView.findViewById(R.id.first_row);
@@ -258,9 +259,11 @@ public class PlantCardsFragment extends ListFragment {
 
                     ImageView image = (ImageView) convertView.findViewById(R.id.plant_photo);
                     if (plant.getPhoto_urls().size() > thumbnail_position && plant.getPhoto_urls().get(thumbnail_position) != null) {
-                        DrawableManager.getDrawableManager().fetchDrawableOnThread(plant.getPhoto_urls().get(thumbnail_position), image);
+                        ImageLoader.getInstance().displayImage(plant.getPhoto_urls().get(thumbnail_position), image,
+                                ((HerbsApp)getActivity().getApplication()).getOptions());
                     } else if (plant.getPhoto_urls().size() > 0 && plant.getPhoto_urls().get(0) != null) {
-                        DrawableManager.getDrawableManager().fetchDrawableOnThread(plant.getPhoto_urls().get(0), image);
+                        ImageLoader.getInstance().displayImage(plant.getPhoto_urls().get(0), image,
+                                ((HerbsApp)getActivity().getApplication()).getOptions());
                     }
 
                     break;

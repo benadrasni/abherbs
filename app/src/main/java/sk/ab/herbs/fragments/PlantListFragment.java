@@ -10,14 +10,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.List;
+
 import sk.ab.herbs.Constants;
+import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.ListPlantsActivity;
-import sk.ab.tools.DrawableManager;
 import sk.ab.tools.GetResource;
-
-import java.util.List;
 
 public class PlantListFragment extends ListFragment {
 
@@ -53,7 +56,8 @@ public class PlantListFragment extends ListFragment {
             viewHolder.photo.setImageResource(android.R.color.transparent);
 
             if (plantHeader.getUrl() != null) {
-                DrawableManager.getDrawableManager().fetchDrawableOnThread(plantHeader.getUrl(), viewHolder.photo);
+                ImageLoader.getInstance().displayImage(plantHeader.getUrl(), viewHolder.photo,
+                        ((HerbsApp)getActivity().getApplication()).getOptions());
             }
 
             viewHolder.title.setText(plantHeader.getTitle());

@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import sk.ab.herbs.R;
 
 public abstract class BaseFilterFragment extends Fragment implements PropertyItem {
