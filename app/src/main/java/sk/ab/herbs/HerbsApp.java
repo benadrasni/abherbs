@@ -1,9 +1,16 @@
 package sk.ab.herbs;
 
 import android.app.Application;
+import android.content.Context;
+
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +32,8 @@ import sk.ab.herbs.fragments.NumbersOfPetals;
 public class HerbsApp extends Application {
     private static final String PROPERTY_ID = "UA-56892333-1";
 
+    private static DisplayImageOptions options;
+
     private Tracker tracker;
     private List<BaseFilterFragment> filterAttributes;
     private Map<Integer, Integer> filter;
@@ -40,6 +49,8 @@ public class HerbsApp extends Application {
 
         tracker = analytics.newTracker(PROPERTY_ID);
 
+        initImageLoader(getApplicationContext());
+
         filterAttributes = new ArrayList<>();
         filterAttributes.add(new ColorOfFlowers());
         filterAttributes.add(new Habitats());
@@ -50,6 +61,29 @@ public class HerbsApp extends Application {
 
     public synchronized Tracker getTracker() {
         return tracker;
+    }
+
+    public static void initImageLoader(Context context) {
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .denyCacheImageMultipleSizesInMemory()
+                .diskCacheFileNameGenerator(new Md5FileNameGenerator())
+                .diskCacheSize(50 * 1024 * 1024) // 50 Mb
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .writeDebugLogs() // Remove for release app
+                .build();
+
+        ImageLoader.getInstance().init(config);
+
+        options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                .build();
+    }
+
+    public DisplayImageOptions getOptions() {
+        return options;
     }
 
     public List<BaseFilterFragment> getFilterAttributes() {

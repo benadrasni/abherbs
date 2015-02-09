@@ -4,14 +4,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONTokener;
+
+import java.util.Map;
+
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.activities.FilterPlantsActivity;
 import sk.ab.herbs.service.RESTResponderFragment;
 import sk.ab.herbs.service.RESTService;
-
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.

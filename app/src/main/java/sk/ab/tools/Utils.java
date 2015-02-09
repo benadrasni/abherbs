@@ -4,10 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import sk.ab.herbs.Constants;
 
 import java.util.Calendar;
 import java.util.Locale;
+
+import sk.ab.herbs.Constants;
 
 /**
  * Created with IntelliJ IDEA.

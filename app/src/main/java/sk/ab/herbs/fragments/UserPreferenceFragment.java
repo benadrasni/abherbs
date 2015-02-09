@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+
+import java.util.Locale;
+
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.R;
 import sk.ab.tools.Utils;
-
-import java.util.Locale;
 
 /**
  * Created with IntelliJ IDEA.
