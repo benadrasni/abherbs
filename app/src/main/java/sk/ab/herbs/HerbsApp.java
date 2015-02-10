@@ -70,7 +70,6 @@ public class HerbsApp extends Application {
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator())
                 .diskCacheSize(50 * 1024 * 1024) // 50 Mb
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
-                .writeDebugLogs() // Remove for release app
                 .build();
 
         ImageLoader.getInstance().init(config);
