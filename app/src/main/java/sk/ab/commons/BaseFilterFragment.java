@@ -15,7 +15,6 @@ public abstract class BaseFilterFragment extends Fragment implements PropertyIte
     protected int iconRes;
     protected int layout;
     protected int propertyLayout;
-    protected boolean lock;
 
     public BaseFilterFragment() {
         this.propertyLayout = R.layout.property_filter;
@@ -55,13 +54,4 @@ public abstract class BaseFilterFragment extends Fragment implements PropertyIte
     public int getLayout() {
         return layout;
     }
-
-    public boolean isLock() {
-        return lock;
-    }
-
-    public void setLock(boolean lock) {
-        this.lock = lock;
-    }
-
 }

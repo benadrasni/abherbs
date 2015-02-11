@@ -50,10 +50,12 @@ public class PropertyListFragment extends ListFragment {
             case PropertyItem.TYPE_FILTER:
                 if (getActivity() instanceof FilterPlantsActivity) {
                     ((FilterPlantsActivity) getActivity()).switchContent((BaseFilterFragment) item);
+                    ((FilterPlantsActivity) getActivity()).removeFromFilter();
                 } else {
                     ((BaseActivity)getActivity()).loading();
                     Intent intent = new Intent(getActivity(), FilterPlantsActivity.class);
-                    intent.putExtra("position", ((HerbsApp)getActivity().getApplication()).getFilterAttributes().indexOf(item));
+                    intent.putExtra("position", ((HerbsApp)getActivity().getApplication()).getFilterAttributes()
+                            .indexOf(item));
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
@@ -109,6 +111,8 @@ public class PropertyListFragment extends ListFragment {
                         if (resId > 0) {
                             value.setText(getResources().getText(resId));
                         }
+                    } else {
+                        value.setText("");
                     }
                     break;
                 case PropertyItem.TYPE_DIVIDER:
