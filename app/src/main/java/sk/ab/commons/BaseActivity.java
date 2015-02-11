@@ -3,7 +3,6 @@ package sk.ab.commons;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -59,8 +58,8 @@ public abstract class BaseActivity extends ActionBarActivity {
         countButton.setText("" + ((HerbsApp)getApplication()).getCount());
         if (((HerbsApp)getApplication()).getCount() <= Constants.LIST_THRESHOLD
                 && ((HerbsApp)getApplication()).getCount() > 0) {
-            countButton.setBackgroundColor(Color.RED);
-            countButton.setTextColor(Color.WHITE);
+            countButton.setBackground(getResources().getDrawable(R.drawable.right_border));
+            //countButton.setTextColor(Color.WHITE);
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -99,8 +98,8 @@ public abstract class BaseActivity extends ActionBarActivity {
             countButton.setText("");
             countButton.setBackground(loadingAnimation);
             loadingAnimation.start();
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 }

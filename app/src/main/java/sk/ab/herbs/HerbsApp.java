@@ -37,7 +37,7 @@ public class HerbsApp extends Application {
     private Tracker tracker;
     private List<BaseFilterFragment> filterAttributes;
     private Map<Integer, Integer> filter;
-    private int count;
+    private int count = Constants.NUMBER_OF_PLANTS;
 
     @Override
     public void onCreate() {
