@@ -95,9 +95,6 @@ public class FilterPlantsActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         mDrawerToggle.syncState();
-
-        loading();
-        countResponder.getCount();
     }
 
     @Override
@@ -168,7 +165,6 @@ public class FilterPlantsActivity extends BaseActivity {
         super.onBackPressed();
     }
 
-
     public void switchContent(final BaseFilterFragment fragment) {
         if (getCurrentFragment() == null || !getCurrentFragment().equals(fragment)) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -202,7 +198,6 @@ public class FilterPlantsActivity extends BaseActivity {
         mPropertyMenu.getListView().invalidateViews();
     }
 
-
     public void clearFilter() {
         loading();
         getFilter().clear();
@@ -227,6 +222,7 @@ public class FilterPlantsActivity extends BaseActivity {
             countButton.setEnabled(true);
             invalidateOptionsMenu();
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            ((HerbsApp)getApplication()).setLoading(false);
         }
     }
 
@@ -236,6 +232,7 @@ public class FilterPlantsActivity extends BaseActivity {
         startActivity(intent);
         invalidateOptionsMenu();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        ((HerbsApp)getApplication()).setLoading(false);
     }
 
     public List<BaseFilterFragment> getFilterAttributes() {

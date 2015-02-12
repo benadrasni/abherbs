@@ -100,5 +100,6 @@ public class ListPlantsActivity extends BaseActivity {
         startActivity(intent);
         invalidateOptionsMenu();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        ((HerbsApp)getApplication()).setLoading(false);
     }
 }

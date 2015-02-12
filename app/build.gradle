@@ -7,8 +7,8 @@ android {
         applicationId 'sk.ab.herbs'
         minSdkVersion 19
         targetSdkVersion 21
-        versionCode 8
-        versionName "0.8.7-alpha"
+        versionCode 9
+        versionName "0.8.8-alpha"
     }
     buildTypes {
         release {
