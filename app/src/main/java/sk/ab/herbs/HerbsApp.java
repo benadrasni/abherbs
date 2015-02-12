@@ -37,7 +37,8 @@ public class HerbsApp extends Application {
     private Tracker tracker;
     private List<BaseFilterFragment> filterAttributes;
     private Map<Integer, Integer> filter;
-    private int count = Constants.NUMBER_OF_PLANTS;
+    private boolean isLoading;
+    private int count;
 
     @Override
     public void onCreate() {
@@ -99,5 +100,13 @@ public class HerbsApp extends Application {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public boolean isLoading() {
+        return isLoading;
+    }
+
+    public void setLoading(boolean loading) {
+        this.isLoading = loading;
     }
 }

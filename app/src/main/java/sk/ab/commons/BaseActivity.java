@@ -55,11 +55,14 @@ public abstract class BaseActivity extends ActionBarActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        countButton.setText("" + ((HerbsApp)getApplication()).getCount());
-        if (((HerbsApp)getApplication()).getCount() <= Constants.LIST_THRESHOLD
-                && ((HerbsApp)getApplication()).getCount() > 0) {
-            countButton.setBackground(getResources().getDrawable(R.drawable.right_border));
-            //countButton.setTextColor(Color.WHITE);
+        if (((HerbsApp)getApplication()).isLoading()) {
+          loading();
+        } else {
+            countButton.setText("" + ((HerbsApp) getApplication()).getCount());
+            if (((HerbsApp) getApplication()).getCount() <= Constants.LIST_THRESHOLD
+                    && ((HerbsApp) getApplication()).getCount() > 0) {
+                countButton.setBackground(getResources().getDrawable(R.drawable.right_border));
+            }
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -93,6 +96,7 @@ public abstract class BaseActivity extends ActionBarActivity {
     }
 
     protected void loading() {
+        ((HerbsApp)getApplication()).setLoading(true);
         if (countButton != null) {
             countButton.setEnabled(false);
             countButton.setText("");
