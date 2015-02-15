@@ -62,9 +62,9 @@ public class PlantListFragment extends ListFragment {
 
             viewHolder.title.setText(plantHeader.getTitle());
             viewHolder.family.setText(plantHeader.getFamily());
-            viewHolder.familyIcon.setImageResource(GetResource.getResourceDrawable(Constants.FAMILY +
-                    Constants.RESOURCE_SEPARATOR + plantHeader.getFamilyId(), getActivity().getBaseContext(),
-                    R.drawable.home));
+            ImageLoader.getInstance().displayImage(Constants.STORAGE_ENDPOINT + Constants.FAMILY +
+                            Constants.RESOURCE_SEPARATOR + plantHeader.getFamilyId() + Constants.DEFAULT_EXTENSION,
+                    viewHolder.familyIcon, ((HerbsApp)getActivity().getApplication()).getOptions());
 
             return convertView;
         }
