@@ -13,7 +13,6 @@ import java.util.Map;
  * Time: 20:02
  */
 public class Constants {
-    public final static int NUMBER_OF_PLANTS = 82;
     public final static int LIST_THRESHOLD = 20;
 
     public final static Map<String, Integer> LANGUAGES;
@@ -22,8 +21,10 @@ public class Constants {
     public final static String LANGUAGE_SK = "sk";
     public final static String HEIGHT_UNIT = "cm";
 
+    public final static String STORAGE_ENDPOINT = "http://storage.googleapis.com/abherbs/.families/";
+    public final static String DEFAULT_EXTENSION = ".webp";
+
     public final static String REST_ENDPOINT = "http://appsresource.appspot.com/rest/";
-    //public final static String REST_ENDPOINT = "http://localhost:8880/rest/";
     public final static String REST_COUNT = "count";
     public final static String REST_LIST = "list";
     public final static String REST_DETAIL = "detail";
