@@ -27,7 +27,7 @@
             android:textAppearance="@android:style/TextAppearance.Holo.Small"
             android:textColor="@color/CardText"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -35,28 +35,32 @@
                 android:id="@+id/next_to_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:textAppearance="@android:style/TextAppearance.Small"
                 android:textColor="@color/CardText"/>
 
+            <LinearLayout
+                android:id="@+id/plant_background_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/plant_background"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/image_desc"
                 android:paddingBottom="@dimen/list_padding"
                 android:paddingTop="@dimen/list_padding"
-                android:scaleType="fitCenter"/>
+                android:scaleType="fitStart"/>
+            </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/bellow_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@android:style/TextAppearance.Holo.Small"
-            android:textColor="@color/CardText"/>
+        <!--<TextView-->
+            <!--android:id="@+id/bellow_image"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="@android:style/TextAppearance.Holo.Small"-->
+            <!--android:background="@color/primary_dark_material_dark"-->
+            <!--android:textColor="@color/CardText"/>-->
 
     </LinearLayout>
 
