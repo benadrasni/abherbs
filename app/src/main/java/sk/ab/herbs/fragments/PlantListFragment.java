@@ -20,7 +20,6 @@ import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.ListPlantsActivity;
-import sk.ab.tools.GetResource;
 
 public class PlantListFragment extends ListFragment {
 
