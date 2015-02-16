@@ -7,12 +7,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ScrollView;
 
 import sk.ab.commons.BaseActivity;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
-import sk.ab.herbs.fragments.PlantCardsFragment;
+import sk.ab.herbs.fragments.GalleryFragment;
+import sk.ab.herbs.fragments.InfoFragment;
+import sk.ab.herbs.fragments.SourcesFragment;
+import sk.ab.herbs.fragments.TaxonomyFragment;
 
 /**
  * Created with IntelliJ IDEA.
@@ -45,12 +49,6 @@ public class DisplayPlantActivity extends BaseActivity {
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        PlantCardsFragment plantCardsFragment = new PlantCardsFragment();
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.plant_content_frame, plantCardsFragment);
-        ft.commit();
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         mDrawerToggle.syncState();
@@ -61,6 +59,21 @@ public class DisplayPlantActivity extends BaseActivity {
         super.onStart();
         plant = getIntent().getExtras().getParcelable("plant");
         getSupportActionBar().setTitle(R.string.display_info);
+
+        TaxonomyFragment taxonomyFragment = new TaxonomyFragment();
+        InfoFragment infoFragment = new InfoFragment();
+        GalleryFragment galleryFragment = new GalleryFragment();
+        SourcesFragment sourcesFragment = new SourcesFragment();
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.taxonomy_fragment, taxonomyFragment);
+        ft.replace(R.id.info_fragment, infoFragment);
+        ft.replace(R.id.gallery_fragment, galleryFragment);
+        ft.replace(R.id.sources_fragment, sourcesFragment);
+        ft.commit();
+
+        ScrollView scrollview = ((ScrollView) findViewById(R.id.scrollview));
+        scrollview.scrollTo(0, 0);
     }
 
     @Override

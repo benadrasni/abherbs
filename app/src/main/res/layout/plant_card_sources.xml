@@ -37,14 +37,20 @@
                         android:layout_gravity="center"
                         android:background="@color/CardShadowStart"/>
 
-                <TextView android:id="@+id/plant_source_urls"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="start"
-                          android:autoLink="web"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
+                <GridLayout android:id="@+id/plant_source_grid"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:columnCount="3">
+                </GridLayout>
+
+                <!--<TextView android:id="@+id/plant_source_urls"-->
+                          <!--android:layout_width="wrap_content"-->
+                          <!--android:layout_height="wrap_content"-->
+                          <!--android:layout_gravity="center"-->
+                          <!--android:gravity="start"-->
+                          <!--android:autoLink="web"-->
+                          <!--android:textAppearance="@android:style/TextAppearance.Small"-->
+                          <!--android:textColor="@color/CardText"/>-->
 
             </LinearLayout>
         </LinearLayout>
