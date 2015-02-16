@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.view.View;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -42,5 +43,14 @@ public class Utils {
             monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
         }
         return monthName;
+    }
+
+    public static void setVisibility(View v, int resId) {
+        View view = v.findViewById(resId);
+        if (view.isShown()) {
+            view.setVisibility(View.GONE);
+        } else {
+            view.setVisibility(View.VISIBLE);
+        }
     }
 }

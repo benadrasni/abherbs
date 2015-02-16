@@ -33,6 +33,9 @@
     <dimen name="thumbnail_photo_width">60dp</dimen>
     <dimen name="thumbnail_photo_height">60dp</dimen>
 
+    <dimen name="source_icon_width">100dp</dimen>
+    <dimen name="source_icon_height">100dp</dimen>
+
     <dimen name="attr_padding">20dp</dimen>
     <dimen name="taxonomy_padding">10dp</dimen>
     <dimen name="taxonomy_padding1">12dp</dimen>
