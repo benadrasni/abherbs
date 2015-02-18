@@ -46,7 +46,7 @@ public class SourcesFragment extends Fragment {
             getView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Utils.setVisibility(v, R.id.plant_sources);
+                    Utils.setVisibility(v, R.id.plant_source_grid);
                     final ScrollView scrollview = ((ScrollView) getActivity().findViewById(R.id.scrollview));
                     scrollview.post(new Runnable() {
                         @Override

@@ -176,8 +176,6 @@ public class FilterPlantsActivity extends BaseActivity {
 
             setCurrentFragment(fragment);
         }
-
-        closeDrawer();
     }
 
     public void addToFilter(Integer valueId) {

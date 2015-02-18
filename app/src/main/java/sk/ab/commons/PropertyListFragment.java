@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
+import sk.ab.herbs.activities.DisplayPlantActivity;
 import sk.ab.herbs.activities.FilterPlantsActivity;
 
 public class PropertyListFragment extends ListFragment {
@@ -69,21 +72,16 @@ public class PropertyListFragment extends ListFragment {
                         startActivity(intent);
                         break;
                     case R.string.help:
-                        new AlertDialog.Builder(getActivity())
-                                .setTitle(R.string.help)
-                                .setMessage(Html.fromHtml(getString(R.string.help_msg)))
-                                .show();
-                        break;
                     case R.string.about:
-                        new AlertDialog.Builder(getActivity())
-                                .setTitle(R.string.about)
-                                .setMessage(Html.fromHtml(getString(R.string.about_msg)))
-                                .show();
+                        intent = new Intent();
+                        intent.putExtra("title", setting.getTitle());
+                        intent.setClassName(getActivity(), "sk.ab.commons.HtmlActivity");
+                        startActivity(intent);
                         break;
                 }
                 break;
         }
-
+        ((BaseActivity)getActivity()).closeDrawer();
     }
 
     public class PropertyAdapter extends ArrayAdapter<PropertyItem> {

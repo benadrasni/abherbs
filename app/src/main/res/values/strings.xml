@@ -3,8 +3,7 @@
     <string name="app_name">What\'s those flowers?</string>
 
     <string name="about">About</string>
-    <string name="about_msg">&lt;b>ab:herbs&lt;/b> is an application.</string>
-    <string name="clear">Clear filter</string>
+    <string name="help">Help</string>
     <string name="settings">Settings</string>
     <string name="pref_language">Preferred language</string>
     <string name="pref_language_summary"/>
@@ -18,9 +17,6 @@
     </string-array>
     <string name="pref_also_english">Use English</string>
     <string name="pref_also_english_summary">when no text in preferred language exists</string>
-    <string name="help">Help</string>
-    <string name="help_msg">&lt;b>Simple press&lt;/b> on count with red background will jump to a list of filtered plants.&lt;br/>
-        &lt;b>Long press&lt;/b> on count will reset filter.&lt;br/></string>
 
     <string name="color_of_flower">color of flowers</string>
     <string name="color_white">white</string>

@@ -19,6 +19,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import sk.ab.herbs.Constants;
+import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
@@ -95,7 +96,8 @@ public class InfoFragment extends Fragment {
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         if (plant.getBack_url() != null) {
-            ImageLoader.getInstance().displayImage(plant.getBack_url(), drawing, new SimpleImageLoadingListener() {
+            ImageLoader.getInstance().displayImage(plant.getBack_url(), drawing,
+                    ((HerbsApp)getActivity().getApplication()).getOptions(), new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     int leftMargin = loadedImage.getWidth() + 10;

@@ -2,63 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:paddingTop="@dimen/list_padding"
+              android:orientation="horizontal"
               android:paddingLeft="@dimen/list_padding"
               android:paddingRight="@dimen/list_padding"
-              android:orientation="horizontal">
+              android:paddingBottom="@dimen/list_padding">
 
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/plantSourcesLayout"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_width="match_parent">
+            android:background="@color/CardsForeground"
+            android:orientation="vertical"
+            android:padding="@dimen/list_padding">
 
-        <LinearLayout android:id="@+id/plantSourcesLayout"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="vertical"
-                      android:background="@color/CardsForeground"
-                      android:padding="@dimen/list_padding">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/plant_sources"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textColor="@color/CardTitle"/>
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_gravity="center"
-                      android:gravity="center"
-                      android:text="@string/plant_sources"
-                      android:textAppearance="@android:style/TextAppearance.Large"
-                      android:textColor="@color/CardTitle"/>
-
-            <LinearLayout android:id="@+id/plant_sources"
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:orientation="vertical"
-                          android:visibility="gone">
-
-                <View   android:layout_width="1dp"
-                        android:layout_height="@dimen/card_taxonomy_separator_height"
-                        android:layout_gravity="center"
-                        android:background="@color/CardShadowStart"/>
-
-                <GridLayout android:id="@+id/plant_source_grid"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:columnCount="3">
-                </GridLayout>
-
-                <!--<TextView android:id="@+id/plant_source_urls"-->
-                          <!--android:layout_width="wrap_content"-->
-                          <!--android:layout_height="wrap_content"-->
-                          <!--android:layout_gravity="center"-->
-                          <!--android:gravity="start"-->
-                          <!--android:autoLink="web"-->
-                          <!--android:textAppearance="@android:style/TextAppearance.Small"-->
-                          <!--android:textColor="@color/CardText"/>-->
-
-            </LinearLayout>
+            <GridLayout
+                android:id="@+id/plant_source_grid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="gone"
+                android:columnCount="3">
+            </GridLayout>
         </LinearLayout>
 
-        <View android:id="@+id/bottomSources"
-              android:layout_width="match_parent"
-              android:layout_height="5dp"
-              android:layout_below="@+id/plantSourcesLayout"
-              android:background="@drawable/list_item_shadow_bottom"/>
+        <View
+            android:id="@+id/bottomSources"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@+id/plantSourcesLayout"
+            android:background="@drawable/list_item_shadow_bottom"/>
     </RelativeLayout>
 </LinearLayout>
