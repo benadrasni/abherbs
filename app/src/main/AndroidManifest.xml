@@ -37,5 +37,9 @@
                 android:theme="@style/Theme.Settings"
                 android:label="@string/settings">
         </activity>
+        <activity
+            android:name="sk.ab.commons.HtmlActivity"
+            android:theme="@style/Theme.Settings">
+        </activity>
     </application>
 </manifest>

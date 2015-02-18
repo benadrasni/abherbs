@@ -3,7 +3,7 @@
     <string name="app_name">Čo to tu kvitne?</string>
 
     <string name="about">O aplikácii</string>
-    <string name="clear">Zmaž filter</string>
+    <string name="help">Pomoc</string>
     <string name="settings">Nastavenia</string>
     <string name="pref_language">Preferovaný jazyk</string>
     <string name="pref_language_summary"/>
@@ -17,10 +17,6 @@
     </string-array>
     <string name="pref_also_english">Zobraz anglický text</string>
     <string name="pref_also_english_summary">ak text v preferovanom jazyku neexistuje</string>
-    <string name="about_msg">&lt;b>ab:herbs&lt;/b> je aplikácia.</string>
-    <string name="help">Pomoc</string>
-    <string name="help_msg">&lt;b>Jednoduché stlačenie&lt;/b> počítadla s červeným pozadím zobrazí zoznam vyfiltrovaných rastlín.&lt;br/>
-        &lt;b>Dlhé stlačenie&lt;/b> počítadla vynuluje filter.</string>
 
     <string name="color_of_flower">farba kvetov</string>
     <string name="color_white">biela</string>

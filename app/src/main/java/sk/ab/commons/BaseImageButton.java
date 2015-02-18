@@ -59,14 +59,15 @@ public class BaseImageButton extends Button {
             public void onClick(View view) {
                 if (view.getContext() instanceof FilterPlantsActivity) {
                     FilterPlantsActivity host = (FilterPlantsActivity) view.getContext();
-                    host.addToFilter(valueId);
 
-                    if (host.getFilterAttributes().size() > host.getFilter().size()
-                            && ((HerbsApp)host.getApplication()).getCount() > 0) {
-                        for (BaseFilterFragment fragment : host.getFilterAttributes()) {
-                            if (host.getFilter().get(fragment.getAttributeId()) == null) {
-                                host.switchContent(fragment);
-                                break;
+                    if (((HerbsApp)host.getApplication()).getCount() > 0) {
+                        host.addToFilter(valueId);
+                        if (host.getFilterAttributes().size() > host.getFilter().size()) {
+                            for (BaseFilterFragment fragment : host.getFilterAttributes()) {
+                                if (host.getFilter().get(fragment.getAttributeId()) == null) {
+                                    host.switchContent(fragment);
+                                    break;
+                                }
                             }
                         }
                     }

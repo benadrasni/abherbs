@@ -91,6 +91,7 @@ public class ListPlantsActivity extends BaseActivity {
     }
 
     public void selectPlant(int position) {
+        loading();
         detailResponder.getDetail(plants.get(position).getPlantId());
     }
 
