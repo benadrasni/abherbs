@@ -5,10 +5,10 @@ android {
     buildToolsVersion "21.1.2"
     defaultConfig {
         applicationId 'sk.ab.herbs'
-        minSdkVersion 19
+        minSdkVersion 17
         targetSdkVersion 21
-        versionCode 13
-        versionName "0.9.2-alpha"
+        versionCode 14
+        versionName "0.9.3-alpha"
     }
     buildTypes {
         release {
