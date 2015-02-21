@@ -35,11 +35,13 @@
         <activity
                 android:name="sk.ab.herbs.activities.UserPreferenceActivity"
                 android:theme="@style/Theme.Settings"
-                android:label="@string/settings">
+                android:label="@string/settings"
+                android:configChanges="orientation|screenSize|locale">
         </activity>
         <activity
             android:name="sk.ab.commons.HtmlActivity"
-            android:theme="@style/Theme.Settings">
+            android:theme="@style/Theme.Settings"
+            android:configChanges="orientation|screenSize|locale">
         </activity>
     </application>
 </manifest>
