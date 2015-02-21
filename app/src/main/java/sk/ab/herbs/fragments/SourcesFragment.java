@@ -32,6 +32,7 @@ public class SourcesFragment extends Fragment {
     private static final String SOURCE_LUONTOPORTTI = "luontoportti.com";
     private static final String SOURCE_WIKIMEDIA = "wikimedia.org";
     private static final String SOURCE_BOTANY = "botany.cz";
+    private static final String SOURCE_FLORANORDICA = "floranordica.org";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,6 +84,9 @@ public class SourcesFragment extends Fragment {
             } else if (url.contains(SOURCE_BOTANY)) {
                 image.setImageDrawable(getResources().getDrawable(R.drawable.botany));
                 text.setText(SOURCE_BOTANY);
+            } else if (url.contains(SOURCE_FLORANORDICA)) {
+                image.setImageDrawable(getResources().getDrawable(R.drawable.floranordica));
+                text.setText(SOURCE_FLORANORDICA);
             }
 
             image.setOnClickListener(new View.OnClickListener() {
