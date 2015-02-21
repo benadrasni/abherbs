@@ -1,5 +1,8 @@
 package sk.ab.herbs.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,9 +14,11 @@ import android.widget.LinearLayout;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 import sk.ab.herbs.fragments.UserPreferenceFragment;
+import sk.ab.tools.Utils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,6 +43,15 @@ public class UserPreferenceActivity extends PreferenceActivity {
                 new UserPreferenceFragment()).commit();
 
         mActionBar.setTitle(R.string.settings);
+    }
+
+    @Override
+    public void onConfigurationChanged (Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
+        Utils.changeLocale(this, language);
     }
 
     @Override

@@ -1,9 +1,11 @@
 package sk.ab.commons;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -11,8 +13,10 @@ import com.google.android.gms.analytics.Tracker;
 
 import java.util.Locale;
 
+import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
+import sk.ab.tools.Utils;
 
 /**
  *
@@ -61,5 +65,14 @@ public class HtmlActivity extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onConfigurationChanged (Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
+        Utils.changeLocale(this, language);
     }
 }
