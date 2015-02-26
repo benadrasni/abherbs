@@ -52,8 +52,10 @@
     <string name="image_desc">Plant illustration</string>
 
     <string name="plant_title">title</string>
-    <string name="plant_height">Height</string>
-    <string name="plant_flowering">Flowering</string>
+    <string name="plant_height_from">Height from</string>
+    <string name="plant_height_to">to</string>
+    <string name="plant_flowering_from">Flowering from</string>
+    <string name="plant_flowering_to">to</string>
     <string name="plant_flowers">Flowers</string>
     <string name="plant_inflorescences">Inflorescence</string>
     <string name="plant_fruits">Fruits</string>

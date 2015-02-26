@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import java.util.List;
+import java.util.Locale;
 
 import sk.ab.commons.BaseActivity;
 import sk.ab.herbs.HerbsApp;
@@ -59,18 +60,19 @@ public class ListPlantsActivity extends BaseActivity {
         ft.replace(R.id.list_content, mResultList);
 
         ft.commit();
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        mDrawerToggle.syncState();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        plants = getIntent().getExtras().getParcelableArrayList("results");
-        getSupportActionBar().setTitle(R.string.list_info);
-        mResultList.recreateList(plants);
+
+        if (!locale.equals(Locale.getDefault())) {
+            recreate();
+        } else {
+            plants = getIntent().getExtras().getParcelableArrayList("results");
+            getSupportActionBar().setTitle(R.string.list_info);
+            mResultList.recreateList(plants);
+        }
     }
 
     @Override

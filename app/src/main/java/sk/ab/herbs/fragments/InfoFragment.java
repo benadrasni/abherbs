@@ -54,10 +54,18 @@ public class InfoFragment extends Fragment {
     private void setInfo(Plant plant, View convertView) {
         TextView firstRow = (TextView) convertView.findViewById(R.id.first_row);
         StringBuilder firstRowText = new StringBuilder();
-        firstRowText.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_height),
-                ""+plant.getHeight_from()+"-"+plant.getHeight_to())+" "+ Constants.HEIGHT_UNIT+"   ");
-        firstRowText.append(plant.getDescWithHighlight(getResources().getString(R.string.plant_flowering),
-                ""+ Utils.getMonthName(plant.getFlowering_from()-1)+"-"+Utils.getMonthName(plant.getFlowering_to() - 1)));
+
+        firstRowText.append(getResources().getString(R.string.plant_height_from));
+        firstRowText.append(" <b>" + plant.getHeight_from()  + "</b>");
+        firstRowText.append(" " + getResources().getString(R.string.plant_height_to));
+        firstRowText.append(" "  + "<b>" + plant.getHeight_to() + "</b>");
+        firstRowText.append(" " + Constants.HEIGHT_UNIT+". ");
+
+        firstRowText.append(getResources().getString(R.string.plant_flowering_from));
+        firstRowText.append(" <b>" + Utils.getMonthName(plant.getFlowering_from()-1)  + "</b>");
+        firstRowText.append(" " + getResources().getString(R.string.plant_flowering_to));
+        firstRowText.append(" "  + "<b>" + Utils.getMonthName(plant.getFlowering_to() - 1) + "</b>.");
+
         firstRow.setText(Html.fromHtml(firstRowText.toString()));
 
         if (plant.getDescription() != null) {

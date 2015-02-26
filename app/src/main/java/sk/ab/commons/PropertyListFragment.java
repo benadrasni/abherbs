@@ -1,13 +1,9 @@
 package sk.ab.commons;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +15,6 @@ import android.widget.TextView;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
-import sk.ab.herbs.activities.DisplayPlantActivity;
 import sk.ab.herbs.activities.FilterPlantsActivity;
 
 public class PropertyListFragment extends ListFragment {
@@ -52,8 +47,12 @@ public class PropertyListFragment extends ListFragment {
         switch (item.getType()) {
             case PropertyItem.TYPE_FILTER:
                 if (getActivity() instanceof FilterPlantsActivity) {
-                    ((FilterPlantsActivity) getActivity()).switchContent((BaseFilterFragment) item);
-                    ((FilterPlantsActivity) getActivity()).removeFromFilter();
+                    FilterPlantsActivity activity = (FilterPlantsActivity) getActivity();
+                    BaseFilterFragment fragment = (BaseFilterFragment) item;
+                    if (!activity.getCurrentFragment().equals(fragment)) {
+                        activity.switchContent(fragment);
+                        activity.removeFromFilter(fragment.getAttributeId());
+                    }
                 } else {
                     ((BaseActivity)getActivity()).loading();
                     Intent intent = new Intent(getActivity(), FilterPlantsActivity.class);

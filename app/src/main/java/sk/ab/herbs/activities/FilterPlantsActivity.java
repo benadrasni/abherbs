@@ -1,8 +1,6 @@
 package sk.ab.herbs.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,7 +15,6 @@ import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import sk.ab.commons.BaseActivity;
@@ -29,7 +26,6 @@ import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 import sk.ab.herbs.fragments.rest.HerbCountResponderFragment;
 import sk.ab.herbs.fragments.rest.HerbListResponderFragment;
-import sk.ab.tools.Utils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -40,9 +36,9 @@ import sk.ab.tools.Utils;
  * Activity for filtering plants
  */
 public class FilterPlantsActivity extends BaseActivity {
-    private Locale locale;
 
     private BaseFilterFragment mContent;
+    private boolean ignoreBack;
 
     protected PropertyListFragment mPropertyMenu;
     protected HerbCountResponderFragment countResponder;
@@ -51,10 +47,6 @@ public class FilterPlantsActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(null);
-
-        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
-        locale = Utils.changeLocale(this, language);
 
         setContentView(R.layout.base_activity);
 
@@ -91,26 +83,24 @@ public class FilterPlantsActivity extends BaseActivity {
         }
 
         ft.commit();
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        mDrawerToggle.syncState();
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        if (!locale.equals(Locale.getDefault())) {
-            recreate();
-        } else {
-            int position = getCurrentPosition();
-            if (getIntent().getExtras() != null) {
-                position = getIntent().getExtras().getInt("position");
-            }
-            switchContent(getFilterAttributes().get(position));
-            removeFromFilter();
+        int position = getCurrentPosition();
+        if (getIntent().getExtras() != null) {
+            position = getIntent().getExtras().getInt("position");
         }
+
+        if (getCurrentFragment() == null) {
+            loading();
+            countResponder.getCount();
+        }
+
+        switchContent(getFilterAttributes().get(position));
+        removeFromFilter(getCurrentFragment().getAttributeId());
     }
 
     @Override
@@ -150,24 +140,30 @@ public class FilterPlantsActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        FragmentManager fm = getSupportFragmentManager();
-        int count = fm.getBackStackEntryCount();
-        if (count > 0) {
-            FragmentManager.BackStackEntry backEntry = fm.getBackStackEntryAt(count-1);
-            String str = backEntry.getName();
-            Fragment fragment = fm.findFragmentByTag(str);
-            if (fragment instanceof BaseFilterFragment) {
-                setCurrentFragment((BaseFilterFragment)fragment);
-                removeFromFilter();
-                closeDrawer();
+        if (ignoreBack) {
+            ignoreBack = false;
+            removeFromFilter(getCurrentFragment().getAttributeId());
+        } else {
+            FragmentManager fm = getSupportFragmentManager();
+            int count = fm.getBackStackEntryCount();
+            if (count > 0) {
+                FragmentManager.BackStackEntry backEntry = fm.getBackStackEntryAt(count - 1);
+                String str = backEntry.getName();
+                Fragment fragment = fm.findFragmentByTag(str);
+                if (fragment instanceof BaseFilterFragment) {
+                    setCurrentFragment((BaseFilterFragment) fragment);
+                    removeFromFilter(Integer.parseInt(str));
+                }
             }
+            closeDrawer();
+            super.onBackPressed();
         }
-        super.onBackPressed();
     }
 
     public void switchContent(final BaseFilterFragment fragment) {
         if (getCurrentFragment() == null || !getCurrentFragment().equals(fragment)) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
             if (getCurrentFragment() != null) {
                 fragmentTransaction.addToBackStack(getCurrentFragment().getTag());
             }
@@ -187,13 +183,13 @@ public class FilterPlantsActivity extends BaseActivity {
         mPropertyMenu.getListView().invalidateViews();
     }
 
-    public void removeFromFilter() {
-        loading();
-        getFilter().remove(getCurrentFragment().getAttributeId());
-
-        countResponder.getCount();
-
-        mPropertyMenu.getListView().invalidateViews();
+    public void removeFromFilter(int attrId) {
+        if (getFilter().get(attrId) != null) {
+            loading();
+            getFilter().remove(attrId);
+            countResponder.getCount();
+            mPropertyMenu.getListView().invalidateViews();
+        }
     }
 
     public void clearFilter() {
@@ -212,15 +208,30 @@ public class FilterPlantsActivity extends BaseActivity {
     }
 
     public void setCount(int count) {
-        ((HerbsApp)getApplication()).setCount(count);
+        HerbsApp app = (HerbsApp)getApplication();
+        app.setCount(count);
+        ignoreBack = false;
 
-        if (getFilterAttributes().size() == getFilter().size() && ((HerbsApp)getApplication()).getCount() > 0) {
+        if (getFilterAttributes().size() == getFilter().size() && app.getCount() > 0) {
             loadResults();
         } else {
+            if (app.getCount() == 0) {
+                ignoreBack = true;
+            } else {
+                if (getFilter().get(getCurrentFragment().getAttributeId()) != null
+                        && getFilterAttributes().size() > getFilter().size()) {
+                    for (BaseFilterFragment fragment : getFilterAttributes()) {
+                        if (getFilter().get(fragment.getAttributeId()) == null) {
+                            switchContent(fragment);
+                            break;
+                        }
+                    }
+                }
+            }
             countButton.setEnabled(true);
             invalidateOptionsMenu();
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            ((HerbsApp)getApplication()).setLoading(false);
+            app.setLoading(false);
         }
     }
 
