@@ -136,6 +136,7 @@ public class FilterPlantsActivity extends BaseActivity {
                 getLayoutInflater().inflate(filterFragment.getLayout(), viewGroup);
             }
         }
+        mPropertyMenu.getListView().invalidateViews();
     }
 
     @Override
