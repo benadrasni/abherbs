@@ -17,6 +17,8 @@ import android.widget.Button;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import java.util.Locale;
+
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
@@ -29,6 +31,7 @@ import sk.ab.tools.Utils;
  * Base Activity
  */
 public abstract class BaseActivity extends ActionBarActivity {
+    protected static Locale locale;
 
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mDrawerToggle;
@@ -42,9 +45,32 @@ public abstract class BaseActivity extends ActionBarActivity {
         Tracker tracker = ((HerbsApp)getApplication()).getTracker();
         tracker.setScreenName(this.getClass().getSimpleName());
         tracker.send(new HitBuilders.AppViewBuilder().build());
+
+        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
+        locale = Utils.changeLocale(this, language);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     @Override
+    public void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (!locale.equals(Locale.getDefault())) {
+            onConfigurationChanged(getResources().getConfiguration());
+        }
+    }
+
+        @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.filter, menu);
         MenuItem item = menu.findItem(R.id.count);
@@ -55,12 +81,12 @@ public abstract class BaseActivity extends ActionBarActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (((HerbsApp)getApplication()).isLoading()) {
+        HerbsApp app = (HerbsApp)getApplication();
+        if (app.isLoading()) {
           loading();
         } else {
-            countButton.setText("" + ((HerbsApp) getApplication()).getCount());
-            if (((HerbsApp) getApplication()).getCount() <= Constants.LIST_THRESHOLD
-                    && ((HerbsApp) getApplication()).getCount() > 0) {
+            countButton.setText("" + app.getCount());
+            if (app.getCount() <= Constants.LIST_THRESHOLD && app.getCount() > 0) {
                 countButton.setBackground(getResources().getDrawable(R.drawable.right_border));
             }
         }
@@ -87,7 +113,7 @@ public abstract class BaseActivity extends ActionBarActivity {
 
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
-        Utils.changeLocale(this, language);
+        locale = Utils.changeLocale(this, language);
     }
 
     protected void closeDrawer() {

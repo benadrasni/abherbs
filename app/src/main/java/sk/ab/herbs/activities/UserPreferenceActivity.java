@@ -73,7 +73,4 @@ public class UserPreferenceActivity extends PreferenceActivity {
         getWindow().setContentView(contentView);
     }
 
-    public Toolbar getToolbar() {
-        return mActionBar;
-    }
 }

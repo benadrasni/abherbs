@@ -62,14 +62,6 @@ public class BaseImageButton extends Button {
 
                     if (((HerbsApp)host.getApplication()).getCount() > 0) {
                         host.addToFilter(valueId);
-                        if (host.getFilterAttributes().size() > host.getFilter().size()) {
-                            for (BaseFilterFragment fragment : host.getFilterAttributes()) {
-                                if (host.getFilter().get(fragment.getAttributeId()) == null) {
-                                    host.switchContent(fragment);
-                                    break;
-                                }
-                            }
-                        }
                     }
                 }
             }

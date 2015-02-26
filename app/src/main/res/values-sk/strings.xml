@@ -52,8 +52,10 @@
     <string name="image_desc">Ilustrácia</string>
 
     <string name="plant_title">názov</string>
-    <string name="plant_height">Výška</string>
-    <string name="plant_flowering">Kvitne</string>
+    <string name="plant_height_from">Výška od</string>
+    <string name="plant_height_to">do</string>
+    <string name="plant_flowering_from">Kvitne od</string>
+    <string name="plant_flowering_to">do</string>
     <string name="plant_flowers">Kvety</string>
     <string name="plant_inflorescences">Súkvetie</string>
     <string name="plant_fruits">Plody</string>
