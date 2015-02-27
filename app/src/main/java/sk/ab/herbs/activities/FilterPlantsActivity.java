@@ -91,7 +91,10 @@ public class FilterPlantsActivity extends BaseActivity {
 
         int position = getCurrentPosition();
         if (getIntent().getExtras() != null) {
-            position = getIntent().getExtras().getInt("position");
+            String pos = getIntent().getExtras().getString("position");
+            if (pos != null) {
+                position = Integer.parseInt(pos);
+            }
         }
 
         if (getCurrentFragment() == null) {
