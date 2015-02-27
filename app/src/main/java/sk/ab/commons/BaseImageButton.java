@@ -59,8 +59,9 @@ public class BaseImageButton extends Button {
             public void onClick(View view) {
                 if (view.getContext() instanceof FilterPlantsActivity) {
                     FilterPlantsActivity host = (FilterPlantsActivity) view.getContext();
+                    HerbsApp app = (HerbsApp)host.getApplication();
 
-                    if (((HerbsApp)host.getApplication()).getCount() > 0) {
+                    if (app.getCount() > 0 || app.getFilter().get(host.getCurrentFragment().getAttributeId()) != null) {
                         host.addToFilter(valueId);
                     }
                 }
