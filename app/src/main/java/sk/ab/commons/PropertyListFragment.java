@@ -35,6 +35,8 @@ public class PropertyListFragment extends ListFragment {
         adapter.add(new PropertyDivider());
 
         adapter.add(new Setting(R.string.settings));
+        adapter.add(new Setting(R.string.feedback));
+        adapter.add(new Setting(R.string.donation));
         adapter.add(new Setting(R.string.help));
         adapter.add(new Setting(R.string.about));
 
@@ -70,6 +72,8 @@ public class PropertyListFragment extends ListFragment {
                         intent.setClassName(getActivity(), "sk.ab.herbs.activities.UserPreferenceActivity");
                         startActivity(intent);
                         break;
+                    case R.string.donation:
+                    case R.string.feedback:
                     case R.string.help:
                     case R.string.about:
                         intent = new Intent();
