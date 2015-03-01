@@ -5,6 +5,8 @@
     <string name="about">O aplikácii</string>
     <string name="help">Pomoc</string>
     <string name="settings">Nastavenia</string>
+    <string name="feedback">Pripomienky</string>
+    <string name="donation">Podporiť projekt</string>
     <string name="pref_language">Preferovaný jazyk</string>
     <string name="pref_language_summary"/>
     <string-array name="languages">

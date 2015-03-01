@@ -46,10 +46,15 @@ public class HtmlActivity extends ActionBarActivity {
         WebView html = (WebView) findViewById(R.id.html_text);
         System.out.println("LOCALE: " + Locale.getDefault().getLanguage());
         switch (title) {
+            case R.string.donation:
+                html.loadUrl("file:///android_asset/" + Locale.getDefault().getLanguage() + "_donation.html");
+                break;
+            case R.string.feedback:
+                html.loadUrl("file:///android_asset/" + Locale.getDefault().getLanguage() + "_feedback.html");
+                break;
             case R.string.help:
                 html.loadUrl("file:///android_asset/" + Locale.getDefault().getLanguage() + "_help.html");
                 break;
-
             case R.string.about:
                 html.loadUrl("file:///android_asset/" + Locale.getDefault().getLanguage() + "_about.html");
                 break;
