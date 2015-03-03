@@ -44,19 +44,22 @@ public class HtmlActivity extends ActionBarActivity {
         getSupportActionBar().setTitle(title);
 
         WebView html = (WebView) findViewById(R.id.html_text);
-        System.out.println("LOCALE: " + Locale.getDefault().getLanguage());
+        String language = Locale.getDefault().getLanguage();
+        if (Constants.LANGUAGES.get(language) == null) {
+            language = Constants.LANGUAGE_EN;
+        }
         switch (title) {
             case R.string.donation:
-                html.loadUrl("file:///android_asset/" + Locale.getDefault().getLanguage() + "_donation.html");
+                html.loadUrl("file:///android_asset/" + language + "_donation.html");
                 break;
             case R.string.feedback:
-                html.loadUrl("file:///android_asset/" + Locale.getDefault().getLanguage() + "_feedback.html");
+                html.loadUrl("file:///android_asset/" + language + "_feedback.html");
                 break;
             case R.string.help:
-                html.loadUrl("file:///android_asset/" + Locale.getDefault().getLanguage() + "_help.html");
+                html.loadUrl("file:///android_asset/" + language + "_help.html");
                 break;
             case R.string.about:
-                html.loadUrl("file:///android_asset/" + Locale.getDefault().getLanguage() + "_about.html");
+                html.loadUrl("file:///android_asset/" + language + "_about.html");
                 break;
         }
     }
