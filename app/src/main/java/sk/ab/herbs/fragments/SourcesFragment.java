@@ -35,6 +35,7 @@ public class SourcesFragment extends Fragment {
     private static final String SOURCE_FLORANORDICA = "floranordica.org";
     private static final String SOURCE_EFLORA = "efloras.org";
     private static final String SOURCE_BERKELEY = "berkeley.edu";
+    private static final String SOURCE_HORTIPEDIA = "hortipedia.com";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,6 +96,9 @@ public class SourcesFragment extends Fragment {
             } else if (url.contains(SOURCE_BERKELEY)) {
                 image.setImageDrawable(getResources().getDrawable(R.drawable.berkeley));
                 text.setText(SOURCE_BERKELEY);
+            } else if (url.contains(SOURCE_HORTIPEDIA)) {
+                image.setImageDrawable(getResources().getDrawable(R.drawable.hortipedia));
+                text.setText(SOURCE_HORTIPEDIA);
             }
 
             image.setOnClickListener(new View.OnClickListener() {
