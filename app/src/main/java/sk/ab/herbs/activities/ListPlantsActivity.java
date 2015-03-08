@@ -1,11 +1,14 @@
 package sk.ab.herbs.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
@@ -29,7 +32,6 @@ import sk.ab.herbs.fragments.rest.HerbDetailResponderFragment;
  */
 public class ListPlantsActivity extends BaseActivity {
     private List<PlantHeader> plants;
-    private PlantListFragment mResultList;
 
     private HerbDetailResponderFragment detailResponder;
 
@@ -55,24 +57,25 @@ public class ListPlantsActivity extends BaseActivity {
             detailResponder = new HerbDetailResponderFragment();
             ft.add(detailResponder, "RESTDetailResponder");
         }
-
-        mResultList = new PlantListFragment();
-        ft.replace(R.id.list_content, mResultList);
-
         ft.commit();
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        plants = getIntent().getExtras().getParcelableArrayList("results");
+        getSupportActionBar().setTitle(R.string.list_info);
 
-        if (!locale.equals(Locale.getDefault())) {
-            recreate();
-        } else {
-            plants = getIntent().getExtras().getParcelableArrayList("results");
-            getSupportActionBar().setTitle(R.string.list_info);
-            mResultList.recreateList(plants);
-        }
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.list_content, new PlantListFragment());
+        ft.commit();
+    }
+
+    @Override
+    public void onConfigurationChanged (Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        recreate();
     }
 
     @Override
@@ -104,5 +107,9 @@ public class ListPlantsActivity extends BaseActivity {
         invalidateOptionsMenu();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         ((HerbsApp)getApplication()).setLoading(false);
+    }
+
+    public List<PlantHeader> getPlants() {
+        return plants;
     }
 }

@@ -1,14 +1,21 @@
 package sk.ab.herbs.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -20,78 +27,102 @@ import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.ListPlantsActivity;
+import sk.ab.tools.Utils;
 
-public class PlantListFragment extends ListFragment {
+public class PlantListFragment extends Fragment {
 
-    static class ViewHolder {
-        TextView title;
-        TextView family;
-        ImageView familyIcon;
-        ImageView photo;
-    }
+    public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.ViewHolder> {
+        private List<PlantHeader> plantHeaders;
 
-    public class PropertyAdapter extends ArrayAdapter<PlantHeader> {
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            TextView title;
+            TextView family;
+            ImageView familyIcon;
+            ImageView photo;
 
-        public PropertyAdapter(Context context) {
-            super(context, 0);
+            public ViewHolder(View v) {
+                super(v);
+                title = (TextView) v.findViewById(R.id.plant_title);
+                family = (TextView) v.findViewById(R.id.plant_family);
+                familyIcon = (ImageView) v.findViewById(R.id.family_icon);
+                photo = (ImageView) v.findViewById(R.id.plant_photo);
+            }
         }
 
-        public View getView(int position, View convertView, ViewGroup parent) {
-            PlantHeader plantHeader = getItem(position);
+        public PropertyAdapter(List<PlantHeader> plantHeaders) {
+            this.plantHeaders = plantHeaders;
+        }
 
-            ViewHolder viewHolder;
+        @Override
+        public PropertyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.plant_row, parent, false);
+            return new ViewHolder(v);
+        }
 
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.plant_row, parent, false);
-                viewHolder = new ViewHolder();
-                viewHolder.title = (TextView) convertView.findViewById(R.id.plant_title);
-                viewHolder.family = (TextView) convertView.findViewById(R.id.plant_family);
-                viewHolder.familyIcon = (ImageView) convertView.findViewById(R.id.family_icon);
-                viewHolder.photo = (ImageView) convertView.findViewById(R.id.plant_photo);
-                convertView.setTag(viewHolder);
+        @Override
+        public int getItemCount() {
+            return plantHeaders.size();
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, final int position) {
+            final PlantHeader plantHeader = plantHeaders.get(position);
+
+            DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
+            holder.photo.setImageResource(android.R.color.transparent);
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                holder.photo.getLayoutParams().width = dm.widthPixels;
+                holder.photo.getLayoutParams().height = holder.photo.getLayoutParams().width;
             } else {
-                viewHolder = (ViewHolder) convertView.getTag();
+                holder.photo.getLayoutParams().height = dm.heightPixels - Utils.convertDpToPx(50, dm) - Utils.convertDpToPx(70, dm);
+                holder.photo.getLayoutParams().width = holder.photo.getLayoutParams().height;
             }
-            viewHolder.photo.setImageResource(android.R.color.transparent);
+            ((RelativeLayout.LayoutParams) holder.familyIcon.getLayoutParams())
+                    .setMargins(holder.photo.getLayoutParams().width - Utils.convertDpToPx(55, dm),
+                            holder.photo.getLayoutParams().height - Utils.convertDpToPx(25, dm), 0, 0);
 
             if (plantHeader.getUrl() != null) {
-                ImageLoader.getInstance().displayImage(plantHeader.getUrl(), viewHolder.photo,
+                ImageLoader.getInstance().displayImage(plantHeader.getUrl(), holder.photo,
                         ((HerbsApp)getActivity().getApplication()).getOptions());
             }
 
-            viewHolder.title.setText(plantHeader.getTitle());
-            viewHolder.family.setText(plantHeader.getFamily());
+            holder.title.setText(plantHeader.getTitle());
+            holder.family.setText(plantHeader.getFamily());
             ImageLoader.getInstance().displayImage(Constants.STORAGE_ENDPOINT + Constants.FAMILY +
                             Constants.RESOURCE_SEPARATOR + plantHeader.getFamilyId() + Constants.DEFAULT_EXTENSION,
-                    viewHolder.familyIcon, ((HerbsApp)getActivity().getApplication()).getOptions());
+                    holder.familyIcon, ((HerbsApp)getActivity().getApplication()).getOptions());
 
-            return convertView;
+            holder.photo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ListPlantsActivity activity = (ListPlantsActivity) getActivity();
+                    activity.selectPlant(position);
+                }
+            });
         }
     }
 
-    private PropertyAdapter adapter;
-
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.list, container, false);
+        return inflater.inflate(R.layout.list, null);
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        adapter = new PropertyAdapter(getActivity());
-        setListAdapter(adapter);
-    }
+    public void onStart() {
+        super.onStart();
+        if (getView() != null) {
+            RecyclerView list = (RecyclerView) getView().findViewById(R.id.plant_list);
 
-    @Override
-    public void onListItemClick(ListView lv, View v, int position, long id) {
-        ListPlantsActivity activity = (ListPlantsActivity) getActivity();
-        activity.selectPlant(position);
-    }
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            } else {
+                layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            }
+            list.setLayoutManager(layoutManager);
 
-    public void recreateList(List<PlantHeader> plants) {
-        adapter.clear();
-        for (PlantHeader plantHeader : plants) {
-            adapter.add(plantHeader);
+            PropertyAdapter adapter = new PropertyAdapter(((ListPlantsActivity) getActivity()).getPlants());
+            list.setAdapter(adapter);
         }
     }
 }

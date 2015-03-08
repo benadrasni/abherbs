@@ -1,33 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:paddingLeft="@dimen/list_padding"
-              android:paddingRight="@dimen/list_padding"
-              android:orientation="horizontal">
-
-    <RelativeLayout
-            android:layout_height="match_parent"
-            android:layout_width="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/plant_thumbnails"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/thumbnails_height"
-                android:padding="@dimen/thumbnails_padding"
-                android:background="@color/CardsForeground"/>
+                android:layout_height="match_parent">
 
-        <ImageView android:id="@+id/plant_photo"
-                   android:layout_width="match_parent"
-                   android:layout_height="@dimen/list_item_photo_height"
-                   android:scaleType="centerCrop"
-                   android:layout_below="@+id/plant_thumbnails"
-                   android:background="@color/CardsForeground"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/plant_thumbnails"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/thumbnails_height"
+        android:background="@color/CardsForeground"
+        android:padding="@dimen/thumbnails_padding"/>
 
-        <View android:id="@+id/bottomInfo"
-              android:layout_width="match_parent"
-              android:layout_height="5dp"
-              android:layout_below="@+id/plant_photo"
-              android:background="@drawable/list_item_shadow_bottom"/>
-    </RelativeLayout>
-</LinearLayout>
+    <ImageView
+        android:id="@+id/plant_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/plant_thumbnails"
+        android:background="@color/CardsForeground"
+        android:scaleType="centerCrop"/>
+
+    <View
+        android:id="@+id/bottomInfo"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/plant_photo"
+        android:background="@drawable/list_item_shadow_bottom"/>
+</RelativeLayout>

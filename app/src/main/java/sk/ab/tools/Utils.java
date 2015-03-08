@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 
 import java.util.Calendar;
@@ -52,5 +54,10 @@ public class Utils {
         } else {
             view.setVisibility(View.VISIBLE);
         }
+    }
+
+    public static int convertDpToPx(int dp, DisplayMetrics displayMetrics) {
+        float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics);
+        return Math.round(pixels);
     }
 }
