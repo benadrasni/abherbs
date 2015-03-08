@@ -22,11 +22,10 @@
     <dimen name="list_padding">10dp</dimen>
     <dimen name="list_spacing">0dp</dimen>
     <dimen name="list_item_photo_height">300dp</dimen>
-    <dimen name="list_item_padding_left">60dp</dimen>
+    <dimen name="list_item_padding_left">10dp</dimen>
+    <dimen name="list_item_padding_right">55dp</dimen>
     <dimen name="list_item_family_icon_width">50dp</dimen>
     <dimen name="list_item_family_icon_height">50dp</dimen>
-    <dimen name="list_item_family_icon_top">275dp</dimen>
-    <dimen name="list_item_family_icon_left">20dp</dimen>
 
     <dimen name="thumbnails_height">60dp</dimen>
     <dimen name="thumbnails_padding">5dp</dimen>

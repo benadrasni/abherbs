@@ -1,12 +1,14 @@
 package sk.ab.herbs.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ScrollView;
 
 import sk.ab.commons.BaseActivity;
@@ -15,6 +17,7 @@ import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.fragments.GalleryFragment;
 import sk.ab.herbs.fragments.InfoFragment;
+import sk.ab.herbs.fragments.PlantListFragment;
 import sk.ab.herbs.fragments.SourcesFragment;
 import sk.ab.herbs.fragments.TaxonomyFragment;
 
@@ -56,16 +59,11 @@ public class DisplayPlantActivity extends BaseActivity {
         plant = getIntent().getExtras().getParcelable("plant");
         getSupportActionBar().setTitle(R.string.display_info);
 
-        TaxonomyFragment taxonomyFragment = new TaxonomyFragment();
-        InfoFragment infoFragment = new InfoFragment();
-        GalleryFragment galleryFragment = new GalleryFragment();
-        SourcesFragment sourcesFragment = new SourcesFragment();
-
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.taxonomy_fragment, taxonomyFragment);
-        ft.replace(R.id.info_fragment, infoFragment);
-        ft.replace(R.id.gallery_fragment, galleryFragment);
-        ft.replace(R.id.sources_fragment, sourcesFragment);
+        ft.replace(R.id.taxonomy_fragment, new TaxonomyFragment());
+        ft.replace(R.id.info_fragment, new InfoFragment());
+        ft.replace(R.id.gallery_fragment, new GalleryFragment());
+        ft.replace(R.id.sources_fragment, new SourcesFragment());
         ft.commit();
 
         ScrollView scrollview = ((ScrollView) findViewById(R.id.scrollview));
@@ -77,6 +75,13 @@ public class DisplayPlantActivity extends BaseActivity {
         savedInstanceState.putParcelable(STATE_PLANT, plant);
 
         super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onConfigurationChanged (Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        recreate();
     }
 
     @Override

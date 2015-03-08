@@ -1,24 +1,22 @@
 package sk.ab.herbs.fragments;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spanned;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
-import sk.ab.tools.Margin;
+import sk.ab.tools.Utils;
 
 
 /**
@@ -64,6 +62,9 @@ public class GalleryFragment extends Fragment {
                     ((HerbsApp)getActivity().getApplication()).getOptions());
 
             final ImageView imageView = (ImageView) cardGallery.findViewById(R.id.plant_photo);
+            DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
+            imageView.getLayoutParams().width = (dm.widthPixels - Utils.convertDpToPx(25, dm))/2;
+            imageView.getLayoutParams().height = imageView.getLayoutParams().width;
 
             holder.mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -1,260 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:paddingTop="@dimen/list_padding"
-              android:paddingLeft="@dimen/list_padding"
-              android:paddingRight="@dimen/list_padding"
-              android:orientation="horizontal">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/plantTaxonomyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/CardsForeground"
+        android:orientation="vertical"
+        android:padding="@dimen/list_padding">
+
+        <TextView
+            android:id="@+id/plant_species"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@color/CardTitle"/>
+
+        <TextView
+            android:id="@+id/plant_species_latin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textColor="@color/CardSubTitle"
+            android:textStyle="italic"/>
+
+        <TextView
+            android:id="@+id/plant_alt_names"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textColor="@color/CardSubTitle"
+            android:textStyle="italic"/>
+
+        <LinearLayout
+            android:id="@+id/plant_taxonomy"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_width="match_parent">
+            android:orientation="vertical"
+            android:visibility="gone">
 
-        <LinearLayout android:id="@+id/plantTaxonomyLayout"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="vertical"
-                      android:background="@color/CardsForeground"
-                      android:padding="@dimen/list_padding">
+            <View
+                android:layout_width="1dp"
+                android:layout_height="@dimen/card_taxonomy_separator_height"
+                android:layout_gravity="center"
+                android:background="@color/CardShadowStart"/>
 
-            <TextView android:id="@+id/plant_species"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_gravity="center"
-                      android:gravity="center"
-                      android:textAppearance="@android:style/TextAppearance.Large"
-                      android:textColor="@color/CardTitle"/>
+            <TextView
+                android:id="@+id/plant_family"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"/>
 
-            <TextView android:id="@+id/plant_species_latin"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_gravity="center"
-                      android:gravity="center"
-                      android:textStyle="italic"
-                      android:textAppearance="@android:style/TextAppearance.Small"
-                      android:textColor="@color/CardSubTitle"/>
+            <TextView
+                android:id="@+id/plant_family_latin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"
+                android:textStyle="italic"/>
 
-            <TextView android:id="@+id/plant_alt_names"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_gravity="center"
-                      android:gravity="center"
-                      android:textStyle="italic"
-                      android:textAppearance="@android:style/TextAppearance.Small"
-                      android:textColor="@color/CardSubTitle"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="@dimen/card_taxonomy_separator_height"
+                android:layout_gravity="center"
+                android:background="@color/CardShadowStart"/>
 
-            <LinearLayout android:id="@+id/plant_taxonomy"
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:orientation="vertical"
-                          android:visibility="gone">
+            <TextView
+                android:id="@+id/plant_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"/>
 
-                <View   android:layout_width="1dp"
-                        android:layout_height="@dimen/card_taxonomy_separator_height"
-                        android:layout_gravity="center"
-                        android:background="@color/CardShadowStart"/>
+            <TextView
+                android:id="@+id/plant_order_latin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"
+                android:textStyle="italic"/>
 
-                <TextView android:id="@+id/plant_family"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="@dimen/card_taxonomy_separator_height"
+                android:layout_gravity="center"
+                android:background="@color/CardShadowStart"/>
 
-                <TextView android:id="@+id/plant_family_latin"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textStyle="italic"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
+            <TextView
+                android:id="@+id/plant_cls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"/>
 
-                <View   android:layout_width="1dp"
-                        android:layout_height="@dimen/card_taxonomy_separator_height"
-                        android:layout_gravity="center"
-                        android:background="@color/CardShadowStart"/>
+            <TextView
+                android:id="@+id/plant_cls_latin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"
+                android:textStyle="italic"/>
 
-                <TextView android:id="@+id/plant_order"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="@dimen/card_taxonomy_separator_height"
+                android:layout_gravity="center"
+                android:background="@color/CardShadowStart"/>
 
-                <TextView android:id="@+id/plant_order_latin"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textStyle="italic"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
+            <TextView
+                android:id="@+id/plant_phylum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"/>
 
-                <View   android:layout_width="1dp"
-                        android:layout_height="@dimen/card_taxonomy_separator_height"
-                        android:layout_gravity="center"
-                        android:background="@color/CardShadowStart"/>
+            <TextView
+                android:id="@+id/plant_phylum_latin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"
+                android:textStyle="italic"/>
 
-                <TextView android:id="@+id/plant_cls"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
-
-                <TextView android:id="@+id/plant_cls_latin"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textStyle="italic"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
-
-                <View   android:layout_width="1dp"
-                        android:layout_height="@dimen/card_taxonomy_separator_height"
-                        android:layout_gravity="center"
-                        android:background="@color/CardShadowStart"/>
-
-                <TextView android:id="@+id/plant_phylum"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
-
-                <TextView android:id="@+id/plant_phylum_latin"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textStyle="italic"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
-
-                <View   android:layout_width="1dp"
-                        android:layout_height="@dimen/card_taxonomy_separator_height"
-                        android:layout_gravity="center"
-                        android:background="@color/CardShadowStart"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="@dimen/card_taxonomy_separator_height"
+                android:layout_gravity="center"
+                android:background="@color/CardShadowStart"/>
 
 
-                <TextView android:id="@+id/plant_branch"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
+            <TextView
+                android:id="@+id/plant_branch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"/>
 
-                <TextView android:id="@+id/plant_branch_latin"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textStyle="italic"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
+            <TextView
+                android:id="@+id/plant_branch_latin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"
+                android:textStyle="italic"/>
 
-                <View   android:layout_width="1dp"
-                        android:layout_height="@dimen/card_taxonomy_separator_height"
-                        android:layout_gravity="center"
-                        android:background="@color/CardShadowStart"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="@dimen/card_taxonomy_separator_height"
+                android:layout_gravity="center"
+                android:background="@color/CardShadowStart"/>
 
-                <TextView android:id="@+id/plant_line"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
+            <TextView
+                android:id="@+id/plant_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"/>
 
-                <TextView android:id="@+id/plant_line_latin"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textStyle="italic"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
+            <TextView
+                android:id="@+id/plant_line_latin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"
+                android:textStyle="italic"/>
 
-                <View   android:layout_width="1dp"
-                        android:layout_height="@dimen/card_taxonomy_separator_height"
-                        android:layout_gravity="center"
-                        android:background="@color/CardShadowStart"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="@dimen/card_taxonomy_separator_height"
+                android:layout_gravity="center"
+                android:background="@color/CardShadowStart"/>
 
-                <TextView android:id="@+id/plant_subkingdom"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
+            <TextView
+                android:id="@+id/plant_subkingdom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"/>
 
-                <TextView android:id="@+id/plant_subkingdom_latin"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textStyle="italic"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
+            <TextView
+                android:id="@+id/plant_subkingdom_latin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"
+                android:textStyle="italic"/>
 
-                <View   android:layout_width="1dp"
-                        android:layout_height="@dimen/card_taxonomy_separator_height"
-                        android:layout_gravity="center"
-                        android:background="@color/CardShadowStart"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="@dimen/card_taxonomy_separator_height"
+                android:layout_gravity="center"
+                android:background="@color/CardShadowStart"/>
 
-                <TextView android:id="@+id/plant_kingdom"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
+            <TextView
+                android:id="@+id/plant_kingdom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"/>
 
-                <TextView android:id="@+id/plant_kingdom_latin"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textStyle="italic"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
+            <TextView
+                android:id="@+id/plant_kingdom_latin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"
+                android:textStyle="italic"/>
 
-                <View   android:layout_width="1dp"
-                        android:layout_height="@dimen/card_taxonomy_separator_height"
-                        android:layout_gravity="center"
-                        android:background="@color/CardShadowStart"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="@dimen/card_taxonomy_separator_height"
+                android:layout_gravity="center"
+                android:background="@color/CardShadowStart"/>
 
-                <TextView android:id="@+id/plant_domain"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
+            <TextView
+                android:id="@+id/plant_domain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"/>
 
-                <TextView android:id="@+id/plant_domain_latin"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:textStyle="italic"
-                          android:textAppearance="@android:style/TextAppearance.Small"
-                          android:textColor="@color/CardText"/>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/plant_domain_latin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardText"
+                android:textStyle="italic"/>
         </LinearLayout>
+    </LinearLayout>
 
-        <View android:id="@+id/bottomTaxonomy"
-              android:layout_width="match_parent"
-              android:layout_height="5dp"
-              android:layout_below="@+id/plantTaxonomyLayout"
-              android:background="@drawable/list_item_shadow_bottom"/>
-    </RelativeLayout>
-</LinearLayout>
+    <View
+        android:id="@+id/bottomTaxonomy"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/plantTaxonomyLayout"
+        android:background="@drawable/list_item_shadow_bottom"/>
+</RelativeLayout>

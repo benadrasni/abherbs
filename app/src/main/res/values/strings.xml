@@ -34,7 +34,7 @@
     <string name="habitat_wetland">moorlands or wetlands</string>
     <string name="habitat_forest">woodlands or forests</string>
     <string name="habitat_rock">rocks or mountains</string>
-    <string name="habitat_tree">trees or bushes</string>
+    <string name="habitat_tree">trees or shrubs</string>
     <string name="habitat_message">What\'s around you? Identify plant\'s habitat.</string>
 
     <string name="number_of_petals">number of petals</string>
