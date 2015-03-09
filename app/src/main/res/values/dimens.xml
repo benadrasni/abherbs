@@ -20,7 +20,7 @@
     <dimen name="text_size">18sp</dimen>
 
     <dimen name="list_padding">10dp</dimen>
-    <dimen name="list_spacing">0dp</dimen>
+    <dimen name="list_spacing">10dp</dimen>
     <dimen name="list_item_photo_height">300dp</dimen>
     <dimen name="list_item_padding_left">10dp</dimen>
     <dimen name="list_item_padding_right">55dp</dimen>

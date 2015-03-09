@@ -1,5 +1,6 @@
 package sk.ab.herbs.fragments;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -63,7 +64,11 @@ public class GalleryFragment extends Fragment {
 
             final ImageView imageView = (ImageView) cardGallery.findViewById(R.id.plant_photo);
             DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
-            imageView.getLayoutParams().width = (dm.widthPixels - Utils.convertDpToPx(25, dm))/2;
+            int width = dm.widthPixels - Utils.convertDpToPx(25, dm);
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                width = width/2;
+            }
+            imageView.getLayoutParams().width = width;
             imageView.getLayoutParams().height = imageView.getLayoutParams().width;
 
             holder.mImageView.setOnClickListener(new View.OnClickListener() {
