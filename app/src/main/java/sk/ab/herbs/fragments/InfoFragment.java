@@ -1,7 +1,7 @@
 package sk.ab.herbs.fragments;
 
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +9,7 @@ import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StyleSpan;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,23 +96,33 @@ public class InfoFragment extends Fragment {
 
         final TextView nextToImage = (TextView) convertView.findViewById(R.id.next_to_image);
         final ImageView drawing = (ImageView) convertView.findViewById(R.id.plant_background);
-        Point size = new Point();
-        getActivity().getWindowManager().getDefaultDisplay().getSize(size);
-        drawing.setMaxWidth(size.x / 3);
         final SpannableString ss = new SpannableString(text.toString());
         for(int i = 0; i < INFO_SECTIONS; i++ ) {
             ss.setSpan(new StyleSpan(Typeface.BOLD), spanIndex[0][i], spanIndex[1][i],
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
+        final DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
+        final int orientation = getActivity().getResources().getConfiguration().orientation;
+
         if (plant.getBack_url() != null) {
             ImageLoader.getInstance().displayImage(plant.getBack_url(), drawing,
                     ((HerbsApp)getActivity().getApplication()).getOptions(), new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    int leftMargin = loadedImage.getWidth() + 10;
-                    int height = loadedImage.getHeight();
+
+                    int width = (dm.widthPixels - Utils.convertDpToPx(25, dm))/2;
+                    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        width = width/2;
+                    }
+                    double ratio = (double)loadedImage.getWidth()/(double)loadedImage.getHeight();
+
+                    drawing.getLayoutParams().width = width;
+                    drawing.getLayoutParams().height = (int)(drawing.getLayoutParams().width/ratio);
+
+                    int leftMargin = drawing.getLayoutParams().width;
+                    int height = drawing.getLayoutParams().height;
                     ss.setSpan(new Margin(height / (int) (nextToImage.getLineHeight() * nextToImage
-                            .getLineSpacingMultiplier() + nextToImage.getLineSpacingExtra()) + 2,
+                            .getLineSpacingMultiplier() + nextToImage.getLineSpacingExtra()),
                             leftMargin), 0, ss.length(), Spanned.SPAN_PARAGRAPH);
                     nextToImage.setText(ss);
                 }
