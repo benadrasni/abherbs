@@ -58,7 +58,7 @@ public class SourcesFragment extends Fragment {
         GridLayout grid = (GridLayout) convertView.findViewById(R.id.plant_source_grid);
 
         DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
-        int width = dm.widthPixels - Utils.convertDpToPx(40, dm);
+        int width = dm.widthPixels - Utils.convertDpToPx(45, dm);
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             width = width/2;
         }
