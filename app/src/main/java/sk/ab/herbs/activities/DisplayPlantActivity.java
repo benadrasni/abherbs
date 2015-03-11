@@ -56,15 +56,18 @@ public class DisplayPlantActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        plant = getIntent().getExtras().getParcelable("plant");
         getSupportActionBar().setTitle(R.string.display_info);
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.taxonomy_fragment, new TaxonomyFragment());
-        ft.replace(R.id.info_fragment, new InfoFragment());
-        ft.replace(R.id.gallery_fragment, new GalleryFragment());
-        ft.replace(R.id.sources_fragment, new SourcesFragment());
-        ft.commit();
+        Plant plant = getIntent().getExtras().getParcelable("plant");
+        if (this.plant == null || plant.getPlantId() != this.plant.getPlantId()) {
+            this.plant = plant;
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.taxonomy_fragment, new TaxonomyFragment());
+            ft.replace(R.id.info_fragment, new InfoFragment());
+            ft.replace(R.id.gallery_fragment, new GalleryFragment());
+            ft.replace(R.id.sources_fragment, new SourcesFragment());
+            ft.commit();
+        }
 
         ScrollView scrollview = ((ScrollView) findViewById(R.id.scrollview));
         scrollview.scrollTo(0, 0);
