@@ -2,9 +2,11 @@ package sk.ab.herbs.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
+import sk.ab.tools.Utils;
 
 
 /**
@@ -53,6 +56,15 @@ public class SourcesFragment extends Fragment {
         plant.getSource_urls().toArray(source_urls);
 
         GridLayout grid = (GridLayout) convertView.findViewById(R.id.plant_source_grid);
+
+        DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
+        int width = dm.widthPixels - Utils.convertDpToPx(40, dm);
+        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            width = width/2;
+        }
+
+        int columns = width/(Utils.convertDpToPx(85, dm));
+        grid.setColumnCount(columns);
 
         LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         for (final String url : source_urls) {
