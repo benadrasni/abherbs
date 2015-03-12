@@ -39,6 +39,8 @@ public class ListPlantsActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        plants = getIntent().getExtras().getParcelableArrayList("results");
+
         setContentView(R.layout.list_activity);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -57,18 +59,13 @@ public class ListPlantsActivity extends BaseActivity {
             detailResponder = new HerbDetailResponderFragment();
             ft.add(detailResponder, "RESTDetailResponder");
         }
+        PlantListFragment plantListFragment = (PlantListFragment) fm.findFragmentByTag("PlantList");
+        if (plantListFragment == null) {
+            ft.replace(R.id.list_content, new PlantListFragment(), "PlantList");
+        }
         ft.commit();
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        plants = getIntent().getExtras().getParcelableArrayList("results");
         getSupportActionBar().setTitle(R.string.list_info);
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.list_content, new PlantListFragment());
-        ft.commit();
     }
 
     @Override

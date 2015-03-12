@@ -3,6 +3,7 @@ package sk.ab.herbs.activities;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -40,6 +41,8 @@ public class DisplayPlantActivity extends BaseActivity {
 
         if (savedInstanceState != null) {
             plant = savedInstanceState.getParcelable(STATE_PLANT);
+        } else {
+            plant = getIntent().getExtras().getParcelable("plant");
         }
 
         setContentView(R.layout.plant_activity);
@@ -51,23 +54,25 @@ public class DisplayPlantActivity extends BaseActivity {
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        TaxonomyFragment taxonomyFragment = (TaxonomyFragment) fm.findFragmentByTag("Taxonomy");
+        if (taxonomyFragment == null) {
+            ft.replace(R.id.taxonomy_fragment, new TaxonomyFragment(), "Taxonomy");
+            ft.replace(R.id.info_fragment, new InfoFragment());
+            ft.replace(R.id.gallery_fragment, new GalleryFragment());
+            ft.replace(R.id.sources_fragment, new SourcesFragment());
+        }
+        ft.commit();
+
+        getSupportActionBar().setTitle(R.string.display_info);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        getSupportActionBar().setTitle(R.string.display_info);
-
-        Plant plant = getIntent().getExtras().getParcelable("plant");
-        if (this.plant == null || plant.getPlantId() != this.plant.getPlantId()) {
-            this.plant = plant;
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.taxonomy_fragment, new TaxonomyFragment());
-            ft.replace(R.id.info_fragment, new InfoFragment());
-            ft.replace(R.id.gallery_fragment, new GalleryFragment());
-            ft.replace(R.id.sources_fragment, new SourcesFragment());
-            ft.commit();
-        }
 
         ScrollView scrollview = ((ScrollView) findViewById(R.id.scrollview));
         scrollview.scrollTo(0, 0);
