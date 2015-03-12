@@ -1,20 +1,15 @@
 package sk.ab.herbs.fragments;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -30,6 +25,9 @@ import sk.ab.herbs.activities.ListPlantsActivity;
 import sk.ab.tools.Utils;
 
 public class PlantListFragment extends Fragment {
+    static final String STATE_POSITION = "list_position";
+
+    private int list_position;
 
     public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.ViewHolder> {
         private List<PlantHeader> plantHeaders;
@@ -95,6 +93,7 @@ public class PlantListFragment extends Fragment {
             holder.photo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    list_position = position;
                     ListPlantsActivity activity = (ListPlantsActivity) getActivity();
                     activity.selectPlant(position);
                 }
@@ -104,25 +103,37 @@ public class PlantListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            list_position = savedInstanceState.getInt(STATE_POSITION);
+        }
         return inflater.inflate(R.layout.list, null);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if (getView() != null) {
-            RecyclerView list = (RecyclerView) getView().findViewById(R.id.plant_list);
 
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            } else {
-                layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-            }
-            list.setLayoutManager(layoutManager);
+        RecyclerView list = (RecyclerView) getView().findViewById(R.id.plant_list);
 
-            PropertyAdapter adapter = new PropertyAdapter(((ListPlantsActivity) getActivity()).getPlants());
-            list.setAdapter(adapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        } else {
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         }
+        layoutManager.scrollToPosition(list_position);
+        list.setLayoutManager(layoutManager);
+
+        PropertyAdapter adapter = new PropertyAdapter(((ListPlantsActivity) getActivity()).getPlants());
+        list.setAdapter(adapter);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        RecyclerView list = (RecyclerView) getView().findViewById(R.id.plant_list);
+        int pos = ((LinearLayoutManager)list.getLayoutManager()).findFirstVisibleItemPosition();
+        savedInstanceState.putInt(STATE_POSITION, pos);
+
+        super.onSaveInstanceState(savedInstanceState);
     }
 }
