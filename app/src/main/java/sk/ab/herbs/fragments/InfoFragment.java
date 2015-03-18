@@ -1,5 +1,7 @@
 package sk.ab.herbs.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -18,6 +20,8 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
+import java.util.Locale;
 
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
@@ -48,19 +52,28 @@ public class InfoFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (getView() != null) {
-            setInfo(((DisplayPlantActivity) getActivity()).getPlant(), getView());
+            ImageView translateView = (ImageView) getView().findViewById(R.id.plant_translate);
+
+            SharedPreferences preferences = getActivity().getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+            String sLanguage = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
+
+            if (sLanguage.equals(Locale.getDefault().getLanguage())) {
+                translateView.setVisibility(View.GONE);
+            }
+
+            setInfo(((DisplayPlantActivity) getActivity()).getPlant(), Constants.getLanguage(sLanguage));
         }
     }
 
-    private void setInfo(Plant plant, View convertView) {
-        TextView firstRow = (TextView) convertView.findViewById(R.id.first_row);
+    public void setInfo(Plant plant, int language) {
+        TextView firstRow = (TextView) getView().findViewById(R.id.first_row);
         StringBuilder firstRowText = new StringBuilder();
 
         firstRowText.append(getResources().getString(R.string.plant_height_from));
         firstRowText.append(" <b>" + plant.getHeight_from()  + "</b>");
         firstRowText.append(" " + getResources().getString(R.string.plant_height_to));
         firstRowText.append(" "  + "<b>" + plant.getHeight_to() + "</b>");
-        firstRowText.append(" " + Constants.HEIGHT_UNIT+". ");
+        firstRowText.append(" " + Constants.HEIGHT_UNIT+". <br/>");
 
         firstRowText.append(getResources().getString(R.string.plant_flowering_from));
         firstRowText.append(" <b>" + Utils.getMonthName(plant.getFlowering_from()-1)  + "</b>");
@@ -70,18 +83,18 @@ public class InfoFragment extends Fragment {
         firstRow.setText(Html.fromHtml(firstRowText.toString()));
 
         if (plant.getDescription() != null) {
-            TextView upImage = (TextView) convertView.findViewById(R.id.up_image);
-            upImage.setText(Html.fromHtml(plant.getDescription()));
+            TextView upImage = (TextView) getView().findViewById(R.id.up_image);
+            upImage.setText(Html.fromHtml(plant.getDescription().getText(language)));
         }
 
         final int[][] spanIndex = new int[2][INFO_SECTIONS];
         final StringBuilder text = new StringBuilder();
-        String[][] sections = { {getResources().getString(R.string.plant_flowers), plant.getFlower()},
-                {getResources().getString(R.string.plant_inflorescences), plant.getInflorescence()},
-                {getResources().getString(R.string.plant_fruits), plant.getFruit()},
-                {getResources().getString(R.string.plant_leaves), plant.getLeaf()},
-                {getResources().getString(R.string.plant_stem), plant.getStem()},
-                {getResources().getString(R.string.plant_habitat), plant.getHabitat()}
+        String[][] sections = { {getResources().getString(R.string.plant_flowers), plant.getFlower().getText(language)},
+                {getResources().getString(R.string.plant_inflorescences), plant.getInflorescence().getText(language)},
+                {getResources().getString(R.string.plant_fruits), plant.getFruit().getText(language)},
+                {getResources().getString(R.string.plant_leaves), plant.getLeaf().getText(language)},
+                {getResources().getString(R.string.plant_stem), plant.getStem().getText(language)},
+                {getResources().getString(R.string.plant_habitat), plant.getHabitat().getText(language)}
         };
 
         for(int i = 0; i < INFO_SECTIONS; i++ ) {
@@ -94,8 +107,8 @@ public class InfoFragment extends Fragment {
             //text.append("\n");
         }
 
-        final TextView nextToImage = (TextView) convertView.findViewById(R.id.next_to_image);
-        final ImageView drawing = (ImageView) convertView.findViewById(R.id.plant_background);
+        final TextView nextToImage = (TextView) getView().findViewById(R.id.next_to_image);
+        final ImageView drawing = (ImageView) getView().findViewById(R.id.plant_background);
         final SpannableString ss = new SpannableString(text.toString());
         for(int i = 0; i < INFO_SECTIONS; i++ ) {
             ss.setSpan(new StyleSpan(Typeface.BOLD), spanIndex[0][i], spanIndex[1][i],

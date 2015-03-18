@@ -1,6 +1,8 @@
 package sk.ab.herbs.fragments.rest;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,10 +42,13 @@ public class HerbListResponderFragment extends RESTResponderFragment {
             Intent intent = new Intent(activity, RESTService.class);
             intent.setData(Uri.parse(Constants.REST_ENDPOINT + Constants.REST_LIST));
 
+            SharedPreferences preferences = getActivity().getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+            String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
+
             Bundle params = new Bundle();
             StringBuilder query = new StringBuilder("{");
             query.append("\"langId\":\"");
-            query.append(Constants.getLanguage());
+            query.append(Constants.getLanguage(language));
             query.append("\"");
             StringBuilder attributes = new StringBuilder();
 

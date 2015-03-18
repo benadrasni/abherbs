@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Co to tu kvete?</string>
+
+    <string name="about">O aplikaci</string>
+    <string name="help">Pomoc</string>
+    <string name="settings">Nastavení</string>
+    <string name="feedback">Připomínky</string>
+    <string name="donation">Podpořit projekt</string>
+    <string name="pref_language">Preferovaný jazyk</string>
+    <string name="pref_language_summary"/>
+    <string-array name="languages">
+        <item>English</item>
+        <item>Slovenčina</item>
+    </string-array>
+    <string-array name="languagesValues">
+        <item>en</item>
+        <item>sk</item>
+    </string-array>
+    <string name="change_locale">Změň lokalizaci</string>
+    <string name="change_locale_summary">podle preferovaného jazyka</string>
+
+    <string name="color_of_flower">barva květů</string>
+    <string name="color_white">bílá</string>
+    <string name="color_yellow">žlutá</string>
+    <string name="color_red">červená, růžová</string>
+    <string name="color_blue">modrá, fialová</string>
+    <string name="color_green">zelená, hnědá, černá</string>
+    <string name="color_of_flower_message">Jaké barvy jsou květiny? Vyber tu nejbližší. Vždy se můžeš vrátit a vybrat jinou.</string>
+
+    <string name="habitats">ekologie</string>
+    <string name="habitat_meadow">louky a travnaté porosty</string>
+    <string name="habitat_garden">pole a zahrady</string>
+    <string name="habitat_wetland">mokřady a bažiny</string>
+    <string name="habitat_forest">lesy</string>
+    <string name="habitat_rock">vrcholky hor a skály</string>
+    <string name="habitat_tree">stromy a keře</string>
+    <string name="habitat_message">Kde se nacházíš? Identifikuj lokalitu.</string>
+
+    <string name="number_of_petals">počet okvětních lístků</string>
+    <string name="nop_4">4 nebo méně</string>
+    <string name="nop_5">5</string>
+    <string name="nop_many">více než 5</string>
+    <string name="nop_bisymmetric">symetrický podle jedné osy</string>
+    <string name="number_of_petals_message">Je květ symetrický pouze podle jedné osy? Ne? Tak kolik má okvětních lístků?</string>
+
+    <string name="display_info">Je to tahle?</string>
+    <string name="list_info">Vyber si jednu</string>
+
+    <string name="plant_info">Info</string>
+    <string name="plant_gallery">Galerie</string>
+    <string name="plant_taxonomy">Taxonomie</string>
+    <string name="plant_sources">Zdroje</string>
+    <string name="image_desc">Ilustrace</string>
+    <string name="translate_desc">Překlad</string>
+
+    <string name="plant_title">název</string>
+    <string name="plant_height_from">Výška od</string>
+    <string name="plant_height_to">do</string>
+    <string name="plant_flowering_from">Kvete od</string>
+    <string name="plant_flowering_to">do</string>
+    <string name="plant_flowers">Květy</string>
+    <string name="plant_inflorescences">Květenství</string>
+    <string name="plant_fruits">Plody</string>
+    <string name="plant_leaves">Listy</string>
+    <string name="plant_inflorescence">Květenství</string>
+    <string name="plant_color_of_flowers">Barva květů</string>
+    <string name="plant_number_of_petals">Počet okvětních lístků</string>
+    <string name="plant_sepal">Okvětné lístky</string>
+    <string name="plant_leaf_shape">Tvar listů</string>
+    <string name="plant_leaf_margin">Okraj listů</string>
+    <string name="plant_leaf_venation">Žilnatost listů</string>
+    <string name="plant_leaf_arrangement">Uspořádání listů</string>
+    <string name="plant_stem">Lodyha</string>
+    <string name="plant_root">Kořen</string>
+    <string name="plant_habitat">Ekologie</string>
+
+    <string name="plant_domain">domain</string>
+    <string name="plant_kingdom">kingdom</string>
+    <string name="plant_subkingdom">subkingdom</string>
+    <string name="plant_line">line</string>
+    <string name="plant_branch">větve</string>
+    <string name="plant_phylum">kmen</string>
+    <string name="plant_class">třída</string>
+    <string name="plant_order">řád</string>
+    <string name="plant_family">čeleď</string>
+    <string name="plant_genus">rod</string>
+    <string name="plant_species">druh</string>
+</resources>

@@ -6,4 +6,9 @@
             android:summary="@string/pref_language_summary"
             android:entryValues="@array/languagesValues"
             android:title="@string/pref_language" />
+
+    <CheckBoxPreference
+        android:key="changeLocale"
+        android:summary="@string/change_locale_summary"
+        android:title="@string/change_locale" />
 </PreferenceScreen>

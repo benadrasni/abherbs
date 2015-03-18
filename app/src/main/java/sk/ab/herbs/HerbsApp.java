@@ -15,6 +15,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import sk.ab.commons.BaseFilterFragment;
@@ -40,9 +41,13 @@ public class HerbsApp extends Application {
     private boolean isLoading;
     private int count;
 
+    public static String sDefSystemLanguage;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        sDefSystemLanguage = Locale.getDefault().getLanguage();
 
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
         analytics.getLogger().setLogLevel(Logger.LogLevel.VERBOSE);

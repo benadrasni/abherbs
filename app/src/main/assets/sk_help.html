@@ -48,7 +48,40 @@
 </ol>
 <h3>Nastavenia:</h3>
 <ol>
-    <li><b>Preferovaný jazyk</b>: Vyber si svoj preferovaný jazyk.</li>
+    <li><b>Preferovaný jazyk</b>: Vyber si svoj preferovaný jazyk pre detailné informácie o kvete.</li>
+    <li><b>Zmeň lokalizáciu (podľa preferovaného jazyka)</b>: Zmeň lokalizáciu aplikácie podľa preferovaného jazyka.</li>
 </ol>
+
+<p>
+    Po spustení aplikácie je lokalizácia nastavená podľa mobilného zariadenia. Lokálizácia, pre ktorú aplikácia nemá
+    lokalizačný súbor, preberá texty z prednastavenej lokalizácie, ktorou je anglická. Zatiaľ podporované lokalizácie sú
+    anglická, slovenská a česká. Pre všetky ostatné lokalizácie sa texty v aplikácii zobrazia v angličtine.
+</p>
+<p>
+    Osobitnou kapitolou su detailné informácie o samotných kvetoch. Tie sa sťahujú zo servera, ktorý zatiaľ podporuje
+    iba dva jazyky: angličtinu ako prednastavený jazyk a slovenčinu. Ak sa jazyk lokalizácie aplikácie nezhoduje s
+    vybraným preferovaným jazykom, na karte s detailnými informáciami o kvete sa objaví ikona Google Translate. Po
+    stlačení sa texty preložia pomocou Google Translate do jazyka lokalizácie. Po opätovnou stlačení ikony, sa texty
+    vrátia do preferovaného jazyka.
+</p>
+<p>
+    Príklad 1: Jan má na svojom mobile nastavený jazyk (lokalizáciu) na češtinu. Keďže aplikácia podporuje túto
+    lokalizáciu, ovládacie prvky aplikácie budú v češtine. Jan si vyberie ako preferovaný jazyk slovenčinu (aplikácia
+    zatiaľ nepodporuje češtinu ako preferovaný jazyk). Aplikačný server teda bude posielať texty v slovenčine. Pretože
+    si Jan nezmenil lokalizáciu aplikácie (zaškrtávacie okienko Zmeň lokalizáciu ostalo nezaškrtnuté), pri textoch sa
+    objaví ikona Google Translate a Jan si bude môcť preložiť texty zo slovenčiny do češtiny pomocou Google Translate.
+</p>
+<p>
+    Príklad 2: Vlado má na svojom mobile nastavený jazyk (lokalizáciu) na angličtinu. Ako preferovaný jazyk si však
+    vyberie slovenčinu, zároveň si zmení aj lokalizáciu na slovenskú. Vlado bude mať ovládanie aj informačné texty
+    v slovenčine a možnosť prekladu pomocou Google translate sa mu neobjaví.
+</p>
+<p>
+    Príklad 3: Jurij má na svojom mobile nastavený jazyk (lokalizáciu) na ruštinu. Keďže aplikácia nepodporuje túto
+    lokalizáciu, ovládacie prvky aplikácie budú v angličtine. Jurij si vyberie ako preferovaný jazyk angličtinu.
+    Aplikačný server teda bude posielať texty v angličtine. Pretože si Jurij nezmenil lokalizáciu aplikácie
+    (zaškrtávacie okienko Zmeň lokalizáciu ostalo nezaškrtnuté), pri textoch sa objaví ikona Google Translate a Jurij
+    si bude môcť preložiť texty z angličtiny do ruštiny pomocou Google Translate.
+</p>
 </body>
 </html>

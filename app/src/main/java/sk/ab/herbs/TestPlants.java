@@ -63,13 +63,13 @@ public class TestPlants {
     plant.setTitle("pastierska kapsička");
     plant.setBack_url("http://commondatastorage.googleapis.com/abplants/Capsella_bursa-pastoris.webp");
 
-    plant.setFlower("Kvety sú usporiadané v riedkom strapci s vrcholovým paokolíkom. Štyri biele okvetné lístky.");
-    plant.setFruit("Plody sú trojuholníkovité až klinovito srdcovité.");
-    plant.setStem("Byľ je bohato rozkonárená.");
-    plant.setLeaf("Listy v prízemnej ružici sú gravicovité až perovito dielne. Listy vo vrcholovej časti byle sú celistvookrajové.");
-    plant.setHabitat("Vyskytuje sa v burinových porastoch na poliach, vo vinohradoch a v záhradách, na železničných násypoch, rumoviskách a popri cestách.");
+//    plant.setFlower("Kvety sú usporiadané v riedkom strapci s vrcholovým paokolíkom. Štyri biele okvetné lístky.");
+//    plant.setFruit("Plody sú trojuholníkovité až klinovito srdcovité.");
+//    plant.setStem("Byľ je bohato rozkonárená.");
+//    plant.setLeaf("Listy v prízemnej ružici sú gravicovité až perovito dielne. Listy vo vrcholovej časti byle sú celistvookrajové.");
+//    plant.setHabitat("Vyskytuje sa v burinových porastoch na poliach, vo vinohradoch a v záhradách, na železničných násypoch, rumoviskách a popri cestách.");
 
-    plant.setInflorescence("paokolík");
+//    plant.setInflorescence("paokolík");
     plant.setFlower_color("white");
     plant.setNumber_of_petals("4");
     plant.setLeaf_shape("gracovitá");
