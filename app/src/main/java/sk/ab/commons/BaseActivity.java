@@ -31,7 +31,7 @@ import sk.ab.tools.Utils;
  * Base Activity
  */
 public abstract class BaseActivity extends ActionBarActivity {
-    protected static Locale locale;
+    protected Locale locale;
 
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mDrawerToggle;
@@ -48,7 +48,12 @@ public abstract class BaseActivity extends ActionBarActivity {
 
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
-        locale = Utils.changeLocale(this, language);
+        Boolean changeLocale = preferences.getBoolean(Constants.CHANGE_LOCALE_KEY, false);
+        if (changeLocale && !Locale.getDefault().getLanguage().equals(language)) {
+            locale = Utils.changeLocale(this, language);
+        } else {
+            locale = Locale.getDefault();
+        }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -66,7 +71,7 @@ public abstract class BaseActivity extends ActionBarActivity {
         super.onStart();
 
         if (!locale.equals(Locale.getDefault())) {
-            onConfigurationChanged(getResources().getConfiguration());
+            recreate();
         }
     }
 
@@ -105,15 +110,6 @@ public abstract class BaseActivity extends ActionBarActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onConfigurationChanged (Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
-        locale = Utils.changeLocale(this, language);
     }
 
     protected void closeDrawer() {

@@ -1,5 +1,7 @@
 package sk.ab.herbs;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 
 import java.util.HashMap;
@@ -14,11 +16,14 @@ import java.util.Map;
  */
 public class Constants {
     public final static int LIST_THRESHOLD = 20;
+    public final static int DEFAULT_LANGUAGE = 0;
 
     public final static Map<String, Integer> LANGUAGES;
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
+    public final static String CHANGE_LOCALE_KEY = "change_locale";
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";
+    public final static String LANGUAGE_CS = "cs";
     public final static String HEIGHT_UNIT = "cm";
 
     public final static String STORAGE_ENDPOINT = "http://storage.googleapis.com/abherbs/.families/";
@@ -28,6 +33,8 @@ public class Constants {
     public final static String REST_COUNT = "count";
     public final static String REST_LIST = "list";
     public final static String REST_DETAIL = "detail";
+
+    public final static String REST_ENDPOINT_TRANSLATE = "https://www.googleapis.com/language/translate/v2";
 
     public final static int FLOWERS = 12;
 
@@ -70,10 +77,11 @@ public class Constants {
         LANGUAGES = new HashMap<String, Integer>();
         LANGUAGES.put(LANGUAGE_EN, 0);
         LANGUAGES.put(LANGUAGE_SK, 1);
+        LANGUAGES.put(LANGUAGE_CS, 2);
     }
 
-    public static int getLanguage() {
-        Integer language = LANGUAGES.get(Locale.getDefault().getLanguage());
+    public static int getLanguage(String sLanguage) {
+        Integer language = LANGUAGES.get(sLanguage);
         return language == null ? 0 : language;
     }
 

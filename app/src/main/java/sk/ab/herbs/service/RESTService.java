@@ -48,6 +48,7 @@ public class RESTService extends IntentService {
 
     public static final String EXTRA_HTTP_VERB = "sk.ab.tools.rest.EXTRA_HTTP_VERB";
     public static final String EXTRA_PARAMS = "sk.ab.tools.rest.EXTRA_PARAMS";
+    public static final String EXTRA_PARAMS_LIST = "sk.ab.tools.rest.EXTRA_PARAMS_LIST";
     public static final String EXTRA_RESULT_RECEIVER = "sk.ab.tools.rest.EXTRA_RESULT_RECEIVER";
 
     public static final String REST_RESULT = "sk.ab.tools.rest.REST_RESULT";
@@ -75,6 +76,7 @@ public class RESTService extends IntentService {
         // We default to GET if no verb was specified.
         int verb = extras.getInt(EXTRA_HTTP_VERB, GET);
         Bundle params = extras.getParcelable(EXTRA_PARAMS);
+        String[] sParams = extras.getStringArray(EXTRA_PARAMS_LIST);
         ResultReceiver receiver = extras.getParcelable(EXTRA_RESULT_RECEIVER);
 
         try {
@@ -87,13 +89,13 @@ public class RESTService extends IntentService {
             switch (verb) {
                 case GET: {
                     request = new HttpGet();
-                    attachUriWithQuery(request, action, params);
+                    attachUriWithQuery(request, action, params, sParams);
                 }
                 break;
 
                 case DELETE: {
                     request = new HttpDelete();
-                    attachUriWithQuery(request, action, params);
+                    attachUriWithQuery(request, action, params, sParams);
                 }
                 break;
 
@@ -175,18 +177,27 @@ public class RESTService extends IntentService {
         }
     }
 
-    private static void attachUriWithQuery(HttpRequestBase request, Uri uri, Bundle params) {
+    private static void attachUriWithQuery(HttpRequestBase request, Uri uri, Bundle params, String[] sParams) {
         try {
-            if (params == null) {
+            if (params == null && sParams == null) {
                 // No params were given or they have already been
                 // attached to the Uri.
                 request.setURI(new URI(uri.toString()));
             } else {
                 Uri.Builder uriBuilder = uri.buildUpon();
 
-                // Loop through our params and append them to the Uri.
-                for (BasicNameValuePair param : paramsToList(params)) {
-                    uriBuilder.appendQueryParameter(param.getName(), param.getValue());
+                if (params != null) {
+                    // Loop through our params and append them to the Uri.
+                    for (BasicNameValuePair param : paramsToList(params)) {
+                        uriBuilder.appendQueryParameter(param.getName(), param.getValue());
+                    }
+                }
+
+                if (sParams != null) {
+                    // Loop through our params and append them to the Uri.
+                    for (BasicNameValuePair param : arrayParamsToList(sParams)) {
+                        uriBuilder.appendQueryParameter(param.getName(), param.getValue());
+                    }
                 }
 
                 uri = uriBuilder.build();
@@ -225,6 +236,16 @@ public class RESTService extends IntentService {
             // method to enforce. We also probably don't need to check for null here
             // but we do anyway because Bundle.get() can return null.
             if (value != null) formList.add(new BasicNameValuePair(key, value.toString()));
+        }
+
+        return formList;
+    }
+
+    private static List<BasicNameValuePair> arrayParamsToList(String[] sParams) {
+        ArrayList<BasicNameValuePair> formList = new ArrayList<BasicNameValuePair>(sParams.length/2);
+
+        for (int i = 0; i < sParams.length; i = i+2) {
+            formList.add(new BasicNameValuePair(sParams[i], sParams[i+1]));
         }
 
         return formList;

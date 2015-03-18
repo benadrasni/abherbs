@@ -46,7 +46,7 @@ public class FilterPlantsActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(null);
+        super.onCreate(savedInstanceState);
 
         setContentView(R.layout.base_activity);
 

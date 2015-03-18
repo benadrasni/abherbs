@@ -17,8 +17,8 @@
         <item>en</item>
         <item>sk</item>
     </string-array>
-    <string name="pref_also_english">Use English</string>
-    <string name="pref_also_english_summary">when no text in preferred language exists</string>
+    <string name="change_locale">Change locale</string>
+    <string name="change_locale_summary">to preferred language</string>
 
     <string name="color_of_flower">color of flowers</string>
     <string name="color_white">white</string>
@@ -52,6 +52,7 @@
     <string name="plant_taxonomy">Taxonomy</string>
     <string name="plant_sources">Sources</string>
     <string name="image_desc">Plant illustration</string>
+    <string name="translate_desc">Translate</string>
 
     <string name="plant_title">title</string>
     <string name="plant_height_from">Height from</string>

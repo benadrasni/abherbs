@@ -6,12 +6,14 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
+import sk.ab.tools.TextWithLanguage;
+
 /**
  * Created with IntelliJ IDEA.
  * User: adrian
  * Date: 25.2.2013
  * Time: 19:14
- * To change this template use File | Settings | File Templates.
+ *
  */
 public class Plant implements Parcelable {
 
@@ -32,21 +34,21 @@ public class Plant implements Parcelable {
     private int height_to;
     private int flowering_from;
     private int flowering_to;
-    private String description;
-    private String flower;
-    private String fruit;
-    private String leaf;
-    private String habitat;
+    private TextWithLanguage description;
+    private TextWithLanguage flower;
+    private TextWithLanguage inflorescence;
+    private TextWithLanguage fruit;
+    private TextWithLanguage leaf;
+    private TextWithLanguage stem;
+    private TextWithLanguage habitat;
+    private String root;
     private String flower_color;
     private String number_of_petals;
     private String sepal;
-    private String inflorescence;
     private String leaf_shape;
     private String leaf_margin;
     private String leaf_venation;
     private String leaf_arrangement;
-    private String stem;
-    private String root;
     private List<String> names;
     private List<String> photo_urls;
     private List<String> source_urls;
@@ -85,20 +87,70 @@ public class Plant implements Parcelable {
         height_to = in.readInt();
         flowering_from = in.readInt();
         flowering_to = in.readInt();
-        description = in.readString();
-        flower = in.readString();
-        fruit = in.readString();
-        leaf = in.readString();
-        habitat = in.readString();
+
+        description = new TextWithLanguage();
+        int size = in.readInt();
+        for(int i = 0; i < size; i++){
+            Integer key = in.readInt();
+            String value = in.readString();
+            description.add(key,value);
+        }
+
+        flower = new TextWithLanguage();
+        size = in.readInt();
+        for(int i = 0; i < size; i++){
+            Integer key = in.readInt();
+            String value = in.readString();
+            flower.add(key,value);
+        }
+
+        inflorescence = new TextWithLanguage();
+        size = in.readInt();
+        for(int i = 0; i < size; i++){
+            Integer key = in.readInt();
+            String value = in.readString();
+            inflorescence.add(key,value);
+        }
+
+        fruit = new TextWithLanguage();
+        size = in.readInt();
+        for(int i = 0; i < size; i++){
+            Integer key = in.readInt();
+            String value = in.readString();
+            fruit.add(key,value);
+        }
+
+        leaf = new TextWithLanguage();
+        size = in.readInt();
+        for(int i = 0; i < size; i++){
+            Integer key = in.readInt();
+            String value = in.readString();
+            leaf.add(key,value);
+        }
+
+        stem = new TextWithLanguage();
+        size = in.readInt();
+        for(int i = 0; i < size; i++){
+            Integer key = in.readInt();
+            String value = in.readString();
+            stem.add(key,value);
+        }
+
+        habitat = new TextWithLanguage();
+        size = in.readInt();
+        for(int i = 0; i < size; i++){
+            Integer key = in.readInt();
+            String value = in.readString();
+            habitat.add(key,value);
+        }
+
         flower_color = in.readString();
         number_of_petals = in.readString();
         sepal = in.readString();
-        inflorescence = in.readString();
         leaf_shape = in.readString();
         leaf_margin = in.readString();
         leaf_venation = in.readString();
         leaf_arrangement = in.readString();
-        stem = in.readString();
         root = in.readString();
         domain = in.readString();
         domain_latin = in.readString();
@@ -156,20 +208,20 @@ public class Plant implements Parcelable {
         destination.writeInt(height_to);
         destination.writeInt(flowering_from);
         destination.writeInt(flowering_to);
-        destination.writeString(description);
-        destination.writeString(flower);
-        destination.writeString(fruit);
-        destination.writeString(leaf);
-        destination.writeString(habitat);
+        description.writeToParcel(destination, flags);
+        flower.writeToParcel(destination, flags);
+        inflorescence.writeToParcel(destination, flags);
+        fruit.writeToParcel(destination, flags);
+        leaf.writeToParcel(destination, flags);
+        stem.writeToParcel(destination, flags);
+        habitat.writeToParcel(destination, flags);
         destination.writeString(flower_color);
         destination.writeString(number_of_petals);
         destination.writeString(sepal);
-        destination.writeString(inflorescence);
         destination.writeString(leaf_shape);
         destination.writeString(leaf_margin);
         destination.writeString(leaf_venation);
         destination.writeString(leaf_arrangement);
-        destination.writeString(stem);
         destination.writeString(root);
         destination.writeString(domain);
         destination.writeString(domain_latin);
@@ -297,11 +349,11 @@ public class Plant implements Parcelable {
         this.flowering_to = flowering_to;
     }
 
-    public String getDescription() {
+    public TextWithLanguage getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(TextWithLanguage description) {
         this.description = description;
     }
 
@@ -313,27 +365,27 @@ public class Plant implements Parcelable {
         this.back_url = back_url;
     }
 
-    public String getFlower() {
+    public TextWithLanguage getFlower() {
         return flower;
     }
 
-    public void setFlower(String flower) {
+    public void setFlower(TextWithLanguage flower) {
         this.flower = flower;
     }
 
-    public String getFruit() {
+    public TextWithLanguage getFruit() {
         return fruit;
     }
 
-    public void setFruit(String fruit) {
+    public void setFruit(TextWithLanguage fruit) {
         this.fruit = fruit;
     }
 
-    public String getLeaf() {
+    public TextWithLanguage getLeaf() {
         return leaf;
     }
 
-    public void setLeaf(String leaf) {
+    public void setLeaf(TextWithLanguage leaf) {
         this.leaf = leaf;
     }
 
@@ -369,11 +421,11 @@ public class Plant implements Parcelable {
         this.sepal = sepal;
     }
 
-    public String getInflorescence() {
+    public TextWithLanguage getInflorescence() {
         return inflorescence;
     }
 
-    public void setInflorescence(String inflorescence) {
+    public void setInflorescence(TextWithLanguage inflorescence) {
         this.inflorescence = inflorescence;
     }
 
@@ -409,11 +461,11 @@ public class Plant implements Parcelable {
         this.leaf_arrangement = leaf_arrangement;
     }
 
-    public String getStem() {
+    public TextWithLanguage getStem() {
         return stem;
     }
 
-    public void setStem(String stem) {
+    public void setStem(TextWithLanguage stem) {
         this.stem = stem;
     }
 
@@ -425,11 +477,11 @@ public class Plant implements Parcelable {
         this.root = root;
     }
 
-    public String getHabitat() {
+    public TextWithLanguage getHabitat() {
         return habitat;
     }
 
-    public void setHabitat(String habitat) {
+    public void setHabitat(TextWithLanguage habitat) {
         this.habitat = habitat;
     }
 

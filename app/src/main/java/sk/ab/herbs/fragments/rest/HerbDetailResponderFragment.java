@@ -1,6 +1,8 @@
 package sk.ab.herbs.fragments.rest;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +20,7 @@ import sk.ab.herbs.Plant;
 import sk.ab.herbs.activities.ListPlantsActivity;
 import sk.ab.herbs.service.RESTResponderFragment;
 import sk.ab.herbs.service.RESTService;
+import sk.ab.tools.TextWithLanguage;
 
 
 /**
@@ -39,10 +42,13 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
             Intent intent = new Intent(activity, RESTService.class);
             intent.setData(Uri.parse(Constants.REST_ENDPOINT + Constants.REST_DETAIL));
 
+            SharedPreferences preferences = getActivity().getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+            String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
+
             Bundle params = new Bundle();
             StringBuilder query = new StringBuilder("{");
             query.append("\"langId\":");
-            query.append(Constants.getLanguage());
+            query.append(Constants.getLanguage(language));
             query.append(",\"objectId\":");
             query.append(plantId);
             query.append("}");
@@ -69,7 +75,7 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
         }
     }
 
-    private static Plant getDetailFromJson(String json) {
+    private Plant getDetailFromJson(String json) {
         Plant result = null;
         try {
             JSONObject herbList = new JSONObject(json);
@@ -103,25 +109,46 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
                     result.setFlowering_to(attributes.getJSONArray("" + Constants.PLANT_FLOWERING_TO + "_0").getInt(0));
                 }
                 if (attributes.has(""+Constants.PLANT_DESCRIPTION +"_0")) {
-                    result.setDescription(attributes.getJSONArray("" + Constants.PLANT_DESCRIPTION + "_0").getString(0));
+                    TextWithLanguage texts = new TextWithLanguage();
+                    texts.add(Integer.parseInt(attributes.getJSONArray("" + Constants.PLANT_DESCRIPTION + "_0").getString(2)),
+                            attributes.getJSONArray("" + Constants.PLANT_DESCRIPTION + "_0").getString(0));
+                    result.setDescription(texts);
                 }
                 if (attributes.has(""+Constants.PLANT_FLOWER +"_0")) {
-                    result.setFlower(attributes.getJSONArray("" + Constants.PLANT_FLOWER + "_0").getString(0));
+                    TextWithLanguage texts = new TextWithLanguage();
+                    texts.add(Integer.parseInt(attributes.getJSONArray("" + Constants.PLANT_FLOWER + "_0").getString(2)),
+                            attributes.getJSONArray("" + Constants.PLANT_FLOWER + "_0").getString(0));
+                    result.setFlower(texts);
                 }
                 if (attributes.has(""+Constants.PLANT_INFLORESCENCE +"_0")) {
-                    result.setInflorescence(attributes.getJSONArray("" + Constants.PLANT_INFLORESCENCE + "_0").getString(0));
+                    TextWithLanguage texts = new TextWithLanguage();
+                    texts.add(Integer.parseInt(attributes.getJSONArray("" + Constants.PLANT_INFLORESCENCE + "_0").getString(2)),
+                            attributes.getJSONArray("" + Constants.PLANT_INFLORESCENCE + "_0").getString(0));
+                    result.setInflorescence(texts);
                 }
                 if (attributes.has(""+Constants.PLANT_FRUIT+"_0")) {
-                    result.setFruit(attributes.getJSONArray("" + Constants.PLANT_FRUIT + "_0").getString(0));
+                    TextWithLanguage texts = new TextWithLanguage();
+                    texts.add(Integer.parseInt(attributes.getJSONArray("" + Constants.PLANT_FRUIT + "_0").getString(2)),
+                            attributes.getJSONArray("" + Constants.PLANT_FRUIT + "_0").getString(0));
+                    result.setFruit(texts);
                 }
                 if (attributes.has(""+Constants.PLANT_STEM+"_0")) {
-                    result.setStem(attributes.getJSONArray("" + Constants.PLANT_STEM + "_0").getString(0));
+                    TextWithLanguage texts = new TextWithLanguage();
+                    texts.add(Integer.parseInt(attributes.getJSONArray("" + Constants.PLANT_STEM + "_0").getString(2)),
+                            attributes.getJSONArray("" + Constants.PLANT_STEM + "_0").getString(0));
+                    result.setStem(texts);
                 }
                 if (attributes.has(""+Constants.PLANT_LEAF+"_0")) {
-                    result.setLeaf(attributes.getJSONArray("" + Constants.PLANT_LEAF + "_0").getString(0));
+                    TextWithLanguage texts = new TextWithLanguage();
+                    texts.add(Integer.parseInt(attributes.getJSONArray("" + Constants.PLANT_LEAF + "_0").getString(2)),
+                            attributes.getJSONArray("" + Constants.PLANT_LEAF + "_0").getString(0));
+                    result.setLeaf(texts);
                 }
                 if (attributes.has(""+Constants.PLANT_HABITAT+"_0")) {
-                    result.setHabitat(attributes.getJSONArray("" + Constants.PLANT_HABITAT + "_0").getString(0));
+                    TextWithLanguage texts = new TextWithLanguage();
+                    texts.add(Integer.parseInt(attributes.getJSONArray("" + Constants.PLANT_HABITAT + "_0").getString(2)),
+                            attributes.getJSONArray("" + Constants.PLANT_HABITAT + "_0").getString(0));
+                    result.setHabitat(texts);
                 }
                 if (attributes.has(""+Constants.PLANT_SPECIES_LATIN+"_0")) {
                     result.setSpecies_latin(attributes.getJSONArray(""+Constants.PLANT_SPECIES_LATIN+"_0").getString(0));
@@ -155,11 +182,14 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
                     result.setGenus(attributes.getJSONArray(""+Constants.PLANT_GENUS+"_0").getString(0));
                 }
 
+                SharedPreferences preferences = getActivity().getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+                String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
+
                 int rank = 0;
                 List<String> names = new ArrayList<>();
                 while (attributes.has(""+Constants.PLANT_ALT_NAMES+"_"+rank)) {
                     JSONArray values = attributes.getJSONArray(""+Constants.PLANT_ALT_NAMES+"_"+rank);
-                    if (values.getInt(2) == Constants.getLanguage()) {
+                    if (values.getInt(2) == Constants.getLanguage(language)) {
                         names.add(values.getString(0));
                     }
                     rank++;

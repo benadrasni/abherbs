@@ -63,7 +63,7 @@ public class SourcesFragment extends Fragment {
             width = width/2;
         }
 
-        int columns = width/(Utils.convertDpToPx(85, dm));
+        int columns = width/(Utils.convertDpToPx(100, dm));
         grid.setColumnCount(columns);
 
         LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
