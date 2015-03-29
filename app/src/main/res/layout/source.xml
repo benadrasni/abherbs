@@ -9,7 +9,7 @@
         android:id="@+id/source_icon"
         android:layout_width="@dimen/source_icon_width"
         android:layout_height="@dimen/source_icon_height"
-        android:scaleType="centerCrop"/>
+        android:scaleType="fitCenter"/>
 
     <TextView
         android:id="@+id/source_title"

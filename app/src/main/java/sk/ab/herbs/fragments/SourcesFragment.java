@@ -37,6 +37,8 @@ public class SourcesFragment extends Fragment {
     private static final String SOURCE_EFLORA = "efloras.org";
     private static final String SOURCE_BERKELEY = "berkeley.edu";
     private static final String SOURCE_HORTIPEDIA = "hortipedia.com";
+    private static final String SOURCE_USDA = "plants.usda.gov";
+    private static final String SOURCE_USFS = "forestryimages.org";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -96,6 +98,12 @@ public class SourcesFragment extends Fragment {
             } else if (url.contains(SOURCE_HORTIPEDIA)) {
                 image.setImageDrawable(getResources().getDrawable(R.drawable.hortipedia));
                 text.setText(SOURCE_HORTIPEDIA);
+            } else if (url.contains(SOURCE_USDA)) {
+                image.setImageDrawable(getResources().getDrawable(R.drawable.usda));
+                text.setText(SOURCE_USDA);
+            } else if (url.contains(SOURCE_USFS)) {
+                image.setImageDrawable(getResources().getDrawable(R.drawable.usfs));
+                text.setText(SOURCE_USFS);
             }
 
             image.setOnClickListener(new View.OnClickListener() {
