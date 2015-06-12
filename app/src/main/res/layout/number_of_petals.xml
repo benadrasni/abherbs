@@ -23,12 +23,6 @@
                 android:background="@drawable/nop_4"
                 custom:valueId="@integer/nop_4"
                 android:layout_weight="6"/>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" android:padding="10dp">
-        </LinearLayout>
         <sk.ab.commons.BaseImageButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -55,12 +49,6 @@
                 android:background="@drawable/nop_many"
                 custom:valueId="@integer/nop_many"
                 android:layout_weight="6"/>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-        </LinearLayout>
         <sk.ab.commons.BaseImageButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
