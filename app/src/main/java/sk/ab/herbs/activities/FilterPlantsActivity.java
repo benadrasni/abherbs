@@ -1,6 +1,8 @@
 package sk.ab.herbs.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,7 @@ import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import sk.ab.commons.BaseActivity;
@@ -26,6 +29,7 @@ import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 import sk.ab.herbs.fragments.rest.HerbCountResponderFragment;
 import sk.ab.herbs.fragments.rest.HerbListResponderFragment;
+import sk.ab.tools.Utils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -132,14 +136,10 @@ public class FilterPlantsActivity extends BaseActivity {
     public void onConfigurationChanged (Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        for(BaseFilterFragment filterFragment : getFilterAttributes()) {
-            ViewGroup viewGroup = (ViewGroup)filterFragment.getView();
-            if (viewGroup != null) {
-                viewGroup.removeAllViewsInLayout();
-                getLayoutInflater().inflate(filterFragment.getLayout(), viewGroup);
-            }
-        }
-        mPropertyMenu.getListView().invalidateViews();
+        getIntent().putExtra("position", "" + ((HerbsApp) getApplication()).getFilterAttributes()
+                .indexOf(getCurrentFragment()));
+
+        recreate();
     }
 
     @Override

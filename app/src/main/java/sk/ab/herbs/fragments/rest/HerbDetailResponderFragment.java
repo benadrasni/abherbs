@@ -68,8 +68,10 @@ public class HerbDetailResponderFragment extends RESTResponderFragment {
 
         if (code == 200 && result != null) {
             ListPlantsActivity activity = (ListPlantsActivity) getActivity();
-            activity.setPlant(getDetailFromJson(result));
-            activity.invalidateOptionsMenu();
+            if (activity != null) {
+                activity.setPlant(getDetailFromJson(result));
+                activity.invalidateOptionsMenu();
+            }
         } else {
             Log.e(TAG, "Failed to load data. Check your internet settings.");
         }
