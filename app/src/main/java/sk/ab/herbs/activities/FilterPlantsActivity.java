@@ -10,26 +10,26 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
+import retrofit.Callback;
+import retrofit.Response;
 import sk.ab.commons.BaseActivity;
 import sk.ab.commons.BaseFilterFragment;
 import sk.ab.commons.PropertyListFragment;
 import sk.ab.herbs.Constants;
+import sk.ab.herbs.CountRequest;
 import sk.ab.herbs.HerbsApp;
+import sk.ab.herbs.ListRequest;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
-import sk.ab.herbs.fragments.rest.HerbCountResponderFragment;
-import sk.ab.herbs.fragments.rest.HerbListResponderFragment;
-import sk.ab.tools.Utils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -45,8 +45,6 @@ public class FilterPlantsActivity extends BaseActivity {
     private boolean ignoreBack;
 
     protected PropertyListFragment mPropertyMenu;
-    protected HerbCountResponderFragment countResponder;
-    protected HerbListResponderFragment listResponder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +52,7 @@ public class FilterPlantsActivity extends BaseActivity {
 
         setContentView(R.layout.base_activity);
 
+        FragmentManager.enableDebugLogging(true);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
@@ -75,17 +74,6 @@ public class FilterPlantsActivity extends BaseActivity {
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        countResponder = (HerbCountResponderFragment) fm.findFragmentByTag("RESTCountResponder");
-        if (countResponder == null) {
-            countResponder = new HerbCountResponderFragment();
-            ft.add(countResponder, "RESTCountResponder");
-        }
-        listResponder = (HerbListResponderFragment) fm.findFragmentByTag("RESTListResponder");
-        if (listResponder == null) {
-            listResponder = new HerbListResponderFragment();
-            ft.add(listResponder, "RESTListResponder");
-        }
-
         ft.commit();
     }
 
@@ -103,7 +91,7 @@ public class FilterPlantsActivity extends BaseActivity {
 
         if (getCurrentFragment() == null) {
             loading();
-            countResponder.getCount();
+            getCount();
         }
 
         switchContent(getFilterAttributes().get(position));
@@ -116,8 +104,8 @@ public class FilterPlantsActivity extends BaseActivity {
         countButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (((HerbsApp)getApplication()).getCount() <= Constants.LIST_THRESHOLD
-                        && ((HerbsApp)getApplication()).getCount() > 0) {
+                if (((HerbsApp) getApplication()).getCount() <= Constants.LIST_THRESHOLD
+                        && ((HerbsApp) getApplication()).getCount() > 0) {
                     loadResults();
                 }
             }
@@ -181,8 +169,7 @@ public class FilterPlantsActivity extends BaseActivity {
     public void addToFilter(Integer valueId) {
         loading();
         getFilter().put(getCurrentFragment().getAttributeId(), valueId);
-
-        countResponder.getCount();
+        getCount();
 
         mPropertyMenu.getListView().invalidateViews();
     }
@@ -191,7 +178,7 @@ public class FilterPlantsActivity extends BaseActivity {
         if (getFilter().get(attrId) != null) {
             loading();
             getFilter().remove(attrId);
-            countResponder.getCount();
+            getCount();
             mPropertyMenu.getListView().invalidateViews();
         }
     }
@@ -199,8 +186,7 @@ public class FilterPlantsActivity extends BaseActivity {
     public void clearFilter() {
         loading();
         getFilter().clear();
-
-        countResponder.getCount();
+        getCount();
 
         mPropertyMenu.getListView().invalidateViews();
         switchContent(getFilterAttributes().get(0));
@@ -208,7 +194,7 @@ public class FilterPlantsActivity extends BaseActivity {
 
     public void loadResults() {
         loading();
-        listResponder.getList();
+        getList();
     }
 
     public void setCount(int count) {
@@ -232,7 +218,9 @@ public class FilterPlantsActivity extends BaseActivity {
                     }
                 }
             }
-            countButton.setEnabled(true);
+            if (countButton != null) {
+                countButton.setEnabled(true);
+            }
             invalidateOptionsMenu();
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             app.setLoading(false);
@@ -268,6 +256,67 @@ public class FilterPlantsActivity extends BaseActivity {
         if (mContent != null)
             position = getFilterAttributes().indexOf(mContent);
         return position;
+    }
+
+    private void getCount() {
+        ((HerbsApp)getApplication()).getHerbClient().getApiService().getCount(
+                new CountRequest(Constants.FLOWERS, getFilter())).enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Response<Integer> response) {
+                setCount(response.body());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
+            }
+        });
+    }
+
+    private void getList() {
+        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
+
+        List<Integer> attributes = new ArrayList<Integer>();
+        attributes.add(Constants.PLANT_NAME);
+        attributes.add(Constants.PLANT_PHOTO_URL);
+        attributes.add(Constants.PLANT_FAMILY);
+
+        ((HerbsApp)getApplication()).getHerbClient().getApiService().getList(
+                new ListRequest(Constants.getLanguage(language),
+                        getFilter(),
+                        attributes,
+                        0,
+                        10)).enqueue(new Callback<Map<Integer, Map<String, List<String>>>>() {
+            @Override
+            public void onResponse(Response<Map<Integer,Map<String,List<String>>>> response) {
+                List<PlantHeader> result = new ArrayList<>();
+
+                for (Map.Entry<Integer,Map<String,List<String>>> entry : response.body().entrySet()) {
+
+                    Map<String,List<String>> attributes = entry.getValue();
+                    String name = attributes.get(""+Constants.PLANT_NAME+"_0").get(0);
+                    String url = attributes.get(""+Constants.PLANT_PHOTO_URL+"_0").get(0);
+                    String family = attributes.get(""+Constants.PLANT_FAMILY+"_0").get(0);
+                    String familyId = attributes.get(""+Constants.PLANT_FAMILY+"_0").get(1);
+
+                    PlantHeader plantHeader = new PlantHeader(entry.getKey(),
+                            name != null ? name : "",
+                            url != null ? url : "",
+                            family != null ? family : "",
+                            familyId != null ? Integer.parseInt(familyId) : 0);
+
+                    result.add(plantHeader);
+                }
+
+                setResults(result);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
+            }
+        });
     }
 }
 

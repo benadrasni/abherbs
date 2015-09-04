@@ -1,11 +1,8 @@
 package sk.ab.herbs;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -17,6 +14,7 @@ import java.util.Map;
 public class Constants {
     public final static int LIST_THRESHOLD = 20;
     public final static int DEFAULT_LANGUAGE = 0;
+    public final static int ORIGINAL_LANGUAGE = -1;
 
     public final static Map<String, Integer> LANGUAGES;
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
@@ -28,13 +26,6 @@ public class Constants {
 
     public final static String STORAGE_ENDPOINT = "http://storage.googleapis.com/abherbs/.families/";
     public final static String DEFAULT_EXTENSION = ".webp";
-
-    public final static String REST_ENDPOINT = "http://appsresource.appspot.com/rest/";
-    public final static String REST_COUNT = "count";
-    public final static String REST_LIST = "list";
-    public final static String REST_DETAIL = "detail";
-
-    public final static String REST_ENDPOINT_TRANSLATE = "https://www.googleapis.com/language/translate/v2";
 
     public final static int FLOWERS = 12;
 

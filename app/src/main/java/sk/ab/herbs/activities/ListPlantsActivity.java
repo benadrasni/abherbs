@@ -1,28 +1,34 @@
 package sk.ab.herbs.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
+import retrofit.Callback;
+import retrofit.Response;
 import sk.ab.commons.BaseActivity;
+import sk.ab.herbs.Constants;
+import sk.ab.herbs.DetailRequest;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 import sk.ab.herbs.fragments.PlantListFragment;
-import sk.ab.herbs.fragments.rest.HerbDetailResponderFragment;
+import sk.ab.tools.TextWithLanguage;
 
 /**
  * User: adrian
@@ -32,8 +38,6 @@ import sk.ab.herbs.fragments.rest.HerbDetailResponderFragment;
  */
 public class ListPlantsActivity extends BaseActivity {
     private List<PlantHeader> plants;
-
-    private HerbDetailResponderFragment detailResponder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,11 +58,6 @@ public class ListPlantsActivity extends BaseActivity {
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        detailResponder = (HerbDetailResponderFragment) fm.findFragmentByTag("RESTDetailResponder");
-        if (detailResponder == null) {
-            detailResponder = new HerbDetailResponderFragment();
-            ft.add(detailResponder, "RESTDetailResponder");
-        }
         PlantListFragment plantListFragment = (PlantListFragment) fm.findFragmentByTag("PlantList");
         if (plantListFragment == null) {
             ft.replace(R.id.list_content, new PlantListFragment(), "PlantList");
@@ -82,7 +81,7 @@ public class ListPlantsActivity extends BaseActivity {
             @Override
             public boolean onLongClick(View v) {
                 loading();
-                ((HerbsApp)getApplication()).getFilter().clear();
+                ((HerbsApp) getApplication()).getFilter().clear();
                 Intent intent = new Intent(ListPlantsActivity.this, FilterPlantsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -94,7 +93,7 @@ public class ListPlantsActivity extends BaseActivity {
 
     public void selectPlant(int position) {
         loading();
-        detailResponder.getDetail(plants.get(position).getPlantId());
+        getDetail(plants.get(position).getPlantId());
     }
 
     public void setPlant(Plant plant) {
@@ -108,5 +107,174 @@ public class ListPlantsActivity extends BaseActivity {
 
     public List<PlantHeader> getPlants() {
         return plants;
+    }
+
+    private void getDetail(int plantId) {
+        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
+
+        ((HerbsApp)getApplication()).getHerbClient().getApiService().getDetail(
+                new DetailRequest(Constants.getLanguage(language),
+                        plantId)).enqueue(new Callback<Map<Integer, Map<String, List<String>>>>() {
+            @Override
+            public void onResponse(Response<Map<Integer,Map<String,List<String>>>> response) {
+                Plant result = null;
+
+                for (Map.Entry<Integer,Map<String,List<String>>> entry : response.body().entrySet()) {
+                    result = new Plant(entry.getKey());
+
+                    Map<String,List<String>> attributes = entry.getValue();
+                    String name = attributes.get(""+Constants.PLANT_NAME+"_0").get(0);
+                    result.setTitle(name);
+                    result.setSpecies(name);
+
+                    if (attributes.containsKey(""+Constants.PLANT_FAMILY +"_0")) {
+                        result.setFamily(attributes.get("" + Constants.PLANT_FAMILY + "_0").get(0));
+                    }
+                    if (attributes.containsKey(""+Constants.PLANT_IMAGE_URL +"_0")) {
+                        result.setBack_url(attributes.get("" + Constants.PLANT_IMAGE_URL + "_0").get(0));
+                    }
+                    if (attributes.containsKey(""+Constants.PLANT_HEIGHT_FROM +"_0")) {
+                        result.setHeight_from(((int) Float.parseFloat(attributes.get("" + Constants.PLANT_HEIGHT_FROM + "_0").get(0))));
+                    }
+                    if (attributes.containsKey(""+Constants.PLANT_HEIGHT_TO +"_0")) {
+                        result.setHeight_to(((int) Float.parseFloat(attributes.get("" + Constants.PLANT_HEIGHT_TO + "_0").get(0))));
+                    }
+                    if (attributes.containsKey(""+Constants.PLANT_FLOWERING_FROM +"_0")) {
+                        result.setFlowering_from(((int) Float.parseFloat(attributes.get("" + Constants.PLANT_FLOWERING_FROM + "_0").get(0))));
+                    }
+                    if (attributes.containsKey(""+Constants.PLANT_FLOWERING_TO +"_0")) {
+                        result.setFlowering_to(((int) Float.parseFloat(attributes.get("" + Constants.PLANT_FLOWERING_TO + "_0").get(0))));
+                    }
+
+                    if (attributes.containsKey(""+Constants.PLANT_DESCRIPTION +"_0")) {
+                        TextWithLanguage texts = new TextWithLanguage();
+                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_DESCRIPTION + "_0").get(2)),
+                                attributes.get("" + Constants.PLANT_DESCRIPTION + "_0").get(0));
+                        texts.add(Constants.ORIGINAL_LANGUAGE,
+                                attributes.get("" + Constants.PLANT_DESCRIPTION + "_0").get(0));
+                        result.setDescription(texts);
+                    }
+                    if (attributes.containsKey("" + Constants.PLANT_FLOWER + "_0")) {
+                        TextWithLanguage texts = new TextWithLanguage();
+                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_FLOWER + "_0").get(2)),
+                                attributes.get("" + Constants.PLANT_FLOWER + "_0").get(0));
+                        texts.add(Constants.ORIGINAL_LANGUAGE,
+                                attributes.get("" + Constants.PLANT_FLOWER + "_0").get(0));
+                        result.setFlower(texts);
+                    }
+                    if (attributes.containsKey("" + Constants.PLANT_INFLORESCENCE + "_0")) {
+                        TextWithLanguage texts = new TextWithLanguage();
+                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_INFLORESCENCE + "_0").get(2)),
+                                attributes.get("" + Constants.PLANT_INFLORESCENCE + "_0").get(0));
+                        texts.add(Constants.ORIGINAL_LANGUAGE,
+                                attributes.get("" + Constants.PLANT_INFLORESCENCE + "_0").get(0));
+                        result.setInflorescence(texts);
+                    }
+                    if (attributes.containsKey("" + Constants.PLANT_FRUIT + "_0")) {
+                        TextWithLanguage texts = new TextWithLanguage();
+                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_FRUIT + "_0").get(2)),
+                                attributes.get("" + Constants.PLANT_FRUIT + "_0").get(0));
+                        texts.add(Constants.ORIGINAL_LANGUAGE,
+                                attributes.get("" + Constants.PLANT_FRUIT + "_0").get(0));
+                        result.setFruit(texts);
+                    }
+                    if (attributes.containsKey("" + Constants.PLANT_STEM+"_0")) {
+                        TextWithLanguage texts = new TextWithLanguage();
+                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_STEM + "_0").get(2)),
+                                attributes.get("" + Constants.PLANT_STEM + "_0").get(0));
+                        texts.add(Constants.ORIGINAL_LANGUAGE,
+                                attributes.get("" + Constants.PLANT_STEM + "_0").get(0));
+                        result.setStem(texts);
+                    }
+                    if (attributes.containsKey("" + Constants.PLANT_LEAF + "_0")) {
+                        TextWithLanguage texts = new TextWithLanguage();
+                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_LEAF + "_0").get(2)),
+                                attributes.get("" + Constants.PLANT_LEAF + "_0").get(0));
+                        texts.add(Constants.ORIGINAL_LANGUAGE,
+                                attributes.get("" + Constants.PLANT_LEAF + "_0").get(0));
+                        result.setLeaf(texts);
+                    }
+                    if (attributes.containsKey(""+Constants.PLANT_HABITAT+"_0")) {
+                        TextWithLanguage texts = new TextWithLanguage();
+                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_HABITAT + "_0").get(2)),
+                                attributes.get("" + Constants.PLANT_HABITAT + "_0").get(0));
+                        texts.add(Constants.ORIGINAL_LANGUAGE,
+                                attributes.get("" + Constants.PLANT_HABITAT + "_0").get(0));
+                        result.setHabitat(texts);
+                    }
+
+                    if (attributes.containsKey("" + Constants.PLANT_SPECIES_LATIN + "_0")) {
+                        result.setSpecies_latin(attributes.get(""+Constants.PLANT_SPECIES_LATIN+"_0").get(0));
+                    }
+                    if (attributes.containsKey("" + Constants.PLANT_DOMAIN + "_0")) {
+                        result.setDomain(attributes.get(""+Constants.PLANT_DOMAIN+"_0").get(0));
+                    }
+                    if (attributes.containsKey("" + Constants.PLANT_KINGDOM + "_0")) {
+                        result.setKingdom(attributes.get(""+Constants.PLANT_KINGDOM+"_0").get(0));
+                    }
+                    if (attributes.containsKey("" + Constants.PLANT_SUBKINGDOM + "_0")) {
+                        result.setSubkingdom(attributes.get("" + Constants.PLANT_SUBKINGDOM + "_0").get(0));
+                    }
+                    if (attributes.containsKey("" + Constants.PLANT_LINE + "_0")) {
+                        result.setLine(attributes.get("" + Constants.PLANT_LINE + "_0").get(0));
+                    }
+                    if (attributes.containsKey("" + Constants.PLANT_BRANCH + "_0")) {
+                        result.setBranch(attributes.get("" + Constants.PLANT_BRANCH + "_0").get(0));
+                    }
+                    if (attributes.containsKey("" + Constants.PLANT_PHYLUM + "_0")) {
+                        result.setPhylum(attributes.get("" + Constants.PLANT_PHYLUM + "_0").get(0));
+                    }
+                    if (attributes.containsKey("" + Constants.PLANT_CLS + "_0")) {
+                        result.setCls(attributes.get("" + Constants.PLANT_CLS + "_0").get(0));
+                    }
+                    if (attributes.containsKey("" + Constants.PLANT_ORDER + "_0")) {
+                        result.setOrder(attributes.get("" + Constants.PLANT_ORDER + "_0").get(0));
+                    }
+                    if (attributes.containsKey("" + Constants.PLANT_GENUS + "_0")) {
+                        result.setGenus(attributes.get("" + Constants.PLANT_GENUS + "_0").get(0));
+                    }
+
+                    SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+                    String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
+
+                    int rank = 0;
+                    List<String> names = new ArrayList<>();
+                    while (attributes.containsKey("" + Constants.PLANT_ALT_NAMES + "_" + rank)) {
+                        List<String> values = attributes.get(""+Constants.PLANT_ALT_NAMES+"_"+rank);
+                        if (Integer.parseInt(values.get(2)) == Constants.getLanguage(language)) {
+                            names.add(values.get(0));
+                        }
+                        rank++;
+                    }
+                    result.setNames(names);
+
+                    rank = 0;
+                    List<String> photo_urls = new ArrayList<>();
+                    while (attributes.containsKey("" + Constants.PLANT_PHOTO_URL + "_" + rank)) {
+                        photo_urls.add(attributes.get(""+Constants.PLANT_PHOTO_URL+"_"+rank).get(0));
+                        rank++;
+                    }
+                    result.setPhoto_urls(photo_urls);
+
+                    rank = 0;
+                    List<String> source_urls = new ArrayList<>();
+                    while (attributes.containsKey(""+Constants.PLANT_SOURCE_URL+"_"+rank)) {
+                        source_urls.add(attributes.get(""+Constants.PLANT_SOURCE_URL+"_"+rank).get(0));
+                        rank++;
+                    }
+                    result.setSource_urls(source_urls);
+
+
+                }
+
+                setPlant(result);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
+            }
+        });
     }
 }

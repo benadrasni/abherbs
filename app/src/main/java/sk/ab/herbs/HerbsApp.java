@@ -22,6 +22,8 @@ import sk.ab.commons.BaseFilterFragment;
 import sk.ab.herbs.fragments.ColorOfFlowers;
 import sk.ab.herbs.fragments.Habitats;
 import sk.ab.herbs.fragments.NumbersOfPetals;
+import sk.ab.herbs.service.GoogleClient;
+import sk.ab.herbs.service.HerbClient;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,6 +33,8 @@ import sk.ab.herbs.fragments.NumbersOfPetals;
  * <p/>
  */
 public class HerbsApp extends Application {
+    public static String sDefSystemLanguage;
+
     private static final String PROPERTY_ID = "UA-56892333-1";
 
     private static DisplayImageOptions options;
@@ -41,7 +45,8 @@ public class HerbsApp extends Application {
     private boolean isLoading;
     private int count;
 
-    public static String sDefSystemLanguage;
+    private HerbClient herbClient;
+    private GoogleClient googleClient;
 
     @Override
     public void onCreate() {
@@ -63,6 +68,9 @@ public class HerbsApp extends Application {
         filterAttributes.add(new NumbersOfPetals());
 
         filter = new HashMap<>();
+
+        herbClient = new HerbClient();
+        googleClient = new GoogleClient();
     }
 
     public synchronized Tracker getTracker() {
@@ -89,6 +97,14 @@ public class HerbsApp extends Application {
 
     public DisplayImageOptions getOptions() {
         return options;
+    }
+
+    public HerbClient getHerbClient() {
+        return herbClient;
+    }
+
+    public GoogleClient getGoogleClient() {
+        return googleClient;
     }
 
     public List<BaseFilterFragment> getFilterAttributes() {

@@ -15,7 +15,6 @@ import sk.ab.herbs.Constants;
 public class TextWithLanguage implements Parcelable {
     private Map<Integer, String> texts;
 
-
     public TextWithLanguage() {
         this.texts = new HashMap<Integer, String>();
     }
