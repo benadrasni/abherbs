@@ -57,7 +57,7 @@ public class InfoFragment extends Fragment {
             SharedPreferences preferences = getActivity().getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
             String sLanguage = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
 
-            if (sLanguage.equals(Locale.getDefault().getLanguage())) {
+            if (((DisplayPlantActivity) getActivity()).getPlant().isTranslated(Constants.getLanguage(sLanguage))) {
                 translateView.setVisibility(View.GONE);
             }
 

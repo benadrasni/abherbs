@@ -12,10 +12,12 @@
     <string-array name="languages">
         <item>English</item>
         <item>Slovenčina</item>
+        <item>Čeština</item>
     </string-array>
     <string-array name="languagesValues">
         <item>en</item>
         <item>sk</item>
+        <item>cs</item>
     </string-array>
     <string name="change_locale">Change locale</string>
     <string name="change_locale_summary">to preferred language</string>

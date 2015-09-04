@@ -299,6 +299,11 @@ public class Plant implements Parcelable {
         return text;
     }
 
+    public boolean isTranslated(int language) {
+        return description.isText(language) && flower.isText(language) && inflorescence.isText(language)
+                && fruit.isText(language) && leaf.isText(language) && stem.isText(language) && habitat.isText(language);
+    }
+
     // getters and setters
 
     public int getPlantId() {
