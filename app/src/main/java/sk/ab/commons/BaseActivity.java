@@ -74,7 +74,7 @@ public abstract class BaseActivity extends ActionBarActivity {
         }
     }
 
-        @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.filter, menu);
         MenuItem item = menu.findItem(R.id.count);

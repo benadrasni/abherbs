@@ -49,9 +49,6 @@ public class HtmlActivity extends ActionBarActivity {
             language = Constants.LANGUAGE_EN;
         }
         switch (title) {
-            case R.string.donation:
-                html.loadUrl("file:///android_asset/" + language + "_donation.html");
-                break;
             case R.string.feedback:
                 html.loadUrl("file:///android_asset/" + language + "_feedback.html");
                 break;

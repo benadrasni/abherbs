@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Was blüht denn da?</string>
+
+    <string name="about">Über</string>
+    <string name="help">Hilfe</string>
+    <string name="settings">Einstellungen</string>
+    <string name="feedback">Feedback</string>
+    <string name="pref_language">Bevorzugte Sprache</string>
+    <string name="pref_language_summary"/>
+    <string-array name="languages">
+        <item>English</item>
+        <item>Slovenčina</item>
+        <item>Čeština</item>
+        <item>Deutsch</item>
+    </string-array>
+    <string-array name="languagesValues">
+        <item>en</item>
+        <item>sk</item>
+        <item>cs</item>
+        <item>de</item>
+    </string-array>
+    <string name="change_locale">Lokalisierung ändern</string>
+    <string name="change_locale_summary">um die bevorzugte Sprache</string>
+
+    <string name="color_of_flower">Blütenfarbe</string>
+    <string name="color_white">Weiß</string>
+    <string name="color_yellow">Gelb</string>
+    <string name="color_red">Rot, Pink</string>
+    <string name="color_blue">Blau, Lila</string>
+    <string name="color_green">Grün, Braun, black</string>
+    <string name="color_of_flower_message">Was ist der Blütenfarbe? Wählen Sie den nächsten ein. Haben Sie keine Angst Rückkehr wieder und Auswahl zu ändern.</string>
+
+    <string name="habitats">Vorkommen</string>
+    <string name="habitat_meadow">Wiesen oder Grünland</string>
+    <string name="habitat_garden">Gärten oder Feldern</string>
+    <string name="habitat_wetland">Moorlandschaft oder Feuchtgebiete</string>
+    <string name="habitat_forest">Wälder</string>
+    <string name="habitat_rock">Felsen oder Berge</string>
+    <string name="habitat_tree">Bäume oder Sträucher</string>
+    <string name="habitat_message">Was ist in der Nähe? Identifizieren Vorkommen.</string>
+
+    <string name="number_of_petals">Anzahl der Blütenblätter</string>
+    <string name="nop_4">höchstens 4</string>
+    <string name="nop_5">5</string>
+    <string name="nop_many">mehr als 5</string>
+    <string name="nop_bisymmetric">zweiseitig-symmetrische</string>
+    <string name="number_of_petals_message">Ist eine Blüte bisymmetrischen? Nein? Dann, wie viele Blütenblätter hat es?</string>
+
+    <string name="display_info">Richtige?</string>
+    <string name="list_info">Wähle eins</string>
+
+    <string name="plant_info">Info</string>
+    <string name="plant_gallery">Gallery</string>
+    <string name="plant_taxonomy">Taxonomy</string>
+    <string name="plant_sources">Quellen</string>
+    <string name="image_desc">Werk Illustration</string>
+    <string name="translate_desc">Übersetzen</string>
+
+    <string name="plant_title">Titel</string>
+    <string name="plant_height_from">Höhe</string>
+    <string name="plant_height_to">-</string>
+    <string name="plant_flowering_from">Blütezeit</string>
+    <string name="plant_flowering_to">-</string>
+    <string name="plant_flowers">Blüte</string>
+    <string name="plant_inflorescences">Blütenstand</string>
+    <string name="plant_fruits">Fruits</string>
+    <string name="plant_leaves">Blätter</string>
+    <string name="plant_inflorescence">Blütenstand</string>
+    <string name="plant_color_of_flowers">Blütenfarbe</string>
+    <string name="plant_number_of_petals">Anzahl der Blütenblätter</string>
+    <string name="plant_sepal">Kelchblatt</string>
+    <string name="plant_leaf_shape">Blattform</string>
+    <string name="plant_leaf_margin">Blattrand</string>
+    <string name="plant_leaf_venation">Blattrippen</string>
+    <string name="plant_leaf_arrangement">Blattstand</string>
+    <string name="plant_stem">Stängel</string>
+    <string name="plant_root">Wurzel</string>
+    <string name="plant_habitat">Vorkommen</string>
+
+    <string name="plant_domain">Domäne</string>
+    <string name="plant_kingdom">Reich</string>
+    <string name="plant_subkingdom">Abteilung</string>
+    <string name="plant_line">Unterabteilung</string>
+    <string name="plant_branch">Überstamm</string>
+    <string name="plant_phylum">Stamm</string>
+    <string name="plant_class">Klasse</string>
+    <string name="plant_order">Ordnung</string>
+    <string name="plant_family">Familie</string>
+    <string name="plant_genus">Gattung</string>
+    <string name="plant_species">Art</string>
+</resources>
