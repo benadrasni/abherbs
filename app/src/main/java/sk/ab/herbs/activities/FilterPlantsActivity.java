@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import retrofit.Callback;
 import retrofit.Response;
@@ -42,7 +43,6 @@ import sk.ab.herbs.R;
 public class FilterPlantsActivity extends BaseActivity {
 
     private BaseFilterFragment mContent;
-    private boolean ignoreBack;
 
     protected PropertyListFragment mPropertyMenu;
 
@@ -54,7 +54,6 @@ public class FilterPlantsActivity extends BaseActivity {
 
         FragmentManager.enableDebugLogging(true);
         FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mPropertyMenu = (PropertyListFragment)fm.findFragmentById(R.id.menu_fragment);
@@ -73,8 +72,6 @@ public class FilterPlantsActivity extends BaseActivity {
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        ft.commit();
     }
 
     @Override
@@ -132,23 +129,26 @@ public class FilterPlantsActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (ignoreBack) {
-            ignoreBack = false;
-            removeFromFilter(getCurrentFragment().getAttributeId());
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            closeDrawer();
         } else {
-            FragmentManager fm = getSupportFragmentManager();
-            int count = fm.getBackStackEntryCount();
-            if (count > 0) {
-                FragmentManager.BackStackEntry backEntry = fm.getBackStackEntryAt(count - 1);
-                String str = backEntry.getName();
-                Fragment fragment = fm.findFragmentByTag(str);
-                if (fragment instanceof BaseFilterFragment) {
-                    setCurrentFragment((BaseFilterFragment) fragment);
-                    removeFromFilter(Integer.parseInt(str));
+            HerbsApp app = (HerbsApp) getApplication();
+            if (app.getCount() == 0) {
+                removeFromFilter(getCurrentFragment().getAttributeId());
+            } else {
+                Stack<BaseFilterFragment> backStack = app.getBackStack();
+                if (backStack.size() > 0) {
+                    BaseFilterFragment fragment = backStack.pop();
+                    FragmentManager fm = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                    fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttributeId());
+                    fragmentTransaction.commit();
+                    setCurrentFragment(fragment);
+                    removeFromFilter(fragment.getAttributeId());
+                } else {
+                    super.onBackPressed();
                 }
             }
-            closeDrawer();
-            super.onBackPressed();
         }
     }
 
@@ -157,7 +157,7 @@ public class FilterPlantsActivity extends BaseActivity {
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             if (getCurrentFragment() != null) {
-                fragmentTransaction.addToBackStack(getCurrentFragment().getTag());
+                ((HerbsApp)getApplication()).getBackStack().add(getCurrentFragment());
             }
             fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttributeId());
             fragmentTransaction.commit();
@@ -200,14 +200,11 @@ public class FilterPlantsActivity extends BaseActivity {
     public void setCount(int count) {
         HerbsApp app = (HerbsApp)getApplication();
         app.setCount(count);
-        ignoreBack = false;
 
         if (getFilterAttributes().size() == getFilter().size() && app.getCount() > 0) {
             loadResults();
         } else {
-            if (app.getCount() == 0) {
-                ignoreBack = true;
-            } else {
+            if (app.getCount() != 0) {
                 if (getFilter().get(getCurrentFragment().getAttributeId()) != null
                         && getFilterAttributes().size() > getFilter().size()) {
                     for (BaseFilterFragment fragment : getFilterAttributes()) {

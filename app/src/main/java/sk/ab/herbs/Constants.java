@@ -22,6 +22,7 @@ public class Constants {
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";
     public final static String LANGUAGE_CS = "cs";
+    public final static String LANGUAGE_DE = "de";
     public final static String HEIGHT_UNIT = "cm";
 
     public final static String STORAGE_ENDPOINT = "http://storage.googleapis.com/abherbs/.families/";
@@ -69,6 +70,7 @@ public class Constants {
         LANGUAGES.put(LANGUAGE_EN, 0);
         LANGUAGES.put(LANGUAGE_SK, 1);
         LANGUAGES.put(LANGUAGE_CS, 2);
+        LANGUAGES.put(LANGUAGE_DE, 3);
     }
 
     public static int getLanguage(String sLanguage) {

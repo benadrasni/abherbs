@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Stack;
 
 import sk.ab.commons.BaseFilterFragment;
 import sk.ab.herbs.fragments.ColorOfFlowers;
@@ -41,6 +42,7 @@ public class HerbsApp extends Application {
 
     private Tracker tracker;
     private List<BaseFilterFragment> filterAttributes;
+    private Stack<BaseFilterFragment> backStack;
     private Map<Integer, Integer> filter;
     private boolean isLoading;
     private int count;
@@ -67,6 +69,7 @@ public class HerbsApp extends Application {
         filterAttributes.add(new Habitats());
         filterAttributes.add(new NumbersOfPetals());
 
+        backStack = new Stack<>();
         filter = new HashMap<>();
 
         herbClient = new HerbClient();
@@ -109,6 +112,10 @@ public class HerbsApp extends Application {
 
     public List<BaseFilterFragment> getFilterAttributes() {
         return filterAttributes;
+    }
+
+    public Stack<BaseFilterFragment> getBackStack() {
+        return backStack;
     }
 
     public Map<Integer, Integer> getFilter() {
