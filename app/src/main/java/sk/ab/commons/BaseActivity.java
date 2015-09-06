@@ -1,5 +1,6 @@
 package sk.ab.commons;
 
+import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -43,7 +44,14 @@ public abstract class BaseActivity extends ActionBarActivity {
         tracker.setScreenName(this.getClass().getSimpleName());
         tracker.send(new HitBuilders.AppViewBuilder().build());
 
-        locale = Locale.getDefault();
+        if (!Locale.getDefault().equals(((HerbsApp)getApplication()).getLocale())) {
+            Locale locale = new Locale(((HerbsApp)getApplication()).getLocale().getLanguage());
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config,
+                    getBaseContext().getResources().getDisplayMetrics());
+        }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -54,15 +62,6 @@ public abstract class BaseActivity extends ActionBarActivity {
         super.onPostCreate(savedInstanceState);
 
         mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        if (!locale.equals(Locale.getDefault())) {
-            recreate();
-        }
     }
 
     @Override
