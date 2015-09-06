@@ -1,7 +1,5 @@
 package sk.ab.commons;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -21,7 +19,6 @@ import java.util.Locale;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
-import sk.ab.tools.Utils;
 
 /**
  * User: adrian
@@ -30,12 +27,13 @@ import sk.ab.tools.Utils;
  * Base Activity
  */
 public abstract class BaseActivity extends ActionBarActivity {
-    protected Locale locale;
 
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mDrawerToggle;
     protected Button countButton;
     protected AnimationDrawable loadingAnimation;
+
+    private Locale locale;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,14 +43,7 @@ public abstract class BaseActivity extends ActionBarActivity {
         tracker.setScreenName(this.getClass().getSimpleName());
         tracker.send(new HitBuilders.AppViewBuilder().build());
 
-        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
-        Boolean changeLocale = preferences.getBoolean(Constants.CHANGE_LOCALE_KEY, false);
-        if (changeLocale && !Locale.getDefault().getLanguage().equals(language)) {
-            locale = Utils.changeLocale(this, language);
-        } else {
-            locale = Locale.getDefault();
-        }
+        locale = Locale.getDefault();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);

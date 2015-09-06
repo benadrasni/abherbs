@@ -2,6 +2,8 @@ package sk.ab.herbs;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Logger;
@@ -35,12 +37,11 @@ import sk.ab.herbs.service.HerbClient;
  */
 public class HerbsApp extends Application {
     public static String sDefSystemLanguage;
-
     private static final String PROPERTY_ID = "UA-56892333-1";
-
     private static DisplayImageOptions options;
 
     private Tracker tracker;
+    private Locale locale;
     private List<BaseFilterFragment> filterAttributes;
     private Stack<BaseFilterFragment> backStack;
     private Map<Integer, Integer> filter;
@@ -56,10 +57,35 @@ public class HerbsApp extends Application {
 
         sDefSystemLanguage = Locale.getDefault().getLanguage();
 
+        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Boolean wasReset = preferences.getBoolean(Constants.RESET_KEY + BuildConfig.VERSION_CODE, false);
+
+        if (!wasReset && (sDefSystemLanguage.equals(Constants.LANGUAGE_CS)
+                || sDefSystemLanguage.equals(Constants.LANGUAGE_DE))) {
+            editor.clear();
+            editor.commit();
+        }
+        editor.putBoolean(Constants.RESET_KEY + BuildConfig.VERSION_CODE, true);
+        editor.commit();
+
+        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, sDefSystemLanguage);
+        Boolean changeLocale = preferences.getBoolean(Constants.CHANGE_LOCALE_KEY, false);
+
+        if (changeLocale && !sDefSystemLanguage.equals(language)) {
+            locale = new Locale(language);
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config,
+                    getBaseContext().getResources().getDisplayMetrics());
+        } else {
+            locale = Locale.getDefault();
+        }
+
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
         analytics.getLogger().setLogLevel(Logger.LogLevel.VERBOSE);
         analytics.enableAutoActivityReports(this);
-
         tracker = analytics.newTracker(PROPERTY_ID);
 
         initImageLoader(getApplicationContext());

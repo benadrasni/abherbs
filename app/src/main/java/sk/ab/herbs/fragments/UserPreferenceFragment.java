@@ -2,6 +2,7 @@ package sk.ab.herbs.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -13,7 +14,6 @@ import java.util.Locale;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
-import sk.ab.tools.Utils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -82,7 +82,12 @@ public class UserPreferenceFragment extends PreferenceFragment {
     }
 
     private void changeLocale(String language) {
-        Utils.changeLocale(getActivity(), language);
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getActivity().getBaseContext().getResources().updateConfiguration(config,
+                getActivity().getBaseContext().getResources().getDisplayMetrics());
         getActivity().recreate();
     }
 

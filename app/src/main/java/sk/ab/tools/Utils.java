@@ -1,17 +1,11 @@
 package sk.ab.tools;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 
 import java.util.Calendar;
 import java.util.Locale;
-
-import sk.ab.herbs.Constants;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,20 +16,6 @@ import sk.ab.herbs.Constants;
  * Utils
  */
 public class Utils {
-
-    public static Locale changeLocale(Activity activity, String language) {
-        SharedPreferences preferences = activity.getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        editor.putString(Constants.LANGUAGE_DEFAULT_KEY, language);
-        editor.commit();
-        activity.getBaseContext().getResources().updateConfiguration(config,
-                activity.getBaseContext().getResources().getDisplayMetrics());
-        return locale;
-    }
 
     public static String getMonthName(int monthNumber) {
         String monthName = "";
