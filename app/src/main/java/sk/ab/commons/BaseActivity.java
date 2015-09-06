@@ -34,8 +34,6 @@ public abstract class BaseActivity extends ActionBarActivity {
     protected Button countButton;
     protected AnimationDrawable loadingAnimation;
 
-    private Locale locale;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
