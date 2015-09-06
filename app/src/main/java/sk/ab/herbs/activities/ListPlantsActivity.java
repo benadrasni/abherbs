@@ -16,6 +16,7 @@ import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import retrofit.Callback;
@@ -111,7 +112,7 @@ public class ListPlantsActivity extends BaseActivity {
 
     private void getDetail(int plantId) {
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
+        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
 
         ((HerbsApp)getApplication()).getHerbClient().getApiService().getDetail(
                 new DetailRequest(Constants.getLanguage(language),
@@ -236,7 +237,7 @@ public class ListPlantsActivity extends BaseActivity {
                     }
 
                     SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-                    String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
+                    String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
 
                     int rank = 0;
                     List<String> names = new ArrayList<>();

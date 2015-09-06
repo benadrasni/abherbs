@@ -69,7 +69,7 @@ public class HerbsApp extends Application {
         editor.putBoolean(Constants.RESET_KEY + BuildConfig.VERSION_CODE, true);
         editor.commit();
 
-        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, sDefSystemLanguage);
+        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
         Boolean changeLocale = preferences.getBoolean(Constants.CHANGE_LOCALE_KEY, false);
 
         if (changeLocale && !sDefSystemLanguage.equals(language)) {

@@ -17,6 +17,7 @@ import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Stack;
 
@@ -272,7 +273,7 @@ public class FilterPlantsActivity extends BaseActivity {
 
     private void getList() {
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
+        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
 
         List<Integer> attributes = new ArrayList<Integer>();
         attributes.add(Constants.PLANT_NAME);
