@@ -19,6 +19,7 @@ public class Constants {
     public final static Map<String, Integer> LANGUAGES;
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
     public final static String CHANGE_LOCALE_KEY = "change_locale";
+    public final static String RESET_KEY = "reset";
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";
     public final static String LANGUAGE_CS = "cs";

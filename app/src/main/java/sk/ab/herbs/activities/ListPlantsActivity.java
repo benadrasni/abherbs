@@ -273,7 +273,7 @@ public class ListPlantsActivity extends BaseActivity {
 
             @Override
             public void onFailure(Throwable t) {
-                Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
+                    Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
             }
         });
     }
