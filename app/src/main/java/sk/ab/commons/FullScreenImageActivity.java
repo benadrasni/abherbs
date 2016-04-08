@@ -1,0 +1,44 @@
+package sk.ab.commons;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import sk.ab.herbs.HerbsApp;
+import sk.ab.herbs.R;
+
+/**
+ * Created by adrian on 4.4.2016.
+ */
+public class FullScreenImageActivity extends Activity {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.full_screen);
+
+        Bundle extras = getIntent().getExtras();
+        String url = (String) extras.getSerializable("image_url");
+
+        ImageView imgDisplay;
+        Button btnClose;
+
+
+        imgDisplay = (ImageView) findViewById(R.id.imgDisplay);
+        btnClose = (Button) findViewById(R.id.btnClose);
+
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FullScreenImageActivity.this.finish();
+            }
+        });
+
+        ImageLoader.getInstance().displayImage(url, imgDisplay, ((HerbsApp) getApplication()).getOptions());
+    }
+
+}

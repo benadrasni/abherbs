@@ -62,17 +62,32 @@
 
     </LinearLayout>
 
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true">
+    <ImageView
+        android:id="@+id/plant_mail"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/email_desc"
+        android:background="@drawable/mail"
+        android:paddingBottom="@dimen/list_padding"
+        android:paddingTop="@dimen/list_padding"
+        android:scaleType="fitStart"/>
+
+
     <ImageView
         android:id="@+id/plant_translate"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentRight="true"
         android:contentDescription="@string/translate_desc"
         android:background="@drawable/translate"
         android:paddingBottom="@dimen/list_padding"
         android:paddingTop="@dimen/list_padding"
-        android:onClick="getTranslation"
         android:scaleType="fitStart"/>
+
+    </LinearLayout>
 
     <View
         android:id="@+id/bottomInfo"

@@ -13,15 +13,23 @@
         <item>Slovenčina</item>
         <item>Čeština</item>
         <item>Deutsch</item>
+        <item>Français</item>
+        <item>Español</item>
+        <item>Português</item>
     </string-array>
     <string-array name="languagesValues">
         <item>en</item>
         <item>sk</item>
         <item>cs</item>
         <item>de</item>
+        <item>fr</item>
+        <item>es</item>
+        <item>pt</item>
     </string-array>
-    <string name="change_locale">Změň lokalizaci</string>
+    <string name="change_locale">Změnit lokalizaci</string>
     <string name="change_locale_summary">podle preferovaného jazyka</string>
+    <string name="propose_translation">Nezobrazovat tlačítko</string>
+    <string name="propose_translation_summary">na zaslání lepšího překladu / popisu.</string>
 
     <string name="color_of_flower">barva květů</string>
     <string name="color_white">bílá</string>
@@ -56,6 +64,8 @@
     <string name="plant_sources">Zdroje</string>
     <string name="image_desc">Ilustrace</string>
     <string name="translate_desc">Překlad</string>
+    <string name="email_desc">Email</string>
+    <string name="email_subject_prefix">"Návrh lepšího překladu / popisu pro "</string>
 
     <string name="plant_title">název</string>
     <string name="plant_height_from">Výška od</string>
@@ -89,4 +99,6 @@
     <string name="plant_family">čeleď</string>
     <string name="plant_genus">rod</string>
     <string name="plant_species">druh</string>
+
+    <string name="close">Zavřít</string>
 </resources>

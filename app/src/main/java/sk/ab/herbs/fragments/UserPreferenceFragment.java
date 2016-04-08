@@ -41,13 +41,17 @@ public class UserPreferenceFragment extends PreferenceFragment {
         final CheckBoxPreference prefChangeLocale = (CheckBoxPreference)findPreference("changeLocale");
         prefChangeLocale.setChecked(changeLocale);
 
+        Boolean proposeTranslation = preferences.getBoolean(Constants.PROPOSE_TRANSLATION_KEY, false);
+        final CheckBoxPreference prefProposeTranslation = (CheckBoxPreference)findPreference("proposeTranslation");
+        prefProposeTranslation.setChecked(proposeTranslation);
+
         prefLanguage.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString(Constants.LANGUAGE_DEFAULT_KEY, (String) newValue);
-                editor.commit();
+                editor.apply();
                 prefLanguage.setValue((String) newValue);
                 prefLanguage.setSummary(prefLanguage.getEntry());
                 if (prefChangeLocale.isChecked() && !newValue.equals(Locale.getDefault().getLanguage())) {
@@ -64,7 +68,7 @@ public class UserPreferenceFragment extends PreferenceFragment {
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean(Constants.CHANGE_LOCALE_KEY, (Boolean) newValue);
-                editor.commit();
+                editor.apply();
                 if ((Boolean) newValue) {
                     if (!prefLanguage.getValue().equals(Locale.getDefault().getLanguage())) {
                         changeLocale(prefLanguage.getValue());
@@ -74,6 +78,17 @@ public class UserPreferenceFragment extends PreferenceFragment {
                         changeLocale(HerbsApp.sDefSystemLanguage);
                     }
                 }
+                return true;
+            }
+        });
+
+        prefProposeTranslation.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(Constants.PROPOSE_TRANSLATION_KEY, (Boolean) newValue);
+                editor.apply();
                 return true;
             }
         });
