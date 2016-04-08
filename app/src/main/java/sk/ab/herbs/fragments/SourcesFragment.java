@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +43,7 @@ public class SourcesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.plant_card_sources, null);
+        return View.inflate(getActivity().getBaseContext(), R.layout.plant_card_sources, null);
     }
 
     @Override
@@ -50,6 +51,12 @@ public class SourcesFragment extends Fragment {
         super.onStart();
         if (getView() != null) {
             setSources(((DisplayPlantActivity) getActivity()).getPlant(), getView());
+            getView().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utils.setVisibility(v, R.id.plant_source_grid);
+                }
+            });
         }
     }
 
@@ -58,6 +65,7 @@ public class SourcesFragment extends Fragment {
         plant.getSource_urls().toArray(source_urls);
 
         GridLayout grid = (GridLayout) convertView.findViewById(R.id.plant_source_grid);
+        grid.removeAllViews();
 
         DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
         int width = dm.widthPixels - Utils.convertDpToPx(45, dm);
@@ -75,34 +83,34 @@ public class SourcesFragment extends Fragment {
             TextView text = (TextView)view.findViewById(R.id.source_title);
 
             if (url.contains(SOURCE_WIKIPEDIA)) {
-                image.setImageDrawable(getResources().getDrawable(R.drawable.wikipedia));
+                image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.wikipedia, null));
                 text.setText(SOURCE_WIKIPEDIA);
             } else if (url.contains(SOURCE_LUONTOPORTTI)) {
-                image.setImageDrawable(getResources().getDrawable(R.drawable.luontoportti));
+                image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.luontoportti, null));
                 text.setText(SOURCE_LUONTOPORTTI);
             } else if (url.contains(SOURCE_WIKIMEDIA)) {
-                image.setImageDrawable(getResources().getDrawable(R.drawable.commons));
+                image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.commons, null));
                 text.setText(SOURCE_WIKIMEDIA);
             } else if (url.contains(SOURCE_BOTANY)) {
-                image.setImageDrawable(getResources().getDrawable(R.drawable.botany));
+                image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.botany, null));
                 text.setText(SOURCE_BOTANY);
             } else if (url.contains(SOURCE_FLORANORDICA)) {
-                image.setImageDrawable(getResources().getDrawable(R.drawable.floranordica));
+                image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.floranordica, null));
                 text.setText(SOURCE_FLORANORDICA);
             } else if (url.contains(SOURCE_EFLORA)) {
-                image.setImageDrawable(getResources().getDrawable(R.drawable.eflora));
+                image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.eflora, null));
                 text.setText(SOURCE_EFLORA);
             } else if (url.contains(SOURCE_BERKELEY)) {
-                image.setImageDrawable(getResources().getDrawable(R.drawable.berkeley));
+                image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.berkeley, null));
                 text.setText(SOURCE_BERKELEY);
             } else if (url.contains(SOURCE_HORTIPEDIA)) {
-                image.setImageDrawable(getResources().getDrawable(R.drawable.hortipedia));
+                image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.hortipedia, null));
                 text.setText(SOURCE_HORTIPEDIA);
             } else if (url.contains(SOURCE_USDA)) {
-                image.setImageDrawable(getResources().getDrawable(R.drawable.usda));
+                image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.usda, null));
                 text.setText(SOURCE_USDA);
             } else if (url.contains(SOURCE_USFS)) {
-                image.setImageDrawable(getResources().getDrawable(R.drawable.usfs));
+                image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.usfs, null));
                 text.setText(SOURCE_USFS);
             }
 

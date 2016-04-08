@@ -41,5 +41,10 @@
             android:theme="@style/Theme.Settings"
             android:configChanges="orientation|screenSize|locale">
         </activity>
+        <activity
+            android:name="sk.ab.commons.FullScreenImageActivity"
+            android:theme="@style/HerbsActionBarTheme"
+            android:configChanges="orientation|screenSize">
+        </activity>
     </application>
 </manifest>

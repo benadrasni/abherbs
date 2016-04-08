@@ -16,14 +16,24 @@ public class Constants {
     public final static int DEFAULT_LANGUAGE = 0;
     public final static int ORIGINAL_LANGUAGE = -1;
 
+    public final static String EMAIL = "whatsthoseflowers@gmail.com";
+
     public final static Map<String, Integer> LANGUAGES;
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
     public final static String CHANGE_LOCALE_KEY = "change_locale";
+    public final static String PROPOSE_TRANSLATION_KEY = "propose_translation";
     public final static String RESET_KEY = "reset";
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";
     public final static String LANGUAGE_CS = "cs";
     public final static String LANGUAGE_DE = "de";
+    public final static String LANGUAGE_FR = "fr";
+    public final static String LANGUAGE_ES = "es";
+    public final static String LANGUAGE_RU = "ru";
+    public final static String LANGUAGE_IT = "it";
+    public final static String LANGUAGE_JA = "ja";
+    public final static String LANGUAGE_PT = "pt";
+    public final static String LANGUAGE_ZH = "zh";
     public final static String HEIGHT_UNIT = "cm";
 
     public final static String STORAGE_ENDPOINT = "http://storage.googleapis.com/abherbs/.families/";
@@ -72,6 +82,9 @@ public class Constants {
         LANGUAGES.put(LANGUAGE_SK, 1);
         LANGUAGES.put(LANGUAGE_CS, 2);
         LANGUAGES.put(LANGUAGE_DE, 3);
+        LANGUAGES.put(LANGUAGE_FR, 4);
+        LANGUAGES.put(LANGUAGE_ES, 5);
+        LANGUAGES.put(LANGUAGE_PT, 9);
     }
 
     public static int getLanguage(String sLanguage) {

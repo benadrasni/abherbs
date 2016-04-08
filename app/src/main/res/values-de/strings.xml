@@ -13,15 +13,24 @@
         <item>Slovenčina</item>
         <item>Čeština</item>
         <item>Deutsch</item>
+        <item>Français</item>
+        <item>Español</item>
+        <item>Português</item>
     </string-array>
     <string-array name="languagesValues">
         <item>en</item>
         <item>sk</item>
         <item>cs</item>
         <item>de</item>
+        <item>fr</item>
+        <item>es</item>
+        <item>pt</item>
     </string-array>
+
     <string name="change_locale">Lokalisierung ändern</string>
     <string name="change_locale_summary">um die bevorzugte Sprache</string>
+    <string name="propose_translation">Nicht mehr anzeigen Taste</string>
+    <string name="propose_translation_summary">für eine bessere Übersetzung / Beschreibung per E-Mail.</string>
 
     <string name="color_of_flower">Blütenfarbe</string>
     <string name="color_white">Weiß</string>
@@ -56,6 +65,8 @@
     <string name="plant_sources">Quellen</string>
     <string name="image_desc">Werk Illustration</string>
     <string name="translate_desc">Übersetzen</string>
+    <string name="email_desc">Email</string>
+    <string name="email_subject_prefix">"Einen besseren Übersetzung / Beschreibung für "</string>
 
     <string name="plant_title">Titel</string>
     <string name="plant_height_from">Höhe</string>
@@ -89,4 +100,6 @@
     <string name="plant_family">Familie</string>
     <string name="plant_genus">Gattung</string>
     <string name="plant_species">Art</string>
+
+    <string name="close">Schließen</string>
 </resources>

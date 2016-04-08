@@ -24,7 +24,7 @@ public class TaxonomyFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.plant_card_taxonomy, null);
+        return View.inflate(getActivity().getBaseContext(), R.layout.plant_card_taxonomy, null);
     }
 
     @Override

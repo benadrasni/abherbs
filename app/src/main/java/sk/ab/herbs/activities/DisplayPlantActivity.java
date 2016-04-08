@@ -1,12 +1,16 @@
 package sk.ab.herbs.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -30,6 +34,7 @@ import sk.ab.herbs.fragments.SourcesFragment;
 import sk.ab.herbs.fragments.TaxonomyFragment;
 import sk.ab.tools.Keys;
 import sk.ab.tools.TextWithLanguage;
+import sk.ab.tools.Utils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,19 +48,24 @@ public class DisplayPlantActivity extends BaseActivity {
     static final String STATE_PLANT = "plant";
 
     private Plant plant;
-    private boolean isOriginal;
+    private int language;
+    private boolean isTranslated;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        isOriginal = true;
 
         if (savedInstanceState != null) {
             plant = savedInstanceState.getParcelable(STATE_PLANT);
         } else {
             plant = getIntent().getExtras().getParcelable("plant");
         }
+
+        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        String sLanguage = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
+
+        language = Constants.ORIGINAL_LANGUAGE;
+        isTranslated = getPlant().isTranslated(Constants.getLanguage(sLanguage));
 
         setContentView(R.layout.plant_activity);
 
@@ -127,9 +137,9 @@ public class DisplayPlantActivity extends BaseActivity {
         return true;
     }
 
-    public void getTranslation(View v) {
-        if (isOriginal) {
-            int language = Constants.getLanguage(Locale.getDefault().getLanguage());
+    public void getTranslation() {
+        if (language == Constants.ORIGINAL_LANGUAGE) {
+            language = Constants.getLanguage(Locale.getDefault().getLanguage());
             if (!plant.isTranslated(language)) {
 
                 List<TextWithLanguage> textWithLanguages = new ArrayList<>();
@@ -159,21 +169,122 @@ public class DisplayPlantActivity extends BaseActivity {
                 if (textWithLanguages.size() > 0) {
                     getTranslation(Constants.LANGUAGE_EN, Locale.getDefault().getLanguage(), textWithLanguages);
                 } else {
-                    InfoFragment infoFragment = (InfoFragment) getSupportFragmentManager().findFragmentByTag("Info");
-                    infoFragment.setInfo(plant, language);
+                    setInfo();
                 }
             } else {
-                InfoFragment infoFragment = (InfoFragment) getSupportFragmentManager().findFragmentByTag("Info");
-                infoFragment.setInfo(plant, language);
+                setInfo();
             }
         } else {
-            InfoFragment infoFragment = (InfoFragment) getSupportFragmentManager().findFragmentByTag("Info");
-            infoFragment.setInfo(plant, Constants.ORIGINAL_LANGUAGE);
+            language = Constants.ORIGINAL_LANGUAGE;
+            setInfo();
         }
-        isOriginal = !isOriginal;
     }
 
-    public void setTranslation(List<String> translatedTexts) {
+    public void proposeTranslation() {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", Constants.EMAIL, null));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, getEmailSubject());
+        emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(getEmailBody()));
+        startActivity(Intent.createChooser(emailIntent, getEmailSubject()));
+    }
+
+    public Plant getPlant() {
+        return plant;
+    }
+
+    public int getLanguage() {
+        return language;
+    }
+
+    public boolean isTranslated() {
+        return isTranslated;
+    }
+
+
+    private void setInfo() {
+        InfoFragment infoFragment = (InfoFragment) getSupportFragmentManager().findFragmentByTag("Info");
+        infoFragment.setInfo(plant, language);
+    }
+
+    private String getEmailSubject() {
+        return getString(R.string.email_subject_prefix) + plant.getSpecies_latin();
+    }
+
+    private String getEmailBody() {
+        int language = Constants.getLanguage(Locale.getDefault().getLanguage());
+
+        final StringBuilder text = new StringBuilder();
+
+        text.append(plant.getSpecies());
+        text.append("<br/>");
+        text.append(plant.getNames());
+        text.append("<br/><br/>");
+        text.append(Locale.ENGLISH.getDisplayLanguage());
+        text.append("<br/><br/>");
+        text.append(getPlantInLanguage(0));
+        text.append("<br/><br/>");
+        text.append(Locale.getDefault().getDisplayLanguage());
+        text.append("<br/><br/>");
+        text.append(getPlantInLanguage(language));
+
+        return text.toString();
+    }
+
+    private String getPlantInLanguage(int language) {
+        String[][] sections = { {"", plant.getDescription().getText(language)},
+                {getString(R.string.plant_flowers), plant.getFlower().getText(language)},
+                {getString(R.string.plant_inflorescences), plant.getInflorescence().getText(language)},
+                {getString(R.string.plant_fruits), plant.getFruit().getText(language)},
+                {getString(R.string.plant_leaves), plant.getLeaf().getText(language)},
+                {getString(R.string.plant_stem), plant.getStem().getText(language)},
+                {getString(R.string.plant_habitat), plant.getHabitat().getText(language)}
+        };
+
+        final StringBuilder text = new StringBuilder(plant.getSpecies());
+        for(int i = 0; i < sections.length; i++ ) {
+            text.append("<b>" + sections[i][0] + "</b>");
+            text.append(": ");
+            text.append(sections[i][1]);
+            text.append(" ");
+            text.append("<br/>");
+        }
+
+        return text.toString();
+    }
+
+    private void getTranslation(String source, String target, List<TextWithLanguage> textWithLanguages) {
+        int language = Constants.getLanguage(source);
+        List<String> qs = new ArrayList<>();
+        for (TextWithLanguage textWithLanguage : textWithLanguages) {
+            qs.add(textWithLanguage.getText(language));
+        }
+
+        ((HerbsApp)getApplication()).getGoogleClient().getApiService().translate(
+                Keys.TRANSLATE_API_KEY,
+                source,
+                target,
+                qs).enqueue(new Callback<Map<String, Map<String, List<Map<String, String>>>>>() {
+            @Override
+            public void onResponse(Response<Map<String, Map<String, List<Map<String, String>>>>> response) {
+                Map<String, Map<String, List<Map<String, String>>>> data = response.body();
+
+                List<String> translatedTexts = new ArrayList<>();
+                List<Map<String, String>> texts = data.get("data").get("translations");
+                for (Map<String, String> text : texts) {
+                    translatedTexts.add(text.get("translatedText"));
+                }
+
+                setTranslation(translatedTexts);
+                setInfo();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
+            }
+        });
+    }
+
+    private void setTranslation(List<String> translatedTexts) {
         int language = Constants.getLanguage(Locale.getDefault().getLanguage());
 
         int i = 0;
@@ -204,44 +315,6 @@ public class DisplayPlantActivity extends BaseActivity {
         if (translatedTexts.size() > i && !plant.getHabitat().isText(language)) {
             plant.getHabitat().add(language, translatedTexts.get(i));
         }
-
-        InfoFragment infoFragment = (InfoFragment) getSupportFragmentManager().findFragmentByTag("Info");
-        infoFragment.setInfo(plant, language);
     }
 
-    public Plant getPlant() {
-        return plant;
-    }
-
-    private void getTranslation(String source, String target, List<TextWithLanguage> textWithLanguages) {
-        int language = Constants.getLanguage(source);
-        List<String> qs = new ArrayList<>();
-        for (TextWithLanguage textWithLanguage : textWithLanguages) {
-            qs.add(textWithLanguage.getText(language));
-        }
-
-        ((HerbsApp)getApplication()).getGoogleClient().getApiService().translate(
-                Keys.TRANSLATE_API_KEY,
-                source,
-                target,
-                qs).enqueue(new Callback<Map<String, Map<String, List<Map<String, String>>>>>() {
-            @Override
-            public void onResponse(Response<Map<String, Map<String, List<Map<String, String>>>>> response) {
-                Map<String, Map<String, List<Map<String, String>>>> data = response.body();
-
-                List<String> translatedTexts = new ArrayList<>();
-                List<Map<String, String>> texts = data.get("data").get("translations");
-                for (Map<String, String> text : texts) {
-                    translatedTexts.add(text.get("translatedText"));
-                }
-
-                setTranslation(translatedTexts);
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
-            }
-        });
-    }
 }
