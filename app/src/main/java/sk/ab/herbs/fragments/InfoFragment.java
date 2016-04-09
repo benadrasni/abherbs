@@ -19,12 +19,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.SimpleShowcaseEventListener;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.Locale;
 
 import sk.ab.commons.FullScreenImageActivity;
+import sk.ab.herbs.BuildConfig;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
@@ -59,6 +63,7 @@ public class InfoFragment extends Fragment {
 
         final ImageView translateView = (ImageView) getView().findViewById(R.id.plant_translate);
         final ImageView proposeView = (ImageView) getView().findViewById(R.id.plant_mail);
+        final ImageView drawing = (ImageView) getView().findViewById(R.id.plant_background);
 
         translateView.setOnClickListener(new View.OnClickListener() {
 
@@ -85,9 +90,40 @@ public class InfoFragment extends Fragment {
         } else {
             proposeView.setVisibility(View.VISIBLE);
         }
+
+        SharedPreferences.Editor editor = preferences.edit();
+        Boolean wasShowCase = preferences.getBoolean(Constants.SHOWCASE_KEY + BuildConfig.VERSION_CODE, false);
+
+        if (!wasShowCase) {
+            new ShowcaseView.Builder(getActivity())
+                    .withMaterialShowcase()
+                    .setStyle(R.style.CustomShowcaseTheme)
+                    .setTarget(new ViewTarget(proposeView))
+                    .hideOnTouchOutside()
+                    .setContentTitle(R.string.showcase_propose_title)
+                    .setContentText(R.string.showcase_propose_message)
+                    .setShowcaseEventListener(new SimpleShowcaseEventListener() {
+
+                        @Override
+                        public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+                            new ShowcaseView.Builder(getActivity())
+                                    .withMaterialShowcase()
+                                    .setStyle(R.style.CustomShowcaseTheme)
+                                    .setTarget(new ViewTarget(drawing))
+                                    .hideOnTouchOutside()
+                                    .setContentTitle(R.string.showcase_fullscreen_title)
+                                    .setContentText(R.string.showcase_fullscreen_message)
+                                    .build();
+                        }
+
+                    })
+                    .build();
+            editor.putBoolean(Constants.SHOWCASE_KEY + BuildConfig.VERSION_CODE, true);
+            editor.apply();
+        }
     }
 
-        @Override
+    @Override
     public void onStart() {
         super.onStart();
         if (getView() != null) {
