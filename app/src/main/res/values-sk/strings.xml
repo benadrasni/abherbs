@@ -101,4 +101,8 @@
     <string name="plant_species">druh</string>
 
     <string name="close">Zavrieť</string>
+    <string name="showcase_propose_title">Navrhni lepší preklad / popis</string>
+    <string name="showcase_propose_message">Lepší preklad alebo popis môžeš poslať pomocou emailu.</string>
+    <string name="showcase_fullscreen_title">Väčšia ilustrácia</string>
+    <string name="showcase_fullscreen_message">Ilustráciu môžeš zobraziť na celej obrazovke tým, že na ňu klikneš.</string>
 </resources>

@@ -61,13 +61,13 @@ public class HerbsApp extends Application {
         SharedPreferences.Editor editor = preferences.edit();
         Boolean wasReset = preferences.getBoolean(Constants.RESET_KEY + BuildConfig.VERSION_CODE, false);
 
-        if (!wasReset && (sDefSystemLanguage.equals(Constants.LANGUAGE_CS)
-                || sDefSystemLanguage.equals(Constants.LANGUAGE_DE))) {
+        if (!wasReset && (sDefSystemLanguage.equals(Constants.LANGUAGE_ES)
+                || sDefSystemLanguage.equals(Constants.LANGUAGE_PT)
+                || sDefSystemLanguage.equals(Constants.LANGUAGE_FR))) {
             editor.clear();
-            editor.commit();
         }
         editor.putBoolean(Constants.RESET_KEY + BuildConfig.VERSION_CODE, true);
-        editor.commit();
+        editor.apply();
 
         String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
         Boolean changeLocale = preferences.getBoolean(Constants.CHANGE_LOCALE_KEY, false);

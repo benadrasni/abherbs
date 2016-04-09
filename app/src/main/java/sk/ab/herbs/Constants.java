@@ -23,6 +23,7 @@ public class Constants {
     public final static String CHANGE_LOCALE_KEY = "change_locale";
     public final static String PROPOSE_TRANSLATION_KEY = "propose_translation";
     public final static String RESET_KEY = "reset";
+    public final static String SHOWCASE_KEY = "showcase";
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";
     public final static String LANGUAGE_CS = "cs";

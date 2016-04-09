@@ -7,7 +7,7 @@ android {
         applicationId 'sk.ab.herbs'
         minSdkVersion 17
         targetSdkVersion 22
-        versionCode 30
+        versionCode 31
         versionName "1.2.7"
     }
     buildTypes {
@@ -28,4 +28,5 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta1'
     compile 'com.google.code.gson:gson:2.3'
+    compile 'com.github.amlcurran.showcaseview:library:5.4.3'
 }

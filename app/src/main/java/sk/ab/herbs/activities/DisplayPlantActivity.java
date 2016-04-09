@@ -218,10 +218,12 @@ public class DisplayPlantActivity extends BaseActivity {
         text.append("<br/>");
         text.append(plant.getNames());
         text.append("<br/><br/>");
-        text.append(Locale.ENGLISH.getDisplayLanguage());
-        text.append("<br/><br/>");
-        text.append(getPlantInLanguage(0));
-        text.append("<br/><br/>");
+        if (language > 0) {
+            text.append(Locale.ENGLISH.getDisplayLanguage());
+            text.append("<br/><br/>");
+            text.append(getPlantInLanguage(0));
+            text.append("<br/><br/>");
+        }
         text.append(Locale.getDefault().getDisplayLanguage());
         text.append("<br/><br/>");
         text.append(getPlantInLanguage(language));
