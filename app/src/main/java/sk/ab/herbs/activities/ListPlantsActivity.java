@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -48,36 +49,7 @@ public class ListPlantsActivity extends BaseActivity {
 
         setContentView(R.layout.list_activity);
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.string.list_info, R.string.list_info) {
-        };
-
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        PlantListFragment plantListFragment = (PlantListFragment) fm.findFragmentByTag("PlantList");
-        if (plantListFragment == null) {
-            ft.replace(R.id.list_content, new PlantListFragment(), "PlantList");
-        }
-        ft.commit();
-
-        getSupportActionBar().setTitle(R.string.list_info);
-    }
-
-    @Override
-    public void onConfigurationChanged (Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        recreate();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
+        countButton = (FloatingActionButton) findViewById(R.id.countButton);
         countButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -89,7 +61,40 @@ public class ListPlantsActivity extends BaseActivity {
                 return true;
             }
         });
-        return true;
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.list_info, R.string.list_info) {
+        };
+
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+
+        PlantListFragment plantListFragment = (PlantListFragment) fm.findFragmentByTag("PlantList");
+        if (plantListFragment == null) {
+            ft.replace(R.id.list_content, new PlantListFragment(), "PlantList");
+        }
+        ft.commit();
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.list_info);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setCountButton();
+    }
+
+    @Override
+    public void onConfigurationChanged (Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        recreate();
     }
 
     public void selectPlant(int position) {
@@ -101,7 +106,6 @@ public class ListPlantsActivity extends BaseActivity {
         Intent intent = new Intent(getBaseContext(), DisplayPlantActivity.class);
         intent.putExtra("plant", plant);
         startActivity(intent);
-        invalidateOptionsMenu();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         ((HerbsApp)getApplication()).setLoading(false);
     }

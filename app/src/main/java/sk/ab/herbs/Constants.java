@@ -13,29 +13,10 @@ import java.util.Map;
  */
 public class Constants {
     public final static int LIST_THRESHOLD = 20;
-    public final static int DEFAULT_LANGUAGE = 0;
-    public final static int ORIGINAL_LANGUAGE = -1;
+
+    public final static int FAB_FONT_SIZE = 70;
 
     public final static String EMAIL = "whatsthoseflowers@gmail.com";
-
-    public final static Map<String, Integer> LANGUAGES;
-    public final static String LANGUAGE_DEFAULT_KEY = "language_default";
-    public final static String CHANGE_LOCALE_KEY = "change_locale";
-    public final static String PROPOSE_TRANSLATION_KEY = "propose_translation";
-    public final static String RESET_KEY = "reset";
-    public final static String SHOWCASE_KEY = "showcase";
-    public final static String LANGUAGE_EN = "en";
-    public final static String LANGUAGE_SK = "sk";
-    public final static String LANGUAGE_CS = "cs";
-    public final static String LANGUAGE_DE = "de";
-    public final static String LANGUAGE_FR = "fr";
-    public final static String LANGUAGE_ES = "es";
-    public final static String LANGUAGE_RU = "ru";
-    public final static String LANGUAGE_IT = "it";
-    public final static String LANGUAGE_JA = "ja";
-    public final static String LANGUAGE_PT = "pt";
-    public final static String LANGUAGE_ZH = "zh";
-    public final static String HEIGHT_UNIT = "cm";
 
     public final static String STORAGE_ENDPOINT = "http://storage.googleapis.com/abherbs/.families/";
     public final static String DEFAULT_EXTENSION = ".webp";
@@ -76,6 +57,30 @@ public class Constants {
     public final static int PLANT_FAMILY = 391;
     public final static int PLANT_GENUS = 392;
     public final static int PLANT_SPECIES_LATIN = 286;
+
+
+    public final static int DEFAULT_LANGUAGE = 0;
+    public final static int ORIGINAL_LANGUAGE = -1;
+
+    public final static Map<String, Integer> LANGUAGES;
+    public final static String LANGUAGE_DEFAULT_KEY = "language_default";
+    public final static String CHANGE_LOCALE_KEY = "change_locale";
+    public final static String PROPOSE_TRANSLATION_KEY = "propose_translation";
+    public final static String RESET_KEY = "reset";
+    public final static String SHOWCASE_FILTER_KEY = "showcase_filter";
+    public final static String SHOWCASE_DISPLAY_KEY = "showcase_display";
+    public final static String LANGUAGE_EN = "en";
+    public final static String LANGUAGE_SK = "sk";
+    public final static String LANGUAGE_CS = "cs";
+    public final static String LANGUAGE_DE = "de";
+    public final static String LANGUAGE_FR = "fr";
+    public final static String LANGUAGE_ES = "es";
+    public final static String LANGUAGE_RU = "ru";
+    public final static String LANGUAGE_IT = "it";
+    public final static String LANGUAGE_JA = "ja";
+    public final static String LANGUAGE_PT = "pt";
+    public final static String LANGUAGE_ZH = "zh";
+    public final static String HEIGHT_UNIT = "cm";
 
     static {
         LANGUAGES = new HashMap<String, Integer>();

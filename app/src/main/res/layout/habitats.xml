@@ -115,7 +115,9 @@
                   android:text="@string/habitat_message"
                   android:lines="2"
                   android:textStyle="italic"
-                  android:textSize="12dp"
+                  android:textSize="12sp"
+                  android:paddingStart="70dp"
+                  android:paddingEnd="70dp"
                   android:gravity="center">
 
         </TextView>

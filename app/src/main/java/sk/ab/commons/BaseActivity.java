@@ -1,17 +1,21 @@
 package sk.ab.commons;
 
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.Menu;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.Button;
 
+import com.amulyakhare.textdrawable.TextDrawable;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -27,11 +31,12 @@ import sk.ab.herbs.R;
  * <p/>
  * Base Activity
  */
-public abstract class BaseActivity extends ActionBarActivity {
+
+public abstract class BaseActivity extends AppCompatActivity {
 
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mDrawerToggle;
-    protected Button countButton;
+    protected FloatingActionButton countButton;
     protected AnimationDrawable loadingAnimation;
 
     @Override
@@ -40,7 +45,7 @@ public abstract class BaseActivity extends ActionBarActivity {
 
         Tracker tracker = ((HerbsApp)getApplication()).getTracker();
         tracker.setScreenName(this.getClass().getSimpleName());
-        tracker.send(new HitBuilders.AppViewBuilder().build());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         if (!Locale.getDefault().equals(((HerbsApp)getApplication()).getLocale())) {
             Locale locale = new Locale(((HerbsApp)getApplication()).getLocale().getLanguage());
@@ -51,8 +56,12 @@ public abstract class BaseActivity extends ActionBarActivity {
                     getBaseContext().getResources().getDisplayMetrics());
         }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
+
+        loadingAnimation = (AnimationDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.loading, null);
     }
 
     @Override
@@ -60,29 +69,6 @@ public abstract class BaseActivity extends ActionBarActivity {
         super.onPostCreate(savedInstanceState);
 
         mDrawerToggle.syncState();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.filter, menu);
-        MenuItem item = menu.findItem(R.id.count);
-        countButton = (Button) item.getActionView().findViewById(R.id.countButton);
-        loadingAnimation = (AnimationDrawable) getResources().getDrawable(R.drawable.loading);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        HerbsApp app = (HerbsApp)getApplication();
-        if (app.isLoading()) {
-          loading();
-        } else {
-            countButton.setText("" + app.getCount());
-            if (app.getCount() <= Constants.LIST_THRESHOLD && app.getCount() > 0) {
-                countButton.setBackground(getResources().getDrawable(R.drawable.right_border));
-            }
-        }
-        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -108,11 +94,45 @@ public abstract class BaseActivity extends ActionBarActivity {
         ((HerbsApp)getApplication()).setLoading(true);
         if (countButton != null) {
             countButton.setEnabled(false);
-            countButton.setText("");
-            countButton.setBackground(loadingAnimation);
+            countButton.setImageDrawable(loadingAnimation);
             loadingAnimation.start();
         }
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    protected void setCountButton() {
+        HerbsApp app = (HerbsApp)getApplication();
+
+        if (app.isLoading()) {
+            loading();
+        } else {
+            if (countButton != null) {
+                TextDrawable countDrawable;
+                if (app.getCount() <= Constants.LIST_THRESHOLD && app.getCount() > 0) {
+                    countDrawable = TextDrawable.builder()
+                            .beginConfig()
+                                .useFont(Typeface.DEFAULT)
+                                .textColor(Color.RED)
+                                .fontSize(Constants.FAB_FONT_SIZE) /* size in px */
+                                .bold()
+                            .endConfig()
+                            .buildRound("" + app.getCount(),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.MenuWhite));
+                } else {
+                    countDrawable = TextDrawable.builder()
+                            .beginConfig()
+                            .useFont(Typeface.DEFAULT)
+                            .textColor(Color.BLACK)
+                            .fontSize(Constants.FAB_FONT_SIZE) /* size in px */
+                            .bold()
+                            .endConfig()
+                            .buildRound("" + app.getCount(),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.MenuWhite));
+                }
+                countButton.setImageDrawable(countDrawable);
+                countButton.setEnabled(true);
+            }
+        }
     }
 }

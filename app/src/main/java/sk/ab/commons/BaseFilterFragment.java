@@ -3,6 +3,7 @@ package sk.ab.commons;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ public abstract class BaseFilterFragment extends Fragment implements PropertyIte
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle(title);
-        ActionBarActivity activity = (ActionBarActivity) getActivity();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.getSupportActionBar().setIcon(iconRes);
 
         return inflater.inflate(layout, null);

@@ -101,8 +101,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -111,6 +111,8 @@
             android:lines="2"
             android:text="@string/color_of_flower_message"
             android:textSize="12sp"
+            android:paddingStart="70dp"
+            android:paddingEnd="70dp"
             android:textStyle="italic">
 
         </TextView>
