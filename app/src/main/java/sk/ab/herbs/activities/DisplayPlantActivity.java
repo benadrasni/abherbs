@@ -12,8 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.text.Html;
 import android.util.Log;
-import android.view.Menu;
-import android.view.View;
 import android.widget.ScrollView;
 
 import java.util.ArrayList;
@@ -34,7 +32,6 @@ import sk.ab.herbs.fragments.SourcesFragment;
 import sk.ab.herbs.fragments.TaxonomyFragment;
 import sk.ab.tools.Keys;
 import sk.ab.tools.TextWithLanguage;
-import sk.ab.tools.Utils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -75,7 +72,7 @@ public class DisplayPlantActivity extends BaseActivity {
                 R.string.display_info, R.string.display_info) {
         };
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -89,7 +86,9 @@ public class DisplayPlantActivity extends BaseActivity {
         }
         ft.commit();
 
-        getSupportActionBar().setTitle(R.string.display_info);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.display_info);
+        }
     }
 
     @Override
@@ -97,7 +96,9 @@ public class DisplayPlantActivity extends BaseActivity {
         super.onStart();
 
         ScrollView scrollview = ((ScrollView) findViewById(R.id.scrollview));
-        scrollview.scrollTo(0, 0);
+        if (scrollview != null) {
+            scrollview.scrollTo(0, 0);
+        }
     }
 
     @Override
@@ -112,29 +113,6 @@ public class DisplayPlantActivity extends BaseActivity {
         super.onConfigurationChanged(newConfig);
 
         recreate();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        countButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        countButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                loading();
-                ((HerbsApp) getApplication()).getFilter().clear();
-                Intent intent = new Intent(DisplayPlantActivity.this, FilterPlantsActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                return true;
-            }
-        });
-        return true;
     }
 
     public void getTranslation() {

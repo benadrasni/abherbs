@@ -49,4 +49,6 @@
     <dimen name="taxonomy_padding10">30dp</dimen>
 
     <dimen name="card_taxonomy_separator_height">15dp</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

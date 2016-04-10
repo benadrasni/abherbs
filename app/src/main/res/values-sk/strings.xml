@@ -105,4 +105,6 @@
     <string name="showcase_propose_message">Lepší preklad alebo popis môžeš poslať pomocou emailu.</string>
     <string name="showcase_fullscreen_title">Väčšia ilustrácia</string>
     <string name="showcase_fullscreen_message">Ilustráciu môžeš zobraziť na celej obrazovke tým, že na ňu klikneš.</string>
+    <string name="showcase_count_button_title">Počet kvetov vyhovujúcich filtru</string>
+    <string name="showcase_count_button_message">Po stlačení hneď zobrazí zoznam, ale iba pre čísla menšie ako 21. Dlhé stlačenie vymaže filter.</string>
 </resources>

@@ -5,15 +5,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.text.Layout;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
+
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.SimpleShowcaseEventListener;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +33,7 @@ import retrofit.Response;
 import sk.ab.commons.BaseActivity;
 import sk.ab.commons.BaseFilterFragment;
 import sk.ab.commons.PropertyListFragment;
+import sk.ab.herbs.BuildConfig;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.CountRequest;
 import sk.ab.herbs.HerbsApp;
@@ -53,6 +61,24 @@ public class FilterPlantsActivity extends BaseActivity {
 
         setContentView(R.layout.base_activity);
 
+        countButton = (FloatingActionButton) findViewById(R.id.countButton);
+        countButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (((HerbsApp) getApplication()).getCount() <= Constants.LIST_THRESHOLD
+                        && ((HerbsApp) getApplication()).getCount() > 0) {
+                    loadResults();
+                }
+            }
+        });
+        countButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                clearFilter();
+                return true;
+            }
+        });
+
         FragmentManager.enableDebugLogging(true);
         FragmentManager fm = getSupportFragmentManager();
 
@@ -63,16 +89,44 @@ public class FilterPlantsActivity extends BaseActivity {
 
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(getCurrentFragment().getTitle());
+                if (getSupportActionBar() != null) {
+                    getSupportActionBar().setTitle(getCurrentFragment().getTitle());
+                }
             }
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle(getCurrentFragment().getTitle());
+                if (getSupportActionBar() != null) {
+                    getSupportActionBar().setTitle(getCurrentFragment().getTitle());
+                }
             }
         };
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+
+        final SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Boolean wasShowCase = preferences.getBoolean(Constants.SHOWCASE_FILTER_KEY + BuildConfig.VERSION_CODE, false);
+
+        if (!wasShowCase) {
+            ShowcaseView showcaseView = new ShowcaseView.Builder(this)
+                    .withMaterialShowcase()
+                    .setStyle(R.style.CustomShowcaseTheme)
+                    .setTarget(new ViewTarget(countButton))
+                    .hideOnTouchOutside()
+                    .setContentTitle(R.string.showcase_count_button_title)
+                    .setContentText(R.string.showcase_count_button_message)
+                    .build();
+
+            RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            int margin = ((Number) (getResources().getDisplayMetrics().density * 16)).intValue();
+            lps.setMargins(margin, margin, margin, margin);
+            showcaseView.setButtonPosition(lps);
+            editor.putBoolean(Constants.SHOWCASE_FILTER_KEY + BuildConfig.VERSION_CODE, true);
+            editor.apply();
+        }
     }
 
     @Override
@@ -94,28 +148,6 @@ public class FilterPlantsActivity extends BaseActivity {
 
         switchContent(getFilterAttributes().get(position));
         removeFromFilter(getCurrentFragment().getAttributeId());
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        countButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (((HerbsApp) getApplication()).getCount() <= Constants.LIST_THRESHOLD
-                        && ((HerbsApp) getApplication()).getCount() > 0) {
-                    loadResults();
-                }
-            }
-        });
-        countButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                clearFilter();
-                return true;
-            }
-        });
-        return true;
     }
 
     @Override
@@ -216,12 +248,9 @@ public class FilterPlantsActivity extends BaseActivity {
                     }
                 }
             }
-            if (countButton != null) {
-                countButton.setEnabled(true);
-            }
-            invalidateOptionsMenu();
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             app.setLoading(false);
+            setCountButton();
         }
     }
 
@@ -229,7 +258,7 @@ public class FilterPlantsActivity extends BaseActivity {
         Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
         intent.putParcelableArrayListExtra("results", (ArrayList<PlantHeader>) herbs);
         startActivity(intent);
-        invalidateOptionsMenu();
+        setCountButton();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         ((HerbsApp)getApplication()).setLoading(false);
     }
@@ -246,7 +275,9 @@ public class FilterPlantsActivity extends BaseActivity {
 
     public void setCurrentFragment(BaseFilterFragment fragment) {
         mContent = fragment;
-        getSupportActionBar().setTitle(mContent.getTitle());
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(mContent.getTitle());
+        }
     }
 
     public int getCurrentPosition() {
@@ -275,7 +306,7 @@ public class FilterPlantsActivity extends BaseActivity {
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
 
-        List<Integer> attributes = new ArrayList<Integer>();
+        List<Integer> attributes = new ArrayList<>();
         attributes.add(Constants.PLANT_NAME);
         attributes.add(Constants.PLANT_PHOTO_URL);
         attributes.add(Constants.PLANT_FAMILY);

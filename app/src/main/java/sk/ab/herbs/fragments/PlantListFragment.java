@@ -113,26 +113,30 @@ public class PlantListFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        RecyclerView list = (RecyclerView) getView().findViewById(R.id.plant_list);
+        if (getView() != null) {
+            RecyclerView list = (RecyclerView) getView().findViewById(R.id.plant_list);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        } else {
-            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            } else {
+                layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            }
+            layoutManager.scrollToPosition(list_position);
+            list.setLayoutManager(layoutManager);
+
+            PropertyAdapter adapter = new PropertyAdapter(((ListPlantsActivity) getActivity()).getPlants());
+            list.setAdapter(adapter);
         }
-        layoutManager.scrollToPosition(list_position);
-        list.setLayoutManager(layoutManager);
-
-        PropertyAdapter adapter = new PropertyAdapter(((ListPlantsActivity) getActivity()).getPlants());
-        list.setAdapter(adapter);
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        RecyclerView list = (RecyclerView) getView().findViewById(R.id.plant_list);
-        int pos = ((LinearLayoutManager)list.getLayoutManager()).findFirstVisibleItemPosition();
-        savedInstanceState.putInt(STATE_POSITION, pos);
+        if (getView() != null) {
+            RecyclerView list = (RecyclerView) getView().findViewById(R.id.plant_list);
+            int pos = ((LinearLayoutManager) list.getLayoutManager()).findFirstVisibleItemPosition();
+            savedInstanceState.putInt(STATE_POSITION, pos);
+        }
 
         super.onSaveInstanceState(savedInstanceState);
     }
