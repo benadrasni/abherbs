@@ -101,30 +101,6 @@ public class FilterPlantsActivity extends BaseActivity {
         };
 
         mDrawerLayout.addDrawerListener(mDrawerToggle);
-
-        final SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        Boolean wasShowCase = preferences.getBoolean(Constants.SHOWCASE_FILTER_KEY + BuildConfig.VERSION_CODE, false);
-
-        if (!wasShowCase) {
-            ShowcaseView showcaseView = new ShowcaseView.Builder(this)
-                    .withMaterialShowcase()
-                    .setStyle(R.style.CustomShowcaseTheme)
-                    .setTarget(new ViewTarget(countButton))
-                    .hideOnTouchOutside()
-                    .setContentTitle(R.string.showcase_count_button_title)
-                    .setContentText(R.string.showcase_count_button_message)
-                    .build();
-
-            RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-            int margin = ((Number) (getResources().getDisplayMetrics().density * 16)).intValue();
-            lps.setMargins(margin, margin, margin, margin);
-            showcaseView.setButtonPosition(lps);
-            editor.putBoolean(Constants.SHOWCASE_FILTER_KEY + BuildConfig.VERSION_CODE, true);
-            editor.apply();
-        }
     }
 
     @Override
