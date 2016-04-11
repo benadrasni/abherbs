@@ -7,7 +7,7 @@ android {
         applicationId 'sk.ab.herbs'
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 32
+        versionCode 33
         versionName "1.2.7"
     }
     buildTypes {

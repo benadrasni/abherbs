@@ -24,6 +24,7 @@ import java.util.Locale;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
+import sk.ab.herbs.activities.DisplayPlantActivity;
 
 /**
  * User: adrian
@@ -42,10 +43,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Tracker tracker = ((HerbsApp)getApplication()).getTracker();
-        tracker.setScreenName(this.getClass().getSimpleName());
-        tracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         if (!Locale.getDefault().equals(((HerbsApp)getApplication()).getLocale())) {
             Locale locale = new Locale(((HerbsApp)getApplication()).getLocale().getLanguage());
@@ -69,6 +66,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
 
         mDrawerToggle.syncState();
+
+        Tracker tracker = ((HerbsApp)getApplication()).getTracker();
+        tracker.setScreenName(this.getClass().getSimpleName());
+        HitBuilders.ScreenViewBuilder builder = new HitBuilders.ScreenViewBuilder();
+        if (this instanceof DisplayPlantActivity) {
+            builder.set("plant", ""+((DisplayPlantActivity)this).getPlant().getPlantId());
+        }
+        tracker.send(builder.build());
     }
 
     @Override
@@ -83,6 +88,10 @@ public abstract class BaseActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public FloatingActionButton getCountButton() {
+        return countButton;
     }
 
     protected void closeDrawer() {
