@@ -39,10 +39,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected ActionBarDrawerToggle mDrawerToggle;
     protected FloatingActionButton countButton;
     protected AnimationDrawable loadingAnimation;
+    protected HitBuilders.ScreenViewBuilder builder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        builder = new HitBuilders.ScreenViewBuilder();
+        ((HerbsApp)getApplication()).getTracker().setScreenName(this.getClass().getSimpleName());
 
         if (!Locale.getDefault().equals(((HerbsApp)getApplication()).getLocale())) {
             Locale locale = new Locale(((HerbsApp)getApplication()).getLocale().getLanguage());
@@ -66,14 +70,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
 
         mDrawerToggle.syncState();
-
-        Tracker tracker = ((HerbsApp)getApplication()).getTracker();
-        tracker.setScreenName(this.getClass().getSimpleName());
-        HitBuilders.ScreenViewBuilder builder = new HitBuilders.ScreenViewBuilder();
-        if (this instanceof DisplayPlantActivity) {
-            builder.set("plant", ""+((DisplayPlantActivity)this).getPlant().getPlantId());
-        }
-        tracker.send(builder.build());
     }
 
     @Override
