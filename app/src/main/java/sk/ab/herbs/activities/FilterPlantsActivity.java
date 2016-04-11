@@ -57,6 +57,8 @@ public class FilterPlantsActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ((HerbsApp)getApplication()).getTracker().send(builder.build());
+
         setContentView(R.layout.base_activity);
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);

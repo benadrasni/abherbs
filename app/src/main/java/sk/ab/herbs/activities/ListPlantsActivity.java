@@ -47,6 +47,8 @@ public class ListPlantsActivity extends BaseActivity {
 
         plants = getIntent().getExtras().getParcelableArrayList("results");
 
+        ((HerbsApp)getApplication()).getTracker().send(builder.build());
+
         setContentView(R.layout.list_activity);
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);

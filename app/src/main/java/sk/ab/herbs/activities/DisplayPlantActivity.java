@@ -58,6 +58,9 @@ public class DisplayPlantActivity extends BaseActivity {
             plant = getIntent().getExtras().getParcelable("plant");
         }
 
+        builder.set("plant", ""+getPlant().getPlantId());
+        ((HerbsApp)getApplication()).getTracker().send(builder.build());
+
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         String sLanguage = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
 

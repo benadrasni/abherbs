@@ -37,7 +37,7 @@ public class UserPreferenceActivity extends PreferenceActivity {
 
         Tracker tracker = ((HerbsApp)getApplication()).getTracker();
         tracker.setScreenName(this.getClass().getSimpleName());
-        tracker.send(new HitBuilders.AppViewBuilder().build());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         getFragmentManager().beginTransaction().replace(R.id.content_wrapper,
                 new UserPreferenceFragment()).commit();
