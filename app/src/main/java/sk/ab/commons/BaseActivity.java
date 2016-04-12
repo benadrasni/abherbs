@@ -1,5 +1,6 @@
 package sk.ab.commons;
 
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -115,16 +116,20 @@ public abstract class BaseActivity extends AppCompatActivity {
             if (countButton != null) {
                 TextDrawable countDrawable;
                 if (app.getCount() <= Constants.LIST_THRESHOLD && app.getCount() > 0) {
+                    countButton.setBackgroundTintList(ColorStateList.valueOf(
+                            ContextCompat.getColor(getApplicationContext(), R.color.FABGreen)));
                     countDrawable = TextDrawable.builder()
                             .beginConfig()
                                 .useFont(Typeface.DEFAULT)
-                                .textColor(Color.RED)
+                                .textColor(Color.BLACK)
                                 .fontSize(Constants.FAB_FONT_SIZE) /* size in px */
                                 .bold()
                             .endConfig()
                             .buildRound("" + app.getCount(),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.MenuWhite));
+                                    ContextCompat.getColor(getApplicationContext(), R.color.FABGreen));
                 } else {
+                    countButton.setBackgroundTintList(ColorStateList.valueOf(
+                            ContextCompat.getColor(getApplicationContext(), R.color.MenuWhite)));
                     countDrawable = TextDrawable.builder()
                             .beginConfig()
                             .useFont(Typeface.DEFAULT)

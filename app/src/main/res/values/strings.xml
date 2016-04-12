@@ -104,8 +104,8 @@
 
     <string name="showcase_propose_title">Propose better translation / description</string>
     <string name="showcase_propose_message">You can send better translation or description by email.</string>
-    <string name="showcase_fullscreen_title">Bigger illustration</string>
+    <string name="showcase_fullscreen_title">Larger illustration</string>
     <string name="showcase_fullscreen_message">You can display illustration on full screen by clicking on it.</string>
     <string name="showcase_count_button_title">Number of filtered plants</string>
-    <string name="showcase_count_button_message">Press to jump directly to the list. Works only for numbers less than 21. Long press to clear filter.</string>
+    <string name="showcase_count_button_message">When number is less than 21 press to jump directly to the list. Long press to clear filter.</string>
 </resources>

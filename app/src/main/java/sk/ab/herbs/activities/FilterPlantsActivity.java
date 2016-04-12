@@ -13,12 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
-
-import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +26,6 @@ import retrofit.Response;
 import sk.ab.commons.BaseActivity;
 import sk.ab.commons.BaseFilterFragment;
 import sk.ab.commons.PropertyListFragment;
-import sk.ab.herbs.BuildConfig;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.CountRequest;
 import sk.ab.herbs.HerbsApp;
@@ -268,7 +262,9 @@ public class FilterPlantsActivity extends BaseActivity {
                 new CountRequest(Constants.FLOWERS, getFilter())).enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Response<Integer> response) {
-                setCount(response.body());
+                if (response != null) {
+                    setCount(response.body());
+                }
             }
 
             @Override
