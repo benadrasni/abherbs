@@ -146,6 +146,12 @@ public class DisplayPlantActivity extends BaseActivity {
                 if (!plant.getHabitat().isText(language)) {
                     textWithLanguages.add(plant.getHabitat());
                 }
+                if (!plant.getToxicity().isText(language)) {
+                    textWithLanguages.add(plant.getToxicity());
+                }
+                if (!plant.getHerbalism().isText(language)) {
+                    textWithLanguages.add(plant.getHerbalism());
+                }
 
                 if (textWithLanguages.size() > 0) {
                     getTranslation(Constants.LANGUAGE_EN, Locale.getDefault().getLanguage(), textWithLanguages);
@@ -219,7 +225,9 @@ public class DisplayPlantActivity extends BaseActivity {
                 {getString(R.string.plant_fruits), plant.getFruit().getText(language)},
                 {getString(R.string.plant_leaves), plant.getLeaf().getText(language)},
                 {getString(R.string.plant_stem), plant.getStem().getText(language)},
-                {getString(R.string.plant_habitat), plant.getHabitat().getText(language)}
+                {getString(R.string.plant_habitat), plant.getHabitat().getText(language)},
+                {getString(R.string.plant_toxicity), plant.getToxicity().getText(language)},
+                {getString(R.string.plant_herbalism), plant.getHerbalism().getText(language)}
         };
 
         final StringBuilder text = new StringBuilder(plant.getSpecies());
@@ -297,6 +305,12 @@ public class DisplayPlantActivity extends BaseActivity {
         }
         if (translatedTexts.size() > i && !plant.getHabitat().isText(language)) {
             plant.getHabitat().add(language, translatedTexts.get(i));
+        }
+        if (translatedTexts.size() > i && !plant.getToxicity().isText(language)) {
+            plant.getToxicity().add(language, translatedTexts.get(i));
+        }
+        if (translatedTexts.size() > i && !plant.getHerbalism().isText(language)) {
+            plant.getHerbalism().add(language, translatedTexts.get(i));
         }
     }
 

@@ -87,6 +87,8 @@
     <string name="plant_stem">Stem</string>
     <string name="plant_root">Root</string>
     <string name="plant_habitat">Habitat</string>
+    <string name="plant_toxicity">Toxicity</string>
+    <string name="plant_herbalism">Herbalism</string>
 
     <string name="plant_domain">domain</string>
     <string name="plant_kingdom">kingdom</string>

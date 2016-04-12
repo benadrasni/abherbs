@@ -57,6 +57,9 @@ public class Constants {
     public final static int PLANT_FAMILY = 391;
     public final static int PLANT_GENUS = 392;
     public final static int PLANT_SPECIES_LATIN = 286;
+    public final static int PLANT_TOXICITY_CLASS = 409;
+    public final static int PLANT_TOXICITY = 407;
+    public final static int PLANT_HERBALISM = 408;
 
 
     public final static int DEFAULT_LANGUAGE = 0;

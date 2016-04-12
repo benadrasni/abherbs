@@ -1,10 +1,13 @@
 package sk.ab.herbs.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import sk.ab.herbs.Plant;
@@ -22,16 +25,45 @@ import sk.ab.tools.Utils;
  */
 public class TaxonomyFragment extends Fragment {
 
+    private ImageView toxicityClass1;
+    private ImageView toxicityClass2;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return View.inflate(getActivity().getBaseContext(), R.layout.plant_card_taxonomy, null);
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (getView() != null) {
+            toxicityClass1 = (ImageView) getView().findViewById(R.id.plant_toxicity_class1);
+            toxicityClass2 = (ImageView) getView().findViewById(R.id.plant_toxicity_class2);
+        }
+
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         if (getView() != null) {
-            setTaxonomy(((DisplayPlantActivity) getActivity()).getPlant(), getView());
+            DisplayPlantActivity displayPlantActivity = (DisplayPlantActivity) getActivity();
+            switch (displayPlantActivity.getPlant().getToxicity_class()) {
+                case 1:
+                    toxicityClass1.setVisibility(View.VISIBLE);
+                    toxicityClass2.setVisibility(View.GONE);
+                    break;
+                case 2:
+                    toxicityClass1.setVisibility(View.GONE);
+                    toxicityClass2.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    toxicityClass1.setVisibility(View.GONE);
+                    toxicityClass2.setVisibility(View.GONE);
+            }
+
+            setTaxonomy(displayPlantActivity.getPlant(), getView());
             getView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

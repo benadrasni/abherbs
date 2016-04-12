@@ -141,6 +141,9 @@ public class ListPlantsActivity extends BaseActivity {
                     if (attributes.containsKey(""+Constants.PLANT_IMAGE_URL +"_0")) {
                         result.setBack_url(attributes.get("" + Constants.PLANT_IMAGE_URL + "_0").get(0));
                     }
+                    if (attributes.containsKey(""+Constants.PLANT_TOXICITY_CLASS +"_0")) {
+                        result.setToxicity_class(((int) Float.parseFloat(attributes.get("" + Constants.PLANT_TOXICITY_CLASS + "_0").get(0))));
+                    }
                     if (attributes.containsKey(""+Constants.PLANT_HEIGHT_FROM +"_0")) {
                         result.setHeight_from(((int) Float.parseFloat(attributes.get("" + Constants.PLANT_HEIGHT_FROM + "_0").get(0))));
                     }
@@ -209,6 +212,24 @@ public class ListPlantsActivity extends BaseActivity {
                         texts.add(Constants.ORIGINAL_LANGUAGE,
                                 attributes.get("" + Constants.PLANT_HABITAT + "_0").get(0));
                         result.setHabitat(texts);
+                    }
+                    result.setToxicity(new TextWithLanguage());
+                    if (attributes.containsKey(""+Constants.PLANT_TOXICITY+"_0")) {
+                        TextWithLanguage texts = new TextWithLanguage();
+                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_TOXICITY + "_0").get(2)),
+                                attributes.get("" + Constants.PLANT_TOXICITY + "_0").get(0));
+                        texts.add(Constants.ORIGINAL_LANGUAGE,
+                                attributes.get("" + Constants.PLANT_TOXICITY + "_0").get(0));
+                        result.setToxicity(texts);
+                    }
+                    result.setHerbalism(new TextWithLanguage());
+                    if (attributes.containsKey(""+Constants.PLANT_HERBALISM+"_0")) {
+                        TextWithLanguage texts = new TextWithLanguage();
+                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_HERBALISM + "_0").get(2)),
+                                attributes.get("" + Constants.PLANT_HERBALISM + "_0").get(0));
+                        texts.add(Constants.ORIGINAL_LANGUAGE,
+                                attributes.get("" + Constants.PLANT_HERBALISM + "_0").get(0));
+                        result.setHerbalism(texts);
                     }
 
                     if (attributes.containsKey("" + Constants.PLANT_SPECIES_LATIN + "_0")) {

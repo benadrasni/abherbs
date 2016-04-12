@@ -275,6 +275,24 @@
         </LinearLayout>
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/plant_toxicity_class1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/toxicity1"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/plant_toxicity_class2"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:background="@drawable/toxicity2"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:visibility="gone"/>
+
     <View
         android:id="@+id/bottomTaxonomy"
         android:layout_width="match_parent"

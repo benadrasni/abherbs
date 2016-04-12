@@ -87,6 +87,8 @@
     <string name="plant_stem">Stonka</string>
     <string name="plant_root">Koreň</string>
     <string name="plant_habitat">Lokalita</string>
+    <string name="plant_toxicity">Toxicita</string>
+    <string name="plant_herbalism">Bylinkárstvo</string>
 
     <string name="plant_domain">domain</string>
     <string name="plant_kingdom">kingdom</string>

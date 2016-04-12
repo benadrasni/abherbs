@@ -87,6 +87,8 @@
     <string name="plant_stem">Lodyha</string>
     <string name="plant_root">Kořen</string>
     <string name="plant_habitat">Ekologie</string>
+    <string name="plant_toxicity">Toxicita</string>
+    <string name="plant_herbalism">Bylinářství</string>
 
     <string name="plant_domain">domain</string>
     <string name="plant_kingdom">kingdom</string>
