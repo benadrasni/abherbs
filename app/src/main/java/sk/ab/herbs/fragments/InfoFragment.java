@@ -159,18 +159,24 @@ public class InfoFragment extends Fragment {
                 {getResources().getString(R.string.plant_fruits), plant.getFruit().getText(language)},
                 {getResources().getString(R.string.plant_leaves), plant.getLeaf().getText(language)},
                 {getResources().getString(R.string.plant_stem), plant.getStem().getText(language)},
-                {getResources().getString(R.string.plant_habitat), plant.getHabitat().getText(language)}
+                {getResources().getString(R.string.plant_habitat), plant.getHabitat().getText(language)},
+                {getResources().getString(R.string.plant_toxicity), plant.getToxicity().getText(language)},
+                {getResources().getString(R.string.plant_herbalism), plant.getHerbalism().getText(language)}
         };
         final int[][] spanIndex = new int[2][sections.length];
 
+        int nonEmptySections = 0;
         for(int i = 0; i < sections.length; i++ ) {
-            spanIndex[0][i] = text.length();
-            spanIndex[1][i] = text.length() + sections[i][0].length();
-            text.append(sections[i][0]);
-            text.append(": ");
-            text.append(sections[i][1]);
-            text.append(" ");
-            //text.append("\n");
+            if (sections[i][1].length() > 0) {
+                spanIndex[0][i] = text.length();
+                spanIndex[1][i] = text.length() + sections[i][0].length();
+                text.append(sections[i][0]);
+                text.append(": ");
+                text.append(sections[i][1]);
+                text.append(" ");
+//                text.append("\n");
+                nonEmptySections++;
+            }
         }
 
         final TextView nextToImage = (TextView) getView().findViewById(R.id.next_to_image);
@@ -190,7 +196,7 @@ public class InfoFragment extends Fragment {
         });
 
         final SpannableString ss = new SpannableString(text.toString());
-        for(int i = 0; i < sections.length; i++ ) {
+        for(int i = 0; i < nonEmptySections; i++ ) {
             ss.setSpan(new StyleSpan(Typeface.BOLD), spanIndex[0][i], spanIndex[1][i],
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }

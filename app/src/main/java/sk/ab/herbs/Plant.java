@@ -30,6 +30,7 @@ public class Plant implements Parcelable {
     private int plantId;
     private String title;
     private String back_url;
+    private int toxicity_class;
     private int height_from;
     private int height_to;
     private int flowering_from;
@@ -41,6 +42,8 @@ public class Plant implements Parcelable {
     private TextWithLanguage leaf;
     private TextWithLanguage stem;
     private TextWithLanguage habitat;
+    private TextWithLanguage toxicity;
+    private TextWithLanguage herbalism;
     private String root;
     private String flower_color;
     private String number_of_petals;
@@ -83,6 +86,7 @@ public class Plant implements Parcelable {
         plantId = in.readInt();
         title = in.readString();
         back_url = in.readString();
+        toxicity_class = in.readInt();
         height_from = in.readInt();
         height_to = in.readInt();
         flowering_from = in.readInt();
@@ -142,6 +146,22 @@ public class Plant implements Parcelable {
             Integer key = in.readInt();
             String value = in.readString();
             habitat.add(key,value);
+        }
+
+        toxicity = new TextWithLanguage();
+        size = in.readInt();
+        for(int i = 0; i < size; i++){
+            Integer key = in.readInt();
+            String value = in.readString();
+            toxicity.add(key,value);
+        }
+
+        herbalism = new TextWithLanguage();
+        size = in.readInt();
+        for(int i = 0; i < size; i++){
+            Integer key = in.readInt();
+            String value = in.readString();
+            herbalism.add(key,value);
         }
 
         flower_color = in.readString();
@@ -204,6 +224,7 @@ public class Plant implements Parcelable {
         destination.writeInt(plantId);
         destination.writeString(title);
         destination.writeString(back_url);
+        destination.writeInt(toxicity_class);
         destination.writeInt(height_from);
         destination.writeInt(height_to);
         destination.writeInt(flowering_from);
@@ -215,6 +236,8 @@ public class Plant implements Parcelable {
         leaf.writeToParcel(destination, flags);
         stem.writeToParcel(destination, flags);
         habitat.writeToParcel(destination, flags);
+        toxicity.writeToParcel(destination, flags);
+        herbalism.writeToParcel(destination, flags);
         destination.writeString(flower_color);
         destination.writeString(number_of_petals);
         destination.writeString(sepal);
@@ -320,6 +343,14 @@ public class Plant implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getToxicity_class() {
+        return toxicity_class;
+    }
+
+    public void setToxicity_class(int toxicity_class) {
+        this.toxicity_class = toxicity_class;
     }
 
     public int getHeight_from() {
@@ -488,6 +519,22 @@ public class Plant implements Parcelable {
 
     public void setHabitat(TextWithLanguage habitat) {
         this.habitat = habitat;
+    }
+
+    public TextWithLanguage getToxicity() {
+        return toxicity;
+    }
+
+    public void setToxicity(TextWithLanguage toxicity) {
+        this.toxicity = toxicity;
+    }
+
+    public TextWithLanguage getHerbalism() {
+        return herbalism;
+    }
+
+    public void setHerbalism(TextWithLanguage herbalism) {
+        this.herbalism = herbalism;
     }
 
     public String getDomain() {

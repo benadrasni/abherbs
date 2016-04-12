@@ -88,6 +88,8 @@
     <string name="plant_stem">Stängel</string>
     <string name="plant_root">Wurzel</string>
     <string name="plant_habitat">Vorkommen</string>
+    <string name="plant_toxicity">Toxizität</string>
+    <string name="plant_herbalism">Herbalism</string>
 
     <string name="plant_domain">Domäne</string>
     <string name="plant_kingdom">Reich</string>
