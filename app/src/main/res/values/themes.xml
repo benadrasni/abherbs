@@ -2,8 +2,7 @@
 <resources>
     <style name="Theme.Application" parent="@style/Theme.AppCompat.Light" />
 
-    <style name="HerbsActionBarTheme"
-           parent="@style/Theme.Application">
+    <style name="HerbsActionBarTheme" parent="@style/Theme.Application">
         <item name="android:actionBarStyle">@style/HerbsActionBar</item>
 
         <!-- Support library compatibility -->
@@ -19,7 +18,6 @@
         <item name="background">@color/MenuWhite</item>
     </style>
 
-
     <style name="Theme.Settings" parent="@style/Theme.Application">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
@@ -29,11 +27,11 @@
 
     <style name="Widget.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
         <item name="android:navigationIcon">?attr/homeAsUpIndicator</item>
-        <item name="navigationIcon">?attr/homeAsUpIndicator</item>
-
         <item name="android:background">@color/MenuWhite</item>
+
         <!-- Support library compatibility -->
         <item name="background">@color/MenuWhite</item>
+        <item name="navigationIcon">?attr/homeAsUpIndicator</item>
     </style>
 
     <style name="CustomShowcaseTheme" parent="ShowcaseView">

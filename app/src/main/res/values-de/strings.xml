@@ -110,4 +110,7 @@
     <string name="showcase_fullscreen_message">Sie können durch Klicken auf die Darstellung im Vollbild angezeigt werden soll.</string>
     <string name="showcase_count_button_title">Anzahl der gefilterten Blumen</string>
     <string name="showcase_count_button_message">Klicken Sie direkt auf die Liste zu springen. Werke für Zählungen weniger als 21. Lang Klick für klare Filter.</string>
+    <string name="legend">Legende</string>
+    <string name="toxicity1">giftige Pflanze</string>
+    <string name="toxicity2">leicht giftige Pflanze</string>
 </resources>
