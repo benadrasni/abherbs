@@ -109,4 +109,7 @@
     <string name="showcase_fullscreen_message">Ilustráciu môžeš zobraziť na celej obrazovke tým, že na ňu klikneš.</string>
     <string name="showcase_count_button_title">Počet kvetov vyhovujúcich filtru</string>
     <string name="showcase_count_button_message">Po stlačení hneď zobrazí zoznam, ale iba pre čísla menšie ako 21. Dlhé stlačenie vymaže filter.</string>
+    <string name="legend">Legenda</string>
+    <string name="toxicity1">jedovatá rastlina</string>
+    <string name="toxicity2">mierne jedovatá rastlina</string>
 </resources>

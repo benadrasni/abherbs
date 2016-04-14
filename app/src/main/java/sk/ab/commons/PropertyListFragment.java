@@ -34,6 +34,7 @@ public class PropertyListFragment extends ListFragment {
 
         adapter.add(new PropertyDivider());
 
+        adapter.add(new Setting(R.string.legend));
         adapter.add(new Setting(R.string.settings));
         adapter.add(new Setting(R.string.feedback));
         adapter.add(new Setting(R.string.help));
@@ -66,8 +67,14 @@ public class PropertyListFragment extends ListFragment {
             case PropertyItem.TYPE_SETTING:
                 BaseSetting setting = (BaseSetting)item;
                 switch (setting.getTitle()) {
-                    case R.string.settings:
+                    case R.string.legend:
                         Intent intent = new Intent();
+                        intent.putExtra("title", setting.getTitle());
+                        intent.setClassName(getActivity(), "sk.ab.herbs.activities.LegendActivity");
+                        startActivity(intent);
+                        break;
+                    case R.string.settings:
+                        intent = new Intent();
                         intent.setClassName(getActivity(), "sk.ab.herbs.activities.UserPreferenceActivity");
                         startActivity(intent);
                         break;

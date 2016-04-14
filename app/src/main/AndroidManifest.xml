@@ -1,50 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="sk.ab.herbs">
+<manifest package="sk.ab.herbs"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <application android:label="@string/app_name"
-                 android:icon="@drawable/home"
-                 android:theme="@style/Theme.Application"
-                 android:name=".HerbsApp"
-                 android:allowBackup="true">
+    <application
+        android:name=".HerbsApp"
+        android:allowBackup="true"
+        android:icon="@drawable/home"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.Application">
 
         <!--<meta-data android:name="com.google.android.gms.analytics.globalConfigResource"-->
-                   <!--android:resource="@xml/global_tracker" />-->
+        <!--android:resource="@xml/global_tracker" />-->
 
-        <activity android:name=".activities.FilterPlantsActivity"
-                  android:label="@string/app_name"
-                  android:theme="@style/HerbsActionBarTheme"
-                  android:configChanges="orientation|screenSize|locale">
+        <activity
+            android:name=".activities.FilterPlantsActivity"
+            android:configChanges="orientation|screenSize|locale"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ListPlantsActivity"
-                  android:theme="@style/HerbsActionBarTheme"
-                  android:configChanges="orientation|screenSize|locale"/>
-        <activity android:name=".activities.DisplayPlantActivity"
-                  android:theme="@style/HerbsActionBarTheme"
-                  android:configChanges="orientation|screenSize|locale"/>
         <activity
-                android:name="sk.ab.herbs.activities.UserPreferenceActivity"
-                android:theme="@style/Theme.Settings"
-                android:label="@string/settings"
-                android:configChanges="orientation|screenSize|locale">
+            android:name=".activities.ListPlantsActivity"
+            android:configChanges="orientation|screenSize|locale"/>
+        <activity
+            android:name=".activities.DisplayPlantActivity"
+            android:configChanges="orientation|screenSize|locale"/>
+        <activity
+            android:name="sk.ab.herbs.activities.UserPreferenceActivity"
+            android:configChanges="orientation|screenSize|locale"
+            android:label="@string/settings"
+            android:theme="@style/Theme.Settings">
+        </activity>
+        <activity
+            android:name="sk.ab.herbs.activities.LegendActivity"
+            android:configChanges="orientation|screenSize|locale"
+            android:theme="@style/Theme.Settings">
         </activity>
         <activity
             android:name="sk.ab.commons.HtmlActivity"
-            android:theme="@style/Theme.Settings"
-            android:configChanges="orientation|screenSize|locale">
+            android:configChanges="orientation|screenSize|locale"
+            android:theme="@style/Theme.Settings">
         </activity>
         <activity
             android:name="sk.ab.commons.FullScreenImageActivity"
-            android:theme="@style/HerbsActionBarTheme"
-            android:configChanges="orientation|screenSize">
-        </activity>
+            android:configChanges="orientation|screenSize"/>
     </application>
 </manifest>
