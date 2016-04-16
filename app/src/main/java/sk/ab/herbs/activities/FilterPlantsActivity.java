@@ -53,7 +53,7 @@ public class FilterPlantsActivity extends BaseActivity {
 
         ((HerbsApp)getApplication()).getTracker().send(builder.build());
 
-        setContentView(R.layout.base_activity);
+        setContentView(R.layout.filter_activity);
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);
         countButton.setOnClickListener(new View.OnClickListener() {

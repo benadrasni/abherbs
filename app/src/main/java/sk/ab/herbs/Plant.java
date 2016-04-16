@@ -42,6 +42,7 @@ public class Plant implements Parcelable {
     private TextWithLanguage leaf;
     private TextWithLanguage stem;
     private TextWithLanguage habitat;
+    private TextWithLanguage trivia;
     private TextWithLanguage toxicity;
     private TextWithLanguage herbalism;
     private String root;
@@ -148,6 +149,14 @@ public class Plant implements Parcelable {
             habitat.add(key,value);
         }
 
+        trivia = new TextWithLanguage();
+        size = in.readInt();
+        for(int i = 0; i < size; i++){
+            Integer key = in.readInt();
+            String value = in.readString();
+            trivia.add(key,value);
+        }
+
         toxicity = new TextWithLanguage();
         size = in.readInt();
         for(int i = 0; i < size; i++){
@@ -236,6 +245,7 @@ public class Plant implements Parcelable {
         leaf.writeToParcel(destination, flags);
         stem.writeToParcel(destination, flags);
         habitat.writeToParcel(destination, flags);
+        trivia.writeToParcel(destination, flags);
         toxicity.writeToParcel(destination, flags);
         herbalism.writeToParcel(destination, flags);
         destination.writeString(flower_color);
@@ -519,6 +529,14 @@ public class Plant implements Parcelable {
 
     public void setHabitat(TextWithLanguage habitat) {
         this.habitat = habitat;
+    }
+
+    public TextWithLanguage getTrivia() {
+        return trivia;
+    }
+
+    public void setTrivia(TextWithLanguage trivia) {
+        this.trivia = trivia;
     }
 
     public TextWithLanguage getToxicity() {

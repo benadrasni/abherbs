@@ -115,14 +115,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             if (countButton != null) {
                 TextDrawable countDrawable;
+                int fontSize = countButton.getMeasuredHeight()/3;
                 if (app.getCount() <= Constants.LIST_THRESHOLD && app.getCount() > 0) {
                     countButton.setBackgroundTintList(ColorStateList.valueOf(
                             ContextCompat.getColor(getApplicationContext(), R.color.FABGreen)));
+
                     countDrawable = TextDrawable.builder()
                             .beginConfig()
                                 .useFont(Typeface.DEFAULT)
                                 .textColor(Color.BLACK)
-                                .fontSize(Constants.FAB_FONT_SIZE) /* size in px */
+                                .fontSize(fontSize) /* size in px */
                                 .bold()
                             .endConfig()
                             .buildRound("" + app.getCount(),
@@ -134,7 +136,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                             .beginConfig()
                             .useFont(Typeface.DEFAULT)
                             .textColor(Color.BLACK)
-                            .fontSize(Constants.FAB_FONT_SIZE) /* size in px */
+                            .fontSize(fontSize) /* size in px */
                             .bold()
                             .endConfig()
                             .buildRound("" + app.getCount(),

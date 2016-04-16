@@ -213,6 +213,15 @@ public class ListPlantsActivity extends BaseActivity {
                                 attributes.get("" + Constants.PLANT_HABITAT + "_0").get(0));
                         result.setHabitat(texts);
                     }
+                    result.setTrivia(new TextWithLanguage());
+                    if (attributes.containsKey(""+Constants.PLANT_TRIVIA+"_0")) {
+                        TextWithLanguage texts = new TextWithLanguage();
+                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_TRIVIA + "_0").get(2)),
+                                attributes.get("" + Constants.PLANT_TRIVIA + "_0").get(0));
+                        texts.add(Constants.ORIGINAL_LANGUAGE,
+                                attributes.get("" + Constants.PLANT_TRIVIA + "_0").get(0));
+                        result.setTrivia(texts);
+                    }
                     result.setToxicity(new TextWithLanguage());
                     if (attributes.containsKey(""+Constants.PLANT_TOXICITY+"_0")) {
                         TextWithLanguage texts = new TextWithLanguage();

@@ -146,6 +146,9 @@ public class DisplayPlantActivity extends BaseActivity {
                 if (!plant.getHabitat().isText(language)) {
                     textWithLanguages.add(plant.getHabitat());
                 }
+                if (!plant.getTrivia().isText(language)) {
+                    textWithLanguages.add(plant.getTrivia());
+                }
                 if (!plant.getToxicity().isText(language)) {
                     textWithLanguages.add(plant.getToxicity());
                 }
@@ -226,6 +229,7 @@ public class DisplayPlantActivity extends BaseActivity {
                 {getString(R.string.plant_leaves), plant.getLeaf().getText(language)},
                 {getString(R.string.plant_stem), plant.getStem().getText(language)},
                 {getString(R.string.plant_habitat), plant.getHabitat().getText(language)},
+                {getString(R.string.plant_trivia), plant.getTrivia().getText(language)},
                 {getString(R.string.plant_toxicity), plant.getToxicity().getText(language)},
                 {getString(R.string.plant_herbalism), plant.getHerbalism().getText(language)}
         };
@@ -305,6 +309,9 @@ public class DisplayPlantActivity extends BaseActivity {
         }
         if (translatedTexts.size() > i && !plant.getHabitat().isText(language)) {
             plant.getHabitat().add(language, translatedTexts.get(i));
+        }
+        if (translatedTexts.size() > i && !plant.getTrivia().isText(language)) {
+            plant.getTrivia().add(language, translatedTexts.get(i));
         }
         if (translatedTexts.size() > i && !plant.getToxicity().isText(language)) {
             plant.getToxicity().add(language, translatedTexts.get(i));

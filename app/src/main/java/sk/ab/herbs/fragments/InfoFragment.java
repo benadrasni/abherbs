@@ -5,19 +5,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
-import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.SimpleShowcaseEventListener;
@@ -34,8 +30,8 @@ import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
-import sk.ab.tools.Margin;
 import sk.ab.tools.Utils;
+import uk.co.deanwild.flowtextview.FlowTextView;
 
 
 /**
@@ -56,7 +52,7 @@ public class InfoFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final DisplayPlantActivity displayPlantActivity = (DisplayPlantActivity)getActivity();
+        final DisplayPlantActivity displayPlantActivity = (DisplayPlantActivity) getActivity();
 
         final SharedPreferences preferences = displayPlantActivity.getSharedPreferences("sk.ab.herbs",
                 Context.MODE_PRIVATE);
@@ -127,7 +123,7 @@ public class InfoFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (getView() != null) {
-            final DisplayPlantActivity displayPlantActivity = (DisplayPlantActivity)getActivity();
+            final DisplayPlantActivity displayPlantActivity = (DisplayPlantActivity) getActivity();
 
             SharedPreferences preferences = displayPlantActivity.getSharedPreferences("sk.ab.herbs",
                     Context.MODE_PRIVATE);
@@ -138,48 +134,41 @@ public class InfoFragment extends Fragment {
     }
 
     public void setInfo(final Plant plant, int language) {
-        TextView firstRow = (TextView) getView().findViewById(R.id.first_row);
-
-        firstRow.setText(Html.fromHtml(getResources().getString(R.string.plant_height_from) +
-                " <b>" + plant.getHeight_from() + "</b>" + " " + getResources().getString(R.string.plant_height_to) +
-                " " + "<b>" + plant.getHeight_to() + "</b>" + " " + Constants.HEIGHT_UNIT + ". <br/>" +
-                getResources().getString(R.string.plant_flowering_from) +
-                " <b>" + Utils.getMonthName(plant.getFlowering_from() - 1) + "</b>" + " " +
-                getResources().getString(R.string.plant_flowering_to) + " " +
-                "<b>" + Utils.getMonthName(plant.getFlowering_to() - 1) + "</b>."));
-
-        if (plant.getDescription() != null) {
-            TextView upImage = (TextView) getView().findViewById(R.id.up_image);
-            upImage.setText(Html.fromHtml(plant.getDescription().getText(language)));
-        }
-
         final StringBuilder text = new StringBuilder();
-        String[][] sections = { {getResources().getString(R.string.plant_flowers), plant.getFlower().getText(language)},
+
+        text.append(getResources().getString(R.string.plant_height_from)).append(" <b>").append(plant.getHeight_from())
+                .append("</b>").append(" ").append(getResources().getString(R.string.plant_height_to)).append(" ")
+                .append("<b>").append(plant.getHeight_to()).append("</b>").append(" ").append(Constants.HEIGHT_UNIT)
+                .append(". <br/>").append(getResources().getString(R.string.plant_flowering_from)).append(" <b>")
+                .append(Utils.getMonthName(plant.getFlowering_from() - 1)).append("</b>").append(" ")
+                .append(getResources().getString(R.string.plant_flowering_to)).append(" ").append("<b>")
+                .append(Utils.getMonthName(plant.getFlowering_to() - 1)).append("</b>.<br/>");
+
+        text.append(plant.getDescription().getText(language)).append("<br/>");
+
+        String[][] sections = {{getResources().getString(R.string.plant_flowers), plant.getFlower().getText(language)},
                 {getResources().getString(R.string.plant_inflorescences), plant.getInflorescence().getText(language)},
                 {getResources().getString(R.string.plant_fruits), plant.getFruit().getText(language)},
                 {getResources().getString(R.string.plant_leaves), plant.getLeaf().getText(language)},
                 {getResources().getString(R.string.plant_stem), plant.getStem().getText(language)},
                 {getResources().getString(R.string.plant_habitat), plant.getHabitat().getText(language)},
                 {getResources().getString(R.string.plant_toxicity), plant.getToxicity().getText(language)},
-                {getResources().getString(R.string.plant_herbalism), plant.getHerbalism().getText(language)}
+                {getResources().getString(R.string.plant_herbalism), plant.getHerbalism().getText(language)},
+                {getResources().getString(R.string.plant_trivia), plant.getTrivia().getText(language)}
         };
-        final int[][] spanIndex = new int[2][sections.length];
+        int[][] spanIndex = new int[2][sections.length];
 
-        int nonEmptySections = 0;
-        for(int i = 0; i < sections.length; i++ ) {
+        for (int i = 0; i < sections.length; i++) {
             if (sections[i][1].length() > 0) {
                 spanIndex[0][i] = text.length();
                 spanIndex[1][i] = text.length() + sections[i][0].length();
-                text.append(sections[i][0]);
+                text.append("<b>").append(sections[i][0]).append("</b>");
                 text.append(": ");
                 text.append(sections[i][1]);
-                text.append(" ");
-//                text.append("\n");
-                nonEmptySections++;
+                text.append("<br/>");
             }
         }
 
-        final TextView nextToImage = (TextView) getView().findViewById(R.id.next_to_image);
         final ImageView drawing = (ImageView) getView().findViewById(R.id.plant_background);
         drawing.setOnClickListener(new View.OnClickListener() {
 
@@ -195,41 +184,39 @@ public class InfoFragment extends Fragment {
             }
         });
 
-        final SpannableString ss = new SpannableString(text.toString());
-        for(int i = 0; i < nonEmptySections; i++ ) {
-            ss.setSpan(new StyleSpan(Typeface.BOLD), spanIndex[0][i], spanIndex[1][i],
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
+        final FlowTextView flowTextView = (FlowTextView) getView().findViewById(R.id.plantInfoLayout);
+        flowTextView.setTextColor(R.color.CardText);
+        flowTextView.setTextSize(getResources().getDisplayMetrics().scaledDensity * 14.0f);
+
+        final Spanned html = Html.fromHtml(text.toString());
+
         final DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
         final int orientation = getActivity().getResources().getConfiguration().orientation;
 
         if (plant.getBack_url() != null) {
             ImageLoader.getInstance().displayImage(plant.getBack_url(), drawing,
-                    ((HerbsApp)getActivity().getApplication()).getOptions(), new SimpleImageLoadingListener() {
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    ((HerbsApp) getActivity().getApplication()).getOptions(),
+                    new SimpleImageLoadingListener() {
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 
-                    int width = (dm.widthPixels - Utils.convertDpToPx(25, dm))/2;
-                    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                        width = width/2;
-                    }
-                    double ratio = (double)loadedImage.getWidth()/(double)loadedImage.getHeight();
+                            int width = (dm.widthPixels - Utils.convertDpToPx(25, dm))/2;
+                            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                                width = width/2;
+                            }
+                            double ratio = (double)loadedImage.getWidth()/(double)loadedImage.getHeight();
 
-                    drawing.getLayoutParams().width = width;
-                    drawing.getLayoutParams().height = (int)(drawing.getLayoutParams().width/ratio);
+                            drawing.getLayoutParams().width = width;
+                            drawing.getLayoutParams().height = (int)(drawing.getLayoutParams().width/ratio);
 
-                    int leftMargin = drawing.getLayoutParams().width;
-                    int height = drawing.getLayoutParams().height;
-                    ss.setSpan(new Margin(height / (int) (nextToImage.getLineHeight() * nextToImage
-                            .getLineSpacingMultiplier() + nextToImage.getLineSpacingExtra()),
-                            leftMargin), 0, ss.length(), Spanned.SPAN_PARAGRAPH);
-                    nextToImage.setText(ss);
-                }
-            });
+                            flowTextView.setText(html);
+                        }
+                    });
 
         } else {
-            nextToImage.setText(ss);
+            flowTextView.setText(html);
         }
+
     }
 }
 
