@@ -31,10 +31,15 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.github.amlcurran.showcaseview:library:5.4.3'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    compile 'com.github.benadrasni:FlowTextView:2.0.4.1'
 }
 
 repositories{
     maven {
         url 'http://dl.bintray.com/amulyakhare/maven'
+    }
+
+    maven {
+        url 'https://jitpack.io'
     }
 }

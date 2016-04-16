@@ -113,4 +113,5 @@
     <string name="legend">Legend</string>
     <string name="toxicity2">slightly poisonous plant</string>
     <string name="toxicity1">poisonous plant</string>
+    <string name="plant_trivia">Trivia</string>
 </resources>

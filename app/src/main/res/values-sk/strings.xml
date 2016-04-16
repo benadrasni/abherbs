@@ -112,4 +112,5 @@
     <string name="legend">Legenda</string>
     <string name="toxicity1">jedovatá rastlina</string>
     <string name="toxicity2">mierne jedovatá rastlina</string>
+    <string name="plant_trivia">Trivia</string>
 </resources>
