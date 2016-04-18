@@ -1,6 +1,6 @@
 package sk.ab.herbs.fragments;
 
-import sk.ab.commons.BaseFilterFragment;
+import sk.ab.herbs.commons.BaseFilterFragment;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.R;
 

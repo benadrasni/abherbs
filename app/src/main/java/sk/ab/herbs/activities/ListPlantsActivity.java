@@ -11,8 +11,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.Response;
-import sk.ab.commons.BaseActivity;
+import sk.ab.herbs.commons.BaseActivity;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.DetailRequest;
 import sk.ab.herbs.HerbsApp;
@@ -30,7 +30,7 @@ import sk.ab.herbs.Plant;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 import sk.ab.herbs.fragments.PlantListFragment;
-import sk.ab.tools.TextWithLanguage;
+import sk.ab.herbs.tools.TextWithLanguage;
 
 /**
  * User: adrian
@@ -68,12 +68,24 @@ public class ListPlantsActivity extends BaseActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (mDrawerLayout != null) {
+            ViewTreeObserver vto = mDrawerLayout.getViewTreeObserver();
+            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.string.list_info, R.string.list_info) {
-        };
+                    mDrawerLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    setCountButton();
+                }
+            });
 
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
+
+            mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                    R.string.list_info, R.string.list_info) {
+            };
+
+            mDrawerLayout.addDrawerListener(mDrawerToggle);
+        }
 
         PlantListFragment plantListFragment = (PlantListFragment) fm.findFragmentByTag("PlantList");
         if (plantListFragment == null) {
@@ -87,8 +99,8 @@ public class ListPlantsActivity extends BaseActivity {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         setCountButton();
     }
 

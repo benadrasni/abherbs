@@ -1,4 +1,4 @@
-package sk.ab.commons;
+package sk.ab.herbs.commons;
 
 public abstract class BaseSetting implements PropertyItem {
 

@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
-import sk.ab.commons.BaseFilterFragment;
+import sk.ab.herbs.commons.BaseFilterFragment;
 import sk.ab.herbs.BuildConfig;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.R;

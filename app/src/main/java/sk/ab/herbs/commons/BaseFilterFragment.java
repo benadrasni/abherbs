@@ -1,15 +1,13 @@
-package sk.ab.commons;
+package sk.ab.herbs.commons;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import sk.ab.herbs.R;
-import sk.ab.herbs.activities.FilterPlantsActivity;
 
 public abstract class BaseFilterFragment extends Fragment implements PropertyItem {
     protected int attributeId;

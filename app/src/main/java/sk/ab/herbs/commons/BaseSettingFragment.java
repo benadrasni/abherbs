@@ -1,4 +1,4 @@
-package sk.ab.commons;
+package sk.ab.herbs.commons;
 
 import android.app.Fragment;
 import android.os.Bundle;

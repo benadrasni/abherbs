@@ -23,9 +23,9 @@ import java.util.Stack;
 
 import retrofit.Callback;
 import retrofit.Response;
-import sk.ab.commons.BaseActivity;
-import sk.ab.commons.BaseFilterFragment;
-import sk.ab.commons.PropertyListFragment;
+import sk.ab.herbs.commons.BaseActivity;
+import sk.ab.herbs.commons.BaseFilterFragment;
+import sk.ab.herbs.commons.PropertyListFragment;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.CountRequest;
 import sk.ab.herbs.HerbsApp;

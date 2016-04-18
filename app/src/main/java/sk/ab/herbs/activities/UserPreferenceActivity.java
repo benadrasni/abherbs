@@ -1,8 +1,5 @@
 package sk.ab.herbs.activities;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,11 +11,9 @@ import android.widget.LinearLayout;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 import sk.ab.herbs.fragments.UserPreferenceFragment;
-import sk.ab.tools.Utils;
 
 /**
  * Created with IntelliJ IDEA.

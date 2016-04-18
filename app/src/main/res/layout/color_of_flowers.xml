@@ -18,7 +18,7 @@
         android:paddingRight="10dp"
         android:paddingTop="20dp">
 
-        <sk.ab.commons.BaseImageButton
+        <sk.ab.herbs.commons.BaseImageButton
             android:id="@+id/ibWhite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             android:orientation="vertical">
         </LinearLayout>
 
-        <sk.ab.commons.BaseImageButton
+        <sk.ab.herbs.commons.BaseImageButton
             android:id="@+id/ibYellow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         android:paddingRight="10dp"
         android:paddingTop="15dp">
 
-        <sk.ab.commons.BaseImageButton
+        <sk.ab.herbs.commons.BaseImageButton
             android:id="@+id/ibRed"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
             android:orientation="vertical">
         </LinearLayout>
 
-        <sk.ab.commons.BaseImageButton
+        <sk.ab.herbs.commons.BaseImageButton
             android:id="@+id/ibBlue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
         android:paddingRight="10dp"
         android:paddingTop="0dp">
 
-        <sk.ab.commons.BaseImageButton
+        <sk.ab.herbs.commons.BaseImageButton
             android:id="@+id/ibBrown"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

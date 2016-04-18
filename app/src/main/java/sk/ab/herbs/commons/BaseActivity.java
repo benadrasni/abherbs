@@ -1,4 +1,4 @@
-package sk.ab.commons;
+package sk.ab.herbs.commons;
 
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -18,14 +18,12 @@ import android.view.WindowManager;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 
 import java.util.Locale;
 
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
-import sk.ab.herbs.activities.DisplayPlantActivity;
 
 /**
  * User: adrian
@@ -115,7 +113,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             if (countButton != null) {
                 TextDrawable countDrawable;
-                int fontSize = countButton.getMeasuredHeight()/3;
+                int fontSize = countButton.getHeight()/3;
                 if (app.getCount() <= Constants.LIST_THRESHOLD && app.getCount() > 0) {
                     countButton.setBackgroundTintList(ColorStateList.valueOf(
                             ContextCompat.getColor(getApplicationContext(), R.color.FABGreen)));
