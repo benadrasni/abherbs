@@ -34,7 +34,7 @@
 
         <fragment
             android:id="@+id/menu_fragment"
-            android:name="sk.ab.commons.PropertyListFragment"
+            android:name="sk.ab.herbs.commons.PropertyListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout="@layout/property_list"/>

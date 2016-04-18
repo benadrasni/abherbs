@@ -1,7 +1,5 @@
 package sk.ab.herbs.fragments;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,7 +11,7 @@ import android.widget.TextView;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
-import sk.ab.tools.Utils;
+import sk.ab.herbs.tools.Utils;
 
 
 /**

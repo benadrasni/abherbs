@@ -21,7 +21,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Stack;
 
-import sk.ab.commons.BaseFilterFragment;
+import sk.ab.herbs.commons.BaseFilterFragment;
 import sk.ab.herbs.fragments.ColorOfFlowers;
 import sk.ab.herbs.fragments.Habitats;
 import sk.ab.herbs.fragments.NumbersOfPetals;

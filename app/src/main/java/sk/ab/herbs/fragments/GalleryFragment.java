@@ -17,7 +17,7 @@ import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
-import sk.ab.tools.Utils;
+import sk.ab.herbs.tools.Utils;
 
 
 /**

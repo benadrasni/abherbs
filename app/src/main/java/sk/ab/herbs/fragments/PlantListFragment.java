@@ -22,7 +22,7 @@ import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.ListPlantsActivity;
-import sk.ab.tools.Utils;
+import sk.ab.herbs.tools.Utils;
 
 public class PlantListFragment extends Fragment {
     static final String STATE_POSITION = "list_position";

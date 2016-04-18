@@ -23,14 +23,14 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 
 import java.util.Locale;
 
-import sk.ab.commons.FullScreenImageActivity;
+import sk.ab.herbs.commons.FullScreenImageActivity;
 import sk.ab.herbs.BuildConfig;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
-import sk.ab.tools.Utils;
+import sk.ab.herbs.tools.Utils;
 import uk.co.deanwild.flowtextview.FlowTextView;
 
 

@@ -1,4 +1,4 @@
-package sk.ab.commons;
+package sk.ab.herbs.commons;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

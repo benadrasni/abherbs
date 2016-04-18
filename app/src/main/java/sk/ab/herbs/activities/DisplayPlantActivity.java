@@ -21,7 +21,7 @@ import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.Response;
-import sk.ab.commons.BaseActivity;
+import sk.ab.herbs.commons.BaseActivity;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
@@ -30,8 +30,8 @@ import sk.ab.herbs.fragments.GalleryFragment;
 import sk.ab.herbs.fragments.InfoFragment;
 import sk.ab.herbs.fragments.SourcesFragment;
 import sk.ab.herbs.fragments.TaxonomyFragment;
-import sk.ab.tools.Keys;
-import sk.ab.tools.TextWithLanguage;
+import sk.ab.herbs.tools.Keys;
+import sk.ab.herbs.tools.TextWithLanguage;
 
 /**
  * Created with IntelliJ IDEA.

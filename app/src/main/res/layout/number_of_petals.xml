@@ -13,7 +13,7 @@
             android:layout_height="0dp"
             android:layout_weight="4" android:paddingLeft="10dp" android:paddingTop="20dp" android:paddingRight="10dp"
             android:paddingBottom="15dp">
-        <sk.ab.commons.BaseImageButton
+        <sk.ab.herbs.commons.BaseImageButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/ib4"
@@ -23,7 +23,7 @@
                 android:background="@drawable/nop_4"
                 custom:valueId="@integer/nop_4"
                 android:layout_weight="6"/>
-        <sk.ab.commons.BaseImageButton
+        <sk.ab.herbs.commons.BaseImageButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/ib5"
@@ -40,7 +40,7 @@
             android:layout_height="0dp"
             android:layout_weight="4" android:paddingLeft="10dp" android:paddingTop="15dp" android:paddingRight="10dp"
             android:paddingBottom="20dp">
-        <sk.ab.commons.BaseImageButton
+        <sk.ab.herbs.commons.BaseImageButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/ibMany"
@@ -49,7 +49,7 @@
                 android:background="@drawable/nop_many"
                 custom:valueId="@integer/nop_many"
                 android:layout_weight="6"/>
-        <sk.ab.commons.BaseImageButton
+        <sk.ab.herbs.commons.BaseImageButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/ibBisymmetric"

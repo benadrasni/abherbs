@@ -1,5 +1,6 @@
-package sk.ab.tools;
+package sk.ab.herbs.tools;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -12,6 +13,7 @@ import sk.ab.herbs.Constants;
  *
  * Created by adrian on 15.3.2015.
  */
+@SuppressLint("ParcelCreator")
 public class TextWithLanguage implements Parcelable {
     private Map<Integer, String> texts;
 

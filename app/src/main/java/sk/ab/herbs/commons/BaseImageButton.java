@@ -1,4 +1,4 @@
-package sk.ab.commons;
+package sk.ab.herbs.commons;
 
 import android.content.Context;
 import android.content.res.TypedArray;

@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
-import sk.ab.tools.TextWithLanguage;
+import sk.ab.herbs.tools.TextWithLanguage;
 
 /**
  * Created with IntelliJ IDEA.

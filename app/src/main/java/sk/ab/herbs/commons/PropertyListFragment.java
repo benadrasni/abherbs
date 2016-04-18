@@ -1,4 +1,4 @@
-package sk.ab.commons;
+package sk.ab.herbs.commons;
 
 import android.content.Context;
 import android.content.Intent;
@@ -83,7 +83,7 @@ public class PropertyListFragment extends ListFragment {
                     case R.string.about:
                         intent = new Intent();
                         intent.putExtra("title", setting.getTitle());
-                        intent.setClassName(getActivity(), "sk.ab.commons.HtmlActivity");
+                        intent.setClassName(getActivity(), "sk.ab.herbs.commons.HtmlActivity");
                         startActivity(intent);
                         break;
                 }

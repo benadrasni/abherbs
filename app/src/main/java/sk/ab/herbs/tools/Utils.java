@@ -1,4 +1,4 @@
-package sk.ab.tools;
+package sk.ab.herbs.tools;
 
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
