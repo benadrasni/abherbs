@@ -40,15 +40,6 @@ public class UserPreferenceActivity extends PreferenceActivity {
         mActionBar.setTitle(R.string.settings);
     }
 
-//    @Override
-//    public void onConfigurationChanged (Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//
-//        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-//        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Constants.LANGUAGE_EN);
-//        Utils.changeLocale(this, language);
-//    }
-
     @Override
     public void setContentView(int layoutResID) {
         ViewGroup contentView = (ViewGroup) LayoutInflater.from(this).inflate(

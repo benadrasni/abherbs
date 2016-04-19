@@ -1,5 +1,7 @@
 package sk.ab.herbs.commons;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -47,8 +49,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         builder = new HitBuilders.ScreenViewBuilder();
         ((HerbsApp)getApplication()).getTracker().setScreenName(this.getClass().getSimpleName());
 
-        if (!Locale.getDefault().equals(((HerbsApp)getApplication()).getLocale())) {
-            Locale locale = new Locale(((HerbsApp)getApplication()).getLocale().getLanguage());
+        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+
+        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
+        Boolean changeLocale = preferences.getBoolean(Constants.CHANGE_LOCALE_KEY, false);
+
+        if (changeLocale && !Locale.getDefault().getLanguage().equals(language)) {
+            Locale locale = new Locale(language);
             Locale.setDefault(locale);
             Configuration config = new Configuration();
             config.locale = locale;

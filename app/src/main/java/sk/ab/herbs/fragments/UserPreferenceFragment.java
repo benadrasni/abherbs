@@ -104,7 +104,6 @@ public class UserPreferenceFragment extends PreferenceFragment {
         getActivity().getBaseContext().getResources().updateConfiguration(config,
                 getActivity().getBaseContext().getResources().getDisplayMetrics());
         getActivity().recreate();
-        ((HerbsApp)getActivity().getApplication()).setLocale(locale);
     }
 
 }
