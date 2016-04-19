@@ -136,13 +136,13 @@ public class InfoFragment extends Fragment {
     public void setInfo(final Plant plant, int language) {
         final StringBuilder text = new StringBuilder();
 
-        text.append(getResources().getString(R.string.plant_height_from)).append(" <b>").append(plant.getHeight_from())
-                .append("</b>").append(" ").append(getResources().getString(R.string.plant_height_to)).append(" ")
-                .append("<b>").append(plant.getHeight_to()).append("</b>").append(" ").append(Constants.HEIGHT_UNIT)
-                .append(". <br/>").append(getResources().getString(R.string.plant_flowering_from)).append(" <b>")
-                .append(Utils.getMonthName(plant.getFlowering_from() - 1)).append("</b>").append(" ")
-                .append(getResources().getString(R.string.plant_flowering_to)).append(" ").append("<b>")
-                .append(Utils.getMonthName(plant.getFlowering_to() - 1)).append("</b>.<br/>");
+        text.append(getResources().getString(R.string.plant_height_from)).append(" <i>").append(plant.getHeight_from())
+                .append("</i>").append(" ").append(getResources().getString(R.string.plant_height_to)).append(" ")
+                .append("<i>").append(plant.getHeight_to()).append("</i>").append(" ").append(Constants.HEIGHT_UNIT)
+                .append(". <br/>").append(getResources().getString(R.string.plant_flowering_from)).append(" <i>")
+                .append(Utils.getMonthName(plant.getFlowering_from() - 1)).append("</i>").append(" ")
+                .append(getResources().getString(R.string.plant_flowering_to)).append(" ").append("<i>")
+                .append(Utils.getMonthName(plant.getFlowering_to() - 1)).append("</i>.<br/>");
 
         text.append(plant.getDescription().getText(language)).append("<br/>");
 
@@ -162,7 +162,7 @@ public class InfoFragment extends Fragment {
             if (sections[i][1].length() > 0) {
                 spanIndex[0][i] = text.length();
                 spanIndex[1][i] = text.length() + sections[i][0].length();
-                text.append("<b>").append(sections[i][0]).append("</b>");
+                text.append("<i>").append(sections[i][0]).append("</i>");
                 text.append(": ");
                 text.append(sections[i][1]);
                 text.append("<br/>");
