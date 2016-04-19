@@ -208,7 +208,7 @@ public class DisplayPlantActivity extends BaseActivity {
         text.append("<br/>");
         text.append(plant.getNames());
         text.append("<br/><br/>");
-        if (language > 0) {
+        if (language > 1) {
             text.append(Locale.ENGLISH.getDisplayLanguage());
             text.append("<br/><br/>");
             text.append(getPlantInLanguage(0));

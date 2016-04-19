@@ -65,7 +65,7 @@
     <string name="image_desc">Ilustrácia</string>
     <string name="translate_desc">Preklad</string>
     <string name="email_desc">Email</string>
-    <string name="email_subject_prefix">"Návrh lepšieho prekladu / popisu pre "</string>
+    <string name="email_subject_prefix">Návrh lepšieho prekladu / popisu pre </string>
 
     <string name="plant_title">názov</string>
     <string name="plant_height_from">Výška od</string>

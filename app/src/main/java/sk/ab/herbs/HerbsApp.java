@@ -3,10 +3,8 @@ package sk.ab.herbs;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -41,7 +39,6 @@ public class HerbsApp extends Application {
     private static DisplayImageOptions options;
 
     private Tracker tracker;
-    private Locale locale;
     private List<BaseFilterFragment> filterAttributes;
     private Stack<BaseFilterFragment> backStack;
     private Map<Integer, Integer> filter;
@@ -69,22 +66,7 @@ public class HerbsApp extends Application {
         editor.putBoolean(Constants.RESET_KEY + BuildConfig.VERSION_CODE, true);
         editor.apply();
 
-        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
-        Boolean changeLocale = preferences.getBoolean(Constants.CHANGE_LOCALE_KEY, false);
-
-        if (changeLocale && !sDefSystemLanguage.equals(language)) {
-            locale = new Locale(language);
-            Locale.setDefault(locale);
-            Configuration config = new Configuration();
-            config.locale = locale;
-            getBaseContext().getResources().updateConfiguration(config,
-                    getBaseContext().getResources().getDisplayMetrics());
-        } else {
-            locale = Locale.getDefault();
-        }
-
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
-        analytics.getLogger().setLogLevel(Logger.LogLevel.VERBOSE);
         analytics.enableAutoActivityReports(this);
         tracker = analytics.newTracker(PROPERTY_ID);
 
@@ -122,14 +104,6 @@ public class HerbsApp extends Application {
                 .cacheOnDisk(true)
                 .considerExifParams(true)
                 .build();
-    }
-
-    public Locale getLocale() {
-        return locale;
-    }
-
-    public void setLocale(Locale locale) {
-        this.locale = locale;
     }
 
     public DisplayImageOptions getOptions() {

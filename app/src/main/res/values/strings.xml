@@ -65,7 +65,7 @@
     <string name="image_desc">Plant illustration</string>
     <string name="translate_desc">Translate</string>
     <string name="email_desc">Email</string>
-    <string name="email_subject_prefix">"Proposal of better translation / description for "</string>
+    <string name="email_subject_prefix">Proposal of better translation / description for </string>
 
     <string name="plant_title">title</string>
     <string name="plant_height_from">Height from</string>
@@ -87,6 +87,7 @@
     <string name="plant_stem">Stem</string>
     <string name="plant_root">Root</string>
     <string name="plant_habitat">Habitat</string>
+    <string name="plant_trivia">Trivia</string>
     <string name="plant_toxicity">Toxicity</string>
     <string name="plant_herbalism">Herbalism</string>
 
@@ -113,5 +114,4 @@
     <string name="legend">Legend</string>
     <string name="toxicity2">slightly poisonous plant</string>
     <string name="toxicity1">poisonous plant</string>
-    <string name="plant_trivia">Trivia</string>
 </resources>
