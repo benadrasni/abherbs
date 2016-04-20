@@ -113,5 +113,5 @@
     <string name="legend">Leyenda</string>
     <string name="toxicity1">planta venenosa</string>
     <string name="toxicity2">planta ligeramente venenosa</string>
-    <string name="plant_trivia">Trivia</string>
+    <string name="plant_trivia">Trivialidades</string>
 </resources>
