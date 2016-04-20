@@ -93,7 +93,7 @@
     <string name="plant_domain">domain</string>
     <string name="plant_kingdom">kingdom</string>
     <string name="plant_subkingdom">subkingdom</string>
-    <string name="plant_line">line</string>
+    <string name="plant_line">línie</string>
     <string name="plant_branch">větve</string>
     <string name="plant_phylum">kmen</string>
     <string name="plant_class">třída</string>
@@ -113,5 +113,5 @@
     <string name="legend">Legenda</string>
     <string name="toxicity1">jedovatá rostlina</string>
     <string name="toxicity2">mírně jedovatá rostlina</string>
-    <string name="plant_trivia">Trivia</string>
+    <string name="plant_trivia">Zajímavosti</string>
 </resources>
