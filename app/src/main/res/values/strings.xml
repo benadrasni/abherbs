@@ -112,6 +112,6 @@
     <string name="showcase_count_button_title">Number of filtered plants</string>
     <string name="showcase_count_button_message">When number is less than 21 press to jump directly to the list. Long press to clear filter.</string>
     <string name="legend">Legend</string>
-    <string name="toxicity2">slightly poisonous plant</string>
     <string name="toxicity1">poisonous plant</string>
+    <string name="toxicity2">slightly poisonous plant</string>
 </resources>

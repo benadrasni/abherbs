@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quelles sont ces fleurs?</string>
+
+    <string name="about">À propos</string>
+    <string name="help">Aide</string>
+    <string name="settings">Paramètres</string>
+    <string name="feedback">Retour d\'information</string>
+    <string name="pref_language">Préférences de langue</string>
+    <string name="pref_language_summary"/>
+    <string-array name="languages">
+        <item>English</item>
+        <item>Slovenčina</item>
+        <item>Čeština</item>
+        <item>Deutsch</item>
+        <item>Français</item>
+        <item>Español</item>
+        <item>Português</item>
+    </string-array>
+    <string-array name="languagesValues">
+        <item>en</item>
+        <item>sk</item>
+        <item>cs</item>
+        <item>de</item>
+        <item>fr</item>
+        <item>es</item>
+        <item>pt</item>
+    </string-array>
+    <string name="change_locale">Changer locale</string>
+    <string name="change_locale_summary"> à la langue préférée</string>
+    <string name="propose_translation">Ne pas afficher le bouton</string>
+    <string name="propose_translation_summary">à envoyer une meilleure traduction / description</string>
+
+    <string name="color_of_flower">couleur des fleurs</string>
+    <string name="color_white">blanc</string>
+    <string name="color_yellow">jaune</string>
+    <string name="color_red">rouge, rose</string>
+    <string name="color_blue">bleu, violet</string>
+    <string name="color_green">vert, brun, noir</string>
+    <string name="color_of_flower_message">Quelle est la couleur des fleurs? Choisissez celui le plus proche.</string>
+
+    <string name="habitats">habitats</string>
+    <string name="habitat_meadow">prés ou prairies</string>
+    <string name="habitat_garden">jardins ou champs</string>
+    <string name="habitat_wetland">bruyères ou zones humides</string>
+    <string name="habitat_forest">bois ou forêts</string>
+    <string name="habitat_rock">roches ou montagnes</string>
+    <string name="habitat_tree">arbres ou arbustes</string>
+    <string name="habitat_message">Ce qui est autour de vous? Identifier l\'habitat de la plante.</string>
+
+    <string name="number_of_petals">nombre de pétales</string>
+    <string name="nop_4">4 ou moins</string>
+    <string name="nop_5">5</string>
+    <string name="nop_many">plus de 5</string>
+    <string name="nop_bisymmetric">bisymétrique</string>
+    <string name="number_of_petals_message">Est-ce qu\'un bisymétrique de fleurs? Non? Alors combien de pétales il a?</string>
+
+    <string name="display_info">Le bon?</string>
+    <string name="list_info">Choisissez une</string>
+
+    <string name="plant_info">Info</string>
+    <string name="plant_gallery">Galerie</string>
+    <string name="plant_taxonomy">Taxonomie</string>
+    <string name="plant_sources">Sources</string>
+    <string name="image_desc">Illustration des plantes</string>
+    <string name="translate_desc">Traduire</string>
+    <string name="email_desc">Email</string>
+    <string name="email_subject_prefix">Proposition de meilleure traduction / description </string>
+
+    <string name="plant_title">titre</string>
+    <string name="plant_height_from">Hauteur entre</string>
+    <string name="plant_height_to">et</string>
+    <string name="plant_flowering_from">Floraison de</string>
+    <string name="plant_flowering_to">à</string>
+    <string name="plant_flowers">Fleurs</string>
+    <string name="plant_inflorescences">Floraison</string>
+    <string name="plant_fruits">Fruits</string>
+    <string name="plant_leaves">Feuilles</string>
+    <string name="plant_inflorescence">Floraison</string>
+    <string name="plant_color_of_flowers">Couleur des fleurs</string>
+    <string name="plant_number_of_petals">Nombre de pétales</string>
+    <string name="plant_sepal">Sépale</string>
+    <string name="plant_leaf_shape">Forme des feuilles</string>
+    <string name="plant_leaf_margin">Marge des feuilles</string>
+    <string name="plant_leaf_venation">Venation des feuilles</string>
+    <string name="plant_leaf_arrangement">Arrangement des feuilles</string>
+    <string name="plant_stem">Tige</string>
+    <string name="plant_root">Racine</string>
+    <string name="plant_habitat">Habitat</string>
+    <string name="plant_trivia">Bagatelles</string>
+    <string name="plant_toxicity">Toxicité</string>
+    <string name="plant_herbalism">Herboristerie</string>
+
+    <string name="plant_domain">Domain</string>
+    <string name="plant_kingdom">Règne</string>
+    <string name="plant_subkingdom">Sous-règne</string>
+    <string name="plant_line">Lignée</string>
+    <string name="plant_branch">Section</string>
+    <string name="plant_phylum">Division</string>
+    <string name="plant_class">Classe</string>
+    <string name="plant_order">Ordre</string>
+    <string name="plant_family">Famille</string>
+    <string name="plant_genus">Genre</string>
+    <string name="plant_species">species</string>
+
+    <string name="close">Sortie</string>
+
+    <string name="showcase_propose_title">Proposer une meilleure traduction / description</string>
+    <string name="showcase_propose_message">Vous pouvez envoyer une meilleure traduction / description par email.</string>
+    <string name="showcase_fullscreen_title">Grande illustration</string>
+    <string name="showcase_fullscreen_message">Vous pouvez afficher illustration en plein écran en cliquant dessus.</string>
+    <string name="showcase_count_button_title">Nombre de plantes filtrées</string>
+    <string name="showcase_count_button_message">Lorsque le numéro est inférieur à 21 appuyez sur pour accéder directement à la liste. Appuyez longuement pour filtre clair.</string>
+    <string name="legend">Légende</string>
+    <string name="toxicity2">plante légèrement toxique</string>
+    <string name="toxicity1">plante toxique</string>
+</resources>
