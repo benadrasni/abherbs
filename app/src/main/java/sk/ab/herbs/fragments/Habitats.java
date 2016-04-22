@@ -31,8 +31,7 @@ public class Habitats extends BaseFilterFragment {
         final SharedPreferences preferences = filterPlantsActivity
                 .getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        Boolean wasShowCase = preferences.getBoolean(Constants.SHOWCASE_FILTER_KEY +
-                BuildConfig.VERSION_CODE, false);
+        Boolean wasShowCase = preferences.getBoolean(Constants.SHOWCASE_FILTER_KEY + Constants.VERSION_1_2_7, false);
 
         if (!wasShowCase) {
             ShowcaseView showcaseView = new ShowcaseView.Builder(filterPlantsActivity)
@@ -51,7 +50,7 @@ public class Habitats extends BaseFilterFragment {
             int margin = ((Number) (getResources().getDisplayMetrics().density * 16)).intValue();
             lps.setMargins(margin, margin, margin, margin);
             showcaseView.setButtonPosition(lps);
-            editor.putBoolean(Constants.SHOWCASE_FILTER_KEY + BuildConfig.VERSION_CODE, true);
+            editor.putBoolean(Constants.SHOWCASE_FILTER_KEY + Constants.VERSION_1_2_7, true);
             editor.apply();
         }
     }

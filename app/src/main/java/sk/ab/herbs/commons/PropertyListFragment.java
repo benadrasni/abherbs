@@ -107,18 +107,25 @@ public class PropertyListFragment extends ListFragment {
                 case PropertyItem.TYPE_FILTER:
                     BaseFilterFragment filterFragment = (BaseFilterFragment)item;
                     ImageView icon = (ImageView) convertView.findViewById(R.id.row_icon);
-                    icon.setImageResource(filterFragment.getIconRes());
+                    if (icon != null) {
+                        icon.setImageResource(filterFragment.getIconRes());
+                    }
                     TextView title = (TextView) convertView.findViewById(R.id.row_title);
-                    title.setText(filterFragment.getTitle());
+                    if (title !=  null) {
+                        title.setText(filterFragment.getTitle());
+                    }
                     TextView value = (TextView) convertView.findViewById(R.id.row_value);
-                    Integer valueId = ((HerbsApp)getActivity().getApplication()).getFilter().get(filterFragment.getAttributeId());
-                    if (valueId != null) {
-                        int resId = Constants.getValueResource(getResources(), valueId);
-                        if (resId > 0) {
-                            value.setText(getResources().getText(resId));
+                    if (value != null) {
+                        Integer valueId = ((HerbsApp) getActivity().getApplication()).getFilter()
+                                .get(filterFragment.getAttributeId());
+                        if (valueId != null) {
+                            int resId = Constants.getValueResource(getResources(), valueId);
+                            if (resId > 0) {
+                                value.setText(getResources().getText(resId));
+                            }
+                        } else {
+                            value.setText("");
                         }
-                    } else {
-                        value.setText("");
                     }
                     break;
                 case PropertyItem.TYPE_DIVIDER:
@@ -126,7 +133,9 @@ public class PropertyListFragment extends ListFragment {
                 case PropertyItem.TYPE_SETTING:
                     BaseSetting setting = (BaseSetting)item;
                     title = (TextView) convertView.findViewById(R.id.row_title);
-                    title.setText(setting.getTitle());
+                    if (title != null) {
+                        title.setText(setting.getTitle());
+                    }
                     break;
             }
 
