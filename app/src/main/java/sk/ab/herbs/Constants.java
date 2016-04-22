@@ -15,7 +15,7 @@ public class Constants {
     public final static int LIST_THRESHOLD = 20;
 
     public final static String EMAIL = "whatsthoseflowers@gmail.com";
-    public final static int VERSION_1_2_7 = 34;
+    public final static int VERSION_1_2_7 = 36;
 
     public final static String STORAGE_ENDPOINT = "http://storage.googleapis.com/abherbs/.families/";
     public final static String DEFAULT_EXTENSION = ".webp";
