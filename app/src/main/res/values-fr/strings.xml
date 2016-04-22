@@ -37,7 +37,7 @@
     <string name="color_red">rouge, rose</string>
     <string name="color_blue">bleu, violet</string>
     <string name="color_green">vert, brun, noir</string>
-    <string name="color_of_flower_message">Quelle est la couleur des fleurs? Choisissez celui le plus proche.</string>
+    <string name="color_of_flower_message">Quelle est la couleur des fleurs? Sélectionnez la couleur la plus proche.</string>
 
     <string name="habitats">habitats</string>
     <string name="habitat_meadow">prés ou prairies</string>
@@ -46,7 +46,7 @@
     <string name="habitat_forest">bois ou forêts</string>
     <string name="habitat_rock">roches ou montagnes</string>
     <string name="habitat_tree">arbres ou arbustes</string>
-    <string name="habitat_message">Ce qui est autour de vous? Identifier l\'habitat de la plante.</string>
+    <string name="habitat_message">Ce qui est autour de vous? Identifier l\'habitat de la fleur.</string>
 
     <string name="number_of_petals">nombre de pétales</string>
     <string name="nop_4">4 ou moins</string>
@@ -56,7 +56,7 @@
     <string name="number_of_petals_message">Est-ce qu\'un bisymétrique de fleurs? Non? Alors combien de pétales il a?</string>
 
     <string name="display_info">Le bon?</string>
-    <string name="list_info">Choisissez une</string>
+    <string name="list_info">Sélectionnez une</string>
 
     <string name="plant_info">Info</string>
     <string name="plant_gallery">Galerie</string>

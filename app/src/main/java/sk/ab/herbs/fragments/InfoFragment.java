@@ -88,7 +88,7 @@ public class InfoFragment extends Fragment {
         }
 
         SharedPreferences.Editor editor = preferences.edit();
-        Boolean wasShowCase = preferences.getBoolean(Constants.SHOWCASE_DISPLAY_KEY + BuildConfig.VERSION_CODE, false);
+        Boolean wasShowCase = preferences.getBoolean(Constants.SHOWCASE_DISPLAY_KEY + Constants.VERSION_1_2_7, false);
 
         if (!wasShowCase) {
             new ShowcaseView.Builder(getActivity())
@@ -114,7 +114,7 @@ public class InfoFragment extends Fragment {
 
                     })
                     .build();
-            editor.putBoolean(Constants.SHOWCASE_DISPLAY_KEY + BuildConfig.VERSION_CODE, true);
+            editor.putBoolean(Constants.SHOWCASE_DISPLAY_KEY + Constants.VERSION_1_2_7, true);
             editor.apply();
         }
     }
