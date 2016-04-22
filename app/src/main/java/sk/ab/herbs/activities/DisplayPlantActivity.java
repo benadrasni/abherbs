@@ -309,12 +309,15 @@ public class DisplayPlantActivity extends BaseActivity {
         }
         if (translatedTexts.size() > i && !plant.getHabitat().isText(language)) {
             plant.getHabitat().add(language, translatedTexts.get(i));
+            i++;
         }
         if (translatedTexts.size() > i && !plant.getTrivia().isText(language)) {
             plant.getTrivia().add(language, translatedTexts.get(i));
+            i++;
         }
         if (translatedTexts.size() > i && !plant.getToxicity().isText(language)) {
             plant.getToxicity().add(language, translatedTexts.get(i));
+            i++;
         }
         if (translatedTexts.size() > i && !plant.getHerbalism().isText(language)) {
             plant.getHerbalism().add(language, translatedTexts.get(i));
