@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.text.Html;
 import android.util.Log;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.Response;
+import sk.ab.herbs.TranslationSaveRequest;
 import sk.ab.herbs.commons.BaseActivity;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
@@ -30,6 +32,7 @@ import sk.ab.herbs.fragments.GalleryFragment;
 import sk.ab.herbs.fragments.InfoFragment;
 import sk.ab.herbs.fragments.SourcesFragment;
 import sk.ab.herbs.fragments.TaxonomyFragment;
+import sk.ab.herbs.service.HerbCloudClient;
 import sk.ab.herbs.tools.Keys;
 import sk.ab.herbs.tools.TextWithLanguage;
 
@@ -246,7 +249,7 @@ public class DisplayPlantActivity extends BaseActivity {
         return text.toString();
     }
 
-    private void getTranslation(String source, String target, List<TextWithLanguage> textWithLanguages) {
+    private void getTranslation(String source, final String target, List<TextWithLanguage> textWithLanguages) {
         int language = Constants.getLanguage(source);
         List<String> qs = new ArrayList<>();
         for (TextWithLanguage textWithLanguage : textWithLanguages) {
@@ -270,6 +273,26 @@ public class DisplayPlantActivity extends BaseActivity {
 
                 setTranslation(translatedTexts);
                 setInfo();
+
+
+                HerbCloudClient herbCloudClient = new HerbCloudClient();
+                TranslationSaveRequest translationSaveRequest = new TranslationSaveRequest(plant.getPlantId(),
+                        Constants.getLanguage(target), translatedTexts);
+
+                herbCloudClient.getApiService().saveTranslation(translationSaveRequest).enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Response<Boolean> response) {
+                        if (response != null) {
+                            Toast.makeText(getApplicationContext(), response.body().toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
+                    }
+                });
+
             }
 
             @Override
