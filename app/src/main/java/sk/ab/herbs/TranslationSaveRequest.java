@@ -17,4 +17,12 @@ public class TranslationSaveRequest {
         this.langId = langId;
         this.texts = texts;
     }
+
+    public String getTranslationId() {
+        return translationId;
+    }
+
+    public List<String> getTexts() {
+        return texts;
+    }
 }
