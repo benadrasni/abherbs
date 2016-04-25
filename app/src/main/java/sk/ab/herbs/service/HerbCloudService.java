@@ -4,6 +4,7 @@ import java.util.Map;
 
 import retrofit.Call;
 import retrofit.http.Body;
+import retrofit.http.GET;
 import retrofit.http.Headers;
 import retrofit.http.POST;
 import retrofit.http.Path;
@@ -18,10 +19,11 @@ public interface HerbCloudService {
     Call<Map<String, String>> sayHi(@Path("name") String name);
 
     @Headers({
-            "Content-Type: application/json",
-            "Accept-Charset: UTF-8",
-            "charset: UTF-8"
+            "Content-Type: application/json; charset: UTF-8"
     })
     @POST("_ah/api/translationApi/v1/translation")
-    Call<Boolean> saveTranslation(@Body TranslationSaveRequest translationSaveRequest);
+    Call<TranslationSaveRequest> saveTranslation(@Body TranslationSaveRequest translationSaveRequest);
+
+    @GET("_ah/api/translationApi/v1/translation/{key}")
+    Call<TranslationSaveRequest> getTranslation(@Path("key") String key);
 }

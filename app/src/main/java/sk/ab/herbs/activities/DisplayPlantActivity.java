@@ -238,10 +238,10 @@ public class DisplayPlantActivity extends BaseActivity {
         };
 
         final StringBuilder text = new StringBuilder(plant.getSpecies());
-        for(int i = 0; i < sections.length; i++ ) {
-            text.append("<b>" + sections[i][0] + "</b>");
+        for(String[] section : sections ) {
+            text.append("<b>" + sections[0] + "</b>");
             text.append(": ");
-            text.append(sections[i][1]);
+            text.append(sections[1]);
             text.append(" ");
             text.append("<br/>");
         }
@@ -249,41 +249,69 @@ public class DisplayPlantActivity extends BaseActivity {
         return text.toString();
     }
 
-    private void getTranslation(String source, final String target, List<TextWithLanguage> textWithLanguages) {
+    private void getTranslation(final String source, final String target, List<TextWithLanguage> textWithLanguages) {
         int language = Constants.getLanguage(source);
-        List<String> qs = new ArrayList<>();
+        final List<String> qs = new ArrayList<>();
         for (TextWithLanguage textWithLanguage : textWithLanguages) {
             qs.add(textWithLanguage.getText(language));
         }
 
-        ((HerbsApp)getApplication()).getGoogleClient().getApiService().translate(
-                Keys.TRANSLATE_API_KEY,
-                source,
-                target,
-                qs).enqueue(new Callback<Map<String, Map<String, List<Map<String, String>>>>>() {
-            @Override
-            public void onResponse(Response<Map<String, Map<String, List<Map<String, String>>>>> response) {
-                Map<String, Map<String, List<Map<String, String>>>> data = response.body();
+        final HerbCloudClient herbCloudClient = new HerbCloudClient();
 
-                List<String> translatedTexts = new ArrayList<>();
-                List<Map<String, String>> texts = data.get("data").get("translations");
-                for (Map<String, String> text : texts) {
-                    translatedTexts.add(text.get("translatedText"));
-                }
-
-                setTranslation(translatedTexts);
-                setInfo();
-
-
-                HerbCloudClient herbCloudClient = new HerbCloudClient();
-                TranslationSaveRequest translationSaveRequest = new TranslationSaveRequest(plant.getPlantId(),
-                        Constants.getLanguage(target), translatedTexts);
-
-                herbCloudClient.getApiService().saveTranslation(translationSaveRequest).enqueue(new Callback<Boolean>() {
+        herbCloudClient.getApiService().getTranslation(plant.getPlantId() + "_" +  Constants.getLanguage(target))
+                .enqueue(new Callback<TranslationSaveRequest>() {
                     @Override
-                    public void onResponse(Response<Boolean> response) {
+                    public void onResponse(Response<TranslationSaveRequest> response) {
                         if (response != null) {
-                            Toast.makeText(getApplicationContext(), response.body().toString(), Toast.LENGTH_LONG).show();
+                            if (response.body() != null) {
+                                setTranslation(response.body().getTexts());
+                                setInfo();
+                            } else {
+                                ((HerbsApp)getApplication()).getGoogleClient().getApiService().translate(
+                                        Keys.TRANSLATE_API_KEY,
+                                        source,
+                                        target,
+                                        qs).enqueue(new Callback<Map<String, Map<String, List<Map<String, String>>>>>() {
+                                    @Override
+                                    public void onResponse(Response<Map<String, Map<String, List<Map<String, String>>>>> response) {
+                                        Map<String, Map<String, List<Map<String, String>>>> data = response.body();
+
+                                        List<String> translatedTexts = new ArrayList<>();
+                                        List<Map<String, String>> texts = data.get("data").get("translations");
+                                        for (Map<String, String> text : texts) {
+                                            translatedTexts.add(text.get("translatedText"));
+                                        }
+
+                                        setTranslation(translatedTexts);
+                                        setInfo();
+
+                                        TranslationSaveRequest translationSaveRequest = new TranslationSaveRequest(plant.getPlantId(),
+                                                Constants.getLanguage(target), translatedTexts);
+
+                                        herbCloudClient.getApiService().saveTranslation(translationSaveRequest)
+                                                .enqueue(new Callback<TranslationSaveRequest>() {
+                                                    @Override
+                                                    public void onResponse(Response<TranslationSaveRequest> response) {
+                                                        if (response != null) {
+                                                            Log.i(this.getClass().getName(), "Translation " + response.body().getTranslationId() + " was saved to the datastore");
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Throwable t) {
+                                                        Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
+                                                    }
+                                                });
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Throwable t) {
+                                        Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
+                                    }
+                                });
+
+                            }
                         }
                     }
 
@@ -293,13 +321,6 @@ public class DisplayPlantActivity extends BaseActivity {
                     }
                 });
 
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
-            }
-        });
     }
 
     private void setTranslation(List<String> translatedTexts) {

@@ -6,7 +6,7 @@ import retrofit.Retrofit;
  * Created by adrian on 1.9.2015.
  */
 public class HerbCloudClient {
-    public static final String API_URL = "http://10.0.2.2:8080";
+    public static final String API_URL = "https://abherbs-backend.appspot.com";
 
     private HerbCloudService herbCloudService;
 
