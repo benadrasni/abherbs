@@ -112,7 +112,7 @@ public class FilterPlantsActivity extends BaseActivity {
         }
 
         if (getCurrentFragment() == null) {
-            loading();
+            startLoading();
             getCount();
         }
 
@@ -170,7 +170,7 @@ public class FilterPlantsActivity extends BaseActivity {
     }
 
     public void addToFilter(Integer valueId) {
-        loading();
+        startLoading();
         getFilter().put(getCurrentFragment().getAttributeId(), valueId);
         getCount();
 
@@ -179,7 +179,7 @@ public class FilterPlantsActivity extends BaseActivity {
 
     public void removeFromFilter(int attrId) {
         if (getFilter().get(attrId) != null) {
-            loading();
+            startLoading();
             getFilter().remove(attrId);
             getCount();
             mPropertyMenu.getListView().invalidateViews();
@@ -187,7 +187,7 @@ public class FilterPlantsActivity extends BaseActivity {
     }
 
     public void clearFilter() {
-        loading();
+        startLoading();
         getFilter().clear();
         getCount();
 
@@ -196,7 +196,7 @@ public class FilterPlantsActivity extends BaseActivity {
     }
 
     public void loadResults() {
-        loading();
+        startLoading();
         getList();
     }
 
@@ -218,9 +218,8 @@ public class FilterPlantsActivity extends BaseActivity {
                     }
                 }
             }
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            app.setLoading(false);
             setCountButton();
+            stopLoading();
         }
     }
 
@@ -229,8 +228,7 @@ public class FilterPlantsActivity extends BaseActivity {
         intent.putParcelableArrayListExtra("results", (ArrayList<PlantHeader>) herbs);
         startActivity(intent);
         setCountButton();
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        ((HerbsApp)getApplication()).setLoading(false);
+        stopLoading();
     }
 
     public List<BaseFilterFragment> getFilterAttributes() {

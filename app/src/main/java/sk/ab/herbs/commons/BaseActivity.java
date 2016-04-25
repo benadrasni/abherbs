@@ -101,7 +101,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mDrawerToggle.syncState();
     }
 
-    protected void loading() {
+    protected void startLoading() {
         ((HerbsApp)getApplication()).setLoading(true);
         if (countButton != null) {
             countButton.setEnabled(false);
@@ -112,25 +112,33 @@ public abstract class BaseActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
+    protected void stopLoading() {
+        ((HerbsApp)getApplication()).setLoading(false);
+        if (countButton != null) {
+            countButton.setEnabled(false);
+        }
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
     protected void setCountButton() {
         HerbsApp app = (HerbsApp)getApplication();
 
         if (app.isLoading()) {
-            loading();
+            startLoading();
         } else {
             if (countButton != null) {
                 TextDrawable countDrawable;
-                int fontSize = countButton.getHeight()/3;
+                int fontSize = countButton.getHeight() / 3;
                 if (app.getCount() <= Constants.LIST_THRESHOLD && app.getCount() > 0) {
                     countButton.setBackgroundTintList(ColorStateList.valueOf(
                             ContextCompat.getColor(getApplicationContext(), R.color.FABGreen)));
 
                     countDrawable = TextDrawable.builder()
                             .beginConfig()
-                                .useFont(Typeface.DEFAULT)
-                                .textColor(Color.BLACK)
-                                .fontSize(fontSize) /* size in px */
-                                .bold()
+                            .useFont(Typeface.DEFAULT)
+                            .textColor(Color.BLACK)
+                            .fontSize(fontSize) /* size in px */
+                            .bold()
                             .endConfig()
                             .buildRound("" + app.getCount(),
                                     ContextCompat.getColor(getApplicationContext(), R.color.FABGreen));
@@ -148,7 +156,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                                     ContextCompat.getColor(getApplicationContext(), R.color.MenuWhite));
                 }
                 countButton.setImageDrawable(countDrawable);
-                countButton.setEnabled(true);
             }
         }
     }

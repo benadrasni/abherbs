@@ -55,7 +55,7 @@ public class ListPlantsActivity extends BaseActivity {
         countButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                loading();
+                startLoading();
                 ((HerbsApp) getApplication()).getFilter().clear();
                 Intent intent = new Intent(ListPlantsActivity.this, FilterPlantsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -76,6 +76,7 @@ public class ListPlantsActivity extends BaseActivity {
 
                     mDrawerLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     setCountButton();
+                    stopLoading();
                 }
             });
 
@@ -102,6 +103,7 @@ public class ListPlantsActivity extends BaseActivity {
     public void onResume() {
         super.onResume();
         setCountButton();
+        stopLoading();
     }
 
     @Override
@@ -112,7 +114,7 @@ public class ListPlantsActivity extends BaseActivity {
     }
 
     public void selectPlant(int position) {
-        loading();
+        startLoading();
         getDetail(plants.get(position).getPlantId());
     }
 
