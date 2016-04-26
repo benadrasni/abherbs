@@ -24,7 +24,6 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import java.util.Locale;
 
 import sk.ab.herbs.commons.FullScreenImageActivity;
-import sk.ab.herbs.BuildConfig;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
@@ -32,7 +31,6 @@ import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
 import sk.ab.herbs.tools.Utils;
 import uk.co.deanwild.flowtextview.FlowTextView;
-
 
 /**
  * Created with IntelliJ IDEA.
@@ -129,11 +127,11 @@ public class InfoFragment extends Fragment {
                     Context.MODE_PRIVATE);
             String sLanguage = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
 
-            setInfo(displayPlantActivity.getPlant(), Constants.getLanguage(sLanguage));
+            setInfo(displayPlantActivity.getPlant(), sLanguage);
         }
     }
 
-    public void setInfo(final Plant plant, int language) {
+    public void setInfo(final Plant plant, String language) {
         final StringBuilder text = new StringBuilder();
 
         text.append(getResources().getString(R.string.plant_height_from)).append(" <i>").append(plant.getHeight_from())

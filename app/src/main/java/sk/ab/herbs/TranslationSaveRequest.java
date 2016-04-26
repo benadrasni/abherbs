@@ -8,13 +8,13 @@ import java.util.List;
 public class TranslationSaveRequest {
     private String translationId;
     private Integer plantId;
-    private Integer langId;
+    private String language;
     private List<String> texts;
 
-    public TranslationSaveRequest(Integer plantId, Integer langId, List<String> texts) {
-        this.translationId = plantId.toString() + "_" + langId.toString();
+    public TranslationSaveRequest(Integer plantId, String language, List<String> texts) {
+        this.translationId = plantId.toString() + "_" + language;
         this.plantId = plantId;
-        this.langId = langId;
+        this.language = language;
         this.texts = texts;
     }
 

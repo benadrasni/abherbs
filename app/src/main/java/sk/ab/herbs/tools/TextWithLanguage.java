@@ -15,10 +15,10 @@ import sk.ab.herbs.Constants;
  */
 @SuppressLint("ParcelCreator")
 public class TextWithLanguage implements Parcelable {
-    private Map<Integer, String> texts;
+    private Map<String, String> texts;
 
     public TextWithLanguage() {
-        this.texts = new HashMap<Integer, String>();
+        this.texts = new HashMap<String, String>();
     }
 
     @Override
@@ -29,17 +29,17 @@ public class TextWithLanguage implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(texts.size());
-        for(Map.Entry<Integer,String> entry : texts.entrySet()){
-            dest.writeInt(entry.getKey());
+        for(Map.Entry<String, String> entry : texts.entrySet()){
+            dest.writeString(entry.getKey());
             dest.writeString(entry.getValue());
         }
     }
 
-    public void add(Integer key, String value) {
+    public void add(String key, String value) {
         texts.put(key, value);
     }
 
-    public String getText(int language) {
+    public String getText(String language) {
         String text = texts.get(language);
         if (text == null) {
             text = texts.get(Constants.DEFAULT_LANGUAGE);
@@ -50,7 +50,7 @@ public class TextWithLanguage implements Parcelable {
         return text;
     }
 
-    public boolean isText(int language) {
+    public boolean isText(String language) {
         return texts.get(language) != null;
     }
 }

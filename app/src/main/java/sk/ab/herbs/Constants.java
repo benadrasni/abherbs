@@ -61,10 +61,6 @@ public class Constants {
     public final static int PLANT_TOXICITY = 407;
     public final static int PLANT_HERBALISM = 408;
 
-
-    public final static int DEFAULT_LANGUAGE = 0;
-    public final static int ORIGINAL_LANGUAGE = -1;
-
     public final static Map<String, Integer> LANGUAGES;
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
     public final static String CHANGE_LOCALE_KEY = "change_locale";
@@ -85,6 +81,9 @@ public class Constants {
     public final static String LANGUAGE_ZH = "zh";
     public final static String HEIGHT_UNIT = "cm";
 
+    public final static String DEFAULT_LANGUAGE = LANGUAGE_EN;
+    public final static String ORIGINAL_LANGUAGE = "original";
+
     static {
         LANGUAGES = new HashMap<String, Integer>();
         LANGUAGES.put(LANGUAGE_EN, 0);
@@ -99,6 +98,15 @@ public class Constants {
     public static int getLanguage(String sLanguage) {
         Integer language = LANGUAGES.get(sLanguage);
         return language == null ? 0 : language;
+    }
+
+    public static String getLanguage(Integer language) {
+        for (Map.Entry<String, Integer> entry : LANGUAGES.entrySet()) {
+            if (language == entry.getValue().intValue()) {
+                return entry.getKey();
+            }
+        }
+        return LANGUAGE_EN;
     }
 
     public static int getValueResource(Resources resources, int valueId) {

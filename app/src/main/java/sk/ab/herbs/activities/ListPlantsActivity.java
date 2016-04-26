@@ -75,8 +75,8 @@ public class ListPlantsActivity extends BaseActivity {
                 public void onGlobalLayout() {
 
                     mDrawerLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    setCountButton();
                     stopLoading();
+                    setCountButton();
                 }
             });
 
@@ -102,8 +102,8 @@ public class ListPlantsActivity extends BaseActivity {
     @Override
     public void onResume() {
         super.onResume();
-        setCountButton();
         stopLoading();
+        setCountButton();
     }
 
     @Override
@@ -173,7 +173,7 @@ public class ListPlantsActivity extends BaseActivity {
 
                     if (attributes.containsKey(""+Constants.PLANT_DESCRIPTION +"_0")) {
                         TextWithLanguage texts = new TextWithLanguage();
-                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_DESCRIPTION + "_0").get(2)),
+                        texts.add(Constants.getLanguage(Integer.parseInt(attributes.get("" + Constants.PLANT_DESCRIPTION + "_0").get(2))),
                                 attributes.get("" + Constants.PLANT_DESCRIPTION + "_0").get(0));
                         texts.add(Constants.ORIGINAL_LANGUAGE,
                                 attributes.get("" + Constants.PLANT_DESCRIPTION + "_0").get(0));
@@ -181,7 +181,7 @@ public class ListPlantsActivity extends BaseActivity {
                     }
                     if (attributes.containsKey("" + Constants.PLANT_FLOWER + "_0")) {
                         TextWithLanguage texts = new TextWithLanguage();
-                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_FLOWER + "_0").get(2)),
+                        texts.add(Constants.getLanguage(Integer.parseInt(attributes.get("" + Constants.PLANT_FLOWER + "_0").get(2))),
                                 attributes.get("" + Constants.PLANT_FLOWER + "_0").get(0));
                         texts.add(Constants.ORIGINAL_LANGUAGE,
                                 attributes.get("" + Constants.PLANT_FLOWER + "_0").get(0));
@@ -189,7 +189,7 @@ public class ListPlantsActivity extends BaseActivity {
                     }
                     if (attributes.containsKey("" + Constants.PLANT_INFLORESCENCE + "_0")) {
                         TextWithLanguage texts = new TextWithLanguage();
-                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_INFLORESCENCE + "_0").get(2)),
+                        texts.add(Constants.getLanguage(Integer.parseInt(attributes.get("" + Constants.PLANT_INFLORESCENCE + "_0").get(2))),
                                 attributes.get("" + Constants.PLANT_INFLORESCENCE + "_0").get(0));
                         texts.add(Constants.ORIGINAL_LANGUAGE,
                                 attributes.get("" + Constants.PLANT_INFLORESCENCE + "_0").get(0));
@@ -197,7 +197,7 @@ public class ListPlantsActivity extends BaseActivity {
                     }
                     if (attributes.containsKey("" + Constants.PLANT_FRUIT + "_0")) {
                         TextWithLanguage texts = new TextWithLanguage();
-                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_FRUIT + "_0").get(2)),
+                        texts.add(Constants.getLanguage(Integer.parseInt(attributes.get("" + Constants.PLANT_FRUIT + "_0").get(2))),
                                 attributes.get("" + Constants.PLANT_FRUIT + "_0").get(0));
                         texts.add(Constants.ORIGINAL_LANGUAGE,
                                 attributes.get("" + Constants.PLANT_FRUIT + "_0").get(0));
@@ -205,7 +205,7 @@ public class ListPlantsActivity extends BaseActivity {
                     }
                     if (attributes.containsKey("" + Constants.PLANT_STEM+"_0")) {
                         TextWithLanguage texts = new TextWithLanguage();
-                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_STEM + "_0").get(2)),
+                        texts.add(Constants.getLanguage(Integer.parseInt(attributes.get("" + Constants.PLANT_STEM + "_0").get(2))),
                                 attributes.get("" + Constants.PLANT_STEM + "_0").get(0));
                         texts.add(Constants.ORIGINAL_LANGUAGE,
                                 attributes.get("" + Constants.PLANT_STEM + "_0").get(0));
@@ -213,7 +213,7 @@ public class ListPlantsActivity extends BaseActivity {
                     }
                     if (attributes.containsKey("" + Constants.PLANT_LEAF + "_0")) {
                         TextWithLanguage texts = new TextWithLanguage();
-                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_LEAF + "_0").get(2)),
+                        texts.add(Constants.getLanguage(Integer.parseInt(attributes.get("" + Constants.PLANT_LEAF + "_0").get(2))),
                                 attributes.get("" + Constants.PLANT_LEAF + "_0").get(0));
                         texts.add(Constants.ORIGINAL_LANGUAGE,
                                 attributes.get("" + Constants.PLANT_LEAF + "_0").get(0));
@@ -221,7 +221,7 @@ public class ListPlantsActivity extends BaseActivity {
                     }
                     if (attributes.containsKey(""+Constants.PLANT_HABITAT+"_0")) {
                         TextWithLanguage texts = new TextWithLanguage();
-                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_HABITAT + "_0").get(2)),
+                        texts.add(Constants.getLanguage(Integer.parseInt(attributes.get("" + Constants.PLANT_HABITAT + "_0").get(2))),
                                 attributes.get("" + Constants.PLANT_HABITAT + "_0").get(0));
                         texts.add(Constants.ORIGINAL_LANGUAGE,
                                 attributes.get("" + Constants.PLANT_HABITAT + "_0").get(0));
@@ -230,7 +230,7 @@ public class ListPlantsActivity extends BaseActivity {
                     result.setTrivia(new TextWithLanguage());
                     if (attributes.containsKey(""+Constants.PLANT_TRIVIA+"_0")) {
                         TextWithLanguage texts = new TextWithLanguage();
-                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_TRIVIA + "_0").get(2)),
+                        texts.add(Constants.getLanguage(Integer.parseInt(attributes.get("" + Constants.PLANT_TRIVIA + "_0").get(2))),
                                 attributes.get("" + Constants.PLANT_TRIVIA + "_0").get(0));
                         texts.add(Constants.ORIGINAL_LANGUAGE,
                                 attributes.get("" + Constants.PLANT_TRIVIA + "_0").get(0));
@@ -239,7 +239,7 @@ public class ListPlantsActivity extends BaseActivity {
                     result.setToxicity(new TextWithLanguage());
                     if (attributes.containsKey(""+Constants.PLANT_TOXICITY+"_0")) {
                         TextWithLanguage texts = new TextWithLanguage();
-                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_TOXICITY + "_0").get(2)),
+                        texts.add(Constants.getLanguage(Integer.parseInt(attributes.get("" + Constants.PLANT_TOXICITY + "_0").get(2))),
                                 attributes.get("" + Constants.PLANT_TOXICITY + "_0").get(0));
                         texts.add(Constants.ORIGINAL_LANGUAGE,
                                 attributes.get("" + Constants.PLANT_TOXICITY + "_0").get(0));
@@ -248,7 +248,7 @@ public class ListPlantsActivity extends BaseActivity {
                     result.setHerbalism(new TextWithLanguage());
                     if (attributes.containsKey(""+Constants.PLANT_HERBALISM+"_0")) {
                         TextWithLanguage texts = new TextWithLanguage();
-                        texts.add(Integer.parseInt(attributes.get("" + Constants.PLANT_HERBALISM + "_0").get(2)),
+                        texts.add(Constants.getLanguage(Integer.parseInt(attributes.get("" + Constants.PLANT_HERBALISM + "_0").get(2))),
                                 attributes.get("" + Constants.PLANT_HERBALISM + "_0").get(0));
                         texts.add(Constants.ORIGINAL_LANGUAGE,
                                 attributes.get("" + Constants.PLANT_HERBALISM + "_0").get(0));

@@ -218,8 +218,8 @@ public class FilterPlantsActivity extends BaseActivity {
                     }
                 }
             }
-            setCountButton();
             stopLoading();
+            setCountButton();
         }
     }
 
@@ -227,8 +227,8 @@ public class FilterPlantsActivity extends BaseActivity {
         Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
         intent.putParcelableArrayListExtra("results", (ArrayList<PlantHeader>) herbs);
         startActivity(intent);
-        setCountButton();
         stopLoading();
+        setCountButton();
     }
 
     public List<BaseFilterFragment> getFilterAttributes() {

@@ -96,7 +96,7 @@ public class Plant implements Parcelable {
         description = new TextWithLanguage();
         int size = in.readInt();
         for(int i = 0; i < size; i++){
-            Integer key = in.readInt();
+            String key = in.readString();
             String value = in.readString();
             description.add(key,value);
         }
@@ -104,7 +104,7 @@ public class Plant implements Parcelable {
         flower = new TextWithLanguage();
         size = in.readInt();
         for(int i = 0; i < size; i++){
-            Integer key = in.readInt();
+            String key = in.readString();
             String value = in.readString();
             flower.add(key,value);
         }
@@ -112,7 +112,7 @@ public class Plant implements Parcelable {
         inflorescence = new TextWithLanguage();
         size = in.readInt();
         for(int i = 0; i < size; i++){
-            Integer key = in.readInt();
+            String key = in.readString();
             String value = in.readString();
             inflorescence.add(key,value);
         }
@@ -120,7 +120,7 @@ public class Plant implements Parcelable {
         fruit = new TextWithLanguage();
         size = in.readInt();
         for(int i = 0; i < size; i++){
-            Integer key = in.readInt();
+            String key = in.readString();
             String value = in.readString();
             fruit.add(key,value);
         }
@@ -128,7 +128,7 @@ public class Plant implements Parcelable {
         leaf = new TextWithLanguage();
         size = in.readInt();
         for(int i = 0; i < size; i++){
-            Integer key = in.readInt();
+            String key = in.readString();
             String value = in.readString();
             leaf.add(key,value);
         }
@@ -136,7 +136,7 @@ public class Plant implements Parcelable {
         stem = new TextWithLanguage();
         size = in.readInt();
         for(int i = 0; i < size; i++){
-            Integer key = in.readInt();
+            String key = in.readString();
             String value = in.readString();
             stem.add(key,value);
         }
@@ -144,7 +144,7 @@ public class Plant implements Parcelable {
         habitat = new TextWithLanguage();
         size = in.readInt();
         for(int i = 0; i < size; i++){
-            Integer key = in.readInt();
+            String key = in.readString();
             String value = in.readString();
             habitat.add(key,value);
         }
@@ -152,7 +152,7 @@ public class Plant implements Parcelable {
         trivia = new TextWithLanguage();
         size = in.readInt();
         for(int i = 0; i < size; i++){
-            Integer key = in.readInt();
+            String key = in.readString();
             String value = in.readString();
             trivia.add(key,value);
         }
@@ -160,7 +160,7 @@ public class Plant implements Parcelable {
         toxicity = new TextWithLanguage();
         size = in.readInt();
         for(int i = 0; i < size; i++){
-            Integer key = in.readInt();
+            String key = in.readString();
             String value = in.readString();
             toxicity.add(key,value);
         }
@@ -168,7 +168,7 @@ public class Plant implements Parcelable {
         herbalism = new TextWithLanguage();
         size = in.readInt();
         for(int i = 0; i < size; i++){
-            Integer key = in.readInt();
+            String key = in.readString();
             String value = in.readString();
             herbalism.add(key,value);
         }
@@ -332,7 +332,7 @@ public class Plant implements Parcelable {
         return text;
     }
 
-    public boolean isTranslated(int language) {
+    public boolean isTranslated(String language) {
         return description.isText(language) && flower.isText(language) && inflorescence.isText(language)
                 && fruit.isText(language) && leaf.isText(language) && stem.isText(language) && habitat.isText(language);
     }

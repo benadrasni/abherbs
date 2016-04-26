@@ -49,7 +49,7 @@ public class DisplayPlantActivity extends BaseActivity {
     static final String STATE_PLANT = "plant";
 
     private Plant plant;
-    private int language;
+    private String language;
     private boolean isTranslated;
 
     @Override
@@ -69,12 +69,14 @@ public class DisplayPlantActivity extends BaseActivity {
         String sLanguage = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
 
         language = Constants.ORIGINAL_LANGUAGE;
-        isTranslated = getPlant().isTranslated(Constants.getLanguage(sLanguage));
+        isTranslated = getPlant().isTranslated(sLanguage);
 
         setContentView(R.layout.plant_activity);
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);
-        countButton.setVisibility(View.GONE);
+        if (countButton != null) {
+            countButton.setVisibility(View.GONE);
+        }
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.plant_drawer_layout);
 
@@ -126,8 +128,8 @@ public class DisplayPlantActivity extends BaseActivity {
     }
 
     public void getTranslation() {
-        if (language == Constants.ORIGINAL_LANGUAGE) {
-            language = Constants.getLanguage(Locale.getDefault().getLanguage());
+        if (Constants.ORIGINAL_LANGUAGE.equals(language)) {
+            language = Locale.getDefault().getLanguage();
             if (!plant.isTranslated(language)) {
 
                 List<TextWithLanguage> textWithLanguages = new ArrayList<>();
@@ -188,7 +190,7 @@ public class DisplayPlantActivity extends BaseActivity {
         return plant;
     }
 
-    public int getLanguage() {
+    public String getLanguage() {
         return language;
     }
 
@@ -207,7 +209,7 @@ public class DisplayPlantActivity extends BaseActivity {
     }
 
     private String getEmailBody() {
-        int language = Constants.getLanguage(Locale.getDefault().getLanguage());
+        String language = Locale.getDefault().getLanguage();
 
         final StringBuilder text = new StringBuilder();
 
@@ -215,10 +217,10 @@ public class DisplayPlantActivity extends BaseActivity {
         text.append("<br/>");
         text.append(plant.getNames());
         text.append("<br/><br/>");
-        if (language > 1) {
+        if (!Constants.LANGUAGE_EN.equals(language) && !Constants.LANGUAGE_SK.equals(language)) {
             text.append(Locale.ENGLISH.getDisplayLanguage());
             text.append("<br/><br/>");
-            text.append(getPlantInLanguage(0));
+            text.append(getPlantInLanguage(Constants.LANGUAGE_EN));
             text.append("<br/><br/>");
         }
         text.append(Locale.getDefault().getDisplayLanguage());
@@ -228,7 +230,7 @@ public class DisplayPlantActivity extends BaseActivity {
         return text.toString();
     }
 
-    private String getPlantInLanguage(int language) {
+    private String getPlantInLanguage(String language) {
         String[][] sections = { {"", plant.getDescription().getText(language)},
                 {getString(R.string.plant_flowers), plant.getFlower().getText(language)},
                 {getString(R.string.plant_inflorescences), plant.getInflorescence().getText(language)},
@@ -243,9 +245,9 @@ public class DisplayPlantActivity extends BaseActivity {
 
         final StringBuilder text = new StringBuilder(plant.getSpecies());
         for(String[] section : sections ) {
-            text.append("<b>" + sections[0] + "</b>");
+            text.append("<b>").append(section[0]).append("</b>");
             text.append(": ");
-            text.append(sections[1]);
+            text.append(section[1]);
             text.append(" ");
             text.append("<br/>");
         }
@@ -254,17 +256,16 @@ public class DisplayPlantActivity extends BaseActivity {
     }
 
     private void getTranslation(final String source, final String target, List<TextWithLanguage> textWithLanguages) {
-        int language = Constants.getLanguage(source);
         final List<String> qs = new ArrayList<>();
         for (TextWithLanguage textWithLanguage : textWithLanguages) {
-            qs.add(textWithLanguage.getText(language));
+            qs.add(textWithLanguage.getText(source));
         }
 
         final HerbCloudClient herbCloudClient = new HerbCloudClient();
 
         startLoading();
         countButton.setVisibility(View.VISIBLE);
-        herbCloudClient.getApiService().getTranslation(plant.getPlantId() + "_" +  Constants.getLanguage(target))
+        herbCloudClient.getApiService().getTranslation(plant.getPlantId() + "_" +  target)
                 .enqueue(new Callback<TranslationSaveRequest>() {
                     @Override
                     public void onResponse(Response<TranslationSaveRequest> response) {
@@ -294,7 +295,7 @@ public class DisplayPlantActivity extends BaseActivity {
                                         setInfo();
 
                                         TranslationSaveRequest translationSaveRequest = new TranslationSaveRequest(plant.getPlantId(),
-                                                Constants.getLanguage(target), translatedTexts);
+                                                target, translatedTexts);
 
                                         herbCloudClient.getApiService().saveTranslation(translationSaveRequest)
                                                 .enqueue(new Callback<TranslationSaveRequest>() {
@@ -339,7 +340,7 @@ public class DisplayPlantActivity extends BaseActivity {
     }
 
     private void setTranslation(List<String> translatedTexts) {
-        int language = Constants.getLanguage(Locale.getDefault().getLanguage());
+        String language = Locale.getDefault().getLanguage();
 
         int i = 0;
         if (translatedTexts.size() > i && !plant.getDescription().isText(language)) {
