@@ -6,14 +6,15 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +72,9 @@ public class DisplayPlantActivity extends BaseActivity {
         isTranslated = getPlant().isTranslated(Constants.getLanguage(sLanguage));
 
         setContentView(R.layout.plant_activity);
+
+        countButton = (FloatingActionButton) findViewById(R.id.countButton);
+        countButton.setVisibility(View.GONE);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.plant_drawer_layout);
 
@@ -258,6 +262,8 @@ public class DisplayPlantActivity extends BaseActivity {
 
         final HerbCloudClient herbCloudClient = new HerbCloudClient();
 
+        startLoading();
+        countButton.setVisibility(View.VISIBLE);
         herbCloudClient.getApiService().getTranslation(plant.getPlantId() + "_" +  Constants.getLanguage(target))
                 .enqueue(new Callback<TranslationSaveRequest>() {
                     @Override
@@ -266,6 +272,8 @@ public class DisplayPlantActivity extends BaseActivity {
                             if (response.body() != null) {
                                 setTranslation(response.body().getTexts());
                                 setInfo();
+                                stopLoading();
+                                countButton.setVisibility(View.GONE);
                             } else {
                                 ((HerbsApp)getApplication()).getGoogleClient().getApiService().translate(
                                         Keys.TRANSLATE_API_KEY,
@@ -293,13 +301,18 @@ public class DisplayPlantActivity extends BaseActivity {
                                                     @Override
                                                     public void onResponse(Response<TranslationSaveRequest> response) {
                                                         if (response != null) {
-                                                            Log.i(this.getClass().getName(), "Translation " + response.body().getTranslationId() + " was saved to the datastore");
+                                                            Log.i(this.getClass().getName(), "Translation " +
+                                                                    response.body().getTranslationId() + " was saved to the datastore");
                                                         }
+                                                        stopLoading();
+                                                        countButton.setVisibility(View.GONE);
                                                     }
 
                                                     @Override
                                                     public void onFailure(Throwable t) {
                                                         Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
+                                                        stopLoading();
+                                                        countButton.setVisibility(View.GONE);
                                                     }
                                                 });
 
@@ -308,6 +321,8 @@ public class DisplayPlantActivity extends BaseActivity {
                                     @Override
                                     public void onFailure(Throwable t) {
                                         Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
+                                        stopLoading();
+                                        countButton.setVisibility(View.GONE);
                                     }
                                 });
 

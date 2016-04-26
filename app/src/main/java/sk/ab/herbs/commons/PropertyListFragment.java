@@ -56,7 +56,7 @@ public class PropertyListFragment extends ListFragment {
                         activity.removeFromFilter(fragment.getAttributeId());
                     }
                 } else {
-                    ((BaseActivity)getActivity()).loading();
+                    ((BaseActivity)getActivity()).startLoading();
                     Intent intent = new Intent(getActivity(), FilterPlantsActivity.class);
                     intent.putExtra("position", ""+((HerbsApp)getActivity().getApplication()).getFilterAttributes()
                             .indexOf(item));
