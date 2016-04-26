@@ -10,7 +10,7 @@ public class Translation {
 
     @Id String translationId;
     Integer plantId;
-    Integer langId;
+    String language;
     List<String> texts;
 
     public String getTranslationId() {
@@ -29,12 +29,12 @@ public class Translation {
         this.plantId = plantId;
     }
 
-    public Integer getLangId() {
-        return langId;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setLangId(Integer langId) {
-        this.langId = langId;
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public List<String> getTexts() {
