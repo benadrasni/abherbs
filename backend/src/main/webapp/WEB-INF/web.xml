@@ -13,7 +13,7 @@
         <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
         <init-param>
             <param-name>services</param-name>
-            <param-value>sk.ab.herbs.backend.MyEndpoint, sk.ab.herbs.backend.TranslationEndpoint</param-value>
+            <param-value>sk.ab.herbs.backend.MyEndpoint, sk.ab.herbs.backend.TranslationEndpoint, sk.ab.herbs.backend.TaxonomyEndpoint</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
