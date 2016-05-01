@@ -30,30 +30,40 @@ import javax.inject.Named;
 public class TaxonomyEndpoint {
 
     @ApiMethod(
-        name = "insertDomain",
-        path = "{name}",
-        httpMethod = ApiMethod.HttpMethod.POST)
-    public Entity insertDomain(@Named("name") String name) {
+            name = "insert",
+            path = "{taxonomyName}",
+            httpMethod = ApiMethod.HttpMethod.POST)
+    public Entity insert(@Named("taxonomyName") String taxonomyName, @Named("taxonomyPath") String taxonomyPath,
+                         @Named("parentPath") String parentPath, @Named("name") String name) {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-        Entity domain = new Entity("Superregnum", name);
-        modifyEntity(domain, name);
-        datastore.put(domain);
+        String[] path = taxonomyPath.split(",");
+        String[] parent = parentPath.split(",");
+        KeyFactory.Builder builder = new KeyFactory.Builder(path[0], parent[0]);
+        if (path.length > 1) {
+            for(int i=1; i < path.length; i++) {
+                builder.addChild(path[i], parent[i]);
+            }
+        }
 
-        return domain;
+        Entity taxonomyEntity = new Entity(taxonomyName, name, builder.getKey());
+        modifyEntity(taxonomyEntity, name);
+        datastore.put(taxonomyEntity);
+
+        return taxonomyEntity;
     }
 
     @ApiMethod(
-            name = "insert",
-            path = "{taxonomyParent}/{taxonomyName}",
+            name = "insertAngiosperms",
+            path = "Angiosperms",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public Entity insert(@Named("taxonomyParent") String taxonomyParent, @Named("taxonomyName") String taxonomyName,
-                         @Named("parent") String parent, @Named("name") String name) {
+    public Entity insertAngiosperms() {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        Key parentKey = KeyFactory.createKey(taxonomyParent, parent);
+        Key parentKey = new KeyFactory.Builder("Superregnum", "Eukaryota")
+                .addChild("Regnum", "Plantae").getKey();
 
-        Entity taxonomyEntity = new Entity(taxonomyName, name, parentKey);
-        modifyEntity(taxonomyEntity, name);
+        Entity taxonomyEntity = new Entity("Cladus", "Angiosperms", parentKey);
+        modifyEntity(taxonomyEntity, "Magnoliopsida");
         datastore.put(taxonomyEntity);
 
         return taxonomyEntity;
@@ -69,7 +79,7 @@ public class TaxonomyEndpoint {
             for(String language : languages) {
                 String[] hlp = language.split("=");
                 if(hlp.length > 1) {
-                    String[] multiValue = hlp[1].split(", ");
+                    String[] multiValue = hlp[1].trim().split(", ");
                     if (multiValue.length > 1) {
                         entity.setProperty(hlp[0], Arrays.asList(multiValue));
                     } else {
@@ -77,7 +87,7 @@ public class TaxonomyEndpoint {
                         if (multiValue.length > 1) {
                             entity.setProperty(hlp[0], Arrays.asList(multiValue));
                         } else {
-                            entity.setProperty(hlp[0], hlp[1]);
+                            entity.setProperty(hlp[0], hlp[1].trim());
                         }
                     }
                 }
