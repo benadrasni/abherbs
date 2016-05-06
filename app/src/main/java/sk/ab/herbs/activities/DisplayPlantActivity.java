@@ -23,7 +23,7 @@ import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.Response;
-import sk.ab.herbs.TranslationSaveRequest;
+import sk.ab.herbs.TranslationSave;
 import sk.ab.herbs.commons.BaseActivity;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
@@ -266,9 +266,9 @@ public class DisplayPlantActivity extends BaseActivity {
         startLoading();
         countButton.setVisibility(View.VISIBLE);
         herbCloudClient.getApiService().getTranslation(plant.getPlantId() + "_" +  target)
-                .enqueue(new Callback<TranslationSaveRequest>() {
+                .enqueue(new Callback<TranslationSave>() {
                     @Override
-                    public void onResponse(Response<TranslationSaveRequest> response) {
+                    public void onResponse(Response<TranslationSave> response) {
                         if (response != null) {
                             if (response.body() != null) {
                                 setTranslation(response.body().getTexts());
@@ -294,13 +294,13 @@ public class DisplayPlantActivity extends BaseActivity {
                                         setTranslation(translatedTexts);
                                         setInfo();
 
-                                        TranslationSaveRequest translationSaveRequest = new TranslationSaveRequest(plant.getPlantId(),
+                                        TranslationSave translationSave = new TranslationSave(plant.getPlantId(),
                                                 target, translatedTexts);
 
-                                        herbCloudClient.getApiService().saveTranslation(translationSaveRequest)
-                                                .enqueue(new Callback<TranslationSaveRequest>() {
+                                        herbCloudClient.getApiService().saveTranslation(translationSave)
+                                                .enqueue(new Callback<TranslationSave>() {
                                                     @Override
-                                                    public void onResponse(Response<TranslationSaveRequest> response) {
+                                                    public void onResponse(Response<TranslationSave> response) {
                                                         if (response != null) {
                                                             Log.i(this.getClass().getName(), "Translation " +
                                                                     response.body().getTranslationId() + " was saved to the datastore");

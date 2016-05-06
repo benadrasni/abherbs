@@ -62,14 +62,14 @@ public class TaxonomyEndpoint {
 
     @ApiMethod(
             name = "getTaxonomyByFamily",
-            path = "find/{taxonName}/{familyName}",
+            path = "find/{taxonName}/{taxonValue}",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<Taxon> getTaxonomyByFamily(@Named("taxonName") String taxonName, @Named("familyName") String familyName,
+    public List<Taxon> getTaxonomyByFamily(@Named("taxonName") String taxonName, @Named("taxonValue") String taxonValue,
                                            @Named("lang") String language) {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
         Query.Filter propertyFilter =
-                new Query.FilterPredicate("la", Query.FilterOperator.EQUAL, familyName);
+                new Query.FilterPredicate("la", Query.FilterOperator.EQUAL, taxonValue);
         Query q = new Query(taxonName).setFilter(propertyFilter);
 
         List<Taxon> results = new ArrayList<>();

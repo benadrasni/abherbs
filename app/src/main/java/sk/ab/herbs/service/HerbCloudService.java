@@ -8,7 +8,9 @@ import retrofit.http.GET;
 import retrofit.http.Headers;
 import retrofit.http.POST;
 import retrofit.http.Path;
-import sk.ab.herbs.TranslationSaveRequest;
+import retrofit.http.Query;
+import sk.ab.herbs.PlantTaxonomy;
+import sk.ab.herbs.TranslationSave;
 
 /**
  * Created by adrian on 1.9.2015.
@@ -22,8 +24,12 @@ public interface HerbCloudService {
             "Content-Type: application/json; charset: UTF-8"
     })
     @POST("_ah/api/translationApi/v1/translation")
-    Call<TranslationSaveRequest> saveTranslation(@Body TranslationSaveRequest translationSaveRequest);
+    Call<TranslationSave> saveTranslation(@Body TranslationSave translationSave);
 
     @GET("_ah/api/translationApi/v1/translation/{key}")
-    Call<TranslationSaveRequest> getTranslation(@Path("key") String key);
+    Call<TranslationSave> getTranslation(@Path("key") String key);
+
+    @GET("_ah/api/taxonomyApi/v1/find/{taxonName}/{taxonValue}")
+    Call<PlantTaxonomy> getTaxonomy(@Path("taxonName") String taxonName, @Path("taxonValue") String taxonValue,
+                                    @Query("lang") String lang);
 }
