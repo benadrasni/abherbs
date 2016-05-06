@@ -79,8 +79,8 @@ public class TaxonomyFragment extends Fragment {
             getView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Utils.setVisibility(v, R.id.plant_taxonomy);
                     getTaxonomy(displayPlantActivity.getPlant(), getView());
+                    Utils.setVisibility(v, R.id.plant_taxonomy);
                 }
             });
         }
