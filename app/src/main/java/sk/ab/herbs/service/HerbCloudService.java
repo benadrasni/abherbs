@@ -9,7 +9,7 @@ import retrofit.http.Headers;
 import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
-import sk.ab.herbs.PlantTaxonomy;
+import sk.ab.herbs.Taxonomy;
 import sk.ab.herbs.TranslationSave;
 
 /**
@@ -29,7 +29,7 @@ public interface HerbCloudService {
     @GET("_ah/api/translationApi/v1/translation/{key}")
     Call<TranslationSave> getTranslation(@Path("key") String key);
 
-    @GET("_ah/api/taxonomyApi/v1/find/{taxonName}/{taxonValue}")
-    Call<PlantTaxonomy> getTaxonomy(@Path("taxonName") String taxonName, @Path("taxonValue") String taxonValue,
-                                    @Query("lang") String lang);
+    @GET("_ah/api/taxonomyApi/v1/find/{taxonLang}/{taxonName}/{taxonValue}")
+    Call<Taxonomy> getTaxonomy(@Path("taxonLang") String taxonLang, @Path("taxonName") String taxonName, @Path("taxonValue") String taxonValue,
+                               @Query("lang") String lang);
 }

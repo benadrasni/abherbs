@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by adrian on 1.9.2015.
  */
-public class PlantTaxonomy {
+public class PlantTaxon {
     private String type;
     private List<String> name;
     private List<String> latinName;

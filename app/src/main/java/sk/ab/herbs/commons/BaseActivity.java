@@ -115,7 +115,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void stopLoading() {
         ((HerbsApp)getApplication()).setLoading(false);
         if (countButton != null) {
-            countButton.setEnabled(false);
+            countButton.setEnabled(true);
         }
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
