@@ -38,9 +38,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mDrawerToggle;
-    protected FloatingActionButton countButton;
     protected AnimationDrawable loadingAnimation;
     protected HitBuilders.ScreenViewBuilder builder;
+
+    public FloatingActionButton countButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,7 +102,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mDrawerToggle.syncState();
     }
 
-    protected void startLoading() {
+    public void startLoading() {
         ((HerbsApp)getApplication()).setLoading(true);
         if (countButton != null) {
             countButton.setEnabled(false);
@@ -112,7 +113,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
-    protected void stopLoading() {
+    public void stopLoading() {
         ((HerbsApp)getApplication()).setLoading(false);
         if (countButton != null) {
             countButton.setEnabled(true);

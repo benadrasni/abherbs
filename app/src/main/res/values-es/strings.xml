@@ -110,6 +110,8 @@
     <string name="showcase_fullscreen_message">Se puede visualizar la ilustración en pantalla completa haciendo clic en él.</string>
     <string name="showcase_count_button_title">Número de flores filtrados</string>
     <string name="showcase_count_button_message">Haga clic para ir directamente a la lista. Obras para el recuento de menos de 21. Larga hacer clic para filtro claro.</string>
+    <string name="showcase_taxonomy_title">Taxonomía según el sistema APG III</string>
+    <string name="showcase_taxonomy_message">Puede mostrar / ocultar las flores taxonomía haciendo clic en el nombre de la flor.</string>
     <string name="legend">Leyenda</string>
     <string name="toxicity1">planta venenosa</string>
     <string name="toxicity2">planta ligeramente venenosa</string>

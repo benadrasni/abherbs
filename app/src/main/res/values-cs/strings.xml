@@ -110,6 +110,8 @@
     <string name="showcase_fullscreen_message">Ilustraci můžeš zobrazit na celé obrazovce tím, že na ni klikneš.</string>
     <string name="showcase_count_button_title">Počet květů vyhovujících filtru</string>
     <string name="showcase_count_button_message">Po stisknutí hned zobrazí seznam, ale pouze pro čísla menší než 21. Dlouhé stisknutí vymaže filtr.</string>
+    <string name="showcase_taxonomy_title">Taxonomie podle systému AGP III</string>
+    <string name="showcase_taxonomy_message">Taxonomii můžeš zobrazit / skrýt tím, že klikneš na název rostliny.</string>
     <string name="legend">Legenda</string>
     <string name="toxicity1">jedovatá rostlina</string>
     <string name="toxicity2">mírně jedovatá rostlina</string>

@@ -1,6 +1,7 @@
 package sk.ab.herbs.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,10 +13,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.SimpleShowcaseEventListener;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
+
 import java.util.Locale;
 
 import retrofit.Callback;
 import retrofit.Response;
+import sk.ab.herbs.Constants;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.PlantTaxon;
 import sk.ab.herbs.R;
@@ -57,6 +63,26 @@ public class TaxonomyFragment extends Fragment {
             toxicityClass2 = (ImageView) getView().findViewById(R.id.plant_toxicity_class2);
         }
 
+        final DisplayPlantActivity displayPlantActivity = (DisplayPlantActivity) getActivity();
+        final SharedPreferences preferences = displayPlantActivity.getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Boolean wasShowCase = preferences.getBoolean(Constants.SHOWCASE_DISPLAY_KEY + Constants.VERSION_1_3_1, false);
+        final TextView nameView = (TextView) getView().findViewById(R.id.plant_species);
+
+        if (!wasShowCase) {
+            new ShowcaseView.Builder(getActivity())
+                    .withMaterialShowcase()
+                    .setStyle(R.style.CustomShowcaseTheme)
+                    .setTarget(new ViewTarget(nameView))
+                    .hideOnTouchOutside()
+                    .setContentTitle(R.string.showcase_taxonomy_title)
+                    .setContentText(R.string.showcase_taxonomy_message)
+                    .build();
+            editor.putBoolean(Constants.SHOWCASE_DISPLAY_KEY + Constants.VERSION_1_3_1, true);
+            editor.apply();
+        }
+
+
     }
 
     @Override
@@ -84,6 +110,7 @@ public class TaxonomyFragment extends Fragment {
                 public void onClick(View v) {
                     getTaxonomy(displayPlantActivity.getPlant(), getView());
                     Utils.setVisibility(v, R.id.plant_taxonomy);
+                    Utils.setVisibility(v, R.id.agpiii);
                 }
             });
         }
@@ -99,8 +126,8 @@ public class TaxonomyFragment extends Fragment {
 
         final HerbCloudClient herbCloudClient = new HerbCloudClient();
 
-//        displayPlantActivity.startLoading();
-//        displayPlantActivity.countButton.setVisibility(View.VISIBLE);
+        displayPlantActivity.startLoading();
+        displayPlantActivity.countButton.setVisibility(View.VISIBLE);
         String[] latinName = displayPlantActivity.getPlant().getSpecies_latin().split(" ");
         herbCloudClient.getApiService().getTaxonomy(TAXON_LANGUAGE, TAXON_GENUS, latinName[0], Locale.getDefault().getLanguage())
                 .enqueue(new Callback<Taxonomy>() {
@@ -159,11 +186,15 @@ public class TaxonomyFragment extends Fragment {
                             }
 
                         }
+                        displayPlantActivity.stopLoading();
+                        displayPlantActivity.countButton.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onFailure(Throwable t) {
                         Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
+                        displayPlantActivity.stopLoading();
+                        displayPlantActivity.countButton.setVisibility(View.GONE);
                     }
                 });
 
@@ -186,51 +217,6 @@ public class TaxonomyFragment extends Fragment {
         } else {
             namesView.setVisibility(View.GONE);
         }
-
-//        TextView family = (TextView) view.findViewById(R.id.plant_family);
-//        family.setText(plant.getFamily());
-//        TextView family_latin = (TextView) view.findViewById(R.id.plant_family_latin);
-//        family_latin.setText(plant.getFamily_latin());
-//
-//        TextView order = (TextView) view.findViewById(R.id.plant_order);
-//        order.setText(plant.getOrder());
-//        TextView order_latin = (TextView) view.findViewById(R.id.plant_order_latin);
-//        order_latin.setText(plant.getOrder_latin());
-//
-//        TextView cls = (TextView) view.findViewById(R.id.plant_cls);
-//        cls.setText(plant.getCls());
-//        TextView cls_latin = (TextView) view.findViewById(R.id.plant_cls_latin);
-//        cls_latin.setText(plant.getCls_latin());
-//
-//        TextView phylum = (TextView) view.findViewById(R.id.plant_phylum);
-//        phylum.setText(plant.getPhylum());
-//        TextView phylum_latin = (TextView) view.findViewById(R.id.plant_phylum_latin);
-//        phylum_latin.setText(plant.getPhylum_latin());
-//
-//        TextView branch = (TextView) view.findViewById(R.id.plant_branch);
-//        branch.setText(plant.getBranch());
-//        TextView branch_latin = (TextView) view.findViewById(R.id.plant_branch_latin);
-//        branch_latin.setText(plant.getBranch_latin());
-//
-//        TextView line = (TextView) view.findViewById(R.id.plant_line);
-//        line.setText(plant.getLine());
-//        TextView line_latin = (TextView) view.findViewById(R.id.plant_line_latin);
-//        line_latin.setText(plant.getLine_latin());
-//
-//        TextView subKingdom = (TextView) view.findViewById(R.id.plant_subkingdom);
-//        subKingdom.setText(plant.getSubkingdom());
-//        TextView subKingdom_latin = (TextView) view.findViewById(R.id.plant_subkingdom_latin);
-//        subKingdom_latin.setText(plant.getSubkingdom_latin());
-//
-//        TextView kingdom = (TextView) view.findViewById(R.id.plant_kingdom);
-//        kingdom.setText(plant.getKingdom());
-//        TextView kingdom_latin = (TextView) view.findViewById(R.id.plant_kingdom_latin);
-//        kingdom_latin.setText(plant.getKingdom_latin());
-//
-//        TextView domain = (TextView) view.findViewById(R.id.plant_domain);
-//        domain.setText(plant.getDomain());
-//        TextView domain_latin = (TextView) view.findViewById(R.id.plant_domain_latin);
-//        domain_latin.setText(plant.getDomain_latin());
     }
 }
 

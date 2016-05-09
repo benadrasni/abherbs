@@ -111,6 +111,8 @@
     <string name="showcase_fullscreen_message">Vous pouvez afficher illustration en plein écran en cliquant dessus.</string>
     <string name="showcase_count_button_title">Nombre de plantes filtrées</string>
     <string name="showcase_count_button_message">Lorsque le numéro est inférieur à 21 appuyez sur pour accéder directement à la liste. Appuyez longuement pour filtre clair.</string>
+    <string name="showcase_taxonomy_title">Taxonomie selon l\'APG III système</string>
+    <string name="showcase_taxonomy_message">Vous pouvez afficher / masquer des fleurs taxonomie en cliquant sur le nom de la fleur.</string>
     <string name="legend">Légende</string>
     <string name="toxicity2">plante légèrement toxique</string>
     <string name="toxicity1">plante toxique</string>
