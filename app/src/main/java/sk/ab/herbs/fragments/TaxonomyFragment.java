@@ -133,7 +133,7 @@ public class TaxonomyFragment extends Fragment {
                 .enqueue(new Callback<Taxonomy>() {
                     @Override
                     public void onResponse(Response<Taxonomy> response) {
-                        if (response != null && response.body() != null) {
+                        if (response != null && response.body() != null && response.body().getItems() != null) {
                             LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             for(PlantTaxon taxon : response.body().getItems()) {
                                 View view = inflater.inflate(R.layout.taxon, null);
