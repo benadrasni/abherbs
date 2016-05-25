@@ -116,5 +116,5 @@
     <string name="legend">Legend</string>
     <string name="toxicity1">poisonous plant</string>
     <string name="toxicity2">slightly poisonous plant</string>
-    <string name="agpiii" translatable="false">AGP III</string>
+    <string name="agpiii" translatable="false">APG III</string>
 </resources>
