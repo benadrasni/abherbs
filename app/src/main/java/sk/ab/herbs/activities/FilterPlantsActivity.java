@@ -13,7 +13,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -260,7 +259,7 @@ public class FilterPlantsActivity extends BaseActivity {
                 new CountRequest(Constants.FLOWERS, getFilter())).enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Response<Integer> response) {
-                if (response != null) {
+                if (response != null && response.body() != null) {
                     setCount(response.body());
                 }
             }
