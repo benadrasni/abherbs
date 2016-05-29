@@ -54,10 +54,40 @@ public class TaxonomyEndpoint {
         if (wikiName == null) {
             wikiName = name;
         }
-        modifyEntity(taxonomyEntity, wikiName);
+        modifyEntity(taxonomyEntity, wikiName, "");
         datastore.put(taxonomyEntity);
 
         return taxonomyEntity;
+    }
+
+    @ApiMethod(
+            name = "plant",
+            path = "plant/{taxonomyName}",
+            httpMethod = ApiMethod.HttpMethod.POST)
+    public Entity plant(@Named("taxonomyName") String taxonomyName) {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        String[] hlp = taxonomyName.split(" ");
+        String genus = hlp[0];
+
+        Entity plantEntity = new Entity("Plant", taxonomyName);
+
+        Query.Filter propertyFilter =
+                new Query.FilterPredicate("la", Query.FilterOperator.EQUAL, genus);
+        Query q = new Query("Genus").setFilter(propertyFilter);
+
+        List<Entity> genuses =
+                datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+        if (genuses.size() == 1) {
+            Entity entity = genuses.get(0);
+
+            plantEntity.setProperty("taxonomyKey", entity.getKey());
+            modifyEntity(plantEntity, taxonomyName, "name_");
+
+            datastore.put(plantEntity);
+        }
+
+        return plantEntity;
     }
 
     @ApiMethod(
@@ -123,7 +153,7 @@ public class TaxonomyEndpoint {
         return results;
     }
 
-    private void modifyEntity(Entity entity, String name) {
+    private void modifyEntity(Entity entity, String name, String prefix) {
         try {
             Document doc = Jsoup.connect("https://species.wikimedia.org/w/index.php?title=" + name + "&action=edit").get();
 
@@ -135,13 +165,13 @@ public class TaxonomyEndpoint {
                 if(hlp.length > 1) {
                     String[] multiValue = hlp[1].trim().split(", ");
                     if (multiValue.length > 1) {
-                        entity.setProperty(hlp[0].trim(), Arrays.asList(multiValue));
+                        entity.setProperty(prefix+hlp[0].trim(), Arrays.asList(multiValue));
                     } else {
                         multiValue = hlp[1].split(" / ");
                         if (multiValue.length > 1) {
-                            entity.setProperty(hlp[0].trim(), Arrays.asList(multiValue));
+                            entity.setProperty(prefix+hlp[0].trim(), Arrays.asList(multiValue));
                         } else {
-                            entity.setProperty(hlp[0].trim(), hlp[1].trim());
+                            entity.setProperty(prefix+hlp[0].trim(), hlp[1].trim());
                         }
                     }
                 }
