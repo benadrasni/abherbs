@@ -84,6 +84,8 @@ public class TaxonomyEndpoint {
             plantEntity.setProperty("taxonomyKey", entity.getKey());
             modifyEntity(plantEntity, taxonomyName, "name_");
 
+            plantEntity.setProperty("wikidata", getWikidata(taxonomyName));
+
             datastore.put(plantEntity);
         }
 
@@ -180,5 +182,21 @@ public class TaxonomyEndpoint {
             e.printStackTrace();
         }
 
+    }
+
+    private String getWikidata(String name) {
+        try {
+            Document doc = Jsoup.connect("https://species.wikimedia.org/wiki/" + name).get();
+
+            String wikiPage = doc.getElementsByAttributeValue("title", "Edit interlanguage links").attr("href");
+
+            return wikiPage.substring(wikiPage.lastIndexOf("/")+1, wikiPage.indexOf("#"));
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
