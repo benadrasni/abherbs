@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">What\'s those flowers?</string>
+    <string name="app_name">What\'s that flower?</string>
 
     <string name="about">About</string>
     <string name="help">Help</string>
@@ -37,7 +37,7 @@
     <string name="color_red">red, pink</string>
     <string name="color_blue">blue, purple</string>
     <string name="color_green">green, brown, black</string>
-    <string name="color_of_flower_message">What\'s color of flowers? Choose the closest one. Don\'t be afraid return back and change selection.</string>
+    <string name="color_of_flower_message">What\'s the color of the flower? Choose the closest one. Don\'t be afraid return back and change selection.</string>
 
     <string name="habitats">habitats</string>
     <string name="habitat_meadow">meadows or grasslands</string>
@@ -53,7 +53,7 @@
     <string name="nop_5">5</string>
     <string name="nop_many">more than 5</string>
     <string name="nop_bisymmetric">bisymmetric</string>
-    <string name="number_of_petals_message">Is a flower bisymmetric? No? Then how many petals it has?</string>
+    <string name="number_of_petals_message">Is the flower bisymmetric? No? Then how many petals does it have?</string>
 
     <string name="display_info">Right one?</string>
     <string name="list_info">Pick one</string>
