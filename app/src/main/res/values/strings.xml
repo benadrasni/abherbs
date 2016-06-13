@@ -37,7 +37,7 @@
     <string name="color_red">red, pink</string>
     <string name="color_blue">blue, purple</string>
     <string name="color_green">green, brown, black</string>
-    <string name="color_of_flower_message">What\'s the color of the flower? Choose the closest one. Don\'t be afraid return back and change selection.</string>
+    <string name="color_of_flower_message">What\'s the color of the flower? Choose the closest one.</string>
 
     <string name="habitats">habitats</string>
     <string name="habitat_meadow">meadows or grasslands</string>

@@ -205,7 +205,7 @@ public class DisplayPlantActivity extends BaseActivity {
     }
 
     private String getEmailSubject() {
-        return getString(R.string.email_subject_prefix) + plant.getSpecies_latin();
+        return getString(R.string.email_subject_prefix) + " " + plant.getSpecies_latin();
     }
 
     private String getEmailBody() {
