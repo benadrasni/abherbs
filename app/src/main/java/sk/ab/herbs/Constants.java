@@ -18,6 +18,12 @@ public class Constants {
     public final static int VERSION_1_2_7 = 36;
     public final static int VERSION_1_3_1 = 42;
 
+    public final static int RATE_COUNTER = 2;
+    public final static int RATE_NEVER = -1;
+    public final static int RATE_NO = 0;
+    public final static int RATE_SHOW = 1;
+    public final static int RATE_DONE = 2;
+
     public final static String STORAGE_ENDPOINT = "http://storage.googleapis.com/abherbs/.families/";
     public final static String DEFAULT_EXTENSION = ".webp";
 
@@ -67,6 +73,8 @@ public class Constants {
     public final static String CHANGE_LOCALE_KEY = "change_locale";
     public final static String PROPOSE_TRANSLATION_KEY = "propose_translation";
     public final static String RESET_KEY = "reset";
+    public final static String RATE_STATE_KEY = "rate_state";
+    public final static String RATE_COUNT_KEY = "rate_count";
     public final static String SHOWCASE_FILTER_KEY = "showcase_filter";
     public final static String SHOWCASE_DISPLAY_KEY = "showcase_display";
     public final static String LANGUAGE_EN = "en";

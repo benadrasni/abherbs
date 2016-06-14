@@ -115,4 +115,8 @@
     <string name="toxicity1">jedovatá rastlina</string>
     <string name="toxicity2">mierne jedovatá rastlina</string>
     <string name="plant_trivia">Zaujímavosti</string>
+    <string name="rate_text">Autora tejto aplikácie motivuje pozitívny ohlas použivateľov. Pošlite mu, prosím, nejaké kvetiny (najlepšie hviezdice) cez Google Play Store.</string>
+    <string name="rate_never">Nikdy</string>
+    <string name="rate_later">Možno neskôr</string>
+    <string name="rate">Áno, poďme hodnotiť</string>
 </resources>

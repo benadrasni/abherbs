@@ -58,6 +58,17 @@ public class HerbsApp extends Application {
         SharedPreferences.Editor editor = preferences.edit();
         Boolean wasReset = preferences.getBoolean(Constants.RESET_KEY + BuildConfig.VERSION_CODE, false);
 
+        int rateCounter = preferences.getInt(Constants.RATE_COUNT_KEY, Constants.RATE_COUNTER);
+        rateCounter--;
+        editor.putInt(Constants.RATE_COUNT_KEY, rateCounter);
+        editor.apply();
+
+        int rateState = preferences.getInt(Constants.RATE_STATE_KEY, Constants.RATE_NO);
+        if (rateCounter <= 0 && rateState == Constants.RATE_NO) {
+            editor.putInt(Constants.RATE_STATE_KEY, Constants.RATE_SHOW);
+            editor.apply();
+        }
+
         if (!wasReset && (sDefSystemLanguage.equals(Constants.LANGUAGE_ES)
                 || sDefSystemLanguage.equals(Constants.LANGUAGE_PT)
                 || sDefSystemLanguage.equals(Constants.LANGUAGE_FR))) {

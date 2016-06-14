@@ -38,7 +38,7 @@
     <string name="color_red">Rot, Pink</string>
     <string name="color_blue">Blau, Lila</string>
     <string name="color_green">Grün, Braun, Schwarz</string>
-    <string name="color_of_flower_message">Was ist der Blütenfarbe? Wählen Sie den nächsten ein. Haben Sie keine Angst Rückkehr wieder und Auswahl zu ändern.</string>
+    <string name="color_of_flower_message">Wie ist die Farbe der Blume? Wähle die ähnlichste Farbe.</string>
 
     <string name="habitats">Vorkommen</string>
     <string name="habitat_meadow">Wiesen oder Grünland</string>
@@ -47,14 +47,14 @@
     <string name="habitat_forest">Wälder</string>
     <string name="habitat_rock">Felsen oder Berge</string>
     <string name="habitat_tree">Bäume oder Sträucher</string>
-    <string name="habitat_message">Was ist in der Nähe? Identifizieren Vorkommen.</string>
+    <string name="habitat_message">Was ist um dich herum? Identifiziere den Standort der Pflanze.</string>
 
     <string name="number_of_petals">Anzahl der Blütenblätter</string>
     <string name="nop_4">höchstens 4</string>
     <string name="nop_5">5</string>
     <string name="nop_many">mehr als 5</string>
     <string name="nop_bisymmetric">zweiseitig-symmetrische</string>
-    <string name="number_of_petals_message">Ist eine Blüte bisymmetrischen? Nein? Dann, wie viele Blütenblätter hat es?</string>
+    <string name="number_of_petals_message">Ist die Blume bisymmetrisch? Falls nicht, wieviele Blätter hat sie?</string>
 
     <string name="display_info">Richtige?</string>
     <string name="list_info">Wähle eins</string>
@@ -116,4 +116,7 @@
     <string name="toxicity1">giftige Pflanze</string>
     <string name="toxicity2">leicht giftige Pflanze</string>
     <string name="plant_trivia">Nichtigkeiten</string>
+    <string name="rate_never">Nie</string>
+    <string name="rate_later">Vielleicht später</string>
+    <string name="rate">Ja, ich werde zu bewerten</string>
 </resources>

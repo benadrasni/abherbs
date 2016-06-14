@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 import java.util.Stack;
 
 import retrofit.Callback;
@@ -290,6 +291,16 @@ public class FilterPlantsActivity extends BaseActivity {
             public void onResponse(Response<Map<Integer,Map<String,List<String>>>> response) {
                 List<PlantHeader> result = new ArrayList<>();
 
+                SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+                int rateState = preferences.getInt(Constants.RATE_STATE_KEY, Constants.RATE_NO);
+
+                int ratePosition = -1;
+                if (rateState == Constants.RATE_SHOW) {
+                    Random rand = new Random();
+                    ratePosition = rand.nextInt(response.body().entrySet().size());
+                }
+
+                int position = 0;
                 for (Map.Entry<Integer,Map<String,List<String>>> entry : response.body().entrySet()) {
 
                     Map<String,List<String>> attributes = entry.getValue();
@@ -305,6 +316,12 @@ public class FilterPlantsActivity extends BaseActivity {
                             familyId != null ? Integer.parseInt(familyId) : 0);
 
                     result.add(plantHeader);
+
+                    if (position == ratePosition) {
+                        result.add(new PlantHeader(0, "", "", "", 0));
+                    }
+
+                    position++;
                 }
 
                 setResults(result);

@@ -116,4 +116,7 @@
     <string name="legend">Légende</string>
     <string name="toxicity2">plante légèrement toxique</string>
     <string name="toxicity1">plante toxique</string>
+    <string name="rate_never">Jamais</string>
+    <string name="rate_later">Peut-être plus tard</string>
+    <string name="rate">Ouais, je vais évaluer</string>
 </resources>
