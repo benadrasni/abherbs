@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +24,16 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
+import retrofit.Callback;
+import retrofit.Response;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
+import sk.ab.herbs.RateSave;
+import sk.ab.herbs.TranslationSave;
 import sk.ab.herbs.activities.ListPlantsActivity;
+import sk.ab.herbs.service.HerbCloudClient;
 import sk.ab.herbs.tools.Utils;
 
 public class PlantListFragment extends Fragment {
@@ -128,6 +134,8 @@ public class PlantListFragment extends Fragment {
                         editor.putInt(Constants.RATE_STATE_KEY, Constants.RATE_DONE);
                         editor.apply();
 
+                        saveRate(Constants.RATE_STATUS_DONE);
+
                         Uri uri = Uri.parse("market://details?id=" + getActivity().getBaseContext().getPackageName());
                         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                         // To count with Play market backstack, After pressing back button,
@@ -155,6 +163,8 @@ public class PlantListFragment extends Fragment {
                         editor.putInt(Constants.RATE_COUNT_KEY, Constants.RATE_COUNTER);
                         editor.apply();
 
+                        saveRate(Constants.RATE_STATUS_LATER);
+
                         plantHeaders.remove(holder.getAdapterPosition());
                         notifyDataSetChanged();
                     }
@@ -167,6 +177,8 @@ public class PlantListFragment extends Fragment {
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putInt(Constants.RATE_STATE_KEY, Constants.RATE_NEVER);
                         editor.apply();
+
+                        saveRate(Constants.RATE_STATUS_NEVER);
 
                         plantHeaders.remove(holder.getAdapterPosition());
                         notifyDataSetChanged();
@@ -214,5 +226,22 @@ public class PlantListFragment extends Fragment {
         }
 
         super.onSaveInstanceState(savedInstanceState);
+    }
+
+    private void saveRate(String status) {
+        final HerbCloudClient herbCloudClient = new HerbCloudClient();
+        RateSave rateSave = new RateSave(status);
+
+        herbCloudClient.getApiService().saveRate(rateSave)
+                .enqueue(new Callback<RateSave>() {
+                    @Override
+                    public void onResponse(Response<RateSave> response) {
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                    }
+                });
+
     }
 }

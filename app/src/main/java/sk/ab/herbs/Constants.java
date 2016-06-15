@@ -24,6 +24,10 @@ public class Constants {
     public final static int RATE_SHOW = 1;
     public final static int RATE_DONE = 2;
 
+    public final static String RATE_STATUS_DONE = "done";
+    public final static String RATE_STATUS_NEVER = "never";
+    public final static String RATE_STATUS_LATER = "later";
+
     public final static String STORAGE_ENDPOINT = "http://storage.googleapis.com/abherbs/.families/";
     public final static String DEFAULT_EXTENSION = ".webp";
 

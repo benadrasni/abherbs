@@ -9,6 +9,7 @@ import retrofit.http.Headers;
 import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
+import sk.ab.herbs.RateSave;
 import sk.ab.herbs.Taxonomy;
 import sk.ab.herbs.TranslationSave;
 
@@ -32,4 +33,11 @@ public interface HerbCloudService {
     @GET("_ah/api/taxonomyApi/v1/find/{taxonLang}/{taxonName}/{taxonValue}")
     Call<Taxonomy> getTaxonomy(@Path("taxonLang") String taxonLang, @Path("taxonName") String taxonName, @Path("taxonValue") String taxonValue,
                                @Query("lang") String lang);
+
+    @Headers({
+            "Content-Type: application/json; charset: UTF-8"
+    })
+    @POST("_ah/api/analyticsApi/v1/rate")
+    Call<RateSave> saveRate(@Body RateSave rateSave);
+
 }
