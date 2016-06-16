@@ -1,4 +1,4 @@
-package sk.ab.herbs.backend;
+package sk.ab.herbs.backend.endpoint;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -17,6 +17,8 @@ import java.util.logging.Logger;
 import javax.annotation.Nullable;
 import javax.inject.Named;
 
+import sk.ab.herbs.backend.entity.Translation;
+
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 /**
@@ -33,7 +35,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
         namespace = @ApiNamespace(
                 ownerDomain = "backend.herbs.ab.sk",
                 ownerName = "backend.herbs.ab.sk",
-                packagePath = ""
+                packagePath = "endpoint"
         )
 )
 public class TranslationEndpoint {

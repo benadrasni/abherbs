@@ -1,4 +1,4 @@
-package sk.ab.herbs.backend;
+package sk.ab.herbs.backend.entity;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;

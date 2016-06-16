@@ -1,4 +1,4 @@
-package sk.ab.herbs.backend;
+package sk.ab.herbs.backend.entity;
 
 import java.util.List;
 

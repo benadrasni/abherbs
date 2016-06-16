@@ -1,4 +1,4 @@
-package sk.ab.herbs.backend;
+package sk.ab.herbs.backend.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,7 +12,7 @@ public class Converter {
     public static void main(String[] params) {
 
         try {
-            Scanner scan = new Scanner(new File("/home/adrian/Dev/temp/textWikipecies"));
+            Scanner scan = new Scanner(new File("C:/Development/Projects/textWikipecies.txt"));
             boolean first = true;
             String result = "";
             while(scan.hasNextLine()){

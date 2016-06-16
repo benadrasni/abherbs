@@ -1,4 +1,4 @@
-package sk.ab.herbs.backend;
+package sk.ab.herbs.backend.util;
 
 import com.google.appengine.repackaged.com.google.gson.JsonArray;
 import com.google.appengine.repackaged.com.google.gson.JsonElement;
@@ -8,19 +8,15 @@ import com.google.appengine.repackaged.com.google.gson.JsonParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.TreeMap;
 
 /**
@@ -31,7 +27,7 @@ public class Preparer {
     public static void main(String[] params) {
 
         try {
-            String name = "Galanthus nivalis";
+            String name = "Buddleja davidii";
             Document doc = Jsoup.connect("https://species.wikimedia.org/w/index.php?title=" + name + "&action=edit").get();
 
             String wikiPage = doc.getElementsByTag("textarea").val();
@@ -79,7 +75,6 @@ public class Preparer {
             JsonObject wikidata = root.getAsJsonObject().getAsJsonObject("entities").getAsJsonObject(id);
 
             JsonObject labels = wikidata.getAsJsonObject("labels");
-            JsonObject aliases = wikidata.getAsJsonObject("aliases");
 
             for (Map.Entry<String,JsonElement> entry : labels.entrySet()) {
                 JsonObject value = entry.getValue().getAsJsonObject();
@@ -99,22 +94,27 @@ public class Preparer {
                 }
             }
 
-            for (Map.Entry<String,JsonElement> entry : aliases.entrySet()) {
-                JsonArray value = entry.getValue().getAsJsonArray();
+            JsonElement elem = wikidata.get("aliases");
+            if (elem.isJsonObject()) {
+                JsonObject aliases = wikidata.getAsJsonObject("aliases");
 
-                List<String> names = result.get(entry.getKey());
-                List<String> namesLower = new ArrayList<>();
-                if (names == null) {
-                    names = new ArrayList<>();
-                    result.put(entry.getKey(), names);
-                }
-                for(String onename : names) {
-                    namesLower.add(onename.toLowerCase());
-                }
+                for (Map.Entry<String, JsonElement> entry : aliases.entrySet()) {
+                    JsonArray value = entry.getValue().getAsJsonArray();
 
-                for(JsonElement v : value) {
-                    if (!namesLower.contains(v.getAsJsonObject().get("value").getAsString().toLowerCase()) && !name.toLowerCase().equals(v.getAsJsonObject().get("value").getAsString().toLowerCase())) {
-                        names.add(v.getAsJsonObject().get("value").getAsString());
+                    List<String> names = result.get(entry.getKey());
+                    List<String> namesLower = new ArrayList<>();
+                    if (names == null) {
+                        names = new ArrayList<>();
+                        result.put(entry.getKey(), names);
+                    }
+                    for (String onename : names) {
+                        namesLower.add(onename.toLowerCase());
+                    }
+
+                    for (JsonElement v : value) {
+                        if (!namesLower.contains(v.getAsJsonObject().get("value").getAsString().toLowerCase()) && !name.toLowerCase().equals(v.getAsJsonObject().get("value").getAsString().toLowerCase())) {
+                            names.add(v.getAsJsonObject().get("value").getAsString());
+                        }
                     }
                 }
             }

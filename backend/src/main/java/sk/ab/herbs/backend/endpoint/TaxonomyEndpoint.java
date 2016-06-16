@@ -1,4 +1,4 @@
-package sk.ab.herbs.backend;
+package sk.ab.herbs.backend.endpoint;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -25,11 +25,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Named;
+
+import sk.ab.herbs.backend.entity.Taxon;
 
 /** An endpoint class we are exposing */
 @Api(
@@ -38,7 +39,7 @@ import javax.inject.Named;
         namespace = @ApiNamespace(
                 ownerDomain = "backend.herbs.ab.sk",
                 ownerName = "backend.herbs.ab.sk",
-                packagePath=""
+                packagePath="endpoint"
         )
 )
 public class TaxonomyEndpoint {
@@ -110,7 +111,7 @@ public class TaxonomyEndpoint {
             path = "find/{taxonLang}/{taxonName}/{taxonValue}",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<Taxon> getTaxonomy(@Named("taxonLang") String taxonLang, @Named("taxonName") String taxonName, @Named("taxonValue") String taxonValue,
-                                           @Named("lang") String language) {
+                                   @Named("lang") String language) {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
         Query.Filter propertyFilter =
