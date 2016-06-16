@@ -116,7 +116,7 @@
     <string name="toxicity1">planta venenosa</string>
     <string name="toxicity2">planta ligeramente venenosa</string>
     <string name="plant_trivia">Trivialidades</string>
-    <string name="rate_never">Nunca</string>
-    <string name="rate_later">Quizas mas tarde</string>
-    <string name="rate">Sí, voy a evaluar</string>
+    <string name="rate_never"> Nunca</string>
+    <string name="rate_later">Más tarde</string>
+    <string name="rate">Opinione (Google Play)</string>
 </resources>

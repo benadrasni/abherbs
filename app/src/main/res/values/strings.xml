@@ -120,6 +120,6 @@
         >
     <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
     <string name="rate_never">Never</string>
-    <string name="rate_later">Maybe later</string>
-    <string name="rate">Yeah, let\'s rate</string>
+    <string name="rate_later">Later</string>
+    <string name="rate">Review (Google Play)</string>
 </resources>

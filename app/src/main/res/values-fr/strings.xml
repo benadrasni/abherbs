@@ -117,6 +117,7 @@
     <string name="toxicity2">plante légèrement toxique</string>
     <string name="toxicity1">plante toxique</string>
     <string name="rate_never">Jamais</string>
-    <string name="rate_later">Peut-être plus tard</string>
-    <string name="rate">Ouais, je vais évaluer</string>
+    <string name="rate_later">Plus tard</string>
+    <string name="rate">Avis (Google Play)</string>
+    <string name="rate_text">Auteur de cette application est motivée par la réponse positive de la part des utilisateurs. S\'il vous plaît lui envoyer quelques fleurs étoile via Google Play Store.</string>
 </resources>

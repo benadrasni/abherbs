@@ -236,10 +236,13 @@ public class PlantListFragment extends Fragment {
                 .enqueue(new Callback<RateSave>() {
                     @Override
                     public void onResponse(Response<RateSave> response) {
+                        Log.i(this.getClass().getName(), "Rate with status '" +
+                                response.body().getStatus() + "' was saved to the datastore");
                     }
 
                     @Override
                     public void onFailure(Throwable t) {
+                        Log.e(this.getClass().getName(), "Failed to save rate action. Check your internet settings.", t);
                     }
                 });
 

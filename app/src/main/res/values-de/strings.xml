@@ -116,7 +116,8 @@
     <string name="toxicity1">giftige Pflanze</string>
     <string name="toxicity2">leicht giftige Pflanze</string>
     <string name="plant_trivia">Nichtigkeiten</string>
-    <string name="rate_never">Nie</string>
-    <string name="rate_later">Vielleicht später</string>
-    <string name="rate">Ja, ich werde zu bewerten</string>
+    <string name="rate_never">Niemals </string>
+    <string name="rate_later">Später</string>
+    <string name="rate">Bewertung (Google Play)</string>
+    <string name="rate_text">Autor dieser Applikation wird durch positive Antwort von den Benutzern getankt. Bitte senden Sie ihm einige Siebensterne über Google Play Store.</string>
 </resources>

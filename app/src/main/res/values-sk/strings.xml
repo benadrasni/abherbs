@@ -117,6 +117,6 @@
     <string name="plant_trivia">Zaujímavosti</string>
     <string name="rate_text">Autora tejto aplikácie motivuje pozitívny ohlas použivateľov. Pošlite mu, prosím, nejaké kvetiny (najlepšie hviezdice) cez Google Play Store.</string>
     <string name="rate_never">Nikdy</string>
-    <string name="rate_later">Možno neskôr</string>
-    <string name="rate">Áno, poďme hodnotiť</string>
+    <string name="rate_later">Neskôr</string>
+    <string name="rate">Recenzia (Google Play)</string>
 </resources>

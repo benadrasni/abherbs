@@ -117,7 +117,7 @@
     <string name="toxicity2">mírně jedovatá rostlina</string>
     <string name="plant_trivia">Zajímavosti</string>
     <string name="rate_text">Autora této aplikace motivuje pozitívny ohlas uživatelů. Pošlete mu, prosím, nejaké květiny (nejlépe hvězdníky) přes Google Play Store.</string>
-    <string name="rate_never"> Nikdy</string>
-    <string name="rate_later">Možná později</string>
-    <string name="rate">Jo, pojďme hodnotit</string>
+    <string name="rate_never">Nikdy</string>
+    <string name="rate_later">Později</string>
+    <string name="rate">Recenze (Google Play)</string>
 </resources>

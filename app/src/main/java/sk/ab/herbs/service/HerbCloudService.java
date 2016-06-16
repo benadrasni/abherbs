@@ -37,7 +37,7 @@ public interface HerbCloudService {
     @Headers({
             "Content-Type: application/json; charset: UTF-8"
     })
-    @POST("_ah/api/analyticsApi/v1/rate")
+    @POST("_ah/api/rateApi/v1/rate")
     Call<RateSave> saveRate(@Body RateSave rateSave);
 
 }

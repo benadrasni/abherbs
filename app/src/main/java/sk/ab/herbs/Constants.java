@@ -18,7 +18,7 @@ public class Constants {
     public final static int VERSION_1_2_7 = 36;
     public final static int VERSION_1_3_1 = 42;
 
-    public final static int RATE_COUNTER = 2;
+    public final static int RATE_COUNTER = 5;
     public final static int RATE_NEVER = -1;
     public final static int RATE_NO = 0;
     public final static int RATE_SHOW = 1;
