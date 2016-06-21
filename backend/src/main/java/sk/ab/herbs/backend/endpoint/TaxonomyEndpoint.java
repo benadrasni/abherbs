@@ -30,6 +30,7 @@ import java.util.Map;
 
 import javax.inject.Named;
 
+import sk.ab.herbs.backend.entity.Plant;
 import sk.ab.herbs.backend.entity.Taxon;
 
 /** An endpoint class we are exposing */
@@ -73,14 +74,16 @@ public class TaxonomyEndpoint {
 
     @ApiMethod(
             name = "plant",
-            path = "plant/{taxonomyName}",
+            path = "plant/{taxonomyName}/{taxonomyValue}",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public Entity plant(@Named("taxonomyName") String taxonomyName) {
+    public Plant plant(@Named("taxonomyName") String taxonomyName, @Named("taxonomyValue") String taxonomyWiki) {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
         String[] hlp = taxonomyName.split(" ");
         String genus = hlp[0];
 
+        Plant plant = new Plant();
+        plant.setPlantId(0);
         Entity plantEntity = new Entity("Plant", taxonomyName);
 
         Query.Filter propertyFilter =
@@ -93,9 +96,9 @@ public class TaxonomyEndpoint {
             Entity entity = genuses.get(0);
 
             plantEntity.setProperty("taxonomyKey", entity.getKey());
-            plantEntity.setProperty("wikidata", getWikidata(taxonomyName));
+            plantEntity.setProperty("wikidata", getWikidata(taxonomyWiki));
 
-            modifyEntityWikiSpeciesPlant(plantEntity, taxonomyName);
+            modifyEntityWikiSpeciesPlant(plantEntity, taxonomyWiki);
 
             //modifyEntityWikiData(plantEntity);
             //modifyEntityWikiSpeciesAfterWikidata(plantEntity, taxonomyName);
@@ -103,7 +106,7 @@ public class TaxonomyEndpoint {
             datastore.put(plantEntity);
         }
 
-        return plantEntity;
+        return plant;
     }
 
     @ApiMethod(
