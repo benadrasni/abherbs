@@ -1,8 +1,11 @@
 package sk.ab.herbs.backend.service;
 
 import retrofit.Call;
-import retrofit.http.GET;
+import retrofit.http.Body;
+import retrofit.http.Headers;
+import retrofit.http.POST;
 import retrofit.http.Path;
+import retrofit.http.Query;
 import sk.ab.herbs.backend.entity.Plant;
 
 /**
@@ -10,6 +13,13 @@ import sk.ab.herbs.backend.entity.Plant;
  */
 public interface HerbCloudService {
 
-    @GET("_ah/api/taxonomyApi/v1/plant/{taxonName}/{taxonWiki}")
-    Call<Plant> synchronizePlant(@Path("taxonName") String taxonName, @Path("taxonWiki") String taxonWiki);
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @POST("_ah/api/taxonomyApi/v1/plant/{taxonomyName}")
+    Call<Plant> synchronizePlant(@Path("taxonomyName") String taxonomyName,
+                                 @Query("taxonomyWiki") String taxonomyWiki,
+                                 @Body Plant plant);
 }

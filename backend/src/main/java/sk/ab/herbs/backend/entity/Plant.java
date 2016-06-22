@@ -1,6 +1,5 @@
 package sk.ab.herbs.backend.entity;
 
-import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
@@ -12,10 +11,10 @@ public class Plant {
 
     @Id Integer plantId;
     String back_url;
-    Integer height_from;
-    Integer height_to;
-    Integer flowering_from;
-    Integer flowering_to;
+    Integer heightFrom;
+    Integer heightTo;
+    Integer floweringFrom;
+    Integer floweringTo;
     Integer toxicity_class;
     Map<String, String> title;
     Map<String, String> description;
@@ -30,8 +29,12 @@ public class Plant {
     Map<String, String> herbalism;
 
     Map<String, List<String>> names;
-    Map<String, List<String>> photo_urls;
-    Map<String, List<String>> source_urls;
+    Map<String, List<String>> photoUrls;
+    Map<String, List<String>> sourceUrls;
+
+    List<String> filterColor;
+    List<String> filterHabitat;
+    List<String> filterPetal;
 
     public Integer getPlantId() {
         return plantId;
@@ -49,36 +52,36 @@ public class Plant {
         this.back_url = back_url;
     }
 
-    public Integer getHeight_from() {
-        return height_from;
+    public Integer getHeightFrom() {
+        return heightFrom;
     }
 
-    public void setHeight_from(Integer height_from) {
-        this.height_from = height_from;
+    public void setHeightFrom(Integer heightFrom) {
+        this.heightFrom = heightFrom;
     }
 
-    public Integer getHeight_to() {
-        return height_to;
+    public Integer getHeightTo() {
+        return heightTo;
     }
 
-    public void setHeight_to(Integer height_to) {
-        this.height_to = height_to;
+    public void setHeightTo(Integer heightTo) {
+        this.heightTo = heightTo;
     }
 
-    public Integer getFlowering_from() {
-        return flowering_from;
+    public Integer getFloweringFrom() {
+        return floweringFrom;
     }
 
-    public void setFlowering_from(Integer flowering_from) {
-        this.flowering_from = flowering_from;
+    public void setFloweringFrom(Integer floweringFrom) {
+        this.floweringFrom = floweringFrom;
     }
 
-    public Integer getFlowering_to() {
-        return flowering_to;
+    public Integer getFloweringTo() {
+        return floweringTo;
     }
 
-    public void setFlowering_to(Integer flowering_to) {
-        this.flowering_to = flowering_to;
+    public void setFloweringTo(Integer floweringTo) {
+        this.floweringTo = floweringTo;
     }
 
     public Integer getToxicity_class() {
@@ -185,19 +188,43 @@ public class Plant {
         this.names = names;
     }
 
-    public Map<String, List<String>> getPhoto_urls() {
-        return photo_urls;
+    public Map<String, List<String>> getPhotoUrls() {
+        return photoUrls;
     }
 
-    public void setPhoto_urls(Map<String, List<String>> photo_urls) {
-        this.photo_urls = photo_urls;
+    public void setPhotoUrls(Map<String, List<String>> photoUrls) {
+        this.photoUrls = photoUrls;
     }
 
-    public Map<String, List<String>> getSource_urls() {
-        return source_urls;
+    public Map<String, List<String>> getSourceUrls() {
+        return sourceUrls;
     }
 
-    public void setSource_urls(Map<String, List<String>> source_urls) {
-        this.source_urls = source_urls;
+    public void setSourceUrls(Map<String, List<String>> sourceUrls) {
+        this.sourceUrls = sourceUrls;
+    }
+
+    public List<String> getFilterColor() {
+        return filterColor;
+    }
+
+    public void setFilterColor(List<String> filterColor) {
+        this.filterColor = filterColor;
+    }
+
+    public List<String> getFilterHabitat() {
+        return filterHabitat;
+    }
+
+    public void setFilterHabitat(List<String> filterHabitat) {
+        this.filterHabitat = filterHabitat;
+    }
+
+    public List<String> getFilterPetal() {
+        return filterPetal;
+    }
+
+    public void setFilterPetal(List<String> filterPetal) {
+        this.filterPetal = filterPetal;
     }
 }

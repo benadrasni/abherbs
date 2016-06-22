@@ -17,6 +17,8 @@ import com.google.appengine.repackaged.com.google.gson.JsonParser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,8 +51,12 @@ public class TaxonomyEndpoint {
             name = "insert",
             path = "{taxonomyName}",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public Entity insert(@Named("taxonomyName") String taxonomyName, @Named("taxonomyPath") String taxonomyPath,
-                         @Named("parentPath") String parentPath, @Named("name") String name, @Named("wikiName") String wikiName) {
+    public Entity insert(@Named("taxonomyName") String taxonomyName,
+                         @Named("taxonomyPath") String taxonomyPath,
+                         @Named("parentPath") String parentPath,
+                         @Named("name") String name,
+                         @Named("wikiName") String wikiName) {
+
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
         String[] path = taxonomyPath.split(",");
@@ -74,16 +80,17 @@ public class TaxonomyEndpoint {
 
     @ApiMethod(
             name = "plant",
-            path = "plant/{taxonomyName}/{taxonomyValue}",
+            path = "plant/{taxonomyName}",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public Plant plant(@Named("taxonomyName") String taxonomyName, @Named("taxonomyValue") String taxonomyWiki) {
+    public Plant plant(@Named("taxonomyName") String taxonomyName,
+                       @Named("taxonomyWiki") String taxonomyWiki,
+                       Plant plant) {
+
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
         String[] hlp = taxonomyName.split(" ");
         String genus = hlp[0];
 
-        Plant plant = new Plant();
-        plant.setPlantId(0);
         Entity plantEntity = new Entity("Plant", taxonomyName);
 
         Query.Filter propertyFilter =
@@ -96,15 +103,13 @@ public class TaxonomyEndpoint {
             Entity entity = genuses.get(0);
 
             plantEntity.setProperty("taxonomyKey", entity.getKey());
-            plantEntity.setProperty("wikidata", getWikidata(taxonomyWiki));
-
-            modifyEntityWikiSpeciesPlant(plantEntity, taxonomyWiki);
-
-            //modifyEntityWikiData(plantEntity);
-            //modifyEntityWikiSpeciesAfterWikidata(plantEntity, taxonomyName);
-
-            datastore.put(plantEntity);
         }
+
+        plantEntity.setProperty("wikidata", getWikidata(taxonomyWiki));
+
+        getNamesFromWikiSpecies(plantEntity, taxonomyWiki);
+
+        datastore.put(plantEntity);
 
         return plant;
     }
@@ -113,8 +118,11 @@ public class TaxonomyEndpoint {
             name = "getTaxonomy",
             path = "find/{taxonLang}/{taxonName}/{taxonValue}",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<Taxon> getTaxonomy(@Named("taxonLang") String taxonLang, @Named("taxonName") String taxonName, @Named("taxonValue") String taxonValue,
+    public List<Taxon> getTaxonomy(@Named("taxonLang") String taxonLang,
+                                   @Named("taxonName") String taxonName,
+                                   @Named("taxonValue") String taxonValue,
                                    @Named("lang") String language) {
+
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
         Query.Filter propertyFilter =
@@ -276,9 +284,11 @@ public class TaxonomyEndpoint {
 
     }
 
-    private void modifyEntityWikiSpeciesPlant(Entity entity, String name) {
+    private void getNamesFromWikiSpecies(Entity entity, String name) {
         try {
-            Document doc = Jsoup.connect("https://species.wikimedia.org/w/index.php?title=" + name + "&action=edit").get();
+            String oldRevision = getMyRevision(name);
+
+            Document doc = Jsoup.connect("https://species.wikimedia.org/w/index.php?title=" + name + "&action=edit&oldid=" + oldRevision).get();
 
             String wikiPage = doc.getElementsByTag("textarea").val();
             String vn = wikiPage.substring(wikiPage.indexOf("{{VN"), wikiPage.indexOf("}}", wikiPage.indexOf("{{VN"))).replace("\n", "");
@@ -381,7 +391,6 @@ public class TaxonomyEndpoint {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private void modifyEntityWikiData(Entity entity) {
@@ -423,7 +432,6 @@ public class TaxonomyEndpoint {
 
     }
 
-
     private String getWikidata(String name) {
         try {
             Document doc = Jsoup.connect("https://species.wikimedia.org/wiki/" + name).get();
@@ -439,4 +447,34 @@ public class TaxonomyEndpoint {
 
         return null;
     }
+
+    private String getMyRevision(String name) {
+        try {
+            Document doc = Jsoup.connect("https://species.wikimedia.org/w/index.php?title=" + name + "&action=history").get();
+
+            Elements links = doc.getElementsByClass("mw-changeslist-date");
+            Elements users = doc.getElementsByClass("mw-userlink");
+
+            int i = 0;
+            for (Element user : users) {
+                String href = user.attr("href");
+                String userName = href.substring(href.indexOf("User:")+5);
+                if (userName.startsWith("Adrian")) {
+                    break;
+                }
+                i++;
+            }
+
+            Element link = links.get(i);
+            String href = link.attr("href");
+
+            String revisionId = href.substring(href.indexOf("oldid=")+6);
+            return revisionId;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 }
