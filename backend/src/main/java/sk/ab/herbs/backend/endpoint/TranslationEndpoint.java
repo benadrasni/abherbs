@@ -83,7 +83,7 @@ public class TranslationEndpoint {
         //
         // If your client provides the ID then you should probably use PUT instead.
         ofy().save().entity(translation).now();
-        logger.info("Created Translation with ID: " + translation.getTranslationId());
+        logger.info("Created Translation with ID: " + translation.getTransId());
 
         return ofy().load().entity(translation).now();
     }

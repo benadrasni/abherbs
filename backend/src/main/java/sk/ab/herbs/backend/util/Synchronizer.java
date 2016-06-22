@@ -24,7 +24,7 @@ public class Synchronizer {
 
     public static void main(String[] params) {
 
-        File file = new File("C:/Development/projects/abherbs/backend/Plants.csv");
+        File file = new File("/home/adrian/Dev/projects/abherbs/backend/Plants.csv");
 
         try {
             Scanner scan = new Scanner(file);
@@ -32,7 +32,9 @@ public class Synchronizer {
             final HerbCloudClient herbCloudClient = new HerbCloudClient();
             final HerbClient herbClient = new HerbClient();
 
+            int i = 0;
             while(scan.hasNextLine()){
+                i++;
                 final String[] name = scan.nextLine().split(",");
                 final Plant plant = new Plant();
 
@@ -53,6 +55,24 @@ public class Synchronizer {
                                 rank++;
                             }
                             plant.setFilterColor(colors);
+
+                            rank = 0;
+                            List<String> habitats = new ArrayList<>();
+                            while (attributes.containsKey("" + Constants.PLANT_FILTER_HABITAT + "_" + rank)) {
+                                List<String> values = attributes.get(""+Constants.PLANT_FILTER_HABITAT+"_"+rank);
+                                habitats.add(values.get(0));
+                                rank++;
+                            }
+                            plant.setFilterHabitat(habitats);
+
+                            rank = 0;
+                            List<String> petals = new ArrayList<>();
+                            while (attributes.containsKey("" + Constants.PLANT_FILTER_PETALS + "_" + rank)) {
+                                List<String> values = attributes.get(""+Constants.PLANT_FILTER_PETALS+"_"+rank);
+                                petals.add(values.get(0));
+                                rank++;
+                            }
+                            plant.setFilterPetal(petals);
 
 
 //                    String name = attributes.get(""+ Constants.PLANT_NAME+"_0").get(0);
@@ -233,12 +253,12 @@ public class Synchronizer {
                                 .enqueue(new Callback<Plant>() {
                                     @Override
                                     public void onResponse(Response<Plant> response) {
-
+                                        System.out.println(name[0]);
                                     }
 
                                     @Override
                                     public void onFailure(Throwable t) {
-
+                                        System.out.println(t);
                                     }
                                 });
                     }
@@ -249,14 +269,17 @@ public class Synchronizer {
                     }
                 });
 
-                break;
+                Thread.sleep(1000);
+
+                if (i == 5) break;
             }
             scan.close();
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
 
 
     }

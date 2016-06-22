@@ -8,17 +8,17 @@ import java.util.List;
 @Entity
 public class Translation {
 
-    @Id String translationId;
+    @Id String transId;
     Integer plantId;
     String language;
     List<String> texts;
 
-    public String getTranslationId() {
-        return translationId;
+    public String getTransId() {
+        return transId;
     }
 
-    public void setTranslationId(String translationId) {
-        this.translationId = translationId;
+    public void setTransId(String transId) {
+        this.transId = transId;
     }
 
     public Integer getPlantId() {

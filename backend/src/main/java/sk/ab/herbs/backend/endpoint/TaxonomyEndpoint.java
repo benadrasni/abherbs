@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.inject.Named;
 
@@ -108,6 +110,10 @@ public class TaxonomyEndpoint {
         plantEntity.setProperty("wikidata", getWikidata(taxonomyWiki));
 
         getNamesFromWikiSpecies(plantEntity, taxonomyWiki);
+
+        plantEntity.setProperty("filterColor", plant.getFilterColor());
+        plantEntity.setProperty("filterHabitat", plant.getFilterHabitat());
+        plantEntity.setProperty("filterPetal", plant.getFilterPetal());
 
         datastore.put(plantEntity);
 
@@ -319,41 +325,51 @@ public class TaxonomyEndpoint {
                 }
             }
 
-            String synonyms = wikiPage.substring(wikiPage.indexOf("===Synonyms==="), wikiPage.indexOf("==", wikiPage.indexOf("===Synonyms===")+14));
+            String synonyms = "";
+            if (wikiPage.contains("==Name==")){
+                synonyms = wikiPage.substring(wikiPage.indexOf("==Name=="), wikiPage.indexOf("==", wikiPage.indexOf("==Name==") + 8));
+            } else if (wikiPage.contains("== Name ==")) {
+                synonyms = wikiPage.substring(wikiPage.indexOf("== Name =="), wikiPage.indexOf("==", wikiPage.indexOf("== Name ==") + 10));
+            }
             String[] lines = synonyms.split("\n");
 
+            Set<String> synonymSet = new TreeSet<>();
             String key = "Synonyms";
-            List<String> synonymList = new ArrayList<>();
             for(String line : lines) {
                 if (line.trim().length() > 0) {
-                    if (line.trim().equals("{{HOT}}")) {
-                        if (synonymList.size() > 0) {
-                            entity.setProperty(key, synonymList);
-                        }
-                        key = "Homotypic";
-                        synonymList = new ArrayList<>();
-                        continue;
-                    } else if (line.trim().equals("{{HET}}")) {
-                        if (synonymList.size() > 0) {
-                            entity.setProperty(key, synonymList);
-                        }
-                        key = "Heterotypic";
-                        synonymList = new ArrayList<>();
-                        continue;
-                    } else if (line.trim().equals("{{BA}}")) {
-                        if (synonymList.size() > 0) {
-                            entity.setProperty(key, synonymList);
-                        }
-                        key = "Basionym";
-                        synonymList = new ArrayList<>();
-                        continue;
-                    }
+//                    if (line.trim().equals("{{HOT}}")) {
+//                        if (synonymSet.size() > 0) {
+//                            entity.setProperty(key, synonymList);
+//                        }
+//                        key = "Homotypic";
+//                        synonymSet = new TreeSet<>();
+//                        continue;
+//                    } else if (line.trim().equals("{{HET}}")) {
+//                        if (synonymSet.size() > 0) {
+//                            entity.setProperty(key, synonymList);
+//                        }
+//                        key = "Heterotypic";
+//                        synonymSet = new TreeSet<>();
+//                        continue;
+//                    } else if (line.trim().equals("{{BA}}")) {
+//                        if (synonymSet.size() > 0) {
+//                            entity.setProperty(key, synonymList);
+//                        }
+//                        key = "Basionym";
+//                        synonymSet = new TreeSet<>();
+//                        continue;
+//                    }
 
-                    if (line.startsWith("** ''")) {
-                        String synonym = line.substring(5, line.indexOf("''", 5));
-                        synonymList.add(synonym);
+                    if (line.contains("''")) {
+                        String synonym = line.substring(line.indexOf("''")+2, line.indexOf("''", line.indexOf("''")+2));
+                        synonymSet.add(synonym);
                     }
                 }
+            }
+            synonymSet.remove(name);
+            List<String> synonymList = new ArrayList<>();
+            for(String synonym : synonymSet) {
+                synonymList.add(synonym);
             }
             if (synonymList.size() > 0) {
                 entity.setProperty(key, synonymList);
