@@ -129,6 +129,30 @@ public class TaxonomyEndpoint {
         plantEntity.setProperty("filterColor", plant.getFilterColor());
         plantEntity.setProperty("filterHabitat", plant.getFilterHabitat());
         plantEntity.setProperty("filterPetal", plant.getFilterPetal());
+        if (plant.getFilterInflorescence() != null) {
+            plantEntity.setProperty("filterInflorence", plant.getFilterInflorescence());
+        }
+        if (plant.getFilterSepal() != null) {
+            plantEntity.setProperty("filterSepal", plant.getFilterSepal());
+        }
+        if (plant.getFilterStem() != null) {
+            plantEntity.setProperty("filterStem", plant.getFilterStem());
+        }
+        if (plant.getFilterLeafShape() != null) {
+            plantEntity.setProperty("filterLeafShape", plant.getFilterLeafShape());
+        }
+        if (plant.getFilterLeafMargin() != null) {
+            plantEntity.setProperty("filterLeafMargin", plant.getFilterLeafMargin());
+        }
+        if (plant.getFilterLeafVenetation() != null) {
+            plantEntity.setProperty("filterLeafVenetation", plant.getFilterLeafVenetation());
+        }
+        if (plant.getFilterLeafArrangement() != null) {
+            plantEntity.setProperty("filterLeafArrangement", plant.getFilterLeafArrangement());
+        }
+        if (plant.getFilterRoot() != null) {
+            plantEntity.setProperty("filterRoot", plant.getFilterRoot());
+        }
 
         for(Map.Entry<String, String> description : plant.getDescription().entrySet()) {
             plantEntity.setProperty("description-"+description.getKey(), description.getValue());

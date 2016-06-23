@@ -16,6 +16,14 @@ public class Constants {
     public final static int PLANT_FILTER_COLOR = 294;
     public final static int PLANT_FILTER_HABITAT = 297;
     public final static int PLANT_FILTER_PETALS = 301;
+    public final static int PLANT_FILTER_INFLORESCENCE = 225;
+    public final static int PLANT_FILTER_SEPAL = 239;
+    public final static int PLANT_FILTER_STEM = 240;
+    public final static int PLANT_FILTER_LEAF_SHAPE = 241;
+    public final static int PLANT_FILTER_LEAF_MARGIN = 242;
+    public final static int PLANT_FILTER_LEAF_VENETATION = 243;
+    public final static int PLANT_FILTER_LEAF_ARRANGEMENT = 244;
+    public final static int PLANT_FILTER_ROOT = 245;
 
     public final static int PLANT_ALT_NAMES = 398;
     public final static int PLANT_PHOTO_URL = 395;

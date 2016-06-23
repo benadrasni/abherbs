@@ -25,6 +25,14 @@ public class Plant {
     List<String> filterColor;
     List<String> filterHabitat;
     List<String> filterPetal;
+    List<String> filterInflorescence;
+    List<String> filterSepal;
+    List<String> filterStem;
+    List<String> filterLeafShape;
+    List<String> filterLeafMargin;
+    List<String> filterLeafVenetation;
+    List<String> filterLeafArrangement;
+    List<String> filterRoot;
 
     Map<String, String> description = new HashMap<>();
     Map<String, String> flower = new HashMap<>();
@@ -228,5 +236,69 @@ public class Plant {
 
     public void setFilterPetal(List<String> filterPetal) {
         this.filterPetal = filterPetal;
+    }
+
+    public List<String> getFilterInflorescence() {
+        return filterInflorescence;
+    }
+
+    public void setFilterInflorescence(List<String> filterInflorescence) {
+        this.filterInflorescence = filterInflorescence;
+    }
+
+    public List<String> getFilterSepal() {
+        return filterSepal;
+    }
+
+    public void setFilterSepal(List<String> filterSepal) {
+        this.filterSepal = filterSepal;
+    }
+
+    public List<String> getFilterStem() {
+        return filterStem;
+    }
+
+    public void setFilterStem(List<String> filterStem) {
+        this.filterStem = filterStem;
+    }
+
+    public List<String> getFilterLeafShape() {
+        return filterLeafShape;
+    }
+
+    public void setFilterLeafShape(List<String> filterLeafShape) {
+        this.filterLeafShape = filterLeafShape;
+    }
+
+    public List<String> getFilterLeafMargin() {
+        return filterLeafMargin;
+    }
+
+    public void setFilterLeafMargin(List<String> filterLeafMargin) {
+        this.filterLeafMargin = filterLeafMargin;
+    }
+
+    public List<String> getFilterLeafVenetation() {
+        return filterLeafVenetation;
+    }
+
+    public void setFilterLeafVenetation(List<String> filterLeafVenetation) {
+        this.filterLeafVenetation = filterLeafVenetation;
+    }
+
+    public List<String> getFilterLeafArrangement() {
+        return filterLeafArrangement;
+    }
+
+    public void setFilterLeafArrangement(List<String> filterLeafArrangement) {
+        this.filterLeafArrangement = filterLeafArrangement;
+    }
+
+    public List<String> getFilterRoot() {
+        return filterRoot;
+    }
+
+    public void setFilterRoot(List<String> filterRoot) {
+        this.filterRoot = filterRoot;
     }
 }

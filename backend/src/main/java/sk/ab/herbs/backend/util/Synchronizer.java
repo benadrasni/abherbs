@@ -75,6 +75,78 @@ public class Synchronizer {
                     }
                     plant.setFilterPetal(petals);
 
+                    rank = 0;
+                    List<String> inflorences = new ArrayList<>();
+                    while (attributes.containsKey("" + Constants.PLANT_FILTER_INFLORESCENCE + "_" + rank)) {
+                        List<String> values = attributes.get(""+Constants.PLANT_FILTER_INFLORESCENCE+"_"+rank);
+                        inflorences.add(values.get(0));
+                        rank++;
+                    }
+                    plant.setFilterInflorescence(inflorences);
+
+                    rank = 0;
+                    List<String> sepals = new ArrayList<>();
+                    while (attributes.containsKey("" + Constants.PLANT_FILTER_SEPAL + "_" + rank)) {
+                        List<String> values = attributes.get(""+Constants.PLANT_FILTER_SEPAL+"_"+rank);
+                        sepals.add(values.get(0));
+                        rank++;
+                    }
+                    plant.setFilterSepal(sepals);
+
+                    rank = 0;
+                    List<String> stems = new ArrayList<>();
+                    while (attributes.containsKey("" + Constants.PLANT_FILTER_STEM + "_" + rank)) {
+                        List<String> values = attributes.get(""+Constants.PLANT_FILTER_STEM+"_"+rank);
+                        stems.add(values.get(0));
+                        rank++;
+                    }
+                    plant.setFilterStem(stems);
+
+                    rank = 0;
+                    List<String> leafShapes = new ArrayList<>();
+                    while (attributes.containsKey("" + Constants.PLANT_FILTER_LEAF_SHAPE + "_" + rank)) {
+                        List<String> values = attributes.get(""+Constants.PLANT_FILTER_LEAF_SHAPE+"_"+rank);
+                        leafShapes.add(values.get(0));
+                        rank++;
+                    }
+                    plant.setFilterLeafShape(sepals);
+
+                    rank = 0;
+                    List<String> leafMargin = new ArrayList<>();
+                    while (attributes.containsKey("" + Constants.PLANT_FILTER_LEAF_MARGIN + "_" + rank)) {
+                        List<String> values = attributes.get(""+Constants.PLANT_FILTER_LEAF_MARGIN+"_"+rank);
+                        leafMargin.add(values.get(0));
+                        rank++;
+                    }
+                    plant.setFilterLeafMargin(leafMargin);
+
+                    rank = 0;
+                    List<String> leafVenetation = new ArrayList<>();
+                    while (attributes.containsKey("" + Constants.PLANT_FILTER_LEAF_VENETATION + "_" + rank)) {
+                        List<String> values = attributes.get(""+Constants.PLANT_FILTER_LEAF_VENETATION+"_"+rank);
+                        leafVenetation.add(values.get(0));
+                        rank++;
+                    }
+                    plant.setFilterLeafVenetation(leafVenetation);
+
+                    rank = 0;
+                    List<String> leafArrangement = new ArrayList<>();
+                    while (attributes.containsKey("" + Constants.PLANT_FILTER_LEAF_ARRANGEMENT + "_" + rank)) {
+                        List<String> values = attributes.get(""+Constants.PLANT_FILTER_LEAF_ARRANGEMENT+"_"+rank);
+                        leafArrangement.add(values.get(0));
+                        rank++;
+                    }
+                    plant.setFilterLeafArrangement(leafArrangement);
+
+                    rank = 0;
+                    List<String> roots = new ArrayList<>();
+                    while (attributes.containsKey("" + Constants.PLANT_FILTER_ROOT + "_" + rank)) {
+                        List<String> values = attributes.get(""+Constants.PLANT_FILTER_ROOT+"_"+rank);
+                        roots.add(values.get(0));
+                        rank++;
+                    }
+                    plant.setFilterRoot(roots);
+
                     if (attributes.containsKey(""+Constants.PLANT_IMAGE_URL +"_0")) {
                         plant.setIllustrationUrl(attributes.get("" + Constants.PLANT_IMAGE_URL + "_0").get(0));
                     }
