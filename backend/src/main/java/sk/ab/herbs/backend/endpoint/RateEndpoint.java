@@ -83,7 +83,7 @@ public class RateEndpoint {
         //
         // If your client provides the ID then you should probably use PUT instead.
         ofy().save().entity(rate).now();
-        logger.info("Created Rate with ID: " + rate.getRateId());
+        logger.info("Created Rate with ID: " + rate.getId());
 
         return ofy().load().entity(rate).now();
     }

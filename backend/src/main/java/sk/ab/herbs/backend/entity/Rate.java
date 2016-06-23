@@ -3,22 +3,19 @@ package sk.ab.herbs.backend.entity;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
-import java.util.Date;
-import java.util.List;
-
 @Entity
 public class Rate {
 
-    @Id Long rateId;
+    @Id Long id;
     String date;
     String status;
 
-    public Long getRateId() {
-        return rateId;
+    public Long getId() {
+        return id;
     }
 
-    public void setRateId(Long rateId) {
-        this.rateId = rateId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDate() {

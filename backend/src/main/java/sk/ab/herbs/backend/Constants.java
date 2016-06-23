@@ -1,5 +1,9 @@
 package sk.ab.herbs.backend;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
 /**
  * Created with IntelliJ IDEA.
  * User: adrian
@@ -43,4 +47,23 @@ public class Constants {
     public final static int PLANT_TRIVIA = 292;
     public final static int PLANT_TOXICITY = 407;
     public final static int PLANT_HERBALISM = 408;
+
+    public final static String LANGUAGE_EN = "en";
+    public final static String LANGUAGE_SK = "sk";
+    public final static String LANGUAGE_CS = "cs";
+    public final static String LANGUAGE_DE = "de";
+    public final static String LANGUAGE_FR = "fr";
+    public final static String LANGUAGE_ES = "es";
+    public final static String LANGUAGE_PT = "pt";
+
+    public final static Map<Integer, String> LANGUAGES;
+    static {
+        LANGUAGES = new TreeMap<Integer, String>();
+        LANGUAGES.put(1, LANGUAGE_SK);
+        LANGUAGES.put(2, LANGUAGE_CS);
+        LANGUAGES.put(3, LANGUAGE_DE);
+        LANGUAGES.put(4, LANGUAGE_FR);
+        LANGUAGES.put(5, LANGUAGE_ES);
+        LANGUAGES.put(9, LANGUAGE_PT);
+    }
 }

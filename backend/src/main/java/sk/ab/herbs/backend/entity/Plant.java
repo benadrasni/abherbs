@@ -3,6 +3,8 @@ package sk.ab.herbs.backend.entity;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,31 +12,31 @@ import java.util.Map;
 public class Plant {
 
     @Id Integer plantId;
-    String back_url;
+    String name;
+    String wikiName;
+    String illustrationUrl;
     Integer heightFrom;
     Integer heightTo;
     Integer floweringFrom;
     Integer floweringTo;
-    Integer toxicity_class;
-    Map<String, String> title;
-    Map<String, String> description;
-    Map<String, String> flower;
-    Map<String, String> inflorescence;
-    Map<String, String> fruit;
-    Map<String, String> leaf;
-    Map<String, String> stem;
-    Map<String, String> habitat;
-    Map<String, String> trivia;
-    Map<String, String> toxicity;
-    Map<String, String> herbalism;
-
-    Map<String, List<String>> names;
-    Map<String, List<String>> photoUrls;
-    Map<String, List<String>> sourceUrls;
+    Integer toxicityClass;
+    List<String> photoUrls = new ArrayList<>();
 
     List<String> filterColor;
     List<String> filterHabitat;
     List<String> filterPetal;
+
+    Map<String, String> description = new HashMap<>();
+    Map<String, String> flower = new HashMap<>();
+    Map<String, String> inflorescence = new HashMap<>();
+    Map<String, String> fruit = new HashMap<>();
+    Map<String, String> leaf = new HashMap<>();
+    Map<String, String> stem = new HashMap<>();
+    Map<String, String> habitat = new HashMap<>();
+    Map<String, String> trivia = new HashMap<>();
+    Map<String, String> toxicity = new HashMap<>();
+    Map<String, String> herbalism = new HashMap<>();
+    Map<String, List<String>> sourceUrls = new HashMap<>();
 
     public Integer getPlantId() {
         return plantId;
@@ -44,12 +46,28 @@ public class Plant {
         this.plantId = plantId;
     }
 
-    public String getBack_url() {
-        return back_url;
+    public String getName() {
+        return name;
     }
 
-    public void setBack_url(String back_url) {
-        this.back_url = back_url;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getWikiName() {
+        return wikiName;
+    }
+
+    public void setWikiName(String wikiName) {
+        this.wikiName = wikiName;
+    }
+
+    public String getIllustrationUrl() {
+        return illustrationUrl;
+    }
+
+    public void setIllustrationUrl(String illustrationUrl) {
+        this.illustrationUrl = illustrationUrl;
     }
 
     public Integer getHeightFrom() {
@@ -84,20 +102,12 @@ public class Plant {
         this.floweringTo = floweringTo;
     }
 
-    public Integer getToxicity_class() {
-        return toxicity_class;
+    public Integer getToxicityClass() {
+        return toxicityClass;
     }
 
-    public void setToxicity_class(Integer toxicity_class) {
-        this.toxicity_class = toxicity_class;
-    }
-
-    public Map<String, String> getTitle() {
-        return title;
-    }
-
-    public void setTitle(Map<String, String> title) {
-        this.title = title;
+    public void setToxicityClass(Integer toxicityClass) {
+        this.toxicityClass = toxicityClass;
     }
 
     public Map<String, String> getDescription() {
@@ -180,19 +190,11 @@ public class Plant {
         this.herbalism = herbalism;
     }
 
-    public Map<String, List<String>> getNames() {
-        return names;
-    }
-
-    public void setNames(Map<String, List<String>> names) {
-        this.names = names;
-    }
-
-    public Map<String, List<String>> getPhotoUrls() {
+    public List<String> getPhotoUrls() {
         return photoUrls;
     }
 
-    public void setPhotoUrls(Map<String, List<String>> photoUrls) {
+    public void setPhotoUrls(List<String> photoUrls) {
         this.photoUrls = photoUrls;
     }
 

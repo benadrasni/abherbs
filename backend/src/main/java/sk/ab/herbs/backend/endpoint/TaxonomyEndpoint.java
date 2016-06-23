@@ -111,9 +111,60 @@ public class TaxonomyEndpoint {
 
         getNamesFromWikiSpecies(plantEntity, taxonomyWiki);
 
+        modifyEntityAddLinks(plantEntity);
+
+        plantEntity.setProperty("id", plant.getPlantId());
+        plantEntity.setProperty("wikiName", plant.getWikiName());
+        plantEntity.setProperty("illustrationUrl", plant.getIllustrationUrl());
+        plantEntity.setProperty("heightFrom", plant.getHeightFrom());
+        plantEntity.setProperty("heightTo", plant.getHeightTo());
+        plantEntity.setProperty("floweringFrom", plant.getFloweringFrom());
+        plantEntity.setProperty("floweringTo", plant.getFloweringTo());
+        plantEntity.setProperty("photoUrl", plant.getPhotoUrls());
+
+        if (plant.getToxicityClass() != null) {
+            plantEntity.setProperty("toxicityClass", plant.getToxicityClass());
+        }
+
         plantEntity.setProperty("filterColor", plant.getFilterColor());
         plantEntity.setProperty("filterHabitat", plant.getFilterHabitat());
         plantEntity.setProperty("filterPetal", plant.getFilterPetal());
+
+        for(Map.Entry<String, String> description : plant.getDescription().entrySet()) {
+            plantEntity.setProperty("description-"+description.getKey(), description.getValue());
+        }
+        for(Map.Entry<String, String> flower : plant.getFlower().entrySet()) {
+            plantEntity.setProperty("flower-"+flower.getKey(), flower.getValue());
+        }
+        for(Map.Entry<String, String> inflorescence : plant.getInflorescence().entrySet()) {
+            plantEntity.setProperty("inflorescence-"+inflorescence.getKey(), inflorescence.getValue());
+        }
+        for(Map.Entry<String, String> fruit : plant.getFruit().entrySet()) {
+            plantEntity.setProperty("fruit-"+fruit.getKey(), fruit.getValue());
+        }
+        for(Map.Entry<String, String> leaf : plant.getLeaf().entrySet()) {
+            plantEntity.setProperty("leaf-"+leaf.getKey(), leaf.getValue());
+        }
+        for(Map.Entry<String, String> stem : plant.getStem().entrySet()) {
+            plantEntity.setProperty("stem-"+stem.getKey(), stem.getValue());
+        }
+        for(Map.Entry<String, String> habitat : plant.getHabitat().entrySet()) {
+            plantEntity.setProperty("habitat-"+habitat.getKey(), habitat.getValue());
+        }
+        for(Map.Entry<String, String> trivia : plant.getTrivia().entrySet()) {
+            plantEntity.setProperty("trivia-"+trivia.getKey(), trivia.getValue());
+        }
+        for(Map.Entry<String, String> toxicity : plant.getToxicity().entrySet()) {
+            plantEntity.setProperty("toxicity-"+toxicity.getKey(), toxicity.getValue());
+        }
+        for(Map.Entry<String, String> herbalism : plant.getHerbalism().entrySet()) {
+            plantEntity.setProperty("herbalism-"+herbalism.getKey(), herbalism.getValue());
+        }
+        for(Map.Entry<String, List<String>> sourceUrl : plant.getSourceUrls().entrySet()) {
+            if (sourceUrl.getValue() != null && sourceUrl.getValue().size() > 0) {
+                plantEntity.setProperty("sourceUrl-" + sourceUrl.getKey(), sourceUrl.getValue());
+            }
+        }
 
         datastore.put(plantEntity);
 
@@ -442,6 +493,34 @@ public class TaxonomyEndpoint {
             }
 
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void modifyEntityAddLinks(Entity entity) {
+        try {
+            String id = entity.getProperty("wikidata").toString();
+
+            URL url = new URL("https://www.wikidata.org/wiki/Special:EntityData/" + id + ".json");
+            HttpURLConnection request = (HttpURLConnection) url.openConnection();
+            request.connect();
+
+            JsonParser jp = new JsonParser();
+            JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+            JsonObject wikidata = root.getAsJsonObject().getAsJsonObject("entities").getAsJsonObject(id);
+
+            JsonObject sitelinks = wikidata.getAsJsonObject("sitelinks");
+
+            for (Map.Entry<String,JsonElement> entry : sitelinks.entrySet()) {
+                JsonObject value = entry.getValue().getAsJsonObject();
+
+                String site = value.get("site").getAsString();
+                site = site.substring(0, site.length()-4).replace("_", "-");
+
+                entity.setProperty("wiki-"+site, value.get("url").getAsString());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
