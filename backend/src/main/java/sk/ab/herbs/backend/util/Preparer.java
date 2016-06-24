@@ -27,7 +27,7 @@ public class Preparer {
     public static void main(String[] params) {
 
         try {
-            String name = "Atropa belladonna";
+            String name = "Euphrasia stricta";
             Document doc = Jsoup.connect("https://species.wikimedia.org/w/index.php?title=" + name + "&action=edit").get();
 
             String wikiPage = doc.getElementsByTag("textarea").val();

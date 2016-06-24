@@ -22,7 +22,7 @@ public class Synchronizer {
 
     public static void main(String[] params) {
 
-        File file = new File("C:/Development/projects/abherbs/backend/Plants.csv");
+        File file = new File("/home/adrian/Dev/projects/abherbs/backend/Plants.csv");
 
         try {
             Scanner scan = new Scanner(file);
@@ -33,11 +33,20 @@ public class Synchronizer {
             int i = 0;
             while(scan.hasNextLine()){
                 i++;
+
                 final String[] name = scan.nextLine().split(",");
+
+                if (!name[0].equals("Euphrasia stricta")) continue;
+
+//                if (i < 332) continue;
+//                if (i > 332) continue;
+
                 final Plant plant = new Plant();
                 plant.setPlantId(Integer.parseInt(name[2]));
                 plant.setName(name[0]);
                 plant.setWikiName(name[1]);
+
+                System.out.println(plant.getName());
 
                 Call<Map<Integer,Map<String,List<String>>>> callSqlCloud = herbClient.getApiService().getDetail(
                         new DetailRequest(0, plant.getPlantId()));
@@ -109,7 +118,7 @@ public class Synchronizer {
                         leafShapes.add(values.get(0));
                         rank++;
                     }
-                    plant.setFilterLeafShape(sepals);
+                    plant.setFilterLeafShape(leafShapes);
 
                     rank = 0;
                     List<String> leafMargin = new ArrayList<>();
@@ -193,10 +202,6 @@ public class Synchronizer {
                 Call<Plant> callCloud =  herbCloudClient.getApiService().synchronizePlant(name[0], name[1], plant);
 
                 callCloud.execute().body();
-
-                System.out.println(plant.getName());
-
-                if (i == 5) break;
             }
             scan.close();
         } catch (IOException e) {

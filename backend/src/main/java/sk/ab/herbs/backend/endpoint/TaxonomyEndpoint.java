@@ -129,28 +129,28 @@ public class TaxonomyEndpoint {
         plantEntity.setProperty("filterColor", plant.getFilterColor());
         plantEntity.setProperty("filterHabitat", plant.getFilterHabitat());
         plantEntity.setProperty("filterPetal", plant.getFilterPetal());
-        if (plant.getFilterInflorescence() != null) {
+        if (plant.getFilterInflorescence() != null && plant.getFilterInflorescence().size() > 0) {
             plantEntity.setProperty("filterInflorence", plant.getFilterInflorescence());
         }
-        if (plant.getFilterSepal() != null) {
+        if (plant.getFilterSepal() != null && plant.getFilterSepal().size() > 0) {
             plantEntity.setProperty("filterSepal", plant.getFilterSepal());
         }
-        if (plant.getFilterStem() != null) {
+        if (plant.getFilterStem() != null && plant.getFilterStem().size() > 0) {
             plantEntity.setProperty("filterStem", plant.getFilterStem());
         }
-        if (plant.getFilterLeafShape() != null) {
+        if (plant.getFilterLeafShape() != null && plant.getFilterLeafShape().size() > 0) {
             plantEntity.setProperty("filterLeafShape", plant.getFilterLeafShape());
         }
-        if (plant.getFilterLeafMargin() != null) {
+        if (plant.getFilterLeafMargin() != null && plant.getFilterLeafMargin().size() > 0) {
             plantEntity.setProperty("filterLeafMargin", plant.getFilterLeafMargin());
         }
-        if (plant.getFilterLeafVenetation() != null) {
+        if (plant.getFilterLeafVenetation() != null && plant.getFilterLeafVenetation().size() > 0) {
             plantEntity.setProperty("filterLeafVenetation", plant.getFilterLeafVenetation());
         }
-        if (plant.getFilterLeafArrangement() != null) {
+        if (plant.getFilterLeafArrangement() != null && plant.getFilterLeafArrangement().size() > 0) {
             plantEntity.setProperty("filterLeafArrangement", plant.getFilterLeafArrangement());
         }
-        if (plant.getFilterRoot() != null) {
+        if (plant.getFilterRoot() != null && plant.getFilterRoot().size() > 0) {
             plantEntity.setProperty("filterRoot", plant.getFilterRoot());
         }
 
@@ -263,7 +263,7 @@ public class TaxonomyEndpoint {
 
     private void modifyEntityWikiSpeciesAfterWikidata(Entity entity, String latinName) {
         try {
-            List<String> latinAliases = (List<String>) entity.getProperty("aliases-la");
+            List<String> latinAliases = (List<String>) entity.getProperty("alias-la");
             if (latinAliases == null) {
                 latinAliases = new ArrayList<>();
             }
@@ -273,7 +273,7 @@ public class TaxonomyEndpoint {
             }
 
             for(String key: entity.getProperties().keySet()) {
-                if (key.startsWith("aliases-")) {
+                if (key.startsWith("alias-")) {
                     List<String> aliasesOld = (List<String>) entity.getProperty(key);
                     List<String> aliases = new ArrayList<>();
                     for(String alias : aliasesOld) {
@@ -318,7 +318,7 @@ public class TaxonomyEndpoint {
                             entity.setProperty("label-"+language, speciesValues.get(0));
                             speciesValues.remove(0);
                             if (speciesValues.size() > 0) {
-                                entity.setProperty("aliases-"+language, speciesValues);
+                                entity.setProperty("alias-"+language, speciesValues);
                             }
                         }
                     } else {
@@ -331,8 +331,8 @@ public class TaxonomyEndpoint {
                             }
                         }
 
-                        if (entity.getProperty("aliases-"+language) != null) {
-                            List<String> aliasesOld = (List<String>) entity.getProperty("aliases-" + language);
+                        if (entity.getProperty("alias-"+language) != null) {
+                            List<String> aliasesOld = (List<String>) entity.getProperty("alias-" + language);
                             List<String> aliases = new ArrayList<>();
                             List<String> aliasesLower = new ArrayList<>();
                             for(String alias : aliasesOld) {
@@ -349,12 +349,12 @@ public class TaxonomyEndpoint {
                                 }
                             }
                             if (aliases.size() > 0) {
-                                entity.setProperty("aliases-" + language, aliases);
+                                entity.setProperty("alias-" + language, aliases);
                             } else {
-                                entity.removeProperty("aliases-" + language);
+                                entity.removeProperty("alias-" + language);
                             }
                         } else if (speciesValues.size() > 0) {
-                            entity.setProperty("aliases-"+language, speciesValues);
+                            entity.setProperty("alias-"+language, speciesValues);
                         }
                     }
                 }
@@ -392,7 +392,7 @@ public class TaxonomyEndpoint {
                         entity.setProperty("label-"+language, speciesValues.get(0));
                         speciesValues.remove(0);
                         if (speciesValues.size() > 0) {
-                            entity.setProperty("aliases-"+language, speciesValues);
+                            entity.setProperty("alias-"+language, speciesValues);
                         }
                     } else {
                         entity.setProperty("label-"+language, hlp[1].trim());
@@ -400,17 +400,20 @@ public class TaxonomyEndpoint {
                 }
             }
 
-            String synonyms = "";
-            if (wikiPage.contains("==Name==")){
-                synonyms = wikiPage.substring(wikiPage.indexOf("==Name=="), wikiPage.indexOf("==", wikiPage.indexOf("==Name==") + 8));
-            } else if (wikiPage.contains("== Name ==")) {
-                synonyms = wikiPage.substring(wikiPage.indexOf("== Name =="), wikiPage.indexOf("==", wikiPage.indexOf("== Name ==") + 10));
-            }
-            String[] lines = synonyms.split("\n");
+            String[] lines = wikiPage.split("\n");
 
             Set<String> synonymSet = new TreeSet<>();
-            String key = "Synonyms";
+            String key = "synonym";
+            boolean isSynonyms = false;
             for(String line : lines) {
+                if (line.contains("Synonym") || line.contains("{{SN")) {
+                    isSynonyms = true;
+                }
+
+                if (!isSynonyms) {
+                    continue;
+                }
+
                 if (line.trim().length() > 0) {
 //                    if (line.trim().equals("{{HOT}}")) {
 //                        if (synonymSet.size() > 0) {
@@ -435,13 +438,33 @@ public class TaxonomyEndpoint {
 //                        continue;
 //                    }
 
+                    if (line.contains("References") || line.contains("Vernacular names")
+                            || (line.contains("Hybrids") && line.contains("=="))
+                            || (line.contains("Notes") && line.contains("=="))) {
+                        break;
+                    }
+
                     if (line.contains("''")) {
                         String synonym = line.substring(line.indexOf("''")+2, line.indexOf("''", line.indexOf("''")+2));
-                        synonymSet.add(synonym);
+
+                        if (synonym.startsWith("[[")) {
+                            synonym = synonym.substring(2);
+                        }
+                        if (synonym.endsWith("]]")) {
+                            synonym = synonym.substring(0,synonym.length()-2);
+                        }
+
+                        synonymSet.add(synonym.replace("'", ""));
                     }
                 }
             }
             synonymSet.remove(name);
+            synonymSet.remove("{{BASEPAGENAME}}");
+            synonymSet.remove("Homotypic");
+            synonymSet.remove("Heterotypic");
+            synonymSet.remove("Basionym");
+            synonymSet.remove("Homonyms");
+            synonymSet.remove("vide");
             List<String> synonymList = new ArrayList<>();
             for(String synonym : synonymSet) {
                 synonymList.add(synonym);
@@ -513,7 +536,7 @@ public class TaxonomyEndpoint {
                     aliasList.add(v.getAsJsonObject().get("value").getAsString());
                 }
 
-                entity.setProperty("aliases-"+entry.getKey(), aliasList);
+                entity.setProperty("alias-"+entry.getKey(), aliasList);
             }
 
 
