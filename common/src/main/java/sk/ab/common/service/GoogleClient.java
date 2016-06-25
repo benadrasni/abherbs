@@ -1,4 +1,4 @@
-package sk.ab.herbs.service;
+package sk.ab.common.service;
 
 import retrofit.Retrofit;
 

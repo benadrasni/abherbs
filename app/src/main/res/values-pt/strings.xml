@@ -49,10 +49,10 @@
     <string name="habitat_message">O que está a sua volta? Identifique o habitat da planta.</string>
 
     <string name="number_of_petals">número de pétalas</string>
-    <string name="nop_4">4 ou menos</string>
-    <string name="nop_5">5</string>
-    <string name="nop_many">mais que 5</string>
-    <string name="nop_bisymmetric">bissimétrico</string>
+    <string name="petal_4">4 ou menos</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">mais que 5</string>
+    <string name="petal_bisymmetric">bissimétrico</string>
     <string name="number_of_petals_message">A flor é bissimétrica? Não? Quantas pétalas tem, então?</string>
 
     <string name="display_info">É esta?</string>

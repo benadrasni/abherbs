@@ -50,10 +50,10 @@
     <string name="habitat_message">Was ist um dich herum? Identifiziere den Standort der Pflanze.</string>
 
     <string name="number_of_petals">Anzahl der Blütenblätter</string>
-    <string name="nop_4">höchstens 4</string>
-    <string name="nop_5">5</string>
-    <string name="nop_many">mehr als 5</string>
-    <string name="nop_bisymmetric">zweiseitig-symmetrische</string>
+    <string name="petal_4">höchstens 4</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">mehr als 5</string>
+    <string name="petal_bisymmetric">zweiseitig-symmetrische</string>
     <string name="number_of_petals_message">Ist die Blume bisymmetrisch? Falls nicht, wieviele Blätter hat sie?</string>
 
     <string name="display_info">Richtige?</string>

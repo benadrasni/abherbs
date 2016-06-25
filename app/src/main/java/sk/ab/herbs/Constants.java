@@ -122,38 +122,38 @@ public class Constants {
         return LANGUAGE_EN;
     }
 
-    public static int getValueResource(Resources resources, int valueId) {
+    public static int getValueResource(Resources resources, String value) {
         int result = 0;
-        if (valueId == resources.getInteger(R.integer.cof_white)) {
+        if (value.equals(R.string.cof_white)) {
             result = R.string.color_white;
-        } else if (valueId == resources.getInteger(R.integer.cof_yellow)) {
+        } else if (value.equals(R.string.cof_yellow)) {
             result = R.string.color_yellow;
-        } else if (valueId == resources.getInteger(R.integer.cof_red)) {
+        } else if (value.equals(R.string.cof_red)) {
             result = R.string.color_red;
-        } else if (valueId == resources.getInteger(R.integer.cof_blue)) {
+        } else if (value.equals(R.string.cof_blue)) {
             result = R.string.color_blue;
-        } else if (valueId == resources.getInteger(R.integer.cof_green)) {
+        } else if (value.equals(R.string.cof_green)) {
             result = R.string.color_green;
-        } else if (valueId == resources.getInteger(R.integer.ph_meadows)) {
+        } else if (value.equals(R.string.ph_meadows)) {
             result = R.string.habitat_meadow;
-        } else if (valueId == resources.getInteger(R.integer.ph_gardens)) {
+        } else if (value.equals(R.string.ph_gardens)) {
             result = R.string.habitat_garden;
-        } else if (valueId == resources.getInteger(R.integer.ph_moorlands)) {
+        } else if (value.equals(R.string.ph_moorlands)) {
             result = R.string.habitat_wetland;
-        } else if (valueId == resources.getInteger(R.integer.ph_woodlands)) {
+        } else if (value.equals(R.string.ph_woodlands)) {
             result = R.string.habitat_forest;
-        } else if (valueId == resources.getInteger(R.integer.ph_rocks)) {
+        } else if (value.equals(R.string.ph_rocks)) {
             result = R.string.habitat_rock;
-        } else if (valueId == resources.getInteger(R.integer.ph_trees)) {
+        } else if (value.equals(R.string.ph_trees)) {
             result = R.string.habitat_tree;
-        } else if (valueId == resources.getInteger(R.integer.nop_4)) {
-            result = R.string.nop_4;
-        } else if (valueId == resources.getInteger(R.integer.nop_5)) {
-            result = R.string.nop_5;
-        } else if (valueId == resources.getInteger(R.integer.nop_many)) {
-            result = R.string.nop_many;
-        } else if (valueId == resources.getInteger(R.integer.nop_bisymmetric)) {
-            result = R.string.nop_bisymmetric;
+        } else if (value.equals(R.string.nop_4)) {
+            result = R.string.petal_4;
+        } else if (value.equals(R.string.nop_5)) {
+            result = R.string.petal_5;
+        } else if (value.equals(R.string.nop_many)) {
+            result = R.string.petal_many;
+        } else if (value.equals(R.string.nop_bisymmetric)) {
+            result = R.string.petal_bisymmetric;
         }
 
         return result;

@@ -1,4 +1,4 @@
-package sk.ab.herbs.backend.service;
+package sk.ab.common.service;
 
 /*
  * Copyright (C) 2015 Square, Inc.

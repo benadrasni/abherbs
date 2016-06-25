@@ -1,4 +1,4 @@
-package sk.ab.herbs.service;
+package sk.ab.common.service;
 
 import java.util.List;
 import java.util.Map;
@@ -7,9 +7,9 @@ import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.Headers;
 import retrofit.http.POST;
-import sk.ab.herbs.CountRequest;
-import sk.ab.herbs.DetailRequest;
-import sk.ab.herbs.ListRequest;
+import sk.ab.common.entity.request.CountRequest;
+import sk.ab.common.entity.request.DetailRequest;
+import sk.ab.common.entity.request.ListRequest;
 
 /**
  * Created by adrian on 1.9.2015.
@@ -39,5 +39,4 @@ public interface HerbService {
     })
     @POST("/rest/detail")
     Call<Map<Integer,Map<String,List<String>>>> getDetail(@Body DetailRequest detailRequest);
-
 }

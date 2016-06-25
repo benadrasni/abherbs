@@ -22,7 +22,7 @@
                 android:text="@string/habitat_meadow"
                 android:textColor="@color/MenuWhite"
                 android:background="@drawable/meadow"
-                custom:valueId="@integer/ph_meadows"/>
+                custom:value="@string/ph_meadows"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"
@@ -38,7 +38,7 @@
                 android:text="@string/habitat_garden"
                 android:background="@drawable/garden"
                 android:textColor="@color/MenuWhite"
-                custom:valueId="@integer/ph_gardens"/>
+                custom:value="@string/ph_gardens"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"
@@ -54,7 +54,7 @@
                 android:text="@string/habitat_wetland"
                 android:background="@drawable/swamp"
                 android:textColor="@color/MenuWhite"
-                custom:valueId="@integer/ph_moorlands"/>
+                custom:value="@string/ph_moorlands"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"
@@ -70,7 +70,7 @@
                 android:text="@string/habitat_forest"
                 android:textColor="@color/MenuWhite"
                 android:background="@drawable/forest"
-                custom:valueId="@integer/ph_woodlands"/>
+                custom:value="@string/ph_woodlands"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"
@@ -86,7 +86,7 @@
                 android:text="@string/habitat_rock"
                 android:background="@drawable/mountain"
                 android:textColor="@color/MenuWhite"
-                custom:valueId="@integer/ph_rocks"/>
+                custom:value="@string/ph_rocks"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"
@@ -102,7 +102,7 @@
                 android:text="@string/habitat_tree"
                 android:textColor="@color/MenuWhite"
                 android:background="@drawable/tree"
-                custom:valueId="@integer/ph_trees"/>
+                custom:value="@string/ph_trees"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"

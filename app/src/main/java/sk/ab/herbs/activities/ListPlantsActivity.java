@@ -22,9 +22,9 @@ import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.Response;
+import sk.ab.common.entity.request.DetailRequest;
 import sk.ab.herbs.commons.BaseActivity;
 import sk.ab.herbs.Constants;
-import sk.ab.herbs.DetailRequest;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.Plant;
 import sk.ab.herbs.PlantHeader;

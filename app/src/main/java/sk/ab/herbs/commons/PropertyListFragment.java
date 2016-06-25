@@ -53,7 +53,7 @@ public class PropertyListFragment extends ListFragment {
                     BaseFilterFragment fragment = (BaseFilterFragment) item;
                     if (!activity.getCurrentFragment().equals(fragment)) {
                         activity.switchContent(fragment);
-                        activity.removeFromFilter(fragment.getAttributeId());
+                        activity.removeFromFilter(fragment.getAttribute());
                     }
                 } else {
                     ((BaseActivity)getActivity()).startLoading();
@@ -116,8 +116,8 @@ public class PropertyListFragment extends ListFragment {
                     }
                     TextView value = (TextView) convertView.findViewById(R.id.row_value);
                     if (value != null) {
-                        Integer valueId = ((HerbsApp) getActivity().getApplication()).getFilter()
-                                .get(filterFragment.getAttributeId());
+                        String valueId = ((HerbsApp) getActivity().getApplication()).getFilter()
+                                .get(filterFragment.getAttribute());
                         if (valueId != null) {
                             int resId = Constants.getValueResource(getResources(), valueId);
                             if (resId > 0) {

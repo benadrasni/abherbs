@@ -34,7 +34,9 @@ import java.util.TreeSet;
 
 import javax.inject.Named;
 
-import sk.ab.herbs.backend.entity.Plant;
+import sk.ab.common.entity.Count;
+import sk.ab.common.entity.request.CountRequest;
+import sk.ab.common.entity.Plant;
 import sk.ab.herbs.backend.entity.Taxon;
 
 /** An endpoint class we are exposing */
@@ -48,6 +50,30 @@ import sk.ab.herbs.backend.entity.Taxon;
         )
 )
 public class TaxonomyEndpoint {
+
+    @ApiMethod(
+            name = "count",
+            path = "count",
+            httpMethod = ApiMethod.HttpMethod.POST)
+    public Count count(CountRequest countRequest) {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        Query.Filter filter = null;
+        for (Map.Entry<String, String> filterAttribute: countRequest.getFilterAttributes().entrySet()) {
+            if (filter == null) {
+              filter = new Query.FilterPredicate(filterAttribute.getKey(), Query.FilterOperator.EQUAL, filterAttribute.getValue());
+            } else {
+               filter = Query.CompositeFilterOperator.and(filter, new Query.FilterPredicate(filterAttribute.getKey(),
+                       Query.FilterOperator.EQUAL, filterAttribute.getValue()));
+            }
+        }
+        Query query = new Query(countRequest.getEntity());
+        if (filter != null) {
+            query.setFilter(filter);
+        }
+        return new Count(datastore.prepare(query).countEntities(FetchOptions.Builder.withDefaults()));
+    }
+
 
     @ApiMethod(
             name = "insert",

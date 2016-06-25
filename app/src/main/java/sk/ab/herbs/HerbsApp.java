@@ -19,12 +19,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Stack;
 
+import sk.ab.common.service.GoogleClient;
+import sk.ab.common.service.HerbClient;
+import sk.ab.common.service.HerbCloudClient;
 import sk.ab.herbs.commons.BaseFilterFragment;
 import sk.ab.herbs.fragments.ColorOfFlowers;
 import sk.ab.herbs.fragments.Habitats;
-import sk.ab.herbs.fragments.NumbersOfPetals;
-import sk.ab.herbs.service.GoogleClient;
-import sk.ab.herbs.service.HerbClient;
+import sk.ab.herbs.fragments.NumberOfPetals;
 
 /**
  * Created with IntelliJ IDEA.
@@ -41,10 +42,11 @@ public class HerbsApp extends Application {
     private Tracker tracker;
     private List<BaseFilterFragment> filterAttributes;
     private Stack<BaseFilterFragment> backStack;
-    private Map<Integer, Integer> filter;
+    private Map<String, String> filter;
     private boolean isLoading;
     private int count;
 
+    private HerbCloudClient herbCloudClient;
     private HerbClient herbClient;
     private GoogleClient googleClient;
 
@@ -86,12 +88,13 @@ public class HerbsApp extends Application {
         filterAttributes = new ArrayList<>();
         filterAttributes.add(new ColorOfFlowers());
         filterAttributes.add(new Habitats());
-        filterAttributes.add(new NumbersOfPetals());
+        filterAttributes.add(new NumberOfPetals());
 
         backStack = new Stack<>();
         filter = new HashMap<>();
 
         herbClient = new HerbClient();
+        herbCloudClient = new HerbCloudClient();
         googleClient = new GoogleClient();
     }
 
@@ -125,6 +128,10 @@ public class HerbsApp extends Application {
         return herbClient;
     }
 
+    public HerbCloudClient getHerbCloudClient() {
+        return herbCloudClient;
+    }
+
     public GoogleClient getGoogleClient() {
         return googleClient;
     }
@@ -137,7 +144,7 @@ public class HerbsApp extends Application {
         return backStack;
     }
 
-    public Map<Integer, Integer> getFilter() {
+    public Map<String, String> getFilter() {
         return filter;
     }
 

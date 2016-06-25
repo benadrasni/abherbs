@@ -1,4 +1,4 @@
-package sk.ab.herbs.service;
+package sk.ab.common.service;
 
 /*
  * Copyright (C) 2012 Square, Inc.
@@ -21,11 +21,13 @@ import com.google.gson.stream.JsonReader;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.ResponseBody;
+
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
+
 import okio.Buffer;
 import retrofit.Converter;
 

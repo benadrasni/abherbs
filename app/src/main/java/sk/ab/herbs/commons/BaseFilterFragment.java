@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import sk.ab.herbs.R;
 
 public abstract class BaseFilterFragment extends Fragment implements PropertyItem {
-    protected int attributeId;
+    protected String attribute;
     protected int title;
     protected int iconRes;
     protected int layout;
@@ -33,14 +33,12 @@ public abstract class BaseFilterFragment extends Fragment implements PropertyIte
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle(title);
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.getSupportActionBar().setIcon(iconRes);
 
         return inflater.inflate(layout, null);
     }
 
-    public int getAttributeId() {
-        return attributeId;
+    public String getAttribute() {
+        return attribute;
     }
 
     public int getTitle() {

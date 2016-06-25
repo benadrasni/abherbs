@@ -49,10 +49,10 @@
     <string name="habitat_message">Kde se nacházíš? Identifikuj lokalitu.</string>
 
     <string name="number_of_petals">počet okvětních lístků</string>
-    <string name="nop_4">4 nebo méně</string>
-    <string name="nop_5">5</string>
-    <string name="nop_many">více než 5</string>
-    <string name="nop_bisymmetric">bisymetrický</string>
+    <string name="petal_4">4 nebo méně</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">více než 5</string>
+    <string name="petal_bisymmetric">bisymetrický</string>
     <string name="number_of_petals_message">Je květ symetrický pouze podle jedné osy? Ne? Tak kolik má okvětních lístků?</string>
 
     <string name="display_info">Je to tahle?</string>

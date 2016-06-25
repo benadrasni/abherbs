@@ -26,14 +26,13 @@ import java.util.List;
 
 import retrofit.Callback;
 import retrofit.Response;
+import sk.ab.common.entity.RateSave;
+import sk.ab.common.service.HerbCloudClient;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
-import sk.ab.herbs.RateSave;
-import sk.ab.herbs.TranslationSave;
 import sk.ab.herbs.activities.ListPlantsActivity;
-import sk.ab.herbs.service.HerbCloudClient;
 import sk.ab.herbs.tools.Utils;
 
 public class PlantListFragment extends Fragment {

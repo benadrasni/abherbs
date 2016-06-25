@@ -17,7 +17,7 @@ import sk.ab.herbs.activities.FilterPlantsActivity;
  * Time: 18:54
  */
 public class BaseImageButton extends Button {
-    private Integer valueId;
+    private String value;
 
     public BaseImageButton(Context context) {
         super(context);
@@ -36,15 +36,15 @@ public class BaseImageButton extends Button {
         addListenerOnButton();
     }
 
-    public Integer getValueId() {
-        return valueId;
+    public String getValue() {
+        return value;
     }
 
     private void setCustomAttributes(Context context, AttributeSet attrs) {
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.BaseImageButton);
         for (int i = 0; i < attributes.getIndexCount(); ++i) {
-            if (attributes.getIndex(i) == R.styleable.BaseImageButton_valueId) {
-                this.valueId = attributes.getInt(i, 0);
+            if (attributes.getIndex(i) == R.styleable.BaseImageButton_value) {
+                this.value = attributes.getString(i);
                 break;
             }
         }
@@ -61,8 +61,8 @@ public class BaseImageButton extends Button {
                     FilterPlantsActivity host = (FilterPlantsActivity) view.getContext();
                     HerbsApp app = (HerbsApp)host.getApplication();
 
-                    if (app.getCount() > 0 || app.getFilter().get(host.getCurrentFragment().getAttributeId()) != null) {
-                        host.addToFilter(valueId);
+                    if (app.getCount() > 0 || app.getFilter().get(host.getCurrentFragment().getAttribute()) != null) {
+                        host.addToFilter(value);
                     }
                 }
             }

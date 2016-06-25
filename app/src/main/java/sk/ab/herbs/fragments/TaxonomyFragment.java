@@ -14,20 +14,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.SimpleShowcaseEventListener;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import java.util.Locale;
 
 import retrofit.Callback;
 import retrofit.Response;
+import sk.ab.common.entity.PlantTaxon;
+import sk.ab.common.entity.Taxonomy;
+import sk.ab.common.service.HerbCloudClient;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.Plant;
-import sk.ab.herbs.PlantTaxon;
 import sk.ab.herbs.R;
-import sk.ab.herbs.Taxonomy;
 import sk.ab.herbs.activities.DisplayPlantActivity;
-import sk.ab.herbs.service.HerbCloudClient;
 import sk.ab.herbs.tools.Utils;
 
 

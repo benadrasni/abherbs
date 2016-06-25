@@ -1,4 +1,4 @@
-package sk.ab.herbs.backend.entity;
+package sk.ab.common.entity.request;
 
 /**
  * Created by adrian on 1.9.2015.

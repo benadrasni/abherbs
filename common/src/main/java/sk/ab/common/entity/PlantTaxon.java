@@ -1,4 +1,4 @@
-package sk.ab.herbs;
+package sk.ab.common.entity;
 
 import java.util.List;
 

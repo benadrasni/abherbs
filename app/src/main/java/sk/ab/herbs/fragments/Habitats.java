@@ -8,16 +8,15 @@ import android.widget.RelativeLayout;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
-import sk.ab.herbs.commons.BaseFilterFragment;
-import sk.ab.herbs.BuildConfig;
 import sk.ab.herbs.Constants;
+import sk.ab.herbs.commons.BaseFilterFragment;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.FilterPlantsActivity;
 
 public class Habitats extends BaseFilterFragment {
 
     public Habitats() {
-        this.attributeId = Constants.HABITATS_ID;
+        this.attribute = sk.ab.common.Constants.HABITAT;
         this.title = R.string.habitats;
         this.iconRes = R.drawable.habitats;
         this.layout = R.layout.habitats;

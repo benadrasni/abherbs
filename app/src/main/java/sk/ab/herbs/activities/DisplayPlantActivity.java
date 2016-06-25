@@ -23,7 +23,8 @@ import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.Response;
-import sk.ab.herbs.TranslationSave;
+import sk.ab.common.entity.TranslationSave;
+import sk.ab.common.service.HerbCloudClient;
 import sk.ab.herbs.commons.BaseActivity;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
@@ -33,7 +34,6 @@ import sk.ab.herbs.fragments.GalleryFragment;
 import sk.ab.herbs.fragments.InfoFragment;
 import sk.ab.herbs.fragments.SourcesFragment;
 import sk.ab.herbs.fragments.TaxonomyFragment;
-import sk.ab.herbs.service.HerbCloudClient;
 import sk.ab.herbs.tools.Keys;
 import sk.ab.herbs.tools.TextWithLanguage;
 

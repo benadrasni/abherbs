@@ -2,6 +2,24 @@
 <resources>
     <string name="app_name">What\'s that flower?</string>
 
+    <string translatable="false" name="cof_white">white</string>
+    <string translatable="false" name="cof_yellow">yellow</string>
+    <string translatable="false" name="cof_red">red</string>
+    <string translatable="false" name="cof_blue">blue</string>
+    <string translatable="false" name="cof_green">green</string>
+
+    <string translatable="false" name="ph_meadows">meadows or grassland</string>
+    <string translatable="false" name="ph_gardens">gardens or fields</string>
+    <string translatable="false" name="ph_moorlands">moorlands or wetlands</string>
+    <string translatable="false" name="ph_woodlands">woodlands or forests</string>
+    <string translatable="false" name="ph_rocks">rocks or mountains</string>
+    <string translatable="false" name="ph_trees">trees or bushes</string>
+
+    <string translatable="false" name="nop_4">4 or less</string>
+    <string translatable="false" name="nop_5">5</string>
+    <string translatable="false" name="nop_many">Many</string>
+    <string translatable="false" name="nop_bisymmetric">Bisymetric</string>
+
     <string name="about">About</string>
     <string name="help">Help</string>
     <string name="settings">Settings</string>
@@ -49,10 +67,10 @@
     <string name="habitat_message">What\'s around you? Identify plant\'s habitat.</string>
 
     <string name="number_of_petals">number of petals</string>
-    <string name="nop_4">4 or less</string>
-    <string name="nop_5">5</string>
-    <string name="nop_many">more than 5</string>
-    <string name="nop_bisymmetric">bisymmetric</string>
+    <string name="petal_4">4 or less</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">more than 5</string>
+    <string name="petal_bisymmetric">bisymmetric</string>
     <string name="number_of_petals_message">Is the flower bisymmetric? No? Then how many petals does it have?</string>
 
     <string name="display_info">Right one?</string>
@@ -116,8 +134,7 @@
     <string name="legend">Legend</string>
     <string name="toxicity1">poisonous plant</string>
     <string name="toxicity2">slightly poisonous plant</string>
-    <string name="agpiii" translatable="false">APG III</string
-        >
+    <string name="agpiii" translatable="false">APG III</string>
     <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
     <string name="rate_never">Never</string>
     <string name="rate_later">Later</string>

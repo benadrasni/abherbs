@@ -23,13 +23,14 @@ import java.util.Stack;
 
 import retrofit.Callback;
 import retrofit.Response;
+import sk.ab.common.entity.Count;
+import sk.ab.common.entity.request.CountRequest;
+import sk.ab.common.entity.request.ListRequest;
 import sk.ab.herbs.commons.BaseActivity;
 import sk.ab.herbs.commons.BaseFilterFragment;
 import sk.ab.herbs.commons.PropertyListFragment;
 import sk.ab.herbs.Constants;
-import sk.ab.herbs.CountRequest;
 import sk.ab.herbs.HerbsApp;
-import sk.ab.herbs.ListRequest;
 import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 
@@ -117,7 +118,7 @@ public class FilterPlantsActivity extends BaseActivity {
         }
 
         switchContent(getFilterAttributes().get(position));
-        removeFromFilter(getCurrentFragment().getAttributeId());
+        removeFromFilter(getCurrentFragment().getAttribute());
     }
 
     @Override
@@ -137,17 +138,17 @@ public class FilterPlantsActivity extends BaseActivity {
         } else {
             HerbsApp app = (HerbsApp) getApplication();
             if (app.getCount() == 0) {
-                removeFromFilter(getCurrentFragment().getAttributeId());
+                removeFromFilter(getCurrentFragment().getAttribute());
             } else {
                 Stack<BaseFilterFragment> backStack = app.getBackStack();
                 if (backStack.size() > 0) {
                     BaseFilterFragment fragment = backStack.pop();
                     FragmentManager fm = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                    fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttributeId());
+                    fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttribute());
                     fragmentTransaction.commit();
                     setCurrentFragment(fragment);
-                    removeFromFilter(fragment.getAttributeId());
+                    removeFromFilter(fragment.getAttribute());
                 } else {
                     super.onBackPressed();
                 }
@@ -162,25 +163,25 @@ public class FilterPlantsActivity extends BaseActivity {
             if (getCurrentFragment() != null) {
                 ((HerbsApp)getApplication()).getBackStack().add(getCurrentFragment());
             }
-            fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttributeId());
+            fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttribute());
             fragmentTransaction.commit();
 
             setCurrentFragment(fragment);
         }
     }
 
-    public void addToFilter(Integer valueId) {
+    public void addToFilter(String value) {
         startLoading();
-        getFilter().put(getCurrentFragment().getAttributeId(), valueId);
+        getFilter().put(getCurrentFragment().getAttribute(), value);
         getCount();
 
         mPropertyMenu.getListView().invalidateViews();
     }
 
-    public void removeFromFilter(int attrId) {
-        if (getFilter().get(attrId) != null) {
+    public void removeFromFilter(String attribute) {
+        if (getFilter().get(attribute) != null) {
             startLoading();
-            getFilter().remove(attrId);
+            getFilter().remove(attribute);
             getCount();
             mPropertyMenu.getListView().invalidateViews();
         }
@@ -208,10 +209,10 @@ public class FilterPlantsActivity extends BaseActivity {
             loadResults();
         } else {
             if (app.getCount() != 0) {
-                if (getFilter().get(getCurrentFragment().getAttributeId()) != null
+                if (getFilter().get(getCurrentFragment().getAttribute()) != null
                         && getFilterAttributes().size() > getFilter().size()) {
                     for (BaseFilterFragment fragment : getFilterAttributes()) {
-                        if (getFilter().get(fragment.getAttributeId()) == null) {
+                        if (getFilter().get(fragment.getAttribute()) == null) {
                             switchContent(fragment);
                             break;
                         }
@@ -235,7 +236,7 @@ public class FilterPlantsActivity extends BaseActivity {
         return ((HerbsApp)getApplication()).getFilterAttributes();
     }
 
-    public Map<Integer, Integer> getFilter() { return ((HerbsApp)getApplication()).getFilter(); }
+    public Map<String, String> getFilter() { return ((HerbsApp)getApplication()).getFilter(); }
 
     public BaseFilterFragment getCurrentFragment() {
         return mContent;
@@ -256,12 +257,12 @@ public class FilterPlantsActivity extends BaseActivity {
     }
 
     private void getCount() {
-        ((HerbsApp)getApplication()).getHerbClient().getApiService().getCount(
-                new CountRequest(Constants.FLOWERS, getFilter())).enqueue(new Callback<Integer>() {
+        ((HerbsApp)getApplication()).getHerbCloudClient().getApiService().getCount(
+                new CountRequest(sk.ab.common.Constants.PLANT, getFilter())).enqueue(new Callback<Count>() {
             @Override
-            public void onResponse(Response<Integer> response) {
+            public void onResponse(Response<Count> response) {
                 if (response != null && response.body() != null) {
-                    setCount(response.body());
+                    setCount(response.body().getCount());
                 }
             }
 
@@ -276,17 +277,15 @@ public class FilterPlantsActivity extends BaseActivity {
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
 
-        List<Integer> attributes = new ArrayList<>();
-        attributes.add(Constants.PLANT_NAME);
-        attributes.add(Constants.PLANT_PHOTO_URL);
-        attributes.add(Constants.PLANT_FAMILY);
+        List<String> attributes = new ArrayList<>();
+        attributes.add(sk.ab.common.Constants.PLANT_LABEL);
+        attributes.add(sk.ab.common.Constants.PLANT_PHOTO_URL);
+        attributes.add(sk.ab.common.Constants.PLANT_FAMILY);
 
-        ((HerbsApp)getApplication()).getHerbClient().getApiService().getList(
-                new ListRequest(Constants.getLanguage(language),
+        ((HerbsApp)getApplication()).getHerbCloudClient().getApiService().getList(
+                new ListRequest(language,
                         getFilter(),
-                        attributes,
-                        0,
-                        10)).enqueue(new Callback<Map<Integer, Map<String, List<String>>>>() {
+                        attributes)).enqueue(new Callback<Map<Integer, Map<String, List<String>>>>() {
             @Override
             public void onResponse(Response<Map<Integer,Map<String,List<String>>>> response) {
                 List<PlantHeader> result = new ArrayList<>();

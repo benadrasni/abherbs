@@ -25,7 +25,7 @@
             android:layout_gravity="center"
             android:layout_weight="6"
             android:background="@drawable/white"
-            custom:valueId="@integer/cof_white"/>
+            custom:value="@string/cof_white"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -41,7 +41,7 @@
             android:layout_gravity="center"
             android:layout_weight="6"
             android:background="@drawable/yellow"
-            custom:valueId="@integer/cof_yellow"/>
+            custom:value="@string/cof_yellow"/>
     </LinearLayout>
 
     <LinearLayout
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:background="@drawable/red"
-            custom:valueId="@integer/cof_red"/>
+            custom:value="@string/cof_red"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:background="@drawable/blue"
-            custom:valueId="@integer/cof_blue"/>
+            custom:value="@string/cof_blue"/>
     </LinearLayout>
 
     <LinearLayout
@@ -93,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/green"
-            custom:valueId="@integer/cof_green"/>
+            custom:value="@string/cof_green"/>
     </LinearLayout>
 
     <LinearLayout
