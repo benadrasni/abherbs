@@ -56,20 +56,20 @@ public class DisplayPlantActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null) {
-            plant = savedInstanceState.getParcelable(STATE_PLANT);
-        } else {
-            plant = getIntent().getExtras().getParcelable("plant");
-        }
+//        if (savedInstanceState != null) {
+//            plant = savedInstanceState.getParcelable(STATE_PLANT);
+//        } else {
+//            plant = getIntent().getExtras().getParcelable("plant");
+//        }
 
-        builder.set("plant", ""+getPlant().getPlantId());
-        ((HerbsApp)getApplication()).getTracker().send(builder.build());
+//        builder.set("plant", ""+getPlant().getPlantId());
+//        ((HerbsApp)getApplication()).getTracker().send(builder.build());
 
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         String sLanguage = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
 
         language = Constants.ORIGINAL_LANGUAGE;
-        isTranslated = getPlant().isTranslated(sLanguage);
+//        isTranslated = getPlant().isTranslated(sLanguage);
 
         setContentView(R.layout.plant_activity);
 

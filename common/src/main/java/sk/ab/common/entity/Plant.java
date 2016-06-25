@@ -20,7 +20,10 @@ public class Plant {
     Integer floweringFrom;
     Integer floweringTo;
     Integer toxicityClass;
+    List<String> synonyms = new ArrayList<>();
     List<String> photoUrls = new ArrayList<>();
+    Map<String, String> label = new HashMap<>();
+    Map<String, List<String>> names = new HashMap<>();
 
     List<String> filterColor;
     List<String> filterHabitat;
@@ -44,6 +47,7 @@ public class Plant {
     Map<String, String> trivia = new HashMap<>();
     Map<String, String> toxicity = new HashMap<>();
     Map<String, String> herbalism = new HashMap<>();
+    Map<String, String> wikilinks = new HashMap<>();
     Map<String, List<String>> sourceUrls = new HashMap<>();
 
     public Integer getPlantId() {
@@ -116,6 +120,30 @@ public class Plant {
 
     public void setToxicityClass(Integer toxicityClass) {
         this.toxicityClass = toxicityClass;
+    }
+
+    public Map<String, String> getLabel() {
+        return label;
+    }
+
+    public void setLabel(Map<String, String> label) {
+        this.label = label;
+    }
+
+    public Map<String, List<String>> getNames() {
+        return names;
+    }
+
+    public void setNames(Map<String, List<String>> names) {
+        this.names = names;
+    }
+
+    public List<String> getSynonyms() {
+        return synonyms;
+    }
+
+    public void setSynonyms(List<String> synonyms) {
+        this.synonyms = synonyms;
     }
 
     public Map<String, String> getDescription() {
@@ -196,6 +224,14 @@ public class Plant {
 
     public void setHerbalism(Map<String, String> herbalism) {
         this.herbalism = herbalism;
+    }
+
+    public Map<String, String> getWikilinks() {
+        return wikilinks;
+    }
+
+    public void setWikilinks(Map<String, String> wikilinks) {
+        this.wikilinks = wikilinks;
     }
 
     public List<String> getPhotoUrls() {

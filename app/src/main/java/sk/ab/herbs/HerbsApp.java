@@ -19,6 +19,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Stack;
 
+import sk.ab.common.entity.Plant;
+import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.service.GoogleClient;
 import sk.ab.common.service.HerbClient;
 import sk.ab.common.service.HerbCloudClient;
@@ -39,10 +41,13 @@ public class HerbsApp extends Application {
     private static final String PROPERTY_ID = "UA-56892333-1";
     private static DisplayImageOptions options;
 
+    private String language;
     private Tracker tracker;
     private List<BaseFilterFragment> filterAttributes;
     private Stack<BaseFilterFragment> backStack;
     private Map<String, String> filter;
+    private List<PlantHeader> plantList;
+    private Plant plant;
     private boolean isLoading;
     private int count;
 
@@ -58,26 +63,25 @@ public class HerbsApp extends Application {
 
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
+
         Boolean wasReset = preferences.getBoolean(Constants.RESET_KEY + BuildConfig.VERSION_CODE, false);
+        if (!wasReset) {
+            editor.putString(Constants.LANGUAGE_DEFAULT_KEY, sDefSystemLanguage);
+        }
 
         int rateCounter = preferences.getInt(Constants.RATE_COUNT_KEY, Constants.RATE_COUNTER);
         rateCounter--;
         editor.putInt(Constants.RATE_COUNT_KEY, rateCounter);
-        editor.apply();
 
         int rateState = preferences.getInt(Constants.RATE_STATE_KEY, Constants.RATE_NO);
         if (rateCounter <= 0 && rateState == Constants.RATE_NO) {
             editor.putInt(Constants.RATE_STATE_KEY, Constants.RATE_SHOW);
-            editor.apply();
         }
 
-        if (!wasReset && (sDefSystemLanguage.equals(Constants.LANGUAGE_ES)
-                || sDefSystemLanguage.equals(Constants.LANGUAGE_PT)
-                || sDefSystemLanguage.equals(Constants.LANGUAGE_FR))) {
-            editor.clear();
-        }
         editor.putBoolean(Constants.RESET_KEY + BuildConfig.VERSION_CODE, true);
         editor.apply();
+
+        language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
 
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
         analytics.enableAutoActivityReports(this);
@@ -148,6 +152,22 @@ public class HerbsApp extends Application {
         return filter;
     }
 
+    public List<PlantHeader> getPlantList() {
+        return plantList;
+    }
+
+    public void setPlantList(List<PlantHeader> plantList) {
+        this.plantList = plantList;
+    }
+
+    public Plant getPlant() {
+        return plant;
+    }
+
+    public void setPlant(Plant plant) {
+        this.plant = plant;
+    }
+
     public int getCount() {
         return count;
     }
@@ -162,5 +182,13 @@ public class HerbsApp extends Application {
 
     public void setLoading(boolean loading) {
         this.isLoading = loading;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

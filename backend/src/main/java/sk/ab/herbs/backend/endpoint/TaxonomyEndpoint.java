@@ -8,6 +8,7 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.repackaged.com.google.gson.JsonArray;
@@ -27,16 +28,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 import javax.inject.Named;
+import javax.naming.InvalidNameException;
 
+import sk.ab.common.Constants;
 import sk.ab.common.entity.Count;
-import sk.ab.common.entity.request.CountRequest;
+import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.entity.Plant;
+import sk.ab.common.entity.request.ListRequest;
 import sk.ab.herbs.backend.entity.Taxon;
 
 /** An endpoint class we are exposing */
@@ -53,13 +58,13 @@ public class TaxonomyEndpoint {
 
     @ApiMethod(
             name = "count",
-            path = "count",
+            path = "plant/count",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public Count count(CountRequest countRequest) {
+    public Count count(ListRequest listRequest) {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
         Query.Filter filter = null;
-        for (Map.Entry<String, String> filterAttribute: countRequest.getFilterAttributes().entrySet()) {
+        for (Map.Entry<String, String> filterAttribute: listRequest.getFilterAttributes().entrySet()) {
             if (filter == null) {
               filter = new Query.FilterPredicate(filterAttribute.getKey(), Query.FilterOperator.EQUAL, filterAttribute.getValue());
             } else {
@@ -67,43 +72,173 @@ public class TaxonomyEndpoint {
                        Query.FilterOperator.EQUAL, filterAttribute.getValue()));
             }
         }
-        Query query = new Query(countRequest.getEntity());
+        Query query = new Query(listRequest.getEntity());
         if (filter != null) {
             query.setFilter(filter);
         }
         return new Count(datastore.prepare(query).countEntities(FetchOptions.Builder.withDefaults()));
     }
 
-
     @ApiMethod(
-            name = "insert",
-            path = "{taxonomyName}",
+            name = "list",
+            path = "plant/list",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public Entity insert(@Named("taxonomyName") String taxonomyName,
-                         @Named("taxonomyPath") String taxonomyPath,
-                         @Named("parentPath") String parentPath,
-                         @Named("name") String name,
-                         @Named("wikiName") String wikiName) {
-
+    public List<PlantHeader> list(ListRequest listRequest) throws InvalidNameException {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-        String[] path = taxonomyPath.split(",");
-        String[] parent = parentPath.split(",");
-        KeyFactory.Builder builder = new KeyFactory.Builder(path[0], parent[0]);
-        if (path.length > 1) {
-            for(int i=1; i < path.length; i++) {
-                builder.addChild(path[i], parent[i]);
+        Query.Filter filter = null;
+        for (Map.Entry<String, String> filterAttribute: listRequest.getFilterAttributes().entrySet()) {
+            if (filter == null) {
+                filter = new Query.FilterPredicate(filterAttribute.getKey(), Query.FilterOperator.EQUAL, filterAttribute.getValue());
+            } else {
+                filter = Query.CompositeFilterOperator.and(filter, new Query.FilterPredicate(filterAttribute.getKey(),
+                        Query.FilterOperator.EQUAL, filterAttribute.getValue()));
+            }
+        }
+        Query query = new Query(listRequest.getEntity());
+        if (filter != null) {
+            query.setFilter(filter);
+        }
+
+        Map<String, String> families = new HashMap<>();
+        List<PlantHeader> plantHeaders = new ArrayList<>();
+        List<Entity> plants = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
+        for (Entity plant : plants) {
+            PlantHeader plantHeader = new PlantHeader();
+            plantHeader.setId((String)plant.getProperty("label-" + Constants.LANGUAGE_LA));
+
+            String label = (String)plant.getProperty("label-" + listRequest.getLanguage());
+            if (label == null) {
+                label = (String)plant.getProperty("label-" + Constants.LANGUAGE_LA);
+            }
+            plantHeader.setLabel(label);
+
+            List<String> photoUrls = (List<String>) plant.getProperty("photoUrl");
+            plantHeader.setUrl(photoUrls.get(0));
+
+            try {
+                Key taxonomyKey = (Key)plant.getProperty("taxonomyKey");
+                if (taxonomyKey == null) {
+                    throw new InvalidNameException("Invalid taxonomy key for " + plantHeader.getLabel());
+                }
+
+                Key familiaKey = taxonomyKey;
+                do {
+                    familiaKey = familiaKey.getParent();
+                } while (familiaKey != null && !familiaKey.getKind().equals("Familia"));
+
+                if (familiaKey == null) {
+                    throw new InvalidNameException("Invalid key: " + taxonomyKey.toString());
+                }
+
+                String family = families.get(familiaKey.toString());
+                String familyLatin = families.get(familiaKey.toString() + Constants.LANGUAGE_LA);
+                if (family == null) {
+                    Entity familia = datastore.get(familiaKey);
+                    familyLatin = (String) familia.getProperty(Constants.LANGUAGE_LA);
+
+                    family = familyLatin;
+                    Object property = familia.getProperty(listRequest.getLanguage());
+                    if (property != null) {
+                        if (property instanceof String) {
+                            family = (String) property;
+                        } else if (property instanceof List && ((List) property).size() > 0) {
+                            family = ((List<String>) property).get(0);
+                        }
+                    }
+                    families.put(familiaKey.toString(), family);
+                    families.put(familiaKey.toString() + Constants.LANGUAGE_LA, familyLatin);
+                }
+                plantHeader.setFamily(family);
+                plantHeader.setFamilyLatin(familyLatin);
+            } catch (EntityNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            plantHeaders.add(plantHeader);
+        }
+
+        return plantHeaders;
+    }
+
+    @ApiMethod(
+            name = "detail",
+            path = "plant/{plantName}",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public Plant detail(@Named("plantName") String plantName) throws EntityNotFoundException {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        Key key = KeyFactory.createKey(Constants.PLANT, plantName);
+        Entity plantEntity = datastore.get(key);
+
+        Plant plant = new Plant();
+        plant.setName(plantName);
+
+        for(Map.Entry<String, Object> propertyEntry : plantEntity.getProperties().entrySet()) {
+            String propertyName = propertyEntry.getKey();
+            switch (propertyName) {
+                case "id":
+                    plant.setPlantId(safeLongToInt((long)propertyEntry.getValue()));
+                    break;
+                case "heightFrom":
+                    plant.setHeightFrom(safeLongToInt((long)propertyEntry.getValue()));
+                    break;
+                case "heightTo":
+                    plant.setHeightTo(safeLongToInt((long)propertyEntry.getValue()));
+                    break;
+                case "floweringFrom":
+                    plant.setFloweringFrom(safeLongToInt((long)propertyEntry.getValue()));
+                    break;
+                case "floweringTo":
+                    plant.setFloweringTo(safeLongToInt((long)propertyEntry.getValue()));
+                    break;
+                case "toxicityClass":
+                    plant.setToxicityClass(safeLongToInt((long)propertyEntry.getValue()));
+                    break;
+                case "wikiName":
+                    plant.setWikiName((String)propertyEntry.getValue());
+                    break;
+                case "illustrationUrl":
+                    plant.setIllustrationUrl((String)propertyEntry.getValue());
+                    break;
+                case "photoUrl":
+                    plant.setPhotoUrls((List<String>)propertyEntry.getValue());
+                    break;
+                case "synonym":
+                    plant.setSynonyms((List<String>)propertyEntry.getValue());
+                    break;
+            }
+
+            if (propertyName.startsWith("label-")) {
+                plant.getLabel().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("description-")) {
+                plant.getDescription().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("flower-")) {
+                plant.getFlower().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("inflorescence-")) {
+                plant.getInflorescence().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("fruit-")) {
+                plant.getFruit().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("leaf-")) {
+                plant.getLeaf().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("stem-")) {
+                plant.getStem().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("habitat-")) {
+                plant.getHabitat().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("toxicity-")) {
+                plant.getToxicity().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("trivia-")) {
+                plant.getTrivia().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("herbalism-")) {
+                plant.getHerbalism().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("wiki-")) {
+                plant.getWikilinks().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("sourceUrl-")) {
+                plant.getSourceUrls().put(propertyName.substring(propertyName.indexOf("-")+1), (List<String>)propertyEntry.getValue());
             }
         }
 
-        Entity taxonomyEntity = new Entity(taxonomyName, name, builder.getKey());
-        if (wikiName == null) {
-            wikiName = name;
-        }
-        modifyEntityWikiSpecies(taxonomyEntity, wikiName);
-        datastore.put(taxonomyEntity);
-
-        return taxonomyEntity;
+        return plant;
     }
 
     @ApiMethod(
@@ -122,7 +257,7 @@ public class TaxonomyEndpoint {
         Entity plantEntity = new Entity("Plant", taxonomyName);
 
         Query.Filter propertyFilter =
-                new Query.FilterPredicate("la", Query.FilterOperator.EQUAL, genus);
+                new Query.FilterPredicate(Constants.LANGUAGE_LA, Query.FilterOperator.EQUAL, genus);
         Query q = new Query("Genus").setFilter(propertyFilter);
 
         List<Entity> genuses =
@@ -247,7 +382,7 @@ public class TaxonomyEndpoint {
                 Taxon taxon = new Taxon();
                 taxon.setType(entity.getKind());
 
-                Object latinProperty = entity.getProperty("la");
+                Object latinProperty = entity.getProperty(Constants.LANGUAGE_LA);
                 List<String> latinName = new ArrayList<>();
                 if (latinProperty != null) {
                     if (latinProperty instanceof String) {
@@ -287,9 +422,40 @@ public class TaxonomyEndpoint {
         return results;
     }
 
+    @ApiMethod(
+            name = "insert",
+            path = "{taxonomyName}",
+            httpMethod = ApiMethod.HttpMethod.POST)
+    public Entity insert(@Named("taxonomyName") String taxonomyName,
+                         @Named("taxonomyPath") String taxonomyPath,
+                         @Named("parentPath") String parentPath,
+                         @Named("name") String name,
+                         @Named("wikiName") String wikiName) {
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        String[] path = taxonomyPath.split(",");
+        String[] parent = parentPath.split(",");
+        KeyFactory.Builder builder = new KeyFactory.Builder(path[0], parent[0]);
+        if (path.length > 1) {
+            for(int i=1; i < path.length; i++) {
+                builder.addChild(path[i], parent[i]);
+            }
+        }
+
+        Entity taxonomyEntity = new Entity(taxonomyName, name, builder.getKey());
+        if (wikiName == null) {
+            wikiName = name;
+        }
+        modifyEntityWikiSpecies(taxonomyEntity, wikiName);
+        datastore.put(taxonomyEntity);
+
+        return taxonomyEntity;
+    }
+
     private void modifyEntityWikiSpeciesAfterWikidata(Entity entity, String latinName) {
         try {
-            List<String> latinAliases = (List<String>) entity.getProperty("alias-la");
+            List<String> latinAliases = (List<String>) entity.getProperty("alias-" + Constants.LANGUAGE_LA);
             if (latinAliases == null) {
                 latinAliases = new ArrayList<>();
             }
@@ -350,7 +516,7 @@ public class TaxonomyEndpoint {
                     } else {
                         String label = entity.getProperty("label-"+language).toString();
 
-                        if (label.equals(latinName) && !language.equals("la")) {
+                        if (label.equals(latinName) && !language.equals(Constants.LANGUAGE_LA)) {
                             if (speciesValues.size() > 0) {
                                 entity.setProperty("label-" + language, speciesValues.get(0));
                                 speciesValues.remove(0);
@@ -645,4 +811,12 @@ public class TaxonomyEndpoint {
         return null;
     }
 
+
+    public static int safeLongToInt(long l) {
+        if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException
+                    (l + " cannot be cast to int without changing its value.");
+        }
+        return (int) l;
+    }
 }

@@ -14,7 +14,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -24,14 +23,14 @@ import java.util.Stack;
 import retrofit.Callback;
 import retrofit.Response;
 import sk.ab.common.entity.Count;
-import sk.ab.common.entity.request.CountRequest;
+import sk.ab.common.entity.PlantHeader;
+import sk.ab.common.entity.PlantList;
 import sk.ab.common.entity.request.ListRequest;
 import sk.ab.herbs.commons.BaseActivity;
 import sk.ab.herbs.commons.BaseFilterFragment;
 import sk.ab.herbs.commons.PropertyListFragment;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
-import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 
 /**
@@ -224,14 +223,6 @@ public class FilterPlantsActivity extends BaseActivity {
         }
     }
 
-    public void setResults(List<PlantHeader> herbs) {
-        Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
-        intent.putParcelableArrayListExtra("results", (ArrayList<PlantHeader>) herbs);
-        startActivity(intent);
-        stopLoading();
-        setCountButton();
-    }
-
     public List<BaseFilterFragment> getFilterAttributes() {
         return ((HerbsApp)getApplication()).getFilterAttributes();
     }
@@ -257,8 +248,11 @@ public class FilterPlantsActivity extends BaseActivity {
     }
 
     private void getCount() {
+        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
+
         ((HerbsApp)getApplication()).getHerbCloudClient().getApiService().getCount(
-                new CountRequest(sk.ab.common.Constants.PLANT, getFilter())).enqueue(new Callback<Count>() {
+                new ListRequest(language, sk.ab.common.Constants.PLANT, getFilter())).enqueue(new Callback<Count>() {
             @Override
             public void onResponse(Response<Count> response) {
                 if (response != null && response.body() != null) {
@@ -277,53 +271,27 @@ public class FilterPlantsActivity extends BaseActivity {
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
 
-        List<String> attributes = new ArrayList<>();
-        attributes.add(sk.ab.common.Constants.PLANT_LABEL);
-        attributes.add(sk.ab.common.Constants.PLANT_PHOTO_URL);
-        attributes.add(sk.ab.common.Constants.PLANT_FAMILY);
+        final HerbsApp app = (HerbsApp)getApplication();
 
-        ((HerbsApp)getApplication()).getHerbCloudClient().getApiService().getList(
-                new ListRequest(language,
-                        getFilter(),
-                        attributes)).enqueue(new Callback<Map<Integer, Map<String, List<String>>>>() {
+        app.getHerbCloudClient().getApiService().getList(
+                new ListRequest(language, sk.ab.common.Constants.PLANT, getFilter())).enqueue(new Callback<PlantList>() {
             @Override
-            public void onResponse(Response<Map<Integer,Map<String,List<String>>>> response) {
-                List<PlantHeader> result = new ArrayList<>();
+            public void onResponse(Response<PlantList> response) {
+                List<PlantHeader> result = response.body().getItems();
 
                 SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
                 int rateState = preferences.getInt(Constants.RATE_STATE_KEY, Constants.RATE_NO);
 
-                int ratePosition = -1;
                 if (rateState == Constants.RATE_SHOW) {
                     Random rand = new Random();
-                    ratePosition = rand.nextInt(response.body().entrySet().size());
+                    result.add(rand.nextInt(result.size()), new PlantHeader());
                 }
 
-                int position = 0;
-                for (Map.Entry<Integer,Map<String,List<String>>> entry : response.body().entrySet()) {
-
-                    Map<String,List<String>> attributes = entry.getValue();
-                    String name = attributes.get(""+Constants.PLANT_NAME+"_0").get(0);
-                    String url = attributes.get(""+Constants.PLANT_PHOTO_URL+"_0").get(0);
-                    String family = attributes.get(""+Constants.PLANT_FAMILY+"_0").get(0);
-                    String familyId = attributes.get(""+Constants.PLANT_FAMILY+"_0").get(1);
-
-                    PlantHeader plantHeader = new PlantHeader(entry.getKey(),
-                            name != null ? name : "",
-                            url != null ? url : "",
-                            family != null ? family : "",
-                            familyId != null ? Integer.parseInt(familyId) : 0);
-
-                    result.add(plantHeader);
-
-                    if (position == ratePosition) {
-                        result.add(new PlantHeader(0, "", "", "", 0));
-                    }
-
-                    position++;
-                }
-
-                setResults(result);
+                app.setPlantList(result);
+                Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
+                startActivity(intent);
+                stopLoading();
+                setCountButton();
             }
 
             @Override

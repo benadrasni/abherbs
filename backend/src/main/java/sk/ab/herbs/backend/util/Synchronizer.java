@@ -12,7 +12,7 @@ import sk.ab.common.entity.request.DetailRequest;
 import sk.ab.common.entity.Plant;
 import sk.ab.common.service.HerbClient;
 import sk.ab.common.service.HerbCloudClient;
-import sk.ab.herbs.backend.Constants;
+import sk.ab.common.Constants;
 
 /**
  *
@@ -36,7 +36,7 @@ public class Synchronizer {
 
                 final String[] name = scan.nextLine().split(",");
 
-                if (!name[0].equals("Euphrasia stricta")) continue;
+                if (!name[0].equals("Spergula arvensis")) continue;
 
 //                if (i < 332) continue;
 //                if (i > 332) continue;

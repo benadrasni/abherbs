@@ -26,11 +26,11 @@ import java.util.List;
 
 import retrofit.Callback;
 import retrofit.Response;
+import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.entity.RateSave;
 import sk.ab.common.service.HerbCloudClient;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
-import sk.ab.herbs.PlantHeader;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.ListPlantsActivity;
 import sk.ab.herbs.tools.Utils;
@@ -71,7 +71,7 @@ public class PlantListFragment extends Fragment {
 
         @Override
         public int getItemViewType(int position) {
-            return plantHeaders.get(position).getPlantId();
+            return plantHeaders.get(position).getId() == null ? 0 : 1;
         }
 
         @Override
@@ -110,10 +110,9 @@ public class PlantListFragment extends Fragment {
                             ((HerbsApp) getActivity().getApplication()).getOptions());
                 }
 
-                holder.title.setText(plantHeader.getTitle());
+                holder.title.setText(plantHeader.getLabel());
                 holder.family.setText(plantHeader.getFamily());
-                ImageLoader.getInstance().displayImage(Constants.STORAGE_ENDPOINT + Constants.FAMILY +
-                                Constants.RESOURCE_SEPARATOR + plantHeader.getFamilyId() + Constants.DEFAULT_EXTENSION,
+                ImageLoader.getInstance().displayImage(Constants.STORAGE_ENDPOINT + plantHeader.getFamilyLatin() + Constants.DEFAULT_EXTENSION,
                         holder.familyIcon, ((HerbsApp) getActivity().getApplication()).getOptions());
 
                 holder.photo.setOnClickListener(new View.OnClickListener() {
@@ -211,7 +210,7 @@ public class PlantListFragment extends Fragment {
             layoutManager.scrollToPosition(list_position);
             list.setLayoutManager(layoutManager);
 
-            PropertyAdapter adapter = new PropertyAdapter(((ListPlantsActivity) getActivity()).getPlants());
+            PropertyAdapter adapter = new PropertyAdapter(((HerbsApp) getActivity().getApplication()).getPlantList());
             list.setAdapter(adapter);
         }
     }

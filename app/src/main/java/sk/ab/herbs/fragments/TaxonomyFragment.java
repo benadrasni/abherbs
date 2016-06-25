@@ -16,15 +16,17 @@ import android.widget.TextView;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
+import java.util.List;
 import java.util.Locale;
 
 import retrofit.Callback;
 import retrofit.Response;
+import sk.ab.common.entity.Plant;
 import sk.ab.common.entity.PlantTaxon;
 import sk.ab.common.entity.Taxonomy;
 import sk.ab.common.service.HerbCloudClient;
 import sk.ab.herbs.Constants;
-import sk.ab.herbs.Plant;
+import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
 import sk.ab.herbs.tools.Utils;
@@ -80,34 +82,19 @@ public class TaxonomyFragment extends Fragment {
             editor.putBoolean(Constants.SHOWCASE_DISPLAY_KEY + Constants.VERSION_1_3_1, true);
             editor.apply();
         }
-
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if (getView() != null) {
-            final DisplayPlantActivity displayPlantActivity = (DisplayPlantActivity) getActivity();
-            switch (displayPlantActivity.getPlant().getToxicity_class()) {
-                case 1:
-                    toxicityClass1.setVisibility(View.VISIBLE);
-                    toxicityClass2.setVisibility(View.GONE);
-                    break;
-                case 2:
-                    toxicityClass1.setVisibility(View.GONE);
-                    toxicityClass2.setVisibility(View.VISIBLE);
-                    break;
-                default:
-                    toxicityClass1.setVisibility(View.GONE);
-                    toxicityClass2.setVisibility(View.GONE);
-            }
 
-            setTaxonomy(displayPlantActivity.getPlant(), getView());
+        if (getView() != null) {
+            setNames(getView());
+
             getView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    getTaxonomy(displayPlantActivity.getPlant(), getView());
+                    getTaxonomy(((HerbsApp) getActivity().getApplication()).getPlant(), getView());
                     Utils.setVisibility(v, R.id.plant_taxonomy);
                     Utils.setVisibility(v, R.id.agpiii);
                 }
@@ -127,7 +114,7 @@ public class TaxonomyFragment extends Fragment {
 
         displayPlantActivity.startLoading();
         displayPlantActivity.countButton.setVisibility(View.VISIBLE);
-        String[] latinName = displayPlantActivity.getPlant().getSpecies_latin().split(" ");
+        String[] latinName = plant.getName().split(" ");
         herbCloudClient.getApiService().getTaxonomy(TAXON_LANGUAGE, TAXON_GENUS, latinName[0], Locale.getDefault().getLanguage())
                 .enqueue(new Callback<Taxonomy>() {
                     @Override
@@ -196,25 +183,58 @@ public class TaxonomyFragment extends Fragment {
                         displayPlantActivity.countButton.setVisibility(View.GONE);
                     }
                 });
-
-
     }
 
-    private void setTaxonomy(Plant plant, View view) {
-        TextView species = (TextView) view.findViewById(R.id.plant_species);
-        species.setText(plant.getSpecies());
-        TextView species_latin = (TextView) view.findViewById(R.id.plant_species_latin);
-        species_latin.setText(plant.getSpecies_latin());
-        TextView namesView = (TextView) view.findViewById(R.id.plant_alt_names);
-        StringBuilder names = new StringBuilder();
-        for(String name: plant.getNames()) {
-            names.append(", ");
-            names.append(name);
+    private void setNames(View view) {
+        HerbsApp app = (HerbsApp) getActivity().getApplication();
+        Integer toxicityClass = app.getPlant().getToxicityClass();
+        if (toxicityClass == null) {
+            toxicityClass = 0;
         }
-        if (names.length() > 0) {
-            namesView.setText(names.toString().substring(2));
-        } else {
-            namesView.setVisibility(View.GONE);
+        switch (toxicityClass) {
+            case 1:
+                toxicityClass1.setVisibility(View.VISIBLE);
+                toxicityClass2.setVisibility(View.GONE);
+                break;
+            case 2:
+                toxicityClass1.setVisibility(View.GONE);
+                toxicityClass2.setVisibility(View.VISIBLE);
+                break;
+            default:
+                toxicityClass1.setVisibility(View.GONE);
+                toxicityClass2.setVisibility(View.GONE);
+        }
+
+
+        boolean isLatinName = false;
+        String label = app.getPlant().getLabel().get(app.getLanguage());
+        if (label == null) {
+            label = app.getPlant().getLabel().get(sk.ab.common.Constants.LANGUAGE_LA);
+            isLatinName = true;
+        }
+
+        TextView species = (TextView) view.findViewById(R.id.plant_species);
+        species.setText(label);
+        if (!isLatinName) {
+            TextView species_latin = (TextView) view.findViewById(R.id.plant_species_latin);
+            species_latin.setText(app.getPlant().getLabel().get(sk.ab.common.Constants.LANGUAGE_LA));
+        }
+        TextView namesView = (TextView) view.findViewById(R.id.plant_alt_names);
+
+        List<String> names = app.getPlant().getNames().get(app.getLanguage());
+        if (names != null) {
+            StringBuilder namesText = new StringBuilder();
+            for (String name : names) {
+                if (namesText.length() > 0) {
+                    namesText.append(", ");
+                }
+                namesText.append(name);
+            }
+            if (namesText.length() > 0) {
+                namesView.setText(namesText.toString());
+            } else {
+                namesView.setVisibility(View.GONE);
+            }
         }
     }
 }

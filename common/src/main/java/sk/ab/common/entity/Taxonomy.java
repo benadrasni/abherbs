@@ -3,7 +3,7 @@ package sk.ab.common.entity;
 import java.util.List;
 
 /**
- * Created by adrian on 1.9.2015.
+ * Wrapper for list of taxons
  */
 public class Taxonomy {
     private List<PlantTaxon> items;

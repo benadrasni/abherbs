@@ -10,6 +10,7 @@ android {
         versionCode 45
         versionName "2.0.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
