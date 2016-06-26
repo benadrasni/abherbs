@@ -17,7 +17,8 @@ import java.util.logging.Logger;
 import javax.annotation.Nullable;
 import javax.inject.Named;
 
-import sk.ab.herbs.backend.entity.Rate;
+
+import sk.ab.common.entity.Rate;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
@@ -54,7 +55,7 @@ public class RateEndpoint {
      *
      * @param rateId the ID of the entity to be retrieved
      * @return the entity with the corresponding ID
-     * @throws NotFoundException if there is no {@code Rate} with the provided ID.
+     * @throws NotFoundException if there is no {@link Rate} with the provided ID.
      */
     @ApiMethod(
             name = "get",
@@ -70,7 +71,7 @@ public class RateEndpoint {
     }
 
     /**
-     * Inserts a new {@code Rate}.
+     * Inserts a new {@link Rate}.
      */
     @ApiMethod(
             name = "insert",
@@ -89,13 +90,13 @@ public class RateEndpoint {
     }
 
     /**
-     * Updates an existing {@code Rate}.
+     * Updates an existing {@link Rate}.
      *
      * @param rateId the ID of the entity to be updated
      * @param rate   the desired state of the entity
      * @return the updated version of the entity
      * @throws NotFoundException if the {@code rateId} does not correspond to an existing
-     *                           {@code Rate}
+     *                           {@link Rate}
      */
     @ApiMethod(
             name = "update",
@@ -110,11 +111,11 @@ public class RateEndpoint {
     }
 
     /**
-     * Deletes the specified {@code Rate}.
+     * Deletes the specified {@link Rate}.
      *
      * @param rateId the ID of the entity to delete
      * @throws NotFoundException if the {@code rateId} does not correspond to an existing
-     *                           {@code Rate}
+     *                           {@link Rate}
      */
     @ApiMethod(
             name = "remove",

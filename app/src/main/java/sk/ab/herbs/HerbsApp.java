@@ -22,7 +22,6 @@ import java.util.Stack;
 import sk.ab.common.entity.Plant;
 import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.service.GoogleClient;
-import sk.ab.common.service.HerbClient;
 import sk.ab.common.service.HerbCloudClient;
 import sk.ab.herbs.commons.BaseFilterFragment;
 import sk.ab.herbs.fragments.ColorOfFlowers;
@@ -41,7 +40,6 @@ public class HerbsApp extends Application {
     private static final String PROPERTY_ID = "UA-56892333-1";
     private static DisplayImageOptions options;
 
-    private String language;
     private Tracker tracker;
     private List<BaseFilterFragment> filterAttributes;
     private Stack<BaseFilterFragment> backStack;
@@ -52,7 +50,6 @@ public class HerbsApp extends Application {
     private int count;
 
     private HerbCloudClient herbCloudClient;
-    private HerbClient herbClient;
     private GoogleClient googleClient;
 
     @Override
@@ -81,8 +78,6 @@ public class HerbsApp extends Application {
         editor.putBoolean(Constants.RESET_KEY + BuildConfig.VERSION_CODE, true);
         editor.apply();
 
-        language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
-
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
         analytics.enableAutoActivityReports(this);
         tracker = analytics.newTracker(PROPERTY_ID);
@@ -97,7 +92,6 @@ public class HerbsApp extends Application {
         backStack = new Stack<>();
         filter = new HashMap<>();
 
-        herbClient = new HerbClient();
         herbCloudClient = new HerbCloudClient();
         googleClient = new GoogleClient();
     }
@@ -126,10 +120,6 @@ public class HerbsApp extends Application {
 
     public DisplayImageOptions getOptions() {
         return options;
-    }
-
-    public HerbClient getHerbClient() {
-        return herbClient;
     }
 
     public HerbCloudClient getHerbCloudClient() {
@@ -182,13 +172,5 @@ public class HerbsApp extends Application {
 
     public void setLoading(boolean loading) {
         this.isLoading = loading;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
     }
 }

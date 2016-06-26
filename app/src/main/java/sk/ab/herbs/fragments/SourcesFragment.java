@@ -15,9 +15,13 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import sk.ab.herbs.Plant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import sk.ab.common.Constants;
+import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
-import sk.ab.herbs.activities.DisplayPlantActivity;
 import sk.ab.herbs.tools.Utils;
 
 
@@ -50,7 +54,7 @@ public class SourcesFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (getView() != null) {
-            setSources(((DisplayPlantActivity) getActivity()).getPlant(), getView());
+            setSources(getView());
             getView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -60,9 +64,30 @@ public class SourcesFragment extends Fragment {
         }
     }
 
-    private void setSources(Plant plant, View convertView) {
-        String[] source_urls = new String[plant.getSource_urls().size()];
-        plant.getSource_urls().toArray(source_urls);
+    private void setSources(View convertView) {
+        HerbsApp app = (HerbsApp) getActivity().getApplication();
+        String language = Locale.getDefault().getLanguage();
+
+        List<String> sourceUrls = new ArrayList<>();
+        String wikilink = app.getPlant().getWikilinks().get(language);
+        if (wikilink == null) {
+            wikilink = app.getPlant().getWikilinks().get(Constants.LANGUAGE_EN);
+        }
+        if (wikilink != null) {
+            sourceUrls.add(wikilink);
+        }
+        String commonslink = app.getPlant().getWikilinks().get(Constants.COMMONS);
+        if (commonslink != null) {
+            sourceUrls.add(commonslink);
+        }
+        List<String> sources = app.getPlant().getSourceUrls().get(language);
+        if (sources != null) {
+            sourceUrls.addAll(sources);
+        }
+        sources = app.getPlant().getSourceUrls().get(Constants.LANGUAGE_EN);
+        if (sources != null) {
+            sourceUrls.addAll(sources);
+        }
 
         GridLayout grid = (GridLayout) convertView.findViewById(R.id.plant_source_grid);
         grid.removeAllViews();
@@ -77,7 +102,7 @@ public class SourcesFragment extends Fragment {
         grid.setColumnCount(columns);
 
         LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        for (final String url : source_urls) {
+        for (final String url : sourceUrls) {
             View view = inflater.inflate(R.layout.source, null);
             ImageView image = (ImageView)view.findViewById(R.id.source_icon);
             TextView text = (TextView)view.findViewById(R.id.source_title);

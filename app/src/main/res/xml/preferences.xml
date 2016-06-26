@@ -8,11 +8,6 @@
             android:title="@string/pref_language" />
 
     <CheckBoxPreference
-        android:key="changeLocale"
-        android:summary="@string/change_locale_summary"
-        android:title="@string/change_locale" />
-
-    <CheckBoxPreference
         android:key="proposeTranslation"
         android:summary="@string/propose_translation_summary"
         android:title="@string/propose_translation" />

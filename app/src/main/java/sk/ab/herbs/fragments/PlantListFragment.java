@@ -23,12 +23,12 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
+import java.util.Locale;
 
 import retrofit.Callback;
 import retrofit.Response;
 import sk.ab.common.entity.PlantHeader;
-import sk.ab.common.entity.RateSave;
-import sk.ab.common.service.HerbCloudClient;
+import sk.ab.common.entity.Rate;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
@@ -227,13 +227,12 @@ public class PlantListFragment extends Fragment {
     }
 
     private void saveRate(String status) {
-        final HerbCloudClient herbCloudClient = new HerbCloudClient();
-        RateSave rateSave = new RateSave(status);
+        Rate rate = new Rate(status, Locale.getDefault().getCountry());
 
-        herbCloudClient.getApiService().saveRate(rateSave)
-                .enqueue(new Callback<RateSave>() {
+        ((HerbsApp)getActivity().getApplication()).getHerbCloudClient().getApiService().saveRate(rate)
+                .enqueue(new Callback<Rate>() {
                     @Override
-                    public void onResponse(Response<RateSave> response) {
+                    public void onResponse(Response<Rate> response) {
                         Log.i(this.getClass().getName(), "Rate with status '" +
                                 response.body().getStatus() + "' was saved to the datastore");
                     }

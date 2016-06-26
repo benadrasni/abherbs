@@ -37,10 +37,6 @@ public class UserPreferenceFragment extends PreferenceFragment {
         prefLanguage.setValue(language);
         prefLanguage.setSummary(prefLanguage.getEntry());
 
-        Boolean changeLocale = preferences.getBoolean(Constants.CHANGE_LOCALE_KEY, false);
-        final CheckBoxPreference prefChangeLocale = (CheckBoxPreference)findPreference("changeLocale");
-        prefChangeLocale.setChecked(changeLocale);
-
         Boolean proposeTranslation = preferences.getBoolean(Constants.PROPOSE_TRANSLATION_KEY, false);
         final CheckBoxPreference prefProposeTranslation = (CheckBoxPreference)findPreference("proposeTranslation");
         prefProposeTranslation.setChecked(proposeTranslation);
@@ -49,35 +45,20 @@ public class UserPreferenceFragment extends PreferenceFragment {
 
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString(Constants.LANGUAGE_DEFAULT_KEY, (String) newValue);
-                editor.apply();
                 prefLanguage.setValue((String) newValue);
                 prefLanguage.setSummary(prefLanguage.getEntry());
-                if (prefChangeLocale.isChecked() && !newValue.equals(Locale.getDefault().getLanguage())) {
-                    changeLocale((String) newValue);
-                }
 
-                return true;
-            }
-        });
-
-        prefChangeLocale.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean(Constants.CHANGE_LOCALE_KEY, (Boolean) newValue);
-                editor.apply();
-                if ((Boolean) newValue) {
-                    if (!prefLanguage.getValue().equals(Locale.getDefault().getLanguage())) {
-                        changeLocale(prefLanguage.getValue());
-                    }
-                } else {
-                    if (!HerbsApp.sDefSystemLanguage.equals(Locale.getDefault().getLanguage())) {
-                        changeLocale(HerbsApp.sDefSystemLanguage);
-                    }
+
+                String newLanguage = (String) newValue;
+                if (newLanguage.equals(sk.ab.common.Constants.LANGUAGE_ORIGINAL)) {
+                    newLanguage = HerbsApp.sDefSystemLanguage;
                 }
+                changeLocale(newLanguage);
+
+                editor.putString(Constants.LANGUAGE_DEFAULT_KEY, newLanguage);
+                editor.apply();
+
                 return true;
             }
         });

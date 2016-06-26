@@ -206,8 +206,10 @@ public class TaxonomyFragment extends Fragment {
         }
 
 
+        String language = Locale.getDefault().getLanguage();
+
         boolean isLatinName = false;
-        String label = app.getPlant().getLabel().get(app.getLanguage());
+        String label = app.getPlant().getLabel().get(language);
         if (label == null) {
             label = app.getPlant().getLabel().get(sk.ab.common.Constants.LANGUAGE_LA);
             isLatinName = true;
@@ -221,7 +223,7 @@ public class TaxonomyFragment extends Fragment {
         }
         TextView namesView = (TextView) view.findViewById(R.id.plant_alt_names);
 
-        List<String> names = app.getPlant().getNames().get(app.getLanguage());
+        List<String> names = app.getPlant().getNames().get(language);
         if (names != null) {
             StringBuilder namesText = new StringBuilder();
             for (String name : names) {

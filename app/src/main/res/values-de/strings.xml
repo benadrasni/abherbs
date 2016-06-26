@@ -9,6 +9,7 @@
     <string name="pref_language">Bevorzugte Sprache</string>
     <string name="pref_language_summary"/>
     <string-array name="languages">
+        <item>Original</item>
         <item>English</item>
         <item>Slovenčina</item>
         <item>Čeština</item>
@@ -16,15 +17,6 @@
         <item>Français</item>
         <item>Español</item>
         <item>Português</item>
-    </string-array>
-    <string-array name="languagesValues">
-        <item>en</item>
-        <item>sk</item>
-        <item>cs</item>
-        <item>de</item>
-        <item>fr</item>
-        <item>es</item>
-        <item>pt</item>
     </string-array>
 
     <string name="change_locale">Lokalisierung ändern</string>

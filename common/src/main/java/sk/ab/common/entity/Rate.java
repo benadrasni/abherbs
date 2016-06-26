@@ -1,7 +1,9 @@
-package sk.ab.herbs.backend.entity;
+package sk.ab.common.entity;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+
+import java.util.Date;
 
 @Entity
 public class Rate {
@@ -9,6 +11,19 @@ public class Rate {
     @Id Long id;
     String date;
     String status;
+    String country;
+
+    public Rate() {
+
+    }
+
+    public Rate(String status, String country) {
+        Date date = new Date();
+        this.id = date.getTime();
+        this.date = date.toString();
+        this.status = status;
+        this.country = country;
+    }
 
     public Long getId() {
         return id;
@@ -32,5 +47,13 @@ public class Rate {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

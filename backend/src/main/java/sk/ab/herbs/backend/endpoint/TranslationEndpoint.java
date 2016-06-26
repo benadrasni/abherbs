@@ -17,7 +17,8 @@ import java.util.logging.Logger;
 import javax.annotation.Nullable;
 import javax.inject.Named;
 
-import sk.ab.herbs.backend.entity.Translation;
+
+import sk.ab.common.entity.Translation;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
@@ -52,25 +53,25 @@ public class TranslationEndpoint {
     /**
      * Returns the {@link Translation} with the corresponding ID.
      *
-     * @param translationId the ID of the entity to be retrieved
+     * @param id the ID of the entity to be retrieved
      * @return the entity with the corresponding ID
-     * @throws NotFoundException if there is no {@code Translation} with the provided ID.
+     * @throws NotFoundException if there is no {@link Translation} with the provided ID.
      */
     @ApiMethod(
             name = "get",
-            path = "translation/{translationId}",
+            path = "translation/{id}",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public Translation get(@Named("translationId") String translationId) throws NotFoundException {
-        logger.info("Getting Translation with ID: " + translationId);
-        Translation translation = ofy().load().type(Translation.class).id(translationId).now();
+    public Translation get(@Named("id") String id) throws NotFoundException {
+        logger.info("Getting Translation with ID: " + id);
+        Translation translation = ofy().load().type(Translation.class).id(id).now();
         if (translation == null) {
-            throw new NotFoundException("Could not find Translation with ID: " + translationId);
+            throw new NotFoundException("Could not find Translation with ID: " + id);
         }
         return translation;
     }
 
     /**
-     * Inserts a new {@code Translation}.
+     * Inserts a new {@link Translation}.
      */
     @ApiMethod(
             name = "insert",
@@ -83,47 +84,47 @@ public class TranslationEndpoint {
         //
         // If your client provides the ID then you should probably use PUT instead.
         ofy().save().entity(translation).now();
-        logger.info("Created Translation with ID: " + translation.getTransId());
+        logger.info("Created Translation with ID: " + translation.getTranslationId());
 
         return ofy().load().entity(translation).now();
     }
 
     /**
-     * Updates an existing {@code Translation}.
+     * Updates an existing {@link Translation}.
      *
-     * @param translationId the ID of the entity to be updated
+     * @param id the ID of the entity to be updated
      * @param translation   the desired state of the entity
      * @return the updated version of the entity
-     * @throws NotFoundException if the {@code translationId} does not correspond to an existing
-     *                           {@code Translation}
+     * @throws NotFoundException if the {@code id} does not correspond to an existing
+     *                           {@link Translation}
      */
     @ApiMethod(
             name = "update",
-            path = "translation/{translationId}",
+            path = "translation/{id}",
             httpMethod = ApiMethod.HttpMethod.PUT)
-    public Translation update(@Named("translationId") String translationId, Translation translation) throws NotFoundException {
+    public Translation update(@Named("id") String id, Translation translation) throws NotFoundException {
         // TODO: You should validate your ID parameter against your resource's ID here.
-        checkExists(translationId);
+        checkExists(id);
         ofy().save().entity(translation).now();
         logger.info("Updated Translation: " + translation);
         return ofy().load().entity(translation).now();
     }
 
     /**
-     * Deletes the specified {@code Translation}.
+     * Deletes the specified {@link Translation}.
      *
-     * @param translationId the ID of the entity to delete
-     * @throws NotFoundException if the {@code translationId} does not correspond to an existing
-     *                           {@code Translation}
+     * @param id the ID of the entity to delete
+     * @throws NotFoundException if the {@code id} does not correspond to an existing
+     *                           {@link Translation}
      */
     @ApiMethod(
             name = "remove",
-            path = "translation/{translationId}",
+            path = "translation/{id}",
             httpMethod = ApiMethod.HttpMethod.DELETE)
-    public void remove(@Named("translationId") String translationId) throws NotFoundException {
-        checkExists(translationId);
-        ofy().delete().type(Translation.class).id(translationId).now();
-        logger.info("Deleted Translation with ID: " + translationId);
+    public void remove(@Named("id") String id) throws NotFoundException {
+        checkExists(id);
+        ofy().delete().type(Translation.class).id(id).now();
+        logger.info("Deleted Translation with ID: " + id);
     }
 
     /**
@@ -151,11 +152,11 @@ public class TranslationEndpoint {
         return CollectionResponse.<Translation>builder().setItems(translationList).setNextPageToken(queryIterator.getCursor().toWebSafeString()).build();
     }
 
-    private void checkExists(String translationId) throws NotFoundException {
+    private void checkExists(String id) throws NotFoundException {
         try {
-            ofy().load().type(Translation.class).id(translationId).safe();
+            ofy().load().type(Translation.class).id(id).safe();
         } catch (com.googlecode.objectify.NotFoundException e) {
-            throw new NotFoundException("Could not find Translation with ID: " + translationId);
+            throw new NotFoundException("Could not find Translation with ID: " + id);
         }
     }
 }

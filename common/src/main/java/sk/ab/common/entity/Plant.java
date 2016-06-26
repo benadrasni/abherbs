@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import sk.ab.common.Constants;
+
 @Entity
 public class Plant {
 
@@ -49,6 +51,19 @@ public class Plant {
     Map<String, String> herbalism = new HashMap<>();
     Map<String, String> wikilinks = new HashMap<>();
     Map<String, List<String>> sourceUrls = new HashMap<>();
+
+    public boolean isTranslated(String language) {
+        return (description.get(Constants.LANGUAGE_EN) == null || description.get(language) != null)
+                && (flower.get(Constants.LANGUAGE_EN) == null || flower.get(language) != null)
+                && (inflorescence.get(Constants.LANGUAGE_EN) == null || inflorescence.get(language) != null)
+                && (fruit.get(Constants.LANGUAGE_EN) == null || fruit.get(language) != null)
+                && (leaf.get(Constants.LANGUAGE_EN) == null || leaf.get(language) != null)
+                && (stem.get(Constants.LANGUAGE_EN) == null || stem.get(language) != null)
+                && (habitat.get(Constants.LANGUAGE_EN) == null || habitat.get(language) != null)
+                && (trivia.get(Constants.LANGUAGE_EN) == null || trivia.get(language) != null)
+                && (toxicity.get(Constants.LANGUAGE_EN) == null || toxicity.get(language) != null)
+                && (herbalism.get(Constants.LANGUAGE_EN) == null || herbalism.get(language) != null);
+    }
 
     public Integer getPlantId() {
         return plantId;

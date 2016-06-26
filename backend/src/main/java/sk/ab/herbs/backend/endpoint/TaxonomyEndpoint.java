@@ -105,11 +105,11 @@ public class TaxonomyEndpoint {
         List<Entity> plants = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
         for (Entity plant : plants) {
             PlantHeader plantHeader = new PlantHeader();
-            plantHeader.setId((String)plant.getProperty("label-" + Constants.LANGUAGE_LA));
+            plantHeader.setId((String)plant.getProperty("label_" + Constants.LANGUAGE_LA));
 
-            String label = (String)plant.getProperty("label-" + listRequest.getLanguage());
+            String label = (String)plant.getProperty("label_" + listRequest.getLanguage());
             if (label == null) {
-                label = (String)plant.getProperty("label-" + Constants.LANGUAGE_LA);
+                label = (String)plant.getProperty("label_" + Constants.LANGUAGE_LA);
             }
             plantHeader.setLabel(label);
 
@@ -209,32 +209,34 @@ public class TaxonomyEndpoint {
                     break;
             }
 
-            if (propertyName.startsWith("label-")) {
-                plant.getLabel().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("description-")) {
-                plant.getDescription().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("flower-")) {
-                plant.getFlower().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("inflorescence-")) {
-                plant.getInflorescence().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("fruit-")) {
-                plant.getFruit().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("leaf-")) {
-                plant.getLeaf().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("stem-")) {
-                plant.getStem().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("habitat-")) {
-                plant.getHabitat().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("toxicity-")) {
-                plant.getToxicity().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("trivia-")) {
-                plant.getTrivia().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("herbalism-")) {
-                plant.getHerbalism().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("wiki-")) {
-                plant.getWikilinks().put(propertyName.substring(propertyName.indexOf("-")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("sourceUrl-")) {
-                plant.getSourceUrls().put(propertyName.substring(propertyName.indexOf("-")+1), (List<String>)propertyEntry.getValue());
+            if (propertyName.startsWith("label_")) {
+                plant.getLabel().put(propertyName.substring(propertyName.indexOf("_") + 1), (String) propertyEntry.getValue());
+            } else if (propertyName.startsWith("alias_")) {
+                plant.getNames().put(propertyName.substring(propertyName.indexOf("_")+1), (List<String>)propertyEntry.getValue());
+            } else if (propertyName.startsWith("description_")) {
+                plant.getDescription().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("flower_")) {
+                plant.getFlower().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("inflorescence_")) {
+                plant.getInflorescence().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("fruit_")) {
+                plant.getFruit().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("leaf_")) {
+                plant.getLeaf().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("stem_")) {
+                plant.getStem().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("habitat_")) {
+                plant.getHabitat().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("toxicity_")) {
+                plant.getToxicity().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("trivia_")) {
+                plant.getTrivia().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("herbalism_")) {
+                plant.getHerbalism().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("wiki_")) {
+                plant.getWikilinks().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("sourceUrl_")) {
+                plant.getSourceUrls().put(propertyName.substring(propertyName.indexOf("_")+1), (List<String>)propertyEntry.getValue());
             }
         }
 
@@ -316,38 +318,38 @@ public class TaxonomyEndpoint {
         }
 
         for(Map.Entry<String, String> description : plant.getDescription().entrySet()) {
-            plantEntity.setProperty("description-"+description.getKey(), description.getValue());
+            plantEntity.setProperty("description_"+description.getKey(), description.getValue());
         }
         for(Map.Entry<String, String> flower : plant.getFlower().entrySet()) {
-            plantEntity.setProperty("flower-"+flower.getKey(), flower.getValue());
+            plantEntity.setProperty("flower_"+flower.getKey(), flower.getValue());
         }
         for(Map.Entry<String, String> inflorescence : plant.getInflorescence().entrySet()) {
-            plantEntity.setProperty("inflorescence-"+inflorescence.getKey(), inflorescence.getValue());
+            plantEntity.setProperty("inflorescence_"+inflorescence.getKey(), inflorescence.getValue());
         }
         for(Map.Entry<String, String> fruit : plant.getFruit().entrySet()) {
-            plantEntity.setProperty("fruit-"+fruit.getKey(), fruit.getValue());
+            plantEntity.setProperty("fruit_"+fruit.getKey(), fruit.getValue());
         }
         for(Map.Entry<String, String> leaf : plant.getLeaf().entrySet()) {
-            plantEntity.setProperty("leaf-"+leaf.getKey(), leaf.getValue());
+            plantEntity.setProperty("leaf_"+leaf.getKey(), leaf.getValue());
         }
         for(Map.Entry<String, String> stem : plant.getStem().entrySet()) {
-            plantEntity.setProperty("stem-"+stem.getKey(), stem.getValue());
+            plantEntity.setProperty("stem_"+stem.getKey(), stem.getValue());
         }
         for(Map.Entry<String, String> habitat : plant.getHabitat().entrySet()) {
-            plantEntity.setProperty("habitat-"+habitat.getKey(), habitat.getValue());
+            plantEntity.setProperty("habitat_"+habitat.getKey(), habitat.getValue());
         }
         for(Map.Entry<String, String> trivia : plant.getTrivia().entrySet()) {
-            plantEntity.setProperty("trivia-"+trivia.getKey(), trivia.getValue());
+            plantEntity.setProperty("trivia_"+trivia.getKey(), trivia.getValue());
         }
         for(Map.Entry<String, String> toxicity : plant.getToxicity().entrySet()) {
-            plantEntity.setProperty("toxicity-"+toxicity.getKey(), toxicity.getValue());
+            plantEntity.setProperty("toxicity_"+toxicity.getKey(), toxicity.getValue());
         }
         for(Map.Entry<String, String> herbalism : plant.getHerbalism().entrySet()) {
-            plantEntity.setProperty("herbalism-"+herbalism.getKey(), herbalism.getValue());
+            plantEntity.setProperty("herbalism_"+herbalism.getKey(), herbalism.getValue());
         }
         for(Map.Entry<String, List<String>> sourceUrl : plant.getSourceUrls().entrySet()) {
             if (sourceUrl.getValue() != null && sourceUrl.getValue().size() > 0) {
-                plantEntity.setProperty("sourceUrl-" + sourceUrl.getKey(), sourceUrl.getValue());
+                plantEntity.setProperty("sourceUrl_" + sourceUrl.getKey(), sourceUrl.getValue());
             }
         }
 
@@ -455,7 +457,7 @@ public class TaxonomyEndpoint {
 
     private void modifyEntityWikiSpeciesAfterWikidata(Entity entity, String latinName) {
         try {
-            List<String> latinAliases = (List<String>) entity.getProperty("alias-" + Constants.LANGUAGE_LA);
+            List<String> latinAliases = (List<String>) entity.getProperty("alias_" + Constants.LANGUAGE_LA);
             if (latinAliases == null) {
                 latinAliases = new ArrayList<>();
             }
@@ -465,7 +467,7 @@ public class TaxonomyEndpoint {
             }
 
             for(String key: entity.getProperties().keySet()) {
-                if (key.startsWith("alias-")) {
+                if (key.startsWith("alias_")) {
                     List<String> aliasesOld = (List<String>) entity.getProperty(key);
                     List<String> aliases = new ArrayList<>();
                     for(String alias : aliasesOld) {
@@ -505,26 +507,26 @@ public class TaxonomyEndpoint {
                         }
                     }
 
-                    if (entity.getProperty("label-"+language) == null) {
+                    if (entity.getProperty("label_"+language) == null) {
                         if (speciesValues.size() > 0) {
-                            entity.setProperty("label-"+language, speciesValues.get(0));
+                            entity.setProperty("label_"+language, speciesValues.get(0));
                             speciesValues.remove(0);
                             if (speciesValues.size() > 0) {
-                                entity.setProperty("alias-"+language, speciesValues);
+                                entity.setProperty("alias_"+language, speciesValues);
                             }
                         }
                     } else {
-                        String label = entity.getProperty("label-"+language).toString();
+                        String label = entity.getProperty("label_"+language).toString();
 
                         if (label.equals(latinName) && !language.equals(Constants.LANGUAGE_LA)) {
                             if (speciesValues.size() > 0) {
-                                entity.setProperty("label-" + language, speciesValues.get(0));
+                                entity.setProperty("label_" + language, speciesValues.get(0));
                                 speciesValues.remove(0);
                             }
                         }
 
-                        if (entity.getProperty("alias-"+language) != null) {
-                            List<String> aliasesOld = (List<String>) entity.getProperty("alias-" + language);
+                        if (entity.getProperty("alias_"+language) != null) {
+                            List<String> aliasesOld = (List<String>) entity.getProperty("alias_" + language);
                             List<String> aliases = new ArrayList<>();
                             List<String> aliasesLower = new ArrayList<>();
                             for(String alias : aliasesOld) {
@@ -541,12 +543,12 @@ public class TaxonomyEndpoint {
                                 }
                             }
                             if (aliases.size() > 0) {
-                                entity.setProperty("alias-" + language, aliases);
+                                entity.setProperty("alias_" + language, aliases);
                             } else {
-                                entity.removeProperty("alias-" + language);
+                                entity.removeProperty("alias_" + language);
                             }
                         } else if (speciesValues.size() > 0) {
-                            entity.setProperty("alias-"+language, speciesValues);
+                            entity.setProperty("alias_"+language, speciesValues);
                         }
                     }
                 }
@@ -581,13 +583,13 @@ public class TaxonomyEndpoint {
                         speciesValues.add(speciesValue.trim());
                     }
                     if (speciesValues.size() > 1) {
-                        entity.setProperty("label-"+language, speciesValues.get(0));
+                        entity.setProperty("label_"+language, speciesValues.get(0));
                         speciesValues.remove(0);
                         if (speciesValues.size() > 0) {
-                            entity.setProperty("alias-"+language, speciesValues);
+                            entity.setProperty("alias_"+language, speciesValues);
                         }
                     } else {
-                        entity.setProperty("label-"+language, hlp[1].trim());
+                        entity.setProperty("label_"+language, hlp[1].trim());
                     }
                 }
             }
@@ -717,18 +719,18 @@ public class TaxonomyEndpoint {
             for (Map.Entry<String,JsonElement> entry : labels.entrySet()) {
                 JsonObject value = entry.getValue().getAsJsonObject();
 
-                entity.setProperty("label-"+value.get("language").getAsString(), value.get("value").getAsString());
+                entity.setProperty("label_"+value.get("language").getAsString(), value.get("value").getAsString());
             }
 
             for (Map.Entry<String,JsonElement> entry : aliases.entrySet()) {
                 JsonArray value = entry.getValue().getAsJsonArray();
 
-                List<String> aliasList = new ArrayList();
+                List<String> aliasList = new ArrayList<>();
                 for(JsonElement v : value) {
                     aliasList.add(v.getAsJsonObject().get("value").getAsString());
                 }
 
-                entity.setProperty("alias-"+entry.getKey(), aliasList);
+                entity.setProperty("alias_"+entry.getKey(), aliasList);
             }
 
 
@@ -756,9 +758,9 @@ public class TaxonomyEndpoint {
                 JsonObject value = entry.getValue().getAsJsonObject();
 
                 String site = value.get("site").getAsString();
-                site = site.substring(0, site.length()-4).replace("_", "-");
+                site = site.substring(0, site.length()-4);
 
-                entity.setProperty("wiki-"+site, value.get("url").getAsString());
+                entity.setProperty("wiki_"+site, value.get("url").getAsString());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -802,8 +804,7 @@ public class TaxonomyEndpoint {
             Element link = links.get(i);
             String href = link.attr("href");
 
-            String revisionId = href.substring(href.indexOf("oldid=")+6);
-            return revisionId;
+            return href.substring(href.indexOf("oldid=")+6);
         } catch (IOException e) {
             e.printStackTrace();
         }

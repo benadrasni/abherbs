@@ -12,30 +12,20 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
-import retrofit.Callback;
-import retrofit.Response;
-import sk.ab.common.entity.TranslationSave;
-import sk.ab.common.service.HerbCloudClient;
-import sk.ab.herbs.commons.BaseActivity;
+import sk.ab.common.entity.Plant;
 import sk.ab.herbs.Constants;
 import sk.ab.herbs.HerbsApp;
-import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
+import sk.ab.herbs.commons.BaseActivity;
 import sk.ab.herbs.fragments.GalleryFragment;
 import sk.ab.herbs.fragments.InfoFragment;
 import sk.ab.herbs.fragments.SourcesFragment;
 import sk.ab.herbs.fragments.TaxonomyFragment;
-import sk.ab.herbs.tools.Keys;
-import sk.ab.herbs.tools.TextWithLanguage;
 
 /**
  * Created with IntelliJ IDEA.
@@ -47,10 +37,6 @@ import sk.ab.herbs.tools.TextWithLanguage;
  */
 public class DisplayPlantActivity extends BaseActivity {
     static final String STATE_PLANT = "plant";
-
-    private Plant plant;
-    private String language;
-    private boolean isTranslated;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,11 +51,6 @@ public class DisplayPlantActivity extends BaseActivity {
 //        builder.set("plant", ""+getPlant().getPlantId());
 //        ((HerbsApp)getApplication()).getTracker().send(builder.build());
 
-        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-        String sLanguage = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
-
-        language = Constants.ORIGINAL_LANGUAGE;
-//        isTranslated = getPlant().isTranslated(sLanguage);
 
         setContentView(R.layout.plant_activity);
 
@@ -113,12 +94,12 @@ public class DisplayPlantActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putParcelable(STATE_PLANT, plant);
-
-        super.onSaveInstanceState(savedInstanceState);
-    }
+//    @Override
+//    public void onSaveInstanceState(Bundle savedInstanceState) {
+//        savedInstanceState.putParcelable(STATE_PLANT, plant);
+//
+//        super.onSaveInstanceState(savedInstanceState);
+//    }
 
     @Override
     public void onConfigurationChanged (Configuration newConfig) {
@@ -126,262 +107,4 @@ public class DisplayPlantActivity extends BaseActivity {
 
         recreate();
     }
-
-    public void getTranslation() {
-        if (Constants.ORIGINAL_LANGUAGE.equals(language)) {
-            language = Locale.getDefault().getLanguage();
-            if (!plant.isTranslated(language)) {
-
-                List<TextWithLanguage> textWithLanguages = new ArrayList<>();
-
-                if (!plant.getDescription().isText(language)) {
-                    textWithLanguages.add(plant.getDescription());
-                }
-                if (!plant.getFlower().isText(language)) {
-                    textWithLanguages.add(plant.getFlower());
-                }
-                if (!plant.getInflorescence().isText(language)) {
-                    textWithLanguages.add(plant.getInflorescence());
-                }
-                if (!plant.getFruit().isText(language)) {
-                    textWithLanguages.add(plant.getFruit());
-                }
-                if (!plant.getLeaf().isText(language)) {
-                    textWithLanguages.add(plant.getLeaf());
-                }
-                if (!plant.getStem().isText(language)) {
-                    textWithLanguages.add(plant.getStem());
-                }
-                if (!plant.getHabitat().isText(language)) {
-                    textWithLanguages.add(plant.getHabitat());
-                }
-                if (!plant.getTrivia().isText(language)) {
-                    textWithLanguages.add(plant.getTrivia());
-                }
-                if (!plant.getToxicity().isText(language)) {
-                    textWithLanguages.add(plant.getToxicity());
-                }
-                if (!plant.getHerbalism().isText(language)) {
-                    textWithLanguages.add(plant.getHerbalism());
-                }
-
-                if (textWithLanguages.size() > 0) {
-                    getTranslation(Constants.LANGUAGE_EN, Locale.getDefault().getLanguage(), textWithLanguages);
-                } else {
-                    setInfo();
-                }
-            } else {
-                setInfo();
-            }
-        } else {
-            language = Constants.ORIGINAL_LANGUAGE;
-            setInfo();
-        }
-    }
-
-    public void proposeTranslation() {
-        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", Constants.EMAIL, null));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, getEmailSubject());
-        emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(getEmailBody()));
-        startActivity(Intent.createChooser(emailIntent, getEmailSubject()));
-    }
-
-    public Plant getPlant() {
-        return plant;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public boolean isTranslated() {
-        return isTranslated;
-    }
-
-
-    private void setInfo() {
-        InfoFragment infoFragment = (InfoFragment) getSupportFragmentManager().findFragmentByTag("Info");
-        infoFragment.setInfo(plant, language);
-    }
-
-    private String getEmailSubject() {
-        return getString(R.string.email_subject_prefix) + " " + plant.getSpecies_latin();
-    }
-
-    private String getEmailBody() {
-        String language = Locale.getDefault().getLanguage();
-
-        final StringBuilder text = new StringBuilder();
-
-        text.append(plant.getSpecies());
-        text.append("<br/>");
-        text.append(plant.getNames());
-        text.append("<br/><br/>");
-        if (!Constants.LANGUAGE_EN.equals(language) && !Constants.LANGUAGE_SK.equals(language)) {
-            text.append(Locale.ENGLISH.getDisplayLanguage());
-            text.append("<br/><br/>");
-            text.append(getPlantInLanguage(Constants.LANGUAGE_EN));
-            text.append("<br/><br/>");
-        }
-        text.append(Locale.getDefault().getDisplayLanguage());
-        text.append("<br/><br/>");
-        text.append(getPlantInLanguage(language));
-
-        return text.toString();
-    }
-
-    private String getPlantInLanguage(String language) {
-        String[][] sections = { {"", plant.getDescription().getText(language)},
-                {getString(R.string.plant_flowers), plant.getFlower().getText(language)},
-                {getString(R.string.plant_inflorescences), plant.getInflorescence().getText(language)},
-                {getString(R.string.plant_fruits), plant.getFruit().getText(language)},
-                {getString(R.string.plant_leaves), plant.getLeaf().getText(language)},
-                {getString(R.string.plant_stem), plant.getStem().getText(language)},
-                {getString(R.string.plant_habitat), plant.getHabitat().getText(language)},
-                {getString(R.string.plant_trivia), plant.getTrivia().getText(language)},
-                {getString(R.string.plant_toxicity), plant.getToxicity().getText(language)},
-                {getString(R.string.plant_herbalism), plant.getHerbalism().getText(language)}
-        };
-
-        final StringBuilder text = new StringBuilder(plant.getSpecies());
-        for(String[] section : sections ) {
-            text.append("<b>").append(section[0]).append("</b>");
-            text.append(": ");
-            text.append(section[1]);
-            text.append(" ");
-            text.append("<br/>");
-        }
-
-        return text.toString();
-    }
-
-    private void getTranslation(final String source, final String target, List<TextWithLanguage> textWithLanguages) {
-        final List<String> qs = new ArrayList<>();
-        for (TextWithLanguage textWithLanguage : textWithLanguages) {
-            qs.add(textWithLanguage.getText(source));
-        }
-
-        final HerbCloudClient herbCloudClient = new HerbCloudClient();
-
-        startLoading();
-        countButton.setVisibility(View.VISIBLE);
-        herbCloudClient.getApiService().getTranslation(plant.getPlantId() + "_" +  target)
-                .enqueue(new Callback<TranslationSave>() {
-                    @Override
-                    public void onResponse(Response<TranslationSave> response) {
-                        if (response != null) {
-                            if (response.body() != null) {
-                                setTranslation(response.body().getTexts());
-                                setInfo();
-                                stopLoading();
-                                countButton.setVisibility(View.GONE);
-                            } else {
-                                ((HerbsApp)getApplication()).getGoogleClient().getApiService().translate(
-                                        Keys.TRANSLATE_API_KEY,
-                                        source,
-                                        target,
-                                        qs).enqueue(new Callback<Map<String, Map<String, List<Map<String, String>>>>>() {
-                                    @Override
-                                    public void onResponse(Response<Map<String, Map<String, List<Map<String, String>>>>> response) {
-                                        Map<String, Map<String, List<Map<String, String>>>> data = response.body();
-
-                                        List<String> translatedTexts = new ArrayList<>();
-                                        List<Map<String, String>> texts = data.get("data").get("translations");
-                                        for (Map<String, String> text : texts) {
-                                            translatedTexts.add(text.get("translatedText"));
-                                        }
-
-                                        setTranslation(translatedTexts);
-                                        setInfo();
-
-                                        TranslationSave translationSave = new TranslationSave(plant.getPlantId(),
-                                                target, translatedTexts);
-
-                                        herbCloudClient.getApiService().saveTranslation(translationSave)
-                                                .enqueue(new Callback<TranslationSave>() {
-                                                    @Override
-                                                    public void onResponse(Response<TranslationSave> response) {
-                                                        if (response != null) {
-                                                            Log.i(this.getClass().getName(), "Translation " +
-                                                                    response.body().getTranslationId() + " was saved to the datastore");
-                                                        }
-                                                        stopLoading();
-                                                        countButton.setVisibility(View.GONE);
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(Throwable t) {
-                                                        Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
-                                                        stopLoading();
-                                                        countButton.setVisibility(View.GONE);
-                                                    }
-                                                });
-
-                                    }
-
-                                    @Override
-                                    public void onFailure(Throwable t) {
-                                        Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
-                                        stopLoading();
-                                        countButton.setVisibility(View.GONE);
-                                    }
-                                });
-
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t) {
-                        Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
-                    }
-                });
-
-    }
-
-    private void setTranslation(List<String> translatedTexts) {
-        String language = Locale.getDefault().getLanguage();
-
-        int i = 0;
-        if (translatedTexts.size() > i && !plant.getDescription().isText(language)) {
-            plant.getDescription().add(language, translatedTexts.get(i));
-            i++;
-        }
-        if (translatedTexts.size() > i && !plant.getFlower().isText(language)) {
-            plant.getFlower().add(language, translatedTexts.get(i));
-            i++;
-        }
-        if (translatedTexts.size() > i && !plant.getInflorescence().isText(language)) {
-            plant.getInflorescence().add(language, translatedTexts.get(i));
-            i++;
-        }
-        if (translatedTexts.size() > i && !plant.getFruit().isText(language)) {
-            plant.getFruit().add(language, translatedTexts.get(i));
-            i++;
-        }
-        if (translatedTexts.size() > i && !plant.getLeaf().isText(language)) {
-            plant.getLeaf().add(language, translatedTexts.get(i));
-            i++;
-        }
-        if (translatedTexts.size() > i && !plant.getStem().isText(language)) {
-            plant.getStem().add(language, translatedTexts.get(i));
-            i++;
-        }
-        if (translatedTexts.size() > i && !plant.getHabitat().isText(language)) {
-            plant.getHabitat().add(language, translatedTexts.get(i));
-            i++;
-        }
-        if (translatedTexts.size() > i && !plant.getTrivia().isText(language)) {
-            plant.getTrivia().add(language, translatedTexts.get(i));
-            i++;
-        }
-        if (translatedTexts.size() > i && !plant.getToxicity().isText(language)) {
-            plant.getToxicity().add(language, translatedTexts.get(i));
-            i++;
-        }
-        if (translatedTexts.size() > i && !plant.getHerbalism().isText(language)) {
-            plant.getHerbalism().add(language, translatedTexts.get(i));
-        }
-    }
-
 }

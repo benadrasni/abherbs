@@ -9,6 +9,7 @@
     <string name="pref_language">Préférences de langue</string>
     <string name="pref_language_summary"/>
     <string-array name="languages">
+        <item>Original</item>
         <item>English</item>
         <item>Slovenčina</item>
         <item>Čeština</item>
@@ -17,15 +18,7 @@
         <item>Español</item>
         <item>Português</item>
     </string-array>
-    <string-array name="languagesValues">
-        <item>en</item>
-        <item>sk</item>
-        <item>cs</item>
-        <item>de</item>
-        <item>fr</item>
-        <item>es</item>
-        <item>pt</item>
-    </string-array>
+
     <string name="change_locale">Changer locale</string>
     <string name="change_locale_summary"> à la langue préférée</string>
     <string name="propose_translation">Ne pas afficher le bouton</string>

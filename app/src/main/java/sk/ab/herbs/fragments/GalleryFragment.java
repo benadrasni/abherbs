@@ -13,10 +13,9 @@ import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import sk.ab.common.entity.Plant;
 import sk.ab.herbs.HerbsApp;
-import sk.ab.herbs.Plant;
 import sk.ab.herbs.R;
-import sk.ab.herbs.activities.DisplayPlantActivity;
 import sk.ab.herbs.tools.Utils;
 
 
@@ -104,11 +103,12 @@ public class GalleryFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (getView() != null) {
-            setGallery(((DisplayPlantActivity) getActivity()).getPlant(), getView());
+            setGallery(getView());
         }
     }
 
-    private void setGallery(Plant plant, View convertView) {
+    private void setGallery(View convertView) {
+        final Plant plant = ((HerbsApp) getActivity().getApplication()).getPlant();
         RecyclerView thumbnails = (RecyclerView) convertView.findViewById(R.id.plant_thumbnails);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -116,18 +116,18 @@ public class GalleryFragment extends Fragment {
         layoutManager.scrollToPosition(thumbnail_position);
         thumbnails.setLayoutManager(layoutManager);
 
-        String[] urls = new String[plant.getPhoto_urls().size()];
-        plant.getPhoto_urls().toArray(urls);
+        String[] urls = new String[plant.getPhotoUrls().size()];
+        plant.getPhotoUrls().toArray(urls);
 
         ThumbnailAdapter adapter = new ThumbnailAdapter(urls);
         thumbnails.setAdapter(adapter);
 
         ImageView image = (ImageView) convertView.findViewById(R.id.plant_photo);
-        if (plant.getPhoto_urls().size() > thumbnail_position && plant.getPhoto_urls().get(thumbnail_position) != null) {
-            ImageLoader.getInstance().displayImage(plant.getPhoto_urls().get(thumbnail_position), image,
+        if (plant.getPhotoUrls().size() > thumbnail_position && plant.getPhotoUrls().get(thumbnail_position) != null) {
+            ImageLoader.getInstance().displayImage(plant.getPhotoUrls().get(thumbnail_position), image,
                     ((HerbsApp)getActivity().getApplication()).getOptions());
-        } else if (plant.getPhoto_urls().size() > 0 && plant.getPhoto_urls().get(0) != null) {
-            ImageLoader.getInstance().displayImage(plant.getPhoto_urls().get(0), image,
+        } else if (plant.getPhotoUrls().size() > 0 && plant.getPhotoUrls().get(0) != null) {
+            ImageLoader.getInstance().displayImage(plant.getPhotoUrls().get(0), image,
                     ((HerbsApp)getActivity().getApplication()).getOptions());
         }
     }}

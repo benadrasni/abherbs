@@ -36,7 +36,7 @@ public class Synchronizer {
 
                 final String[] name = scan.nextLine().split(",");
 
-                if (!name[0].equals("Spergula arvensis")) continue;
+//                if (!name[0].equals("Spergula arvensis")) continue;
 
 //                if (i < 332) continue;
 //                if (i > 332) continue;

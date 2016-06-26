@@ -1,4 +1,4 @@
-package sk.ab.herbs.backend.entity;
+package sk.ab.common.entity;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -8,17 +8,28 @@ import java.util.List;
 @Entity
 public class Translation {
 
-    @Id String transId;
+    @Id String translationId;
     Integer plantId;
     String language;
     List<String> texts;
 
-    public String getTransId() {
-        return transId;
+    public Translation() {
+
     }
 
-    public void setTransId(String transId) {
-        this.transId = transId;
+    public Translation(Integer plantId, String language, List<String> texts) {
+        this.translationId = plantId.toString() + "_" + language;
+        this.plantId = plantId;
+        this.language = language;
+        this.texts = texts;
+    }
+
+    public String getTranslationId() {
+        return translationId;
+    }
+
+    public void setTranslationId(String translationId) {
+        this.translationId = translationId;
     }
 
     public Integer getPlantId() {

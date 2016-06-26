@@ -27,6 +27,7 @@
     <string name="pref_language">Preferred language</string>
     <string name="pref_language_summary"/>
     <string-array name="languages">
+        <item>Original</item>
         <item>English</item>
         <item>Slovenčina</item>
         <item>Čeština</item>
@@ -35,7 +36,8 @@
         <item>Español</item>
         <item>Português</item>
     </string-array>
-    <string-array name="languagesValues">
+    <string-array translatable="false" name="languagesValues">
+        <item>original</item>
         <item>en</item>
         <item>sk</item>
         <item>cs</item>
