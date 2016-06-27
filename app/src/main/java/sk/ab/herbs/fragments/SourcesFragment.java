@@ -20,8 +20,11 @@ import java.util.List;
 import java.util.Locale;
 
 import sk.ab.common.Constants;
+import sk.ab.common.entity.Plant;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
+import sk.ab.herbs.activities.DisplayPlantActivity;
+import sk.ab.herbs.entity.PlantParcel;
 import sk.ab.herbs.tools.Utils;
 
 
@@ -65,26 +68,26 @@ public class SourcesFragment extends Fragment {
     }
 
     private void setSources(View convertView) {
-        HerbsApp app = (HerbsApp) getActivity().getApplication();
+        Plant plant = ((DisplayPlantActivity) getActivity()).getPlant();
         String language = Locale.getDefault().getLanguage();
 
         List<String> sourceUrls = new ArrayList<>();
-        String wikilink = app.getPlant().getWikilinks().get(language);
+        String wikilink = plant.getWikilinks().get(language);
         if (wikilink == null) {
-            wikilink = app.getPlant().getWikilinks().get(Constants.LANGUAGE_EN);
+            wikilink = plant.getWikilinks().get(Constants.LANGUAGE_EN);
         }
         if (wikilink != null) {
             sourceUrls.add(wikilink);
         }
-        String commonslink = app.getPlant().getWikilinks().get(Constants.COMMONS);
+        String commonslink = plant.getWikilinks().get(Constants.COMMONS);
         if (commonslink != null) {
             sourceUrls.add(commonslink);
         }
-        List<String> sources = app.getPlant().getSourceUrls().get(language);
+        List<String> sources = plant.getSourceUrls().get(language);
         if (sources != null) {
             sourceUrls.addAll(sources);
         }
-        sources = app.getPlant().getSourceUrls().get(Constants.LANGUAGE_EN);
+        sources = plant.getSourceUrls().get(Constants.LANGUAGE_EN);
         if (sources != null) {
             sourceUrls.addAll(sources);
         }
@@ -95,17 +98,17 @@ public class SourcesFragment extends Fragment {
         DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
         int width = dm.widthPixels - Utils.convertDpToPx(45, dm);
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            width = width/2;
+            width = width / 2;
         }
 
-        int columns = width/(Utils.convertDpToPx(100, dm));
+        int columns = width / (Utils.convertDpToPx(100, dm));
         grid.setColumnCount(columns);
 
-        LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         for (final String url : sourceUrls) {
             View view = inflater.inflate(R.layout.source, null);
-            ImageView image = (ImageView)view.findViewById(R.id.source_icon);
-            TextView text = (TextView)view.findViewById(R.id.source_title);
+            ImageView image = (ImageView) view.findViewById(R.id.source_icon);
+            TextView text = (TextView) view.findViewById(R.id.source_title);
 
             if (url.contains(SOURCE_WIKIPEDIA)) {
                 image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.wikipedia, null));

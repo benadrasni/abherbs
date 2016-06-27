@@ -10,7 +10,7 @@ import com.google.android.gms.analytics.Tracker;
 
 import java.util.Locale;
 
-import sk.ab.herbs.Constants;
+import sk.ab.herbs.AndroidConstants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 
@@ -46,8 +46,8 @@ public class HtmlActivity extends AppCompatActivity {
 
         WebView html = (WebView) findViewById(R.id.html_text);
         String language = Locale.getDefault().getLanguage();
-        if (!language.equals(Constants.LANGUAGE_SK)) {
-            language = Constants.LANGUAGE_EN;
+        if (!language.equals(AndroidConstants.LANGUAGE_SK)) {
+            language = AndroidConstants.LANGUAGE_EN;
         }
         if (html != null) {
             switch (title) {

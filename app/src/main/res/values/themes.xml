@@ -2,20 +2,8 @@
 <resources>
     <style name="Theme.Application" parent="@style/Theme.AppCompat.Light" />
 
-    <style name="HerbsActionBarTheme" parent="@style/Theme.Application">
-        <item name="android:actionBarStyle">@style/HerbsActionBar</item>
-
-        <!-- Support library compatibility -->
-        <item name="actionBarStyle">@style/HerbsActionBar</item>
-    </style>
-
-    <!-- ActionBar styles -->
-    <style name="HerbsActionBar"
-           parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@color/MenuWhite</item>
-
-        <!-- Support library compatibility -->
-        <item name="background">@color/MenuWhite</item>
+    <style name="SplashScreenTheme" parent="@style/Theme.Application">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
     <style name="Theme.Settings" parent="@style/Theme.Application">
@@ -48,16 +36,5 @@
 
     <style name="CustomText" parent="TextAppearance.ShowcaseView.Detail.Light">
         <item name="android:textColor">#8affffff</item>
-    </style>
-
-    <style name="ListItemBigtext">
-        <item name="android:textColor">#25467A</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
-        <item name="android:textStyle">italic</item>
-    </style>
-
-    <style name="ListItemSubtext">
-        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
-        <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
 </resources>

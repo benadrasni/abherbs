@@ -13,14 +13,11 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Stack;
 
 import sk.ab.common.entity.Plant;
-import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.service.GoogleClient;
 import sk.ab.common.service.HerbCloudClient;
 import sk.ab.herbs.commons.BaseFilterFragment;
@@ -43,11 +40,7 @@ public class HerbsApp extends Application {
     private Tracker tracker;
     private List<BaseFilterFragment> filterAttributes;
     private Stack<BaseFilterFragment> backStack;
-    private Map<String, String> filter;
-    private List<PlantHeader> plantList;
-    private Plant plant;
     private boolean isLoading;
-    private int count;
 
     private HerbCloudClient herbCloudClient;
     private GoogleClient googleClient;
@@ -61,21 +54,21 @@ public class HerbsApp extends Application {
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
-        Boolean wasReset = preferences.getBoolean(Constants.RESET_KEY + BuildConfig.VERSION_CODE, false);
+        Boolean wasReset = preferences.getBoolean(AndroidConstants.RESET_KEY + BuildConfig.VERSION_CODE, false);
         if (!wasReset) {
-            editor.putString(Constants.LANGUAGE_DEFAULT_KEY, sDefSystemLanguage);
+            editor.putString(AndroidConstants.LANGUAGE_DEFAULT_KEY, sDefSystemLanguage);
         }
 
-        int rateCounter = preferences.getInt(Constants.RATE_COUNT_KEY, Constants.RATE_COUNTER);
+        int rateCounter = preferences.getInt(AndroidConstants.RATE_COUNT_KEY, AndroidConstants.RATE_COUNTER);
         rateCounter--;
-        editor.putInt(Constants.RATE_COUNT_KEY, rateCounter);
+        editor.putInt(AndroidConstants.RATE_COUNT_KEY, rateCounter);
 
-        int rateState = preferences.getInt(Constants.RATE_STATE_KEY, Constants.RATE_NO);
-        if (rateCounter <= 0 && rateState == Constants.RATE_NO) {
-            editor.putInt(Constants.RATE_STATE_KEY, Constants.RATE_SHOW);
+        int rateState = preferences.getInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_NO);
+        if (rateCounter <= 0 && rateState == AndroidConstants.RATE_NO) {
+            editor.putInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_SHOW);
         }
 
-        editor.putBoolean(Constants.RESET_KEY + BuildConfig.VERSION_CODE, true);
+        editor.putBoolean(AndroidConstants.RESET_KEY + BuildConfig.VERSION_CODE, true);
         editor.apply();
 
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
@@ -90,7 +83,6 @@ public class HerbsApp extends Application {
         filterAttributes.add(new NumberOfPetals());
 
         backStack = new Stack<>();
-        filter = new HashMap<>();
 
         herbCloudClient = new HerbCloudClient();
         googleClient = new GoogleClient();
@@ -136,34 +128,6 @@ public class HerbsApp extends Application {
 
     public Stack<BaseFilterFragment> getBackStack() {
         return backStack;
-    }
-
-    public Map<String, String> getFilter() {
-        return filter;
-    }
-
-    public List<PlantHeader> getPlantList() {
-        return plantList;
-    }
-
-    public void setPlantList(List<PlantHeader> plantList) {
-        this.plantList = plantList;
-    }
-
-    public Plant getPlant() {
-        return plant;
-    }
-
-    public void setPlant(Plant plant) {
-        this.plant = plant;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 
     public boolean isLoading() {

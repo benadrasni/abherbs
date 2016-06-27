@@ -11,7 +11,7 @@ import android.preference.PreferenceFragment;
 
 import java.util.Locale;
 
-import sk.ab.herbs.Constants;
+import sk.ab.herbs.AndroidConstants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 
@@ -32,12 +32,12 @@ public class UserPreferenceFragment extends PreferenceFragment {
 
         final SharedPreferences preferences = getActivity().getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
 
-        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
+        String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
         final ListPreference prefLanguage = (ListPreference)findPreference("prefLanguage");
         prefLanguage.setValue(language);
         prefLanguage.setSummary(prefLanguage.getEntry());
 
-        Boolean proposeTranslation = preferences.getBoolean(Constants.PROPOSE_TRANSLATION_KEY, false);
+        Boolean proposeTranslation = preferences.getBoolean(AndroidConstants.PROPOSE_TRANSLATION_KEY, false);
         final CheckBoxPreference prefProposeTranslation = (CheckBoxPreference)findPreference("proposeTranslation");
         prefProposeTranslation.setChecked(proposeTranslation);
 
@@ -56,7 +56,7 @@ public class UserPreferenceFragment extends PreferenceFragment {
                 }
                 changeLocale(newLanguage);
 
-                editor.putString(Constants.LANGUAGE_DEFAULT_KEY, newLanguage);
+                editor.putString(AndroidConstants.LANGUAGE_DEFAULT_KEY, newLanguage);
                 editor.apply();
 
                 return true;
@@ -68,7 +68,7 @@ public class UserPreferenceFragment extends PreferenceFragment {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean(Constants.PROPOSE_TRANSLATION_KEY, (Boolean) newValue);
+                editor.putBoolean(AndroidConstants.PROPOSE_TRANSLATION_KEY, (Boolean) newValue);
                 editor.apply();
                 return true;
             }

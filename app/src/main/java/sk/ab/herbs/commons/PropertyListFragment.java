@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import sk.ab.herbs.Constants;
+import sk.ab.herbs.AndroidConstants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.FilterPlantsActivity;
@@ -58,7 +58,7 @@ public class PropertyListFragment extends ListFragment {
                 } else {
                     ((BaseActivity)getActivity()).startLoading();
                     Intent intent = new Intent(getActivity(), FilterPlantsActivity.class);
-                    intent.putExtra("position", ""+((HerbsApp)getActivity().getApplication()).getFilterAttributes()
+                    intent.putExtra(AndroidConstants.STATE_FILTER_POSITION, ""+((HerbsApp)getActivity().getApplication()).getFilterAttributes()
                             .indexOf(item));
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -116,10 +116,9 @@ public class PropertyListFragment extends ListFragment {
                     }
                     TextView value = (TextView) convertView.findViewById(R.id.row_value);
                     if (value != null) {
-                        String valueId = ((HerbsApp) getActivity().getApplication()).getFilter()
-                                .get(filterFragment.getAttribute());
+                        String valueId = ((BaseActivity)getActivity()).getFilter().get(filterFragment.getAttribute());
                         if (valueId != null) {
-                            int resId = Constants.getValueResource(getResources(), valueId);
+                            int resId = AndroidConstants.getValueResource(getResources(), valueId);
                             if (resId > 0) {
                                 value.setText(getResources().getText(resId));
                             }

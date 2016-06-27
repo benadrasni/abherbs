@@ -25,10 +25,11 @@ import sk.ab.common.entity.Plant;
 import sk.ab.common.entity.PlantTaxon;
 import sk.ab.common.entity.Taxonomy;
 import sk.ab.common.service.HerbCloudClient;
-import sk.ab.herbs.Constants;
+import sk.ab.herbs.AndroidConstants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
+import sk.ab.herbs.entity.PlantParcel;
 import sk.ab.herbs.tools.Utils;
 
 
@@ -67,7 +68,7 @@ public class TaxonomyFragment extends Fragment {
         final DisplayPlantActivity displayPlantActivity = (DisplayPlantActivity) getActivity();
         final SharedPreferences preferences = displayPlantActivity.getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        Boolean wasShowCase = preferences.getBoolean(Constants.SHOWCASE_DISPLAY_KEY + Constants.VERSION_1_3_1, false);
+        Boolean wasShowCase = preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_3_1, false);
         final TextView nameView = (TextView) getView().findViewById(R.id.plant_species);
 
         if (!wasShowCase) {
@@ -79,7 +80,7 @@ public class TaxonomyFragment extends Fragment {
                     .setContentTitle(R.string.showcase_taxonomy_title)
                     .setContentText(R.string.showcase_taxonomy_message)
                     .build();
-            editor.putBoolean(Constants.SHOWCASE_DISPLAY_KEY + Constants.VERSION_1_3_1, true);
+            editor.putBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_3_1, true);
             editor.apply();
         }
     }
@@ -94,7 +95,7 @@ public class TaxonomyFragment extends Fragment {
             getView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    getTaxonomy(((HerbsApp) getActivity().getApplication()).getPlant(), getView());
+                    getTaxonomy(((DisplayPlantActivity) getActivity()).getPlant(), getView());
                     Utils.setVisibility(v, R.id.plant_taxonomy);
                     Utils.setVisibility(v, R.id.agpiii);
                 }
@@ -186,8 +187,8 @@ public class TaxonomyFragment extends Fragment {
     }
 
     private void setNames(View view) {
-        HerbsApp app = (HerbsApp) getActivity().getApplication();
-        Integer toxicityClass = app.getPlant().getToxicityClass();
+        PlantParcel plant = ((DisplayPlantActivity) getActivity()).getPlant();
+        Integer toxicityClass = plant.getToxicityClass();
         if (toxicityClass == null) {
             toxicityClass = 0;
         }
@@ -209,9 +210,9 @@ public class TaxonomyFragment extends Fragment {
         String language = Locale.getDefault().getLanguage();
 
         boolean isLatinName = false;
-        String label = app.getPlant().getLabel().get(language);
+        String label = plant.getLabel().get(language);
         if (label == null) {
-            label = app.getPlant().getLabel().get(sk.ab.common.Constants.LANGUAGE_LA);
+            label = plant.getLabel().get(sk.ab.common.Constants.LANGUAGE_LA);
             isLatinName = true;
         }
 
@@ -219,11 +220,11 @@ public class TaxonomyFragment extends Fragment {
         species.setText(label);
         if (!isLatinName) {
             TextView species_latin = (TextView) view.findViewById(R.id.plant_species_latin);
-            species_latin.setText(app.getPlant().getLabel().get(sk.ab.common.Constants.LANGUAGE_LA));
+            species_latin.setText(plant.getLabel().get(sk.ab.common.Constants.LANGUAGE_LA));
         }
         TextView namesView = (TextView) view.findViewById(R.id.plant_alt_names);
 
-        List<String> names = app.getPlant().getNames().get(language);
+        List<String> names = plant.getNames().get(language);
         if (names != null) {
             StringBuilder namesText = new StringBuilder();
             for (String name : names) {

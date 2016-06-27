@@ -33,6 +33,7 @@ import retrofit.Response;
 import sk.ab.common.Constants;
 import sk.ab.common.entity.Plant;
 import sk.ab.common.entity.Translation;
+import sk.ab.herbs.AndroidConstants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
@@ -62,10 +63,9 @@ public class InfoFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final HerbsApp app = (HerbsApp) getActivity().getApplication();
         final SharedPreferences preferences = getActivity().getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
 
-        plant = app.getPlant();
+        plant = ((DisplayPlantActivity)getActivity()).getPlant();
         isTranslated = false;
 
         final String language = Locale.getDefault().getLanguage();
@@ -139,8 +139,7 @@ public class InfoFragment extends Fragment {
     }
 
     public void setInfo(boolean withTranslation) {
-        final HerbsApp app = (HerbsApp) getActivity().getApplication();
-        final Plant plant = app.getPlant();
+        final Plant plant = ((DisplayPlantActivity)getActivity()).getPlant();
 
         final StringBuilder text = new StringBuilder();
         text.append(getResources().getString(R.string.plant_height_from)).append(" <i>").append(plant.getHeightFrom())
@@ -289,7 +288,7 @@ public class InfoFragment extends Fragment {
 
         displayPlantActivity.startLoading();
         displayPlantActivity.countButton.setVisibility(View.VISIBLE);
-        app.getHerbCloudClient().getApiService().getTranslation(app.getPlant().getPlantId() + "_" +  target)
+        app.getHerbCloudClient().getApiService().getTranslation(displayPlantActivity.getPlant().getPlantId() + "_" +  target)
                 .enqueue(new Callback<Translation>() {
                     @Override
                     public void onResponse(Response<Translation> response) {
@@ -407,18 +406,18 @@ public class InfoFragment extends Fragment {
     }
 
     private void proposeTranslation() {
-        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", sk.ab.herbs.Constants.EMAIL, null));
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", AndroidConstants.EMAIL, null));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, getEmailSubject());
         emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(getEmailBody()));
         startActivity(Intent.createChooser(emailIntent, getEmailSubject()));
     }
 
     private String getEmailSubject() {
-        return getString(R.string.email_subject_prefix) + " " + ((HerbsApp) getActivity().getApplication()).getPlant().getName();
+        return getString(R.string.email_subject_prefix) + " " + ((DisplayPlantActivity) getActivity()).getPlant().getName();
     }
 
     private String getEmailBody() {
-        Plant plant = ((HerbsApp) getActivity().getApplication()).getPlant();
+        Plant plant = ((DisplayPlantActivity) getActivity()).getPlant();
         String language = Locale.getDefault().getLanguage();
 
         final StringBuilder text = new StringBuilder();

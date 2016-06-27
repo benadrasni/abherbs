@@ -13,44 +13,44 @@ import sk.ab.common.Constants;
 @Entity
 public class Plant {
 
-    @Id Integer plantId;
-    String name;
-    String wikiName;
-    String illustrationUrl;
-    Integer heightFrom;
-    Integer heightTo;
-    Integer floweringFrom;
-    Integer floweringTo;
-    Integer toxicityClass;
-    List<String> synonyms = new ArrayList<>();
-    List<String> photoUrls = new ArrayList<>();
-    Map<String, String> label = new HashMap<>();
-    Map<String, List<String>> names = new HashMap<>();
+    @Id protected Integer plantId;
+    protected String name;
+    protected String wikiName;
+    protected String illustrationUrl;
+    protected Integer heightFrom;
+    protected Integer heightTo;
+    protected Integer floweringFrom;
+    protected Integer floweringTo;
+    protected Integer toxicityClass;
+    protected ArrayList<String> synonyms = new ArrayList<>();
+    protected ArrayList<String> photoUrls = new ArrayList<>();
+    protected HashMap<String, String> label = new HashMap<>();
+    protected HashMap<String, ArrayList<String>> names = new HashMap<>();
 
-    List<String> filterColor;
-    List<String> filterHabitat;
-    List<String> filterPetal;
-    List<String> filterInflorescence;
-    List<String> filterSepal;
-    List<String> filterStem;
-    List<String> filterLeafShape;
-    List<String> filterLeafMargin;
-    List<String> filterLeafVenetation;
-    List<String> filterLeafArrangement;
-    List<String> filterRoot;
+    protected ArrayList<String> filterColor;
+    protected ArrayList<String> filterHabitat;
+    protected ArrayList<String> filterPetal;
+    protected ArrayList<String> filterInflorescence;
+    protected ArrayList<String> filterSepal;
+    protected ArrayList<String> filterStem;
+    protected ArrayList<String> filterLeafShape;
+    protected ArrayList<String> filterLeafMargin;
+    protected ArrayList<String> filterLeafVenetation;
+    protected ArrayList<String> filterLeafArrangement;
+    protected ArrayList<String> filterRoot;
 
-    Map<String, String> description = new HashMap<>();
-    Map<String, String> flower = new HashMap<>();
-    Map<String, String> inflorescence = new HashMap<>();
-    Map<String, String> fruit = new HashMap<>();
-    Map<String, String> leaf = new HashMap<>();
-    Map<String, String> stem = new HashMap<>();
-    Map<String, String> habitat = new HashMap<>();
-    Map<String, String> trivia = new HashMap<>();
-    Map<String, String> toxicity = new HashMap<>();
-    Map<String, String> herbalism = new HashMap<>();
-    Map<String, String> wikilinks = new HashMap<>();
-    Map<String, List<String>> sourceUrls = new HashMap<>();
+    protected HashMap<String, String> description = new HashMap<>();
+    protected HashMap<String, String> flower = new HashMap<>();
+    protected HashMap<String, String> inflorescence = new HashMap<>();
+    protected HashMap<String, String> fruit = new HashMap<>();
+    protected HashMap<String, String> leaf = new HashMap<>();
+    protected HashMap<String, String> stem = new HashMap<>();
+    protected HashMap<String, String> habitat = new HashMap<>();
+    protected HashMap<String, String> trivia = new HashMap<>();
+    protected HashMap<String, String> toxicity = new HashMap<>();
+    protected HashMap<String, String> herbalism = new HashMap<>();
+    protected HashMap<String, String> wikilinks = new HashMap<>();
+    protected HashMap<String, ArrayList<String>> sourceUrls = new HashMap<>();
 
     public boolean isTranslated(String language) {
         return (description.get(Constants.LANGUAGE_EN) == null || description.get(language) != null)
@@ -137,219 +137,219 @@ public class Plant {
         this.toxicityClass = toxicityClass;
     }
 
-    public Map<String, String> getLabel() {
-        return label;
-    }
-
-    public void setLabel(Map<String, String> label) {
-        this.label = label;
-    }
-
-    public Map<String, List<String>> getNames() {
-        return names;
-    }
-
-    public void setNames(Map<String, List<String>> names) {
-        this.names = names;
-    }
-
-    public List<String> getSynonyms() {
+    public ArrayList<String> getSynonyms() {
         return synonyms;
     }
 
-    public void setSynonyms(List<String> synonyms) {
+    public void setSynonyms(ArrayList<String> synonyms) {
         this.synonyms = synonyms;
     }
 
-    public Map<String, String> getDescription() {
-        return description;
-    }
-
-    public void setDescription(Map<String, String> description) {
-        this.description = description;
-    }
-
-    public Map<String, String> getFlower() {
-        return flower;
-    }
-
-    public void setFlower(Map<String, String> flower) {
-        this.flower = flower;
-    }
-
-    public Map<String, String> getInflorescence() {
-        return inflorescence;
-    }
-
-    public void setInflorescence(Map<String, String> inflorescence) {
-        this.inflorescence = inflorescence;
-    }
-
-    public Map<String, String> getFruit() {
-        return fruit;
-    }
-
-    public void setFruit(Map<String, String> fruit) {
-        this.fruit = fruit;
-    }
-
-    public Map<String, String> getLeaf() {
-        return leaf;
-    }
-
-    public void setLeaf(Map<String, String> leaf) {
-        this.leaf = leaf;
-    }
-
-    public Map<String, String> getStem() {
-        return stem;
-    }
-
-    public void setStem(Map<String, String> stem) {
-        this.stem = stem;
-    }
-
-    public Map<String, String> getHabitat() {
-        return habitat;
-    }
-
-    public void setHabitat(Map<String, String> habitat) {
-        this.habitat = habitat;
-    }
-
-    public Map<String, String> getTrivia() {
-        return trivia;
-    }
-
-    public void setTrivia(Map<String, String> trivia) {
-        this.trivia = trivia;
-    }
-
-    public Map<String, String> getToxicity() {
-        return toxicity;
-    }
-
-    public void setToxicity(Map<String, String> toxicity) {
-        this.toxicity = toxicity;
-    }
-
-    public Map<String, String> getHerbalism() {
-        return herbalism;
-    }
-
-    public void setHerbalism(Map<String, String> herbalism) {
-        this.herbalism = herbalism;
-    }
-
-    public Map<String, String> getWikilinks() {
-        return wikilinks;
-    }
-
-    public void setWikilinks(Map<String, String> wikilinks) {
-        this.wikilinks = wikilinks;
-    }
-
-    public List<String> getPhotoUrls() {
+    public ArrayList<String> getPhotoUrls() {
         return photoUrls;
     }
 
-    public void setPhotoUrls(List<String> photoUrls) {
+    public void setPhotoUrls(ArrayList<String> photoUrls) {
         this.photoUrls = photoUrls;
     }
 
-    public Map<String, List<String>> getSourceUrls() {
-        return sourceUrls;
+    public HashMap<String, String> getLabel() {
+        return label;
     }
 
-    public void setSourceUrls(Map<String, List<String>> sourceUrls) {
-        this.sourceUrls = sourceUrls;
+    public void setLabel(HashMap<String, String> label) {
+        this.label = label;
     }
 
-    public List<String> getFilterColor() {
+    public HashMap<String, ArrayList<String>> getNames() {
+        return names;
+    }
+
+    public void setNames(HashMap<String, ArrayList<String>> names) {
+        this.names = names;
+    }
+
+    public ArrayList<String> getFilterColor() {
         return filterColor;
     }
 
-    public void setFilterColor(List<String> filterColor) {
+    public void setFilterColor(ArrayList<String> filterColor) {
         this.filterColor = filterColor;
     }
 
-    public List<String> getFilterHabitat() {
+    public ArrayList<String> getFilterHabitat() {
         return filterHabitat;
     }
 
-    public void setFilterHabitat(List<String> filterHabitat) {
+    public void setFilterHabitat(ArrayList<String> filterHabitat) {
         this.filterHabitat = filterHabitat;
     }
 
-    public List<String> getFilterPetal() {
+    public ArrayList<String> getFilterPetal() {
         return filterPetal;
     }
 
-    public void setFilterPetal(List<String> filterPetal) {
+    public void setFilterPetal(ArrayList<String> filterPetal) {
         this.filterPetal = filterPetal;
     }
 
-    public List<String> getFilterInflorescence() {
+    public ArrayList<String> getFilterInflorescence() {
         return filterInflorescence;
     }
 
-    public void setFilterInflorescence(List<String> filterInflorescence) {
+    public void setFilterInflorescence(ArrayList<String> filterInflorescence) {
         this.filterInflorescence = filterInflorescence;
     }
 
-    public List<String> getFilterSepal() {
+    public ArrayList<String> getFilterSepal() {
         return filterSepal;
     }
 
-    public void setFilterSepal(List<String> filterSepal) {
+    public void setFilterSepal(ArrayList<String> filterSepal) {
         this.filterSepal = filterSepal;
     }
 
-    public List<String> getFilterStem() {
+    public ArrayList<String> getFilterStem() {
         return filterStem;
     }
 
-    public void setFilterStem(List<String> filterStem) {
+    public void setFilterStem(ArrayList<String> filterStem) {
         this.filterStem = filterStem;
     }
 
-    public List<String> getFilterLeafShape() {
+    public ArrayList<String> getFilterLeafShape() {
         return filterLeafShape;
     }
 
-    public void setFilterLeafShape(List<String> filterLeafShape) {
+    public void setFilterLeafShape(ArrayList<String> filterLeafShape) {
         this.filterLeafShape = filterLeafShape;
     }
 
-    public List<String> getFilterLeafMargin() {
+    public ArrayList<String> getFilterLeafMargin() {
         return filterLeafMargin;
     }
 
-    public void setFilterLeafMargin(List<String> filterLeafMargin) {
+    public void setFilterLeafMargin(ArrayList<String> filterLeafMargin) {
         this.filterLeafMargin = filterLeafMargin;
     }
 
-    public List<String> getFilterLeafVenetation() {
+    public ArrayList<String> getFilterLeafVenetation() {
         return filterLeafVenetation;
     }
 
-    public void setFilterLeafVenetation(List<String> filterLeafVenetation) {
+    public void setFilterLeafVenetation(ArrayList<String> filterLeafVenetation) {
         this.filterLeafVenetation = filterLeafVenetation;
     }
 
-    public List<String> getFilterLeafArrangement() {
+    public ArrayList<String> getFilterLeafArrangement() {
         return filterLeafArrangement;
     }
 
-    public void setFilterLeafArrangement(List<String> filterLeafArrangement) {
+    public void setFilterLeafArrangement(ArrayList<String> filterLeafArrangement) {
         this.filterLeafArrangement = filterLeafArrangement;
     }
 
-    public List<String> getFilterRoot() {
+    public ArrayList<String> getFilterRoot() {
         return filterRoot;
     }
 
-    public void setFilterRoot(List<String> filterRoot) {
+    public void setFilterRoot(ArrayList<String> filterRoot) {
         this.filterRoot = filterRoot;
+    }
+
+    public HashMap<String, String> getDescription() {
+        return description;
+    }
+
+    public void setDescription(HashMap<String, String> description) {
+        this.description = description;
+    }
+
+    public HashMap<String, String> getFlower() {
+        return flower;
+    }
+
+    public void setFlower(HashMap<String, String> flower) {
+        this.flower = flower;
+    }
+
+    public HashMap<String, String> getInflorescence() {
+        return inflorescence;
+    }
+
+    public void setInflorescence(HashMap<String, String> inflorescence) {
+        this.inflorescence = inflorescence;
+    }
+
+    public HashMap<String, String> getFruit() {
+        return fruit;
+    }
+
+    public void setFruit(HashMap<String, String> fruit) {
+        this.fruit = fruit;
+    }
+
+    public HashMap<String, String> getLeaf() {
+        return leaf;
+    }
+
+    public void setLeaf(HashMap<String, String> leaf) {
+        this.leaf = leaf;
+    }
+
+    public HashMap<String, String> getStem() {
+        return stem;
+    }
+
+    public void setStem(HashMap<String, String> stem) {
+        this.stem = stem;
+    }
+
+    public HashMap<String, String> getHabitat() {
+        return habitat;
+    }
+
+    public void setHabitat(HashMap<String, String> habitat) {
+        this.habitat = habitat;
+    }
+
+    public HashMap<String, String> getTrivia() {
+        return trivia;
+    }
+
+    public void setTrivia(HashMap<String, String> trivia) {
+        this.trivia = trivia;
+    }
+
+    public HashMap<String, String> getToxicity() {
+        return toxicity;
+    }
+
+    public void setToxicity(HashMap<String, String> toxicity) {
+        this.toxicity = toxicity;
+    }
+
+    public HashMap<String, String> getHerbalism() {
+        return herbalism;
+    }
+
+    public void setHerbalism(HashMap<String, String> herbalism) {
+        this.herbalism = herbalism;
+    }
+
+    public HashMap<String, String> getWikilinks() {
+        return wikilinks;
+    }
+
+    public void setWikilinks(HashMap<String, String> wikilinks) {
+        this.wikilinks = wikilinks;
+    }
+
+    public HashMap<String, ArrayList<String>> getSourceUrls() {
+        return sourceUrls;
+    }
+
+    public void setSourceUrls(HashMap<String, ArrayList<String>> sourceUrls) {
+        this.sourceUrls = sourceUrls;
     }
 }

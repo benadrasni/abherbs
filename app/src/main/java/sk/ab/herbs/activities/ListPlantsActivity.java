@@ -12,26 +12,49 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.Response;
 import sk.ab.common.entity.Plant;
+import sk.ab.herbs.AndroidConstants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 import sk.ab.herbs.commons.BaseActivity;
+import sk.ab.herbs.entity.PlantHeaderParcel;
+import sk.ab.herbs.entity.PlantParcel;
 import sk.ab.herbs.fragments.PlantListFragment;
 
 /**
- * User: adrian
- * Date: 10.1.2015
- * <p/>
  * Activity for displaying list of plants according to filter
+ *
  */
 public class ListPlantsActivity extends BaseActivity {
+
+
+    private ArrayList<PlantHeaderParcel> plantList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            plantList = savedInstanceState.getParcelableArrayList(AndroidConstants.STATE_PLANT_LIST);
+            filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
+        } else {
+            plantList = getIntent().getExtras().getParcelableArrayList(AndroidConstants.STATE_PLANT_LIST);
+            filter = (HashMap<String, String>)getIntent().getExtras().getSerializable(AndroidConstants.STATE_FILTER);
+        }
+        if (plantList != null) {
+            count = plantList.size();
+        } else {
+            count = 0;
+        }
+
         final HerbsApp app = (HerbsApp) getApplication();
 
         app.getTracker().send(builder.build());
@@ -43,8 +66,8 @@ public class ListPlantsActivity extends BaseActivity {
             @Override
             public boolean onLongClick(View v) {
                 startLoading();
-                app.getFilter().clear();
                 Intent intent = new Intent(ListPlantsActivity.this, FilterPlantsActivity.class);
+                intent.putExtra(AndroidConstants.STATE_FILTER_CLEAR, "true");
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 return true;
@@ -87,8 +110,8 @@ public class ListPlantsActivity extends BaseActivity {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         stopLoading();
         setCountButton();
     }
@@ -99,15 +122,28 @@ public class ListPlantsActivity extends BaseActivity {
         recreate();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putParcelableArrayList(AndroidConstants.STATE_PLANT_LIST, plantList);
+        savedInstanceState.putSerializable(AndroidConstants.STATE_FILTER, filter);
+
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    public List<PlantHeaderParcel> getPlantList() {
+        return plantList;
+    }
+
     public void selectPlant(int position) {
         final HerbsApp app = (HerbsApp) getApplication();
         startLoading();
 
-        app.getHerbCloudClient().getApiService().getDetail(app.getPlantList().get(position).getId()).enqueue(new Callback<Plant>() {
+        app.getHerbCloudClient().getApiService().getDetail(getPlantList().get(position).getId()).enqueue(new Callback<Plant>() {
             @Override
             public void onResponse(Response<Plant> response) {
-                app.setPlant(response.body());
                 Intent intent = new Intent(getBaseContext(), DisplayPlantActivity.class);
+                intent.putExtra(AndroidConstants.STATE_PLANT, new PlantParcel(response.body()));
+                intent.putExtra(AndroidConstants.STATE_FILTER, filter);
                 startActivity(intent);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 stopLoading();
@@ -116,6 +152,8 @@ public class ListPlantsActivity extends BaseActivity {
             @Override
             public void onFailure(Throwable t) {
                 Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
+                Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
+                stopLoading();
             }
         });
 

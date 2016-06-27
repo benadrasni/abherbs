@@ -27,12 +27,12 @@ import java.util.Locale;
 
 import retrofit.Callback;
 import retrofit.Response;
-import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.entity.Rate;
-import sk.ab.herbs.Constants;
+import sk.ab.herbs.AndroidConstants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.ListPlantsActivity;
+import sk.ab.herbs.entity.PlantHeaderParcel;
 import sk.ab.herbs.tools.Utils;
 
 public class PlantListFragment extends Fragment {
@@ -41,7 +41,7 @@ public class PlantListFragment extends Fragment {
     private int list_position;
 
     public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.ViewHolder> {
-        private List<PlantHeader> plantHeaders;
+        private List<PlantHeaderParcel> plantHeaders;
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             TextView title;
@@ -65,7 +65,7 @@ public class PlantListFragment extends Fragment {
             }
         }
 
-        public PropertyAdapter(List<PlantHeader> plantHeaders) {
+        public PropertyAdapter(List<PlantHeaderParcel> plantHeaders) {
             this.plantHeaders = plantHeaders;
         }
 
@@ -90,7 +90,7 @@ public class PlantListFragment extends Fragment {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             if (holder.getItemViewType() > 0) {
-                final PlantHeader plantHeader = plantHeaders.get(position);
+                final PlantHeaderParcel plantHeader = plantHeaders.get(position);
 
                 DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
                 holder.photo.setImageResource(android.R.color.transparent);
@@ -112,15 +112,14 @@ public class PlantListFragment extends Fragment {
 
                 holder.title.setText(plantHeader.getLabel());
                 holder.family.setText(plantHeader.getFamily());
-                ImageLoader.getInstance().displayImage(Constants.STORAGE_ENDPOINT + plantHeader.getFamilyLatin() + Constants.DEFAULT_EXTENSION,
+                ImageLoader.getInstance().displayImage(AndroidConstants.STORAGE_ENDPOINT + plantHeader.getFamilyLatin() + AndroidConstants.DEFAULT_EXTENSION,
                         holder.familyIcon, ((HerbsApp) getActivity().getApplication()).getOptions());
 
                 holder.photo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         list_position = holder.getAdapterPosition();
-                        ListPlantsActivity activity = (ListPlantsActivity) getActivity();
-                        activity.selectPlant(list_position);
+                        ((ListPlantsActivity)getActivity()).selectPlant(list_position);
                     }
                 });
             } else {
@@ -129,10 +128,10 @@ public class PlantListFragment extends Fragment {
                     public void onClick(View v) {
                         SharedPreferences preferences = getActivity().getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putInt(Constants.RATE_STATE_KEY, Constants.RATE_DONE);
+                        editor.putInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_DONE);
                         editor.apply();
 
-                        saveRate(Constants.RATE_STATUS_DONE);
+                        saveRate(AndroidConstants.RATE_STATUS_DONE);
 
                         Uri uri = Uri.parse("market://details?id=" + getActivity().getBaseContext().getPackageName());
                         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
@@ -157,11 +156,11 @@ public class PlantListFragment extends Fragment {
                     public void onClick(View v) {
                         SharedPreferences preferences = getActivity().getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putInt(Constants.RATE_STATE_KEY, Constants.RATE_NO);
-                        editor.putInt(Constants.RATE_COUNT_KEY, Constants.RATE_COUNTER);
+                        editor.putInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_NO);
+                        editor.putInt(AndroidConstants.RATE_COUNT_KEY, AndroidConstants.RATE_COUNTER);
                         editor.apply();
 
-                        saveRate(Constants.RATE_STATUS_LATER);
+                        saveRate(AndroidConstants.RATE_STATUS_LATER);
 
                         plantHeaders.remove(holder.getAdapterPosition());
                         notifyDataSetChanged();
@@ -173,10 +172,10 @@ public class PlantListFragment extends Fragment {
                     public void onClick(View v) {
                         SharedPreferences preferences = getActivity().getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putInt(Constants.RATE_STATE_KEY, Constants.RATE_NEVER);
+                        editor.putInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_NEVER);
                         editor.apply();
 
-                        saveRate(Constants.RATE_STATUS_NEVER);
+                        saveRate(AndroidConstants.RATE_STATUS_NEVER);
 
                         plantHeaders.remove(holder.getAdapterPosition());
                         notifyDataSetChanged();
@@ -210,7 +209,7 @@ public class PlantListFragment extends Fragment {
             layoutManager.scrollToPosition(list_position);
             list.setLayoutManager(layoutManager);
 
-            PropertyAdapter adapter = new PropertyAdapter(((HerbsApp) getActivity().getApplication()).getPlantList());
+            PropertyAdapter adapter = new PropertyAdapter(((ListPlantsActivity)getActivity()).getPlantList());
             list.setAdapter(adapter);
         }
     }

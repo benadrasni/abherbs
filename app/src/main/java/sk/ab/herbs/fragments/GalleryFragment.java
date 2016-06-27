@@ -16,6 +16,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import sk.ab.common.entity.Plant;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
+import sk.ab.herbs.activities.DisplayPlantActivity;
+import sk.ab.herbs.entity.PlantParcel;
 import sk.ab.herbs.tools.Utils;
 
 
@@ -108,7 +110,7 @@ public class GalleryFragment extends Fragment {
     }
 
     private void setGallery(View convertView) {
-        final Plant plant = ((HerbsApp) getActivity().getApplication()).getPlant();
+        final Plant plant = ((DisplayPlantActivity) getActivity()).getPlant();
         RecyclerView thumbnails = (RecyclerView) convertView.findViewById(R.id.plant_thumbnails);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());

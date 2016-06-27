@@ -36,7 +36,7 @@ public class Synchronizer {
 
                 final String[] name = scan.nextLine().split(",");
 
-//                if (!name[0].equals("Spergula arvensis")) continue;
+                if (!name[0].equals("Lycopsis arvensis")) continue;
 
 //                if (i < 332) continue;
 //                if (i > 332) continue;
@@ -58,7 +58,7 @@ public class Synchronizer {
                     Map<String,List<String>> attributes = entry.getValue();
 
                     int rank = 0;
-                    List<String> colors = new ArrayList<>();
+                    ArrayList<String> colors = new ArrayList<>();
                     while (attributes.containsKey("" + Constants.PLANT_FILTER_COLOR + "_" + rank)) {
                         List<String> values = attributes.get(""+Constants.PLANT_FILTER_COLOR+"_"+rank);
                         colors.add(values.get(0));
@@ -67,7 +67,7 @@ public class Synchronizer {
                     plant.setFilterColor(colors);
 
                     rank = 0;
-                    List<String> habitats = new ArrayList<>();
+                    ArrayList<String> habitats = new ArrayList<>();
                     while (attributes.containsKey("" + Constants.PLANT_FILTER_HABITAT + "_" + rank)) {
                         List<String> values = attributes.get(""+Constants.PLANT_FILTER_HABITAT+"_"+rank);
                         habitats.add(values.get(0));
@@ -76,7 +76,7 @@ public class Synchronizer {
                     plant.setFilterHabitat(habitats);
 
                     rank = 0;
-                    List<String> petals = new ArrayList<>();
+                    ArrayList<String> petals = new ArrayList<>();
                     while (attributes.containsKey("" + Constants.PLANT_FILTER_PETALS + "_" + rank)) {
                         List<String> values = attributes.get(""+Constants.PLANT_FILTER_PETALS+"_"+rank);
                         petals.add(values.get(0));
@@ -85,7 +85,7 @@ public class Synchronizer {
                     plant.setFilterPetal(petals);
 
                     rank = 0;
-                    List<String> inflorences = new ArrayList<>();
+                    ArrayList<String> inflorences = new ArrayList<>();
                     while (attributes.containsKey("" + Constants.PLANT_FILTER_INFLORESCENCE + "_" + rank)) {
                         List<String> values = attributes.get(""+Constants.PLANT_FILTER_INFLORESCENCE+"_"+rank);
                         inflorences.add(values.get(0));
@@ -94,7 +94,7 @@ public class Synchronizer {
                     plant.setFilterInflorescence(inflorences);
 
                     rank = 0;
-                    List<String> sepals = new ArrayList<>();
+                    ArrayList<String> sepals = new ArrayList<>();
                     while (attributes.containsKey("" + Constants.PLANT_FILTER_SEPAL + "_" + rank)) {
                         List<String> values = attributes.get(""+Constants.PLANT_FILTER_SEPAL+"_"+rank);
                         sepals.add(values.get(0));
@@ -103,7 +103,7 @@ public class Synchronizer {
                     plant.setFilterSepal(sepals);
 
                     rank = 0;
-                    List<String> stems = new ArrayList<>();
+                    ArrayList<String> stems = new ArrayList<>();
                     while (attributes.containsKey("" + Constants.PLANT_FILTER_STEM + "_" + rank)) {
                         List<String> values = attributes.get(""+Constants.PLANT_FILTER_STEM+"_"+rank);
                         stems.add(values.get(0));
@@ -112,7 +112,7 @@ public class Synchronizer {
                     plant.setFilterStem(stems);
 
                     rank = 0;
-                    List<String> leafShapes = new ArrayList<>();
+                    ArrayList<String> leafShapes = new ArrayList<>();
                     while (attributes.containsKey("" + Constants.PLANT_FILTER_LEAF_SHAPE + "_" + rank)) {
                         List<String> values = attributes.get(""+Constants.PLANT_FILTER_LEAF_SHAPE+"_"+rank);
                         leafShapes.add(values.get(0));
@@ -121,7 +121,7 @@ public class Synchronizer {
                     plant.setFilterLeafShape(leafShapes);
 
                     rank = 0;
-                    List<String> leafMargin = new ArrayList<>();
+                    ArrayList<String> leafMargin = new ArrayList<>();
                     while (attributes.containsKey("" + Constants.PLANT_FILTER_LEAF_MARGIN + "_" + rank)) {
                         List<String> values = attributes.get(""+Constants.PLANT_FILTER_LEAF_MARGIN+"_"+rank);
                         leafMargin.add(values.get(0));
@@ -130,7 +130,7 @@ public class Synchronizer {
                     plant.setFilterLeafMargin(leafMargin);
 
                     rank = 0;
-                    List<String> leafVenetation = new ArrayList<>();
+                    ArrayList<String> leafVenetation = new ArrayList<>();
                     while (attributes.containsKey("" + Constants.PLANT_FILTER_LEAF_VENETATION + "_" + rank)) {
                         List<String> values = attributes.get(""+Constants.PLANT_FILTER_LEAF_VENETATION+"_"+rank);
                         leafVenetation.add(values.get(0));
@@ -139,7 +139,7 @@ public class Synchronizer {
                     plant.setFilterLeafVenetation(leafVenetation);
 
                     rank = 0;
-                    List<String> leafArrangement = new ArrayList<>();
+                    ArrayList<String> leafArrangement = new ArrayList<>();
                     while (attributes.containsKey("" + Constants.PLANT_FILTER_LEAF_ARRANGEMENT + "_" + rank)) {
                         List<String> values = attributes.get(""+Constants.PLANT_FILTER_LEAF_ARRANGEMENT+"_"+rank);
                         leafArrangement.add(values.get(0));
@@ -148,7 +148,7 @@ public class Synchronizer {
                     plant.setFilterLeafArrangement(leafArrangement);
 
                     rank = 0;
-                    List<String> roots = new ArrayList<>();
+                    ArrayList<String> roots = new ArrayList<>();
                     while (attributes.containsKey("" + Constants.PLANT_FILTER_ROOT + "_" + rank)) {
                         List<String> values = attributes.get(""+Constants.PLANT_FILTER_ROOT+"_"+rank);
                         roots.add(values.get(0));
@@ -178,7 +178,7 @@ public class Synchronizer {
                     setTextInLanguage(Constants.LANGUAGE_EN, plant, attributes);
 
                     rank = 0;
-                    List<String> photo_urls = new ArrayList<>();
+                    ArrayList<String> photo_urls = new ArrayList<>();
                     while (attributes.containsKey("" + Constants.PLANT_PHOTO_URL + "_" + rank)) {
                         photo_urls.add(attributes.get(""+Constants.PLANT_PHOTO_URL+"_"+rank).get(0));
                         rank++;
@@ -271,7 +271,7 @@ public class Synchronizer {
             }
         }
         int rank = 0;
-        List<String> source_urls = new ArrayList<>();
+        ArrayList<String> source_urls = new ArrayList<>();
         while (attributes.containsKey(""+Constants.PLANT_SOURCE_URL+"_"+rank)) {
             String url = attributes.get(""+Constants.PLANT_SOURCE_URL+"_"+rank).get(0);
             String lang = attributes.get(""+Constants.PLANT_SOURCE_URL+"_"+rank).get(2);

@@ -202,17 +202,17 @@ public class TaxonomyEndpoint {
                     plant.setIllustrationUrl((String)propertyEntry.getValue());
                     break;
                 case "photoUrl":
-                    plant.setPhotoUrls((List<String>)propertyEntry.getValue());
+                    plant.setPhotoUrls((ArrayList<String>)propertyEntry.getValue());
                     break;
                 case "synonym":
-                    plant.setSynonyms((List<String>)propertyEntry.getValue());
+                    plant.setSynonyms((ArrayList<String>)propertyEntry.getValue());
                     break;
             }
 
             if (propertyName.startsWith("label_")) {
                 plant.getLabel().put(propertyName.substring(propertyName.indexOf("_") + 1), (String) propertyEntry.getValue());
             } else if (propertyName.startsWith("alias_")) {
-                plant.getNames().put(propertyName.substring(propertyName.indexOf("_")+1), (List<String>)propertyEntry.getValue());
+                plant.getNames().put(propertyName.substring(propertyName.indexOf("_")+1), (ArrayList<String>)propertyEntry.getValue());
             } else if (propertyName.startsWith("description_")) {
                 plant.getDescription().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
             } else if (propertyName.startsWith("flower_")) {
@@ -236,7 +236,7 @@ public class TaxonomyEndpoint {
             } else if (propertyName.startsWith("wiki_")) {
                 plant.getWikilinks().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
             } else if (propertyName.startsWith("sourceUrl_")) {
-                plant.getSourceUrls().put(propertyName.substring(propertyName.indexOf("_")+1), (List<String>)propertyEntry.getValue());
+                plant.getSourceUrls().put(propertyName.substring(propertyName.indexOf("_")+1), (ArrayList<String>)propertyEntry.getValue());
             }
         }
 
@@ -347,7 +347,7 @@ public class TaxonomyEndpoint {
         for(Map.Entry<String, String> herbalism : plant.getHerbalism().entrySet()) {
             plantEntity.setProperty("herbalism_"+herbalism.getKey(), herbalism.getValue());
         }
-        for(Map.Entry<String, List<String>> sourceUrl : plant.getSourceUrls().entrySet()) {
+        for(Map.Entry<String, ArrayList<String>> sourceUrl : plant.getSourceUrls().entrySet()) {
             if (sourceUrl.getValue() != null && sourceUrl.getValue().size() > 0) {
                 plantEntity.setProperty("sourceUrl_" + sourceUrl.getKey(), sourceUrl.getValue());
             }

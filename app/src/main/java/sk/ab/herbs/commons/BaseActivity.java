@@ -21,9 +21,10 @@ import android.view.WindowManager;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.google.android.gms.analytics.HitBuilders;
 
+import java.util.HashMap;
 import java.util.Locale;
 
-import sk.ab.herbs.Constants;
+import sk.ab.herbs.AndroidConstants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 
@@ -40,6 +41,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected ActionBarDrawerToggle mDrawerToggle;
     protected AnimationDrawable loadingAnimation;
     protected HitBuilders.ScreenViewBuilder builder;
+    protected HashMap<String, String> filter;
+
+    protected int count;
 
     public FloatingActionButton countButton;
 
@@ -52,8 +56,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
 
-        String language = preferences.getString(Constants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
-        Boolean changeLocale = preferences.getBoolean(Constants.CHANGE_LOCALE_KEY, false);
+        String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
+        Boolean changeLocale = preferences.getBoolean(AndroidConstants.CHANGE_LOCALE_KEY, false);
 
         if (changeLocale && !Locale.getDefault().getLanguage().equals(language)) {
             Locale locale = new Locale(language);
@@ -121,6 +125,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
+    public HashMap<String, String> getFilter() {
+        return filter;
+    }
+
+    public int getCounter() {
+        return count;
+    }
+
     protected void setCountButton() {
         HerbsApp app = (HerbsApp)getApplication();
 
@@ -130,7 +142,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             if (countButton != null) {
                 TextDrawable countDrawable;
                 int fontSize = countButton.getHeight() / 3;
-                if (app.getCount() <= Constants.LIST_THRESHOLD && app.getCount() > 0) {
+                if (count <= AndroidConstants.LIST_THRESHOLD && count > 0) {
                     countButton.setBackgroundTintList(ColorStateList.valueOf(
                             ContextCompat.getColor(getApplicationContext(), R.color.FABGreen)));
 
@@ -141,8 +153,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                             .fontSize(fontSize) /* size in px */
                             .bold()
                             .endConfig()
-                            .buildRound("" + app.getCount(),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.FABGreen));
+                            .buildRound("" + count, ContextCompat.getColor(getApplicationContext(), R.color.FABGreen));
                 } else {
                     countButton.setBackgroundTintList(ColorStateList.valueOf(
                             ContextCompat.getColor(getApplicationContext(), R.color.MenuWhite)));
@@ -153,8 +164,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                             .fontSize(fontSize) /* size in px */
                             .bold()
                             .endConfig()
-                            .buildRound("" + app.getCount(),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.MenuWhite));
+                            .buildRound("" + count, ContextCompat.getColor(getApplicationContext(), R.color.MenuWhite));
                 }
                 countButton.setImageDrawable(countDrawable);
             }
