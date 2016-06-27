@@ -638,8 +638,8 @@ public class TaxonomyEndpoint {
                         break;
                     }
 
-                    if (line.contains("''")) {
-                        String synonym = line.substring(line.indexOf("''")+2, line.indexOf("''", line.indexOf("''")+2));
+                    if (line.contains("''") && line.substring(line.indexOf("''")+2).contains("''")) {
+                        String synonym = line.substring(line.indexOf("''")+2, line.indexOf("''", line.indexOf("''   ")+2));
 
                         if (synonym.startsWith("[[")) {
                             synonym = synonym.substring(2);

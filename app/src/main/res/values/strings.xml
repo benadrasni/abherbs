@@ -32,8 +32,8 @@
         <item>Slovenčina</item>
         <item>Čeština</item>
         <item>Deutsch</item>
-        <item>Français</item>
         <item>Español</item>
+        <item>Français</item>
         <item>Português</item>
     </string-array>
     <string-array translatable="false" name="languagesValues">
@@ -42,8 +42,8 @@
         <item>sk</item>
         <item>cs</item>
         <item>de</item>
-        <item>fr</item>
         <item>es</item>
+        <item>fr</item>
         <item>pt</item>
     </string-array>
     <string name="change_locale">Change locale</string>
