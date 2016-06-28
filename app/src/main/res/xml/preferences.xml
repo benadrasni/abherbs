@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="changeLocale"
+        android:summary="@string/change_locale_summary"
+        android:title="@string/change_locale" />
+
     <ListPreference
             android:key="prefLanguage"
             android:entries="@array/languages"
-            android:summary="@string/pref_language_summary"
+            android:summary=""
             android:entryValues="@array/languagesValues"
             android:title="@string/pref_language" />
 

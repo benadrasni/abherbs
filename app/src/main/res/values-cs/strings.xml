@@ -7,18 +7,6 @@
     <string name="settings">Nastavení</string>
     <string name="feedback">Připomínky</string>
     <string name="pref_language">Preferovaný jazyk</string>
-    <string name="pref_language_summary"/>
-    <string-array name="languages">
-        <item>Původní</item>
-        <item>English</item>
-        <item>Slovenčina</item>
-        <item>Čeština</item>
-        <item>Deutsch</item>
-        <item>Español</item>
-        <item>Français</item>
-        <item>Português</item>
-    </string-array>
-
     <string name="change_locale">Změnit lokalizaci</string>
     <string name="change_locale_summary">podle preferovaného jazyka</string>
     <string name="propose_translation">Nezobrazovat tlačítko</string>

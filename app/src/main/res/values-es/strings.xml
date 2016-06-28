@@ -7,18 +7,6 @@
     <string name="settings">Ajustes</string>
     <string name="feedback">Sugerencias</string>
     <string name="pref_language">Idioma preferido</string>
-    <string name="pref_language_summary"/>
-    <string-array name="languages">
-        <item>Original</item>
-        <item>English</item>
-        <item>Slovenčina</item>
-        <item>Čeština</item>
-        <item>Deutsch</item>
-        <item>Español</item>
-        <item>Français</item>
-        <item>Português</item>
-    </string-array>
-
     <string name="change_locale">Cambiar locación</string>
     <string name="change_locale_summary">según idioma preferido</string>
     <string name="propose_translation">No mostrar el botón</string>

@@ -2,50 +2,12 @@
 <resources>
     <string name="app_name">What\'s that flower?</string>
 
-    <string translatable="false" name="cof_white">white</string>
-    <string translatable="false" name="cof_yellow">yellow</string>
-    <string translatable="false" name="cof_red">red</string>
-    <string translatable="false" name="cof_blue">blue</string>
-    <string translatable="false" name="cof_green">green</string>
-
-    <string translatable="false" name="ph_meadows">meadows or grassland</string>
-    <string translatable="false" name="ph_gardens">gardens or fields</string>
-    <string translatable="false" name="ph_moorlands">moorlands or wetlands</string>
-    <string translatable="false" name="ph_woodlands">woodlands or forests</string>
-    <string translatable="false" name="ph_rocks">rocks or mountains</string>
-    <string translatable="false" name="ph_trees">trees or bushes</string>
-
-    <string translatable="false" name="nop_4">4 or less</string>
-    <string translatable="false" name="nop_5">5</string>
-    <string translatable="false" name="nop_many">Many</string>
-    <string translatable="false" name="nop_bisymmetric">Bisymetric</string>
-
     <string name="about">About</string>
     <string name="help">Help</string>
     <string name="settings">Settings</string>
     <string name="feedback">Feedback</string>
     <string name="pref_language">Preferred language</string>
-    <string-array translatable="false" name="languages">
-        <item>English</item>
-        <item>Slovenčina</item>
-        <item>Čeština</item>
-        <item>Deutsch</item>
-        <item>Español</item>
-        <item>Français</item>
-        <item>Polski</item>
-        <item>Português</item>
-    </string-array>
-    <string-array translatable="false" name="languagesValues">
-        <item>original</item>
-        <item>en</item>
-        <item>sk</item>
-        <item>cs</item>
-        <item>de</item>
-        <item>es</item>
-        <item>fr</item>
-        <item>pl</item>
-        <item>pt</item>
-    </string-array>
+    <string name="pref_language_summary"/>
     <string name="change_locale">Change locale</string>
     <string name="change_locale_summary">to preferred language</string>
     <string name="propose_translation">Do not show button</string>

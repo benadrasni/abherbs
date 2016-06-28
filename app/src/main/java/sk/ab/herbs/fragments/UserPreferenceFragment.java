@@ -32,14 +32,40 @@ public class UserPreferenceFragment extends PreferenceFragment {
 
         final SharedPreferences preferences = getActivity().getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
 
+        Boolean changeLocale = preferences.getBoolean(AndroidConstants.CHANGE_LOCALE_KEY, false);
+        final CheckBoxPreference prefChangeLocale = (CheckBoxPreference)findPreference("changeLocale");
+        prefChangeLocale.setChecked(changeLocale);
+
         String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
         final ListPreference prefLanguage = (ListPreference)findPreference("prefLanguage");
-        prefLanguage.setValue(language);
-        prefLanguage.setSummary(prefLanguage.getEntry());
+        prefLanguage.setEnabled(changeLocale);
+        if (changeLocale) {
+            prefLanguage.setValue(language);
+            prefLanguage.setSummary(prefLanguage.getEntry());
+        }
 
         Boolean proposeTranslation = preferences.getBoolean(AndroidConstants.PROPOSE_TRANSLATION_KEY, false);
         final CheckBoxPreference prefProposeTranslation = (CheckBoxPreference)findPreference("proposeTranslation");
         prefProposeTranslation.setChecked(proposeTranslation);
+
+        prefChangeLocale.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                Boolean newChangeLocale = (Boolean) newValue;
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(AndroidConstants.CHANGE_LOCALE_KEY, newChangeLocale);
+                if (!newChangeLocale) {
+                    editor.remove(AndroidConstants.LANGUAGE_DEFAULT_KEY);
+                    changeLocale(HerbsApp.sDefSystemLanguage);
+                    prefLanguage.setValue("");
+                    prefLanguage.setSummary("");
+                }
+                editor.apply();
+                prefLanguage.setEnabled(newChangeLocale);
+                return true;
+            }
+        });
 
         prefLanguage.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 
@@ -73,8 +99,6 @@ public class UserPreferenceFragment extends PreferenceFragment {
                 return true;
             }
         });
-
-
     }
 
     private void changeLocale(String language) {
