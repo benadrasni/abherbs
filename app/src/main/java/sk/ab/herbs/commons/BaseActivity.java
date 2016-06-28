@@ -38,6 +38,7 @@ import sk.ab.herbs.R;
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected DrawerLayout mDrawerLayout;
+    protected PropertyListFragment mPropertyMenu;
     protected ActionBarDrawerToggle mDrawerToggle;
     protected AnimationDrawable loadingAnimation;
     protected HitBuilders.ScreenViewBuilder builder;
@@ -63,9 +64,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             Locale locale = new Locale(language);
             Locale.setDefault(locale);
             Configuration config = new Configuration();
-            config.locale = locale;
-            getBaseContext().getResources().updateConfiguration(config,
-                    getBaseContext().getResources().getDisplayMetrics());
+            config.setLocale(locale);
+            getResources().updateConfiguration(config, getResources().getDisplayMetrics());
         }
 
         if (getSupportActionBar() != null) {
@@ -81,6 +81,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
 
         mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPropertyMenu.getListView().invalidateViews();
     }
 
     @Override

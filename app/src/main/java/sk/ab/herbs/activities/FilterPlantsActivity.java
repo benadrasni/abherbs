@@ -44,9 +44,8 @@ public class FilterPlantsActivity extends BaseActivity {
 
     private Integer filterPosition;
 
-    private BaseFilterFragment mContent;
+    private BaseFilterFragment currentFragment;
 
-    protected PropertyListFragment mPropertyMenu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,14 +100,14 @@ public class FilterPlantsActivity extends BaseActivity {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 if (getSupportActionBar() != null) {
-                    getSupportActionBar().setTitle(getCurrentFragment().getTitle());
+                    getSupportActionBar().setTitle(currentFragment.getTitle());
                 }
             }
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 if (getSupportActionBar() != null) {
-                    getSupportActionBar().setTitle(getCurrentFragment().getTitle());
+                    getSupportActionBar().setTitle(currentFragment.getTitle());
                 }
             }
         };
@@ -128,14 +127,18 @@ public class FilterPlantsActivity extends BaseActivity {
         }
 
         switchContent(getFilterAttributes().get(filterPosition));
-        removeFromFilter(getCurrentFragment().getAttribute());
+        removeFromFilter(currentFragment.getAttribute());
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(currentFragment.getTitle());
+        }
     }
 
     @Override
     public void onConfigurationChanged (Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        getIntent().putExtra(AndroidConstants.STATE_FILTER_POSITION, "" + getFilterAttributes().indexOf(getCurrentFragment()));
+        getIntent().putExtra(AndroidConstants.STATE_FILTER_POSITION, "" + getFilterAttributes().indexOf(currentFragment));
 
         recreate();
     }
@@ -154,7 +157,7 @@ public class FilterPlantsActivity extends BaseActivity {
             closeDrawer();
         } else {
             if (count == 0) {
-                removeFromFilter(getCurrentFragment().getAttribute());
+                removeFromFilter(currentFragment.getAttribute());
             } else {
                 Stack<BaseFilterFragment> backStack = getApp().getBackStack();
                 if (backStack.size() > 0) {
@@ -173,23 +176,26 @@ public class FilterPlantsActivity extends BaseActivity {
     }
 
     public void switchContent(final BaseFilterFragment fragment) {
-        if (getCurrentFragment() == null || !getCurrentFragment().equals(fragment)) {
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            if (getCurrentFragment() != null) {
-                getApp().getBackStack().remove(getCurrentFragment());
-                getApp().getBackStack().add(getCurrentFragment());
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        if (currentFragment == null || !currentFragment.equals(fragment)) {
+            if (currentFragment != null) {
+                getApp().getBackStack().remove(currentFragment);
+                getApp().getBackStack().add(currentFragment);
             }
             fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttribute());
-            fragmentTransaction.commit();
-
-            setCurrentFragment(fragment);
+        } else {
+            fragmentTransaction.detach(fragment);
+            fragmentTransaction.attach(fragment);
         }
+        fragmentTransaction.commit();
+
+        setCurrentFragment(fragment);
     }
 
     public void addToFilter(String value) {
         startLoading();
-        filter.put(getCurrentFragment().getAttribute(), value);
+        filter.put(currentFragment.getAttribute(), value);
         getCount();
 
         mPropertyMenu.getListView().invalidateViews();
@@ -220,7 +226,7 @@ public class FilterPlantsActivity extends BaseActivity {
             getList();
         } else {
             if (count != 0) {
-                if (filter.get(getCurrentFragment().getAttribute()) != null
+                if (filter.get(currentFragment.getAttribute()) != null
                         && getFilterAttributes().size() > filter.size()) {
                     for (BaseFilterFragment fragment : getFilterAttributes()) {
                         if (filter.get(fragment.getAttribute()) == null) {
@@ -236,15 +242,13 @@ public class FilterPlantsActivity extends BaseActivity {
     }
 
     public BaseFilterFragment getCurrentFragment() {
-        return mContent;
+        return currentFragment;
     }
 
     public void setCurrentFragment(BaseFilterFragment fragment) {
-        mContent = fragment;
+        currentFragment = fragment;
         filterPosition = getCurrentPosition();
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(mContent.getTitle());
-        }
+
     }
 
     private HerbsApp getApp() { return (HerbsApp)getApplication(); }
@@ -255,8 +259,8 @@ public class FilterPlantsActivity extends BaseActivity {
 
     private int getCurrentPosition() {
         int position = 0;
-        if (mContent != null)
-            position = getFilterAttributes().indexOf(mContent);
+        if (currentFragment != null)
+            position = getFilterAttributes().indexOf(currentFragment);
         return position;
     }
 
@@ -310,6 +314,7 @@ public class FilterPlantsActivity extends BaseActivity {
 
                 Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
                 intent.putParcelableArrayListExtra(AndroidConstants.STATE_PLANT_LIST, plantHeaderParcelList);
+                intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
                 intent.putExtra(AndroidConstants.STATE_FILTER, filter);
                 startActivity(intent);
                 stopLoading();

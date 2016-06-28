@@ -100,21 +100,23 @@ public class TaxonomyEndpoint {
             query.setFilter(filter);
         }
 
-        Map<String, String> families = new HashMap<>();
+        Map<String, HashMap<String,String>> families = new HashMap<>();
         List<PlantHeader> plantHeaders = new ArrayList<>();
         List<Entity> plants = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
         for (Entity plant : plants) {
             PlantHeader plantHeader = new PlantHeader();
             plantHeader.setId((String)plant.getProperty("label_" + Constants.LANGUAGE_LA));
 
-            String label = (String)plant.getProperty("label_" + listRequest.getLanguage());
-            if (label == null) {
-                label = (String)plant.getProperty("label_" + Constants.LANGUAGE_LA);
-            }
-            plantHeader.setLabel(label);
-
             List<String> photoUrls = (List<String>) plant.getProperty("photoUrl");
             plantHeader.setUrl(photoUrls.get(0));
+
+            for(Map.Entry<String, Object> propertyEntry : plant.getProperties().entrySet()) {
+                String propertyName = propertyEntry.getKey();
+
+                if (propertyName.startsWith("label_")) {
+                    plantHeader.getLabel().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+                }
+            }
 
             try {
                 Key taxonomyKey = (Key)plant.getProperty("taxonomyKey");
@@ -131,26 +133,23 @@ public class TaxonomyEndpoint {
                     throw new InvalidNameException("Invalid key: " + taxonomyKey.toString());
                 }
 
-                String family = families.get(familiaKey.toString());
-                String familyLatin = families.get(familiaKey.toString() + Constants.LANGUAGE_LA);
+                HashMap<String, String> family = families.get(familiaKey.toString());
                 if (family == null) {
+                    family = new HashMap<>();
                     Entity familia = datastore.get(familiaKey);
-                    familyLatin = (String) familia.getProperty(Constants.LANGUAGE_LA);
 
-                    family = familyLatin;
-                    Object property = familia.getProperty(listRequest.getLanguage());
-                    if (property != null) {
-                        if (property instanceof String) {
-                            family = (String) property;
-                        } else if (property instanceof List && ((List) property).size() > 0) {
-                            family = ((List<String>) property).get(0);
+                    for(Map.Entry<String, Object> propertyEntry : familia.getProperties().entrySet()) {
+                        String propertyName = propertyEntry.getKey();
+                        Object propertyValue = propertyEntry.getValue();
+
+                        if (propertyValue instanceof String) {
+                            family.put(propertyName, (String) propertyValue);
+                        } else if (propertyValue instanceof List && ((List) propertyValue).size() > 0) {
+                            family.put(propertyName, ((List<String>) propertyValue).get(0));
                         }
                     }
-                    families.put(familiaKey.toString(), family);
-                    families.put(familiaKey.toString() + Constants.LANGUAGE_LA, familyLatin);
                 }
                 plantHeader.setFamily(family);
-                plantHeader.setFamilyLatin(familyLatin);
             } catch (EntityNotFoundException e) {
                 e.printStackTrace();
             }

@@ -3,6 +3,7 @@ package sk.ab.herbs.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -14,6 +15,7 @@ import java.util.Locale;
 import sk.ab.herbs.AndroidConstants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
+import sk.ab.herbs.activities.UserPreferenceActivity;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,6 +26,10 @@ import sk.ab.herbs.R;
  */
 public class UserPreferenceFragment extends PreferenceFragment {
 
+    private CheckBoxPreference prefChangeLocale;
+    private ListPreference prefLanguage;
+    private CheckBoxPreference prefProposeTranslation;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -33,11 +39,11 @@ public class UserPreferenceFragment extends PreferenceFragment {
         final SharedPreferences preferences = getActivity().getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
 
         Boolean changeLocale = preferences.getBoolean(AndroidConstants.CHANGE_LOCALE_KEY, false);
-        final CheckBoxPreference prefChangeLocale = (CheckBoxPreference)findPreference("changeLocale");
+        prefChangeLocale = (CheckBoxPreference)findPreference("changeLocale");
         prefChangeLocale.setChecked(changeLocale);
 
         String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
-        final ListPreference prefLanguage = (ListPreference)findPreference("prefLanguage");
+        prefLanguage = (ListPreference)findPreference("prefLanguage");
         prefLanguage.setEnabled(changeLocale);
         if (changeLocale) {
             prefLanguage.setValue(language);
@@ -45,7 +51,7 @@ public class UserPreferenceFragment extends PreferenceFragment {
         }
 
         Boolean proposeTranslation = preferences.getBoolean(AndroidConstants.PROPOSE_TRANSLATION_KEY, false);
-        final CheckBoxPreference prefProposeTranslation = (CheckBoxPreference)findPreference("proposeTranslation");
+        prefProposeTranslation = (CheckBoxPreference)findPreference("proposeTranslation");
         prefProposeTranslation.setChecked(proposeTranslation);
 
         prefChangeLocale.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -105,10 +111,23 @@ public class UserPreferenceFragment extends PreferenceFragment {
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
-        config.locale = locale;
-        getActivity().getBaseContext().getResources().updateConfiguration(config,
-                getActivity().getBaseContext().getResources().getDisplayMetrics());
-        getActivity().recreate();
+        config.setLocale(locale);
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+
+        updateViews();
+        ((UserPreferenceActivity)getActivity()).updateViews();
+    }
+
+    private void updateViews() {
+        Resources resources = getResources();
+
+        prefChangeLocale.setTitle(resources.getString(R.string.change_locale));
+        prefChangeLocale.setSummary(resources.getString(R.string.change_locale_summary));
+
+        prefLanguage.setTitle(resources.getString(R.string.pref_language));
+
+        prefProposeTranslation.setTitle(resources.getString(R.string.propose_translation));
+        prefProposeTranslation.setSummary(resources.getString(R.string.propose_translation_summary));
     }
 
 }

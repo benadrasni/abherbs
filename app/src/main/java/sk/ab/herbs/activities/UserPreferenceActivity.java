@@ -16,34 +16,15 @@ import sk.ab.herbs.R;
 import sk.ab.herbs.fragments.UserPreferenceFragment;
 
 /**
- * Created with IntelliJ IDEA.
- * User: adrian
- * Date: 11/26/14
- * Time: 7:05 PM
- * <p/>
+ * User preferences
  */
 public class UserPreferenceActivity extends PreferenceActivity {
 
     private Toolbar mActionBar;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Tracker tracker = ((HerbsApp)getApplication()).getTracker();
-        tracker.setScreenName(this.getClass().getSimpleName());
-        tracker.send(new HitBuilders.ScreenViewBuilder().build());
-
-        getFragmentManager().beginTransaction().replace(R.id.content_wrapper,
-                new UserPreferenceFragment()).commit();
-
-        mActionBar.setTitle(R.string.settings);
-    }
-
-    @Override
     public void setContentView(int layoutResID) {
-        ViewGroup contentView = (ViewGroup) LayoutInflater.from(this).inflate(
-                R.layout.settings, new LinearLayout(this), false);
+        ViewGroup contentView = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.settings, new LinearLayout(this), false);
 
         mActionBar = (Toolbar) contentView.findViewById(R.id.action_bar);
         mActionBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -59,4 +40,22 @@ public class UserPreferenceActivity extends PreferenceActivity {
         getWindow().setContentView(contentView);
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Tracker tracker = ((HerbsApp)getApplication()).getTracker();
+        tracker.setScreenName(this.getClass().getSimpleName());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        getFragmentManager().beginTransaction().replace(R.id.content_wrapper, new UserPreferenceFragment()).commit();
+
+        mActionBar.setTitle(R.string.settings);
+    }
+
+
+    public void updateViews() {
+
+        mActionBar.setTitle(R.string.settings);
+    }
 }

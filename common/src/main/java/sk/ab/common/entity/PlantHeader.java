@@ -1,53 +1,46 @@
 package sk.ab.common.entity;
 
+import java.util.HashMap;
+
 /**
  *
  */
 public class PlantHeader {
 
-  protected String id;
-  protected String label;
-  protected String url;
-  protected String familyLatin;
-  protected String family;
+    protected String id;
+    protected String url;
+    protected HashMap<String, String> label = new HashMap<>();
+    protected HashMap<String, String> family = new HashMap<>();
 
-  public String getId() {
-    return id;
-  }
+    public String getId() {
+        return id;
+    }
 
-  public void setId(String id) {
-    this.id = id;
-  }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-  public String getLabel() {
-    return label;
-  }
+    public String getUrl() {
+        return url;
+    }
 
-  public void setLabel(String label) {
-    this.label = label;
-  }
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-  public String getUrl() {
-    return url;
-  }
+    public HashMap<String, String> getLabel() {
+        return label;
+    }
 
-  public void setUrl(String url) {
-    this.url = url;
-  }
+    public void setLabel(HashMap<String, String> label) {
+        this.label = label;
+    }
 
-  public String getFamilyLatin() {
-    return familyLatin;
-  }
+    public HashMap<String, String> getFamily() {
+        return family;
+    }
 
-  public void setFamilyLatin(String familyLatin) {
-    this.familyLatin = familyLatin;
-  }
-
-  public String getFamily() {
-    return family;
-  }
-
-  public void setFamily(String family) {
-    this.family = family;
-  }
+    public void setFamily(HashMap<String, String> family) {
+        this.family = family;
+    }
 }

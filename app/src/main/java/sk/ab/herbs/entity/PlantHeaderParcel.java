@@ -3,6 +3,8 @@ package sk.ab.herbs.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.HashMap;
+
 import sk.ab.common.entity.PlantHeader;
 
 /**
@@ -27,16 +29,14 @@ public class PlantHeaderParcel extends PlantHeader implements Parcelable {
         id = plantHeader.getId();
         label = plantHeader.getLabel();
         url = plantHeader.getUrl();
-        familyLatin = plantHeader.getFamilyLatin();
         family = plantHeader.getFamily();
     }
 
     public PlantHeaderParcel(Parcel in) {
         id = in.readString();
-        label = in.readString();
         url = in.readString();
-        familyLatin = in.readString();
-        family = in.readString();
+        label = (HashMap<String, String>) in.readSerializable();
+        family = (HashMap<String, String>) in.readSerializable();
     }
 
     @Override
@@ -47,9 +47,8 @@ public class PlantHeaderParcel extends PlantHeader implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(id);
-        parcel.writeString(label);
         parcel.writeString(url);
-        parcel.writeString(familyLatin);
-        parcel.writeString(family);
+        parcel.writeSerializable(label);
+        parcel.writeSerializable(family);
     }
 }

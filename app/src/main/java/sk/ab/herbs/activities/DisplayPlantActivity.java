@@ -15,6 +15,7 @@ import java.util.HashMap;
 import sk.ab.herbs.AndroidConstants;
 import sk.ab.herbs.R;
 import sk.ab.herbs.commons.BaseActivity;
+import sk.ab.herbs.commons.PropertyListFragment;
 import sk.ab.herbs.entity.PlantParcel;
 import sk.ab.herbs.fragments.GalleryFragment;
 import sk.ab.herbs.fragments.InfoFragment;
@@ -52,6 +53,9 @@ public class DisplayPlantActivity extends BaseActivity {
             countButton.setVisibility(View.GONE);
         }
 
+        FragmentManager fm = getSupportFragmentManager();
+        mPropertyMenu = (PropertyListFragment)fm.findFragmentById(R.id.menu_fragment);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.plant_drawer_layout);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
@@ -60,9 +64,7 @@ public class DisplayPlantActivity extends BaseActivity {
 
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
-        FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
         TaxonomyFragment taxonomyFragment = (TaxonomyFragment) fm.findFragmentByTag("Taxonomy");
         if (taxonomyFragment == null) {
             ft.replace(R.id.taxonomy_fragment, new TaxonomyFragment(), "Taxonomy");
@@ -71,15 +73,15 @@ public class DisplayPlantActivity extends BaseActivity {
             ft.replace(R.id.sources_fragment, new SourcesFragment(), "Sources");
         }
         ft.commit();
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(R.string.display_info);
-        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.display_info);
+        }
 
         ScrollView scrollview = ((ScrollView) findViewById(R.id.scrollview));
         if (scrollview != null) {

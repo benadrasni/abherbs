@@ -21,6 +21,7 @@ import java.util.Locale;
 
 import retrofit.Callback;
 import retrofit.Response;
+import sk.ab.common.Constants;
 import sk.ab.common.entity.Plant;
 import sk.ab.common.entity.PlantTaxon;
 import sk.ab.common.entity.Taxonomy;
@@ -226,18 +227,25 @@ public class TaxonomyFragment extends Fragment {
 
         List<String> names = plant.getNames().get(language);
         if (names != null) {
+            int i = 0;
             StringBuilder namesText = new StringBuilder();
             for (String name : names) {
                 if (namesText.length() > 0) {
                     namesText.append(", ");
                 }
                 namesText.append(name);
+                i++;
+                if (i > Constants.NAMES_TO_DISPLAY) {
+                    break;
+                }
             }
             if (namesText.length() > 0) {
                 namesView.setText(namesText.toString());
             } else {
                 namesView.setVisibility(View.GONE);
             }
+        } else {
+            namesView.setVisibility(View.GONE);
         }
     }
 }

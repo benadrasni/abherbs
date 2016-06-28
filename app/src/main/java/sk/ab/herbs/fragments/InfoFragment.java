@@ -51,6 +51,8 @@ import uk.co.deanwild.flowtextview.FlowTextView;
  */
 public class InfoFragment extends Fragment {
 
+    private ImageView translateView;
+
     private Plant plant;
     private boolean isTranslated;
 
@@ -68,19 +70,14 @@ public class InfoFragment extends Fragment {
         plant = ((DisplayPlantActivity)getActivity()).getPlant();
         isTranslated = false;
 
-        final String language = Locale.getDefault().getLanguage();
-        final ImageView translateView = (ImageView) getView().findViewById(R.id.plant_translate);
+        translateView = (ImageView) getView().findViewById(R.id.plant_translate);
         translateView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                getTranslation(language);
+                getTranslation(Locale.getDefault().getLanguage());
             }
         });
-
-        if (plant.isTranslated(language)) {
-            translateView.setVisibility(View.GONE);
-        }
 
         final ImageView proposeView = (ImageView) getView().findViewById(R.id.plant_mail);
         proposeView.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +131,10 @@ public class InfoFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (getView() != null) {
+            if (plant.isTranslated(Locale.getDefault().getLanguage())) {
+                translateView.setVisibility(View.GONE);
+            }
+
             setInfo(false);
         }
     }

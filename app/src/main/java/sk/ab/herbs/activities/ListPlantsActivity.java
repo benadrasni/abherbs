@@ -25,6 +25,7 @@ import sk.ab.herbs.AndroidConstants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 import sk.ab.herbs.commons.BaseActivity;
+import sk.ab.herbs.commons.PropertyListFragment;
 import sk.ab.herbs.entity.PlantHeaderParcel;
 import sk.ab.herbs.entity.PlantParcel;
 import sk.ab.herbs.fragments.PlantListFragment;
@@ -44,15 +45,12 @@ public class ListPlantsActivity extends BaseActivity {
 
         if (savedInstanceState != null) {
             plantList = savedInstanceState.getParcelableArrayList(AndroidConstants.STATE_PLANT_LIST);
+            count = savedInstanceState.getInt(AndroidConstants.STATE_PLANT_LIST_COUNT);
             filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
         } else {
             plantList = getIntent().getExtras().getParcelableArrayList(AndroidConstants.STATE_PLANT_LIST);
+            count = getIntent().getExtras().getInt(AndroidConstants.STATE_PLANT_LIST_COUNT);
             filter = (HashMap<String, String>)getIntent().getExtras().getSerializable(AndroidConstants.STATE_FILTER);
-        }
-        if (plantList != null) {
-            count = plantList.size();
-        } else {
-            count = 0;
         }
 
         final HerbsApp app = (HerbsApp) getApplication();
@@ -77,6 +75,7 @@ public class ListPlantsActivity extends BaseActivity {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
+        mPropertyMenu = (PropertyListFragment)fm.findFragmentById(R.id.menu_fragment);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (mDrawerLayout != null) {
             ViewTreeObserver vto = mDrawerLayout.getViewTreeObserver();
@@ -103,15 +102,16 @@ public class ListPlantsActivity extends BaseActivity {
             ft.replace(R.id.list_content, new PlantListFragment(), "PlantList");
         }
         ft.commit();
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(R.string.list_info);
-        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.list_info);
+        }
+
         stopLoading();
         setCountButton();
     }
@@ -125,6 +125,7 @@ public class ListPlantsActivity extends BaseActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putParcelableArrayList(AndroidConstants.STATE_PLANT_LIST, plantList);
+        savedInstanceState.putInt(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
         savedInstanceState.putSerializable(AndroidConstants.STATE_FILTER, filter);
 
         super.onSaveInstanceState(savedInstanceState);

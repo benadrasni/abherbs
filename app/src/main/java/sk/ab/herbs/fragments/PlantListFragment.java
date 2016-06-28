@@ -22,11 +22,13 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import retrofit.Callback;
 import retrofit.Response;
+import sk.ab.common.Constants;
 import sk.ab.common.entity.Rate;
 import sk.ab.herbs.AndroidConstants;
 import sk.ab.herbs.HerbsApp;
@@ -110,10 +112,10 @@ public class PlantListFragment extends Fragment {
                             ((HerbsApp) getActivity().getApplication()).getOptions());
                 }
 
-                holder.title.setText(plantHeader.getLabel());
-                holder.family.setText(plantHeader.getFamily());
-                ImageLoader.getInstance().displayImage(AndroidConstants.STORAGE_ENDPOINT + plantHeader.getFamilyLatin() + AndroidConstants.DEFAULT_EXTENSION,
-                        holder.familyIcon, ((HerbsApp) getActivity().getApplication()).getOptions());
+                holder.title.setText(getName(plantHeader.getLabel()));
+                holder.family.setText(getName(plantHeader.getFamily()));
+                ImageLoader.getInstance().displayImage(AndroidConstants.STORAGE_ENDPOINT + plantHeader.getFamily().get(Constants.LANGUAGE_LA)
+                        + AndroidConstants.DEFAULT_EXTENSION, holder.familyIcon, ((HerbsApp) getActivity().getApplication()).getOptions());
 
                 holder.photo.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -242,5 +244,16 @@ public class PlantListFragment extends Fragment {
                     }
                 });
 
+    }
+
+    private String getName(HashMap<String, String> names) {
+        String language = Locale.getDefault().getLanguage();
+
+        String name = names.get(language);
+        if (name == null) {
+            name = names.get(Constants.LANGUAGE_LA);
+        }
+
+        return name;
     }
 }

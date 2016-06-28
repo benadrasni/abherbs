@@ -97,4 +97,6 @@ public class Constants {
     public final static int PLANT_TRIVIA = 292;
     public final static int PLANT_TOXICITY = 407;
     public final static int PLANT_HERBALISM = 408;
+
+    public final static int NAMES_TO_DISPLAY = 5;
 }

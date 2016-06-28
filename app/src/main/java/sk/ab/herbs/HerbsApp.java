@@ -56,7 +56,8 @@ public class HerbsApp extends Application {
 
         Boolean wasReset = preferences.getBoolean(AndroidConstants.RESET_KEY + BuildConfig.VERSION_CODE, false);
         if (!wasReset) {
-            editor.putString(AndroidConstants.LANGUAGE_DEFAULT_KEY, sDefSystemLanguage);
+            editor.remove(AndroidConstants.LANGUAGE_DEFAULT_KEY);
+            editor.remove(AndroidConstants.CHANGE_LOCALE_KEY);
         }
 
         int rateCounter = preferences.getInt(AndroidConstants.RATE_COUNT_KEY, AndroidConstants.RATE_COUNTER);

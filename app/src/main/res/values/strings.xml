@@ -36,7 +36,6 @@
         <item>Português</item>
     </string-array>
     <string-array translatable="false" name="languagesValues">
-        <item>original</item>
         <item>en</item>
         <item>sk</item>
         <item>cs</item>
