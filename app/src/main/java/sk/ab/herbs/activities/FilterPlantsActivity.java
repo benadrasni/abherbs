@@ -18,7 +18,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 import java.util.Stack;
 
@@ -28,12 +27,12 @@ import sk.ab.common.entity.Count;
 import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.entity.PlantList;
 import sk.ab.common.entity.request.ListRequest;
-import sk.ab.herbs.commons.BaseActivity;
-import sk.ab.herbs.commons.BaseFilterFragment;
-import sk.ab.herbs.commons.PropertyListFragment;
 import sk.ab.herbs.AndroidConstants;
 import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
+import sk.ab.herbs.commons.BaseActivity;
+import sk.ab.herbs.commons.BaseFilterFragment;
+import sk.ab.herbs.commons.PropertyListFragment;
 import sk.ab.herbs.entity.PlantHeaderParcel;
 
 /**
@@ -45,7 +44,6 @@ public class FilterPlantsActivity extends BaseActivity {
     private Integer filterPosition;
 
     private BaseFilterFragment currentFragment;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,10 +126,6 @@ public class FilterPlantsActivity extends BaseActivity {
 
         switchContent(getFilterAttributes().get(filterPosition));
         removeFromFilter(currentFragment.getAttribute());
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(currentFragment.getTitle());
-        }
     }
 
     @Override
@@ -249,6 +243,10 @@ public class FilterPlantsActivity extends BaseActivity {
         currentFragment = fragment;
         filterPosition = getCurrentPosition();
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(currentFragment.getTitle());
+        }
+
     }
 
     private HerbsApp getApp() { return (HerbsApp)getApplication(); }
@@ -265,11 +263,9 @@ public class FilterPlantsActivity extends BaseActivity {
     }
 
     private void getCount() {
-        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-        String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
 
         ((HerbsApp)getApplication()).getHerbCloudClient().getApiService().getCount(
-                new ListRequest(language, sk.ab.common.Constants.PLANT, filter)).enqueue(new Callback<Count>() {
+                new ListRequest(sk.ab.common.Constants.PLANT, filter)).enqueue(new Callback<Count>() {
             @Override
             public void onResponse(Response<Count> response) {
                 if (response != null && response.body() != null) {
@@ -287,13 +283,9 @@ public class FilterPlantsActivity extends BaseActivity {
     }
 
     private void getList() {
-        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-        String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
 
-        final HerbsApp app = (HerbsApp)getApplication();
-
-        app.getHerbCloudClient().getApiService().getList(
-                new ListRequest(language, sk.ab.common.Constants.PLANT, filter)).enqueue(new Callback<PlantList>() {
+        ((HerbsApp)getApplication()).getHerbCloudClient().getApiService().getList(
+                new ListRequest(sk.ab.common.Constants.PLANT, filter)).enqueue(new Callback<PlantList>() {
             @Override
             public void onResponse(Response<PlantList> response) {
                 List<PlantHeader> plantHeaderList = response.body().getItems();

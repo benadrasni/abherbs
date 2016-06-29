@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Что это за цветок?</string>
+
+    <string name="about">About</string>
+    <string name="help">Help</string>
+    <string name="settings">Settings</string>
+    <string name="feedback">Feedback</string>
+    <string name="pref_language">Preferred language</string>
+    <string name="change_locale">Change locale</string>
+    <string name="change_locale_summary">to preferred language</string>
+    <string name="propose_translation">Do not show button</string>
+    <string name="propose_translation_summary">for emailing better translation / description</string>
+
+    <string name="color_of_flower">окраска цветков</string>
+    <string name="color_white">белая</string>
+    <string name="color_yellow">жёлтая</string>
+    <string name="color_red">красная, розовая</string>
+    <string name="color_blue">синая, фиолетовая</string>
+    <string name="color_green">зелёная, коричневая, чёрная</string>
+    <string name="color_of_flower_message">What\'s the color of the flower? Choose the closest one.</string>
+
+    <string name="habitats">ареалы</string>
+    <string name="habitat_meadow">луга или пастбища</string>
+    <string name="habitat_garden">сады или поля</string>
+    <string name="habitat_wetland">водно-болотные угодья</string>
+    <string name="habitat_forest">лес</string>
+    <string name="habitat_rock">скалы или горы</string>
+    <string name="habitat_tree">деревья или кустарники</string>
+    <string name="habitat_message">What\'s around you? Identify plant\'s habitat.</string>
+
+    <string name="number_of_petals">число лепестков</string>
+    <string name="petal_4">4 или менее</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">более 5</string>
+    <string name="petal_bisymmetric">бисимметрические</string>
+    <string name="number_of_petals_message">Is the flower bisymmetric? No? Then how many petals does it have?</string>
+
+    <string name="display_info">Правильный?</string>
+    <string name="list_info">Выбери один</string>
+
+    <string name="plant_info">Информация</string>
+    <string name="plant_gallery">Галерея</string>
+    <string name="plant_taxonomy">Систематика</string>
+    <string name="plant_sources">Ссылки</string>
+    <string name="image_desc">Иллюстрация растения</string>
+    <string name="translate_desc">Переведите</string>
+    <string name="email_desc">Oтправить электронную почту</string>
+    <string name="email_subject_prefix">Proposal of better translation / description for </string>
+
+    <string name="plant_title">Название</string>
+    <string name="plant_height_from">Высота от</string>
+    <string name="plant_height_to">до</string>
+    <string name="plant_flowering_from">Цветет с</string>
+    <string name="plant_flowering_to">по</string>
+    <string name="plant_flowers">Цветы</string>
+    <string name="plant_inflorescences">Соцветие</string>
+    <string name="plant_fruits">Плоды</string>
+    <string name="plant_leaves">Листья</string>
+    <string name="plant_inflorescence">Соцветие</string>
+    <string name="plant_color_of_flowers">Oкраска цветков</string>
+    <string name="plant_number_of_petals">Число лепестков</string>
+    <string name="plant_sepal">Чашелистник</string>
+    <string name="plant_leaf_shape">Форма листа</string>
+    <string name="plant_leaf_margin">Край листа</string>
+    <string name="plant_leaf_venation">Жилкование листа</string>
+    <string name="plant_leaf_arrangement">Расположение листья</string>
+    <string name="plant_stem">Стебель</string>
+    <string name="plant_root">Корень</string>
+    <string name="plant_habitat">Ареал</string>
+    <string name="plant_trivia">Пустяки</string>
+    <string name="plant_toxicity">Токсичность</string>
+    <string name="plant_herbalism">Травничество</string>
+
+    <string name="plant_domain">domain</string>
+    <string name="plant_kingdom">kingdom</string>
+    <string name="plant_subkingdom">subkingdom</string>
+    <string name="plant_line">line</string>
+    <string name="plant_branch">branch</string>
+    <string name="plant_phylum">phylum</string>
+    <string name="plant_class">class</string>
+    <string name="plant_order">order</string>
+    <string name="plant_family">family</string>
+    <string name="plant_genus">genus</string>
+    <string name="plant_species">species</string>
+
+    <string name="close">Закрыть</string>
+
+    <string name="showcase_propose_title">Propose better translation / description</string>
+    <string name="showcase_propose_message">You can send better translation or description by email.</string>
+    <string name="showcase_fullscreen_title">Larger illustration</string>
+    <string name="showcase_fullscreen_message">You can display illustration on full screen by clicking on it.</string>
+    <string name="showcase_count_button_title">Number of filtered plants</string>
+    <string name="showcase_count_button_message">When number is less than 21 press to jump directly to the list. Long press to clear filter.</string>
+    <string name="showcase_taxonomy_title">Taxonomy according to APG III system</string>
+    <string name="showcase_taxonomy_message">You can show / hide flower\'s taxonomy by clicking on the its name.</string>
+    <string name="legend">Легенда</string>
+    <string name="toxicity1">ядовитое растение</string>
+    <string name="toxicity2">слегка ядовитое растение</string>
+    <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
+    <string name="rate_never">Никогда</string>
+    <string name="rate_later">Позже</string>
+    <string name="rate">Отзывы (Google Play)</string>
+</resources>

@@ -9,7 +9,6 @@ import java.util.Map;
  * Created by adrian on 1.9.2015.
  */
 public class ListRequest {
-    private String language;
     private String entity;
     private Map<String, String> filterAttributes;
 
@@ -17,8 +16,7 @@ public class ListRequest {
 
     }
 
-    public ListRequest(String language, String entity, Map<String, String> filterAttributes) {
-        this.language = language;
+    public ListRequest(String entity, Map<String, String> filterAttributes) {
         this.entity = entity;
         this.filterAttributes = filterAttributes;
     }
@@ -29,14 +27,6 @@ public class ListRequest {
 
     public void setEntity(String entity) {
         this.entity = entity;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
     }
 
     public Map<String, String> getFilterAttributes() {

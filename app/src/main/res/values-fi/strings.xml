@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mikä kukka tämä on?</string>
+
+    <string name="about">Tietoja sovellus</string>
+    <string name="help">Ohje</string>
+    <string name="settings">Asetukset</string>
+    <string name="feedback">Palaute</string>
+    <string name="pref_language">Preferred language</string>
+    <string name="change_locale">Change locale</string>
+    <string name="change_locale_summary">to preferred language</string>
+    <string name="propose_translation">Do not show button</string>
+    <string name="propose_translation_summary">for emailing better translation / description</string>
+
+    <string name="color_of_flower">kukkien väri</string>
+    <string name="color_white">valkoinen</string>
+    <string name="color_yellow">keltainen</string>
+    <string name="color_red">punainen, vaaleanpunainen</string>
+    <string name="color_blue">sininen, violetti</string>
+    <string name="color_green">vihreä, ruskea, musta</string>
+    <string name="color_of_flower_message">What\'s the color of the flower? Choose the closest one.</string>
+
+    <string name="habitats">kasvupaikka</string>
+    <string name="habitat_meadow">niityt</string>
+    <string name="habitat_garden">puutarhoissa tai kenttiä</string>
+    <string name="habitat_wetland">nummimaista tai kosteikkojen</string>
+    <string name="habitat_forest">metsä</string>
+    <string name="habitat_rock">kiviä tai vuoria</string>
+    <string name="habitat_tree">puita tai pensaita</string>
+    <string name="habitat_message">What\'s around you? Identify plant\'s habitat.</string>
+
+    <string name="number_of_petals">määrä terälehdet</string>
+    <string name="petal_4">4 tai vähemmän</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">yli 5</string>
+    <string name="petal_bisymmetric">bisymmetrinen</string>
+    <string name="number_of_petals_message">Is the flower bisymmetric? No? Then how many petals does it have?</string>
+
+    <string name="display_info">Se oikea?</string>
+    <string name="list_info">Valitse yksi</string>
+
+    <string name="plant_info">Tiedot</string>
+    <string name="plant_gallery">Kuvia</string>
+    <string name="plant_taxonomy">Taksonomia</string>
+    <string name="plant_sources">Lähteet</string>
+    <string name="image_desc">Kasvi kuva</string>
+    <string name="translate_desc">Kääntää</string>
+    <string name="email_desc">Sähköposti</string>
+    <string name="email_subject_prefix">Proposal of better translation / description for </string>
+
+    <string name="plant_title">Nimi</string>
+    <string name="plant_height_from">Korkeus</string>
+    <string name="plant_height_to">-</string>
+    <string name="plant_flowering_from">Kukinta</string>
+    <string name="plant_flowering_to">-</string>
+    <string name="plant_flowers">Kukka</string>
+    <string name="plant_inflorescences">Kukinto</string>
+    <string name="plant_fruits">Hedelmä</string>
+    <string name="plant_leaves">Lehdet</string>
+    <string name="plant_inflorescence">Kukinto</string>
+    <string name="plant_color_of_flowers">Kukkien väri</string>
+    <string name="plant_number_of_petals">Määrä terälehdet</string>
+    <string name="plant_sepal">Verholehti</string>
+    <string name="plant_leaf_shape">Lehtimuotoja</string>
+    <string name="plant_leaf_margin">Lehden laita</string>
+    <string name="plant_leaf_venation">Suonitus</string>
+    <string name="plant_leaf_arrangement">Lehtiä järjestely</string>
+    <string name="plant_stem">Varsi</string>
+    <string name="plant_root">Juuri</string>
+    <string name="plant_habitat">Kasvupaikka</string>
+    <string name="plant_trivia">Trivia</string>
+    <string name="plant_toxicity">Myrkyllisyys</string>
+    <string name="plant_herbalism">Herbalismi</string>
+
+    <string name="plant_domain">domain</string>
+    <string name="plant_kingdom">kingdom</string>
+    <string name="plant_subkingdom">subkingdom</string>
+    <string name="plant_line">line</string>
+    <string name="plant_branch">branch</string>
+    <string name="plant_phylum">phylum</string>
+    <string name="plant_class">class</string>
+    <string name="plant_order">order</string>
+    <string name="plant_family">family</string>
+    <string name="plant_genus">genus</string>
+    <string name="plant_species">species</string>
+
+    <string name="close">Lähellä</string>
+
+    <string name="showcase_propose_title">Propose better translation / description</string>
+    <string name="showcase_propose_message">You can send better translation or description by email.</string>
+    <string name="showcase_fullscreen_title">Larger illustration</string>
+    <string name="showcase_fullscreen_message">You can display illustration on full screen by clicking on it.</string>
+    <string name="showcase_count_button_title">Number of filtered plants</string>
+    <string name="showcase_count_button_message">When number is less than 21 press to jump directly to the list. Long press to clear filter.</string>
+    <string name="showcase_taxonomy_title">Taxonomy according to APG III system</string>
+    <string name="showcase_taxonomy_message">You can show / hide flower\'s taxonomy by clicking on the its name.</string>
+    <string name="legend">Legenda</string>
+    <string name="toxicity1">myrkyllinen kasvi</string>
+    <string name="toxicity2">lievästi myrkyllinen kasvi</string>
+    <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
+    <string name="rate_never">Ei ikinä</string>
+    <string name="rate_later">Myöhemmin</string>
+    <string name="rate">Arvostelut (Google Play)</string>
+</resources>
