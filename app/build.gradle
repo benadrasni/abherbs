@@ -24,7 +24,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(path: ':backend', configuration: 'android-endpoints')
-    compile 'com.google.android.gms:play-services-analytics:9.0.2'
+    compile 'com.google.android.gms:play-services-analytics:9.2.0'
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.android.support:recyclerview-v7:24.0.0'
     compile 'com.android.support:design:24.0.0'
@@ -37,7 +37,9 @@ dependencies {
     compile project(':common')
 }
 
-
+configurations {
+    all*.exclude group: 'com.google.guava', module: 'guava-jdk5'
+}
 
 repositories {
     maven {

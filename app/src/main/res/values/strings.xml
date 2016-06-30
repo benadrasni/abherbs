@@ -33,11 +33,14 @@
         <item>Deutsch</item>
         <item>Español</item>
         <item>Français</item>
+        <item>Italiano</item>
+        <item>Magyar</item>
         <item>Polski</item>
         <item>Português</item>
         <item>Русский</item>
         <item>Svenska</item>
         <item>Suomi</item>
+        <item>Українська</item>
     </string-array>
     <string-array translatable="false" name="languagesValues">
         <item>en</item>
@@ -47,11 +50,14 @@
         <item>de</item>
         <item>es</item>
         <item>fr</item>
+        <item>it</item>
+        <item>hu</item>
         <item>pl</item>
         <item>pt</item>
         <item>ru</item>
         <item>sv</item>
         <item>fi</item>
+        <item>uk</item>
     </string-array>
     <string name="change_locale">Change locale</string>
     <string name="change_locale_summary">to preferred language</string>

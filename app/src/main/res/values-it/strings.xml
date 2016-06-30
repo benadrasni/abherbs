@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">E se questo fiore?</string>
+
+    <string name="about">Info su applicazione</string>
+    <string name="help">Guida</string>
+    <string name="settings">Impostazioni</string>
+    <string name="feedback">Invia feedback</string>
+    <string name="pref_language">Preferred language</string>
+    <string name="change_locale">Change locale</string>
+    <string name="change_locale_summary">to preferred language</string>
+    <string name="propose_translation">Do not show button</string>
+    <string name="propose_translation_summary">for emailing better translation / description</string>
+
+    <string name="color_of_flower">colore dei fiori</string>
+    <string name="color_white">bianca</string>
+    <string name="color_yellow">giallo</string>
+    <string name="color_red">rosso, rosa</string>
+    <string name="color_blue">blu, viola</string>
+    <string name="color_green">verde, marrone, nero</string>
+    <string name="color_of_flower_message">What\'s the color of the flower? Choose the closest one.</string>
+
+    <string name="habitats">habitat</string>
+    <string name="habitat_meadow">prati o pascoli</string>
+    <string name="habitat_garden">giardini o campi</string>
+    <string name="habitat_wetland">brughiere o zone umide</string>
+    <string name="habitat_forest">boschi o foreste</string>
+    <string name="habitat_rock">rocce o montagne</string>
+    <string name="habitat_tree">alberi o arbusti</string>
+    <string name="habitat_message">What\'s around you? Identify plant\'s habitat.</string>
+
+    <string name="number_of_petals">numero dei petali</string>
+    <string name="petal_4">4 o meno</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">più di 5</string>
+    <string name="petal_bisymmetric">bisimmetrico</string>
+    <string name="number_of_petals_message">Is the flower bisymmetric? No? Then how many petals does it have?</string>
+
+    <string name="display_info">Il giusto?</string>
+    <string name="list_info">Sceglierne uno</string>
+
+    <string name="plant_info">Informazioni</string>
+    <string name="plant_gallery">Galleria</string>
+    <string name="plant_taxonomy">Tassonomia</string>
+    <string name="plant_sources">Bibliografia</string>
+    <string name="image_desc">Illustrazione delle piante</string>
+    <string name="translate_desc">Tradurre</string>
+    <string name="email_desc">E-mail</string>
+    <string name="email_subject_prefix">Proposal of better translation / description for </string>
+
+    <string name="plant_title">Nome</string>
+    <string name="plant_height_from">Altezza</string>
+    <string name="plant_height_to">-</string>
+    <string name="plant_flowering_from">Fioritura da</string>
+    <string name="plant_flowering_to">a</string>
+    <string name="plant_flowers">Fiori</string>
+    <string name="plant_inflorescences">Infiorescenza</string>
+    <string name="plant_fruits">Frutta</string>
+    <string name="plant_leaves">Foglia</string>
+    <string name="plant_inflorescence">Infiorescenza</string>
+    <string name="plant_color_of_flowers">Colore dei fiori</string>
+    <string name="plant_number_of_petals">Numero dei petali</string>
+    <string name="plant_sepal">Sepalo</string>
+    <string name="plant_leaf_shape">Forma di foglia</string>
+    <string name="plant_leaf_margin">Margine di foglia</string>
+    <string name="plant_leaf_venation">Nervature di foglia</string>
+    <string name="plant_leaf_arrangement">Fillotassi</string>
+    <string name="plant_stem">Fusto</string>
+    <string name="plant_root">Radice</string>
+    <string name="plant_habitat">Habitat</string>
+    <string name="plant_trivia">Trivia</string>
+    <string name="plant_toxicity">Tossicità</string>
+    <string name="plant_herbalism">Erboristeria</string>
+
+    <string name="plant_domain">domain</string>
+    <string name="plant_kingdom">kingdom</string>
+    <string name="plant_subkingdom">subkingdom</string>
+    <string name="plant_line">line</string>
+    <string name="plant_branch">branch</string>
+    <string name="plant_phylum">phylum</string>
+    <string name="plant_class">class</string>
+    <string name="plant_order">order</string>
+    <string name="plant_family">family</string>
+    <string name="plant_genus">genus</string>
+    <string name="plant_species">species</string>
+
+    <string name="close">Vicino</string>
+
+    <string name="showcase_propose_title">Propose better translation / description</string>
+    <string name="showcase_propose_message">You can send better translation or description by email.</string>
+    <string name="showcase_fullscreen_title">Larger illustration</string>
+    <string name="showcase_fullscreen_message">You can display illustration on full screen by clicking on it.</string>
+    <string name="showcase_count_button_title">Number of filtered plants</string>
+    <string name="showcase_count_button_message">When number is less than 21 press to jump directly to the list. Long press to clear filter.</string>
+    <string name="showcase_taxonomy_title">Taxonomy according to APG III system</string>
+    <string name="showcase_taxonomy_message">You can show / hide flower\'s taxonomy by clicking on the its name.</string>
+    <string name="legend">Leggenda</string>
+    <string name="toxicity1">pianta velenosa</string>
+    <string name="toxicity2">pianta un po \'velenosa</string>
+    <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
+    <string name="rate_never">Mai</string>
+    <string name="rate_later">Dopo</string>
+    <string name="rate">Recensioni (Google Play)</string>
+</resources>
