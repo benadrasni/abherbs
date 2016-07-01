@@ -170,74 +170,7 @@ public class TaxonomyEndpoint {
         Key key = KeyFactory.createKey(Constants.PLANT, plantName);
         Entity plantEntity = datastore.get(key);
 
-        Plant plant = new Plant();
-        plant.setName(plantName);
-
-        for(Map.Entry<String, Object> propertyEntry : plantEntity.getProperties().entrySet()) {
-            String propertyName = propertyEntry.getKey();
-            switch (propertyName) {
-                case "id":
-                    plant.setPlantId(safeLongToInt((long)propertyEntry.getValue()));
-                    break;
-                case "heightFrom":
-                    plant.setHeightFrom(safeLongToInt((long)propertyEntry.getValue()));
-                    break;
-                case "heightTo":
-                    plant.setHeightTo(safeLongToInt((long)propertyEntry.getValue()));
-                    break;
-                case "floweringFrom":
-                    plant.setFloweringFrom(safeLongToInt((long)propertyEntry.getValue()));
-                    break;
-                case "floweringTo":
-                    plant.setFloweringTo(safeLongToInt((long)propertyEntry.getValue()));
-                    break;
-                case "toxicityClass":
-                    plant.setToxicityClass(safeLongToInt((long)propertyEntry.getValue()));
-                    break;
-                case "wikiName":
-                    plant.setWikiName((String)propertyEntry.getValue());
-                    break;
-                case "illustrationUrl":
-                    plant.setIllustrationUrl((String)propertyEntry.getValue());
-                    break;
-                case "photoUrl":
-                    plant.setPhotoUrls((ArrayList<String>)propertyEntry.getValue());
-                    break;
-                case "synonym":
-                    plant.setSynonyms((ArrayList<String>)propertyEntry.getValue());
-                    break;
-            }
-
-            if (propertyName.startsWith("label_")) {
-                plant.getLabel().put(propertyName.substring(propertyName.indexOf("_") + 1), (String) propertyEntry.getValue());
-            } else if (propertyName.startsWith("alias_")) {
-                plant.getNames().put(propertyName.substring(propertyName.indexOf("_")+1), (ArrayList<String>)propertyEntry.getValue());
-            } else if (propertyName.startsWith("description_")) {
-                plant.getDescription().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("flower_")) {
-                plant.getFlower().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("inflorescence_")) {
-                plant.getInflorescence().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("fruit_")) {
-                plant.getFruit().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("leaf_")) {
-                plant.getLeaf().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("stem_")) {
-                plant.getStem().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("habitat_")) {
-                plant.getHabitat().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("toxicity_")) {
-                plant.getToxicity().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("trivia_")) {
-                plant.getTrivia().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("herbalism_")) {
-                plant.getHerbalism().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("wiki_")) {
-                plant.getWikilinks().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
-            } else if (propertyName.startsWith("sourceUrl_")) {
-                plant.getSourceUrls().put(propertyName.substring(propertyName.indexOf("_")+1), (ArrayList<String>)propertyEntry.getValue());
-            }
-        }
+        Plant plant = convert(plantName, plantEntity);
 
         return plant;
     }
@@ -356,6 +289,45 @@ public class TaxonomyEndpoint {
 
         return plant;
     }
+
+    @ApiMethod(
+            name = "update",
+            path = "plant/update/{plantName}",
+            httpMethod = ApiMethod.HttpMethod.POST)
+    public Plant update(@Named("plantName") String plantName,
+                        @Named("attribute") String attribute,
+                        @Named("values") String values,
+                        @Named("operation") String operation,
+                        @Named("type") String type) throws EntityNotFoundException {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        Key key = KeyFactory.createKey(Constants.PLANT, plantName);
+        Entity plantEntity = datastore.get(key);
+
+        Plant plant = new Plant();
+        if (plantEntity != null) {
+            Object newVal;
+            if ("string".equals(type)) {
+                newVal = values;
+            } else {
+                String[] vals = values.split(",");
+
+                newVal = new ArrayList<>(Arrays.asList(vals));
+            }
+
+            Object val = plantEntity.getProperty(attribute);
+            if (val != null && "append".equals(operation) && !"string".equals(type)) {
+                ((List<String>) val).addAll((List<String>) newVal);
+            }
+
+            plantEntity.setProperty(attribute, newVal);
+            datastore.put(plantEntity);
+
+            plant = convert(plantName, plantEntity);
+        }
+        return plant;
+    }
+
 
     @ApiMethod(
             name = "getTaxonomy",
@@ -809,6 +781,79 @@ public class TaxonomyEndpoint {
         }
 
         return null;
+    }
+
+    private Plant convert(String plantName, Entity plantEntity) {
+        Plant plant = new Plant();
+        plant.setName(plantName);
+
+        for(Map.Entry<String, Object> propertyEntry : plantEntity.getProperties().entrySet()) {
+            String propertyName = propertyEntry.getKey();
+            switch (propertyName) {
+                case "id":
+                    plant.setPlantId(safeLongToInt((long)propertyEntry.getValue()));
+                    break;
+                case "heightFrom":
+                    plant.setHeightFrom(safeLongToInt((long)propertyEntry.getValue()));
+                    break;
+                case "heightTo":
+                    plant.setHeightTo(safeLongToInt((long)propertyEntry.getValue()));
+                    break;
+                case "floweringFrom":
+                    plant.setFloweringFrom(safeLongToInt((long)propertyEntry.getValue()));
+                    break;
+                case "floweringTo":
+                    plant.setFloweringTo(safeLongToInt((long)propertyEntry.getValue()));
+                    break;
+                case "toxicityClass":
+                    plant.setToxicityClass(safeLongToInt((long)propertyEntry.getValue()));
+                    break;
+                case "wikiName":
+                    plant.setWikiName((String)propertyEntry.getValue());
+                    break;
+                case "illustrationUrl":
+                    plant.setIllustrationUrl((String)propertyEntry.getValue());
+                    break;
+                case "photoUrl":
+                    plant.setPhotoUrls((ArrayList<String>)propertyEntry.getValue());
+                    break;
+                case "synonym":
+                    plant.setSynonyms((ArrayList<String>)propertyEntry.getValue());
+                    break;
+            }
+
+            if (propertyName.startsWith("label_")) {
+                plant.getLabel().put(propertyName.substring(propertyName.indexOf("_") + 1), (String) propertyEntry.getValue());
+            } else if (propertyName.startsWith("alias_")) {
+                plant.getNames().put(propertyName.substring(propertyName.indexOf("_")+1), (ArrayList<String>)propertyEntry.getValue());
+            } else if (propertyName.startsWith("description_")) {
+                plant.getDescription().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("flower_")) {
+                plant.getFlower().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("inflorescence_")) {
+                plant.getInflorescence().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("fruit_")) {
+                plant.getFruit().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("leaf_")) {
+                plant.getLeaf().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("stem_")) {
+                plant.getStem().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("habitat_")) {
+                plant.getHabitat().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("toxicity_")) {
+                plant.getToxicity().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("trivia_")) {
+                plant.getTrivia().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("herbalism_")) {
+                plant.getHerbalism().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("wiki_")) {
+                plant.getWikilinks().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            } else if (propertyName.startsWith("sourceUrl_")) {
+                plant.getSourceUrls().put(propertyName.substring(propertyName.indexOf("_")+1), (ArrayList<String>)propertyEntry.getValue());
+            }
+        }
+
+        return plant;
     }
 
 
