@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">この花は何ですか？</string>
+
+    <string name="about">About</string>
+    <string name="help">ヘルプ</string>
+    <string name="settings">設定</string>
+    <string name="feedback">フィードバック</string>
+    <string name="pref_language">Preferred language</string>
+    <string name="change_locale">Change locale</string>
+    <string name="change_locale_summary">to preferred language</string>
+    <string name="propose_translation">Do not show button</string>
+    <string name="propose_translation_summary">for emailing better translation / description</string>
+
+    <string name="color_of_flower">花の色</string>
+    <string name="color_white">白</string>
+    <string name="color_yellow">黄色</string>
+    <string name="color_red">赤、ピンク</string>
+    <string name="color_blue">青、紫</string>
+    <string name="color_green">緑、茶色、黒</string>
+    <string name="color_of_flower_message">What\'s the color of the flower? Choose the closest one.</string>
+
+    <string name="habitats">生息地</string>
+    <string name="habitat_meadow">草地、草原</string>
+    <string name="habitat_garden">庭園、畑</string>
+    <string name="habitat_wetland">ムーア、沼地、ボグ、フェン</string>
+    <string name="habitat_forest">森林</string>
+    <string name="habitat_rock">山</string>
+    <string name="habitat_tree">木、低木</string>
+    <string name="habitat_message">What\'s around you? Identify plant\'s habitat.</string>
+
+    <string name="number_of_petals">花びらの数</string>
+    <string name="petal_4">4以下</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">以上5</string>
+    <string name="petal_bisymmetric">不規則な</string>
+    <string name="number_of_petals_message">Is the flower bisymmetric? No? Then how many petals does it have?</string>
+
+    <string name="display_info">右の花？</string>
+    <string name="list_info">一つを選ぶ</string>
+
+    <string name="plant_info">インフォ</string>
+    <string name="plant_gallery">ギャラリー</string>
+    <string name="plant_taxonomy">分類学</string>
+    <string name="plant_sources">出典</string>
+    <string name="image_desc">Plant illustration</string>
+    <string name="translate_desc">翻訳します</string>
+    <string name="email_desc">Eメール</string>
+    <string name="email_subject_prefix">Proposal of better translation / description for </string>
+
+    <string name="plant_title">名</string>
+    <string name="plant_height_from">高さ</string>
+    <string name="plant_height_to">-</string>
+    <string name="plant_flowering_from">開花</string>
+    <string name="plant_flowering_to">-</string>
+    <string name="plant_flowers">花</string>
+    <string name="plant_inflorescences">花序</string>
+    <string name="plant_fruits">果実</string>
+    <string name="plant_leaves">葉</string>
+    <string name="plant_inflorescence">花序</string>
+    <string name="plant_color_of_flowers">花の色</string>
+    <string name="plant_number_of_petals">花びらの数</string>
+    <string name="plant_sepal">萼</string>
+    <string name="plant_leaf_shape">Leaf shape</string>
+    <string name="plant_leaf_margin">Leaf margin</string>
+    <string name="plant_leaf_venation">Leaf venation</string>
+    <string name="plant_leaf_arrangement">Leaf arrangement</string>
+    <string name="plant_stem">茎</string>
+    <string name="plant_root">根</string>
+    <string name="plant_habitat">生息地</string>
+    <string name="plant_trivia">トリビア</string>
+    <string name="plant_toxicity">毒性</string>
+    <string name="plant_herbalism">本草学</string>
+
+    <string name="plant_domain">domain</string>
+    <string name="plant_kingdom">kingdom</string>
+    <string name="plant_subkingdom">subkingdom</string>
+    <string name="plant_line">line</string>
+    <string name="plant_branch">branch</string>
+    <string name="plant_phylum">phylum</string>
+    <string name="plant_class">class</string>
+    <string name="plant_order">order</string>
+    <string name="plant_family">family</string>
+    <string name="plant_genus">genus</string>
+    <string name="plant_species">species</string>
+
+    <string name="close">Close</string>
+
+    <string name="showcase_propose_title">Propose better translation / description</string>
+    <string name="showcase_propose_message">You can send better translation or description by email.</string>
+    <string name="showcase_fullscreen_title">Larger illustration</string>
+    <string name="showcase_fullscreen_message">You can display illustration on full screen by clicking on it.</string>
+    <string name="showcase_count_button_title">Number of filtered plants</string>
+    <string name="showcase_count_button_message">When number is less than 21 press to jump directly to the list. Long press to clear filter.</string>
+    <string name="showcase_taxonomy_title">Taxonomy according to APG III system</string>
+    <string name="showcase_taxonomy_message">You can show / hide flower\'s taxonomy by clicking on the its name.</string>
+    <string name="legend">Legend</string>
+    <string name="toxicity1">poisonous plant</string>
+    <string name="toxicity2">slightly poisonous plant</string>
+    <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
+    <string name="rate_never">Never</string>
+    <string name="rate_later">Later</string>
+    <string name="rate">Review (Google Play)</string>
+</resources>
