@@ -41,8 +41,9 @@ import sk.ab.herbs.entity.PlantHeaderParcel;
  */
 public class FilterPlantsActivity extends BaseActivity {
 
-    private Integer filterPosition;
+    private static final String TAG = "FilterPlantsActivity";
 
+    private Integer filterPosition;
     private BaseFilterFragment currentFragment;
 
     @Override
@@ -119,6 +120,11 @@ public class FilterPlantsActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
+
+        if (changeLocale()) {
+            Log.i(TAG, "Locale changed in onStart() method.");
+            recreate();
+        };
 
         if (filterPosition == null) {
             filterPosition = 0;

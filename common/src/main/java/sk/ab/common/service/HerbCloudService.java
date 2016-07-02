@@ -39,6 +39,14 @@ public interface HerbCloudService {
     @GET("_ah/api/taxonomyApi/v1/plant/{plantName}")
     Call<Plant> getDetail(@Path("plantName") String plantName);
 
+    @POST("_ah/api/taxonomyApi/v1/plant/update/{plantName}")
+    Call<Plant> update(@Path("plantName") String plantName,
+                       @Query("attribute") String attribute,
+                       @Query("values") String values,
+                       @Query("operation") String operation,
+                       @Query("type") String type);
+
+
     @Headers({
             "Content-Type: application/json",
             "Accept-Charset: UTF-8",

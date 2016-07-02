@@ -55,18 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         builder = new HitBuilders.ScreenViewBuilder();
         ((HerbsApp)getApplication()).getTracker().setScreenName(this.getClass().getSimpleName());
 
-        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-
-        String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
-        Boolean changeLocale = preferences.getBoolean(AndroidConstants.CHANGE_LOCALE_KEY, false);
-
-        if (changeLocale && !Locale.getDefault().getLanguage().equals(language)) {
-            Locale locale = new Locale(language);
-            Locale.setDefault(locale);
-            Configuration config = new Configuration();
-            config.setLocale(locale);
-            getResources().updateConfiguration(config, getResources().getDisplayMetrics());
-        }
+        changeLocale();
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -175,5 +164,23 @@ public abstract class BaseActivity extends AppCompatActivity {
                 countButton.setImageDrawable(countDrawable);
             }
         }
+    }
+
+    protected boolean changeLocale() {
+        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
+        Boolean changeLocale = preferences.getBoolean(AndroidConstants.CHANGE_LOCALE_KEY, false);
+
+        boolean isLocaleChanged = false;
+        if (changeLocale && !Locale.getDefault().getLanguage().equals(language)) {
+            Locale locale = new Locale(language);
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.setLocale(locale);
+            getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+            isLocaleChanged = true;
+        }
+
+        return isLocaleChanged;
     }
 }
