@@ -27,7 +27,7 @@ public class Preparer {
     public static void main(String[] params) {
 
         try {
-            String name = "Chlorophytum comosum";
+            String name = "Hypericum calycinum";
             Document doc = Jsoup.connect("https://species.wikimedia.org/w/index.php?title=" + name + "&action=edit").get();
 
             String wikiPage = doc.getElementsByTag("textarea").val();
