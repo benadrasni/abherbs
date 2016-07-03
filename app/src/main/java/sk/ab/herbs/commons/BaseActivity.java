@@ -15,6 +15,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
@@ -36,6 +37,8 @@ import sk.ab.herbs.R;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
+
+    private static final String TAG = "BaseActivity";
 
     protected DrawerLayout mDrawerLayout;
     protected PropertyListFragment mPropertyMenu;
@@ -75,6 +78,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+
+        if (changeLocale()) {
+            Log.i(TAG, "Locale changed in onStart() method.");
+            recreate();
+        };
+
         mPropertyMenu.getListView().invalidateViews();
     }
 

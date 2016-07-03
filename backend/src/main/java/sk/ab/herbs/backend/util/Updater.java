@@ -39,16 +39,16 @@ public class Updater {
         try {
             Map<String, String> names = new HashMap<>();
 
-            File namefile = new File("C:/Development/Projects/uknames.csv");
-
-            Scanner namescan = new Scanner(namefile);
-            while(namescan.hasNextLine()) {
-                final String[] plantLine = namescan.nextLine().split(",");
-
-                if (plantLine.length > 1) {
-                    names.put(plantLine[0], plantLine[1]);
-                }
-            }
+//            File namefile = new File("C:/Development/Projects/uknames.csv");
+//
+//            Scanner namescan = new Scanner(namefile);
+//            while(namescan.hasNextLine()) {
+//                final String[] plantLine = namescan.nextLine().split(",");
+//
+//                if (plantLine.length > 1) {
+//                    names.put(plantLine[0], plantLine[1]);
+//                }
+//            }
 
 //            PrintWriter writer = new PrintWriter("C:/Development/Projects/uknames.csv", "UTF-8");
 //
@@ -89,7 +89,7 @@ public class Updater {
 
             final HerbCloudClient herbCloudClient = new HerbCloudClient();
 
-            File file = new File("C:/Development/Projects/abherbs/backend/Plants.csv");
+            File file = new File("/home/adrian/Dev/projects/abherbs/backend/Plants.csv");
 
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()){
@@ -100,9 +100,9 @@ public class Updater {
 
                 Plant plant = callCloud.execute().body();
 
-                String valueName = plant.getLabel().get("uk");
+                String valueName = plant.getLabel().get("pl");
 
-                String value = names.get(plantLine[0]);
+                String value = valueName; //names.get(plantLine[0]);
 
                 if (value == null && plant.getSynonyms() != null) {
                     for(String synonym : plant.getSynonyms()) {
@@ -114,12 +114,12 @@ public class Updater {
                 }
 
                 if (value != null) {
-                    if (valueName == null) {
-                        value = value.toLowerCase();
-                        callCloud = herbCloudClient.getApiService().update(plantLine[0], "label_uk", value, "replace", "string");
+//                    if (valueName == null) {
+                        value = valueName.toLowerCase();
+                        callCloud = herbCloudClient.getApiService().update(plantLine[0], "label_pl", value, "replace", "string");
 
                         callCloud.execute();
-                    }
+//                    }
                 } else {
                     if (valueName == null) {
                         System.out.println(plantLine[0]);
