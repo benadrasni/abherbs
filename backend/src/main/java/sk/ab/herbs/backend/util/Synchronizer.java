@@ -36,7 +36,7 @@ public class Synchronizer {
 
                 final String[] name = scan.nextLine().split(",");
 
-                if (!name[0].equals("Chlorophytum comosum")) continue;
+                if (!name[0].equals("Spirodela polyrrhiza")) continue;
 
 //                if (i < 332) continue;
 //                if (i > 332) continue;
