@@ -45,29 +45,29 @@
 </ol>
 <h3>Preferences:</h3>
 <ol>
-    <li><b>Preferred language</b>: Choose preferred language.</li>
     <li><b>Change localization (to preferred language)</b>: Change localization to preferred language.</li>
+    <li><b>Preferred language</b>: Choose preferred language.</li>
+    <li><b>Do not show button (for emailing better translation / description)</b>: Disable button for emailing better
+        translation on detail screen.</li>
 </ol>
 
 <p>
     Application takes localization from the device on which it's running. Unsupported localization display texts from
-    default localization (English). Current version supports English, Slovak and Czech localizations. For all other
-    languages default English localization will be used.
+    default localization (English).
 </p>
 <p>
-    Information about flowers which are displayed on detail screen is different issue. Texts are downloaded from a
-    server which currently supports only two languages: English and Slovak. If localization's language doesn't match
-    preferred language Google Translate icon will appear on detailed screen just next to information about flower. Touch
-    this icon to translate information to your localization's language using Google Translate. Touch again to return
-    back information in preferred language.
+    Information about flowers which are displayed on detail screen is different issue. Many languages are supported for
+    flower's names and taxonomy. Latin names are displayed if localized names is missing. Other texts are downloaded
+    from a server which currently supports only two languages: English and Slovak. If localization's language doesn't
+    match preferred language Google Translate icon will appear on detailed screen just next to information about flower.
+    Touch this icon to translate information to your localization's language using Google Translate. Touch again to
+    return back information in preferred language.
 </p>
 <p>
     Example 1: Jan is using Czech language (localization) on his phone. Application supports this localization so all
-    application's text will be shown in Czech. Jan chooses Slovak as his preferred language in Settings (the application
-    doesn't support Czech as preferred language yet). Application server will send information texts in Slovak because
-    Jan didn't change application's localization (check box Change localization stays unchecked). Google Translate icon
-    will appear just next to information on detail screen and Jan could translate texts from Slovak to Czech using
-    Google Translate.
+    application's text will be shown in Czech as well as flower's names and taxonomy. All detail texts are displayed in
+    English. Google Translate icon will appear just next to information on detail screen and Jan could translate texts
+    from English to Czech using Google Translate.
 </p>
 <p>
     Example 2: Vlado is using English language (localization) on his phone. He chooses Slovak as his preferred language
@@ -75,12 +75,11 @@
     information texts in Slovak and no Google Translate icon will appear on detail screen.
 </p>
 <p>
-    Example 3: Jurij is using Russian language (localization) on his phone. Application doesn't support this
-    localization so all application's text will be shown in English. Jurij chooses English as his preferred language in
-    Settings (the application doesn't support Russian as preferred language yet). Application server will send
-    information texts in English. Jurij didn't change application's localization (check box Change localization stays
-    unchecked). Google Translate icon will appear just next to information on detail screen and Jurij could translate
-    texts from English to Russian using Google Translate.
+    Example 3: Tarun is using Hindi language (localization) on his phone. Application doesn't support this
+    localization so all application's text will be shown in English, but flower's names and taxonomy will be show in
+    Hindi for these flowers which have Hindi names defined, other names will be in Latin. Google Translate icon will
+    appear just next to information on detail screen and Tarun could translate texts from English to Hindi using
+    Google Translate.
 </p>
 </body>
 </html>

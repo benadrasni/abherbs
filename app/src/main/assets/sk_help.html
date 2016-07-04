@@ -48,28 +48,29 @@
 </ol>
 <h3>Nastavenia:</h3>
 <ol>
-    <li><b>Preferovaný jazyk</b>: Vyber si svoj preferovaný jazyk pre detailné informácie o kvete.</li>
     <li><b>Zmeň lokalizáciu (podľa preferovaného jazyka)</b>: Zmeň lokalizáciu aplikácie podľa preferovaného jazyka.</li>
+    <li><b>Preferovaný jazyk</b>: Vyber si svoj preferovaný jazyk pre detailné informácie o kvete.</li>
+    <li><b>Nezobrazovať tlačidlo (na zaslanie lepšieho prekladu / popisu)</b>: Nezobrazovať tlačidlo na zaslanie
+        lepšieho prekladu na obrazovke detailu kvetu.</li>
 </ol>
 
 <p>
     Po spustení aplikácie je lokalizácia nastavená podľa mobilného zariadenia. Lokálizácia, pre ktorú aplikácia nemá
-    lokalizačný súbor, preberá texty z prednastavenej lokalizácie, ktorou je anglická. Zatiaľ podporované lokalizácie sú
-    anglická, slovenská a česká. Pre všetky ostatné lokalizácie sa texty v aplikácii zobrazia v angličtine.
+    lokalizačný súbor, preberá texty z prednastavenej lokalizácie, ktorou je anglická. 
 </p>
 <p>
-    Osobitnou kapitolou su detailné informácie o samotných kvetoch. Tie sa sťahujú zo servera, ktorý zatiaľ podporuje
-    iba dva jazyky: angličtinu ako prednastavený jazyk a slovenčinu. Ak sa jazyk lokalizácie aplikácie nezhoduje s
-    vybraným preferovaným jazykom, na karte s detailnými informáciami o kvete sa objaví ikona Google Translate. Po
-    stlačení sa texty preložia pomocou Google Translate do jazyka lokalizácie. Po opätovnou stlačení ikony, sa texty
-    vrátia do preferovaného jazyka.
+    Osobitnou kapitolou su detailné informácie o samotných kvetoch. Názvy kvetov a taxonómia sa zobrazujú v jazyku 
+    mobilného zariadenia alebo v prednastavenom jazyku a sú tieto zadané v databáza, inak sa zobrazujú latinské názvy.
+    Ostatné texty sa sťahujú zo servera, ktorý zatiaľ podporuje iba dva jazyky: angličtinu ako prednastavený jazyk a 
+    slovenčinu. Ak sa jazyk lokalizácie aplikácie nezhoduje s vybraným preferovaným jazykom, na karte s detailnými 
+    informáciami o kvete sa objaví ikona Google Translate. Po stlačení sa texty preložia pomocou Google Translate do 
+    jazyka lokalizácie. Po opätovnou stlačení ikony, sa texty vrátia do preferovaného jazyka.
 </p>
 <p>
     Príklad 1: Jan má na svojom mobile nastavený jazyk (lokalizáciu) na češtinu. Keďže aplikácia podporuje túto
-    lokalizáciu, ovládacie prvky aplikácie budú v češtine. Jan si vyberie ako preferovaný jazyk slovenčinu (aplikácia
-    zatiaľ nepodporuje češtinu ako preferovaný jazyk). Aplikačný server teda bude posielať texty v slovenčine. Pretože
-    si Jan nezmenil lokalizáciu aplikácie (zaškrtávacie okienko Zmeň lokalizáciu ostalo nezaškrtnuté), pri textoch sa
-    objaví ikona Google Translate a Jan si bude môcť preložiť texty zo slovenčiny do češtiny pomocou Google Translate.
+    lokalizáciu, ovládacie prvky aplikácie budú v češtine ako aj názvy kvetín a taxonómia. Texty na detaile kvetu budú 
+    však v angličtine. Pri textoch sa objaví ikona Google Translate a Jan si bude môcť preložiť texty z angličtiny do 
+    češtiny pomocou Google Translate.
 </p>
 <p>
     Príklad 2: Vlado má na svojom mobile nastavený jazyk (lokalizáciu) na angličtinu. Ako preferovaný jazyk si však
@@ -77,11 +78,10 @@
     v slovenčine a možnosť prekladu pomocou Google translate sa mu neobjaví.
 </p>
 <p>
-    Príklad 3: Jurij má na svojom mobile nastavený jazyk (lokalizáciu) na ruštinu. Keďže aplikácia nepodporuje túto
-    lokalizáciu, ovládacie prvky aplikácie budú v angličtine. Jurij si vyberie ako preferovaný jazyk angličtinu.
-    Aplikačný server teda bude posielať texty v angličtine. Pretože si Jurij nezmenil lokalizáciu aplikácie
-    (zaškrtávacie okienko Zmeň lokalizáciu ostalo nezaškrtnuté), pri textoch sa objaví ikona Google Translate a Jurij
-    si bude môcť preložiť texty z angličtiny do ruštiny pomocou Google Translate.
+    Príklad 3: Tarun má na svojom mobile nastavený jazyk (lokalizáciu) na hindčinu. Keďže aplikácia nepodporuje túto
+    lokalizáciu, ovládacie prvky aplikácie budú v angličtine, ale názvy kvetov a taxonómia bude v hindčine pre tie
+    kvety, ktoré majú definované názvy v hindčine, ostatné budú v latinčine. Pri textoch sa objaví ikona Google
+    Translate a Tarun si bude môcť preložiť texty z angličtiny do hindčiny pomocou Google Translate.
 </p>
 </body>
 </html>
