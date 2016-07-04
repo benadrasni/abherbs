@@ -35,8 +35,8 @@ import sk.ab.common.service.HerbCloudClient;
  * Created by adrian on 4.5.2016.
  */
 public class Updater {
-//    public static String PATH = "C:/Development/Projects/abherbs/backend/";
-    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/";
+    public static String PATH = "C:/Development/Projects/abherbs/backend/";
+//    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/";
 
 
     public static void main(String[] params) {
@@ -58,53 +58,55 @@ public class Updater {
             final HerbCloudClient herbCloudClient = new HerbCloudClient();
 
             File file = new File(PATH + "Plants.csv");
+            int i = 0;
 
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()) {
+                i++;
                 final String[] plantLine = scan.nextLine().split(",");
+                if (i < 425) continue;
 
-                Document docPost = Jsoup.connect("http://www.plantarium.ru/page/search.html?match=begins&type=0&mode=full&sample=" + plantLine[0]).get();
+                Document docPost = Jsoup.connect("http://www.plantarium.ru/page/search.html?match=begins&type=0&mode=full&sample=" + plantLine[0]).timeout(10*1000).get();
 
                 String name = null;
                 StringBuilder names = new StringBuilder();
-                //String nameLatin = null;
+                String nameLatin = null;
 
                 Elements searchResult = docPost.getElementsByTag("a");
                 for (Element link : searchResult) {
                     if (link.attr("href").startsWith("/page/view/item/")) {
-                        System.out.println(link.attr("href"));
 
-                        Document docPlant = Jsoup.connect("http://www.plantarium.ru" + link.attr("href")).get();
+                        Thread.sleep(3000);
+                        Document docPlant = Jsoup.connect("http://www.plantarium.ru" + link.attr("href")).timeout(10*1000).get();
 
                         name = "";
                         names = new StringBuilder();
-//                        nameLatin = "";
-//
-//                        Elements taxonNames = docPlant.getElementsByClass("taxon-name");
-//                        if (taxonNames.size() > 1) {
-//                            nameLatin = taxonNames.get(0).text() + " " + taxonNames.get(1).text();
-//                        }
+                        nameLatin = "";
 
-                        Elements ruNames = docPlant.getElementsByAttributeValue("id", "boxRusNamesList");
-                        if (ruNames.size() > 0) {
-                            Elements nameElements = ruNames.get(0).getElementsByTag("span");
-                            if (nameElements.size() > 0) {
-                                name = nameElements.get(0).text();
-                                if (nameElements.size() > 1) {
-                                    for (int j = 1; j < nameElements.size(); j++) {
-                                        if (names.length() > 0) {
-                                            names.append(",");
-                                        }
-                                        names.append(nameElements.get(j).text());
-                                    }
-                                }
-                            } else {
-                                continue;
-                            }
-                        } else {
-                            continue;
+                        Elements taxonNames = docPlant.getElementsByClass("taxon-name");
+                        if (taxonNames.size() > 1) {
+                            nameLatin = taxonNames.get(0).text() + " " + taxonNames.get(1).text();
                         }
 
+                        System.out.println(plantLine[0] + " ... " + nameLatin);
+
+                        if (plantLine[0].equals(nameLatin)) {
+                            Elements ruNames = docPlant.getElementsByAttributeValue("id", "boxRusNamesList");
+                            if (ruNames.size() > 0) {
+                                Elements nameElements = ruNames.get(0).getElementsByTag("span");
+                                if (nameElements.size() > 0) {
+                                    name = nameElements.get(0).text();
+                                    if (nameElements.size() > 1) {
+                                        for (int j = 1; j < nameElements.size(); j++) {
+                                            if (names.length() > 0) {
+                                                names.append(",");
+                                            }
+                                            names.append(nameElements.get(j).text());
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
                         break;
                     }
@@ -122,7 +124,7 @@ public class Updater {
 
                 }
 
-                Thread.sleep(5000);
+                Thread.sleep(3000);
             }
 
 
