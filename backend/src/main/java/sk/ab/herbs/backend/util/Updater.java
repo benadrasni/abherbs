@@ -20,9 +20,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.TreeMap;
 
 import retrofit.Call;
@@ -33,8 +35,8 @@ import sk.ab.common.service.HerbCloudClient;
  * Created by adrian on 4.5.2016.
  */
 public class Updater {
-    public static String PATH = "C:/Development/Projects/abherbs/backend/";
-//    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/";
+//    public static String PATH = "C:/Development/Projects/abherbs/backend/";
+    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/";
 
 
     public static void main(String[] params) {
@@ -53,113 +55,149 @@ public class Updater {
 //                }
 //            }
 
-//            PrintWriter writer = new PrintWriter("C:/Development/Projects/uknames.csv", "UTF-8");
-//
-//            for(int i = 1; i < 398; i++) {
-//                System.out.println(i);
-//                Document doc = Jsoup.connect("http://econtsh.astra.in.ua/system.php?page=" + i + "&lang=ua&filterfield=&filter=&gerbar=").get();
-//
-//                Elements table = doc.getElementsByClass("tbl");
-//
-//                Elements elements = table.get(0).getElementsByTag("tr");
-//                int j = -1;
-//                for (Element element : elements) {
-//                    j++;
-//                    if (j==0) continue;
-//                    Elements tds = element.getElementsByTag("td");
-//
-//                    String nameLatin = "";
-//                    Element nameLatinElement = tds.get(1);
-//                    Elements anchors = nameLatinElement.getElementsByTag("a");
-//                    if (anchors.size() > 0) {
-//                        nameLatin = anchors.get(0).text();
-//                    } else {
-//                        nameLatin = nameLatinElement.text();
-//                    }
-//
-//                    String[] hlp = nameLatin.split(" ");
-//
-//                    if (hlp.length > 1) {
-//                        nameLatin = hlp[0] + " " + hlp[1];
-//                    }
-//
-//                    //langNames.put(nameLatin, tds.get(2).text());
-//                    writer.println(nameLatin + "," + tds.get(2).text());
-//                }
-//            }
-//
-//            writer.close();
-
             final HerbCloudClient herbCloudClient = new HerbCloudClient();
 
             File file = new File(PATH + "Plants.csv");
 
             Scanner scan = new Scanner(file);
-            while(scan.hasNextLine()){
-
+            while(scan.hasNextLine()) {
                 final String[] plantLine = scan.nextLine().split(",");
 
-                Call<Plant> callCloud = herbCloudClient.getApiService().getDetail(plantLine[0]);
+                Document docPost = Jsoup.connect("http://www.plantarium.ru/page/search.html?match=begins&type=0&mode=full&sample=" + plantLine[0]).get();
 
-                Plant plant = callCloud.execute().body();
+                String name = null;
+                StringBuilder names = new StringBuilder();
+                //String nameLatin = null;
 
-//                String valueLabel = plant.getLabel().get("pl");
+                Elements searchResult = docPost.getElementsByTag("a");
+                for (Element link : searchResult) {
+                    if (link.attr("href").startsWith("/page/view/item/")) {
+                        System.out.println(link.attr("href"));
+
+                        Document docPlant = Jsoup.connect("http://www.plantarium.ru" + link.attr("href")).get();
+
+                        name = "";
+                        names = new StringBuilder();
+//                        nameLatin = "";
+//
+//                        Elements taxonNames = docPlant.getElementsByClass("taxon-name");
+//                        if (taxonNames.size() > 1) {
+//                            nameLatin = taxonNames.get(0).text() + " " + taxonNames.get(1).text();
+//                        }
+
+                        Elements ruNames = docPlant.getElementsByAttributeValue("id", "boxRusNamesList");
+                        if (ruNames.size() > 0) {
+                            Elements nameElements = ruNames.get(0).getElementsByTag("span");
+                            if (nameElements.size() > 0) {
+                                name = nameElements.get(0).text();
+                                if (nameElements.size() > 1) {
+                                    for (int j = 1; j < nameElements.size(); j++) {
+                                        if (names.length() > 0) {
+                                            names.append(",");
+                                        }
+                                        names.append(nameElements.get(j).text());
+                                    }
+                                }
+                            } else {
+                                continue;
+                            }
+                        } else {
+                            continue;
+                        }
+
+
+                        break;
+                    }
+                }
+
+                if (name != null && name.length() > 0) {
+
+                    Call<Plant> callCloud = herbCloudClient.getApiService().update(plantLine[0], "label_ru", name, "replace", "string");
+                    callCloud.execute();
+
+                    if (names.length() > 0) {
+                        callCloud = herbCloudClient.getApiService().update(plantLine[0], "alias_ru", names.toString(), "replace", "list");
+                        callCloud.execute();
+                    }
+
+                }
+
+                Thread.sleep(5000);
+            }
+
+
+//            final HerbCloudClient herbCloudClient = new HerbCloudClient();
+//
+//            File file = new File(PATH + "Plants.csv");
+//
+//            Scanner scan = new Scanner(file);
+//            while(scan.hasNextLine()){
+//
+//                final String[] plantLine = scan.nextLine().split(",");
+//
+//                Call<Plant> callCloud = herbCloudClient.getApiService().getDetail(plantLine[0]);
+//
+//                Plant plant = callCloud.execute().body();
+//
+//                String valueLabel = plant.getLabel().get("ru");
 //
 //                String label = valueLabel; //langNames.get(plantLine[0]);
 //
 //                if (label == null && plant.getSynonyms() != null) {
 //                    for(String synonym : plant.getSynonyms()) {
-//                        label = names.get(synonym);
+//                        label = langNames.get(synonym);
 //                        if (label != null) {
 //                            break;
 //                        }
 //                    }
 //                }
-//
+
 //                if (label != null) {
-////                    if (valueName == null) {
+//                    if (valueName == null) {
 //                        label = valueLabel.toLowerCase();
 //                        callCloud = herbCloudClient.getApiService().update(plantLine[0], "label_pl", label, "replace", "string");
 //
 //                        callCloud.execute();
-////                    }
+//                    }
 //                } else {
 //                    if (valueLabel == null) {
 //                        System.out.println(plantLine[0]);
 //                    }
 //                }
 
-                ArrayList<String> synonyms = plant.getSynonyms();
+//                ArrayList<String> synonyms = plant.getSynonyms();
+//
+//                ArrayList<String> valueNames = plant.getNames().get("pl");
+//                if (valueNames != null) {
+//                    StringBuilder names = new StringBuilder();
+//                    for(String name : valueNames) {
+//                        if (names.length() > 0) {
+//                            names.append(",");
+//                        }
+//                        boolean isSynonym = false;
+//                        for (String synonym : synonyms) {
+//                            if (name.toLowerCase().equals(synonym.toLowerCase())) {
+//                                isSynonym = true;
+//                                break;
+//                            }
+//                        }
+//
+//                        if (!isSynonym) {
+//                            names.append(name.toLowerCase());
+//                        }
+//                    }
+//                    if (names.length() > 0) {
+//                        System.out.println(plant.getLabel().get("la") + "......." + names.toString());
+//                        callCloud = herbCloudClient.getApiService().update(plantLine[0], "alias_pl", names.toString(), "replace", "list");
+//
+//                        callCloud.execute();
+//                    }
+//                }
 
-                ArrayList<String> valueNames = plant.getNames().get("pl");
-                if (valueNames != null) {
-                    StringBuilder names = new StringBuilder();
-                    for(String name : valueNames) {
-                        if (names.length() > 0) {
-                            names.append(",");
-                        }
-                        boolean isSynonym = false;
-                        for (String synonym : synonyms) {
-                            if (name.toLowerCase().equals(synonym.toLowerCase())) {
-                                isSynonym = true;
-                                break;
-                            }
-                        }
-
-                        if (!isSynonym) {
-                            names.append(name.toLowerCase());
-                        }
-                    }
-                    if (names.length() > 0) {
-                        System.out.println(plant.getLabel().get("la") + "......." + names.toString());
-                        callCloud = herbCloudClient.getApiService().update(plantLine[0], "alias_pl", names.toString(), "replace", "list");
-
-                        callCloud.execute();
-                    }
-                }
-
-            }
+//            }
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
