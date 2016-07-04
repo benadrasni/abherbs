@@ -317,7 +317,7 @@ public class TaxonomyEndpoint {
 
             Object val = plantEntity.getProperty(attribute);
             if (val != null && "append".equals(operation) && !"string".equals(type)) {
-                ((List<String>) val).addAll((List<String>) newVal);
+                ((List<String>) newVal).addAll(0, (List<String>) val);
             }
 
             plantEntity.setProperty(attribute, newVal);
