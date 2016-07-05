@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Quelles sont ces fleurs?</string>
+    <string name="app_name">Quelle est cette fleur?</string>
 
     <string name="about">À propos</string>
     <string name="help">Aide</string>
