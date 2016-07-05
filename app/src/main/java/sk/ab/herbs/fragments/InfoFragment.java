@@ -425,7 +425,7 @@ public class InfoFragment extends Fragment {
 
         text.append(plant.getName());
         text.append("<br/><br/>");
-        text.append(getPlantInLanguage(Constants.LANGUAGE_EN));
+        text.append(getPlantInLanguage(language));
         text.append("<br/><br/>");
         text.append(Locale.getDefault().getDisplayLanguage());
         text.append("<br/><br/>");
@@ -465,25 +465,35 @@ public class InfoFragment extends Fragment {
     private String[][] getSections(String language, boolean withTranslation) {
         String[][] sections = {
                 {"", plant.getDescription().get(language) != null ? plant.getDescription().get(language)
-                        : withTranslation ? plant.getDescription().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getDescription().get(Constants.LANGUAGE_EN)},
+                        : withTranslation && plant.getDescription().get(language + Constants.LANGUAGE_GT_SUFFIX) != null
+                        ? plant.getDescription().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getDescription().get(Constants.LANGUAGE_EN)},
                 {getResources().getString(R.string.plant_flowers), plant.getFlower().get(language) != null ? plant.getFlower().get(language)
-                        : withTranslation ? plant.getFlower().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getFlower().get(Constants.LANGUAGE_EN)},
+                        : withTranslation && plant.getFlower().get(language + Constants.LANGUAGE_GT_SUFFIX) != null
+                        ? plant.getFlower().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getFlower().get(Constants.LANGUAGE_EN)},
                 {getResources().getString(R.string.plant_inflorescences), plant.getInflorescence().get(language) != null ? plant.getInflorescence().get(language)
-                        : withTranslation ? plant.getInflorescence().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getInflorescence().get(Constants.LANGUAGE_EN)},
+                        : withTranslation && plant.getInflorescence().get(language + Constants.LANGUAGE_GT_SUFFIX) != null
+                        ? plant.getInflorescence().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getInflorescence().get(Constants.LANGUAGE_EN)},
                 {getResources().getString(R.string.plant_fruits), plant.getFruit().get(language) != null ? plant.getFruit().get(language)
-                        : withTranslation ? plant.getFruit().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getFruit().get(Constants.LANGUAGE_EN)},
+                        : withTranslation && plant.getFruit().get(language + Constants.LANGUAGE_GT_SUFFIX) != null
+                        ? plant.getFruit().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getFruit().get(Constants.LANGUAGE_EN)},
                 {getResources().getString(R.string.plant_leaves), plant.getLeaf().get(language) != null ? plant.getLeaf().get(language)
-                        : withTranslation ? plant.getLeaf().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getLeaf().get(Constants.LANGUAGE_EN)},
+                        : withTranslation && plant.getLeaf().get(language + Constants.LANGUAGE_GT_SUFFIX) != null
+                        ? plant.getLeaf().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getLeaf().get(Constants.LANGUAGE_EN)},
                 {getResources().getString(R.string.plant_stem), plant.getStem().get(language) != null ? plant.getStem().get(language)
-                        : withTranslation ? plant.getStem().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getStem().get(Constants.LANGUAGE_EN)},
+                        : withTranslation && plant.getStem().get(language + Constants.LANGUAGE_GT_SUFFIX) != null
+                        ? plant.getStem().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getStem().get(Constants.LANGUAGE_EN)},
                 {getResources().getString(R.string.plant_habitat), plant.getHabitat().get(language) != null ? plant.getHabitat().get(language)
-                        : withTranslation ? plant.getHabitat().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getHabitat().get(Constants.LANGUAGE_EN)},
+                        : withTranslation && plant.getHabitat().get(language + Constants.LANGUAGE_GT_SUFFIX) != null
+                        ? plant.getHabitat().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getHabitat().get(Constants.LANGUAGE_EN)},
                 {getResources().getString(R.string.plant_toxicity), plant.getToxicity().get(language) != null ? plant.getToxicity().get(language)
-                        : withTranslation ? plant.getToxicity().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getToxicity().get(Constants.LANGUAGE_EN)},
+                        : withTranslation && plant.getToxicity().get(language + Constants.LANGUAGE_GT_SUFFIX) != null
+                        ? plant.getToxicity().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getToxicity().get(Constants.LANGUAGE_EN)},
                 {getResources().getString(R.string.plant_herbalism), plant.getHerbalism().get(language) != null ? plant.getHerbalism().get(language)
-                        : withTranslation ? plant.getHerbalism().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getHerbalism().get(Constants.LANGUAGE_EN)},
+                        : withTranslation && plant.getHerbalism().get(language + Constants.LANGUAGE_GT_SUFFIX) != null
+                        ? plant.getHerbalism().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getHerbalism().get(Constants.LANGUAGE_EN)},
                 {getResources().getString(R.string.plant_trivia), plant.getTrivia().get(language) != null ? plant.getTrivia().get(language)
-                        : withTranslation ? plant.getTrivia().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getTrivia().get(Constants.LANGUAGE_EN)}
+                        : withTranslation && plant.getTrivia().get(language + Constants.LANGUAGE_GT_SUFFIX) != null
+                        ? plant.getTrivia().get(language + Constants.LANGUAGE_GT_SUFFIX) : plant.getTrivia().get(Constants.LANGUAGE_EN)}
         };
 
         return sections;

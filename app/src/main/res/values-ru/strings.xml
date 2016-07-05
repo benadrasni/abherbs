@@ -24,7 +24,7 @@
     <string name="habitat_meadow">луга или пастбища</string>
     <string name="habitat_garden">сады или поля</string>
     <string name="habitat_wetland">водно-болотные угодья</string>
-    <string name="habitat_forest">лес</string>
+    <string name="habitat_forest">леса</string>
     <string name="habitat_rock">скалы или горы</string>
     <string name="habitat_tree">деревья или кустарники</string>
     <string name="habitat_message">What\'s around you? Identify plant\'s habitat.</string>
