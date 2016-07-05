@@ -168,4 +168,5 @@
     <string name="rate_never">Never</string>
     <string name="rate_later">Later</string>
     <string name="rate">Review (Google Play)</string>
+    <string name="your_text">your text</string>
 </resources>

@@ -425,27 +425,37 @@ public class InfoFragment extends Fragment {
 
         text.append(plant.getName());
         text.append("<br/><br/>");
-        if (!Constants.LANGUAGE_EN.equals(language) && !Constants.LANGUAGE_SK.equals(language)) {
-            text.append(Locale.ENGLISH.getDisplayLanguage());
-            text.append("<br/><br/>");
-            text.append(getPlantInLanguage(Constants.LANGUAGE_EN));
-            text.append("<br/><br/>");
-        }
+        text.append(getPlantInLanguage(Constants.LANGUAGE_EN));
+        text.append("<br/><br/>");
         text.append(Locale.getDefault().getDisplayLanguage());
         text.append("<br/><br/>");
-        text.append(getPlantInLanguage(language));
+        text.append(getPlantPlaceHolder(language));
 
         return text.toString();
     }
 
     private String getPlantInLanguage(String language) {
-        final StringBuilder text = new StringBuilder(plant.getName());
+        final StringBuilder text = new StringBuilder(plant.getLabel(language));
         for(String[] section : getSections(language, true) ) {
             text.append("<b>").append(section[0]).append("</b>");
             text.append(": ");
             if (section[1] != null) {
                 text.append(section[1]);
             }
+            text.append("<br/>");
+        }
+
+        return text.toString();
+    }
+
+    private String getPlantPlaceHolder(String language) {
+        final StringBuilder text = new StringBuilder(plant.getLabel(language));
+        for(String[] section : getSections(language, true) ) {
+            text.append("<b>").append(section[0]).append("</b>");
+            text.append(": <br/>");
+            text.append("<i>");
+            text.append(getResources().getString(R.string.your_text));
+            text.append("</i>");
             text.append("<br/>");
         }
 

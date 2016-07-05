@@ -100,4 +100,5 @@
     <string name="rate_later">Später</string>
     <string name="rate">Bewertung (Google Play)</string>
     <string name="rate_text">Autor dieser Applikation wird durch positive Antwort von den Benutzern getankt. Bitte senden Sie ihm einige Siebensterne über Google Play Store.</string>
+    <string name="your_text">dein Text</string>
 </resources>

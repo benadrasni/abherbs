@@ -100,4 +100,5 @@
     <string name="rate_never">Nikdy</string>
     <string name="rate_later">Neskôr</string>
     <string name="rate">Recenzia (Google Play)</string>
+    <string name="your_text">váš text</string>
 </resources>

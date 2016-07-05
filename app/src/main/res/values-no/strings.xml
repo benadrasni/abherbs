@@ -101,4 +101,5 @@
     <string name="rate_never">Aldri</string>
     <string name="rate_later">Seinere</string>
     <string name="rate">Anmeldelser (Google Play)</string>
+    <string name="your_text"> din tekst</string>
 </resources>

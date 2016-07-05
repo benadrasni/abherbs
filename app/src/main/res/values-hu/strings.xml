@@ -101,4 +101,5 @@
     <string name="rate_never">Soha</string>
     <string name="rate_later">Később</string>
     <string name="rate">Vélemények (Google Play)</string>
+    <string name="your_text">a te szöveged</string>
 </resources>

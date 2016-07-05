@@ -101,4 +101,5 @@
     <string name="rate_never">Никогда</string>
     <string name="rate_later">Позже</string>
     <string name="rate">Отзывы (Google Play)</string>
+    <string name="your_text">ваш текст</string>
 </resources>

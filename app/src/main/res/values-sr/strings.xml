@@ -101,4 +101,5 @@
     <string name="rate_never">Никад</string>
     <string name="rate_later">Касније</string>
     <string name="rate">Рецензије (Google Play)</string>
+    <string name="your_text">ваш текст</string>
 </resources>

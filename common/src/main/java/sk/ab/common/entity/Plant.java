@@ -65,6 +65,15 @@ public class Plant {
                 && (herbalism.get(Constants.LANGUAGE_EN) == null || herbalism.get(language) != null);
     }
 
+
+    public String getLabel(String language) {
+        String labelInLanguage = getLabel().get(language);
+        if (labelInLanguage == null) {
+            labelInLanguage = getLabel().get(Constants.LANGUAGE_LA);
+        }
+        return labelInLanguage;
+    }
+
     public Integer getPlantId() {
         return plantId;
     }

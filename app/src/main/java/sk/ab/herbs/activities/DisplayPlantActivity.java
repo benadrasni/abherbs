@@ -42,10 +42,6 @@ public class DisplayPlantActivity extends BaseActivity {
             filter = (HashMap<String, String>)getIntent().getExtras().getSerializable(AndroidConstants.STATE_FILTER);
         }
 
-//        builder.set("plant", ""+getPlant().getPlantId());
-//        ((HerbsApp)getApplication()).getTracker().send(builder.build());
-
-
         setContentView(R.layout.plant_activity);
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);

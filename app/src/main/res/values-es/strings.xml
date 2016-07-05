@@ -101,4 +101,5 @@
     <string name="rate_later">Más tarde</string>
     <string name="rate">Opinione (Google Play)</string>
     <string name="rate_text"> Al autor de esta aplicación le motivan las reacciones positivas de los usuarios. Mándele, por favor, unas flores de la estrella a través del Google Play Store.</string>
+    <string name="your_text">tu texto</string>
 </resources>
