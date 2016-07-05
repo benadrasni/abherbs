@@ -2,7 +2,7 @@
     <item android:drawable="@android:color/white"/>
     <item>
         <bitmap
-            android:src="@drawable/home"
+            android:src="@drawable/splash"
             android:gravity="center"/>
     </item>
 </layer-list>

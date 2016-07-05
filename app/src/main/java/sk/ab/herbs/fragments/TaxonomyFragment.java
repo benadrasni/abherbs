@@ -69,10 +69,11 @@ public class TaxonomyFragment extends Fragment {
         final DisplayPlantActivity displayPlantActivity = (DisplayPlantActivity) getActivity();
         final SharedPreferences preferences = displayPlantActivity.getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        Boolean wasShowCase = preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_3_1, false);
+        Boolean showWizard = !preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_3_1, false)
+                && preferences.getBoolean(Constants.SHOWCASE_DISPLAY_KEY + Constants.VERSION_1_2_7, false);
         final TextView nameView = (TextView) getView().findViewById(R.id.plant_species);
 
-        if (!wasShowCase) {
+        if (showWizard) {
             new ShowcaseView.Builder(getActivity())
                     .withMaterialShowcase()
                     .setStyle(R.style.CustomShowcaseTheme)

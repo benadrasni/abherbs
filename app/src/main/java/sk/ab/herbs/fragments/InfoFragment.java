@@ -96,9 +96,9 @@ public class InfoFragment extends Fragment {
 
         final ImageView drawing = (ImageView) getView().findViewById(R.id.plant_background);
         SharedPreferences.Editor editor = preferences.edit();
-        Boolean wasShowCase = preferences.getBoolean(Constants.SHOWCASE_DISPLAY_KEY + Constants.VERSION_1_2_7, false);
+        Boolean showWizard = !preferences.getBoolean(Constants.SHOWCASE_DISPLAY_KEY + Constants.VERSION_1_2_7, false);
 
-        if (!wasShowCase) {
+        if (showWizard) {
             new ShowcaseView.Builder(getActivity())
                     .withMaterialShowcase()
                     .setStyle(R.style.CustomShowcaseTheme)
