@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Ce este aceasta floare?</string>
+    <string name="app_name">Ce este acea floare?</string>
 
-    <string name="about">Despre aplicații</string>
+    <string name="about">Despre</string>
     <string name="help">Ajutor</string>
     <string name="settings">Setări</string>
     <string name="feedback">Feedback</string>
     <string name="pref_language">Limba preferată</string>
-    <string name="change_locale">Schimbare locale</string>
+    <string name="change_locale">Schimbă limbă</string>
     <string name="change_locale_summary">limba preferată</string>
-    <string name="propose_translation">Do not show button</string>
-    <string name="propose_translation_summary">for emailing better translation / description</string>
+    <string name="propose_translation">Nu arăta butonul</string>
+    <string name="propose_translation_summary">pentru a trimite via email o traducere/descriere mai bună</string>
 
     <string name="color_of_flower">culoarea florilor</string>
     <string name="color_white">alb</string>
@@ -18,25 +18,25 @@
     <string name="color_red">roșu, roz</string>
     <string name="color_blue">albastru, violet</string>
     <string name="color_green">verde, maro, negru</string>
-    <string name="color_of_flower_message">What\'s the color of the flower? Choose the closest one.</string>
+    <string name="color_of_flower_message">Care este culoarea florii? Alege culoarea cea mai apropiată.</string>
 
     <string name="habitats">habitatul</string>
-    <string name="habitat_meadow">fâneață sau prat</string>
+    <string name="habitat_meadow">câmpie sau fâneață</string>
     <string name="habitat_garden">grădina sau câmp</string>
     <string name="habitat_wetland">zonele umede</string>
     <string name="habitat_forest">pădurea</string>
     <string name="habitat_rock">stânci sau munți</string>
     <string name="habitat_tree">arbori sau arbuști</string>
-    <string name="habitat_message">What\'s around you? Identify plant\'s habitat.</string>
+    <string name="habitat_message">Ce se găsește în jurul tău? Identifică habitatul plantei.</string>
 
     <string name="number_of_petals">numărul de petale</string>
     <string name="petal_4">4 sau mai puțin</string>
     <string name="petal_5">5</string>
     <string name="petal_many">mai mult de 5</string>
     <string name="petal_bisymmetric">bisimetric</string>
-    <string name="number_of_petals_message">Is the flower bisymmetric? No? Then how many petals does it have?</string>
+    <string name="number_of_petals_message">Este bisimetrică această floare? Nu? Atunci câte petale are?</string>
 
-    <string name="display_info">Dreapta?</string>
+    <string name="display_info">Corect?</string>
     <string name="list_info">Alege una</string>
 
     <string name="plant_info">Info</string>
@@ -46,22 +46,22 @@
     <string name="image_desc">Ilustrare de plante</string>
     <string name="translate_desc">Traduceți</string>
     <string name="email_desc">E-mail</string>
-    <string name="email_subject_prefix">Proposal of better translation / description for </string>
+    <string name="email_subject_prefix">Propunere pentru o traducere/descriere mai bună </string>
 
     <string name="plant_title">Nume</string>
-    <string name="plant_height_from">Inaltimea</string>
-    <string name="plant_height_to">-</string>
+    <string name="plant_height_from">Înălțimea de la</string>
+    <string name="plant_height_to">la</string>
     <string name="plant_flowering_from">Înflorire</string>
-    <string name="plant_flowering_to">-</string>
+    <string name="plant_flowering_to">la</string>
     <string name="plant_flowers">Flori</string>
     <string name="plant_inflorescences">Inflorescență</string>
-    <string name="plant_fruits">Fruct</string>
-    <string name="plant_leaves">Frunză</string>
+    <string name="plant_fruits">Fructe</string>
+    <string name="plant_leaves">Frunze</string>
     <string name="plant_inflorescence">Inflorescență</string>
     <string name="plant_color_of_flowers">Culoarea florilor</string>
     <string name="plant_number_of_petals">Numărul de petale</string>
     <string name="plant_sepal">Sepală</string>
-    <string name="plant_leaf_shape">Tipuri de frunze</string>
+    <string name="plant_leaf_shape">Forma frunzei</string>
     <string name="plant_leaf_margin">Marja de frunze</string>
     <string name="plant_leaf_venation">Nervațiunea frunzelor</string>
     <string name="plant_leaf_arrangement">Filotaxie</string>
@@ -86,19 +86,19 @@
 
     <string name="close">Închide</string>
 
-    <string name="showcase_propose_title">Propose better translation / description</string>
-    <string name="showcase_propose_message">You can send better translation or description by email.</string>
-    <string name="showcase_fullscreen_title">Larger illustration</string>
-    <string name="showcase_fullscreen_message">You can display illustration on full screen by clicking on it.</string>
-    <string name="showcase_count_button_title">Number of filtered plants</string>
-    <string name="showcase_count_button_message">When number is less than 21 press to jump directly to the list. Long press to clear filter.</string>
-    <string name="showcase_taxonomy_title">Taxonomy according to APG III system</string>
-    <string name="showcase_taxonomy_message">You can show / hide flower\'s taxonomy by clicking on the its name.</string>
+    <string name="showcase_propose_title">Oferă o traducere / descriere mai bună.</string>
+    <string name="showcase_propose_message">Poți trimite o traducere sau descriere mai bună via email.</string>
+    <string name="showcase_fullscreen_title">Ilustrație mare</string>
+    <string name="showcase_fullscreen_message">Poți afișa ilustrația pe tot ecranul apăsând pe ea.</string>
+    <string name="showcase_count_button_title">Numărul de plante filtrate</string>
+    <string name="showcase_count_button_message">Când numărul este mai mic decât 21 apasă penrtu a sări direct la listă. Apăsare mai lungă pentru a reseta filtrul.</string>
+    <string name="showcase_taxonomy_title">Taxonomia bazată pe sistemul APG III</string>
+    <string name="showcase_taxonomy_message">Poți arăta / ascunde taxonomia florii apăsând pe numele ei.</string>
     <string name="legend">Legendă</string>
     <string name="toxicity1">plantă otrăvitoare</string>
     <string name="toxicity2">plantă ușor otrăvitoare</string>
-    <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
-    <string name="rate_never">Nu</string>
+    <string name="rate_text">Autorul acestei aplicații este motivat de răspunsul pozitiv al utilizatorilor. Vă rugăm trimiți-i câteva flori stea via Google Play Store.</string>
+    <string name="rate_never">Niciodată</string>
     <string name="rate_later">Mai tarziu</string>
     <string name="rate">Review (Google Play)</string>
     <string name="your_text">textul tau</string>

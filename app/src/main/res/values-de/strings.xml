@@ -20,7 +20,7 @@
     <string name="color_green">Grün, Braun, Schwarz</string>
     <string name="color_of_flower_message">Wie ist die Farbe der Blume? Wähle die ähnlichste Farbe.</string>
 
-    <string name="habitats">Vorkommen</string>
+    <string name="habitats">Habitat</string>
     <string name="habitat_meadow">Wiesen oder Grünland</string>
     <string name="habitat_garden">Gärten oder Feldern</string>
     <string name="habitat_wetland">Moorlandschaft oder Feuchtgebiete</string>
@@ -67,9 +67,9 @@
     <string name="plant_leaf_arrangement">Blattstand</string>
     <string name="plant_stem">Stängel</string>
     <string name="plant_root">Wurzel</string>
-    <string name="plant_habitat">Vorkommen</string>
+    <string name="plant_habitat">Habitat</string>
     <string name="plant_toxicity">Toxizität</string>
-    <string name="plant_herbalism">Herbalism</string>
+    <string name="plant_herbalism">Pflanzenheilkunde</string>
 
     <string name="plant_domain">Domäne</string>
     <string name="plant_kingdom">Reich</string>
