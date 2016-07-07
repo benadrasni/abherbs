@@ -42,7 +42,7 @@ public class Updater {
     public static void main(String[] params) {
 
 
-        luontoportti("da");
+        miljolare();
 //            File namefile = new File("C:/Development/Projects/uknames.csv");
 //
 //            Scanner namescan = new Scanner(namefile);
@@ -127,58 +127,26 @@ public class Updater {
 
     }
 
-    private static void luontoportti(String language) {
+    private static void miljolare() {
 
         Map<String, String> labels = new HashMap<>();
-        Map<String, List<String>> aliases = new HashMap<>();
 
         try {
-//            Document docList = Jsoup.connect("http://www.luontoportti.com/suomi/" + language + "/kukkakasvit/?list=9").get();
-//
-//            Elements textList = docList.getElementsByAttributeValue("id", "textList");
-//            if (textList.size() > 0) {
-//                Elements as = textList.get(0).getElementsByTag("a");
-//                for(Element a : as) {
-//                    String name = a.text();
-//
-//                    Document plantDoc = Jsoup.connect(a.attr("href")).get();
-//
-//                    Elements h4s = plantDoc.getElementsByTag("h4");
-//                    String nameLatin = null;
-//                    if (h4s.size() > 0) {
-//                        nameLatin = h4s.get(0).text();
-//                    }
-//
-//                    labels.put(nameLatin, name);
-//
-//                    String alias = "";
-//                    Elements texts = plantDoc.getElementsByAttributeValue("id", "teksti");
-//                    if (texts.size() > 0) {
-//                        Elements lis = texts.get(0).getElementsByTag("li");
-//                        for(Element li : lis) {
-//                            if (li.text().startsWith("Skrives også:")) {
-//                                alias = li.text().substring(13).trim();
-//
-//                                aliases.put(nameLatin, Arrays.asList(alias.split(",")));
-//                                break;
-//                            }
-//                        }
-//                    }
-//
-//                    System.out.println(nameLatin + ";" + name + ";" + alias);
-//                }
-//            }
 
-            File namefile = new File(PATH + language + "names.csv");
+            Document docList = Jsoup.connect("https://www.miljolare.no/artstre/?or_id=2376&side=arter&start=1&antal=1311").get();
 
-            Scanner namescan = new Scanner(namefile);
-            while(namescan.hasNextLine()) {
-                final String[] plantLine = namescan.nextLine().split(";");
+            Elements textList = docList.getElementsByTag("tbody");
+            if (textList.size() > 0) {
+                Elements trs = textList.get(0).getElementsByTag("tr");
+                for(Element tr : trs) {
+                    Elements tds = tr.getElementsByTag("td");
+                    if (tds.size() > 1) {
+                        String name = tds.get(0).text().replace(" (", ",").replace(")", "");
 
-                if (plantLine.length > 1) {
-                    labels.put(plantLine[0], plantLine[1]);
-                    if (plantLine.length > 2 && plantLine[2].length() > 0) {
-                        aliases.put(plantLine[0], Arrays.asList(plantLine[2].split(",")));
+                        String[] names = name.split(",");
+                        if (names.length == 2) {
+                            labels.put(names[1], names[0]);
+                        }
                     }
                 }
             }
@@ -196,91 +164,197 @@ public class Updater {
                 Call<Plant> callCloud = herbCloudClient.getApiService().getDetail(nameLatin);
                 Plant plant = callCloud.execute().body();
 
-                String valueLabel = plant.getLabel().get(language);
+                String valueLabel = plant.getLabel().get("no");
                 String label = labels.get(nameLatin);
                 if (label == null && plant.getSynonyms() != null) {
                     for (String synonym : plant.getSynonyms()) {
                         label = labels.get(synonym);
                         if (label != null) {
+                            label = label.toLowerCase();
                             break;
                         }
                     }
-                }
-
-                List<String> aliasesToSave = new ArrayList<>();
-
-                if (label != null && valueLabel != null && !label.equals(valueLabel.substring(0,1).toUpperCase()+valueLabel.substring(1))) {
-                    aliasesToSave.add(valueLabel.substring(0,1).toUpperCase()+valueLabel.substring(1));
-                }
-
-                ArrayList<String> valueAlias = plant.getNames().get(language);
-                if (valueAlias != null) {
-                    for (String al : valueAlias) {
-                        boolean isSynonym = al.startsWith(nameLatin);
-                        if (!isSynonym) {
-                            for (String synonym : plant.getSynonyms()) {
-                                isSynonym = al.startsWith(synonym);
-                                if (isSynonym) break;
-                            }
-                        }
-                        if (!isSynonym) {
-                            al = al.substring(0,1).toUpperCase()+al.substring(1);
-                            if ((label == null && !valueLabel.equals(al)) || !label.equals(al)) {
-                                aliasesToSave.add(al);
-                            }
-                        }
-                    }
-                }
-                List<String> alias = aliases.get(nameLatin);
-                if (alias != null) {
-                    for (String al : alias) {
-                        al = al.substring(0,1).toUpperCase()+al.substring(1);
-                        if (!aliasesToSave.contains(al)) {
-                            if ((label == null && !valueLabel.equals(al)) || !label.equals(al)) {
-                                aliasesToSave.add(al);
-                            }
-                        }
-                    }
-                }
-
-                StringBuilder aliasSb = new StringBuilder();
-                for (String al : aliasesToSave) {
-                    if (aliasSb.length() > 0) {
-                        aliasSb.append(",");
-                    }
-                    aliasSb.append(al);
-                }
-
-                if (label != null) {
-                    if (!label.equals(valueLabel)) {
-                        callCloud = herbCloudClient.getApiService().update(plantLine[0], "label_" + language, label, "replace", "string");
-                        callCloud.execute();
-                    }
                 } else {
-                    if (valueLabel == null) {
+                    label = label.toLowerCase();
+                }
+
+                if (valueLabel == null) {
+                    if (label != null) {
+                        callCloud = herbCloudClient.getApiService().update(plantLine[0], "label_no", label, "replace", "string");
+                        callCloud.execute();
+                    } else {
                         System.out.println(plantLine[0]);
                     }
                 }
+            }
 
-                if (aliasSb.length() > 0) {
-                    StringBuilder valAlias = new StringBuilder();
-                    if (valueAlias != null) {
-                        for (String al : valueAlias) {
-                            if (valAlias.length() > 0) {
-                                valAlias.append(",");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void luontoportti(String language) {
+
+        Map<String, String> labels = new HashMap<>();
+        Map<String, List<String>> aliases = new HashMap<>();
+
+        try {
+            Document docList = Jsoup.connect("http://www.luontoportti.com/suomi/" + language + "/kukkakasvit/?list=9").get();
+
+            Elements textList = docList.getElementsByAttributeValue("id", "textList");
+            if (textList.size() > 0) {
+                Elements as = textList.get(0).getElementsByTag("a");
+                for(Element a : as) {
+                    String name = a.text();
+
+                    Document plantDoc = Jsoup.connect(a.attr("href")).get();
+
+                    Elements h4s = plantDoc.getElementsByTag("h4");
+                    String nameLatin = null;
+                    if (h4s.size() > 0) {
+                        nameLatin = h4s.get(0).text();
+                    }
+
+                    labels.put(nameLatin, name);
+
+                    String alias = "";
+                    Elements texts = plantDoc.getElementsByAttributeValue("id", "teksti");
+                    if (texts.size() > 0) {
+                        Elements lis = texts.get(0).getElementsByTag("li");
+                        for(Element li : lis) {
+                            if (li.text().startsWith("Også kalt:")) {
+                                alias = li.text().substring(10).trim();
+
+                                aliases.put(nameLatin, Arrays.asList(alias.split(",")));
+                                break;
                             }
-                            valAlias.append(al);
                         }
                     }
 
-                    String s = aliasSb.toString();
-                    if (!s.equals(valAlias.toString())) {
-                        callCloud = herbCloudClient.getApiService().update(plantLine[0], "alias_" + language, s, "replace", "list");
-                        callCloud.execute();
-                    }
+                    System.out.println(nameLatin + ";" + name + ";" + alias);
                 }
-
             }
+
+//            File namefile = new File(PATH + language + "names.csv");
+//
+//            Scanner namescan = new Scanner(namefile);
+//            while(namescan.hasNextLine()) {
+//                final String[] plantLine = namescan.nextLine().split(";");
+//
+//                if (plantLine.length > 1) {
+//                    labels.put(plantLine[0], plantLine[1]);
+//                    if (plantLine.length > 2 && plantLine[2].length() > 0) {
+//                        aliases.put(plantLine[0], Arrays.asList(plantLine[2].split(",")));
+//                    }
+//                }
+//            }
+//
+//            final HerbCloudClient herbCloudClient = new HerbCloudClient();
+//
+//            File file = new File(PATH + "Plants.csv");
+//
+//            Scanner scan = new Scanner(file);
+//            while(scan.hasNextLine()) {
+//
+//                final String[] plantLine = scan.nextLine().split(",");
+//                String nameLatin = plantLine[0];
+//
+//                Call<Plant> callCloud = herbCloudClient.getApiService().getDetail(nameLatin);
+//                Plant plant = callCloud.execute().body();
+//
+//                String valueLabel = plant.getLabel().get(language);
+//                String label = labels.get(nameLatin);
+//                if (label == null && plant.getSynonyms() != null) {
+//                    for (String synonym : plant.getSynonyms()) {
+//                        label = labels.get(synonym);
+//                        if (label != null) {
+//                            label = label.toLowerCase();
+//                            break;
+//                        }
+//                    }
+//                } else {
+//                    label = label.toLowerCase();
+//                }
+//
+//                List<String> aliasesToSave = new ArrayList<>();
+//
+//                if (label != null && valueLabel != null && !label.equals(valueLabel.toLowerCase())) {
+//                    aliasesToSave.add(valueLabel.toLowerCase());
+//                }
+//
+//                ArrayList<String> valueAlias = plant.getNames().get(language);
+//                if (valueAlias != null) {
+//                    for (String al : valueAlias) {
+//                        boolean isSynonym = al.startsWith(nameLatin);
+//                        if (!isSynonym) {
+//                            for (String synonym : plant.getSynonyms()) {
+//                                isSynonym = al.startsWith(synonym);
+//                                if (isSynonym) break;
+//                            }
+//                        }
+//                        if (!isSynonym) {
+//                            al = al.toLowerCase();
+//                            if ((label == null && !valueLabel.equals(al)) || !label.equals(al)) {
+//                                aliasesToSave.add(al);
+//                            }
+//                        }
+//                    }
+//                }
+//                List<String> alias = aliases.get(nameLatin);
+//                if (alias != null) {
+//                    for (String al : alias) {
+//                        al = al.toLowerCase();
+//                        if (!aliasesToSave.contains(al)) {
+//                            if ((label == null && !valueLabel.equals(al)) || !label.equals(al)) {
+//                                aliasesToSave.add(al);
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                StringBuilder aliasSb = new StringBuilder();
+//                for (String al : aliasesToSave) {
+//                    if (aliasSb.length() > 0) {
+//                        aliasSb.append(",");
+//                    }
+//                    aliasSb.append(al);
+//                }
+//
+//                if (label != null) {
+//                    if (!label.equals(valueLabel)) {
+//                        callCloud = herbCloudClient.getApiService().update(plantLine[0], "label_" + language, label, "replace", "string");
+//                        callCloud.execute();
+//                    }
+//                } else {
+//                    if (valueLabel == null) {
+//                        System.out.println(plantLine[0]);
+//                    } else {
+//                        valueLabel = valueLabel.toLowerCase();
+//                        callCloud = herbCloudClient.getApiService().update(plantLine[0], "label_" + language, valueLabel, "replace", "string");
+//                        callCloud.execute();
+//                    }
+//                }
+//
+//                if (aliasSb.length() > 0) {
+//                    StringBuilder valAlias = new StringBuilder();
+//                    if (valueAlias != null) {
+//                        for (String al : valueAlias) {
+//                            if (valAlias.length() > 0) {
+//                                valAlias.append(",");
+//                            }
+//                            valAlias.append(al);
+//                        }
+//                    }
+//
+//                    String s = aliasSb.toString();
+//                    if (!s.equals(valAlias.toString())) {
+//                        callCloud = herbCloudClient.getApiService().update(plantLine[0], "alias_" + language, s, "replace", "list");
+//                        callCloud.execute();
+//                    }
+//                }
+//
+//            }
 
 
         } catch (IOException e) {
