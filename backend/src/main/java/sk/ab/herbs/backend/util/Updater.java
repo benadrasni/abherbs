@@ -10,7 +10,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,14 +38,14 @@ import sk.ab.common.service.HerbCloudClient;
  * Created by adrian on 4.5.2016.
  */
 public class Updater {
-    public static String PATH = "C:/Development/Projects/abherbs/backend/";
-//    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/";
+//    public static String PATH = "C:/Development/Projects/abherbs/backend/txt/";
+    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
 
 
     public static void main(String[] params) {
 
 
-        miljolareSearch();
+        missing();
 //            File namefile = new File("C:/Development/Projects/uknames.csv");
 //
 //            Scanner namescan = new Scanner(namefile);
@@ -123,18 +126,60 @@ public class Updater {
 //                }
 
 //            }
-
-
     }
 
-    private static void miljolareSearch() {
-
-        Map<String, String> labels = new HashMap<>();
+    private static void missing() {
+        Map<String, BufferedWriter> missingFiles = new HashMap<>();
+        String[] languages = {"la", "sk", "cs", "en", "fr", "pt", "es", "ru", "uk", "de", "no", "da", "fi", "sv", "is", "ja", "zh", "hu", "pl", "nl", "tr"};
 
         try {
             final HerbCloudClient herbCloudClient = new HerbCloudClient();
 
-            File file = new File(PATH + "no_missing");
+            File file = new File(PATH + "Plants.csv");
+
+            Scanner scan = new Scanner(file);
+            while (scan.hasNextLine()) {
+
+                final String[] plantLine = scan.nextLine().split(",");
+                String nameLatin = plantLine[0];
+                System.out.println(nameLatin);
+
+                Call<Plant> callCloud = herbCloudClient.getApiService().getDetail(nameLatin);
+                Plant plant = callCloud.execute().body();
+
+                for(String language : languages) {
+                    String value = plant.getLabel().get(language);
+                    if (value == null) {
+                        BufferedWriter bw = missingFiles.get(language);
+                        if (bw == null) {
+                            File f = new File(PATH + language + "_missing.txt");
+                            bw = new BufferedWriter(new FileWriter(f));
+
+                            missingFiles.put(language, bw);
+                        }
+                        bw.write(nameLatin + "\n");
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                for (Map.Entry<String, BufferedWriter> bwEntry : missingFiles.entrySet()) {
+                    bwEntry.getValue().close();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    private static void miljolareSearch() {
+
+        try {
+            final HerbCloudClient herbCloudClient = new HerbCloudClient();
+
+            File file = new File(PATH + "no_missing.txt");
 
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()){

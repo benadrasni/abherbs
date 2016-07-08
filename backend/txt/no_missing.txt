@@ -4,12 +4,14 @@ Biscutella laevigata
 Bupleurum falcatum
 Chlorophytum comosum
 Cornus mas
+Cornus sanguinea
 Cotoneaster integerrimus
 Crataegus germanica
 Cytisus nigricans
 Daphne striata
 Dianthus seguieri
 Euphorbia verrucosa
+Ficaria verna
 Filago minima
 Gagea villosa
 Genista sagittalis
@@ -21,6 +23,7 @@ Hippocrepis comosa
 Knautia dipsacifolia
 Lotus maritimus
 Lycopsis arvensis
+Medicago falcata
 Muscari neglectum
 Oenothera parviflora
 Ophrys fuciflora
@@ -29,6 +32,7 @@ Orchis militaris
 Orchis pallens
 Orobanche minor
 Orobanche ramosa
+Pedicularis sylvatica
 Primula farinosa
 Pulsatilla alpina
 Ranunculus fluitans
@@ -38,7 +42,9 @@ Rhododendron ferrugineum
 Rhododendron hirsutum
 Ribes petraeum
 Rosa arvensis
+Rumex alpinus
 Scutellaria minor
 Silaum silaus
 Soldanella carpatica
 Thesium pyrenaicum
+Thlaspi perfoliatum
