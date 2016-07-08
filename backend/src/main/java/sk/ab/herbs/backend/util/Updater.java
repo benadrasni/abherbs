@@ -35,14 +35,14 @@ import sk.ab.common.service.HerbCloudClient;
  * Created by adrian on 4.5.2016.
  */
 public class Updater {
-//    public static String PATH = "C:/Development/Projects/abherbs/backend/";
-    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/";
+    public static String PATH = "C:/Development/Projects/abherbs/backend/";
+//    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/";
 
 
     public static void main(String[] params) {
 
 
-        miljolare();
+        miljolareSearch();
 //            File namefile = new File("C:/Development/Projects/uknames.csv");
 //
 //            Scanner namescan = new Scanner(namefile);
@@ -125,6 +125,64 @@ public class Updater {
 //            }
 
 
+    }
+
+    private static void miljolareSearch() {
+
+        Map<String, String> labels = new HashMap<>();
+
+        try {
+            final HerbCloudClient herbCloudClient = new HerbCloudClient();
+
+            File file = new File(PATH + "no_missing");
+
+            Scanner scan = new Scanner(file);
+            while(scan.hasNextLine()){
+                final String plantName = scan.nextLine();
+
+                String json = Jsoup.connect("https://www.miljolare.no/sok/?format=json&limit=5&term="+plantName).ignoreContentType(true).execute().body();
+
+                JsonParser jp = new JsonParser();
+                JsonElement root = jp.parse(json);
+
+                JsonArray treffs = root.getAsJsonObject().getAsJsonArray("treff");
+                if (treffs.size() > 0) {
+                    for (JsonElement treff : treffs) {
+                        if (treff.getAsJsonObject().get("tittel").getAsString().contains(plantName)) {
+                            Document docPlant = Jsoup.connect("https://www.miljolare.no" + treff.getAsJsonObject().get("url").getAsString()).get();
+
+                            Elements taxonTable = docPlant.getElementsByClass("STABELL");
+                            if (taxonTable.size() > 0) {
+                                Elements taxons = taxonTable.get(0).getElementsByAttributeValue("style", "font-weight: bold;");
+                                if (taxons.size() > 0) {
+                                    Elements tds = taxons.get(0).getElementsByTag("td");
+                                    if (tds.size() > 0) {
+
+                                        if (tds.get(tds.size()-1).text().contains("(")) {
+                                            String[] names = tds.get(tds.size() - 1).text().split(" \\(");
+                                            names[0] = names[0].toLowerCase();
+                                            names[1] = names[1].substring(0, names[1].length() - 1);
+
+                                            Call<Plant> callCloud = herbCloudClient.getApiService().update(plantName, "label_no", names[0], "replace", "string");
+                                            callCloud.execute();
+                                        } else {
+                                            System.out.println(plantName);
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            break;
+                        }
+                    }
+                } else {
+                    System.out.println(plantName);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void miljolare() {
