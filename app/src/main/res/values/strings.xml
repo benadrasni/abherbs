@@ -138,17 +138,16 @@
     <string name="plant_toxicity">Toxicity</string>
     <string name="plant_herbalism">Herbalism</string>
 
-    <string name="plant_domain">domain</string>
-    <string name="plant_kingdom">kingdom</string>
-    <string name="plant_subkingdom">subkingdom</string>
-    <string name="plant_line">line</string>
-    <string name="plant_branch">branch</string>
-    <string name="plant_phylum">phylum</string>
-    <string name="plant_class">class</string>
-    <string name="plant_order">order</string>
-    <string name="plant_family">family</string>
-    <string name="plant_genus">genus</string>
-    <string name="plant_species">species</string>
+    <string name="taxonomy_superregnum">Domain</string>
+    <string name="taxonomy_regnum">Kingdom</string>
+    <string name="taxonomy_cladus">(clade)</string>
+    <string name="taxonomy_ordo">Order</string>
+    <string name="taxonomy_familia">Family</string>
+    <string name="taxonomy_subfamilia">Subfamily</string>
+    <string name="taxonomy_tribus">Tribe</string>
+    <string name="taxonomy_subtribus">Subtribe</string>
+    <string name="taxonomy_genus">Genus</string>
+    <string name="taxonomy_species">Species</string>
 
     <string name="close">Close</string>
 

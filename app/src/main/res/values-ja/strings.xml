@@ -72,17 +72,16 @@
     <string name="plant_toxicity">毒性</string>
     <string name="plant_herbalism">本草学</string>
 
-    <string name="plant_domain">domain</string>
-    <string name="plant_kingdom">kingdom</string>
-    <string name="plant_subkingdom">subkingdom</string>
-    <string name="plant_line">line</string>
-    <string name="plant_branch">branch</string>
-    <string name="plant_phylum">phylum</string>
-    <string name="plant_class">class</string>
-    <string name="plant_order">order</string>
-    <string name="plant_family">family</string>
-    <string name="plant_genus">genus</string>
-    <string name="plant_species">species</string>
+    <string name="taxonomy_superregnum">ドメイン</string>
+    <string name="taxonomy_regnum">界</string>
+    <string name="taxonomy_cladus">(系統群)</string>
+    <string name="taxonomy_ordo">目</string>
+    <string name="taxonomy_familia">科</string>
+    <string name="taxonomy_subfamilia">亜科</string>
+    <string name="taxonomy_tribus">族</string>
+    <string name="taxonomy_subtribus">亜族</string>
+    <string name="taxonomy_genus">属</string>
+    <string name="taxonomy_species">種</string>
 
     <string name="close">Close</string>
 

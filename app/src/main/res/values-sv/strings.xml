@@ -72,17 +72,16 @@
     <string name="plant_toxicity">Giftighet</string>
     <string name="plant_herbalism">Medicinalväxt</string>
 
-    <string name="plant_domain">domain</string>
-    <string name="plant_kingdom">kingdom</string>
-    <string name="plant_subkingdom">subkingdom</string>
-    <string name="plant_line">line</string>
-    <string name="plant_branch">branch</string>
-    <string name="plant_phylum">phylum</string>
-    <string name="plant_class">class</string>
-    <string name="plant_order">order</string>
-    <string name="plant_family">family</string>
-    <string name="plant_genus">genus</string>
-    <string name="plant_species">species</string>
+    <string name="taxonomy_superregnum">Domän</string>
+    <string name="taxonomy_regnum">Rike</string>
+    <string name="taxonomy_cladus">(klad)</string>
+    <string name="taxonomy_ordo">Ordning</string>
+    <string name="taxonomy_familia">Familj</string>
+    <string name="taxonomy_subfamilia">Underfamilj</string>
+    <string name="taxonomy_tribus">Tribus</string>
+    <string name="taxonomy_subtribus">Undertribus</string>
+    <string name="taxonomy_genus">Släkte</string>
+    <string name="taxonomy_species">Art</string>
 
     <string name="close">Stänga</string>
 

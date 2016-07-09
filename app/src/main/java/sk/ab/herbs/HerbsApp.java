@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Stack;
 
-import sk.ab.common.entity.Plant;
 import sk.ab.common.service.GoogleClient;
 import sk.ab.common.service.HerbCloudClient;
 import sk.ab.herbs.commons.BaseFilterFragment;
@@ -53,12 +52,6 @@ public class HerbsApp extends Application {
 
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-
-        Boolean wasReset = preferences.getBoolean(AndroidConstants.RESET_KEY + BuildConfig.VERSION_CODE, false);
-        if (!wasReset) {
-            editor.remove(AndroidConstants.LANGUAGE_DEFAULT_KEY);
-            editor.remove(AndroidConstants.CHANGE_LOCALE_KEY);
-        }
 
         int rateCounter = preferences.getInt(AndroidConstants.RATE_COUNT_KEY, AndroidConstants.RATE_COUNTER);
         rateCounter--;

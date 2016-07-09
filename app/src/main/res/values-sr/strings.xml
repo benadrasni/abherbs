@@ -72,17 +72,16 @@
     <string name="plant_toxicity">Токсичност</string>
     <string name="plant_herbalism">Траварство</string>
 
-    <string name="plant_domain">domain</string>
-    <string name="plant_kingdom">kingdom</string>
-    <string name="plant_subkingdom">subkingdom</string>
-    <string name="plant_line">line</string>
-    <string name="plant_branch">branch</string>
-    <string name="plant_phylum">phylum</string>
-    <string name="plant_class">class</string>
-    <string name="plant_order">order</string>
-    <string name="plant_family">family</string>
-    <string name="plant_genus">genus</string>
-    <string name="plant_species">species</string>
+    <string name="taxonomy_superregnum">Домен</string>
+    <string name="taxonomy_regnum">Царство</string>
+    <string name="taxonomy_cladus">(клада)</string>
+    <string name="taxonomy_ordo">Ред</string>
+    <string name="taxonomy_familia">Породица</string>
+    <string name="taxonomy_subfamilia">Потпородица</string>
+    <string name="taxonomy_tribus">Племе</string>
+    <string name="taxonomy_subtribus">Подплеме</string>
+    <string name="taxonomy_genus">Род</string>
+    <string name="taxonomy_species">Врста</string>
 
     <string name="close">Затворити</string>
 
