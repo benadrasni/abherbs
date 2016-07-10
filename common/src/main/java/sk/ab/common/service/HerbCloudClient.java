@@ -3,6 +3,7 @@ package sk.ab.common.service;
 import retrofit.Retrofit;
 
 /**
+ *
  * Created by adrian on 1.9.2015.
  */
 public class HerbCloudClient {

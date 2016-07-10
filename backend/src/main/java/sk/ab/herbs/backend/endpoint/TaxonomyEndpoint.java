@@ -820,6 +820,39 @@ public class TaxonomyEndpoint {
                 case "synonym":
                     plant.setSynonyms((ArrayList<String>)propertyEntry.getValue());
                     break;
+                case "filterColor":
+                    plant.setFilterColor((ArrayList<String>)propertyEntry.getValue());
+                    break;
+                case "filterHabitat":
+                    plant.setFilterHabitat((ArrayList<String>)propertyEntry.getValue());
+                    break;
+                case "filterPetal":
+                    plant.setFilterPetal((ArrayList<String>)propertyEntry.getValue());
+                    break;
+                case "filterInflorescence":
+                    plant.setFilterInflorescence((ArrayList<String>)propertyEntry.getValue());
+                    break;
+                case "filterSepal":
+                    plant.setFilterSepal((ArrayList<String>)propertyEntry.getValue());
+                    break;
+                case "filterStem":
+                    plant.setFilterStem((ArrayList<String>)propertyEntry.getValue());
+                    break;
+                case "filterLeafArrangement":
+                    plant.setFilterLeafArrangement((ArrayList<String>)propertyEntry.getValue());
+                    break;
+                case "filterLeafShape":
+                    plant.setFilterLeafShape((ArrayList<String>)propertyEntry.getValue());
+                    break;
+                case "filterLeafMargin":
+                    plant.setFilterLeafMargin((ArrayList<String>)propertyEntry.getValue());
+                    break;
+                case "filterLeafVenetation":
+                    plant.setFilterLeafVenetation((ArrayList<String>)propertyEntry.getValue());
+                    break;
+                case "filterRoot":
+                    plant.setFilterRoot((ArrayList<String>)propertyEntry.getValue());
+                    break;
             }
 
             if (propertyName.startsWith("label_")) {

@@ -112,7 +112,7 @@
     <string name="image_desc">Plant illustration</string>
     <string name="translate_desc">Translate</string>
     <string name="email_desc">Email</string>
-    <string name="email_subject_prefix">Proposal of better translation / description for </string>
+    <string name="email_subject_prefix">Suggestion for better translation / description of </string>
 
     <string name="plant_title">title</string>
     <string name="plant_height_from">Height from</string>
@@ -152,8 +152,8 @@
 
     <string name="close">Close</string>
 
-    <string name="showcase_propose_title">Propose better translation / description</string>
-    <string name="showcase_propose_message">You can send better translation or description by email.</string>
+    <string name="showcase_propose_title">Suggest better translation / description</string>
+    <string name="showcase_propose_message">You can suggest better translation or description and send it by email.</string>
     <string name="showcase_fullscreen_title">Larger illustration</string>
     <string name="showcase_fullscreen_message">You can display illustration on full screen by clicking on it.</string>
     <string name="showcase_count_button_title">Number of filtered plants</string>
