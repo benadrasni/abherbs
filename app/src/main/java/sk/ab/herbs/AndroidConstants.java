@@ -38,6 +38,8 @@ public class AndroidConstants {
     public final static String STORAGE_ENDPOINT = "http://storage.googleapis.com/abherbs/.families/";
     public final static String DEFAULT_EXTENSION = ".webp";
 
+    public final static String RES_TAXONOMY_PREFIX = "taxonomy_";
+
     public final static Map<String, Integer> LANGUAGES;
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
     public final static String CHANGE_LOCALE_KEY = "change_locale";

@@ -27,7 +27,6 @@ import sk.ab.common.entity.PlantTaxon;
 import sk.ab.common.entity.Taxonomy;
 import sk.ab.common.service.HerbCloudClient;
 import sk.ab.herbs.AndroidConstants;
-import sk.ab.herbs.HerbsApp;
 import sk.ab.herbs.R;
 import sk.ab.herbs.activities.DisplayPlantActivity;
 import sk.ab.herbs.entity.PlantParcel;
@@ -127,7 +126,7 @@ public class TaxonomyFragment extends Fragment {
                             for(PlantTaxon taxon : response.body().getItems()) {
                                 View view = inflater.inflate(R.layout.taxon, null);
                                 TextView textType = (TextView)view.findViewById(R.id.taxonType);
-                                textType.setText(taxon.getType());
+                                textType.setText(Utils.getId(AndroidConstants.RES_TAXONOMY_PREFIX + taxon.getType().toLowerCase(),R.string.class));
 
                                 TextView textName = (TextView)view.findViewById(R.id.taxonName);
                                 StringBuilder sbName = new StringBuilder();
@@ -214,7 +213,7 @@ public class TaxonomyFragment extends Fragment {
         boolean isLatinName = false;
         String label = plant.getLabel().get(language);
         if (label == null) {
-            label = plant.getLabel().get(sk.ab.common.Constants.LANGUAGE_LA);
+            label = plant.getLabel().get(Constants.LANGUAGE_LA);
             isLatinName = true;
         }
 
@@ -222,7 +221,7 @@ public class TaxonomyFragment extends Fragment {
         species.setText(label);
         if (!isLatinName) {
             TextView species_latin = (TextView) view.findViewById(R.id.plant_species_latin);
-            species_latin.setText(plant.getLabel().get(sk.ab.common.Constants.LANGUAGE_LA));
+            species_latin.setText(plant.getLabel().get(Constants.LANGUAGE_LA));
         }
         TextView namesView = (TextView) view.findViewById(R.id.plant_alt_names);
 
