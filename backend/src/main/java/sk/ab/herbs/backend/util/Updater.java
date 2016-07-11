@@ -39,9 +39,10 @@ import sk.ab.common.service.HerbCloudClient;
  * Created by adrian on 4.5.2016.
  */
 public class Updater {
-    public static String PATH = "C:/Development/Projects/abherbs/backend/txt/";
-//    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
+//    public static String PATH = "C:/Development/Projects/abherbs/backend/txt/";
+    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
     public static String PLANTS_FILE = "plants.csv";
+    public static String MISSING_FILE_SUFFIX = "_missing.txt";
 
 
 
@@ -52,7 +53,7 @@ public class Updater {
     public static void main(String[] params) {
 
         //missing();
-        botanicjp();
+        plantlistro();
     }
 
     private static void botanicjp() {
@@ -100,6 +101,113 @@ public class Updater {
 //            }
 
             update("ja_names.csv", "ja", false);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void eplantero() {
+        try {
+//            for(int i=97; i<123; i++) { //97 - 123
+//
+//                Document docList = Jsoup.connect("http://www.eplante.ro/plante-a-z/litera-"+(char)i+".html").timeout(10*1000).get();
+//
+//                Elements tables = docList.getElementsByClass("col");
+//                Element table = tables.get(0);
+//
+//                Elements as = table.getElementsByTag("a");
+//
+//                for (Element a : as) {
+//                    String nameTxt = a.text().replace(" ( ", ";").replace(" )", "");
+//                    String[] names = nameTxt.split(";");
+//
+//                    if (names.length == 2) {
+//                        String latinName = names[0];
+//                        String[] alias = names[1].split(",");
+//
+//                        String name = alias[0];
+//
+//                        StringBuilder sb = new StringBuilder();
+//                        if (alias.length > 1) {
+//                            for(int j=1; j<alias.length;j++) {
+//                                if (sb.length() > 0) {
+//                                    sb.append(",");
+//                                }
+//                                sb.append(alias[j].trim());
+//                            }
+//                        }
+//
+//                        System.out.println(latinName + CELL_DELIMITER + name + CELL_DELIMITER + sb.toString());
+//                    }
+//                }
+//            }
+
+            update("ro_names.csv", "ro", true);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void plantlistro() {
+        try {
+            for(int i=65; i<91; i++) { //65 - 91
+
+                Document docList = Jsoup.connect("http://plantlist.ro/speciesset.php?id="+(char)i).timeout(10*1000).get();
+
+                Elements tables = docList.getElementsByClass("columnList");
+                Element table = tables.get(0);
+
+                Elements as = table.getElementsByTag("a");
+
+                for (Element a : as) {
+//                            if (latinName.compareTo("Spiraea salicifolia") < 0) {
+//                                continue;
+//                            }
+
+                    try {
+                        Document docPlant = Jsoup.connect("http://plantlist.ro" + a.attr("href")).timeout(10 * 1000).get();
+
+                        String latinName = "";
+                        Elements h1s = docPlant.getElementsByTag("h1");
+                        if (h1s.size() > 0) {
+                            latinName = h1s.get(0).text();
+                            if (latinName.indexOf("subsp.") > 0) {
+                                latinName = latinName.substring(0, latinName.indexOf("subsp.")-1).trim();
+                            }
+                        }
+
+                        String name = "";
+                        Elements divs = docPlant.getElementsByClass("subtitleImportant");
+                        if (divs.size() > 0) {
+                            String txt = divs.get(0).text().substring(5, divs.get(0).text().length()-1);
+
+                            String[] alias = txt.split(",");
+                            name = alias[0].trim();
+
+                            StringBuilder sb = new StringBuilder();
+                            if (alias.length > 1) {
+                                for(int j=1; j<alias.length;j++) {
+                                    if (sb.length() > 0) {
+                                        sb.append(",");
+                                    }
+                                    sb.append(alias[j].trim());
+                                }
+                            }
+                            if (latinName.length() > 0 && name.length() > 0) {
+                                System.out.println(latinName + CELL_DELIMITER + name + CELL_DELIMITER + sb.toString());
+                            }
+                        }
+
+                    } catch (HttpStatusException ex) {
+
+                    }
+
+                }
+            }
+
+            //update("ro_names.csv", "ro", true);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -593,17 +701,18 @@ public class Updater {
 
     private static void missing() {
         Map<String, BufferedWriter> missingFiles = new HashMap<>();
+        Map<String, Integer> missingCounts = new HashMap<>();
         String[] languages = {"la", "sk", "cs", "en", "fr", "pt", "es", "ru", "uk", "de", "no", "da", "fi", "sv", "is", "ja", "zh", "hu", "pl", "nl", "tr", "it", "ro", "lt", "lv"};
 
         try {
             final HerbCloudClient herbCloudClient = new HerbCloudClient();
 
-            File file = new File(PATH + "plants.csv");
+            File file = new File(PATH + PLANTS_FILE);
 
             Scanner scan = new Scanner(file);
             while (scan.hasNextLine()) {
 
-                final String[] plantLine = scan.nextLine().split(",");
+                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
                 String nameLatin = plantLine[0];
                 System.out.println(nameLatin);
 
@@ -615,12 +724,14 @@ public class Updater {
                     if (value == null) {
                         BufferedWriter bw = missingFiles.get(language);
                         if (bw == null) {
-                            File f = new File(PATH + language + "_missing.txt");
+                            File f = new File(PATH + language + MISSING_FILE_SUFFIX);
                             bw = new BufferedWriter(new FileWriter(f));
 
                             missingFiles.put(language, bw);
+                            missingCounts.put(language, 0);
                         }
                         bw.write(nameLatin + "\n");
+                        missingCounts.put(language, missingCounts.get(language)+1);
                     }
                 }
             }
@@ -630,6 +741,7 @@ public class Updater {
         } finally {
             try {
                 for (Map.Entry<String, BufferedWriter> bwEntry : missingFiles.entrySet()) {
+                    System.out.println(bwEntry.getKey() + "..." + missingCounts.get(bwEntry.getKey()));
                     bwEntry.getValue().close();
                 }
             } catch (Exception e) {
@@ -735,7 +847,7 @@ public class Updater {
                         aliasSb.append(al);
                     }
 
-                    callCloud = herbCloudClient.getApiService().update(plantLine[0], "alias"+language, aliasSb.toString(), "replace", "list");
+                    callCloud = herbCloudClient.getApiService().update(plantLine[0], "alias_"+language, aliasSb.toString(), "replace", "list");
                     callCloud.execute();
                 }
 

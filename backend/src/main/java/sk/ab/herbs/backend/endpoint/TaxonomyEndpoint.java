@@ -306,21 +306,25 @@ public class TaxonomyEndpoint {
 
         Plant plant = new Plant();
         if (plantEntity != null) {
-            Object newVal;
-            if ("string".equals(type)) {
-                newVal = values;
+            if (operation.equals("delete")) {
+                plantEntity.removeProperty(attribute);
             } else {
-                String[] vals = values.split(",");
+                Object newVal;
+                if ("string".equals(type)) {
+                    newVal = values;
+                } else {
+                    String[] vals = values.split(",");
 
-                newVal = new ArrayList<>(Arrays.asList(vals));
+                    newVal = new ArrayList<>(Arrays.asList(vals));
+                }
+
+                Object val = plantEntity.getProperty(attribute);
+                if (val != null && "append".equals(operation) && !"string".equals(type)) {
+                    ((List<String>) newVal).addAll(0, (List<String>) val);
+                }
+
+                plantEntity.setProperty(attribute, newVal);
             }
-
-            Object val = plantEntity.getProperty(attribute);
-            if (val != null && "append".equals(operation) && !"string".equals(type)) {
-                ((List<String>) newVal).addAll(0, (List<String>) val);
-            }
-
-            plantEntity.setProperty(attribute, newVal);
             datastore.put(plantEntity);
 
             plant = convert(plantName, plantEntity);
