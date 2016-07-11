@@ -22,7 +22,7 @@ public class Synchronizer {
 
     public static void main(String[] params) {
 
-        File file = new File("C:/Development/Projects/abherbs/backend/Plants.csv");
+        File file = new File("C:/Development/Projects/abherbs/backend/plants.csv");
 
         try {
             Scanner scan = new Scanner(file);

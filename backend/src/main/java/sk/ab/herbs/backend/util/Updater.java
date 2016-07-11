@@ -5,6 +5,7 @@ import com.google.appengine.repackaged.com.google.gson.JsonElement;
 import com.google.appengine.repackaged.com.google.gson.JsonObject;
 import com.google.appengine.repackaged.com.google.gson.JsonParser;
 
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -38,58 +39,70 @@ import sk.ab.common.service.HerbCloudClient;
  * Created by adrian on 4.5.2016.
  */
 public class Updater {
-//    public static String PATH = "C:/Development/Projects/abherbs/backend/txt/";
-    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
+    public static String PATH = "C:/Development/Projects/abherbs/backend/txt/";
+//    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
+    public static String PLANTS_FILE = "plants.csv";
 
+
+
+
+    public static String CELL_DELIMITER = ";";
+    public static String ALIAS_DELIMITER = ",";
 
     public static void main(String[] params) {
 
-        missing();
+        //missing();
+        botanicjp();
     }
 
-    private static void missing() {
-        Map<String, BufferedWriter> missingFiles = new HashMap<>();
-        String[] languages = {"la", "sk", "cs", "en", "fr", "pt", "es", "ru", "uk", "de", "no", "da", "fi", "sv", "is", "ja", "zh", "hu", "pl", "nl", "tr", "it", "ro", "lt", "lv"};
-
+    private static void botanicjp() {
         try {
-            final HerbCloudClient herbCloudClient = new HerbCloudClient();
+//            for(int i=97; i<123; i++) { //97 - 123
+//
+//                Document docList = Jsoup.connect("http://www.botanic.jp/contents/zz"+(char)i+".htm").timeout(10*1000).get();
+//
+//                Elements tables = docList.getElementsByTag("table");
+//                Element table = tables.get(4);
+//
+//                Elements trs = table.getElementsByTag("tr");
+//
+//                for (Element tr : trs) {
+//                    Elements tds = tr.getElementsByTag("td");
+//                    if (tds.size() > 0) {
+//                        Elements as = tds.get(0).getElementsByTag("a");
+//                        if (as.size() > 0) {
+//                            String latinName = as.get(0).text();
+//                            String name = tds.get(1).text();
+//                            String alias = "";
+//
+////                            if (latinName.compareTo("Spiraea salicifolia") < 0) {
+////                                continue;
+////                            }
+//
+//                            try {
+//                                Document docPlant = Jsoup.connect("http://www.botanic.jp" + as.get(0).attr("href").substring(2)).timeout(10 * 1000).get();
+//
+//                                Elements spans = docPlant.getElementsByTag("span");
+//                                if (spans.size() > 0) {
+//                                    String txt = spans.get(0).text();
+//                                    if (txt.indexOf("(") > -1) {
+//                                        alias = txt.substring(txt.indexOf("(") + 1, txt.length() - 1);
+//                                    }
+//                                }
+//                            } catch (HttpStatusException ex) {
+//
+//                            }
+//
+//                            System.out.println(latinName + CELL_DELIMITER + name + CELL_DELIMITER + alias);
+//                        }
+//                    }
+//                }
+//            }
 
-            File file = new File(PATH + "Plants.csv");
-
-            Scanner scan = new Scanner(file);
-            while (scan.hasNextLine()) {
-
-                final String[] plantLine = scan.nextLine().split(",");
-                String nameLatin = plantLine[0];
-                System.out.println(nameLatin);
-
-                Call<Plant> callCloud = herbCloudClient.getApiService().getDetail(nameLatin);
-                Plant plant = callCloud.execute().body();
-
-                for(String language : languages) {
-                    String value = plant.getLabel().get(language);
-                    if (value == null) {
-                        BufferedWriter bw = missingFiles.get(language);
-                        if (bw == null) {
-                            File f = new File(PATH + language + "_missing.txt");
-                            bw = new BufferedWriter(new FileWriter(f));
-
-                            missingFiles.put(language, bw);
-                        }
-                        bw.write(nameLatin + "\n");
-                    }
-                }
-            }
+            update("ja_names.csv", "ja", false);
 
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                for (Map.Entry<String, BufferedWriter> bwEntry : missingFiles.entrySet()) {
-                    bwEntry.getValue().close();
-                }
-            } catch (Exception e) {
-            }
         }
     }
 
@@ -130,7 +143,7 @@ public class Updater {
 
             final HerbCloudClient herbCloudClient = new HerbCloudClient();
 
-            File file = new File(PATH + "Plants.csv");
+            File file = new File(PATH + "plants.csv");
 
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()) {
@@ -288,7 +301,7 @@ public class Updater {
 
             final HerbCloudClient herbCloudClient = new HerbCloudClient();
 
-            File file = new File(PATH + "Plants.csv");
+            File file = new File(PATH + "plants.csv");
 
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()) {
@@ -387,7 +400,7 @@ public class Updater {
 //
 //            final HerbCloudClient herbCloudClient = new HerbCloudClient();
 //
-//            File file = new File(PATH + "Plants.csv");
+//            File file = new File(PATH + "plants.csv");
 //
 //            Scanner scan = new Scanner(file);
 //            while(scan.hasNextLine()) {
@@ -502,7 +515,7 @@ public class Updater {
         try {
             final HerbCloudClient herbCloudClient = new HerbCloudClient();
 
-            File file = new File(PATH + "Plants.csv");
+            File file = new File(PATH + "plants.csv");
             int i = 0;
 
             Scanner scan = new Scanner(file);
@@ -576,5 +589,171 @@ public class Updater {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void missing() {
+        Map<String, BufferedWriter> missingFiles = new HashMap<>();
+        String[] languages = {"la", "sk", "cs", "en", "fr", "pt", "es", "ru", "uk", "de", "no", "da", "fi", "sv", "is", "ja", "zh", "hu", "pl", "nl", "tr", "it", "ro", "lt", "lv"};
+
+        try {
+            final HerbCloudClient herbCloudClient = new HerbCloudClient();
+
+            File file = new File(PATH + "plants.csv");
+
+            Scanner scan = new Scanner(file);
+            while (scan.hasNextLine()) {
+
+                final String[] plantLine = scan.nextLine().split(",");
+                String nameLatin = plantLine[0];
+                System.out.println(nameLatin);
+
+                Call<Plant> callCloud = herbCloudClient.getApiService().getDetail(nameLatin);
+                Plant plant = callCloud.execute().body();
+
+                for(String language : languages) {
+                    String value = plant.getLabel().get(language);
+                    if (value == null) {
+                        BufferedWriter bw = missingFiles.get(language);
+                        if (bw == null) {
+                            File f = new File(PATH + language + "_missing.txt");
+                            bw = new BufferedWriter(new FileWriter(f));
+
+                            missingFiles.put(language, bw);
+                        }
+                        bw.write(nameLatin + "\n");
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                for (Map.Entry<String, BufferedWriter> bwEntry : missingFiles.entrySet()) {
+                    bwEntry.getValue().close();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    private static void update(String fileWithNames, String language, boolean toLowerCase) throws IOException{
+        Map<String, String> labels = new HashMap<>();
+        Map<String, String> aliases = new HashMap<>();
+
+        File nameFile = new File(PATH + fileWithNames);
+
+        Scanner nameScan = new Scanner(nameFile);
+        while(nameScan.hasNextLine()) {
+            final String[] plantLine = nameScan.nextLine().split(CELL_DELIMITER);
+
+            if (plantLine.length > 1) {
+                labels.put(plantLine[0], plantLine[1]);
+            }
+            if (plantLine.length > 2) {
+                aliases.put(plantLine[0], plantLine[2]);
+            }
+        }
+
+        final HerbCloudClient herbCloudClient = new HerbCloudClient();
+
+        File file = new File(PATH + PLANTS_FILE);
+
+        Scanner scan = new Scanner(file);
+        while(scan.hasNextLine()) {
+
+            final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
+            String nameLatin = plantLine[0];
+
+            Call<Plant> callCloud = herbCloudClient.getApiService().getDetail(nameLatin);
+            Plant plant = callCloud.execute().body();
+
+            String existingLabel = plant.getLabel().get(language);
+            if (toLowerCase && existingLabel != null) {
+                existingLabel = existingLabel.toLowerCase();
+            }
+
+            String newLabel = labels.get(nameLatin);
+            if (toLowerCase && newLabel != null) {
+                newLabel = newLabel.toLowerCase();
+            }
+
+            if (newLabel == null && plant.getSynonyms() != null) {
+                for (String synonym : plant.getSynonyms()) {
+                    newLabel = labels.get(synonym);
+                    if (toLowerCase && newLabel != null) {
+                        newLabel = newLabel.toLowerCase();
+                        break;
+                    }
+                }
+            }
+
+            if (newLabel == null && existingLabel != null) {
+                newLabel = existingLabel;
+            }
+
+            if (newLabel != null) {
+                callCloud = herbCloudClient.getApiService().update(plantLine[0], "label_"+language, newLabel, "replace", "string");
+                callCloud.execute();
+
+                ArrayList<String> aliasToSave = new ArrayList<>();
+                if (existingLabel != null && !newLabel.equals(existingLabel)) {
+                    aliasToSave.add(existingLabel);
+                }
+
+                ArrayList<String> existingAliases = plant.getNames().get(language);
+                if (existingAliases != null) {
+                    for (String alias : existingAliases) {
+                        if (toLowerCase) {
+                            alias = alias.toLowerCase();
+                        }
+                        if (!containsCaseInsensitive(alias, aliasToSave) && !alias.equals(newLabel)) {
+                            aliasToSave.add(alias);
+                        }
+                    }
+                }
+
+                String newAliasesString = aliases.get(nameLatin);
+                if (newAliasesString != null) {
+                    ArrayList<String> newAliases = new ArrayList<>(Arrays.asList(newAliasesString.split(ALIAS_DELIMITER)));
+                    for (String alias : newAliases) {
+                        if (toLowerCase) {
+                            alias = alias.toLowerCase();
+                        }
+                        if (!containsCaseInsensitive(alias, aliasToSave) && !alias.equals(newLabel)) {
+                            aliasToSave.add(alias);
+                        }
+                    }
+                }
+
+                if (aliasToSave.size() > 0) {
+                    StringBuilder aliasSb = new StringBuilder();
+                    for (String al : aliasToSave) {
+                        if (aliasSb.length() > 0) {
+                            aliasSb.append(",");
+                        }
+                        aliasSb.append(al);
+                    }
+
+                    callCloud = herbCloudClient.getApiService().update(plantLine[0], "alias"+language, aliasSb.toString(), "replace", "list");
+                    callCloud.execute();
+                }
+
+            } else {
+                System.out.println(plantLine[0]);
+            }
+        }
+    }
+
+    private static boolean containsCaseInsensitive(String strToCompare, ArrayList<String>list)
+    {
+        for(String str:list)
+        {
+            if(str.equalsIgnoreCase(strToCompare))
+            {
+                return(true);
+            }
+        }
+        return(false);
     }
 }

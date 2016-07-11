@@ -28,7 +28,7 @@ public class Firebase {
             final HerbCloudClient herbCloudClient = new HerbCloudClient();
             final FirebaseClient firebaseClient = new FirebaseClient();
 
-            File file = new File(PATH + "Plants.csv");
+            File file = new File(PATH + "plants.csv");
 
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()) {
