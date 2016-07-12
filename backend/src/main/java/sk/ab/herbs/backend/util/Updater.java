@@ -39,8 +39,8 @@ import sk.ab.common.service.HerbCloudClient;
  * Created by adrian on 4.5.2016.
  */
 public class Updater {
-//    public static String PATH = "C:/Development/Projects/abherbs/backend/txt/";
-    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
+    public static String PATH = "C:/Development/Projects/abherbs/backend/txt/";
+//    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
     public static String PLANTS_FILE = "plants.csv";
     public static String MISSING_FILE_SUFFIX = "_missing.txt";
 
@@ -52,8 +52,8 @@ public class Updater {
 
     public static void main(String[] params) {
 
-        //missing();
-        plantlistro();
+        missing();
+        //hircbotanichr();
     }
 
     private static void botanicjp() {
@@ -107,6 +107,62 @@ public class Updater {
         }
     }
 
+    private static void hircbotanichr() {
+        try {
+//            for(int i=141; i<40000; i++) {
+//
+//                Document docList = Jsoup.connect("http://hirc.botanic.hr/fcd/DetaljiFrame.aspx?IdVrste="+i).timeout(10*1000).get();
+//
+//                String latinName = "";
+//                String name = "";
+//                StringBuilder alias = new StringBuilder();
+//                Elements latinNames = docList.getElementsByAttributeValue("id", "ContentPlaceHolder1_DetaljiVrste1_FormView1_lblNazivVrste");
+//                if (latinNames.size() > 0) {
+//                    if (latinNames.first().text().contains("ssp.")) {
+//                        continue;
+//                    }
+//                    String[] latinTxt = latinNames.first().text().split(" ");
+//
+//                    latinName = latinTxt[0] + " " + latinTxt[1];
+//
+//                    Elements names = docList.getElementsByAttributeValue("id", "ContentPlaceHolder1_DetaljiVrste1_ctl02_Repeater1_lblNarodnaImena");
+//                    if (names.size() > 0) {
+//                        Element element = names.first();
+//                        element = element.nextElementSibling();
+//                        if (element != null) {
+//                            int count = 0;
+//                            while (element.attr("id") == null || !element.attr("id").equals("ContentPlaceHolder1_DetaljiVrste1_ctl02_Repeater1_lblSufix")) {
+//                                String txt = element.text().trim();
+//                                if (txt.contains("(Hr)")) {
+//                                    if (count == 0) {
+//                                        name = txt.substring(0, txt.indexOf("(Hr)") - 1).trim();
+//                                    } else {
+//                                        if (alias.length() > 0) {
+//                                            alias.append(ALIAS_DELIMITER);
+//                                        }
+//                                        alias.append(txt.substring(0, txt.indexOf("(Hr)") - 1).trim());
+//                                    }
+//                                    count++;
+//                                }
+//                                element = element.nextElementSibling();
+//                            }
+//                        }
+//
+//                        if (name.length() > 0) {
+//                            System.out.println(latinName + CELL_DELIMITER + name + CELL_DELIMITER + alias.toString());
+//                        }
+//                    }
+//                }
+//            }
+
+            update("hr_names.csv", "hr", false);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private static void eplantero() {
         try {
 //            for(int i=97; i<123; i++) { //97 - 123
@@ -152,62 +208,62 @@ public class Updater {
 
     private static void plantlistro() {
         try {
-            for(int i=65; i<91; i++) { //65 - 91
-
-                Document docList = Jsoup.connect("http://plantlist.ro/speciesset.php?id="+(char)i).timeout(10*1000).get();
-
-                Elements tables = docList.getElementsByClass("columnList");
-                Element table = tables.get(0);
-
-                Elements as = table.getElementsByTag("a");
-
-                for (Element a : as) {
-//                            if (latinName.compareTo("Spiraea salicifolia") < 0) {
-//                                continue;
+//            for(int i=65; i<91; i++) { //65 - 91
+//
+//                Document docList = Jsoup.connect("http://plantlist.ro/speciesset.php?id="+(char)i).timeout(10*1000).get();
+//
+//                Elements tables = docList.getElementsByClass("columnList");
+//                Element table = tables.get(0);
+//
+//                Elements as = table.getElementsByTag("a");
+//
+//                for (Element a : as) {
+////                            if (latinName.compareTo("Spiraea salicifolia") < 0) {
+////                                continue;
+////                            }
+//
+//                    try {
+//                        Document docPlant = Jsoup.connect("http://plantlist.ro" + a.attr("href")).timeout(10 * 1000).get();
+//
+//                        String latinName = "";
+//                        Elements h1s = docPlant.getElementsByTag("h1");
+//                        if (h1s.size() > 0) {
+//                            latinName = h1s.get(0).text();
+//                            if (latinName.indexOf("subsp.") > 0) {
+//                                latinName = latinName.substring(0, latinName.indexOf("subsp.")-1).trim();
 //                            }
+//                        }
+//
+//                        String name = "";
+//                        Elements divs = docPlant.getElementsByClass("subtitleImportant");
+//                        if (divs.size() > 0) {
+//                            String txt = divs.get(0).text().substring(5, divs.get(0).text().length()-1);
+//
+//                            String[] alias = txt.split(",");
+//                            name = alias[0].trim();
+//
+//                            StringBuilder sb = new StringBuilder();
+//                            if (alias.length > 1) {
+//                                for(int j=1; j<alias.length;j++) {
+//                                    if (sb.length() > 0) {
+//                                        sb.append(",");
+//                                    }
+//                                    sb.append(alias[j].trim());
+//                                }
+//                            }
+//                            if (latinName.length() > 0 && name.length() > 0) {
+//                                System.out.println(latinName + CELL_DELIMITER + name + CELL_DELIMITER + sb.toString());
+//                            }
+//                        }
+//
+//                    } catch (HttpStatusException ex) {
+//
+//                    }
+//
+//                }
+//            }
 
-                    try {
-                        Document docPlant = Jsoup.connect("http://plantlist.ro" + a.attr("href")).timeout(10 * 1000).get();
-
-                        String latinName = "";
-                        Elements h1s = docPlant.getElementsByTag("h1");
-                        if (h1s.size() > 0) {
-                            latinName = h1s.get(0).text();
-                            if (latinName.indexOf("subsp.") > 0) {
-                                latinName = latinName.substring(0, latinName.indexOf("subsp.")-1).trim();
-                            }
-                        }
-
-                        String name = "";
-                        Elements divs = docPlant.getElementsByClass("subtitleImportant");
-                        if (divs.size() > 0) {
-                            String txt = divs.get(0).text().substring(5, divs.get(0).text().length()-1);
-
-                            String[] alias = txt.split(",");
-                            name = alias[0].trim();
-
-                            StringBuilder sb = new StringBuilder();
-                            if (alias.length > 1) {
-                                for(int j=1; j<alias.length;j++) {
-                                    if (sb.length() > 0) {
-                                        sb.append(",");
-                                    }
-                                    sb.append(alias[j].trim());
-                                }
-                            }
-                            if (latinName.length() > 0 && name.length() > 0) {
-                                System.out.println(latinName + CELL_DELIMITER + name + CELL_DELIMITER + sb.toString());
-                            }
-                        }
-
-                    } catch (HttpStatusException ex) {
-
-                    }
-
-                }
-            }
-
-            //update("ro_names.csv", "ro", true);
+            update("ro_names.csv", "ro", true);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -702,7 +758,8 @@ public class Updater {
     private static void missing() {
         Map<String, BufferedWriter> missingFiles = new HashMap<>();
         Map<String, Integer> missingCounts = new HashMap<>();
-        String[] languages = {"la", "sk", "cs", "en", "fr", "pt", "es", "ru", "uk", "de", "no", "da", "fi", "sv", "is", "ja", "zh", "hu", "pl", "nl", "tr", "it", "ro", "lt", "lv"};
+        String[] languages = {"la", "sk", "cs", "en", "fr", "pt", "es", "ru", "uk", "de", "no", "da", "fi", "sv", "is",
+                "ja", "zh", "hu", "pl", "nl", "tr", "it", "ro", "lt", "lv", "sr", "hr"};
 
         try {
             final HerbCloudClient herbCloudClient = new HerbCloudClient();
@@ -751,7 +808,7 @@ public class Updater {
 
     private static void update(String fileWithNames, String language, boolean toLowerCase) throws IOException{
         Map<String, String> labels = new HashMap<>();
-        Map<String, String> aliases = new HashMap<>();
+        Map<String, ArrayList<String>> aliases = new HashMap<>();
 
         File nameFile = new File(PATH + fileWithNames);
 
@@ -760,10 +817,29 @@ public class Updater {
             final String[] plantLine = nameScan.nextLine().split(CELL_DELIMITER);
 
             if (plantLine.length > 1) {
-                labels.put(plantLine[0], plantLine[1]);
+                String existingLabel = labels.get(plantLine[0]);
+                if (existingLabel == null) {
+                    labels.put(plantLine[0], plantLine[1]);
+                } else if (!existingLabel.equals(plantLine[1])) {
+                    ArrayList<String> existingAliases = aliases.get(plantLine[0]);
+                    if (existingAliases == null) {
+                        existingAliases = new ArrayList<>();
+                    }
+                    if (!containsCaseInsensitive(plantLine[1], existingAliases)) {
+                        existingAliases.add(plantLine[1]);
+                    }
+                    aliases.put(plantLine[0], existingAliases);
+                }
             }
             if (plantLine.length > 2) {
-                aliases.put(plantLine[0], plantLine[2]);
+                ArrayList<String> existingAliases = aliases.get(plantLine[0]);
+                if (existingAliases == null) {
+                    existingAliases = new ArrayList<>();
+                }
+                if (!containsCaseInsensitive(plantLine[2], existingAliases)) {
+                    existingAliases.add(plantLine[2]);
+                }
+                aliases.put(plantLine[0], existingAliases);
             }
         }
 
@@ -825,15 +901,17 @@ public class Updater {
                     }
                 }
 
-                String newAliasesString = aliases.get(nameLatin);
+                ArrayList<String> newAliasesString = aliases.get(nameLatin);
                 if (newAliasesString != null) {
-                    ArrayList<String> newAliases = new ArrayList<>(Arrays.asList(newAliasesString.split(ALIAS_DELIMITER)));
-                    for (String alias : newAliases) {
-                        if (toLowerCase) {
-                            alias = alias.toLowerCase();
-                        }
-                        if (!containsCaseInsensitive(alias, aliasToSave) && !alias.equals(newLabel)) {
-                            aliasToSave.add(alias);
+                    for (String al : newAliasesString) {
+                        ArrayList<String> newAliases = new ArrayList<>(Arrays.asList(al.split(ALIAS_DELIMITER)));
+                        for (String alias : newAliases) {
+                            if (toLowerCase) {
+                                alias = alias.toLowerCase();
+                            }
+                            if (!containsCaseInsensitive(alias, aliasToSave) && !alias.equals(newLabel)) {
+                                aliasToSave.add(alias);
+                            }
                         }
                     }
                 }
