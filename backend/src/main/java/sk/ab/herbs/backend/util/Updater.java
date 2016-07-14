@@ -9,6 +9,7 @@ import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
 import java.io.BufferedWriter;
@@ -52,8 +53,64 @@ public class Updater {
 
     public static void main(String[] params) {
 
-        missing();
-        //gardensljubljana();
+        //missing();
+        termanianet("Allium vineale");
+    }
+
+    private static void termanianet(String plantName) {
+        try {
+            Map<String, List<String>> all = new HashMap<>();
+
+            Document docPlant = Jsoup.connect("http://www.termania.net/iskanje?query=" + plantName + "&SearchIn=All").timeout(10*1000).get();
+
+            Elements results = docPlant.getElementsByClass("results");
+            if (results.size() > 1) {
+
+                Elements sections = results.get(1).getElementsByTag("h4");
+
+                for (Element section : sections) {
+                    if (section.text().startsWith(plantName)) {
+                        Elements names = section.nextElementSibling().getElementsByClass("nlang");
+                        for (Element name : names) {
+                            String language = name.text();
+                            Node sibling = name.nextSibling();
+                            String[] pnames = sibling.outerHtml().split(",");
+
+                            for(String pname : pnames) {
+                                putName(all, language, pname.trim());
+                            }
+                        }
+                    }
+                }
+            }
+
+            for(Map.Entry<String, List<String>> entry : all.entrySet()) {
+                System.out.print(entry.getKey() + "...");
+                StringBuilder sb = new StringBuilder();
+                for(String n : entry.getValue()) {
+                    if (sb.length() > 0) {
+                        sb.append(",");
+                    }
+                    sb.append(n);
+                }
+                System.out.println(sb.toString());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void putName(Map<String, List<String>> all, String language, String name) {
+        List<String> result = all.get(language);
+        if (result == null) {
+            result = new ArrayList<>();
+        }
+        if (!containsCaseInsensitive(name, result)) {
+            result.add(name);
+        }
+
+        all.put(language, result);
     }
 
     private static void gardensljubljana() {
@@ -858,7 +915,7 @@ public class Updater {
         }
     }
 
-    private static boolean containsCaseInsensitive(String strToCompare, ArrayList<String>list)
+    private static boolean containsCaseInsensitive(String strToCompare, List<String>list)
     {
         for(String str:list)
         {
