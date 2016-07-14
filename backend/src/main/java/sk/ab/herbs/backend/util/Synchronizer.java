@@ -22,7 +22,7 @@ public class Synchronizer {
 
     public static void main(String[] params) {
 
-        File file = new File("C:/Development/Projects/abherbs/backend/plants.csv");
+        File file = new File("C:/Development/Projects/abherbs/backend/txt/plants.csv");
 
         try {
             Scanner scan = new Scanner(file);
@@ -36,7 +36,7 @@ public class Synchronizer {
 
                 final String[] name = scan.nextLine().split(",");
 
-                if (!name[0].equals("Spirodela polyrrhiza")) continue;
+                if (!name[0].equals("Narcissus poeticus")) continue;
 
 //                if (i < 332) continue;
 //                if (i > 332) continue;
