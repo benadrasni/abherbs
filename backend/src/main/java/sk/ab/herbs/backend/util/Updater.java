@@ -39,8 +39,8 @@ import sk.ab.common.service.HerbCloudClient;
  * Created by adrian on 4.5.2016.
  */
 public class Updater {
-//    public static String PATH = "C:/Development/Projects/abherbs/backend/txt/";
-    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
+    public static String PATH = "C:/Development/Projects/abherbs/backend/txt/";
+//    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
     public static String PLANTS_FILE = "plants.csv";
     public static String MISSING_FILE_SUFFIX = "_missing.txt";
 
@@ -52,8 +52,53 @@ public class Updater {
 
     public static void main(String[] params) {
 
-        //missing();
-        luontoportti("es");
+        missing();
+        //gardensljubljana();
+    }
+
+    private static void gardensljubljana() {
+        try {
+//            File f = new File("C:/Development/temp/PLANTAS.html");
+//            Document docList = Jsoup.parse(f, "UTF-8");
+//
+//            Elements tables = docList.getElementsByTag("table");
+//            Element table = tables.get(0);
+//
+//            Elements trs = table.getElementsByTag("tr");
+//
+//            for (Element tr : trs) {
+//                Elements tds = tr.getElementsByTag("td");
+//                if (tds.size() > 0) {
+//                    Elements as = tds.get(0).getElementsByTag("a");
+//                    if (as.size() > 1) {
+//                        String latinName = as.get(1).text();
+//                        String name = "";
+//                        StringBuilder alias = new StringBuilder();
+//                        String names = tds.get(1).text();
+//                        if (names.length() > 0) {
+//                            String s[] = names.split(", ");
+//                            if (s.length > 0) {
+//                                name = s[0];
+//                            }
+//                            if (s.length > 1) {
+//                                for(int i = 1; i < s.length; i++) {
+//                                    if (alias.length() > 0) {
+//                                        alias.append(ALIAS_DELIMITER);
+//                                    }
+//                                    alias.append(s[i]);
+//                                }
+//                            }
+//                            System.out.println(latinName + CELL_DELIMITER + name + CELL_DELIMITER + alias.toString());
+//                        }
+//                    }
+//                }
+//            }
+
+            update("sl_names.csv", "sl", true);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void botanicjp() {

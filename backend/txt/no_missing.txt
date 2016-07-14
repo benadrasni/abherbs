@@ -25,6 +25,7 @@ Lotus maritimus
 Lycopsis arvensis
 Medicago falcata
 Muscari neglectum
+Narcissus poeticus
 Oenothera parviflora
 Ophrys fuciflora
 Ophrys sphegodes
