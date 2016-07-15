@@ -1,15 +1,12 @@
-Alchemilla vulgaris
 Biscutella laevigata
 Buphthalmum salicifolium
 Bupleurum falcatum
 Cirsium acaule
 Cytisus nigricans
-Dactylorhiza purpurella
 Daphne cneorum
 Daphne striata
 Dianthus gratianopolitanus
 Dianthus seguieri
-Epilobium roseum
 Euphorbia verrucosa
 Filago minima
 Forsythia suspensa
@@ -29,7 +26,6 @@ Ophrys fuciflora
 Ophrys sphegodes
 Orchis pallens
 Peucedanum oreoselinum
-Potentilla alba
 Potentilla sterilis
 Pulsatilla alpina
 Rhododendron ferrugineum
@@ -44,4 +40,3 @@ Stachys germanica
 Stachys recta
 Thesium pyrenaicum
 Valeriana dioica
-Veronica triphyllos

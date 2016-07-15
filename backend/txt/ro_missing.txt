@@ -1,9 +1,7 @@
 Aconitum napellus
 Amelanchier ovalis
-Angelica sylvestris
 Anthericum liliago
 Anthericum ramosum
-Bidens tripartita
 Bryonia dioica
 Buddleja davidii
 Buphthalmum salicifolium
@@ -18,7 +16,7 @@ Cotoneaster integerrimus
 Crataegus laevigata
 Crepis capillaris
 Dactylorhiza incarnata
-Dactylorhiza purpurella
+Dactylorhiza majalis
 Dianthus gratianopolitanus
 Dianthus seguieri
 Digitalis lutea
@@ -29,16 +27,12 @@ Epilobium roseum
 Erica tetralix
 Erysimum cheiranthoides
 Euphorbia dulcis
-Euphorbia exigua
-Euphorbia peplus
-Euphorbia verrucosa
 Euphrasia stricta
 Filago minima
 Forsythia suspensa
 Galium palustre
 Genista germanica
 Genista pilosa
-Gentiana pneumonanthe
 Gentianopsis ciliata
 Geranium dissectum
 Geranium molle
@@ -73,9 +67,6 @@ Myosotis arvensis
 Myosotis scorpioides
 Myosoton aquaticum
 Ophrys fuciflora
-Ophrys insectifera
-Ophrys sphegodes
-Orchis pallens
 Ornithogalum umbellatum
 Orobanche minor
 Oxalis corniculata

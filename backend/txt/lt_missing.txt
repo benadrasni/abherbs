@@ -38,7 +38,6 @@ Crepis biennis
 Crepis capillaris
 Cruciata laevipes
 Cytisus nigricans
-Dactylorhiza purpurella
 Daphne cneorum
 Daphne striata
 Dianthus carthusianorum
@@ -57,10 +56,7 @@ Epilobium roseum
 Erigeron acris
 Eryngium campestre
 Euphorbia dulcis
-Euphorbia exigua
 Euphorbia palustris
-Euphorbia peplus
-Euphorbia verrucosa
 Filago minima
 Forsythia suspensa
 Gagea villosa
@@ -119,10 +115,7 @@ Myriophyllum spicatum
 Narcissus poeticus
 Oenothera biennis
 Oenothera parviflora
-Ophrys apifera
 Ophrys fuciflora
-Ophrys sphegodes
-Orchis pallens
 Ornithogalum umbellatum
 Orobanche minor
 Orobanche ramosa
@@ -137,7 +130,6 @@ Pinguicula alpina
 Polygala amara
 Polygala chamaebuxus
 Polygala vulgaris
-Portulaca oleracea
 Potamogeton crispus
 Potentilla alba
 Potentilla argentea
@@ -203,7 +195,6 @@ Trifolium resupinatum
 Turritis glabra
 Ulex europaeus
 Valeriana dioica
-Valerianella locusta
 Verbascum lychnitis
 Verbascum phoeniceum
 Veronica anagallis-aquatica

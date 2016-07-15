@@ -40,8 +40,8 @@ import sk.ab.common.service.HerbCloudClient;
  * Created by adrian on 4.5.2016.
  */
 public class Updater {
-    public static String PATH = "C:/Development/Projects/abherbs/backend/txt/";
-//    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
+//    public static String PATH = "C:/Development/Projects/abherbs/backend/txt/";
+    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
     public static String PLANTS_FILE = "plants.csv";
     public static String MISSING_FILE_SUFFIX = "_missing.txt";
 
@@ -53,11 +53,34 @@ public class Updater {
 
     public static void main(String[] params) {
 
-        //missing();
-        termanianet("Allium vineale");
+        missing();
+        //termanianet();
+    }
+
+    private static void termanianet() {
+        File file = new File(PATH + PLANTS_FILE);
+
+        try {
+            Scanner scan = new Scanner(file);
+            while(scan.hasNextLine()) {
+
+                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
+
+                if (plantLine[0].compareTo("Vaccinium vitis-idaea") <= 0) continue;
+
+                System.out.println(plantLine[0]);
+
+                termanianet(plantLine[0]);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void termanianet(String plantName) {
+        final HerbCloudClient herbCloudClient = new HerbCloudClient();
+
         try {
             Map<String, List<String>> all = new HashMap<>();
 
@@ -84,16 +107,58 @@ public class Updater {
                 }
             }
 
-            for(Map.Entry<String, List<String>> entry : all.entrySet()) {
-                System.out.print(entry.getKey() + "...");
-                StringBuilder sb = new StringBuilder();
-                for(String n : entry.getValue()) {
-                    if (sb.length() > 0) {
-                        sb.append(",");
+            if (all.size() > 0) {
+
+                Call<Plant> callCloud = herbCloudClient.getApiService().getDetail(plantName);
+                Plant plant = callCloud.execute().body();
+
+
+                for (Map.Entry<String, List<String>> entry : all.entrySet()) {
+                    String language = entry.getKey();
+                    if (language.equals("la")) {
+                        continue;
                     }
-                    sb.append(n);
+
+                    List<String> names = entry.getValue();
+
+                    if (names.size() > 0) {
+                        String existingLabel = plant.getLabel().get(language);
+                        if (existingLabel != null) {
+                            if (!containsCaseInsensitive(existingLabel, names)) {
+                                names.add(1, existingLabel);
+                            }
+                        }
+
+                        ArrayList<String> existingAlias = plant.getNames().get(language);
+                        if (existingAlias != null) {
+                            for (String alias : existingAlias) {
+                                if (!containsCaseInsensitive(alias, names)) {
+                                    names.add(alias);
+                                }
+                            }
+                        }
+
+                        String newLabel = names.remove(0);
+                        if (!newLabel.equals(existingLabel)) {
+                            callCloud = herbCloudClient.getApiService().update(plantName, "label_" + language, newLabel, "replace", "string");
+                            callCloud.execute();
+                        }
+
+                        StringBuilder sb = new StringBuilder();
+                        for (String n : names) {
+                            if (sb.length() > 0) {
+                                sb.append(",");
+                            }
+                            sb.append(n);
+                        }
+
+                        if (sb.length() > 0) {
+                            String alias = sb.toString();
+                            callCloud = herbCloudClient.getApiService().update(plantName, "alias_" + language, alias, "replace", "list");
+                            callCloud.execute();
+                        }
+                    }
                 }
-                System.out.println(sb.toString());
             }
 
         } catch (IOException e) {
@@ -739,7 +804,7 @@ public class Updater {
         Map<String, BufferedWriter> missingFiles = new HashMap<>();
         Map<String, Integer> missingCounts = new HashMap<>();
         String[] languages = {"la", "sk", "cs", "en", "fr", "pt", "es", "ru", "uk", "de", "no", "da", "fi", "sv", "is",
-                "ja", "zh", "hu", "pl", "nl", "tr", "it", "ro", "lt", "lv", "sr", "hr", "sl"};
+                "ja", "zh", "hu", "pl", "nl", "tr", "it", "ro", "lt", "lv", "sr", "hr", "sl", "el", "bg", "mt"};
 
         try {
             final HerbCloudClient herbCloudClient = new HerbCloudClient();

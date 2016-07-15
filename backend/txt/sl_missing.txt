@@ -1,5 +1,4 @@
 Anthericum liliago
-Arctium minus
 Arctium tomentosum
 Aristolochia clematitis
 Atriplex prostrata
@@ -23,8 +22,6 @@ Convolvulus arvensis
 Corydalis solida
 Crepis paludosa
 Cuscuta epithymum
-Cytisus nigricans
-Dactylorhiza purpurella
 Descurainia sophia
 Diplotaxis muralis
 Elodea canadensis
@@ -33,9 +30,7 @@ Epilobium roseum
 Erica tetralix
 Erigeron acris
 Erophila verna
-Euphorbia exigua
 Euphorbia palustris
-Euphorbia verrucosa
 Euphrasia stricta
 Ficaria verna
 Filago minima
@@ -89,13 +84,9 @@ Moehringia trinervia
 Monotropa hypopitys
 Myosotis arvensis
 Myosoton aquaticum
-Narcissus poeticus
 Nuphar pumila
 Oenanthe aquatica
-Ophrys apifera
 Ophrys fuciflora
-Ophrys insectifera
-Orchis pallens
 Orobanche minor
 Orobanche ramosa
 Oxalis corniculata
@@ -141,7 +132,6 @@ Rumex acetosella
 Rumex conglomeratus
 Sagina procumbens
 Sagittaria sagittifolia
-Salicornia europaea
 Sambucus racemosa
 Saxifraga granulata
 Scheuchzeria palustris

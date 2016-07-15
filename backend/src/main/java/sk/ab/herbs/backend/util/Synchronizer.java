@@ -20,9 +20,12 @@ import sk.ab.common.Constants;
  */
 public class Synchronizer {
 
+    //    public static String PATH = "C:/Development/Projects/abherbs/backend/txt/";
+    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
+
     public static void main(String[] params) {
 
-        File file = new File("C:/Development/Projects/abherbs/backend/txt/plants.csv");
+        File file = new File(PATH + "plants.csv");
 
         try {
             Scanner scan = new Scanner(file);
@@ -34,9 +37,9 @@ public class Synchronizer {
             while(scan.hasNextLine()){
                 i++;
 
-                final String[] name = scan.nextLine().split(",");
+                final String[] name = scan.nextLine().split(";");
 
-                if (!name[0].equals("Narcissus poeticus")) continue;
+                if (!name[0].equals("Dactylorhiza majalis")) continue;
 
 //                if (i < 332) continue;
 //                if (i > 332) continue;
