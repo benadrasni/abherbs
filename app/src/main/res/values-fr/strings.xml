@@ -6,9 +6,9 @@
     <string name="help">Aide</string>
     <string name="settings">Paramètres</string>
     <string name="feedback">Retour d\'information</string>
-    <string name="pref_language">Préférences de langue</string>
-    <string name="change_locale">Changer locale</string>
-    <string name="change_locale_summary"> à la langue préférée</string>
+    <string name="pref_language">Préférence de langue</string>
+    <string name="change_locale">Changer</string>
+    <string name="change_locale_summary">la langue</string>
     <string name="propose_translation">Ne pas afficher le bouton</string>
     <string name="propose_translation_summary">à envoyer une meilleure traduction / description</string>
 
@@ -34,10 +34,10 @@
     <string name="petal_5">5</string>
     <string name="petal_many">plus de 5</string>
     <string name="petal_bisymmetric">bisymétrique</string>
-    <string name="number_of_petals_message">Est-ce qu\'un bisymétrique de fleurs? Non? Alors combien de pétales il a?</string>
+    <string name="number_of_petals_message">Est-ce que la fleur est bisymétrique? Non? Alors combien de pétales a t\'elle ?</string>
 
-    <string name="display_info">Le bon?</string>
-    <string name="list_info">Sélectionnez une</string>
+    <string name="display_info">Est-ce la bonne?</string>
+    <string name="list_info">Sélectionnez en une</string>
 
     <string name="plant_info">Info</string>
     <string name="plant_gallery">Galerie</string>
@@ -63,7 +63,7 @@
     <string name="plant_sepal">Sépale</string>
     <string name="plant_leaf_shape">Forme des feuilles</string>
     <string name="plant_leaf_margin">Marge des feuilles</string>
-    <string name="plant_leaf_venation">Venation des feuilles</string>
+    <string name="plant_leaf_venation">Nervuration des feuilles</string>
     <string name="plant_leaf_arrangement">Arrangement des feuilles</string>
     <string name="plant_stem">Tige</string>
     <string name="plant_root">Racine</string>
@@ -89,16 +89,16 @@
     <string name="showcase_propose_message">Vous pouvez envoyer une meilleure traduction / description par email.</string>
     <string name="showcase_fullscreen_title">Grande illustration</string>
     <string name="showcase_fullscreen_message">Vous pouvez afficher illustration en plein écran en cliquant dessus.</string>
-    <string name="showcase_count_button_title">Nombre de plantes filtrées</string>
-    <string name="showcase_count_button_message">Lorsque le numéro est inférieur à 21 appuyez sur pour accéder directement à la liste. Appuyez longuement pour filtre clair.</string>
-    <string name="showcase_taxonomy_title">Taxonomie selon l\'APG III système</string>
-    <string name="showcase_taxonomy_message">Vous pouvez afficher / masquer des fleurs taxonomie en cliquant sur le nom de la fleur.</string>
+    <string name="showcase_count_button_title">Nombre de plantes correspondantes</string>
+    <string name="showcase_count_button_message">Lorsque le nombre est inférieur à 21 appuyez pour accéder directement à la liste. Appuyez longuement pour reinitialiser le filtre.</string>
+    <string name="showcase_taxonomy_title">Taxonomie selon le système APG III</string>
+    <string name="showcase_taxonomy_message">Vous pouvez afficher / masquer la taxonomie des fleurs  en cliquant sur le nom de la fleur.</string>
     <string name="legend">Légende</string>
     <string name="toxicity2">plante légèrement toxique</string>
     <string name="toxicity1">plante toxique</string>
     <string name="rate_never">Jamais</string>
     <string name="rate_later">Plus tard</string>
     <string name="rate">Avis (Google Play)</string>
-    <string name="rate_text">Auteur de cette application est motivée par la réponse positive de la part des utilisateurs. S\'il vous plaît lui envoyer quelques fleurs étoile via Google Play Store.</string>
-    <string name="your_text">ton texte</string>
+    <string name="rate_text">L\'auteur de cette application est motivé par les réponses positives des utilisateurs. S\'il vous plaît,  envoyez lui quelques fleurs étoiles via Google Play Store.</string>
+    <string name="your_text">votre texte</string>
 </resources>
