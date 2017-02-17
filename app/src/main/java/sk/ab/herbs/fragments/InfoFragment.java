@@ -28,8 +28,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import retrofit.Callback;
-import retrofit.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import sk.ab.common.Constants;
 import sk.ab.common.entity.Plant;
 import sk.ab.common.entity.Translation;
@@ -292,7 +293,7 @@ public class InfoFragment extends Fragment {
         app.getHerbCloudClient().getApiService().getTranslation(displayPlantActivity.getPlant().getPlantId() + "_" +  target)
                 .enqueue(new Callback<Translation>() {
                     @Override
-                    public void onResponse(Response<Translation> response) {
+                    public void onResponse(Call<Translation> call, Response<Translation> response) {
                         if (response != null) {
                             if (response.body() != null) {
                                 setTranslation(target, response.body().getTexts());
@@ -306,7 +307,7 @@ public class InfoFragment extends Fragment {
                                         target,
                                         textToTranslate).enqueue(new Callback<Map<String, Map<String, List<Map<String, String>>>>>() {
                                     @Override
-                                    public void onResponse(Response<Map<String, Map<String, List<Map<String, String>>>>> response) {
+                                    public void onResponse(Call<Map<String, Map<String, List<Map<String, String>>>>> call, Response<Map<String, Map<String, List<Map<String, String>>>>> response) {
                                         Map<String, Map<String, List<Map<String, String>>>> data = response.body();
 
                                         List<String> translatedTexts = new ArrayList<>();
@@ -324,7 +325,7 @@ public class InfoFragment extends Fragment {
                                         app.getHerbCloudClient().getApiService().saveTranslation(translation)
                                                 .enqueue(new Callback<Translation>() {
                                                     @Override
-                                                    public void onResponse(Response<Translation> response) {
+                                                    public void onResponse(Call<Translation> call, Response<Translation> response) {
                                                         if (response != null) {
                                                             Log.i(this.getClass().getName(), "Translation " +
                                                                     response.body().getTranslationId() + " was saved to the datastore");
@@ -334,7 +335,7 @@ public class InfoFragment extends Fragment {
                                                     }
 
                                                     @Override
-                                                    public void onFailure(Throwable t) {
+                                                    public void onFailure(Call<Translation> call, Throwable t) {
                                                         Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
                                                         displayPlantActivity.stopLoading();
                                                         displayPlantActivity.countButton.setVisibility(View.GONE);
@@ -344,7 +345,7 @@ public class InfoFragment extends Fragment {
                                     }
 
                                     @Override
-                                    public void onFailure(Throwable t) {
+                                    public void onFailure(Call<Map<String, Map<String, List<Map<String, String>>>>> call, Throwable t) {
                                         Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
                                         displayPlantActivity.stopLoading();
                                         displayPlantActivity.countButton.setVisibility(View.GONE);
@@ -356,7 +357,7 @@ public class InfoFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Throwable t) {
+                    public void onFailure(Call<Translation> call, Throwable t) {
                         Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
                     }
                 });

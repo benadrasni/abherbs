@@ -19,8 +19,9 @@ import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import java.util.List;
 import java.util.Locale;
 
-import retrofit.Callback;
-import retrofit.Response;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Call;
 import sk.ab.common.Constants;
 import sk.ab.common.entity.Plant;
 import sk.ab.common.entity.PlantTaxon;
@@ -120,7 +121,7 @@ public class TaxonomyFragment extends Fragment {
         herbCloudClient.getApiService().getTaxonomy(TAXON_LANGUAGE, TAXON_GENUS, latinName[0], Locale.getDefault().getLanguage())
                 .enqueue(new Callback<Taxonomy>() {
                     @Override
-                    public void onResponse(Response<Taxonomy> response) {
+                    public void onResponse(Call<Taxonomy> call, Response<Taxonomy> response) {
                         if (response != null && response.body() != null && response.body().getItems() != null) {
                             LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             for(PlantTaxon taxon : response.body().getItems()) {
@@ -179,7 +180,7 @@ public class TaxonomyFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Throwable t) {
+                    public void onFailure(Call<Taxonomy> call, Throwable t) {
                         Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
                         displayPlantActivity.stopLoading();
                         displayPlantActivity.countButton.setVisibility(View.GONE);

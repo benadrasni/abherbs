@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import retrofit.Call;
+import retrofit2.Call;
 import sk.ab.common.entity.request.DetailRequest;
 import sk.ab.common.entity.Plant;
 import sk.ab.common.service.HerbClient;

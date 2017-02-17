@@ -32,7 +32,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
 
-import retrofit.Call;
+import retrofit2.Call;
 import sk.ab.common.entity.Plant;
 import sk.ab.common.service.HerbCloudClient;
 

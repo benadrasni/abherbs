@@ -18,8 +18,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import retrofit.Callback;
-import retrofit.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import sk.ab.common.entity.Plant;
 import sk.ab.herbs.AndroidConstants;
 import sk.ab.herbs.HerbsApp;
@@ -141,7 +142,7 @@ public class ListPlantsActivity extends BaseActivity {
 
         app.getHerbCloudClient().getApiService().getDetail(getPlantList().get(position).getId()).enqueue(new Callback<Plant>() {
             @Override
-            public void onResponse(Response<Plant> response) {
+            public void onResponse(Call<Plant> call, Response<Plant> response) {
                 Intent intent = new Intent(getBaseContext(), DisplayPlantActivity.class);
                 intent.putExtra(AndroidConstants.STATE_PLANT, new PlantParcel(response.body()));
                 intent.putExtra(AndroidConstants.STATE_FILTER, filter);
@@ -151,7 +152,7 @@ public class ListPlantsActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<Plant> call, Throwable t) {
                 Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
                 Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
                 stopLoading();

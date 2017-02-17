@@ -3,10 +3,10 @@ package sk.ab.common.service;
 import java.util.List;
 import java.util.Map;
 
-import retrofit.Call;
-import retrofit.http.Body;
-import retrofit.http.Headers;
-import retrofit.http.POST;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import sk.ab.common.entity.request.DetailRequest;
 import sk.ab.common.entity.request.ListRequest;
 

@@ -1,6 +1,7 @@
 package sk.ab.common.service;
 
-import retrofit.Retrofit;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  *

@@ -8,4 +8,5 @@ dependencies {
     compile 'com.googlecode.objectify:objectify:5.0.3'
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta1'
     compile 'com.google.code.gson:gson:2.4'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 }

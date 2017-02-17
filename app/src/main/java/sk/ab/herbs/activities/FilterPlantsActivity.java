@@ -21,8 +21,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
-import retrofit.Callback;
-import retrofit.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import sk.ab.common.entity.Count;
 import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.entity.PlantList;
@@ -266,18 +267,19 @@ public class FilterPlantsActivity extends BaseActivity {
         ((HerbsApp)getApplication()).getHerbCloudClient().getApiService().getCount(
                 new ListRequest(sk.ab.common.Constants.PLANT, filter)).enqueue(new Callback<Count>() {
             @Override
-            public void onResponse(Response<Count> response) {
+            public void onResponse(Call<Count> call, Response<Count> response) {
                 if (response != null && response.body() != null) {
                     setCount(response.body().getCount());
                 }
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<Count> call, Throwable t) {
                 Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
                 Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
                 stopLoading();
             }
+
         });
     }
 
@@ -286,7 +288,7 @@ public class FilterPlantsActivity extends BaseActivity {
         ((HerbsApp)getApplication()).getHerbCloudClient().getApiService().getList(
                 new ListRequest(sk.ab.common.Constants.PLANT, filter)).enqueue(new Callback<PlantList>() {
             @Override
-            public void onResponse(Response<PlantList> response) {
+            public void onResponse(Call<PlantList> call, Response<PlantList> response) {
                 List<PlantHeader> plantHeaderList = response.body().getItems();
 
                 SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
@@ -313,7 +315,7 @@ public class FilterPlantsActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<PlantList> call, Throwable t) {
                 Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
                 Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
                 stopLoading();

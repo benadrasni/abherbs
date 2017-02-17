@@ -26,8 +26,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import retrofit.Callback;
-import retrofit.Response;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Call;
 import sk.ab.common.Constants;
 import sk.ab.common.entity.Rate;
 import sk.ab.herbs.AndroidConstants;
@@ -233,13 +234,13 @@ public class PlantListFragment extends Fragment {
         ((HerbsApp)getActivity().getApplication()).getHerbCloudClient().getApiService().saveRate(rate)
                 .enqueue(new Callback<Rate>() {
                     @Override
-                    public void onResponse(Response<Rate> response) {
+                    public void onResponse(Call<Rate> call, Response<Rate> response) {
                         Log.i(this.getClass().getName(), "Rate with status '" +
                                 response.body().getStatus() + "' was saved to the datastore");
                     }
 
                     @Override
-                    public void onFailure(Throwable t) {
+                    public void onFailure(Call<Rate> call, Throwable t) {
                         Log.e(this.getClass().getName(), "Failed to save rate action. Check your internet settings.", t);
                     }
                 });
