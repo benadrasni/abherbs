@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/plant_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"/>
+
+        <LinearLayout android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+            <TextView
+                android:id="@+id/plant_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:paddingStart="@dimen/list_item_padding_left"
+                android:singleLine="true"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:background="@drawable/left_border"/>
+            <TextView
+                android:id="@+id/plant_family"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingEnd="@dimen/list_item_padding_right"
+                android:singleLine="true"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textStyle="italic"
+                android:background="@drawable/right_border"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView
+            android:id="@+id/family_icon"
+            android:layout_width="@dimen/list_item_family_icon_width"
+            android:layout_height="@dimen/list_item_family_icon_height"/>
+</RelativeLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+    <uk.co.deanwild.flowtextview.FlowTextView
+        android:id="@+id/plantInfoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/CardsForeground"
+        android:padding="@dimen/list_padding">
+
+        <ImageView
+            android:id="@+id/plant_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:contentDescription="@string/image_desc"
+            android:paddingBottom="@dimen/list_padding"
+            android:paddingTop="@dimen/list_padding"
+            android:scaleType="fitStart"/>
+
+    </uk.co.deanwild.flowtextview.FlowTextView>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/plant_mail"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/mail"
+            android:contentDescription="@string/email_desc"
+            android:paddingBottom="@dimen/list_padding"
+            android:paddingTop="@dimen/list_padding"
+            android:scaleType="fitStart"/>
+
+
+        <ImageView
+            android:id="@+id/plant_translate"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/translate"
+            android:contentDescription="@string/translate_desc"
+            android:paddingBottom="@dimen/list_padding"
+            android:paddingTop="@dimen/list_padding"
+            android:scaleType="fitStart"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/bottomInfo"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/plantInfoLayout"
+        android:background="@drawable/list_item_shadow_bottom"/>
+</RelativeLayout>

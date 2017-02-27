@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Čo to tu kvitne?</string>
+
+    <string name="about">O aplikácii</string>
+    <string name="help">Pomoc</string>
+    <string name="settings">Nastavenia</string>
+    <string name="feedback">Pripomienky</string>
+    <string name="pref_language">Preferovaný jazyk</string>
+    <string name="change_locale">Zmeniť lokalizáciu</string>
+    <string name="change_locale_summary">podľa preferovaného jazyka</string>
+    <string name="propose_translation">Nezobrazovať tlačidlo</string>
+    <string name="propose_translation_summary">na zaslanie lepšieho prekladu / popisu.</string>
+
+    <string name="color_of_flower">farba kvetov</string>
+    <string name="color_white">biela</string>
+    <string name="color_yellow">žltá</string>
+    <string name="color_red">červená, ružová</string>
+    <string name="color_blue">modrá, fialová</string>
+    <string name="color_green">zelená, hnedá, čierna</string>
+    <string name="color_of_flower_message">Akej farby sú kvety? Vyber tú najbližšiu. Vždy sa môžeš vrátiť a vybrať inú.</string>
+
+    <string name="habitats">lokalita</string>
+    <string name="habitat_meadow">lúky a trávnaté porasty</string>
+    <string name="habitat_garden">polia a záhrady</string>
+    <string name="habitat_wetland">mokrade a močiare</string>
+    <string name="habitat_forest">lesy</string>
+    <string name="habitat_rock">vrcholky hôr a skaly</string>
+    <string name="habitat_tree">stromy a kry</string>
+    <string name="habitat_message">Kde sa nachádzaš? Identifikuj lokalitu.</string>
+
+    <string name="number_of_petals">počet lupeňov</string>
+    <string name="petal_4">4 alebo menej</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">viac ako 5</string>
+    <string name="petal_bisymmetric">bisymetrický</string>
+    <string name="number_of_petals_message">Je kvet symetrický iba podľa jednej osi? Nie? Tak koľko má lupeňov?</string>
+
+    <string name="display_info">Je to táto?</string>
+    <string name="list_info">Vyber si jednu</string>
+
+    <string name="plant_info">Info</string>
+    <string name="plant_gallery">Galéria</string>
+    <string name="plant_taxonomy">Taxonómia</string>
+    <string name="plant_sources">Zdroje</string>
+    <string name="image_desc">Ilustrácia</string>
+    <string name="translate_desc">Preklad</string>
+    <string name="email_desc">Email</string>
+    <string name="email_subject_prefix">Návrh lepšieho prekladu / popisu pre </string>
+
+    <string name="plant_title">názov</string>
+    <string name="plant_height_from">Výška od</string>
+    <string name="plant_height_to">do</string>
+    <string name="plant_flowering_from">Kvitne od</string>
+    <string name="plant_flowering_to">do</string>
+    <string name="plant_flowers">Kvety</string>
+    <string name="plant_inflorescences">Súkvetie</string>
+    <string name="plant_fruits">Plody</string>
+    <string name="plant_leaves">Listy</string>
+    <string name="plant_inflorescence">Súkvetie</string>
+    <string name="plant_color_of_flowers">Farba kvetov</string>
+    <string name="plant_number_of_petals">Počet lupeňov</string>
+    <string name="plant_sepal">Okvetné lístky</string>
+    <string name="plant_leaf_shape">Tvar listov</string>
+    <string name="plant_leaf_margin">Okraj listov</string>
+    <string name="plant_leaf_venation">Žilnatosť listov</string>
+    <string name="plant_leaf_arrangement">Usporiadanie listov</string>
+    <string name="plant_stem">Stonka</string>
+    <string name="plant_root">Koreň</string>
+    <string name="plant_habitat">Lokalita</string>
+    <string name="plant_toxicity">Toxicita</string>
+    <string name="plant_herbalism">Bylinkárstvo</string>
+
+    <string name="taxonomy_superregnum">doména</string>
+    <string name="taxonomy_regnum">ríša</string>
+    <string name="taxonomy_cladus">Cladus</string>
+    <string name="taxonomy_ordo">trieda</string>
+    <string name="taxonomy_familia">čeľaď</string>
+    <string name="taxonomy_subfamilia">podčeľaď</string>
+    <string name="taxonomy_tribus">skupina</string>
+    <string name="taxonomy_subtribus">podskupina</string>
+    <string name="taxonomy_genus">rod</string>
+    <string name="taxonomy_species">druh</string>
+
+    <string name="close">Zavrieť</string>
+    <string name="showcase_propose_title">Navrhni lepší preklad / popis</string>
+    <string name="showcase_propose_message">Lepší preklad alebo popis môžeš poslať pomocou emailu.</string>
+    <string name="showcase_fullscreen_title">Väčšia ilustrácia</string>
+    <string name="showcase_fullscreen_message">Ilustráciu môžeš zobraziť na celej obrazovke tým, že na ňu klikneš.</string>
+    <string name="showcase_count_button_title">Počet kvetov vyhovujúcich filtru</string>
+    <string name="showcase_count_button_message">Po stlačení hneď zobrazí zoznam, ale iba pre čísla menšie ako 21. Dlhé stlačenie vymaže filter.</string>
+    <string name="showcase_taxonomy_title">Taxonómia podľa systému APG III</string>
+    <string name="showcase_taxonomy_message">Taxonómiu môžeš zobraziť / skryť tým, že klikneš na názov rastliny.</string>
+    <string name="legend">Legenda</string>
+    <string name="toxicity1">jedovatá rastlina</string>
+    <string name="toxicity2">mierne jedovatá rastlina</string>
+    <string name="plant_trivia">Zaujímavosti</string>
+    <string name="rate_text">Autora tejto aplikácie motivuje pozitívny ohlas použivateľov. Pošlite mu, prosím, nejaké kvetiny (najlepšie hviezdice) cez Google Play Store.</string>
+    <string name="rate_never">Nikdy</string>
+    <string name="rate_later">Neskôr</string>
+    <string name="rate">Recenzia (Google Play)</string>
+    <string name="your_text">váš text</string>
+</resources>

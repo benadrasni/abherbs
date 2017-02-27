@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">¿Qué flor es?</string>
+
+    <string name="about">A cerca de</string>
+    <string name="help">Ayuda</string>
+    <string name="settings">Ajustes</string>
+    <string name="feedback">Sugerencias</string>
+    <string name="pref_language">Idioma preferido</string>
+    <string name="change_locale">Cambiar locación</string>
+    <string name="change_locale_summary">según idioma preferido</string>
+    <string name="propose_translation">No mostrar el botón</string>
+    <string name="propose_translation_summary">para enviar correos electrónicos no mejor traducción / descripción.</string>
+
+    <string name="color_of_flower">color de la flor</string>
+    <string name="color_white">blanco</string>
+    <string name="color_yellow">amarillo</string>
+    <string name="color_red">rojo, roso</string>
+    <string name="color_blue">azul, púrpuro</string>
+    <string name="color_green">verde, marrón, negro</string>
+    <string name="color_of_flower_message">¿Qué es el color de la flor? Elige el más cercano. Puedes volver a cambiar la selección cuando sea.</string>
+
+    <string name="habitats">localidad</string>
+    <string name="habitat_meadow">prado o pradera</string>
+    <string name="habitat_garden">jardín o campo</string>
+    <string name="habitat_wetland">páramo o pantano</string>
+    <string name="habitat_forest">bosque</string>
+    <string name="habitat_rock">rocas o montaña</string>
+    <string name="habitat_tree">árboles o arbustos</string>
+    <string name="habitat_message">¿Dónde te encuentras? Identifica el lugar.</string>
+
+    <string name="number_of_petals">número de pétalos</string>
+    <string name="petal_4">4 o menos</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">más de 5</string>
+    <string name="petal_bisymmetric">simetría por un eje</string>
+    <string name="number_of_petals_message">¿Es la flor simétrica por un eje? ¿No? Pués, ¿cuántos pétalos tiene?</string>
+
+    <string name="display_info">¿Es esto lo que buscas?</string>
+    <string name="list_info">Elige una</string>
+
+    <string name="plant_info">Info</string>
+    <string name="plant_gallery">Galería</string>
+    <string name="plant_taxonomy">Taxonomía</string>
+    <string name="plant_sources">Fuentes</string>
+    <string name="image_desc">Ilustración de planta</string>
+    <string name="translate_desc">Traducir</string>
+    <string name="email_desc">Email</string>
+    <string name="email_subject_prefix">"Propuesta de una mejor traducción / descripción para "</string>
+
+    <string name="plant_title">nombre</string>
+    <string name="plant_height_from">Altura desde</string>
+    <string name="plant_height_to">hasta</string>
+    <string name="plant_flowering_from">Floración desde</string>
+    <string name="plant_flowering_to">hasta</string>
+    <string name="plant_flowers">Flores</string>
+    <string name="plant_inflorescences">Inflorescencia</string>
+    <string name="plant_fruits">Fruta</string>
+    <string name="plant_leaves">Hojas</string>
+    <string name="plant_inflorescence">Inflorescencia</string>
+    <string name="plant_color_of_flowers">Color de la flor</string>
+    <string name="plant_number_of_petals">Número de pétalos</string>
+    <string name="plant_sepal">Sépalos</string>
+    <string name="plant_leaf_shape">Forma de hojas</string>
+    <string name="plant_leaf_margin">Margen de hojas</string>
+    <string name="plant_leaf_venation">Nervadura de hojas</string>
+    <string name="plant_leaf_arrangement">Disposición de hojas</string>
+    <string name="plant_stem">Tallo</string>
+    <string name="plant_root">Raíz</string>
+    <string name="plant_habitat">Localidad</string>
+    <string name="plant_toxicity">Toxicidad</string>
+    <string name="plant_herbalism">Herboristería</string>
+
+    <string name="taxonomy_superregnum">dominio</string>
+    <string name="taxonomy_regnum">reino</string>
+    <string name="taxonomy_cladus">(clado)</string>
+    <string name="taxonomy_ordo">orden</string>
+    <string name="taxonomy_familia">familia</string>
+    <string name="taxonomy_subfamilia">subfamilia</string>
+    <string name="taxonomy_tribus">tribu</string>
+    <string name="taxonomy_subtribus">subtribu</string>
+    <string name="taxonomy_genus">género</string>
+    <string name="taxonomy_species">especie</string>
+
+    <string name="close">Cerrar</string>
+
+    <string name="showcase_propose_title">Proponer la mejor traducción / Descripción</string>
+    <string name="showcase_propose_message">Puede enviar mejor traducción de la descripción por e-mail.</string>
+    <string name="showcase_fullscreen_title">Más grande ilustración</string>
+    <string name="showcase_fullscreen_message">Se puede visualizar la ilustración en pantalla completa haciendo clic en él.</string>
+    <string name="showcase_count_button_title">Número de flores filtrados</string>
+    <string name="showcase_count_button_message">Haga clic para ir directamente a la lista. Obras para el recuento de menos de 21. Larga hacer clic para filtro claro.</string>
+    <string name="showcase_taxonomy_title">Taxonomía según el sistema APG III</string>
+    <string name="showcase_taxonomy_message">Puede mostrar / ocultar las flores taxonomía haciendo clic en el nombre de la flor.</string>
+    <string name="legend">Leyenda</string>
+    <string name="toxicity1">planta venenosa</string>
+    <string name="toxicity2">planta ligeramente venenosa</string>
+    <string name="plant_trivia">Trivialidades</string>
+    <string name="rate_never"> Nunca</string>
+    <string name="rate_later">Más tarde</string>
+    <string name="rate">Opinione (Google Play)</string>
+    <string name="rate_text"> Al autor de esta aplicación le motivan las reacciones positivas de los usuarios. Mándele, por favor, unas flores de la estrella a través del Google Play Store.</string>
+    <string name="your_text">tu texto</string>
+</resources>

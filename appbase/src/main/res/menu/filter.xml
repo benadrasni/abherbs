@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/count"
+        android:title="Count"
+        android:visible="true"
+        app:actionLayout="@layout/filter_count"
+        app:showAsAction="always"></item>
+</menu>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kaj je ta cvet?</string>
+
+    <string name="about">O aplikaciji</string>
+    <string name="help">Pomoč</string>
+    <string name="settings">Nastavitve</string>
+    <string name="feedback">Povratne informacije</string>
+    <string name="pref_language">Želeni jezik</string>
+    <string name="change_locale">Sprememba locale</string>
+    <string name="change_locale_summary">na želeni jezik</string>
+    <string name="propose_translation">Gumb ne kažejo</string>
+    <string name="propose_translation_summary">za pošiljanje e-pošte boljši prevod / opis</string>
+
+    <string name="color_of_flower">barva cvetov</string>
+    <string name="color_white">bela</string>
+    <string name="color_yellow">rumena</string>
+    <string name="color_red">rdeča, roza</string>
+    <string name="color_blue">modra, vijolična</string>
+    <string name="color_green">zelena, rjava, črna</string>
+    <string name="color_of_flower_message">Kaj je barva cveta? Izberite najustreznejšo.</string>
+
+    <string name="habitats">habitate</string>
+    <string name="habitat_meadow">travniki ali pašniki</string>
+    <string name="habitat_garden">vrtov ali polja</string>
+    <string name="habitat_wetland">močvirje ali mokrišča</string>
+    <string name="habitat_forest">gozdovi</string>
+    <string name="habitat_rock">skale ali gore</string>
+    <string name="habitat_tree">drevesa ali grmi</string>
+    <string name="habitat_message">Kaj je okoli vas? Prepoznajte rastline habitat.</string>
+
+    <string name="number_of_petals">število venčnih listov</string>
+    <string name="petal_4">4 ali manj</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">več kot 5</string>
+    <string name="petal_bisymmetric">bisimetrični</string>
+    <string name="number_of_petals_message">Je cvet bisimetrični? Ne? Potem, koliko venčnih listov ima?</string>
+
+    <string name="display_info">Pravi?</string>
+    <string name="list_info">Izbrati eno</string>
+
+    <string name="plant_info">Informacije</string>
+    <string name="plant_gallery">Galerija</string>
+    <string name="plant_taxonomy">Taksonomija</string>
+    <string name="plant_sources">Viri</string>
+    <string name="image_desc">Rastlina ilustracija</string>
+    <string name="translate_desc">Prevesti</string>
+    <string name="email_desc">Email</string>
+    <string name="email_subject_prefix">Predlog boljše prevajanje / opis za</string>
+
+    <string name="plant_title">Ime</string>
+    <string name="plant_height_from">Višina</string>
+    <string name="plant_height_to">-</string>
+    <string name="plant_flowering_from">Cvetoče od</string>
+    <string name="plant_flowering_to">do</string>
+    <string name="plant_flowers">Cvetje</string>
+    <string name="plant_inflorescences">Socvetje</string>
+    <string name="plant_fruits">Plod</string>
+    <string name="plant_leaves">Listi</string>
+    <string name="plant_inflorescence">Socvetje</string>
+    <string name="plant_color_of_flowers">Barva cvetov</string>
+    <string name="plant_number_of_petals">Število venčnih listov</string>
+    <string name="plant_sepal">Čašni list</string>
+    <string name="plant_leaf_shape">Oblike listne ploskve</string>
+    <string name="plant_leaf_margin">Oblike listnih robov</string>
+    <string name="plant_leaf_venation">Razporeditev žil</string>
+    <string name="plant_leaf_arrangement">Filotaksija</string>
+    <string name="plant_stem">Steblo</string>
+    <string name="plant_root">Korenina</string>
+    <string name="plant_habitat">Habitat</string>
+    <string name="plant_trivia">Trivia</string>
+    <string name="plant_toxicity">Toksičnost</string>
+    <string name="plant_herbalism">Zeliščarstvo</string>
+
+    <string name="taxonomy_superregnum">Domena</string>
+    <string name="taxonomy_regnum">Kraljestvo</string>
+    <string name="taxonomy_cladus">(klad)</string>
+    <string name="taxonomy_ordo">Red</string>
+    <string name="taxonomy_familia">Družina</string>
+    <string name="taxonomy_subfamilia">Poddružina</string>
+    <string name="taxonomy_tribus">Pleme</string>
+    <string name="taxonomy_subtribus">Podpleme</string>
+    <string name="taxonomy_genus">Rod</string>
+    <string name="taxonomy_species">Vrsta</string>
+
+    <string name="close">Zapri</string>
+
+    <string name="showcase_propose_title">Propose better translation / description</string>
+    <string name="showcase_propose_message">You can send better translation or description by email.</string>
+    <string name="showcase_fullscreen_title">Larger illustration</string>
+    <string name="showcase_fullscreen_message">You can display illustration on full screen by clicking on it.</string>
+    <string name="showcase_count_button_title">Number of filtered plants</string>
+    <string name="showcase_count_button_message">When number is less than 21 press to jump directly to the list. Long press to clear filter.</string>
+    <string name="showcase_taxonomy_title">Taxonomy according to APG III system</string>
+    <string name="showcase_taxonomy_message">You can show / hide flower\'s taxonomy by clicking on the its name.</string>
+    <string name="legend">Legenda</string>
+    <string name="toxicity1">strupena rastlina</string>
+    <string name="toxicity2">nekoliko strupena rastlina</string>
+    <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
+    <string name="rate_never">Nikoli</string>
+    <string name="rate_later">Kasneje</string>
+    <string name="rate">Mnenja (Google Play)</string>
+    <string name="your_text">vaše besedilo</string>
+</resources>

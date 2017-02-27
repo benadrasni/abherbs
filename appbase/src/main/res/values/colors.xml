@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="MenuGrey">#303030</color>
+    <color name="MenuLightGrey">#B5B4B4</color>
+    <color name="MenuWhite">#F3F3F3</color>
+    <color name="FABGreen">#4C924C</color>
+
+    <color name="CardsBackground">#e5e5e5</color>
+    <color name="CardsForeground">#FFFFFF</color>
+    <color name="CardTitle">#707070</color>
+    <color name="CardSubTitle">#8d8d8d</color>
+    <color name="CardText">#b5b5b5</color>
+    <color name="CardShadowStart">#e5e5e5</color>
+    <color name="CardShadowCenter">#d4d4d4</color>
+    <color name="CardShadowEnd">#d3d3d3</color>
+
+</resources>

@@ -6,5 +6,4 @@ local.properties
 *.tmp
 *.log
 *.bak
-*.class
 *~

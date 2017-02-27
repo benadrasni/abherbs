@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hva er den blomsten?</string>
+
+    <string name="about">Om apper</string>
+    <string name="help">Hjelp</string>
+    <string name="settings">Innstillinger</string>
+    <string name="feedback">Tilbakemelding</string>
+    <string name="pref_language">Preferred language</string>
+    <string name="change_locale">Change locale</string>
+    <string name="change_locale_summary">to preferred language</string>
+    <string name="propose_translation">Do not show button</string>
+    <string name="propose_translation_summary">for emailing better translation / description</string>
+
+    <string name="color_of_flower">farge på blomster</string>
+    <string name="color_white">hvit</string>
+    <string name="color_yellow">gul</string>
+    <string name="color_red">rød, rosa</string>
+    <string name="color_blue">blå, lilla</string>
+    <string name="color_green">grønn, brun, svart</string>
+    <string name="color_of_flower_message">What\'s the color of the flower? Choose the closest one.</string>
+
+    <string name="habitats">voksested</string>
+    <string name="habitat_meadow">enger eller gressletter</string>
+    <string name="habitat_garden">hager eller felt</string>
+    <string name="habitat_wetland">heiene eller våtmark</string>
+    <string name="habitat_forest">skog</string>
+    <string name="habitat_rock">steiner eller fjell</string>
+    <string name="habitat_tree">trær eller busker</string>
+    <string name="habitat_message">What\'s around you? Identify plant\'s habitat.</string>
+
+    <string name="number_of_petals">antall kronblader</string>
+    <string name="petal_4">4 eller mindre</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">mer enn 5</string>
+    <string name="petal_bisymmetric">bisymmetrisk</string>
+    <string name="number_of_petals_message">Is the flower bisymmetric? No? Then how many petals does it have?</string>
+
+    <string name="display_info">Den rette?</string>
+    <string name="list_info">Plukk en</string>
+
+    <string name="plant_info">Info</string>
+    <string name="plant_gallery">Galleri</string>
+    <string name="plant_taxonomy">Taksonomi</string>
+    <string name="plant_sources">Referanser</string>
+    <string name="image_desc">Plante illustrasjon</string>
+    <string name="translate_desc">Oversette</string>
+    <string name="email_desc">E-post</string>
+    <string name="email_subject_prefix">Proposal of better translation / description for </string>
+
+    <string name="plant_title">Navn</string>
+    <string name="plant_height_from">Høyde</string>
+    <string name="plant_height_to">-</string>
+    <string name="plant_flowering_from">Blomstringstid</string>
+    <string name="plant_flowering_to">-</string>
+    <string name="plant_flowers">Blomst</string>
+    <string name="plant_inflorescences">Blomsterstand</string>
+    <string name="plant_fruits">Frukt</string>
+    <string name="plant_leaves">Blader</string>
+    <string name="plant_inflorescence">Blomsterstand</string>
+    <string name="plant_color_of_flowers">Farge på blomster</string>
+    <string name="plant_number_of_petals">Antall kronblader</string>
+    <string name="plant_sepal">Begerblad</string>
+    <string name="plant_leaf_shape">Bladform</string>
+    <string name="plant_leaf_margin">Bladkant</string>
+    <string name="plant_leaf_venation">Bladnerven</string>
+    <string name="plant_leaf_arrangement">Bladstilling</string>
+    <string name="plant_stem">Stengel</string>
+    <string name="plant_root">Rot</string>
+    <string name="plant_habitat">Voksested</string>
+    <string name="plant_trivia">Trivia</string>
+    <string name="plant_toxicity">Toksisitet</string>
+    <string name="plant_herbalism">Plantelegemiddel</string>
+
+    <string name="taxonomy_superregnum">Domene</string>
+    <string name="taxonomy_regnum">Rike</string>
+    <string name="taxonomy_cladus">(klade)</string>
+    <string name="taxonomy_ordo">Orden</string>
+    <string name="taxonomy_familia">Familie</string>
+    <string name="taxonomy_subfamilia">Underfamilier</string>
+    <string name="taxonomy_tribus">Tribus</string>
+    <string name="taxonomy_subtribus">Undertribus</string>
+    <string name="taxonomy_genus">Slekt</string>
+    <string name="taxonomy_species">Art</string>
+
+    <string name="close">Lukke</string>
+
+    <string name="showcase_propose_title">Propose better translation / description</string>
+    <string name="showcase_propose_message">You can send better translation or description by email.</string>
+    <string name="showcase_fullscreen_title">Larger illustration</string>
+    <string name="showcase_fullscreen_message">You can display illustration on full screen by clicking on it.</string>
+    <string name="showcase_count_button_title">Number of filtered plants</string>
+    <string name="showcase_count_button_message">When number is less than 21 press to jump directly to the list. Long press to clear filter.</string>
+    <string name="showcase_taxonomy_title">Taxonomy according to APG III system</string>
+    <string name="showcase_taxonomy_message">You can show / hide flower\'s taxonomy by clicking on the its name.</string>
+    <string name="legend">Legende</string>
+    <string name="toxicity1">giftig plante</string>
+    <string name="toxicity2">litt giftig plante</string>
+    <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
+    <string name="rate_never">Aldri</string>
+    <string name="rate_later">Seinere</string>
+    <string name="rate">Anmeldelser (Google Play)</string>
+    <string name="your_text"> din tekst</string>
+</resources>
