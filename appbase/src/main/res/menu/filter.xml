@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/count"
-        android:title="Count"
         android:visible="true"
         app:actionLayout="@layout/filter_count"
-        app:showAsAction="always"></item>
+        app:showAsAction="always"/>
 </menu>
