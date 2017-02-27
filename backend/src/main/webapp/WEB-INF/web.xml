@@ -16,7 +16,8 @@
             <param-value>
                 sk.ab.herbs.backend.endpoint.TranslationEndpoint,
                 sk.ab.herbs.backend.endpoint.TaxonomyEndpoint,
-                sk.ab.herbs.backend.endpoint.RateEndpoint
+                sk.ab.herbs.backend.endpoint.RateEndpoint,
+                sk.ab.herbs.backend.endpoint.DataEndpoint
             </param-value>
         </init-param>
     </servlet>
