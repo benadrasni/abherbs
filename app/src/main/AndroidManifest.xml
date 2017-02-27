@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".HerbsApp"
+        android:name="sk.ab.herbs.HerbsApp"
         android:allowBackup="true"
         android:icon="@drawable/home"
         android:label="@string/app_name"
@@ -17,7 +17,7 @@
         <!-- android:resource="@xml/global_tracker" /> -->
 
         <activity
-            android:name=".activities.FilterPlantsActivity"
+            android:name="sk.ab.herbsbase.activities.FilterPlantsActivity"
             android:configChanges="orientation|screenSize|locale"
             android:label="@string/app_name"
             android:theme="@style/SplashScreenTheme" >
@@ -28,29 +28,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ListPlantsActivity"
+            android:name="sk.ab.herbsbase.activities.ListPlantsActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
-            android:name=".activities.DisplayPlantActivity"
+            android:name="sk.ab.herbsbase.activities.DisplayPlantActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
-            android:name=".activities.UserPreferenceActivity"
+            android:name="sk.ab.herbsbase.activities.UserPreferenceActivity"
             android:configChanges="orientation|screenSize|locale"
             android:label="@string/settings"
             android:theme="@style/Theme.Settings" >
         </activity>
         <activity
-            android:name=".activities.LegendActivity"
+            android:name="sk.ab.herbsbase.activities.LegendActivity"
             android:configChanges="orientation|screenSize|locale"
             android:theme="@style/Theme.Settings" >
         </activity>
         <activity
-            android:name=".commons.HtmlActivity"
+            android:name="sk.ab.herbsbase.commons.HtmlActivity"
             android:configChanges="orientation|screenSize|locale"
             android:theme="@style/Theme.Settings" >
         </activity>
         <activity
-            android:name=".commons.FullScreenImageActivity"
+            android:name="sk.ab.herbsbase.commons.FullScreenImageActivity"
             android:configChanges="orientation|screenSize" />
 
         <meta-data

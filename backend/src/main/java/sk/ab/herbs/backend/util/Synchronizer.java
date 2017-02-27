@@ -8,11 +8,11 @@ import java.util.Map;
 import java.util.Scanner;
 
 import retrofit2.Call;
-import sk.ab.common.entity.request.DetailRequest;
+import sk.ab.common.Constants;
 import sk.ab.common.entity.Plant;
+import sk.ab.common.entity.request.DetailRequest;
 import sk.ab.common.service.HerbClient;
 import sk.ab.common.service.HerbCloudClient;
-import sk.ab.common.Constants;
 
 /**
  *

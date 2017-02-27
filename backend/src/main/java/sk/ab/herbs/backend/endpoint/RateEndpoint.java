@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 import javax.annotation.Nullable;
 import javax.inject.Named;
 
-
 import sk.ab.common.entity.Rate;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
