@@ -62,6 +62,7 @@ public class DataEndpoint {
         String genus = hlp[0];
 
         Entity plantEntity = new Entity("Plant", taxonomyName);
+        plantEntity.setProperty("label_la", taxonomyName);
 
         Query.Filter propertyFilter =
                 new Query.FilterPredicate(Constants.LANGUAGE_LA, Query.FilterOperator.EQUAL, genus);
