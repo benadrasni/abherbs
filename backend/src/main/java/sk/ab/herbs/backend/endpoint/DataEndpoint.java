@@ -253,8 +253,8 @@ public class DataEndpoint {
             Document doc = Jsoup.connect("https://species.wikimedia.org/w/index.php?title=" + name + "&action=edit").get();
 
             String wikiPage = doc.getElementsByTag("textarea").val();
-            String vn = wikiPage.substring(wikiPage.indexOf("{{VN"), wikiPage.indexOf("}}", wikiPage.indexOf("{{VN"))).replace("\n", "");
-            if (!Strings.isNullOrEmpty(vn)) {
+            if (wikiPage.contains("{{VN")) {
+                String vn = wikiPage.substring(wikiPage.indexOf("{{VN"), wikiPage.indexOf("}}", wikiPage.indexOf("{{VN"))).replace("\n", "");
                 String[] languages = vn.substring(5, vn.length()).split("\\|");
                 for (String language : languages) {
                     String[] hlp = language.split("=");
