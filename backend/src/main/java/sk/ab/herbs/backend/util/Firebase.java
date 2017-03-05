@@ -10,6 +10,7 @@ import retrofit2.Call;
 import sk.ab.common.Constants;
 import sk.ab.common.entity.Count;
 import sk.ab.common.entity.Plant;
+import sk.ab.common.entity.PlantList;
 import sk.ab.common.entity.request.ListRequest;
 import sk.ab.common.service.FirebaseClient;
 import sk.ab.common.service.HerbCloudClient;
@@ -19,8 +20,8 @@ import sk.ab.common.service.HerbCloudClient;
  * Created by adrian on 4.5.2016.
  */
 public class Firebase {
-    public static String PATH = "C:/Dev/Projects/abherbs/backend/";
-//    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/";
+    private static String PATH_TO_PLANTS = "C:/Dev/Projects/abherbs/backend/txt/plants.csv";
+//    private static String PATH_TO_PLANTS = "/home/adrian/Dev/projects/abherbs/backend/txt/plants.csv";
 
     private static final String[] COLORS = {"white", "yellow", "red", "blue", "green"};
     private static final String[] HABITATS = {"meadows or grassland", "gardens or fields", "moorlands or wetlands", "woodlands or forests", "rocks or mountains", "trees or bushes"};
@@ -41,7 +42,7 @@ public class Firebase {
 
         synchronizeCountsAndLists(herbCloudClient, firebaseClient);
 
-        //synchronizeDetails(herbCloudClient, firebaseClient);
+        synchronizeDetails(herbCloudClient, firebaseClient);
     }
 
     private static void synchronizeCountsAndLists(HerbCloudClient herbCloudClient, FirebaseClient firebaseClient) {
@@ -50,15 +51,15 @@ public class Firebase {
 
             for (String color : COLORS) {
                 filter.put(Constants.COLOR_OF_FLOWERS, color);
-                getAndSaveCount(herbCloudClient, firebaseClient, filter);
+                getAndSave(herbCloudClient, firebaseClient, filter);
 
                 for (String habitat : HABITATS) {
                     filter.put(Constants.HABITAT, habitat);
-                    getAndSaveCount(herbCloudClient, firebaseClient, filter);
+                    getAndSave(herbCloudClient, firebaseClient, filter);
 
                     for (String petal : PETALS) {
                         filter.put(Constants.NUMBER_OF_PETALS, petal);
-                        getAndSaveCount(herbCloudClient, firebaseClient, filter);
+                        getAndSave(herbCloudClient, firebaseClient, filter);
 
                     }
                     filter.remove(Constants.NUMBER_OF_PETALS);
@@ -69,11 +70,11 @@ public class Firebase {
             filter.clear();
             for (String habitat : HABITATS) {
                 filter.put(Constants.HABITAT, habitat);
-                getAndSaveCount(herbCloudClient, firebaseClient, filter);
+                getAndSave(herbCloudClient, firebaseClient, filter);
 
                 for (String petal : PETALS) {
                     filter.put(Constants.NUMBER_OF_PETALS, petal);
-                    getAndSaveCount(herbCloudClient, firebaseClient, filter);
+                    getAndSave(herbCloudClient, firebaseClient, filter);
 
                 }
                 filter.remove(Constants.NUMBER_OF_PETALS);
@@ -82,7 +83,7 @@ public class Firebase {
             filter.clear();
             for (String petal : PETALS) {
                 filter.put(Constants.NUMBER_OF_PETALS, petal);
-                getAndSaveCount(herbCloudClient, firebaseClient, filter);
+                getAndSave(herbCloudClient, firebaseClient, filter);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -91,12 +92,12 @@ public class Firebase {
 
     private static void synchronizeDetails(HerbCloudClient herbCloudClient, FirebaseClient firebaseClient) {
         try {
-            File file = new File(PATH + "plants.csv");
+            File file = new File(PATH_TO_PLANTS);
 
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()) {
 
-                final String[] plantLine = scan.nextLine().split(",");
+                final String[] plantLine = scan.nextLine().split(";");
                 System.out.println(plantLine[0]);
 
                 Call<Plant> callCloud = herbCloudClient.getApiService().getDetail(plantLine[0]);
@@ -111,24 +112,36 @@ public class Firebase {
         }
     }
 
-    private static void getAndSaveCount(HerbCloudClient herbCloudClient,
-                                        FirebaseClient firebaseClient,
-                                        Map<String, String> filter) throws IOException {
-        Call<Count> callCloud = herbCloudClient.getApiService().getCount(new ListRequest(Constants.PLANT, filter));
-        Count count = callCloud.execute().body();
-        Call<Count> callFirebase = firebaseClient.getApiService().saveCount(getFilterKey(filter), count);
-        callFirebase.execute().body();
+    private static void getAndSave(HerbCloudClient herbCloudClient,
+                                   FirebaseClient firebaseClient,
+                                   Map<String, String> filter) throws IOException {
+
+        String filterKey = getFilterKey(filter);
+        System.out.println(filterKey);
+
+        // count
+        Call<Count> callCloudCount = herbCloudClient.getApiService().getCount(new ListRequest(Constants.PLANT, filter));
+        Count count = callCloudCount.execute().body();
+        Call<Count> callFirebaseCount = firebaseClient.getApiService().saveCount(filterKey, count);
+        callFirebaseCount.execute().body();
+
+        // list
+        Call<PlantList> callCloudList = herbCloudClient.getApiService().getList(new ListRequest(Constants.PLANT, filter));
+        PlantList list = callCloudList.execute().body();
+        Call<PlantList> callFirebaseList = firebaseClient.getApiService().saveList(filterKey, list);
+        callFirebaseList.execute().body();
     }
 
 
     private static String getFilterKey(Map<String, String> filter) {
         StringBuilder filterKey = new StringBuilder();
 
+        String separator = "";
         for (String filterAttribute : FILTER_ATTRIBUTES) {
-            if (filterKey.length() > 0) {
-                filterKey.append("_");
-            }
+            filterKey.append(separator);
             filterKey.append(getOrDefault(filter, filterAttribute, ""));
+
+            separator = "_";
         }
 
         return filterKey.toString();
