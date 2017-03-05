@@ -27,6 +27,13 @@ public interface FirebaseService {
             "charset: UTF-8"
     })
     @PUT("plants/{taxonomyName}.json")
-    Call<Plant> savePlant(@Path("taxonomyName") String taxonomyName,
-                                 @Body Plant plant);
+    Call<Plant> savePlant(@Path("taxonomyName") String taxonomyName, @Body Plant plant);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @PUT("counts/{filter}.json")
+    Call<Count> saveCount(@Path("filter") String filter, @Body Count count);
 }

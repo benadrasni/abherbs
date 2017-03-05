@@ -1,0 +1,87 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<h3>Priamočiary prístup:</h3>
+
+<ol>
+    <li>Stlačením príslušného obrázku vyber farbu kvetu.</li>
+    <li>Stlačením príslušného obrázku vyber lokalitu.</li>
+    <li>Stlačením príslušného obrázku vyber počet lupienkov.</li>
+    <li>Vyber kvet zo zoznamu.</li>
+    <li>Prečítaj si o ňom, pozri si ďalšie jeho obrázky.</li>
+    <li>Vráť sa späť do zoznamu, vyber iný kvet až kým nenájdeš ten pravý.</li>
+    <li>Vráť sa späť do filtra a zmeň svoj predchádzajúci výber.</li>
+</ol>
+<h3>Skok sem, skok tam:</h3>
+
+<p>
+    Medzi jednotlivými filtrovacími obrazovkami sa dá preskakovať pomocou zľava vysúvacej sa ponuky, v ktorej sa
+    zobrazujú aj predtým vybraté hodnoty atribútov. Keď sa objaví filtrovacia obrazovka, hodnota atribútu s ňou spojená
+    sa vymaže z aktuálneho filtra. Počítadlo zobrazuje koľko kvetov spĺňa vybraté kritériá. Ak sú nastavené všetky tri
+    filtrovacie atribúty, zobrazí sa rolovateľný zoznam kvetov vyhovujúcich kritériám. Ak počítadlo ukazuje menej ako 21
+    kvetov, dá sa preskočiť priamo na zoznam aj keď nie sú nastavené zvyšné atribúty. Dlhé stlačenie počítadla vynuluje
+    filter.
+</p>
+
+<h3>Čo všetko sa dá postláčať:</h3>
+
+<ol>
+    <li>Stlačenie obrázka vo filtrovacích obrazovkách nastaví hodnotu pre zodpovedajúci atribút a zároveň zobrazí ďalšiu
+        filtrovaciu obrazovku ak ešte existuje atribút, ktorý nemá nastavenú hodnotu, inak zobrazí zoznam kvetov, ktoré
+        vyhovujú nastaveným hodnotám filtra.</li>
+    <li>Stlačenie obrázka v zozname kvetov zobrazí podrobnosti o zvolenom kvete.</li>
+    <li>Stlačenie malého obrázka na obrazovke s podrobnosťami o kvete zobrazí väčší obrázok pod ním.</li>
+    <li>Dlhé stlačenie počítadla vynuluje filter.</li>
+    <li>Potiahnutie zľava alebo stlačenie "hamburgerového" tlačidla zobrazí ponuku.</li>
+    <li>Stlačenie jednej z filtrovacích možností v ponuke zobrazí zodpovedajúci filter. Zároveň vymaže predtým zvolenú
+        hodnotu tohto filtra.
+    </li>
+    <li>Stlačenie možnosti <b>Nastavenia</b> v ponuke zobrazí Nastavenia.</li>
+    <li>Stlačenie možnosti <b>Pripomienky</b> v ponuke zobrazí možnosť upozorniť na preklepy, chyby, poslať nové
+        preklady, pripomienkovať projekt.</li>
+    <li>Stlačenie možnosti <b>Podporiť projekt</b> v ponuke zobrazí možnosť prispieť na projekt ľubovoľnou čiastkou BTC
+        alebo LTC.</li>
+    <li>Stlačenie možnosti <b>Pomoc</b> v ponuke zobrazí Pomoc (túto obrazovku).</li>
+    <li>Stlačenie možnosti <b>O aplikácii</b> zobrazí informácie o tejto aplikácii.</li>
+</ol>
+<h3>Nastavenia:</h3>
+<ol>
+    <li><b>Zmeň lokalizáciu (podľa preferovaného jazyka)</b>: Zmeň lokalizáciu aplikácie podľa preferovaného jazyka.</li>
+    <li><b>Preferovaný jazyk</b>: Vyber si svoj preferovaný jazyk pre detailné informácie o kvete.</li>
+    <li><b>Nezobrazovať tlačidlo (na zaslanie lepšieho prekladu / popisu)</b>: Nezobrazovať tlačidlo na zaslanie
+        lepšieho prekladu na obrazovke detailu kvetu.</li>
+</ol>
+
+<p>
+    Po spustení aplikácie je lokalizácia nastavená podľa mobilného zariadenia. Lokálizácia, pre ktorú aplikácia nemá
+    lokalizačný súbor, preberá texty z prednastavenej lokalizácie, ktorou je anglická. 
+</p>
+<p>
+    Osobitnou kapitolou su detailné informácie o samotných kvetoch. Názvy kvetov a taxonómia sa zobrazujú v jazyku 
+    mobilného zariadenia alebo v prednastavenom jazyku a sú tieto zadané v databáza, inak sa zobrazujú latinské názvy.
+    Ostatné texty sa sťahujú zo servera, ktorý zatiaľ podporuje iba dva jazyky: angličtinu ako prednastavený jazyk a 
+    slovenčinu. Ak sa jazyk lokalizácie aplikácie nezhoduje s vybraným preferovaným jazykom, na karte s detailnými 
+    informáciami o kvete sa objaví ikona Google Translate. Po stlačení sa texty preložia pomocou Google Translate do 
+    jazyka lokalizácie. Po opätovnou stlačení ikony, sa texty vrátia do preferovaného jazyka.
+</p>
+<p>
+    Príklad 1: Jan má na svojom mobile nastavený jazyk (lokalizáciu) na češtinu. Keďže aplikácia podporuje túto
+    lokalizáciu, ovládacie prvky aplikácie budú v češtine ako aj názvy kvetín a taxonómia. Texty na detaile kvetu budú 
+    však v angličtine. Pri textoch sa objaví ikona Google Translate a Jan si bude môcť preložiť texty z angličtiny do 
+    češtiny pomocou Google Translate.
+</p>
+<p>
+    Príklad 2: Vlado má na svojom mobile nastavený jazyk (lokalizáciu) na angličtinu. Ako preferovaný jazyk si však
+    vyberie slovenčinu, zároveň si zmení aj lokalizáciu na slovenskú. Vlado bude mať ovládanie aj informačné texty
+    v slovenčine a možnosť prekladu pomocou Google translate sa mu neobjaví.
+</p>
+<p>
+    Príklad 3: Tarun má na svojom mobile nastavený jazyk (lokalizáciu) na hindčinu. Keďže aplikácia nepodporuje túto
+    lokalizáciu, ovládacie prvky aplikácie budú v angličtine, ale názvy kvetov a taxonómia bude v hindčine pre tie
+    kvety, ktoré majú definované názvy v hindčine, ostatné budú v latinčine. Pri textoch sa objaví ikona Google
+    Translate a Tarun si bude môcť preložiť texty z angličtiny do hindčiny pomocou Google Translate.
+</p>
+</body>
+</html>
