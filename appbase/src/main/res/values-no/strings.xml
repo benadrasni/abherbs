@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Hva er den blomsten?</string>
-
     <string name="about">Om apper</string>
     <string name="help">Hjelp</string>
     <string name="settings">Innstillinger</string>

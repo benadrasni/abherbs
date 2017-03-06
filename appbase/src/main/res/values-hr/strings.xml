@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Što je ovo cvijet?</string>
-
     <string name="about">O aplikaciji</string>
     <string name="help">Pomoć</string>
     <string name="settings">Postavke</string>

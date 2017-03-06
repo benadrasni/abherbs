@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Čo to tu kvitne?</string>
-
     <string name="about">O aplikácii</string>
     <string name="help">Pomoc</string>
     <string name="settings">Nastavenia</string>

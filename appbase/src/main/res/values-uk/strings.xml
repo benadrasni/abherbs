@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Що це за квітка?</string>
-
     <string name="about">Про додатку</string>
     <string name="help">Довідка</string>
     <string name="settings">Налаштування</string>

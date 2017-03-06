@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Miféle virág is ez?</string>
-
     <string name="about">Az alkalmazásról</string>
     <string name="help">Súgó</string>
     <string name="settings">Beállítások</string>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Vad är denna blomma?</string>
-
     <string name="about">Om ansökan</string>
     <string name="help">Hjäjp</string>
     <string name="settings">Inställningar</string>

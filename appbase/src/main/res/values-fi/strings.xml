@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Mikä kukka tämä on?</string>
-
     <string name="about">Tietoja sovellus</string>
     <string name="help">Ohje</string>
     <string name="settings">Asetukset</string>

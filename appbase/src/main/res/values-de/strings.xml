@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Was blüht denn da?</string>
-
     <string name="about">Über</string>
     <string name="help">Hilfe</string>
     <string name="settings">Einstellungen</string>
