@@ -26,6 +26,30 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
+    @GET("filters/{filter}/count.json")
+    Call<Count> getCount(@Path("filter") String filter);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @GET("filters/{filter}/list.json")
+    Call<PlantList> getList(@Path("filter") String filter);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @GET("plants/{name}.json")
+    Call<Plant> getDetail(@Path("name") String name);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
     @PUT("plants/{taxonomyName}.json")
     Call<Plant> savePlant(@Path("taxonomyName") String taxonomyName, @Body Plant plant);
 
