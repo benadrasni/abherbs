@@ -68,4 +68,12 @@ public interface FirebaseService {
     })
     @PUT("filters/{filter}/list.json")
     Call<PlantList> saveList(@Path("filter") String filter, @Body PlantList list);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @PUT("names/{language}/{name}/list.json")
+    Call<PlantList> saveName(@Path("language") String language, @Path("name") String name, @Body PlantList list);
 }

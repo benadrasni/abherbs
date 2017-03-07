@@ -104,57 +104,7 @@ public class TaxonomyEndpoint {
         List<PlantHeader> plantHeaders = new ArrayList<>();
         List<Entity> plants = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
         for (Entity plant : plants) {
-            PlantHeader plantHeader = new PlantHeader();
-            plantHeader.setId((String)plant.getProperty("label_" + Constants.LANGUAGE_LA));
-
-            List<String> photoUrls = (List<String>) plant.getProperty("photoUrl");
-            plantHeader.setUrl(photoUrls.get(0));
-
-            for(Map.Entry<String, Object> propertyEntry : plant.getProperties().entrySet()) {
-                String propertyName = propertyEntry.getKey();
-
-                if (propertyName.startsWith("label_")) {
-                    plantHeader.getLabel().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
-                }
-            }
-
-            try {
-                Key taxonomyKey = (Key)plant.getProperty("taxonomyKey");
-                if (taxonomyKey == null) {
-                    throw new InvalidNameException("Invalid taxonomy key for " + plantHeader.getLabel());
-                }
-
-                Key familiaKey = taxonomyKey;
-                do {
-                    familiaKey = familiaKey.getParent();
-                } while (familiaKey != null && !familiaKey.getKind().equals("Familia"));
-
-                if (familiaKey == null) {
-                    throw new InvalidNameException("Invalid key: " + taxonomyKey.toString());
-                }
-
-                HashMap<String, String> family = families.get(familiaKey.toString());
-                if (family == null) {
-                    family = new HashMap<>();
-                    Entity familia = datastore.get(familiaKey);
-
-                    for(Map.Entry<String, Object> propertyEntry : familia.getProperties().entrySet()) {
-                        String propertyName = propertyEntry.getKey();
-                        Object propertyValue = propertyEntry.getValue();
-
-                        if (propertyValue instanceof String) {
-                            family.put(propertyName, (String) propertyValue);
-                        } else if (propertyValue instanceof List && ((List) propertyValue).size() > 0) {
-                            family.put(propertyName, ((List<String>) propertyValue).get(0));
-                        }
-                    }
-                }
-                plantHeader.setFamily(family);
-            } catch (EntityNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            plantHeaders.add(plantHeader);
+            plantHeaders.add(getHeader(datastore, families, plant));
         }
 
         return plantHeaders;
@@ -170,9 +120,21 @@ public class TaxonomyEndpoint {
         Key key = KeyFactory.createKey(Constants.PLANT, plantName);
         Entity plantEntity = datastore.get(key);
 
-        Plant plant = convert(plantName, plantEntity);
+        return convert(plantName, plantEntity);
+    }
 
-        return plant;
+    @ApiMethod(
+            name = "header",
+            path = "plant/{plantName}/header",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public PlantHeader header(@Named("plantName") String plantName)
+            throws InvalidNameException, EntityNotFoundException {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        Key key = KeyFactory.createKey(Constants.PLANT, plantName);
+        Entity plant = datastore.get(key);
+
+        return getHeader(datastore, new HashMap<String, HashMap<String,String>>(), plant);
     }
 
     @ApiMethod(
@@ -893,8 +855,64 @@ public class TaxonomyEndpoint {
         return plant;
     }
 
+    private PlantHeader getHeader(DatastoreService datastore,
+                                  Map<String, HashMap<String,String>> families,
+                                  Entity plant) throws InvalidNameException {
+        PlantHeader plantHeader = new PlantHeader();
+        plantHeader.setId((String)plant.getProperty("label_" + Constants.LANGUAGE_LA));
 
-    public static int safeLongToInt(long l) {
+        List<String> photoUrls = (List<String>) plant.getProperty("photoUrl");
+        plantHeader.setUrl(photoUrls.get(0));
+
+        for(Map.Entry<String, Object> propertyEntry : plant.getProperties().entrySet()) {
+            String propertyName = propertyEntry.getKey();
+
+            if (propertyName.startsWith("label_")) {
+                plantHeader.getLabel().put(propertyName.substring(propertyName.indexOf("_")+1), (String)propertyEntry.getValue());
+            }
+        }
+
+        try {
+            Key taxonomyKey = (Key)plant.getProperty("taxonomyKey");
+            if (taxonomyKey == null) {
+                throw new InvalidNameException("Invalid taxonomy key for " + plantHeader.getLabel());
+            }
+
+            Key familiaKey = taxonomyKey;
+            do {
+                familiaKey = familiaKey.getParent();
+            } while (familiaKey != null && !familiaKey.getKind().equals("Familia"));
+
+            if (familiaKey == null) {
+                throw new InvalidNameException("Invalid key: " + taxonomyKey.toString());
+            }
+
+            HashMap<String, String> family = families.get(familiaKey.toString());
+            if (family == null) {
+                family = new HashMap<>();
+                Entity familia = datastore.get(familiaKey);
+
+                for(Map.Entry<String, Object> propertyEntry : familia.getProperties().entrySet()) {
+                    String propertyName = propertyEntry.getKey();
+                    Object propertyValue = propertyEntry.getValue();
+
+                    if (propertyValue instanceof String) {
+                        family.put(propertyName, (String) propertyValue);
+                    } else if (propertyValue instanceof List && ((List) propertyValue).size() > 0) {
+                        family.put(propertyName, ((List<String>) propertyValue).get(0));
+                    }
+                }
+                families.put(familiaKey.toString(), family);
+            }
+            plantHeader.setFamily(family);
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return plantHeader;
+    }
+
+    private static int safeLongToInt(long l) {
         if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
             throw new IllegalArgumentException
                     (l + " cannot be cast to int without changing its value.");

@@ -11,4 +11,8 @@ public class PlantList {
     public List<PlantHeader> getItems() {
         return items;
     }
+
+    public void setItems(List<PlantHeader> items) {
+        this.items = items;
+    }
 }

@@ -9,6 +9,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import sk.ab.common.entity.Count;
 import sk.ab.common.entity.Plant;
+import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.entity.PlantList;
 import sk.ab.common.entity.Rate;
 import sk.ab.common.entity.Taxonomy;
@@ -38,6 +39,9 @@ public interface HerbCloudService {
 
     @GET("_ah/api/taxonomyApi/v1/plant/{plantName}")
     Call<Plant> getDetail(@Path("plantName") String plantName);
+
+    @GET("_ah/api/taxonomyApi/v1/plant/{plantName}/header")
+    Call<PlantHeader> getHeader(@Path("plantName") String plantName);
 
     @POST("_ah/api/taxonomyApi/v1/plant/update/{plantName}")
     Call<Plant> update(@Path("plantName") String plantName,
