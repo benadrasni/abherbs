@@ -29,6 +29,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -818,6 +819,17 @@ public class TaxonomyEndpoint {
                     break;
                 case "filterRoot":
                     plant.setFilterRoot((ArrayList<String>)propertyEntry.getValue());
+                    break;
+                case "taxonomyKey":
+                    Key taxonomyKey = (Key)propertyEntry.getValue();
+                    LinkedHashMap<String, String> taxonomy = new LinkedHashMap<>();
+                    int i = 0;
+                    do {
+                        taxonomy.put(taxonomyKey.getKind() + "_" + i, taxonomyKey.getName());
+                        taxonomyKey = taxonomyKey.getParent();
+                        i++;
+                    } while (taxonomyKey != null);
+                    plant.setTaxonomy(taxonomy);
                     break;
             }
 

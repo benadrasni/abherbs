@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -109,11 +111,13 @@ public class Firebase {
                 Call<Plant> callCloudPlant = herbCloudClient.getApiService().getDetail(plantLine[0]);
                 Plant plant = callCloudPlant.execute().body();
 
-//                Call<Plant> callFirebase = firebaseClient.getApiService().savePlant(plantLine[0], plant);
-//                callFirebase.execute().body();
+                Call<Plant> callFirebase = firebaseClient.getApiService().savePlant(plantLine[0], plant);
+                callFirebase.execute().body();
 
                 Call<PlantHeader> callCloudPlantHeader = herbCloudClient.getApiService().getHeader(plantLine[0]);
                 PlantHeader plantHeader = callCloudPlantHeader.execute().body();
+
+                saveTaxonomy(plant.getTaxonomy(), plantHeader);
 
                 //labels
                 for (Map.Entry<String, String> entry : plant.getLabel().entrySet()) {
@@ -127,6 +131,19 @@ public class Firebase {
                     }
 
                     processName(namesInLanguage, plantHeader, plantNameInLanguage);
+                }
+
+                // synonyms
+                for (String synonym : plant.getSynonyms()) {
+                    String language = "la";
+
+                    Map<String, List<PlantHeader>> namesInLanguage = names.get(language);
+                    if (namesInLanguage == null) {
+                        namesInLanguage = new HashMap<>();
+                        names.put(language, namesInLanguage);
+                    }
+
+                    processName(namesInLanguage, plantHeader, synonym);
                 }
 
                 // aliases
@@ -150,10 +167,14 @@ public class Firebase {
                 String language = entry.getKey();
                 Map<String, List<PlantHeader>> singleName = entry.getValue();
 
+                System.out.println("Language: " + language);
+
                 for (Map.Entry<String, List<PlantHeader>> entryName : singleName.entrySet()) {
                     String name = entryName.getKey();
                     PlantList plantList = new PlantList();
                     plantList.setItems(entryName.getValue());
+
+                    System.out.println("Name: " + name);
 
                     // name
                     Call<PlantList> callFirebaseList = firebaseClient.getApiService().saveName(language, name, plantList);
@@ -178,12 +199,14 @@ public class Firebase {
         String[] parts = name.split(" ");
         if (parts.length > 1) {
             for (int i = 1; i < parts.length; i++) {
-                existingNames = namesInLanguage.get(parts[i]);
-                if (existingNames == null) {
-                    existingNames = new ArrayList<>();
-                    namesInLanguage.put(name, existingNames);
+                if (parts[i].length() > 3) {
+                    existingNames = namesInLanguage.get(parts[i]);
+                    if (existingNames == null) {
+                        existingNames = new ArrayList<>();
+                        namesInLanguage.put(parts[i], existingNames);
+                    }
+                    existingNames.add(plantHeader);
                 }
-                existingNames.add(plantHeader);
             }
         }
     }
@@ -208,6 +231,15 @@ public class Firebase {
         callFirebaseList.execute().body();
     }
 
+    private static void saveTaxonomy(LinkedHashMap<String, String> taxonomy, PlantHeader plantHeader) {
+        ListIterator<Map.Entry<String, String>> iterator = new ArrayList<Map.Entry<String, String>>(taxonomy.entrySet()).listIterator(taxonomy.size());
+        while (iterator.hasPrevious()) {
+            Map.Entry<String, String> entry = iterator.previous();
+
+            String taxon = entry.getKey().substring(0, entry.getKey().indexOf("_"));
+
+        }
+    }
 
     private static String getFilterKey(Map<String, String> filter) {
         StringBuilder filterKey = new StringBuilder();
