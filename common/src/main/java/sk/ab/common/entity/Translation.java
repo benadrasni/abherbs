@@ -2,6 +2,7 @@ package sk.ab.common.entity;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 import java.util.List;
 
@@ -9,8 +10,8 @@ import java.util.List;
 public class Translation {
 
     @Id String translationId;
-    Integer plantId;
-    String language;
+    @Index Integer plantId;
+    @Index String language;
     List<String> texts;
 
     public Translation() {
