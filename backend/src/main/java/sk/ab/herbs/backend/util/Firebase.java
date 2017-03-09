@@ -101,6 +101,7 @@ public class Firebase {
             File file = new File(PATH_TO_PLANTS);
 
             Map<String, Map<String, List<PlantHeader>>> names = new HashMap<>();
+            Object apgiii = new HashMap<String, Object>();
 
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()) {
@@ -111,76 +112,80 @@ public class Firebase {
                 Call<Plant> callCloudPlant = herbCloudClient.getApiService().getDetail(plantLine[0]);
                 Plant plant = callCloudPlant.execute().body();
 
-                Call<Plant> callFirebase = firebaseClient.getApiService().savePlant(plantLine[0], plant);
-                callFirebase.execute().body();
+//                Call<Plant> callFirebase = firebaseClient.getApiService().savePlant(plantLine[0], plant);
+//                callFirebase.execute().body();
 
                 Call<PlantHeader> callCloudPlantHeader = herbCloudClient.getApiService().getHeader(plantLine[0]);
                 PlantHeader plantHeader = callCloudPlantHeader.execute().body();
 
-                saveTaxonomy(plant.getTaxonomy(), plantHeader);
+                updateTaxonomy(apgiii, plant.getTaxonomy(), plantHeader);
 
-                //labels
-                for (Map.Entry<String, String> entry : plant.getLabel().entrySet()) {
-                    String language = entry.getKey();
-                    String plantNameInLanguage = entry.getValue();
-
-                    Map<String, List<PlantHeader>> namesInLanguage = names.get(language);
-                    if (namesInLanguage == null) {
-                        namesInLanguage = new HashMap<>();
-                        names.put(language, namesInLanguage);
-                    }
-
-                    processName(namesInLanguage, plantHeader, plantNameInLanguage);
-                }
-
-                // synonyms
-                for (String synonym : plant.getSynonyms()) {
-                    String language = "la";
-
-                    Map<String, List<PlantHeader>> namesInLanguage = names.get(language);
-                    if (namesInLanguage == null) {
-                        namesInLanguage = new HashMap<>();
-                        names.put(language, namesInLanguage);
-                    }
-
-                    processName(namesInLanguage, plantHeader, synonym);
-                }
-
-                // aliases
-                for (Map.Entry<String, ArrayList<String>> entry : plant.getNames().entrySet()) {
-                    String language = entry.getKey();
-                    ArrayList<String> plantNamesInLanguage = entry.getValue();
-
-                    Map<String, List<PlantHeader>> namesInLanguage = names.get(language);
-                    if (namesInLanguage == null) {
-                        namesInLanguage = new HashMap<>();
-                        names.put(language, namesInLanguage);
-                    }
-
-                    for (String realName : plantNamesInLanguage) {
-                        processName(namesInLanguage, plantHeader, realName);
-                    }
-                }
+//                //labels
+//                for (Map.Entry<String, String> entry : plant.getLabel().entrySet()) {
+//                    String language = entry.getKey();
+//                    String plantNameInLanguage = entry.getValue();
+//
+//                    Map<String, List<PlantHeader>> namesInLanguage = names.get(language);
+//                    if (namesInLanguage == null) {
+//                        namesInLanguage = new HashMap<>();
+//                        names.put(language, namesInLanguage);
+//                    }
+//
+//                    processName(namesInLanguage, plantHeader, plantNameInLanguage);
+//                }
+//
+//                // synonyms
+//                for (String synonym : plant.getSynonyms()) {
+//                    String language = "la";
+//
+//                    Map<String, List<PlantHeader>> namesInLanguage = names.get(language);
+//                    if (namesInLanguage == null) {
+//                        namesInLanguage = new HashMap<>();
+//                        names.put(language, namesInLanguage);
+//                    }
+//
+//                    processName(namesInLanguage, plantHeader, synonym);
+//                }
+//
+//                // aliases
+//                for (Map.Entry<String, ArrayList<String>> entry : plant.getNames().entrySet()) {
+//                    String language = entry.getKey();
+//                    ArrayList<String> plantNamesInLanguage = entry.getValue();
+//
+//                    Map<String, List<PlantHeader>> namesInLanguage = names.get(language);
+//                    if (namesInLanguage == null) {
+//                        namesInLanguage = new HashMap<>();
+//                        names.put(language, namesInLanguage);
+//                    }
+//
+//                    for (String realName : plantNamesInLanguage) {
+//                        processName(namesInLanguage, plantHeader, realName);
+//                    }
+//                }
             }
+//
+//            for (Map.Entry<String, Map<String, List<PlantHeader>>> entry : names.entrySet()) {
+//                String language = entry.getKey();
+//                Map<String, List<PlantHeader>> singleName = entry.getValue();
+//
+//                System.out.println("Language: " + language);
+//
+//                for (Map.Entry<String, List<PlantHeader>> entryName : singleName.entrySet()) {
+//                    String name = entryName.getKey();
+//                    PlantList plantList = new PlantList();
+//                    plantList.setItems(entryName.getValue());
+//
+//                    System.out.println("Name: " + name);
+//
+//                    // name
+//                    Call<PlantList> callFirebaseList = firebaseClient.getApiService().saveName(language, name, plantList);
+//                    callFirebaseList.execute().body();
+//                }
+//            }
 
-            for (Map.Entry<String, Map<String, List<PlantHeader>>> entry : names.entrySet()) {
-                String language = entry.getKey();
-                Map<String, List<PlantHeader>> singleName = entry.getValue();
+            Call<Object> callFirebaseCount = firebaseClient.getApiService().saveAPGIII(apgiii);
+            callFirebaseCount.execute().body();
 
-                System.out.println("Language: " + language);
-
-                for (Map.Entry<String, List<PlantHeader>> entryName : singleName.entrySet()) {
-                    String name = entryName.getKey();
-                    PlantList plantList = new PlantList();
-                    plantList.setItems(entryName.getValue());
-
-                    System.out.println("Name: " + name);
-
-                    // name
-                    Call<PlantList> callFirebaseList = firebaseClient.getApiService().saveName(language, name, plantList);
-                    callFirebaseList.execute().body();
-                }
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -231,13 +236,39 @@ public class Firebase {
         callFirebaseList.execute().body();
     }
 
-    private static void saveTaxonomy(LinkedHashMap<String, String> taxonomy, PlantHeader plantHeader) {
-        ListIterator<Map.Entry<String, String>> iterator = new ArrayList<Map.Entry<String, String>>(taxonomy.entrySet()).listIterator(taxonomy.size());
+    private static void updateTaxonomy(Object apgiii, LinkedHashMap<String, String> taxonomy, PlantHeader plantHeader) throws IOException {
+        ListIterator<Map.Entry<String, String>> iterator = new ArrayList<>(taxonomy.entrySet()).listIterator(taxonomy.size());
+
+        boolean savePlantHeader = false;
+        Object iter = apgiii;
         while (iterator.hasPrevious()) {
             Map.Entry<String, String> entry = iterator.previous();
 
-            String taxon = entry.getKey().substring(0, entry.getKey().indexOf("_"));
+            String taxonType = entry.getKey().substring(0, entry.getKey().indexOf("_"));
 
+            Object child = ((Map<String, Object>) iter).get(entry.getValue());
+            if (child == null) {
+                child = new HashMap<String, Object>();
+                ((Map<String, Object>) iter).put(entry.getValue(), child);
+                ((Map<String, Object>) child).put("type", taxonType);
+            }
+
+            if ("Ordo".equals(taxonType)) {
+                savePlantHeader = true;
+            }
+
+            if (savePlantHeader) {
+                PlantList plants = (PlantList)((Map<String, Object>) child).get("list");
+                if (plants == null) {
+                    plants = new PlantList();
+                    plants.setItems(new ArrayList<PlantHeader>());
+                    ((Map<String, Object>) child).put("list", plants);
+                }
+                plants.getItems().add(plantHeader);
+                ((Map<String, Object>) child).put("count", new Count(plants.getItems().size()));
+            }
+
+            iter = child;
         }
     }
 

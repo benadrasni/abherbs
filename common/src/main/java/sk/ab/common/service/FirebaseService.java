@@ -4,6 +4,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -76,4 +77,7 @@ public interface FirebaseService {
     })
     @PUT("names/{language}/{name}/list.json")
     Call<PlantList> saveName(@Path("language") String language, @Path("name") String name, @Body PlantList list);
+
+    @PUT("APG III.json")
+    Call<Object> saveAPGIII(@Body Object object);
 }
