@@ -42,8 +42,9 @@ import sk.ab.common.Constants;
 import sk.ab.common.entity.Count;
 import sk.ab.common.entity.Plant;
 import sk.ab.common.entity.PlantHeader;
+import sk.ab.common.entity.Taxon;
 import sk.ab.common.entity.request.ListRequest;
-import sk.ab.herbs.backend.entity.Taxon;
+import sk.ab.common.entity.TaxonInLanguage;
 
 /** An endpoint class we are exposing */
 @Api(
@@ -300,10 +301,10 @@ public class TaxonomyEndpoint {
             name = "getTaxonomy",
             path = "find/{taxonLang}/{taxonName}/{taxonValue}",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<Taxon> getTaxonomy(@Named("taxonLang") String taxonLang,
-                                   @Named("taxonName") String taxonName,
-                                   @Named("taxonValue") String taxonValue,
-                                   @Named("lang") String language) {
+    public List<TaxonInLanguage> getTaxonomy(@Named("taxonLang") String taxonLang,
+                                             @Named("taxonName") String taxonName,
+                                             @Named("taxonValue") String taxonValue,
+                                             @Named("lang") String language) {
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
@@ -311,7 +312,7 @@ public class TaxonomyEndpoint {
                 new Query.FilterPredicate(taxonLang, Query.FilterOperator.EQUAL, taxonValue);
         Query q = new Query(taxonName).setFilter(propertyFilter);
 
-        List<Taxon> results = new ArrayList<>();
+        List<TaxonInLanguage> results = new ArrayList<>();
 
         List<Entity> families =
                 datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
@@ -319,8 +320,8 @@ public class TaxonomyEndpoint {
             Entity entity = families.get(0);
 
             do {
-                Taxon taxon = new Taxon();
-                taxon.setType(entity.getKind());
+                TaxonInLanguage taxonInLanguage = new TaxonInLanguage();
+                taxonInLanguage.setType(entity.getKind());
 
                 Object latinProperty = entity.getProperty(Constants.LANGUAGE_LA);
                 List<String> latinName = new ArrayList<>();
@@ -331,7 +332,7 @@ public class TaxonomyEndpoint {
                         latinName.addAll((List<String>)latinProperty);
                     }
                 }
-                taxon.setLatinName(latinName);
+                taxonInLanguage.setLatinName(latinName);
 
                 List<String> name = new ArrayList<>();
                 Object property = entity.getProperty(language);
@@ -342,9 +343,9 @@ public class TaxonomyEndpoint {
                       name.addAll((List<String>)property);
                   }
                 }
-                taxon.setName(name);
+                taxonInLanguage.setName(name);
 
-                results.add(taxon);
+                results.add(taxonInLanguage);
 
                 if (entity.getParent() != null) {
                     try {
@@ -360,6 +361,54 @@ public class TaxonomyEndpoint {
         }
 
         return results;
+    }
+
+    @ApiMethod(
+            name = "getTaxon",
+            path = "find/{type}/{name}",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public Taxon getTaxon(@Named("type") String type,
+                          @Named("name") String name) {
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+        Map<String, List<String>> names = new HashMap<>();
+        Taxon result = new Taxon();
+        result.setType(type);
+        result.setNames(names);
+
+        String filterName = name.replace("_", " ");
+
+        Query.Filter propertyFilter =
+                new Query.FilterPredicate("la", Query.FilterOperator.EQUAL, filterName);
+        Query q = new Query(type).setFilter(propertyFilter);
+
+        List<Entity> taxon = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+        if (taxon.size() == 0) {
+            propertyFilter =
+                    new Query.FilterPredicate("en", Query.FilterOperator.EQUAL, filterName);
+            q = new Query(type).setFilter(propertyFilter);
+            taxon = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+        }
+
+        if (taxon.size() == 1) {
+            Entity entity = taxon.get(0);
+
+            for(Map.Entry<String, Object> propertyEntry : entity.getProperties().entrySet()) {
+                String propertyName = propertyEntry.getKey();
+                Object propertyValue = propertyEntry.getValue();
+
+                if (propertyValue instanceof String) {
+                    List<String> namesInLanguage = new ArrayList<>();
+                    namesInLanguage.add((String) propertyValue);
+                    names.put(propertyName, namesInLanguage);
+                } else if (propertyValue instanceof List && ((List) propertyValue).size() > 0) {
+                    names.put(propertyName, (List<String>) propertyValue);
+                }
+            }
+        }
+
+        return result;
     }
 
     @ApiMethod(

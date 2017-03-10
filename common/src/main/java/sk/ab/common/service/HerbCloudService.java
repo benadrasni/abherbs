@@ -12,6 +12,7 @@ import sk.ab.common.entity.Plant;
 import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.entity.PlantList;
 import sk.ab.common.entity.Rate;
+import sk.ab.common.entity.Taxon;
 import sk.ab.common.entity.Taxonomy;
 import sk.ab.common.entity.Translation;
 import sk.ab.common.entity.request.ListRequest;
@@ -70,6 +71,10 @@ public interface HerbCloudService {
 
     @GET("_ah/api/translationApi/v1/translation/{key}")
     Call<Translation> getTranslation(@Path("key") String key);
+
+    @GET("_ah/api/taxonomyApi/v1/find/{type}/{name}")
+    Call<Taxon> getTaxon(@Path("type") String type,
+                         @Path("name") String name);
 
     @GET("_ah/api/taxonomyApi/v1/find/{taxonLang}/{taxonName}/{taxonValue}")
     Call<Taxonomy> getTaxonomy(@Path("taxonLang") String taxonLang,

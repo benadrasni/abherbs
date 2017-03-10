@@ -1,11 +1,12 @@
-package sk.ab.herbs.backend.entity;
+package sk.ab.common.entity;
 
 import java.util.List;
 
 /**
+ *
  * Created by adrian on 5.5.2016.
  */
-public class Taxon {
+public class TaxonInLanguage {
     String type;
     List<String> name;
     List<String> latinName;

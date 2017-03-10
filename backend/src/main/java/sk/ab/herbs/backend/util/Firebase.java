@@ -16,6 +16,7 @@ import sk.ab.common.entity.Count;
 import sk.ab.common.entity.Plant;
 import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.entity.PlantList;
+import sk.ab.common.entity.Taxon;
 import sk.ab.common.entity.request.ListRequest;
 import sk.ab.common.service.FirebaseClient;
 import sk.ab.common.service.HerbCloudClient;
@@ -118,7 +119,7 @@ public class Firebase {
                 Call<PlantHeader> callCloudPlantHeader = herbCloudClient.getApiService().getHeader(plantLine[0]);
                 PlantHeader plantHeader = callCloudPlantHeader.execute().body();
 
-                updateTaxonomy(apgiii, plant.getTaxonomy(), plantHeader);
+                updateTaxonomy(herbCloudClient, apgiii, plant.getTaxonomy(), plantHeader);
 
 //                //labels
 //                for (Map.Entry<String, String> entry : plant.getLabel().entrySet()) {
@@ -236,7 +237,9 @@ public class Firebase {
         callFirebaseList.execute().body();
     }
 
-    private static void updateTaxonomy(Object apgiii, LinkedHashMap<String, String> taxonomy, PlantHeader plantHeader) throws IOException {
+    private static void updateTaxonomy(HerbCloudClient herbCloudClient, Object apgiii,
+                                       LinkedHashMap<String, String> taxonomy,
+                                       PlantHeader plantHeader) throws IOException {
         ListIterator<Map.Entry<String, String>> iterator = new ArrayList<>(taxonomy.entrySet()).listIterator(taxonomy.size());
 
         boolean savePlantHeader = false;
@@ -251,6 +254,16 @@ public class Firebase {
                 child = new HashMap<String, Object>();
                 ((Map<String, Object>) iter).put(entry.getValue(), child);
                 ((Map<String, Object>) child).put("type", taxonType);
+
+                // count
+                Call<Taxon> callCloudTaxon = herbCloudClient.getApiService().getTaxon(taxonType, entry.getValue());
+                Taxon taxon = callCloudTaxon.execute().body();
+
+                if (taxon.getNames() == null) {
+                    System.out.println("!!! Wrong taxon: " + taxonType + " - " + entry.getValue());
+                } else {
+                    ((Map<String, Object>) child).put("names", taxon.getNames());
+                }
             }
 
             if ("Ordo".equals(taxonType)) {
