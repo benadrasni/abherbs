@@ -1,11 +1,8 @@
 package sk.ab.herbs.backend.util;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -24,6 +21,7 @@ import sk.ab.common.entity.Taxon;
 import sk.ab.common.entity.request.ListRequest;
 import sk.ab.common.service.FirebaseClient;
 import sk.ab.common.service.HerbCloudClient;
+import sk.ab.common.util.Utils;
 
 /**
  *
@@ -54,13 +52,13 @@ public class Firebase {
         final HerbCloudClient herbCloudClient = new HerbCloudClient();
         final FirebaseClient firebaseClient = new FirebaseClient();
 
-        //synchronizeCountsAndLists(herbCloudClient, firebaseClient);
+        synchronizeCountsAndLists(herbCloudClient, firebaseClient);
 
-        //synchronizeDetailsAndNames(herbCloudClient, firebaseClient);
-
-        downloadFamilyIcons();
-
-        //downloadPhotos(herbCloudClient);
+//        synchronizeDetailsAndNames(herbCloudClient, firebaseClient);
+//
+//        downloadFamilyIcons();
+//
+//        downloadPhotos(herbCloudClient);
     }
 
     private static void downloadFamilyIcons() {
@@ -73,7 +71,7 @@ public class Firebase {
                 final String[] row = scan.nextLine().split(",");
                 System.out.println(row[1]);
                 try {
-                    downloadFromUrl(new URL(GOOGLE_STORAGE_URL + "/.families/family_" + row[0] + ".webp"), PATH_TO_STORAGE + "families/" + row[1] + ".webp");
+                    Utils.downloadFromUrl(new URL(GOOGLE_STORAGE_URL + "/.families/family_" + row[0] + ".webp"), PATH_TO_STORAGE + "families/" + row[1] + ".webp");
                 } catch (IOException e) {
                 }
 
@@ -98,12 +96,12 @@ public class Firebase {
                 Plant plant = callCloudPlant.execute().body();
 
                 try {
-                    downloadFromUrl(new URL(plant.getIllustrationUrl()), PATH_TO_STORAGE + plant.getIllustrationUrl().substring(GOOGLE_STORAGE_URL.length()));
+                    Utils.downloadFromUrl(new URL(plant.getIllustrationUrl()), PATH_TO_STORAGE + plant.getIllustrationUrl().substring(GOOGLE_STORAGE_URL.length()));
 
                     for(String photoUrl : plant.getPhotoUrls()) {
-                        downloadFromUrl(new URL(photoUrl), PATH_TO_STORAGE + "photos/" + photoUrl.substring(GOOGLE_STORAGE_URL.length()));
+                        Utils.downloadFromUrl(new URL(photoUrl), PATH_TO_STORAGE + "photos/" + photoUrl.substring(GOOGLE_STORAGE_URL.length()));
                         String thumbnailUrl = photoUrl.substring(0, photoUrl.lastIndexOf("/")) + "/.thumbnails" + photoUrl.substring(photoUrl.lastIndexOf("/"));
-                        downloadFromUrl(new URL(thumbnailUrl), PATH_TO_STORAGE + "photos/" + thumbnailUrl.substring(GOOGLE_STORAGE_URL.length()));
+                        Utils.downloadFromUrl(new URL(thumbnailUrl), PATH_TO_STORAGE + "photos/" + thumbnailUrl.substring(GOOGLE_STORAGE_URL.length()));
                     }
 
                 } catch (IOException e) {
@@ -121,42 +119,42 @@ public class Firebase {
             Map<String, String> filter = new HashMap<>();
             getAndSave(herbCloudClient, firebaseClient, filter);
 
-            for (String color : COLORS) {
-                filter.put(Constants.COLOR_OF_FLOWERS, color);
-                getAndSave(herbCloudClient, firebaseClient, filter);
-
-                for (String habitat : HABITATS) {
-                    filter.put(Constants.HABITAT, habitat);
-                    getAndSave(herbCloudClient, firebaseClient, filter);
-
-                    for (String petal : PETALS) {
-                        filter.put(Constants.NUMBER_OF_PETALS, petal);
-                        getAndSave(herbCloudClient, firebaseClient, filter);
-
-                    }
-                    filter.remove(Constants.NUMBER_OF_PETALS);
-                }
-                filter.remove(Constants.HABITAT);
-            }
-
-            filter.clear();
-            for (String habitat : HABITATS) {
-                filter.put(Constants.HABITAT, habitat);
-                getAndSave(herbCloudClient, firebaseClient, filter);
-
-                for (String petal : PETALS) {
-                    filter.put(Constants.NUMBER_OF_PETALS, petal);
-                    getAndSave(herbCloudClient, firebaseClient, filter);
-
-                }
-                filter.remove(Constants.NUMBER_OF_PETALS);
-            }
-
-            filter.clear();
-            for (String petal : PETALS) {
-                filter.put(Constants.NUMBER_OF_PETALS, petal);
-                getAndSave(herbCloudClient, firebaseClient, filter);
-            }
+//            for (String color : COLORS) {
+//                filter.put(Constants.COLOR_OF_FLOWERS, color);
+//                getAndSave(herbCloudClient, firebaseClient, filter);
+//
+//                for (String habitat : HABITATS) {
+//                    filter.put(Constants.HABITAT, habitat);
+//                    getAndSave(herbCloudClient, firebaseClient, filter);
+//
+//                    for (String petal : PETALS) {
+//                        filter.put(Constants.NUMBER_OF_PETALS, petal);
+//                        getAndSave(herbCloudClient, firebaseClient, filter);
+//
+//                    }
+//                    filter.remove(Constants.NUMBER_OF_PETALS);
+//                }
+//                filter.remove(Constants.HABITAT);
+//            }
+//
+//            filter.clear();
+//            for (String habitat : HABITATS) {
+//                filter.put(Constants.HABITAT, habitat);
+//                getAndSave(herbCloudClient, firebaseClient, filter);
+//
+//                for (String petal : PETALS) {
+//                    filter.put(Constants.NUMBER_OF_PETALS, petal);
+//                    getAndSave(herbCloudClient, firebaseClient, filter);
+//
+//                }
+//                filter.remove(Constants.NUMBER_OF_PETALS);
+//            }
+//
+//            filter.clear();
+//            for (String petal : PETALS) {
+//                filter.put(Constants.NUMBER_OF_PETALS, petal);
+//                getAndSave(herbCloudClient, firebaseClient, filter);
+//            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -178,76 +176,76 @@ public class Firebase {
                 Call<Plant> callCloudPlant = herbCloudClient.getApiService().getDetail(plantLine[0]);
                 Plant plant = callCloudPlant.execute().body();
 
-//                Call<Plant> callFirebase = firebaseClient.getApiService().savePlant(plantLine[0], plant);
-//                callFirebase.execute().body();
+                Call<Plant> callFirebase = firebaseClient.getApiService().savePlant(plantLine[0], plant);
+                callFirebase.execute().body();
 
                 Call<PlantHeader> callCloudPlantHeader = herbCloudClient.getApiService().getHeader(plantLine[0]);
                 PlantHeader plantHeader = callCloudPlantHeader.execute().body();
 
                 updateTaxonomy(herbCloudClient, apgiii, plant.getTaxonomy(), plantHeader);
 
-//                //labels
-//                for (Map.Entry<String, String> entry : plant.getLabel().entrySet()) {
-//                    String language = entry.getKey();
-//                    String plantNameInLanguage = entry.getValue();
-//
-//                    Map<String, List<PlantHeader>> namesInLanguage = names.get(language);
-//                    if (namesInLanguage == null) {
-//                        namesInLanguage = new HashMap<>();
-//                        names.put(language, namesInLanguage);
-//                    }
-//
-//                    processName(namesInLanguage, plantHeader, plantNameInLanguage);
-//                }
-//
-//                // synonyms
-//                for (String synonym : plant.getSynonyms()) {
-//                    String language = "la";
-//
-//                    Map<String, List<PlantHeader>> namesInLanguage = names.get(language);
-//                    if (namesInLanguage == null) {
-//                        namesInLanguage = new HashMap<>();
-//                        names.put(language, namesInLanguage);
-//                    }
-//
-//                    processName(namesInLanguage, plantHeader, synonym);
-//                }
-//
-//                // aliases
-//                for (Map.Entry<String, ArrayList<String>> entry : plant.getNames().entrySet()) {
-//                    String language = entry.getKey();
-//                    ArrayList<String> plantNamesInLanguage = entry.getValue();
-//
-//                    Map<String, List<PlantHeader>> namesInLanguage = names.get(language);
-//                    if (namesInLanguage == null) {
-//                        namesInLanguage = new HashMap<>();
-//                        names.put(language, namesInLanguage);
-//                    }
-//
-//                    for (String realName : plantNamesInLanguage) {
-//                        processName(namesInLanguage, plantHeader, realName);
-//                    }
-//                }
+                //labels
+                for (Map.Entry<String, String> entry : plant.getLabel().entrySet()) {
+                    String language = entry.getKey();
+                    String plantNameInLanguage = entry.getValue();
+
+                    Map<String, List<PlantHeader>> namesInLanguage = names.get(language);
+                    if (namesInLanguage == null) {
+                        namesInLanguage = new HashMap<>();
+                        names.put(language, namesInLanguage);
+                    }
+
+                    processName(namesInLanguage, plantHeader, plantNameInLanguage);
+                }
+
+                // synonyms
+                for (String synonym : plant.getSynonyms()) {
+                    String language = "la";
+
+                    Map<String, List<PlantHeader>> namesInLanguage = names.get(language);
+                    if (namesInLanguage == null) {
+                        namesInLanguage = new HashMap<>();
+                        names.put(language, namesInLanguage);
+                    }
+
+                    processName(namesInLanguage, plantHeader, synonym);
+                }
+
+                // aliases
+                for (Map.Entry<String, ArrayList<String>> entry : plant.getNames().entrySet()) {
+                    String language = entry.getKey();
+                    ArrayList<String> plantNamesInLanguage = entry.getValue();
+
+                    Map<String, List<PlantHeader>> namesInLanguage = names.get(language);
+                    if (namesInLanguage == null) {
+                        namesInLanguage = new HashMap<>();
+                        names.put(language, namesInLanguage);
+                    }
+
+                    for (String realName : plantNamesInLanguage) {
+                        processName(namesInLanguage, plantHeader, realName);
+                    }
+                }
             }
-//
-//            for (Map.Entry<String, Map<String, List<PlantHeader>>> entry : names.entrySet()) {
-//                String language = entry.getKey();
-//                Map<String, List<PlantHeader>> singleName = entry.getValue();
-//
-//                System.out.println("Language: " + language);
-//
-//                for (Map.Entry<String, List<PlantHeader>> entryName : singleName.entrySet()) {
-//                    String name = entryName.getKey();
-//                    PlantList plantList = new PlantList();
-//                    plantList.setItems(entryName.getValue());
-//
-//                    System.out.println("Name: " + name);
-//
-//                    // name
-//                    Call<PlantList> callFirebaseList = firebaseClient.getApiService().saveName(language, name, plantList);
-//                    callFirebaseList.execute().body();
-//                }
-//            }
+
+            for (Map.Entry<String, Map<String, List<PlantHeader>>> entry : names.entrySet()) {
+                String language = entry.getKey();
+                Map<String, List<PlantHeader>> singleName = entry.getValue();
+
+                System.out.println("Language: " + language);
+
+                for (Map.Entry<String, List<PlantHeader>> entryName : singleName.entrySet()) {
+                    String name = entryName.getKey();
+                    PlantList plantList = new PlantList();
+                    plantList.setItems(entryName.getValue());
+
+                    System.out.println("Name: " + name);
+
+                    // name
+                    Call<PlantList> callFirebaseList = firebaseClient.getApiService().saveName(language, name, plantList);
+                    callFirebaseList.execute().body();
+                }
+            }
 
             Call<Object> callFirebaseCount = firebaseClient.getApiService().saveAPGIII(apgiii);
             callFirebaseCount.execute().body();
@@ -286,7 +284,7 @@ public class Firebase {
                                    FirebaseClient firebaseClient,
                                    Map<String, String> filter) throws IOException {
 
-        String filterKey = getFilterKey(filter);
+        String filterKey = Utils.getFilterKey(filter, FILTER_ATTRIBUTES);
         System.out.println(filterKey);
 
         // count
@@ -347,60 +345,6 @@ public class Firebase {
             }
 
             iter = child;
-        }
-    }
-
-    private static String getFilterKey(Map<String, String> filter) {
-        StringBuilder filterKey = new StringBuilder();
-
-        String separator = "";
-        for (String filterAttribute : FILTER_ATTRIBUTES) {
-            filterKey.append(separator);
-            filterKey.append(getOrDefault(filter, filterAttribute, ""));
-
-            separator = "_";
-        }
-
-        return filterKey.toString();
-    }
-
-    private static String getOrDefault(Map<String, String> filter, String key, String defValue) {
-        String value = filter.get(key);
-        if (value == null) {
-            value = defValue;
-        }
-        return value;
-    }
-
-    static void downloadFromUrl(URL url, String localFilename) throws IOException {
-        InputStream is = null;
-        FileOutputStream fos = null;
-
-        try {
-            URLConnection urlConn = url.openConnection();//connect
-
-            is = urlConn.getInputStream();               //get connection inputstream
-            File file = new File(localFilename);
-            file.getParentFile().mkdirs();
-            fos = new FileOutputStream(file);   //open outputstream to local file
-
-            byte[] buffer = new byte[4096];              //declare 4KB buffer
-            int len;
-
-            //while we have availble data, continue downloading and storing to local file
-            while ((len = is.read(buffer)) > 0) {
-                fos.write(buffer, 0, len);
-            }
-        } finally {
-            try {
-                if (is != null) {
-                    is.close();
-                }
-            } finally {
-                if (fos != null) {
-                    fos.close();
-                }
-            }
         }
     }
 }

@@ -28,6 +28,7 @@ import sk.ab.common.entity.Count;
 import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.entity.PlantList;
 import sk.ab.common.entity.request.ListRequest;
+import sk.ab.common.util.Utils;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.commons.BaseActivity;
@@ -41,7 +42,7 @@ import sk.ab.herbsbase.R;
  * Main activity which handles all filter fragments.
  *
  */
-public class FilterPlantsActivity extends BaseActivity {
+public class FilterPlantsBaseActivity extends BaseActivity {
 
     private Integer filterPosition;
     private BaseFilterFragment currentFragment;
@@ -236,10 +237,6 @@ public class FilterPlantsActivity extends BaseActivity {
         }
     }
 
-    public BaseFilterFragment getCurrentFragment() {
-        return currentFragment;
-    }
-
     public void setCurrentFragment(BaseFilterFragment fragment) {
         currentFragment = fragment;
         filterPosition = getCurrentPosition();
@@ -250,21 +247,15 @@ public class FilterPlantsActivity extends BaseActivity {
 
     }
 
-    private BaseApp getApp() { return (BaseApp)getApplication(); }
-
-    private List<BaseFilterFragment> getFilterAttributes() {
-        return getApp().getFilterAttributes();
+    public BaseFilterFragment getCurrentFragment() {
+        return currentFragment;
     }
 
-    private int getCurrentPosition() {
-        int position = 0;
-        if (currentFragment != null)
-            position = getFilterAttributes().indexOf(currentFragment);
-        return position;
+    public BaseApp getApp() {
+        return (BaseApp)getApplication();
     }
 
-    private void getCount() {
-
+    protected void getCount() {
         getApp().getHerbCloudClient().getApiService().getCount(
                 new ListRequest(sk.ab.common.Constants.PLANT, filter)).enqueue(new Callback<Count>() {
             @Override
@@ -284,30 +275,15 @@ public class FilterPlantsActivity extends BaseActivity {
         });
     }
 
-    private void getList() {
+    protected void getList() {
 
         getApp().getHerbCloudClient().getApiService().getList(
                 new ListRequest(sk.ab.common.Constants.PLANT, filter)).enqueue(new Callback<PlantList>() {
             @Override
             public void onResponse(Call<PlantList> call, Response<PlantList> response) {
-                List<PlantHeader> plantHeaderList = response.body().getItems();
-
-                SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
-                int rateState = preferences.getInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_NO);
-
-                if (rateState == AndroidConstants.RATE_SHOW) {
-                    Random rand = new Random();
-                    plantHeaderList.add(rand.nextInt(plantHeaderList.size()), new PlantHeader());
-                }
-
-                ArrayList<PlantHeaderParcel> plantHeaderParcelList = new ArrayList<>();
-                for (PlantHeader plantHeader : plantHeaderList) {
-                    PlantHeaderParcel plantHeaderParcel = new PlantHeaderParcel(plantHeader);
-                    plantHeaderParcelList.add(plantHeaderParcel);
-                }
-
                 Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
-                intent.putParcelableArrayListExtra(AndroidConstants.STATE_PLANT_LIST, plantHeaderParcelList);
+                intent.putParcelableArrayListExtra(AndroidConstants.STATE_PLANT_LIST,
+                        insertRateView(getSharedPreferences(AndroidConstants.PACKAGE, Context.MODE_PRIVATE), response.body().getItems()));
                 intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
                 intent.putExtra(AndroidConstants.STATE_FILTER, filter);
                 startActivity(intent);
@@ -322,6 +298,34 @@ public class FilterPlantsActivity extends BaseActivity {
                 stopLoading();
             }
         });
+    }
+
+    private List<BaseFilterFragment> getFilterAttributes() {
+        return getApp().getFilterAttributes();
+    }
+
+    private int getCurrentPosition() {
+        int position = 0;
+        if (currentFragment != null)
+            position = getFilterAttributes().indexOf(currentFragment);
+        return position;
+    }
+
+    protected ArrayList<PlantHeaderParcel> insertRateView(SharedPreferences preferences, List<PlantHeader> plantHeaderList) {
+        int rateState = preferences.getInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_NO);
+
+        if (rateState == AndroidConstants.RATE_SHOW) {
+            Random rand = new Random();
+            plantHeaderList.add(rand.nextInt(plantHeaderList.size()), new PlantHeader());
+        }
+
+        ArrayList<PlantHeaderParcel> plantHeaderParcelList = new ArrayList<>();
+        for (PlantHeader plantHeader : plantHeaderList) {
+            PlantHeaderParcel plantHeaderParcel = new PlantHeaderParcel(plantHeader);
+            plantHeaderParcelList.add(plantHeaderParcel);
+        }
+
+        return plantHeaderParcelList;
     }
 }
 

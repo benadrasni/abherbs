@@ -11,7 +11,7 @@ import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.commons.BaseFilterFragment;
 import sk.ab.herbsbase.R;
-import sk.ab.herbsbase.activities.FilterPlantsActivity;
+import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
 
 public class Habitats extends BaseFilterFragment {
 
@@ -26,7 +26,7 @@ public class Habitats extends BaseFilterFragment {
     public void onStart() {
         super.onStart();
 
-        FilterPlantsActivity filterPlantsActivity = (FilterPlantsActivity) getActivity();
+        FilterPlantsBaseActivity filterPlantsActivity = (FilterPlantsBaseActivity) getActivity();
         final SharedPreferences preferences = filterPlantsActivity
                 .getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();

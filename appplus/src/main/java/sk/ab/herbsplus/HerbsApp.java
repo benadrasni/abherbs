@@ -26,7 +26,7 @@ public class HerbsApp extends BaseApp {
     public void onCreate() {
         super.onCreate();
 
-        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("sk.ab.herbsplus", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         int rateCounter = preferences.getInt(sk.ab.herbsbase.AndroidConstants.RATE_COUNT_KEY, sk.ab.herbsbase.AndroidConstants.RATE_COUNTER);

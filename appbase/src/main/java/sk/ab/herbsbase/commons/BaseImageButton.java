@@ -2,12 +2,12 @@ package sk.ab.herbsbase.commons;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Button;
 
 import sk.ab.herbsbase.R;
-import sk.ab.herbsbase.activities.FilterPlantsActivity;
+import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,7 +15,7 @@ import sk.ab.herbsbase.activities.FilterPlantsActivity;
  * Date: 11.2.2013
  * Time: 18:54
  */
-public class BaseImageButton extends Button {
+public class BaseImageButton extends AppCompatButton {
     private String value;
 
     public BaseImageButton(Context context) {
@@ -56,8 +56,8 @@ public class BaseImageButton extends Button {
 
             @Override
             public void onClick(View view) {
-                if (view.getContext() instanceof FilterPlantsActivity) {
-                    FilterPlantsActivity host = (FilterPlantsActivity) view.getContext();
+                if (view.getContext() instanceof FilterPlantsBaseActivity) {
+                    FilterPlantsBaseActivity host = (FilterPlantsBaseActivity) view.getContext();
 
                     if (host.getCounter() > 0 || host.getFilter().get(host.getCurrentFragment().getAttribute()) != null) {
                         host.addToFilter(value);

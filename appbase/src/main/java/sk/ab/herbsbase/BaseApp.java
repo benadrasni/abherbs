@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Stack;
 
+import sk.ab.common.service.FirebaseClient;
 import sk.ab.common.service.GoogleClient;
 import sk.ab.common.service.HerbCloudClient;
 import sk.ab.herbsbase.commons.BaseFilterFragment;
@@ -34,6 +35,7 @@ public abstract class BaseApp extends Application {
     private boolean isLoading;
 
     private HerbCloudClient herbCloudClient;
+    private FirebaseClient firebaseClient;
     private GoogleClient googleClient;
 
     @Override
@@ -47,6 +49,7 @@ public abstract class BaseApp extends Application {
         backStack = new Stack<>();
 
         herbCloudClient = new HerbCloudClient();
+        firebaseClient = new FirebaseClient();
         googleClient = new GoogleClient();
     }
 
@@ -79,6 +82,10 @@ public abstract class BaseApp extends Application {
 
     public HerbCloudClient getHerbCloudClient() {
         return herbCloudClient;
+    }
+
+    public FirebaseClient getFirebaseClient() {
+        return firebaseClient;
     }
 
     public GoogleClient getGoogleClient() {

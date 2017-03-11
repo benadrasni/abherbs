@@ -12,6 +12,7 @@ import java.util.Map;
  * Time: 20:02
  */
 public class AndroidConstants {
+    public final static String PACKAGE = "sk.ab.herbs";
     public final static int LIST_THRESHOLD = 20;
 
     public final static String EMAIL = "whatsthoseflowers@gmail.com";

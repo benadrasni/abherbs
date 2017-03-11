@@ -2,7 +2,7 @@
 <resources>
     <integer name="ga_sessionTimeout">300</integer>
     <bool name="ga_autoActivityTracking">true</bool>
-    <screenName name="sk.ab.herbsbase.activities.FilterPlantsActivity">
+    <screenName name="sk.ab.herbsbase.activities.FilterPlantsBaseActivity">
        HerbsApp FilterPlants
     </screenName>
     <screenName name="sk.ab.herbsbase.activities.DisplayPlantActivity">

@@ -16,7 +16,7 @@ import android.widget.TextView;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
-import sk.ab.herbsbase.activities.FilterPlantsActivity;
+import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
 
 public class PropertyListFragment extends ListFragment {
     private PropertyAdapter adapter;
@@ -50,8 +50,8 @@ public class PropertyListFragment extends ListFragment {
         if (item != null) {
             switch (item.getType()) {
                 case PropertyItem.TYPE_FILTER:
-                    if (getActivity() instanceof FilterPlantsActivity) {
-                        FilterPlantsActivity activity = (FilterPlantsActivity) getActivity();
+                    if (getActivity() instanceof FilterPlantsBaseActivity) {
+                        FilterPlantsBaseActivity activity = (FilterPlantsBaseActivity) getActivity();
                         BaseFilterFragment fragment = (BaseFilterFragment) item;
                         if (!activity.getCurrentFragment().equals(fragment)) {
                             activity.switchContent(fragment);
@@ -59,7 +59,7 @@ public class PropertyListFragment extends ListFragment {
                         }
                     } else {
                         ((BaseActivity) getActivity()).startLoading();
-                        Intent intent = new Intent(getActivity(), FilterPlantsActivity.class);
+                        Intent intent = new Intent(getActivity(), FilterPlantsBaseActivity.class);
                         intent.putExtra(AndroidConstants.STATE_FILTER_POSITION, ""
                                 + ((BaseApp) getActivity().getApplication()).getFilterAttributes()
                                 .indexOf(item));

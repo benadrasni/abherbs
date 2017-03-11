@@ -65,7 +65,7 @@ public class ListPlantsActivity extends BaseActivity {
             @Override
             public boolean onLongClick(View v) {
                 startLoading();
-                Intent intent = new Intent(ListPlantsActivity.this, FilterPlantsActivity.class);
+                Intent intent = new Intent(ListPlantsActivity.this, FilterPlantsBaseActivity.class);
                 intent.putExtra(AndroidConstants.STATE_FILTER_CLEAR, "true");
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
