@@ -28,9 +28,7 @@ import sk.ab.common.entity.Count;
 import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.entity.PlantList;
 import sk.ab.common.entity.request.ListRequest;
-import sk.ab.common.util.Utils;
 import sk.ab.herbsbase.AndroidConstants;
-import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.commons.BaseActivity;
 import sk.ab.herbsbase.commons.BaseFilterFragment;
 import sk.ab.herbsbase.commons.PropertyListFragment;
@@ -251,10 +249,6 @@ public class FilterPlantsBaseActivity extends BaseActivity {
         return currentFragment;
     }
 
-    public BaseApp getApp() {
-        return (BaseApp)getApplication();
-    }
-
     protected void getCount() {
         getApp().getHerbCloudClient().getApiService().getCount(
                 new ListRequest(sk.ab.common.Constants.PLANT, filter)).enqueue(new Callback<Count>() {
@@ -281,7 +275,7 @@ public class FilterPlantsBaseActivity extends BaseActivity {
                 new ListRequest(sk.ab.common.Constants.PLANT, filter)).enqueue(new Callback<PlantList>() {
             @Override
             public void onResponse(Call<PlantList> call, Response<PlantList> response) {
-                Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
+                Intent intent = new Intent(getBaseContext(), ListPlantsBaseActivity.class);
                 intent.putParcelableArrayListExtra(AndroidConstants.STATE_PLANT_LIST,
                         insertRateView(getSharedPreferences(AndroidConstants.PACKAGE, Context.MODE_PRIVATE), response.body().getItems()));
                 intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);

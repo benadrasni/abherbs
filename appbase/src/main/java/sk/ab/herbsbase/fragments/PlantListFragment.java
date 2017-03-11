@@ -34,7 +34,7 @@ import sk.ab.common.entity.Rate;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
-import sk.ab.herbsbase.activities.ListPlantsActivity;
+import sk.ab.herbsbase.activities.ListPlantsBaseActivity;
 import sk.ab.herbsbase.entity.PlantHeaderParcel;
 import sk.ab.herbsbase.tools.Utils;
 
@@ -122,7 +122,7 @@ public class PlantListFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         list_position = holder.getAdapterPosition();
-                        ((ListPlantsActivity)getActivity()).selectPlant(list_position);
+                        ((ListPlantsBaseActivity)getActivity()).selectPlant(list_position);
                     }
                 });
             } else {
@@ -212,7 +212,7 @@ public class PlantListFragment extends Fragment {
             layoutManager.scrollToPosition(list_position);
             list.setLayoutManager(layoutManager);
 
-            PropertyAdapter adapter = new PropertyAdapter(((ListPlantsActivity)getActivity()).getPlantList());
+            PropertyAdapter adapter = new PropertyAdapter(((ListPlantsBaseActivity)getActivity()).getPlantList());
             list.setAdapter(adapter);
         }
     }

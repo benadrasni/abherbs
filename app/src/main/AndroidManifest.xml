@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="sk.ab.herbsbase.activities.ListPlantsActivity"
+            android:name="sk.ab.herbs.activities.ListPlantsActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
             android:name="sk.ab.herbsbase.activities.DisplayPlantActivity"

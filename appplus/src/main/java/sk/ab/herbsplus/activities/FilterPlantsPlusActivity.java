@@ -13,7 +13,6 @@ import sk.ab.common.entity.PlantList;
 import sk.ab.common.util.Utils;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
-import sk.ab.herbsbase.activities.ListPlantsActivity;
 import sk.ab.herbsplus.SpecificConstants;
 
 /**
@@ -51,7 +50,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
                 SpecificConstants.FILTER_ATTRIBUTES)).enqueue(new Callback<PlantList>() {
             @Override
             public void onResponse(Call<PlantList> call, Response<PlantList> response) {
-                Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
+                Intent intent = new Intent(getBaseContext(), ListPlantsPlusActivity.class);
                 intent.putParcelableArrayListExtra(AndroidConstants.STATE_PLANT_LIST,
                         insertRateView(getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE), response.body().getItems()));
                 intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);

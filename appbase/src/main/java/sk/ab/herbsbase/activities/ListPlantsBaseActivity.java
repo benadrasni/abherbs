@@ -35,8 +35,7 @@ import sk.ab.herbsbase.fragments.PlantListFragment;
  * Activity for displaying list of plants according to filter
  *
  */
-public class ListPlantsActivity extends BaseActivity {
-
+public class ListPlantsBaseActivity extends BaseActivity {
 
     private ArrayList<PlantHeaderParcel> plantList;
 
@@ -65,7 +64,7 @@ public class ListPlantsActivity extends BaseActivity {
             @Override
             public boolean onLongClick(View v) {
                 startLoading();
-                Intent intent = new Intent(ListPlantsActivity.this, FilterPlantsBaseActivity.class);
+                Intent intent = new Intent(ListPlantsBaseActivity.this, FilterPlantsBaseActivity.class);
                 intent.putExtra(AndroidConstants.STATE_FILTER_CLEAR, "true");
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -137,10 +136,9 @@ public class ListPlantsActivity extends BaseActivity {
     }
 
     public void selectPlant(int position) {
-        final BaseApp app = (BaseApp) getApplication();
         startLoading();
 
-        app.getHerbCloudClient().getApiService().getDetail(getPlantList().get(position).getId()).enqueue(new Callback<Plant>() {
+        getApp().getHerbCloudClient().getApiService().getDetail(getPlantList().get(position).getId()).enqueue(new Callback<Plant>() {
             @Override
             public void onResponse(Call<Plant> call, Response<Plant> response) {
                 Intent intent = new Intent(getBaseContext(), DisplayPlantActivity.class);

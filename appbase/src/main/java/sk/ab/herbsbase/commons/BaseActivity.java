@@ -105,6 +105,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         return countButton;
     }
 
+    public BaseApp getApp() {
+        return (BaseApp)getApplication();
+    }
+
     protected void closeDrawer() {
         mDrawerLayout.closeDrawers();
         mDrawerToggle.syncState();

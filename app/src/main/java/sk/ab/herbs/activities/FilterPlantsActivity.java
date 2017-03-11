@@ -13,7 +13,6 @@ import sk.ab.common.entity.PlantList;
 import sk.ab.common.util.Utils;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
-import sk.ab.herbsbase.activities.ListPlantsActivity;
 import sk.ab.herbs.SpecificConstants;
 
 /**
