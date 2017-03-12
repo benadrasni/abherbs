@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">What\'s that flower? +</string>
+
+    <string name="downloading_photos">Downloading photos …</string>
+    <string name="unzipping_photos">Unzipping photos …</string>
 </resources>

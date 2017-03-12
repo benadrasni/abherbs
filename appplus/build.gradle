@@ -26,6 +26,8 @@ dependencies {
     compile project(':common')
     compile project(':appbase')
     compile 'com.google.android.gms:play-services-analytics:10.2.0'
+    compile 'com.google.firebase:firebase-database:10.2.0'
+    compile 'com.google.firebase:firebase-storage:10.2.0'
 }
 
 repositories {
@@ -37,3 +39,5 @@ repositories {
         url 'https://jitpack.io'
     }
 }
+
+apply plugin: 'com.google.gms.google-services'

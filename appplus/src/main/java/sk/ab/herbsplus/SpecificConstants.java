@@ -9,6 +9,10 @@ import sk.ab.common.Constants;
 
 public class SpecificConstants {
     public static final String PACKAGE = "sk.ab.herbsplus";
+    public final static String STORAGE = "gs://abherbs-resources";
+    public final static String OFFLINE = "/offline";
+
+    public final static String LAST_UPDATE_TIME_KEY = "last_update_time";
 
     public static final String[] FILTER_ATTRIBUTES = {Constants.COLOR_OF_FLOWERS, Constants.HABITAT, Constants.NUMBER_OF_PETALS};
 }

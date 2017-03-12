@@ -2,8 +2,10 @@ package sk.ab.herbsplus;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -26,7 +28,9 @@ public class HerbsApp extends BaseApp {
     public void onCreate() {
         super.onCreate();
 
-        SharedPreferences preferences = getSharedPreferences("sk.ab.herbsplus", Context.MODE_PRIVATE);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+        SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         int rateCounter = preferences.getInt(sk.ab.herbsbase.AndroidConstants.RATE_COUNT_KEY, sk.ab.herbsbase.AndroidConstants.RATE_COUNTER);
@@ -49,5 +53,10 @@ public class HerbsApp extends BaseApp {
         filterAttributes.add(new ColorOfFlowers());
         filterAttributes.add(new Habitats());
         filterAttributes.add(new NumberOfPetals());
+    }
+
+    public boolean isNetworkAvailable(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }
