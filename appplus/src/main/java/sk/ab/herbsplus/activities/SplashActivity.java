@@ -28,6 +28,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
@@ -62,14 +64,13 @@ public class SplashActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            progressDialog.setMessage(getResources().getString(R.string.unzipping_photos));
             progressDialog.setProgress(0);
 
             try {
                 ZipFile zf = new ZipFile(_zipFile.getAbsolutePath());
                 _size = zf.size();
             } catch (IOException e) {
-                progressDialog.setMax(1);
+                e.printStackTrace();
             }
         }
 
@@ -82,10 +83,10 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             filesCount--;
+            _zipFile.delete();
             if (filesCount == 0) {
+                saveLastUpdateTime();
                 callFilterPlantsActivity();
-                _zipFile.delete();
-                progressDialog.dismiss();
             }
         }
 
@@ -138,8 +139,9 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    protected ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
     private long filesCount;
+    private List<Long> filesTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,11 +164,14 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot offline) {
                     progressDialog = new ProgressDialog(SplashActivity.this);
-                    progressDialog.setMessage(getResources().getString(R.string.downloading_photos));
                     progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                    progressDialog.show();
+                    progressDialog.setMessage(getResources().getString(R.string.synchronizing));
+
+                    SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+                    final long lastUpdateTime = preferences.getLong(SpecificConstants.LAST_UPDATE_TIME_KEY, 0);
 
                     filesCount = offline.getChildrenCount();
+                    filesTime = new ArrayList<>();
                     for (DataSnapshot dataSnapshot : offline.getChildren()) {
                         final OfflineFile offlineFile = dataSnapshot.getValue(OfflineFile.class);
                         final StorageReference fileReference = storageRef.child(offlineFile.getName());
@@ -174,11 +179,11 @@ public class SplashActivity extends AppCompatActivity {
                         fileReference.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
                             @Override
                             public void onSuccess(final StorageMetadata storageMetadata) {
-                                SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
-                                long lastUpdateTime = preferences.getInt(SpecificConstants.LAST_UPDATE_TIME_KEY, 0);
-
                                 if (lastUpdateTime < storageMetadata.getUpdatedTimeMillis()) {
+                                    progressDialog.show();
                                     progressDialog.setProgress(0);
+
+                                    filesTime.add(storageMetadata.getUpdatedTimeMillis());
 
                                     final File localFile = new File(getApplicationContext().getFilesDir() + "/" + offlineFile.getName());
 
@@ -202,12 +207,18 @@ public class SplashActivity extends AppCompatActivity {
                                     });
                                 } else {
                                     filesCount--;
+                                    if (filesCount == 0) {
+                                        callFilterPlantsActivity();
+                                    }
                                 }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception exception) {
                                 filesCount--;
+                                if (filesCount == 0) {
+                                    callFilterPlantsActivity();
+                                }
                             }
                         });
                     }
@@ -225,6 +236,21 @@ public class SplashActivity extends AppCompatActivity {
     private void callFilterPlantsActivity() {
         Intent intent = new Intent(SplashActivity.this, FilterPlantsPlusActivity.class);
         startActivity(intent);
+        progressDialog.dismiss();
         finish();
+    }
+
+    private void saveLastUpdateTime() {
+        long maxTime = 0;
+        for (Long time : filesTime) {
+            if (time > maxTime) {
+                maxTime = time;
+            }
+        }
+
+        SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putLong(SpecificConstants.LAST_UPDATE_TIME_KEY, maxTime);
+        editor.apply();
     }
 }
