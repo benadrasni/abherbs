@@ -1,12 +1,22 @@
 package sk.ab.herbsplus.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
+import android.preference.Preference;
 
+import sk.ab.common.util.Utils;
+import sk.ab.herbsbase.AndroidConstants;
+import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.fragments.UserPreferenceFragment;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
+import sk.ab.herbsplus.StorageLoading;
+import sk.ab.herbsplus.activities.FilterPlantsPlusActivity;
+import sk.ab.herbsplus.activities.SplashActivity;
+import sk.ab.herbsplus.activities.UserPreferencePlusActivity;
 
 /**
  * @see UserPreferenceFragment
@@ -19,11 +29,39 @@ import sk.ab.herbsplus.SpecificConstants;
 
 public class UserPreferencePlusFragment extends UserPreferenceFragment {
 
+    private CheckBoxPreference prefOfflineMode;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences_plus);
 
+        final SharedPreferences preferences = getSharedPreferences();
+
+        Boolean offlineMode = preferences.getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
+        prefOfflineMode = (CheckBoxPreference)findPreference("offlineMode");
+        prefOfflineMode.setChecked(offlineMode);
+
+        prefOfflineMode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                Boolean newOfflineMode = (Boolean) newValue;
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(SpecificConstants.OFFLINE_MODE_KEY, newOfflineMode);
+                editor.apply();
+                if (newOfflineMode) {
+                    editor.remove(SpecificConstants.LAST_UPDATE_TIME_KEY);
+                    editor.apply();
+                    StorageLoading storageLoading = new StorageLoading(getActivity(), null);
+                    storageLoading.downloadOfflineFiles();
+                } else {
+                    // delete offline files
+                    Utils.deleteRecursive(getActivity().getFilesDir());
+                }
+                return true;
+            }
+        });
     }
 
     @Override

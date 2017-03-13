@@ -74,17 +74,17 @@ public class PropertyListFragment extends ListFragment {
                     BaseSetting setting = (BaseSetting) item;
                     switch (setting.getName()) {
                         case AndroidConstants.ITEM_LEGEND:
-                            Intent intent = new Intent(getContext(), LegendActivity.class);
+                            Intent intent = new Intent(getActivity(), LegendActivity.class);
                             startActivity(intent);
                             break;
                         case AndroidConstants.ITEM_SETTINGS:
-                            intent = new Intent(getContext(), getUserPreferenceActivityClass());
+                            intent = new Intent(getActivity(), getUserPreferenceActivityClass());
                             startActivity(intent);
                             break;
                         case AndroidConstants.ITEM_FEEDBACK:
                         case AndroidConstants.ITEM_HELP:
                         case AndroidConstants.ITEM_ABOUT:
-                            intent = new Intent(getContext(), HtmlActivity.class);
+                            intent = new Intent(getActivity(), HtmlActivity.class);
                             intent.putExtra("title", setting.getName());
                             startActivity(intent);
                             break;

@@ -1,256 +1,37 @@
 package sk.ab.herbsplus.activities;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageMetadata;
-import com.google.firebase.storage.StorageReference;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
-
 import sk.ab.herbsplus.HerbsApp;
-import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
-import sk.ab.herbsplus.entity.OfflineFile;
+import sk.ab.herbsplus.StorageLoading;
+
 
 /**
- * Download and unzip all new offline files
+ * Splash activity
  *
  * Created by adrian on 11.3.2017.
  */
 public class SplashActivity extends AppCompatActivity {
 
-    /**
-     * Unzipping download file on background with progress dialog
-     *
-     */
-    private class UnpackZip extends AsyncTask<Void, Integer, Integer> {
-
-        private File _zipFile;
-        private int _size;
-        private int _processedFiles;
-
-        UnpackZip(File zipFile) {
-            _zipFile = zipFile;
-            _processedFiles = 0;
-            _size = 0;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            progressDialog.setProgress(0);
-
-            try {
-                ZipFile zf = new ZipFile(_zipFile.getAbsolutePath());
-                _size = zf.size();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... progress) {
-            int per = (int) (100.0 * ((float) progress[0] / _size));
-            progressDialog.setProgress(per);
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            filesCount--;
-            _zipFile.delete();
-            if (filesCount == 0) {
-                saveLastUpdateTime();
-                callFilterPlantsActivity();
-            }
-        }
-
-        @Override
-        protected Integer doInBackground(Void... voids) {
-            InputStream is;
-            ZipInputStream zis;
-            int totalSize = 0;
-            try {
-                String path;
-                String filename;
-                is = new FileInputStream(_zipFile);
-                zis = new ZipInputStream(new BufferedInputStream(is));
-                ZipEntry ze;
-                byte[] buffer = new byte[1024];
-                int count;
-                while ((ze = zis.getNextEntry()) != null) {
-                    filename = ze.getName();
-                    path = SplashActivity.this.getApplicationContext().getFilesDir() + "/";
-
-                    if (ze.isDirectory()) {
-                        File fmd = new File(path + filename);
-                        if (fmd.mkdirs()) {
-                            continue;
-                        } else {
-                            throw new IOException("Failed to create directory structure");
-                        }
-                    }
-
-                    FileOutputStream fileOutputStream = new FileOutputStream(path + filename);
-
-                    while ((count = zis.read(buffer)) != -1) {
-                        fileOutputStream.write(buffer, 0, count);
-                        totalSize += count;
-                    }
-
-                    fileOutputStream.close();
-                    zis.closeEntry();
-                    _processedFiles++;
-                    publishProgress(_processedFiles);
-                }
-
-                zis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return 0;
-            }
-
-            return totalSize;
-        }
-    }
-
-    private ProgressDialog progressDialog;
-    private long filesCount;
-    private List<Long> filesTime;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        downloadOfflineFiles();
-    }
-
-    protected void downloadOfflineFiles() {
-        final HerbsApp app = (HerbsApp)getApplication();
-        if (app.isNetworkAvailable(SplashActivity.this.getApplicationContext())) {
-
-            FirebaseStorage storage = FirebaseStorage.getInstance(SpecificConstants.STORAGE);
-            final StorageReference storageRef = storage.getReference(SpecificConstants.OFFLINE);
-
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            final DatabaseReference mFirebaseRef = database.getReference(SpecificConstants.OFFLINE);
-
-            mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot offline) {
-                    progressDialog = new ProgressDialog(SplashActivity.this);
-                    progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                    progressDialog.setMessage(getResources().getString(R.string.synchronizing));
-
-                    SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
-                    final long lastUpdateTime = preferences.getLong(SpecificConstants.LAST_UPDATE_TIME_KEY, 0);
-
-                    filesCount = offline.getChildrenCount();
-                    filesTime = new ArrayList<>();
-                    for (DataSnapshot dataSnapshot : offline.getChildren()) {
-                        final OfflineFile offlineFile = dataSnapshot.getValue(OfflineFile.class);
-                        final StorageReference fileReference = storageRef.child(offlineFile.getName());
-
-                        fileReference.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
-                            @Override
-                            public void onSuccess(final StorageMetadata storageMetadata) {
-                                if (lastUpdateTime < storageMetadata.getUpdatedTimeMillis()) {
-                                    progressDialog.show();
-                                    progressDialog.setProgress(0);
-
-                                    filesTime.add(storageMetadata.getUpdatedTimeMillis());
-
-                                    final File localFile = new File(getApplicationContext().getFilesDir() + "/" + offlineFile.getName());
-
-                                    fileReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                        @Override
-                                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                            new UnpackZip(localFile).execute();
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception exception) {
-
-                                        }
-                                    }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
-                                        @SuppressWarnings("VisibleForTests")
-                                        @Override
-                                        public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                            int progress = (int) (100.0 * ((float) taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount()));
-                                            progressDialog.setProgress(progress);
-                                        }
-                                    });
-                                } else {
-                                    filesCount--;
-                                    if (filesCount == 0) {
-                                        callFilterPlantsActivity();
-                                    }
-                                }
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                                filesCount--;
-                                if (filesCount == 0) {
-                                    callFilterPlantsActivity();
-                                }
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-        } else {
-            callFilterPlantsActivity();
-        }
-    }
-
-    private void callFilterPlantsActivity() {
-        Intent intent = new Intent(SplashActivity.this, FilterPlantsPlusActivity.class);
-        startActivity(intent);
-        progressDialog.dismiss();
-        finish();
-    }
-
-    private void saveLastUpdateTime() {
-        long maxTime = 0;
-        for (Long time : filesTime) {
-            if (time > maxTime) {
-                maxTime = time;
-            }
-        }
-
         SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putLong(SpecificConstants.LAST_UPDATE_TIME_KEY, maxTime);
-        editor.apply();
+        boolean offlineMode = preferences.getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
+
+        if (offlineMode && ((HerbsApp)getApplication()).isNetworkAvailable(getApplicationContext())) {
+            StorageLoading storageLoading = new StorageLoading(this, FilterPlantsPlusActivity.class);
+            storageLoading.downloadOfflineFiles();
+        } else {
+            Intent intent = new Intent(this, FilterPlantsPlusActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
