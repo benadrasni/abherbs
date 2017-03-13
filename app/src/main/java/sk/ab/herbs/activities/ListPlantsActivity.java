@@ -1,6 +1,8 @@
 package sk.ab.herbs.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -45,4 +47,10 @@ public class ListPlantsActivity extends ListPlantsBaseActivity {
             }
         });
     }
+
+    @Override
+    protected SharedPreferences getSharedPreferences() {
+        return getSharedPreferences(AndroidConstants.PACKAGE, Context.MODE_PRIVATE);
+    }
+
 }

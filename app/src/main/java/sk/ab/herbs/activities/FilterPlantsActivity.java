@@ -2,6 +2,7 @@ package sk.ab.herbs.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -68,4 +69,10 @@ public class FilterPlantsActivity extends FilterPlantsBaseActivity {
             }
         });
     }
+
+    @Override
+    protected SharedPreferences getSharedPreferences() {
+        return getSharedPreferences(AndroidConstants.PACKAGE, Context.MODE_PRIVATE);
+    }
+
 }

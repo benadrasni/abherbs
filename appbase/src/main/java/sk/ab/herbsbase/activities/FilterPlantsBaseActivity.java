@@ -29,18 +29,15 @@ import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.entity.PlantList;
 import sk.ab.common.entity.request.ListRequest;
 import sk.ab.herbsbase.AndroidConstants;
-import sk.ab.herbsbase.commons.BaseActivity;
-import sk.ab.herbsbase.commons.BaseFilterFragment;
-import sk.ab.herbsbase.commons.PropertyListFragment;
-import sk.ab.herbsbase.entity.PlantHeaderParcel;
-
 import sk.ab.herbsbase.R;
+import sk.ab.herbsbase.commons.BaseFilterFragment;
+import sk.ab.herbsbase.entity.PlantHeaderParcel;
 
 /**
  * Main activity which handles all filter fragments.
  *
  */
-public class FilterPlantsBaseActivity extends BaseActivity {
+public abstract class FilterPlantsBaseActivity extends BaseActivity {
 
     private Integer filterPosition;
     private BaseFilterFragment currentFragment;
@@ -90,8 +87,13 @@ public class FilterPlantsBaseActivity extends BaseActivity {
         FragmentManager.enableDebugLogging(true);
         FragmentManager fm = getSupportFragmentManager();
 
+        mPropertyMenu = getMenuFragment();
+
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.menu_content, mPropertyMenu);
+        fragmentTransaction.commit();
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mPropertyMenu = (PropertyListFragment)fm.findFragmentById(R.id.menu_fragment);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name) {
 
@@ -321,5 +323,6 @@ public class FilterPlantsBaseActivity extends BaseActivity {
 
         return plantHeaderParcelList;
     }
+
 }
 

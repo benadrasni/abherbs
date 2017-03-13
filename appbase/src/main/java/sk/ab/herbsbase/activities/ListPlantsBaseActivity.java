@@ -25,8 +25,6 @@ import sk.ab.common.entity.Plant;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
-import sk.ab.herbsbase.commons.BaseActivity;
-import sk.ab.herbsbase.commons.PropertyListFragment;
 import sk.ab.herbsbase.entity.PlantHeaderParcel;
 import sk.ab.herbsbase.entity.PlantParcel;
 import sk.ab.herbsbase.fragments.PlantListFragment;
@@ -35,7 +33,7 @@ import sk.ab.herbsbase.fragments.PlantListFragment;
  * Activity for displaying list of plants according to filter
  *
  */
-public class ListPlantsBaseActivity extends BaseActivity {
+public abstract class ListPlantsBaseActivity extends BaseActivity {
 
     private ArrayList<PlantHeaderParcel> plantList;
 
@@ -75,7 +73,6 @@ public class ListPlantsBaseActivity extends BaseActivity {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-        mPropertyMenu = (PropertyListFragment)fm.findFragmentById(R.id.menu_fragment);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (mDrawerLayout != null) {
             ViewTreeObserver vto = mDrawerLayout.getViewTreeObserver();
@@ -101,6 +98,8 @@ public class ListPlantsBaseActivity extends BaseActivity {
         if (plantListFragment == null) {
             ft.replace(R.id.list_content, new PlantListFragment(), "PlantList");
         }
+        mPropertyMenu = getMenuFragment();
+        ft.replace(R.id.menu_content, mPropertyMenu);
         ft.commit();
     }
 

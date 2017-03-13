@@ -48,7 +48,7 @@ public class UserPreferenceActivity extends PreferenceActivity {
         tracker.setScreenName(this.getClass().getSimpleName());
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
 
-        getFragmentManager().beginTransaction().replace(R.id.content_wrapper, new UserPreferenceFragment()).commit();
+        addFragment();
 
         mActionBar.setTitle(R.string.settings);
     }
@@ -57,5 +57,9 @@ public class UserPreferenceActivity extends PreferenceActivity {
     public void updateViews() {
 
         mActionBar.setTitle(R.string.settings);
+    }
+
+    protected void addFragment() {
+        getFragmentManager().beginTransaction().replace(R.id.content_wrapper, new UserPreferenceFragment()).commit();
     }
 }

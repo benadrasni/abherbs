@@ -1,6 +1,5 @@
-package sk.ab.herbsbase.commons;
+package sk.ab.herbsbase.activities;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -28,6 +27,7 @@ import java.util.Locale;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
+import sk.ab.herbsbase.commons.PropertyListFragment;
 
 /**
  * User: adrian
@@ -109,7 +109,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         return (BaseApp)getApplication();
     }
 
-    protected void closeDrawer() {
+    public void closeDrawer() {
         mDrawerLayout.closeDrawers();
         mDrawerToggle.syncState();
     }
@@ -180,7 +180,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected boolean changeLocale() {
-        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences();
         String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
         Boolean changeLocale = preferences.getBoolean(AndroidConstants.CHANGE_LOCALE_KEY, false);
 
@@ -195,5 +195,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         return isLocaleChanged;
+    }
+
+    protected abstract SharedPreferences getSharedPreferences();
+
+    protected PropertyListFragment getMenuFragment() {
+        return new PropertyListFragment();
     }
 }

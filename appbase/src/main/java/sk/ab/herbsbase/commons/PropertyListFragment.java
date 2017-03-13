@@ -16,7 +16,10 @@ import android.widget.TextView;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
+import sk.ab.herbsbase.activities.BaseActivity;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
+import sk.ab.herbsbase.activities.LegendActivity;
+import sk.ab.herbsbase.activities.UserPreferenceActivity;
 
 public class PropertyListFragment extends ListFragment {
     private PropertyAdapter adapter;
@@ -71,21 +74,18 @@ public class PropertyListFragment extends ListFragment {
                     BaseSetting setting = (BaseSetting) item;
                     switch (setting.getName()) {
                         case AndroidConstants.ITEM_LEGEND:
-                            Intent intent = new Intent();
-                            intent.setClassName(getActivity(), "LegendActivity");
+                            Intent intent = new Intent(getContext(), LegendActivity.class);
                             startActivity(intent);
                             break;
                         case AndroidConstants.ITEM_SETTINGS:
-                            intent = new Intent();
-                            intent.setClassName(getActivity(), "UserPreferenceActivity");
+                            intent = new Intent(getContext(), getUserPreferenceActivityClass());
                             startActivity(intent);
                             break;
                         case AndroidConstants.ITEM_FEEDBACK:
                         case AndroidConstants.ITEM_HELP:
                         case AndroidConstants.ITEM_ABOUT:
-                            intent = new Intent();
+                            intent = new Intent(getContext(), HtmlActivity.class);
                             intent.putExtra("title", setting.getName());
-                            intent.setClassName(getActivity(), "HtmlActivity");
                             startActivity(intent);
                             break;
                     }
@@ -145,6 +145,9 @@ public class PropertyListFragment extends ListFragment {
             }
             return convertView;
         }
+    }
 
+    protected Class getUserPreferenceActivityClass() {
+        return UserPreferenceActivity.class;
     }
 }

@@ -1,5 +1,7 @@
 package sk.ab.herbsbase.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,8 +16,6 @@ import java.util.HashMap;
 
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
-import sk.ab.herbsbase.commons.BaseActivity;
-import sk.ab.herbsbase.commons.PropertyListFragment;
 import sk.ab.herbsbase.entity.PlantParcel;
 import sk.ab.herbsbase.fragments.GalleryFragment;
 import sk.ab.herbsbase.fragments.InfoFragment;
@@ -49,9 +49,6 @@ public class DisplayPlantActivity extends BaseActivity {
             countButton.setVisibility(View.GONE);
         }
 
-        FragmentManager fm = getSupportFragmentManager();
-        mPropertyMenu = (PropertyListFragment)fm.findFragmentById(R.id.menu_fragment);
-
         mDrawerLayout = (DrawerLayout) findViewById(R.id.plant_drawer_layout);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
@@ -60,6 +57,9 @@ public class DisplayPlantActivity extends BaseActivity {
 
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
+        mPropertyMenu = getMenuFragment();
+
+        FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         TaxonomyFragment taxonomyFragment = (TaxonomyFragment) fm.findFragmentByTag("Taxonomy");
         if (taxonomyFragment == null) {
@@ -68,6 +68,7 @@ public class DisplayPlantActivity extends BaseActivity {
             ft.replace(R.id.gallery_fragment, new GalleryFragment(), "Gallery");
             ft.replace(R.id.sources_fragment, new SourcesFragment(), "Sources");
         }
+        ft.replace(R.id.menu_content, mPropertyMenu);
         ft.commit();
     }
 
@@ -103,4 +104,10 @@ public class DisplayPlantActivity extends BaseActivity {
     public PlantParcel getPlant() {
         return plantParcel;
     }
+
+    @Override
+    protected SharedPreferences getSharedPreferences() {
+        return getSharedPreferences(AndroidConstants.PACKAGE, Context.MODE_PRIVATE);
+    }
+
 }

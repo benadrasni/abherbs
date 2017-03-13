@@ -36,7 +36,7 @@ public class UserPreferenceFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
 
-        final SharedPreferences preferences = getActivity().getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        final SharedPreferences preferences = getSharedPreferences();
 
         Boolean changeLocale = preferences.getBoolean(AndroidConstants.CHANGE_LOCALE_KEY, false);
         prefChangeLocale = (CheckBoxPreference)findPreference("changeLocale");
@@ -49,10 +49,6 @@ public class UserPreferenceFragment extends PreferenceFragment {
             prefLanguage.setValue(language);
             prefLanguage.setSummary(prefLanguage.getEntry());
         }
-
-        Boolean proposeTranslation = preferences.getBoolean(AndroidConstants.PROPOSE_TRANSLATION_KEY, false);
-        prefProposeTranslation = (CheckBoxPreference)findPreference("proposeTranslation");
-        prefProposeTranslation.setChecked(proposeTranslation);
 
         prefChangeLocale.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 
@@ -95,6 +91,9 @@ public class UserPreferenceFragment extends PreferenceFragment {
             }
         });
 
+        Boolean proposeTranslation = preferences.getBoolean(AndroidConstants.PROPOSE_TRANSLATION_KEY, false);
+        prefProposeTranslation = (CheckBoxPreference)findPreference("proposeTranslation");
+        prefProposeTranslation.setChecked(proposeTranslation);
         prefProposeTranslation.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 
             @Override
@@ -107,12 +106,16 @@ public class UserPreferenceFragment extends PreferenceFragment {
         });
     }
 
+    protected SharedPreferences getSharedPreferences() {
+        return getActivity().getSharedPreferences(AndroidConstants.PACKAGE, Context.MODE_PRIVATE);
+    }
+
     private void changeLocale(String language) {
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.setLocale(locale);
-        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+        getActivity().getBaseContext().createConfigurationContext(config);
 
         updateViews();
         ((UserPreferenceActivity)getActivity()).updateViews();
