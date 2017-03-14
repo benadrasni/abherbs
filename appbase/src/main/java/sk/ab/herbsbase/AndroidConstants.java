@@ -72,6 +72,16 @@ public class AndroidConstants {
     public final static String ITEM_HELP = "Help";
     public final static String ITEM_ABOUT = "About";
 
+    public final static String FIREBASE_SEPARATOR = "/";
+
+    public final static String FIREBASE_FILTERS = "filters";
+    public final static String FIREBASE_PLANTS = "plants";
+    public final static String FIREBASE_APG_III = "APG III";
+    public final static String FIREBASE_NAMES = "names";
+
+    public final static String FIREBASE_COUNT = "count";
+    public final static String FIREBASE_LIST = "list";
+
     static {
         LANGUAGES = new HashMap<String, Integer>();
         LANGUAGES.put(LANGUAGE_EN, 0);

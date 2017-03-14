@@ -8,6 +8,9 @@ package sk.ab.common.entity;
 public class Count {
     private int count;
 
+    public Count() {
+    }
+
     public Count(int count) {
         this.count = count;
     }
