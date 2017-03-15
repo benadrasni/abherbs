@@ -5,10 +5,12 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.fragments.ColorOfFlowers;
 import sk.ab.herbsbase.fragments.Habitats;
@@ -28,7 +30,12 @@ public class HerbsApp extends BaseApp {
     public void onCreate() {
         super.onCreate();
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        database.setPersistenceEnabled(true);
+        DatabaseReference countsRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_COUNTS);
+        countsRef.keepSynced(true);
+        DatabaseReference listsRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_LISTS);
+        listsRef.keepSynced(true);
 
         SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();

@@ -12,6 +12,8 @@ import java.util.TreeMap;
 public class Constants {
     public final static String COMMONS = "commons";
 
+    public final static int LIST_THRESHOLD = 20;
+
     public final static String LANGUAGE_LA = "la";
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";

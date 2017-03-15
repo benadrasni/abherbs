@@ -14,6 +14,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import sk.ab.common.entity.Plant;
+import sk.ab.common.util.Utils;
+import sk.ab.herbs.SpecificConstants;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.DisplayPlantActivity;
 import sk.ab.herbsbase.activities.ListPlantsBaseActivity;
@@ -28,12 +30,11 @@ import sk.ab.herbsbase.entity.PlantParcel;
 public class ListPlantsActivity extends ListPlantsBaseActivity {
 
     @Override
-    public void selectPlant(int position) {
+    public void selectPlant(String plantName) {
         startLoading();
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_PLANTS + AndroidConstants.FIREBASE_SEPARATOR
-                + getPlantList().get(position).getId());
+        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_PLANTS + AndroidConstants.FIREBASE_SEPARATOR + plantName);
 
         mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -55,6 +56,11 @@ public class ListPlantsActivity extends ListPlantsBaseActivity {
                 stopLoading();
             }
         });
+    }
+
+    @Override
+    public String getFilterString() {
+        return Utils.getFilterKey(filter, SpecificConstants.FILTER_ATTRIBUTES);
     }
 
     @Override

@@ -13,7 +13,6 @@ import java.util.Map;
  */
 public class AndroidConstants {
     public final static String PACKAGE = "sk.ab.herbs";
-    public final static int LIST_THRESHOLD = 20;
 
     public final static String EMAIL = "whatsthoseflowers@gmail.com";
     public final static int VERSION_1_2_7 = 36;
@@ -26,6 +25,7 @@ public class AndroidConstants {
     public final static String STATE_PLANT_LIST_COUNT = "plant_list_count";
     public final static String STATE_PLANT = "plant";
 
+    public final static String RATE = "RATE";
     public final static int RATE_COUNTER = 5;
     public final static int RATE_NEVER = -1;
     public final static int RATE_NO = 0;
@@ -74,13 +74,14 @@ public class AndroidConstants {
 
     public final static String FIREBASE_SEPARATOR = "/";
 
-    public final static String FIREBASE_FILTERS = "filters";
+    public final static String FIREBASE_COUNTS = "counts";
+    public final static String FIREBASE_LISTS = "lists";
     public final static String FIREBASE_PLANTS = "plants";
     public final static String FIREBASE_APG_III = "APG III";
     public final static String FIREBASE_NAMES = "names";
 
-    public final static String FIREBASE_COUNT = "count";
-    public final static String FIREBASE_LIST = "list";
+    public final static String FIREBASE_PHOTO_URL = "photoUrls/0";
+    public final static String FIREBASE_LABEL = "label";
 
     static {
         LANGUAGES = new HashMap<String, Integer>();

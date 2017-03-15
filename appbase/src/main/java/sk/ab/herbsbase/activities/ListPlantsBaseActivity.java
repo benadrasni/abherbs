@@ -22,6 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import sk.ab.common.entity.Plant;
+import sk.ab.common.util.Utils;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
@@ -35,18 +36,14 @@ import sk.ab.herbsbase.fragments.PlantListFragment;
  */
 public abstract class ListPlantsBaseActivity extends BaseActivity {
 
-    private ArrayList<PlantHeaderParcel> plantList;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            plantList = savedInstanceState.getParcelableArrayList(AndroidConstants.STATE_PLANT_LIST);
             count = savedInstanceState.getInt(AndroidConstants.STATE_PLANT_LIST_COUNT);
             filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
         } else {
-            plantList = getIntent().getExtras().getParcelableArrayList(AndroidConstants.STATE_PLANT_LIST);
             count = getIntent().getExtras().getInt(AndroidConstants.STATE_PLANT_LIST_COUNT);
             filter = (HashMap<String, String>)getIntent().getExtras().getSerializable(AndroidConstants.STATE_FILTER);
         }
@@ -123,38 +120,13 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putParcelableArrayList(AndroidConstants.STATE_PLANT_LIST, plantList);
         savedInstanceState.putInt(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
         savedInstanceState.putSerializable(AndroidConstants.STATE_FILTER, filter);
 
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    public List<PlantHeaderParcel> getPlantList() {
-        return plantList;
-    }
+    public abstract String getFilterString();
 
-    public void selectPlant(int position) {
-        startLoading();
-
-        getApp().getHerbCloudClient().getApiService().getDetail(getPlantList().get(position).getId()).enqueue(new Callback<Plant>() {
-            @Override
-            public void onResponse(Call<Plant> call, Response<Plant> response) {
-                Intent intent = new Intent(getBaseContext(), DisplayPlantActivity.class);
-                intent.putExtra(AndroidConstants.STATE_PLANT, new PlantParcel(response.body()));
-                intent.putExtra(AndroidConstants.STATE_FILTER, filter);
-                startActivity(intent);
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                stopLoading();
-            }
-
-            @Override
-            public void onFailure(Call<Plant> call, Throwable t) {
-                Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
-                Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
-                stopLoading();
-            }
-        });
-
-    }
+    public abstract void selectPlant(String plantName);
 }

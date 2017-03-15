@@ -1,7 +1,5 @@
 package sk.ab.herbsbase.activities;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -11,9 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,17 +17,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import sk.ab.common.entity.Count;
-import sk.ab.common.entity.PlantHeader;
-import sk.ab.common.entity.PlantList;
-import sk.ab.common.entity.request.ListRequest;
+import sk.ab.common.Constants;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.commons.BaseFilterFragment;
-import sk.ab.herbsbase.entity.PlantHeaderParcel;
 
 /**
  * Main activity which handles all filter fragments.
@@ -70,7 +59,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         countButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count <= AndroidConstants.LIST_THRESHOLD  && count > 0) {
+                if (count <= Constants.LIST_THRESHOLD  && count > 0) {
                     startLoading();
                     getList();
                 }
@@ -251,50 +240,9 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         return currentFragment;
     }
 
-    protected void getCount() {
-        getApp().getHerbCloudClient().getApiService().getCount(
-                new ListRequest(sk.ab.common.Constants.PLANT, filter)).enqueue(new Callback<Count>() {
-            @Override
-            public void onResponse(Call<Count> call, Response<Count> response) {
-                if (response != null && response.body() != null) {
-                    setCount(response.body().getCount());
-                }
-            }
+    protected abstract void getCount();
 
-            @Override
-            public void onFailure(Call<Count> call, Throwable t) {
-                Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
-                Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
-                stopLoading();
-            }
-
-        });
-    }
-
-    protected void getList() {
-
-        getApp().getHerbCloudClient().getApiService().getList(
-                new ListRequest(sk.ab.common.Constants.PLANT, filter)).enqueue(new Callback<PlantList>() {
-            @Override
-            public void onResponse(Call<PlantList> call, Response<PlantList> response) {
-                Intent intent = new Intent(getBaseContext(), ListPlantsBaseActivity.class);
-                intent.putParcelableArrayListExtra(AndroidConstants.STATE_PLANT_LIST,
-                        insertRateView(getSharedPreferences(AndroidConstants.PACKAGE, Context.MODE_PRIVATE), response.body().getItems()));
-                intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
-                intent.putExtra(AndroidConstants.STATE_FILTER, filter);
-                startActivity(intent);
-                stopLoading();
-                setCountButton();
-            }
-
-            @Override
-            public void onFailure(Call<PlantList> call, Throwable t) {
-                Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
-                Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
-                stopLoading();
-            }
-        });
-    }
+    protected abstract void getList();
 
     private List<BaseFilterFragment> getFilterAttributes() {
         return getApp().getFilterAttributes();
@@ -307,21 +255,15 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         return position;
     }
 
-    protected ArrayList<PlantHeaderParcel> insertRateView(SharedPreferences preferences, List<PlantHeader> plantHeaderList) {
+    protected ArrayList<String> insertRateView(SharedPreferences preferences, ArrayList<String> plantHeaderList) {
         int rateState = preferences.getInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_NO);
 
         if (rateState == AndroidConstants.RATE_SHOW) {
             Random rand = new Random();
-            plantHeaderList.add(rand.nextInt(plantHeaderList.size()), new PlantHeader());
+            plantHeaderList.add(rand.nextInt(plantHeaderList.size()), null);
         }
 
-        ArrayList<PlantHeaderParcel> plantHeaderParcelList = new ArrayList<>();
-        for (PlantHeader plantHeader : plantHeaderList) {
-            PlantHeaderParcel plantHeaderParcel = new PlantHeaderParcel(plantHeader);
-            plantHeaderParcelList.add(plantHeaderParcel);
-        }
-
-        return plantHeaderParcelList;
+        return plantHeaderList;
     }
 
 }

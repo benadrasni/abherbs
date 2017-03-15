@@ -33,7 +33,6 @@ public class Firebase {
     private static String PATH_TO_STORAGE = "C:/Dev/Storage/";
 
     private static String GOOGLE_STORAGE_URL = "https://storage.googleapis.com/abherbs";
-//    private static String PATH_TO_PLANTS = "/home/adrian/Dev/projects/abherbs/backend/txt/plants.csv";
 
     private static final String[] COLORS = {"white", "yellow", "red", "blue", "green"};
     private static final String[] HABITATS = {"meadows or grassland", "gardens or fields", "moorlands or wetlands", "woodlands or forests", "rocks or mountains", "trees or bushes"};
@@ -119,42 +118,42 @@ public class Firebase {
             Map<String, String> filter = new HashMap<>();
             getAndSave(herbCloudClient, firebaseClient, filter);
 
-//            for (String color : COLORS) {
-//                filter.put(Constants.COLOR_OF_FLOWERS, color);
-//                getAndSave(herbCloudClient, firebaseClient, filter);
-//
-//                for (String habitat : HABITATS) {
-//                    filter.put(Constants.HABITAT, habitat);
-//                    getAndSave(herbCloudClient, firebaseClient, filter);
-//
-//                    for (String petal : PETALS) {
-//                        filter.put(Constants.NUMBER_OF_PETALS, petal);
-//                        getAndSave(herbCloudClient, firebaseClient, filter);
-//
-//                    }
-//                    filter.remove(Constants.NUMBER_OF_PETALS);
-//                }
-//                filter.remove(Constants.HABITAT);
-//            }
-//
-//            filter.clear();
-//            for (String habitat : HABITATS) {
-//                filter.put(Constants.HABITAT, habitat);
-//                getAndSave(herbCloudClient, firebaseClient, filter);
-//
-//                for (String petal : PETALS) {
-//                    filter.put(Constants.NUMBER_OF_PETALS, petal);
-//                    getAndSave(herbCloudClient, firebaseClient, filter);
-//
-//                }
-//                filter.remove(Constants.NUMBER_OF_PETALS);
-//            }
-//
-//            filter.clear();
-//            for (String petal : PETALS) {
-//                filter.put(Constants.NUMBER_OF_PETALS, petal);
-//                getAndSave(herbCloudClient, firebaseClient, filter);
-//            }
+            for (String color : COLORS) {
+                filter.put(Constants.COLOR_OF_FLOWERS, color);
+                getAndSave(herbCloudClient, firebaseClient, filter);
+
+                for (String habitat : HABITATS) {
+                    filter.put(Constants.HABITAT, habitat);
+                    getAndSave(herbCloudClient, firebaseClient, filter);
+
+                    for (String petal : PETALS) {
+                        filter.put(Constants.NUMBER_OF_PETALS, petal);
+                        getAndSave(herbCloudClient, firebaseClient, filter);
+
+                    }
+                    filter.remove(Constants.NUMBER_OF_PETALS);
+                }
+                filter.remove(Constants.HABITAT);
+            }
+
+            filter.clear();
+            for (String habitat : HABITATS) {
+                filter.put(Constants.HABITAT, habitat);
+                getAndSave(herbCloudClient, firebaseClient, filter);
+
+                for (String petal : PETALS) {
+                    filter.put(Constants.NUMBER_OF_PETALS, petal);
+                    getAndSave(herbCloudClient, firebaseClient, filter);
+
+                }
+                filter.remove(Constants.NUMBER_OF_PETALS);
+            }
+
+            filter.clear();
+            for (String petal : PETALS) {
+                filter.put(Constants.NUMBER_OF_PETALS, petal);
+                getAndSave(herbCloudClient, firebaseClient, filter);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -290,14 +289,28 @@ public class Firebase {
         // count
         Call<Count> callCloudCount = herbCloudClient.getApiService().getCount(new ListRequest(Constants.PLANT, filter));
         Count count = callCloudCount.execute().body();
-        Call<Count> callFirebaseCount = firebaseClient.getApiService().saveCount(filterKey, count);
+        Map<String, Integer> filterCount = new HashMap<>();
+        filterCount.put(filterKey, count.getCount());
+        Call<Map> callFirebaseCount = firebaseClient.getApiService().saveCount(filterCount);
         callFirebaseCount.execute().body();
 
         // list
-        Call<PlantList> callCloudList = herbCloudClient.getApiService().getList(new ListRequest(Constants.PLANT, filter));
-        PlantList list = callCloudList.execute().body();
-        Call<PlantList> callFirebaseList = firebaseClient.getApiService().saveList(filterKey, list);
-        callFirebaseList.execute().body();
+        if (filter.size() == 3 || count.getCount() <= Constants.LIST_THRESHOLD) {
+            Call<PlantList> callCloudList = herbCloudClient.getApiService().getList(new ListRequest(Constants.PLANT, filter));
+            PlantList list = callCloudList.execute().body();
+
+            if (list.getItems() != null) {
+                Map<String, Boolean> plantList = new HashMap<>();
+                for (PlantHeader plantHeader : list.getItems()) {
+                    plantList.put(plantHeader.getId(), true);
+                }
+
+                Map<String, Map<String, Boolean>> filterList = new HashMap<>();
+                filterList.put(filterKey, plantList);
+                Call<Map> callFirebaseList = firebaseClient.getApiService().saveList(filterList);
+                callFirebaseList.execute().body();
+            }
+        }
     }
 
     private static void updateTaxonomy(HerbCloudClient herbCloudClient, Object apgiii,

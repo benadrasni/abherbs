@@ -24,6 +24,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import java.util.HashMap;
 import java.util.Locale;
 
+import sk.ab.common.Constants;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
@@ -150,7 +151,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             if (countButton != null) {
                 TextDrawable countDrawable;
                 int fontSize = countButton.getHeight() / 3;
-                if (count <= AndroidConstants.LIST_THRESHOLD && count > 0) {
+                if (count <= Constants.LIST_THRESHOLD && count > 0) {
                     countButton.setBackgroundTintList(ColorStateList.valueOf(
                             ContextCompat.getColor(getApplicationContext(), R.color.FABGreen)));
 

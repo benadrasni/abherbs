@@ -1,5 +1,8 @@
 package sk.ab.common.service;
 
+import java.util.List;
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -59,16 +62,16 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
-    @PUT("filters/{filter}/count.json")
-    Call<Count> saveCount(@Path("filter") String filter, @Body Count count);
+    @PATCH("counts.json")
+    Call<Map> saveCount(@Body Map<String, Integer> count);
 
     @Headers({
             "Content-Type: application/json",
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
-    @PUT("filters/{filter}/list.json")
-    Call<PlantList> saveList(@Path("filter") String filter, @Body PlantList list);
+    @PATCH("lists.json")
+    Call<Map> saveList(@Body Map<String, Map<String, Boolean>> list);
 
     @Headers({
             "Content-Type: application/json",
