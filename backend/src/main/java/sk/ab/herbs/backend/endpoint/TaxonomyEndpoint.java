@@ -874,7 +874,7 @@ public class TaxonomyEndpoint {
                     LinkedHashMap<String, String> taxonomy = new LinkedHashMap<>();
                     int i = 0;
                     do {
-                        taxonomy.put(taxonomyKey.getKind() + "_" + i, taxonomyKey.getName());
+                        taxonomy.put((i < 10 ? "0" : "") + i + "_" + taxonomyKey.getKind(), taxonomyKey.getName());
                         taxonomyKey = taxonomyKey.getParent();
                         i++;
                     } while (taxonomyKey != null);

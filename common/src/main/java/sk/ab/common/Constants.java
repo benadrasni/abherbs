@@ -101,4 +101,6 @@ public class Constants {
     public final static int PLANT_HERBALISM = 408;
 
     public final static int NAMES_TO_DISPLAY = 5;
+
+    public final static String TAXONOMY_FAMILY = "Familia";
 }

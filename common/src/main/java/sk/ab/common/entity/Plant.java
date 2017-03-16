@@ -5,7 +5,6 @@ import com.googlecode.objectify.annotation.Id;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 import sk.ab.common.Constants;
 
@@ -50,7 +49,7 @@ public class Plant {
     protected HashMap<String, String> herbalism = new HashMap<>();
     protected HashMap<String, String> wikilinks = new HashMap<>();
     protected HashMap<String, ArrayList<String>> sourceUrls = new HashMap<>();
-    protected LinkedHashMap<String, String> taxonomy = new LinkedHashMap<>();
+    protected HashMap<String, String> taxonomy = new HashMap<>();
 
     public boolean isTranslated(String language) {
         return (description.get(Constants.LANGUAGE_EN) == null || description.get(language) != null)
@@ -362,11 +361,11 @@ public class Plant {
         this.sourceUrls = sourceUrls;
     }
 
-    public LinkedHashMap<String, String> getTaxonomy() {
+    public HashMap<String, String> getTaxonomy() {
         return taxonomy;
     }
 
-    public void setTaxonomy(LinkedHashMap<String, String> taxonomy) {
+    public void setTaxonomy(HashMap<String, String> taxonomy) {
         this.taxonomy = taxonomy;
     }
 }

@@ -20,6 +20,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import sk.ab.common.Constants;
 import sk.ab.common.entity.Plant;
@@ -34,6 +35,7 @@ public class PlantListFragment extends Fragment {
     static final String STATE_POSITION = "list_position";
 
     private int list_position;
+    private boolean offlineMode;
 
     private class PropertyAdapter extends FirebaseIndexRecyclerAdapter<Plant, PlantViewHolder> {
 
@@ -78,9 +80,15 @@ public class PlantListFragment extends Fragment {
             }
 
             holder.getTitle().setText(getName(plant.getLabel()));
-//            holder.getFamily().setText(getName(plantName.getFamily()));
-//            ImageLoader.getInstance().displayImage(AndroidConstants.STORAGE_ENDPOINT + plantName.getFamily().get(Constants.LANGUAGE_LA)
-//                    + AndroidConstants.DEFAULT_EXTENSION, holder.getFamilyIcon(), ((BaseApp) getActivity().getApplication()).getOptions());
+            for(Map.Entry<String, String> entry : plant.getTaxonomy().entrySet()) {
+                if (entry.getKey().endsWith(Constants.TAXONOMY_FAMILY)) {
+                    String family = entry.getValue();
+                    holder.getFamily().setText(family);
+                    ImageLoader.getInstance().displayImage(AndroidConstants.STORAGE_ENDPOINT + family + AndroidConstants.DEFAULT_EXTENSION,
+                            holder.getFamilyIcon(), ((BaseApp) getActivity().getApplication()).getOptions());
+                    break;
+                }
+            }
 
             holder.getPhoto().setOnClickListener(new View.OnClickListener() {
                 @Override
