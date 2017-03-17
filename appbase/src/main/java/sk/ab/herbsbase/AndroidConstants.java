@@ -36,7 +36,9 @@ public class AndroidConstants {
     public final static String RATE_STATUS_NEVER = "never";
     public final static String RATE_STATUS_LATER = "later";
 
-    public final static String STORAGE_ENDPOINT = "http://storage.googleapis.com/abherbs/.families/";
+    public final static String STORAGE_ENDPOINT = "http://storage.googleapis.com/abherbs-resources/";
+    public final static String STORAGE_FAMILIES = "families/";
+    public final static String STORAGE_PHOTOS = "photos/";
     public final static String DEFAULT_EXTENSION = ".webp";
 
     public final static String RES_TAXONOMY_PREFIX = "taxonomy_";

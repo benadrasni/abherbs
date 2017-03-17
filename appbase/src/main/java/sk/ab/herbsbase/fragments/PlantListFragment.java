@@ -75,8 +75,8 @@ public class PlantListFragment extends Fragment {
                             holder.getPhoto().getLayoutParams().height - Utils.convertDpToPx(25, dm), 0, 0);
 
             if (plant.getPhotoUrls().get(0) != null) {
-                ImageLoader.getInstance().displayImage(plant.getPhotoUrls().get(0), holder.getPhoto(),
-                        ((BaseApp) getActivity().getApplication()).getOptions());
+                Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + plant.getPhotoUrls().get(0),
+                        holder.getPhoto(), ((BaseApp) getActivity().getApplication()).getOptions());
             }
 
             holder.getTitle().setText(getName(plant.getLabel()));
@@ -84,8 +84,8 @@ public class PlantListFragment extends Fragment {
                 if (entry.getKey().endsWith(Constants.TAXONOMY_FAMILY)) {
                     String family = entry.getValue();
                     holder.getFamily().setText(family);
-                    ImageLoader.getInstance().displayImage(AndroidConstants.STORAGE_ENDPOINT + family + AndroidConstants.DEFAULT_EXTENSION,
-                            holder.getFamilyIcon(), ((BaseApp) getActivity().getApplication()).getOptions());
+                    Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_FAMILIES + family
+                            + AndroidConstants.DEFAULT_EXTENSION, holder.getFamilyIcon(), ((BaseApp) getActivity().getApplication()).getOptions());
                     break;
                 }
             }

@@ -175,6 +175,11 @@ public class Firebase {
                 Call<Plant> callCloudPlant = herbCloudClient.getApiService().getDetail(plantLine[0]);
                 Plant plant = callCloudPlant.execute().body();
 
+                plant.setIllustrationUrl(plant.getIllustrationUrl().substring(38));
+                for (int i = 0; i < plant.getPhotoUrls().size(); i++) {
+                    plant.getPhotoUrls().set(i, plant.getPhotoUrls().get(i).substring(38));
+                }
+
                 Call<Plant> callFirebase = firebaseClient.getApiService().savePlant(plantLine[0], plant);
                 callFirebase.execute().body();
 
