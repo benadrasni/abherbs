@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.SimpleShowcaseEventListener;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.ArrayList;
@@ -194,8 +193,8 @@ public class InfoFragment extends Fragment {
         final int orientation = getActivity().getResources().getConfiguration().orientation;
 
         if (plant.getIllustrationUrl() != null) {
-            ImageLoader.getInstance().displayImage(plant.getIllustrationUrl(), drawing,
-                    ((BaseApp) getActivity().getApplication()).getOptions(),
+            Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + plant.getIllustrationUrl(),
+                    drawing, ((BaseApp) getActivity().getApplication()).getOptions(),
                     new SimpleImageLoadingListener() {
                         @Override
                         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
@@ -212,7 +211,6 @@ public class InfoFragment extends Fragment {
                             flowTextView.setText(html);
                         }
                     });
-
         } else {
             flowTextView.setText(html);
         }

@@ -11,9 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-
 import sk.ab.common.entity.Plant;
+import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.DisplayPlantActivity;
@@ -32,20 +31,20 @@ public class GalleryFragment extends Fragment {
 
     private int thumbnail_position;
 
-    public class ThumbnailAdapter extends RecyclerView.Adapter<ThumbnailAdapter.ViewHolder> {
+    private class ThumbnailAdapter extends RecyclerView.Adapter<ThumbnailAdapter.ViewHolder> {
         private String urls[];
         private View cardGallery;
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
+        class ViewHolder extends RecyclerView.ViewHolder {
             ImageView mImageView;
 
-            public ViewHolder(View v) {
+            ViewHolder(View v) {
                 super(v);
                 mImageView = (ImageView) v.findViewById(R.id.image);
             }
         }
 
-        public ThumbnailAdapter(String[] urls) {
+        private ThumbnailAdapter(String[] urls) {
             this.urls = urls;
         }
 
@@ -59,24 +58,24 @@ public class GalleryFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
             final String url = urls[position];
-            ImageLoader.getInstance().displayImage(getThumbnailUrl(url), holder.mImageView,
-                    ((BaseApp)getActivity().getApplication()).getOptions());
+            Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + getThumbnailUrl(url),
+                    holder.mImageView, ((BaseApp) getActivity().getApplication()).getOptions());
 
             final ImageView imageView = (ImageView) cardGallery.findViewById(R.id.plant_photo);
             DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
-            int width = dm.widthPixels - Utils.convertDpToPx(25, dm);
+            int size = dm.widthPixels - Utils.convertDpToPx(25, dm);
             if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                width = width/2;
+                size = size/2;
             }
-            imageView.getLayoutParams().width = width;
-            imageView.getLayoutParams().height = imageView.getLayoutParams().width;
+            imageView.getLayoutParams().width = size;
+            imageView.getLayoutParams().height = size;
 
             holder.mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     thumbnail_position = position;
-                    ImageLoader.getInstance().displayImage(url, imageView,
-                            ((BaseApp)getActivity().getApplication()).getOptions());
+                    Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + url,
+                            imageView, ((BaseApp) getActivity().getApplication()).getOptions());
                 }
             });
         }
@@ -125,11 +124,11 @@ public class GalleryFragment extends Fragment {
 
         ImageView image = (ImageView) convertView.findViewById(R.id.plant_photo);
         if (plant.getPhotoUrls().size() > thumbnail_position && plant.getPhotoUrls().get(thumbnail_position) != null) {
-            ImageLoader.getInstance().displayImage(plant.getPhotoUrls().get(thumbnail_position), image,
-                    ((BaseApp)getActivity().getApplication()).getOptions());
+            Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS
+                            + plant.getPhotoUrls().get(thumbnail_position), image, ((BaseApp) getActivity().getApplication()).getOptions());
         } else if (plant.getPhotoUrls().size() > 0 && plant.getPhotoUrls().get(0) != null) {
-            ImageLoader.getInstance().displayImage(plant.getPhotoUrls().get(0), image,
-                    ((BaseApp)getActivity().getApplication()).getOptions());
+            Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS
+                    + plant.getPhotoUrls().get(0), image, ((BaseApp) getActivity().getApplication()).getOptions());
         }
     }}
 

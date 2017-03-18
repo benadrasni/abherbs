@@ -10,10 +10,14 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
+import sk.ab.herbsbase.tools.Utils;
 
 /**
+ * Activty for full screen image view
+ *
  * Created by adrian on 4.4.2016.
  */
 public class FullScreenImageActivity extends Activity {
@@ -30,13 +34,8 @@ public class FullScreenImageActivity extends Activity {
         Bundle extras = getIntent().getExtras();
         String url = (String) extras.getSerializable("image_url");
 
-        ImageView imgDisplay;
-        Button btnClose;
-
-
-        imgDisplay = (ImageView) findViewById(R.id.imgDisplay);
-        btnClose = (Button) findViewById(R.id.btnClose);
-
+        ImageView imgDisplay = (ImageView) findViewById(R.id.imgDisplay);
+        Button btnClose = (Button) findViewById(R.id.btnClose);
 
         btnClose.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -44,7 +43,7 @@ public class FullScreenImageActivity extends Activity {
             }
         });
 
-        ImageLoader.getInstance().displayImage(url, imgDisplay, ((BaseApp) getApplication()).getOptions());
+        Utils.displayImage(getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + url,
+                imgDisplay, ((BaseApp) getApplication()).getOptions());
     }
-
 }

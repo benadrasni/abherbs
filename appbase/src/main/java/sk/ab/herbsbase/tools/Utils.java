@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -96,5 +97,16 @@ public class Utils {
             fileUri = AndroidConstants.STORAGE_ENDPOINT + fileName;
         }
         ImageLoader.getInstance().displayImage(fileUri, imageView, options);
+    }
+
+    public static void displayImage(File filesDir, String fileName, ImageView imageView, DisplayImageOptions options, ImageLoadingListener listener) {
+        String fileUri;
+        File imgFile = new File(filesDir.getPath() + AndroidConstants.FIREBASE_SEPARATOR + fileName);
+        if (imgFile.exists()) {
+            fileUri = "file:///" + imgFile.getPath();
+        } else {
+            fileUri = AndroidConstants.STORAGE_ENDPOINT + fileName;
+        }
+        ImageLoader.getInstance().displayImage(fileUri, imageView, options, listener);
     }
 }

@@ -44,3 +44,5 @@ repositories {
         url 'https://jitpack.io'
     }
 }
+
+apply plugin: 'com.google.gms.google-services'

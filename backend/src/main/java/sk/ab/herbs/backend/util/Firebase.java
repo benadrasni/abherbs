@@ -4,12 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import retrofit2.Call;
 import sk.ab.common.Constants;
@@ -180,13 +184,13 @@ public class Firebase {
                     plant.getPhotoUrls().set(i, plant.getPhotoUrls().get(i).substring(38));
                 }
 
-                Call<Plant> callFirebase = firebaseClient.getApiService().savePlant(plantLine[0], plant);
-                callFirebase.execute().body();
+//                Call<Plant> callFirebase = firebaseClient.getApiService().savePlant(plantLine[0], plant);
+//                callFirebase.execute().body();
 
-//                Call<PlantHeader> callCloudPlantHeader = herbCloudClient.getApiService().getHeader(plantLine[0]);
-//                PlantHeader plantHeader = callCloudPlantHeader.execute().body();
-//
-//                updateTaxonomy(herbCloudClient, apgiii, plant.getTaxonomy(), plantHeader);
+                Call<PlantHeader> callCloudPlantHeader = herbCloudClient.getApiService().getHeader(plantLine[0]);
+                PlantHeader plantHeader = callCloudPlantHeader.execute().body();
+
+                updateTaxonomy(herbCloudClient, apgiii, plant.getTaxonomy(), plantHeader);
 //
 //                //labels
 //                for (Map.Entry<String, String> entry : plant.getLabel().entrySet()) {
@@ -251,8 +255,8 @@ public class Firebase {
 //                }
 //            }
 //
-//            Call<Object> callFirebaseCount = firebaseClient.getApiService().saveAPGIII(apgiii);
-//            callFirebaseCount.execute().body();
+            Call<Object> callFirebaseCount = firebaseClient.getApiService().saveAPGIII(apgiii);
+            callFirebaseCount.execute().body();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -319,29 +323,34 @@ public class Firebase {
     }
 
     private static void updateTaxonomy(HerbCloudClient herbCloudClient, Object apgiii,
-                                       LinkedHashMap<String, String> taxonomy,
+                                       HashMap<String, String> taxonomy,
                                        PlantHeader plantHeader) throws IOException {
-        ListIterator<Map.Entry<String, String>> iterator = new ArrayList<>(taxonomy.entrySet()).listIterator(taxonomy.size());
-
         boolean savePlantHeader = false;
         Object iter = apgiii;
-        while (iterator.hasPrevious()) {
-            Map.Entry<String, String> entry = iterator.previous();
 
-            String taxonType = entry.getKey().substring(entry.getKey().indexOf("_")+1);
+        List<String> sortedKeys=new ArrayList<>(taxonomy.keySet());
+        Collections.sort(sortedKeys, new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return ((String)o2).compareTo((String)o1);
+            }
+        });
 
-            Object child = ((Map<String, Object>) iter).get(entry.getValue());
+        for (String key : sortedKeys) {
+            String value = taxonomy.get(key);
+            String taxonType = key.substring(key.indexOf("_")+1);
+
+            Object child = ((Map<String, Object>) iter).get(value);
             if (child == null) {
                 child = new HashMap<String, Object>();
-                ((Map<String, Object>) iter).put(entry.getValue(), child);
+                ((Map<String, Object>) iter).put(value, child);
                 ((Map<String, Object>) child).put("type", taxonType);
 
-                // count
-                Call<Taxon> callCloudTaxon = herbCloudClient.getApiService().getTaxon(taxonType, entry.getValue());
+                Call<Taxon> callCloudTaxon = herbCloudClient.getApiService().getTaxon(taxonType, value);
                 Taxon taxon = callCloudTaxon.execute().body();
 
                 if (taxon.getNames() == null) {
-                    System.out.println("!!! Wrong taxon: " + taxonType + " - " + entry.getValue());
+                    System.out.println("!!! Wrong taxon: " + taxonType + " - " + value);
                 } else {
                     ((Map<String, Object>) child).put("names", taxon.getNames());
                 }
@@ -352,14 +361,13 @@ public class Firebase {
             }
 
             if (savePlantHeader) {
-                PlantList plants = (PlantList)((Map<String, Object>) child).get("list");
+                Map<String, Boolean> plants = (Map<String, Boolean>)((Map<String, Object>)child).get("list");
                 if (plants == null) {
-                    plants = new PlantList();
-                    plants.setItems(new ArrayList<PlantHeader>());
-                    ((Map<String, Object>) child).put("list", plants);
+                    plants = new HashMap<>();
+                    ((Map<String, Object>)child).put("list", plants);
                 }
-                plants.getItems().add(plantHeader);
-                ((Map<String, Object>) child).put("count", new Count(plants.getItems().size()));
+                plants.put(plantHeader.getId(), true);
+                ((Map<String, Object>)child).put("count", plants.size());
             }
 
             iter = child;

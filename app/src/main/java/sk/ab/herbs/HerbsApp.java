@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,9 @@ public class HerbsApp extends BaseApp {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        database.setPersistenceEnabled(true);
 
         SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
