@@ -85,6 +85,9 @@ public class AndroidConstants {
     public final static String FIREBASE_PHOTO_URL = "photoUrls/0";
     public final static String FIREBASE_LABEL = "label";
 
+    public final static String FIREBASE_APGIII_TYPE = "type";
+    public final static String FIREBASE_APGIII_NAMES = "names";
+
     static {
         LANGUAGES = new HashMap<String, Integer>();
         LANGUAGES.put(LANGUAGE_EN, 0);

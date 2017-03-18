@@ -39,6 +39,7 @@ public class PlantParcel extends Plant implements Parcelable {
         photoUrls = plant.getPhotoUrls();
         label = plant.getLabel();
         names = plant.getNames();
+        taxonomy = plant.getTaxonomy();
 
         filterColor = plant.getFilterColor();
         filterHabitat = plant.getFilterHabitat();
@@ -80,6 +81,7 @@ public class PlantParcel extends Plant implements Parcelable {
         photoUrls = (ArrayList<String>)in.readSerializable();
         label = (HashMap<String, String>)in.readSerializable();
         names = (HashMap<String, ArrayList<String>>)in.readSerializable();
+        taxonomy = (HashMap<String, String>)in.readSerializable();
 
         filterColor = (ArrayList<String>)in.readSerializable();
         filterHabitat = (ArrayList<String>)in.readSerializable();
@@ -128,6 +130,7 @@ public class PlantParcel extends Plant implements Parcelable {
         parcel.writeSerializable(photoUrls);
         parcel.writeSerializable(label);
         parcel.writeSerializable(names);
+        parcel.writeSerializable(taxonomy);
 
         parcel.writeSerializable(filterColor);
         parcel.writeSerializable(filterHabitat);
