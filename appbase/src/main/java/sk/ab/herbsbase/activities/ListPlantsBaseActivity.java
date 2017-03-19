@@ -8,26 +8,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import sk.ab.common.entity.Plant;
-import sk.ab.common.util.Utils;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
-import sk.ab.herbsbase.entity.PlantHeaderParcel;
-import sk.ab.herbsbase.entity.PlantParcel;
 import sk.ab.herbsbase.fragments.PlantListFragment;
 
 /**
@@ -47,10 +35,6 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
             count = getIntent().getExtras().getInt(AndroidConstants.STATE_PLANT_LIST_COUNT);
             filter = (HashMap<String, String>)getIntent().getExtras().getSerializable(AndroidConstants.STATE_FILTER);
         }
-
-        final BaseApp app = (BaseApp) getApplication();
-
-        app.getTracker().send(builder.build());
 
         setContentView(R.layout.list_activity);
 

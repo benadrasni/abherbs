@@ -3,7 +3,6 @@ package sk.ab.herbs;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import sk.ab.herbsbase.fragments.NumberOfPetals;
  * <p/>
  */
 public class HerbsApp extends BaseApp {
-    private static final String PROPERTY_ID = "UA-56892333-1";
 
     @Override
     public void onCreate() {
@@ -44,10 +42,6 @@ public class HerbsApp extends BaseApp {
 
         editor.putBoolean(sk.ab.herbsbase.AndroidConstants.RESET_KEY + BuildConfig.VERSION_CODE, true);
         editor.apply();
-
-        GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
-        analytics.enableAutoActivityReports(this);
-        tracker = analytics.newTracker(PROPERTY_ID);
 
         filterAttributes = new ArrayList<>();
         filterAttributes.add(new ColorOfFlowers());

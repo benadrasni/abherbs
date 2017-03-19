@@ -16,7 +16,6 @@ import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -35,7 +34,6 @@ public class PlantListFragment extends Fragment {
     static final String STATE_POSITION = "list_position";
 
     private int list_position;
-    private boolean offlineMode;
 
     private class PropertyAdapter extends FirebaseIndexRecyclerAdapter<Plant, PlantViewHolder> {
 

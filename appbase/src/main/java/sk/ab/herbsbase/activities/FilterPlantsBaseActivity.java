@@ -51,8 +51,6 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
             }
         }
 
-        getApp().getTracker().send(builder.build());
-
         setContentView(R.layout.filter_activity);
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);

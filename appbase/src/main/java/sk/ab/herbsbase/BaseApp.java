@@ -3,7 +3,6 @@ package sk.ab.herbsbase;
 import android.app.Application;
 import android.content.Context;
 
-import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -29,7 +28,6 @@ public abstract class BaseApp extends Application {
 
     private static DisplayImageOptions options;
 
-    protected Tracker tracker;
     protected List<BaseFilterFragment> filterAttributes;
     private Stack<BaseFilterFragment> backStack;
     private boolean isLoading;
@@ -51,10 +49,6 @@ public abstract class BaseApp extends Application {
         herbCloudClient = new HerbCloudClient();
         firebaseClient = new FirebaseClient();
         googleClient = new GoogleClient();
-    }
-
-    public synchronized Tracker getTracker() {
-        return tracker;
     }
 
     public static void initImageLoader(Context context) {

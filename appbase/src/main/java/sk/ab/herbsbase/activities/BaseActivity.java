@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.amulyakhare.textdrawable.TextDrawable;
-import com.google.android.gms.analytics.HitBuilders;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -45,7 +44,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected PropertyListFragment mPropertyMenu;
     protected ActionBarDrawerToggle mDrawerToggle;
     protected AnimationDrawable loadingAnimation;
-    protected HitBuilders.ScreenViewBuilder builder;
     protected HashMap<String, String> filter;
 
     protected int count;
@@ -55,9 +53,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        builder = new HitBuilders.ScreenViewBuilder();
-        ((BaseApp)getApplication()).getTracker().setScreenName(this.getClass().getSimpleName());
 
         changeLocale();
 

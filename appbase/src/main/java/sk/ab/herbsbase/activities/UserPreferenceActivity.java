@@ -8,10 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-
-import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.fragments.UserPreferenceFragment;
 
@@ -43,10 +39,6 @@ public class UserPreferenceActivity extends PreferenceActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Tracker tracker = ((BaseApp)getApplication()).getTracker();
-        tracker.setScreenName(this.getClass().getSimpleName());
-        tracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         addFragment();
 

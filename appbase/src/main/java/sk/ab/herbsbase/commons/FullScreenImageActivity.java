@@ -6,10 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
@@ -24,10 +20,6 @@ public class FullScreenImageActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Tracker tracker = ((BaseApp)getApplication()).getTracker();
-        tracker.setScreenName(this.getClass().getSimpleName());
-        tracker.send(new HitBuilders.ScreenViewBuilder().build());
 
         setContentView(R.layout.full_screen);
 

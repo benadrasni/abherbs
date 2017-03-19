@@ -43,7 +43,6 @@ public class AndroidConstants {
 
     public final static String RES_TAXONOMY_PREFIX = "taxonomy_";
 
-    public final static Map<String, Integer> LANGUAGES;
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
     public final static String CHANGE_LOCALE_KEY = "change_locale";
     public final static String PROPOSE_TRANSLATION_KEY = "propose_translation";
@@ -54,19 +53,6 @@ public class AndroidConstants {
     public final static String SHOWCASE_DISPLAY_KEY = "showcase_display";
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";
-    public final static String LANGUAGE_CS = "cs";
-    public final static String LANGUAGE_DE = "de";
-    public final static String LANGUAGE_FR = "fr";
-    public final static String LANGUAGE_ES = "es";
-    public final static String LANGUAGE_RU = "ru";
-    public final static String LANGUAGE_IT = "it";
-    public final static String LANGUAGE_JA = "ja";
-    public final static String LANGUAGE_PT = "pt";
-    public final static String LANGUAGE_ZH = "zh";
-    public final static String HEIGHT_UNIT = "cm";
-
-    public final static String DEFAULT_LANGUAGE = LANGUAGE_EN;
-    public final static String ORIGINAL_LANGUAGE = "original";
 
     public final static String ITEM_LEGEND = "Legend";
     public final static String ITEM_SETTINGS = "Settings";
@@ -80,38 +66,9 @@ public class AndroidConstants {
     public final static String FIREBASE_LISTS = "lists";
     public final static String FIREBASE_PLANTS = "plants";
     public final static String FIREBASE_APG_III = "APG III";
-    public final static String FIREBASE_NAMES = "names";
-
-    public final static String FIREBASE_PHOTO_URL = "photoUrls/0";
-    public final static String FIREBASE_LABEL = "label";
 
     public final static String FIREBASE_APGIII_TYPE = "type";
     public final static String FIREBASE_APGIII_NAMES = "names";
-
-    static {
-        LANGUAGES = new HashMap<String, Integer>();
-        LANGUAGES.put(LANGUAGE_EN, 0);
-        LANGUAGES.put(LANGUAGE_SK, 1);
-        LANGUAGES.put(LANGUAGE_CS, 2);
-        LANGUAGES.put(LANGUAGE_DE, 3);
-        LANGUAGES.put(LANGUAGE_FR, 4);
-        LANGUAGES.put(LANGUAGE_ES, 5);
-        LANGUAGES.put(LANGUAGE_PT, 9);
-    }
-
-    public static int getLanguage(String sLanguage) {
-        Integer language = LANGUAGES.get(sLanguage);
-        return language == null ? 0 : language;
-    }
-
-    public static String getLanguage(Integer language) {
-        for (Map.Entry<String, Integer> entry : LANGUAGES.entrySet()) {
-            if (language == entry.getValue().intValue()) {
-                return entry.getKey();
-            }
-        }
-        return LANGUAGE_EN;
-    }
 
     public static int getValueResource(Resources resources, String value) {
         int result = 0;

@@ -78,8 +78,8 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
-    @PUT("names/{language}/{name}/list.json")
-    Call<PlantList> saveName(@Path("language") String language, @Path("name") String name, @Body PlantList list);
+    @PUT("search/{language}/{name}.json")
+    Call<Map<String, Boolean>> saveName(@Path("language") String language, @Path("name") String name, @Body Map<String, Boolean> plants);
 
     @PUT("APG III.json")
     Call<Object> saveAPGIII(@Body Object object);
