@@ -10,11 +10,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.TextView;
 
 import java.util.HashMap;
 
 import sk.ab.herbsbase.AndroidConstants;
-import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.fragments.PlantListFragment;
 
@@ -50,6 +50,8 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
                 return true;
             }
         });
+
+        countText = (TextView) findViewById(R.id.countText);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

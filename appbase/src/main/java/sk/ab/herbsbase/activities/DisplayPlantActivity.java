@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.View;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import java.util.HashMap;
 
@@ -47,6 +48,11 @@ public class DisplayPlantActivity extends BaseActivity {
         countButton = (FloatingActionButton) findViewById(R.id.countButton);
         if (countButton != null) {
             countButton.setVisibility(View.GONE);
+        }
+
+        countText = (TextView) findViewById(R.id.countText);
+        if (countText != null) {
+            countText.setVisibility(View.GONE);
         }
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.plant_drawer_layout);

@@ -3,8 +3,6 @@ package sk.ab.herbsbase.activities;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,8 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
-
-import com.amulyakhare.textdrawable.TextDrawable;
+import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -49,6 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected int count;
 
     public FloatingActionButton countButton;
+    public TextView countText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -144,33 +142,15 @@ public abstract class BaseActivity extends AppCompatActivity {
             startLoading();
         } else {
             if (countButton != null) {
-                TextDrawable countDrawable;
-                int fontSize = countButton.getHeight() / 3;
                 if (count <= Constants.LIST_THRESHOLD && count > 0) {
                     countButton.setBackgroundTintList(ColorStateList.valueOf(
                             ContextCompat.getColor(getApplicationContext(), R.color.FABGreen)));
-
-                    countDrawable = TextDrawable.builder()
-                            .beginConfig()
-                            .useFont(Typeface.DEFAULT)
-                            .textColor(Color.BLACK)
-                            .fontSize(fontSize) /* size in px */
-                            .bold()
-                            .endConfig()
-                            .buildRound("" + count, ContextCompat.getColor(getApplicationContext(), R.color.FABGreen));
                 } else {
                     countButton.setBackgroundTintList(ColorStateList.valueOf(
                             ContextCompat.getColor(getApplicationContext(), R.color.MenuWhite)));
-                    countDrawable = TextDrawable.builder()
-                            .beginConfig()
-                            .useFont(Typeface.DEFAULT)
-                            .textColor(Color.BLACK)
-                            .fontSize(fontSize) /* size in px */
-                            .bold()
-                            .endConfig()
-                            .buildRound("" + count, ContextCompat.getColor(getApplicationContext(), R.color.MenuWhite));
                 }
-                countButton.setImageDrawable(countDrawable);
+                countButton.setImageDrawable(null);
+                countText.setText("" + count);
             }
         }
     }
