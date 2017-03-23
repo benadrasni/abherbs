@@ -14,6 +14,8 @@ import java.util.Map;
 public class AndroidConstants {
     public final static String PACKAGE = "sk.ab.herbs";
 
+    public final static int DEFAULT_CACHE_SIZE = 50;
+
     public final static String EMAIL = "whatsthoseflowers@gmail.com";
     public final static int VERSION_1_2_7 = 36;
     public final static int VERSION_1_3_1 = 42;
@@ -46,6 +48,7 @@ public class AndroidConstants {
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
     public final static String CHANGE_LOCALE_KEY = "change_locale";
     public final static String PROPOSE_TRANSLATION_KEY = "propose_translation";
+    public final static String CACHE_SIZE_KEY = "cache_size";
     public final static String RESET_KEY = "reset";
     public final static String RATE_STATE_KEY = "rate_state";
     public final static String RATE_COUNT_KEY = "rate_count";

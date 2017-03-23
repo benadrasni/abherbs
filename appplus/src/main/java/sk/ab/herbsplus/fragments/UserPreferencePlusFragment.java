@@ -41,6 +41,7 @@ public class UserPreferencePlusFragment extends UserPreferenceFragment {
         Boolean offlineMode = preferences.getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
         prefOfflineMode = (CheckBoxPreference)findPreference("offlineMode");
         prefOfflineMode.setChecked(offlineMode);
+        prefCacheSize.setEnabled(!offlineMode);
 
         prefOfflineMode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 
@@ -55,10 +56,14 @@ public class UserPreferencePlusFragment extends UserPreferenceFragment {
                     editor.apply();
                     StorageLoading storageLoading = new StorageLoading(getActivity(), null);
                     storageLoading.downloadOfflineFiles();
+                    ((BaseApp)getActivity().getApplication()).initImageLoader(getActivity().getApplicationContext(), 0);
                 } else {
                     // delete offline files
                     Utils.deleteRecursive(getActivity().getFilesDir());
+                    Integer cacheSize = preferences.getInt(AndroidConstants.CACHE_SIZE_KEY, AndroidConstants.DEFAULT_CACHE_SIZE);
+                    ((BaseApp)getActivity().getApplication()).initImageLoader(getActivity().getApplicationContext(), cacheSize);
                 }
+                prefCacheSize.setEnabled(!newOfflineMode);
                 return true;
             }
         });

@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -29,6 +30,7 @@ public class UserPreferenceFragment extends PreferenceFragment {
     private CheckBoxPreference prefChangeLocale;
     private ListPreference prefLanguage;
     private CheckBoxPreference prefProposeTranslation;
+    protected EditTextPreference prefCacheSize;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,6 +106,23 @@ public class UserPreferenceFragment extends PreferenceFragment {
                 return true;
             }
         });
+
+        Integer cacheSize = preferences.getInt(AndroidConstants.CACHE_SIZE_KEY, AndroidConstants.DEFAULT_CACHE_SIZE);
+        prefCacheSize = (EditTextPreference)findPreference("cacheSize");
+        prefCacheSize.setText("" + cacheSize);
+        prefCacheSize.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                int cacheSize = Integer.parseInt((String)newValue);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt(AndroidConstants.CACHE_SIZE_KEY, cacheSize);
+                editor.apply();
+
+                ((BaseApp)getActivity().getApplication()).initImageLoader(getActivity().getApplicationContext(), cacheSize);
+
+                return true;
+            }
+        });
     }
 
     protected SharedPreferences getSharedPreferences() {
@@ -131,6 +150,9 @@ public class UserPreferenceFragment extends PreferenceFragment {
 
         prefProposeTranslation.setTitle(resources.getString(R.string.propose_translation));
         prefProposeTranslation.setSummary(resources.getString(R.string.propose_translation_summary));
+
+        prefCacheSize.setTitle(resources.getString(R.string.cache_size));
+        prefCacheSize.setSummary(resources.getString(R.string.cache_size_summary));
     }
 
 }

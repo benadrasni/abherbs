@@ -42,8 +42,6 @@ public abstract class BaseApp extends Application {
 
         sDefSystemLanguage = Locale.getDefault().getLanguage();
 
-        initImageLoader(getApplicationContext());
-
         backStack = new Stack<>();
 
         herbCloudClient = new HerbCloudClient();
@@ -51,12 +49,12 @@ public abstract class BaseApp extends Application {
         googleClient = new GoogleClient();
     }
 
-    public static void initImageLoader(Context context) {
+    public static void initImageLoader(Context context, int cacheSize) {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
                 .threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator())
-                .diskCacheSize(50 * 1024 * 1024) // 50 Mb
+                .diskCacheSize(cacheSize * 1024 * 1024)
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                 .build();
 

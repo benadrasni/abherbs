@@ -42,6 +42,10 @@ public class HerbsApp extends BaseApp {
             plantsRef.keepSynced(true);
             DatabaseReference taxonomyRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_APG_III);
             taxonomyRef.keepSynced(true);
+            initImageLoader(getApplicationContext(), 0);
+        } else {
+            int cacheSize = preferences.getInt(AndroidConstants.CACHE_SIZE_KEY, AndroidConstants.DEFAULT_CACHE_SIZE);
+            initImageLoader(getApplicationContext(), cacheSize);
         }
 
         SharedPreferences.Editor editor = preferences.edit();
