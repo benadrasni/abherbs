@@ -56,6 +56,7 @@ public class AndroidConstants {
     public final static String SHOWCASE_DISPLAY_KEY = "showcase_display";
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";
+    public final static String LANGUAGE_LA = "la";
 
     public final static String ITEM_LEGEND = "Legend";
     public final static String ITEM_SETTINGS = "Settings";

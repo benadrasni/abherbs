@@ -16,8 +16,15 @@
         <!-- <meta-data android:name="com.google.android.gms.analytics.globalConfigResource" -->
         <!-- android:resource="@xml/global_tracker" /> -->
 
-        <activity android:name="sk.ab.herbsplus.activities.SplashActivity"
-            android:theme="@style/SplashScreenTheme">
+        <!--<activity android:name="sk.ab.herbsplus.activities.SplashActivity"-->
+            <!--android:theme="@style/SplashScreenTheme">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+        <activity android:name="sk.ab.herbsplus.activities.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
