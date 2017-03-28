@@ -8,11 +8,19 @@
         android:id="@+id/nameInLanguage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/search_padding"
+        android:paddingTop="@dimen/search_padding"
+        android:paddingRight="@dimen/search_padding"
+        android:paddingBottom="@dimen/search_padding_half"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/namesInLatin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/search_padding"
+        android:paddingTop="@dimen/search_padding_half"
+        android:paddingRight="@dimen/search_padding"
+        android:paddingBottom="@dimen/search_padding"/>
 </LinearLayout>

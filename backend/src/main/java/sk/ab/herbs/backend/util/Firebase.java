@@ -39,7 +39,8 @@ public class Firebase {
 
     private static String GOOGLE_STORAGE_URL = "https://storage.googleapis.com/abherbs";
 
-    private static final List<String> LANGUAGES = new ArrayList<>(Arrays.asList("cs", "da", "de", "es", "fi", "fr", "hr", "hu", "it", "ja", "la", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"));
+//    private static final List<String> LANGUAGES = new ArrayList<>(Arrays.asList("cs", "da", "de", "en", "es", "fi", "fr", "hr", "hu", "it", "ja", "la", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"));
+    private static final List<String> LANGUAGES = new ArrayList<>(Arrays.asList("en"));
 
     private static final String[] COLORS = {"white", "yellow", "red", "blue", "green"};
     private static final String[] HABITATS = {"meadows or grassland", "gardens or fields", "moorlands or wetlands", "woodlands or forests", "rocks or mountains", "trees or bushes"};
@@ -215,6 +216,9 @@ public class Firebase {
                 // synonyms
                 for (String synonym : plant.getSynonyms()) {
                     String language = "la";
+                    if (!LANGUAGES.contains(language)) {
+                        continue;
+                    }
 
                     Map<String, Map<String, Boolean>> namesInLanguage = names.get(language);
                     if (namesInLanguage == null) {
