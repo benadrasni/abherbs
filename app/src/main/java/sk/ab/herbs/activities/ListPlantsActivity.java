@@ -59,11 +59,6 @@ public class ListPlantsActivity extends ListPlantsBaseActivity {
     }
 
     @Override
-    public String getFilterString() {
-        return Utils.getFilterKey(filter, SpecificConstants.FILTER_ATTRIBUTES);
-    }
-
-    @Override
     protected SharedPreferences getSharedPreferences() {
         return getSharedPreferences(AndroidConstants.PACKAGE, Context.MODE_PRIVATE);
     }

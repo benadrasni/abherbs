@@ -183,89 +183,89 @@ public class Firebase {
                 Call<Plant> callCloudPlant = herbCloudClient.getApiService().getDetail(plantLine[0]);
                 Plant plant = callCloudPlant.execute().body();
 
-                plant.setIllustrationUrl(plant.getIllustrationUrl().substring(38));
+                plant.setIllustrationUrl(plant.getIllustrationUrl().substring(plant.getIllustrationUrl().indexOf("abherbs")+8));
                 for (int i = 0; i < plant.getPhotoUrls().size(); i++) {
-                    plant.getPhotoUrls().set(i, plant.getPhotoUrls().get(i).substring(38));
+                    plant.getPhotoUrls().set(i, plant.getPhotoUrls().get(i).substring(plant.getPhotoUrls().get(i).indexOf("abherbs")+8));
                 }
 
-//                Call<Plant> callFirebase = firebaseClient.getApiService().savePlant(plantLine[0], plant);
-//                callFirebase.execute().body();
+                Call<Plant> callFirebase = firebaseClient.getApiService().savePlant(plantLine[0], plant);
+                callFirebase.execute().body();
 
-                Call<PlantHeader> callCloudPlantHeader = herbCloudClient.getApiService().getHeader(plantLine[0]);
-                PlantHeader plantHeader = callCloudPlantHeader.execute().body();
+//                Call<PlantHeader> callCloudPlantHeader = herbCloudClient.getApiService().getHeader(plantLine[0]);
+//                PlantHeader plantHeader = callCloudPlantHeader.execute().body();
 
 //                updateTaxonomy(herbCloudClient, apgiii, plant.getTaxonomy(), plantHeader);
 
                 //labels
-                for (Map.Entry<String, String> entry : plant.getLabel().entrySet()) {
-                    String language = entry.getKey();
-                    if (!LANGUAGES.contains(language)) {
-                        continue;
-                    }
-                    String plantNameInLanguage = entry.getValue();
+//                for (Map.Entry<String, String> entry : plant.getLabel().entrySet()) {
+//                String language = entry.getKey();
+//                if (!LANGUAGES.contains(language)) {
+//                    continue;
+//                }
+//                String plantNameInLanguage = entry.getValue();
+//
+//                Map<String, Map<String, Boolean>> namesInLanguage = names.get(language);
+//                if (namesInLanguage == null) {
+//                    namesInLanguage = new HashMap<>();
+//                    names.put(language, namesInLanguage);
+//                }
+//
+//                processName(namesInLanguage, plantHeader, plantNameInLanguage);
+//            }
 
-                    Map<String, Map<String, Boolean>> namesInLanguage = names.get(language);
-                    if (namesInLanguage == null) {
-                        namesInLanguage = new HashMap<>();
-                        names.put(language, namesInLanguage);
-                    }
+            // synonyms
+//            for (String synonym : plant.getSynonyms()) {
+//                String language = "la";
+//                if (!LANGUAGES.contains(language)) {
+//                    continue;
+//                }
+//
+//                Map<String, Map<String, Boolean>> namesInLanguage = names.get(language);
+//                if (namesInLanguage == null) {
+//                    namesInLanguage = new HashMap<>();
+//                    names.put(language, namesInLanguage);
+//                }
+//
+//                processName(namesInLanguage, plantHeader, synonym);
+//            }
 
-                    processName(namesInLanguage, plantHeader, plantNameInLanguage);
-                }
+            // aliases
+//            for (Map.Entry<String, ArrayList<String>> entry : plant.getNames().entrySet()) {
+//                String language = entry.getKey();
+//                if (!LANGUAGES.contains(language)) {
+//                    continue;
+//                }
+//                ArrayList<String> plantNamesInLanguage = entry.getValue();
+//
+//                Map<String, Map<String, Boolean>> namesInLanguage = names.get(language);
+//                if (namesInLanguage == null) {
+//                    namesInLanguage = new HashMap<>();
+//                    names.put(language, namesInLanguage);
+//                }
+//
+//                for (String realName : plantNamesInLanguage) {
+//                    processName(namesInLanguage, plantHeader, realName);
+//                }
+//            }
+        }
 
-                // synonyms
-                for (String synonym : plant.getSynonyms()) {
-                    String language = "la";
-                    if (!LANGUAGES.contains(language)) {
-                        continue;
-                    }
-
-                    Map<String, Map<String, Boolean>> namesInLanguage = names.get(language);
-                    if (namesInLanguage == null) {
-                        namesInLanguage = new HashMap<>();
-                        names.put(language, namesInLanguage);
-                    }
-
-                    processName(namesInLanguage, plantHeader, synonym);
-                }
-
-                // aliases
-                for (Map.Entry<String, ArrayList<String>> entry : plant.getNames().entrySet()) {
-                    String language = entry.getKey();
-                    if (!LANGUAGES.contains(language)) {
-                        continue;
-                    }
-                    ArrayList<String> plantNamesInLanguage = entry.getValue();
-
-                    Map<String, Map<String, Boolean>> namesInLanguage = names.get(language);
-                    if (namesInLanguage == null) {
-                        namesInLanguage = new HashMap<>();
-                        names.put(language, namesInLanguage);
-                    }
-
-                    for (String realName : plantNamesInLanguage) {
-                        processName(namesInLanguage, plantHeader, realName);
-                    }
-                }
-            }
-
-            for (Map.Entry<String, Map<String, Map<String, Boolean>>> entry : names.entrySet()) {
-                String language = entry.getKey();
-                Map<String, Map<String, Boolean>> singleName = entry.getValue();
-
-                System.out.println("Language: " + language);
-
-                for (Map.Entry<String, Map<String, Boolean>> entryName : singleName.entrySet()) {
-                    String name = entryName.getKey();
-                    Map<String, Boolean> plantList = entryName.getValue();
-
-                    System.out.println("Name: " + name);
-
-                    // name
-                    Call<Map<String, Boolean>> callFirebaseList = firebaseClient.getApiService().saveName(language, name, plantList);
-                    callFirebaseList.execute().body();
-                }
-            }
+//        for (Map.Entry<String, Map<String, Map<String, Boolean>>> entry : names.entrySet()) {
+//            String language = entry.getKey();
+//            Map<String, Map<String, Boolean>> singleName = entry.getValue();
+//
+//            System.out.println("Language: " + language);
+//
+//            for (Map.Entry<String, Map<String, Boolean>> entryName : singleName.entrySet()) {
+//                String name = entryName.getKey();
+//                Map<String, Boolean> plantList = entryName.getValue();
+//
+//                System.out.println("Name: " + name);
+//
+//                // name
+//                Call<Map<String, Boolean>> callFirebaseList = firebaseClient.getApiService().saveName(language, name, plantList);
+//                callFirebaseList.execute().body();
+//            }
+//        }
 
 //            Call<Object> callFirebaseCount = firebaseClient.getApiService().saveAPGIII(apgiii);
 //            callFirebaseCount.execute().body();

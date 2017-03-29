@@ -52,6 +52,8 @@ public class FilterPlantsActivity extends FilterPlantsBaseActivity {
         Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
         intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
         intent.putExtra(AndroidConstants.STATE_FILTER, filter);
+        intent.putExtra(AndroidConstants.STATE_LIST_PATH, AndroidConstants.FIREBASE_LISTS + AndroidConstants.FIREBASE_SEPARATOR
+                + Utils.getFilterKey(filter, SpecificConstants.FILTER_ATTRIBUTES));
         startActivity(intent);
         stopLoading();
         setCountButton();

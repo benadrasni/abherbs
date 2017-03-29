@@ -24,6 +24,8 @@ import sk.ab.herbsbase.fragments.PlantListFragment;
  */
 public abstract class ListPlantsBaseActivity extends BaseActivity {
 
+    protected String listPath;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +33,11 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
         if (savedInstanceState != null) {
             count = savedInstanceState.getInt(AndroidConstants.STATE_PLANT_LIST_COUNT);
             filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
+            listPath = savedInstanceState.getString(AndroidConstants.STATE_LIST_PATH);
         } else {
             count = getIntent().getExtras().getInt(AndroidConstants.STATE_PLANT_LIST_COUNT);
             filter = (HashMap<String, String>)getIntent().getExtras().getSerializable(AndroidConstants.STATE_FILTER);
+            listPath = getIntent().getStringExtra(AndroidConstants.STATE_LIST_PATH);
         }
 
         setContentView(R.layout.list_activity);
@@ -108,11 +112,14 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putInt(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
         savedInstanceState.putSerializable(AndroidConstants.STATE_FILTER, filter);
+        savedInstanceState.putString(AndroidConstants.STATE_LIST_PATH, listPath);
 
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    public abstract String getFilterString();
+    public String getListPath() {
+        return listPath;
+    };
 
     public abstract void selectPlant(String plantName);
 }

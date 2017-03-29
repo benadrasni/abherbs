@@ -121,15 +121,18 @@ public class PropertyListFragment extends ListFragment {
                         }
                         TextView value = (TextView) convertView.findViewById(R.id.row_value);
                         if (value != null) {
-                            String valueId = ((BaseActivity) getActivity()).getFilter().get(filterFragment.getAttribute());
-                            if (valueId != null) {
-                                int resId = AndroidConstants.getValueResource(getResources(), valueId);
-                                if (resId > 0) {
-                                    value.setText(getResources().getText(resId));
+                            String valueText = "";
+                            if (((BaseActivity) getActivity()).getFilter() != null){
+                                String valueId = ((BaseActivity) getActivity()).getFilter().get(filterFragment.getAttribute());
+                                if (valueId != null) {
+                                    int resId = AndroidConstants.getValueResource(getResources(), valueId);
+                                    if (resId > 0) {
+                                        valueText = getResources().getText(resId).toString();
+                                    }
                                 }
-                            } else {
-                                value.setText("");
                             }
+
+                            value.setText(valueText);
                         }
                         break;
                     case PropertyItem.TYPE_DIVIDER:

@@ -1,14 +1,17 @@
 package sk.ab.herbsplus.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -16,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.util.Locale;
+import java.util.Map;
 
 import sk.ab.common.entity.PlantNameList;
 import sk.ab.herbsbase.AndroidConstants;
@@ -87,22 +91,46 @@ public class SearchActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 Query queryInLanguage = searchInLanguageRef.orderByKey().startAt(newText).endAt(newText + "\uf8ff");
 
-                FirebaseRecyclerAdapter<PlantNameList, NameViewHolder> mAdapterInLanguage = new FirebaseRecyclerAdapter<PlantNameList, NameViewHolder>(PlantNameList.class, R.layout.search_row, NameViewHolder.class, queryInLanguage) {
+                FirebaseRecyclerAdapter<Object, NameViewHolder> mAdapterInLanguage = new FirebaseRecyclerAdapter<Object, NameViewHolder>(Object.class, R.layout.search_row, NameViewHolder.class, queryInLanguage) {
                     @Override
-                    public void populateViewHolder(NameViewHolder nameViewHolder, PlantNameList names, int position) {
-                        String key = this.getRef(position).getKey();
+                    public void populateViewHolder(NameViewHolder nameViewHolder, Object names, int position) {
+                        final String key = this.getRef(position).getKey();
+                        if (!(names instanceof Map)) {
+                            Log.w("WRONG SEARCH KEY", key);
+                            return;
+                        }
+                        final int size = ((Map<String, Boolean>)names).size();
                         nameViewHolder.getName().setText(key);
+                        nameViewHolder.getName().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                callListActivity(SpecificConstants.FIREBASE_SEARCH + AndroidConstants.FIREBASE_SEPARATOR
+                                        + Locale.getDefault().getLanguage() + AndroidConstants.FIREBASE_SEPARATOR + key, size);
+                            }
+                        });
                     }
                 };
                 namesInLanguage.swapAdapter(mAdapterInLanguage, true);
 
                 Query queryInLatin = searchInLatinRef.orderByKey().startAt(newText).endAt(newText + "\uf8ff");
 
-                FirebaseRecyclerAdapter<PlantNameList, NameViewHolder> mAdapterInLatin = new FirebaseRecyclerAdapter<PlantNameList, NameViewHolder>(PlantNameList.class, R.layout.search_row, NameViewHolder.class, queryInLatin) {
+                FirebaseRecyclerAdapter<Object, NameViewHolder> mAdapterInLatin = new FirebaseRecyclerAdapter<Object, NameViewHolder>(Object.class, R.layout.search_row, NameViewHolder.class, queryInLatin) {
                     @Override
-                    public void populateViewHolder(NameViewHolder nameViewHolder, PlantNameList names, int position) {
-                        String key = this.getRef(position).getKey();
+                    public void populateViewHolder(NameViewHolder nameViewHolder, Object names, int position) {
+                        final String key = this.getRef(position).getKey();
+                        if (!(names instanceof Map)) {
+                            Log.w("WRONG SEARCH KEY", key);
+                            return;
+                        }
+                        final int size = ((Map<String, Boolean>)names).size();
                         nameViewHolder.getName().setText(key);
+                        nameViewHolder.getName().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                callListActivity(SpecificConstants.FIREBASE_SEARCH + AndroidConstants.FIREBASE_SEPARATOR
+                                        + AndroidConstants.LANGUAGE_LA + AndroidConstants.FIREBASE_SEPARATOR + key, size);
+                            }
+                        });
                     }
                 };
                 namesInLatin.swapAdapter(mAdapterInLatin, true);
@@ -112,5 +140,12 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void callListActivity(String listPath, int count) {
+        Intent intent = new Intent(getBaseContext(), ListPlantsPlusActivity.class);
+        intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
+        intent.putExtra(AndroidConstants.STATE_LIST_PATH, listPath);
+        startActivity(intent);
     }
 }

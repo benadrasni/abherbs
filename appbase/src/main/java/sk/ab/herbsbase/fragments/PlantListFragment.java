@@ -110,8 +110,7 @@ public class PlantListFragment extends Fragment {
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference plantsRef = database.getReference(AndroidConstants.FIREBASE_PLANTS);
-            DatabaseReference listRef = database.getReference(AndroidConstants.FIREBASE_LISTS + AndroidConstants.FIREBASE_SEPARATOR
-                    + ((ListPlantsBaseActivity)getActivity()).getFilterString());
+            DatabaseReference listRef = database.getReference(((ListPlantsBaseActivity)getActivity()).getListPath());
 
             PropertyAdapter adapter = new PropertyAdapter(Plant.class, R.layout.plant_row, PlantViewHolder.class, listRef, plantsRef);
             list.setAdapter(adapter);
