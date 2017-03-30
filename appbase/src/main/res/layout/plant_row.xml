@@ -27,7 +27,7 @@
                 android:layout_weight="1"
                 android:gravity="start"
                 android:paddingStart="@dimen/list_item_padding_left"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textAppearance="@android:style/TextAppearance.Small"
                 android:background="@drawable/left_border"/>
             <TextView
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:paddingEnd="@dimen/list_item_padding_right"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textAppearance="@android:style/TextAppearance.Small"
                 android:textStyle="italic"
                 android:background="@drawable/right_border"/>

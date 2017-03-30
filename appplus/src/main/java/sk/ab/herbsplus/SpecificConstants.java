@@ -16,6 +16,7 @@ public class SpecificConstants {
     public final static String OFFLINE_MODE_KEY = "offline_mode";
 
     public final static String FIREBASE_SEARCH = "search";
+    public final static String STATE_SEARCH_TEXT = "search_text";
 
     public static final String[] FILTER_ATTRIBUTES = {Constants.COLOR_OF_FLOWERS, Constants.HABITAT, Constants.NUMBER_OF_PETALS};
 }
