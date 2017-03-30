@@ -34,6 +34,7 @@ public class PlantListFragment extends Fragment {
     static final String STATE_POSITION = "list_position";
 
     private int list_position;
+    private PropertyAdapter adapter;
 
     private class PropertyAdapter extends FirebaseIndexRecyclerAdapter<Plant, PlantViewHolder> {
 
@@ -112,7 +113,7 @@ public class PlantListFragment extends Fragment {
             DatabaseReference plantsRef = database.getReference(AndroidConstants.FIREBASE_PLANTS);
             DatabaseReference listRef = database.getReference(((ListPlantsBaseActivity)getActivity()).getListPath());
 
-            PropertyAdapter adapter = new PropertyAdapter(Plant.class, R.layout.plant_row, PlantViewHolder.class, listRef, plantsRef);
+            adapter = new PropertyAdapter(Plant.class, R.layout.plant_row, PlantViewHolder.class, listRef, plantsRef);
             list.setAdapter(adapter);
         }
     }
@@ -126,6 +127,12 @@ public class PlantListFragment extends Fragment {
         }
 
         super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        adapter.cleanup();
     }
 
     private String getName(HashMap<String, String> names) {

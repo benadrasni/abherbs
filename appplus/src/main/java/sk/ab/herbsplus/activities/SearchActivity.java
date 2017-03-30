@@ -159,6 +159,7 @@ public class SearchActivity extends AppCompatActivity {
                             });
                         }
                     };
+                    ((FirebaseRecyclerAdapter)namesInLanguage.getAdapter()).cleanup();
                     namesInLanguage.swapAdapter(mAdapterInLanguage, true);
 
                     Query queryInLatin = searchInLatinRef.orderByKey().startAt(newText).endAt(newText + "\uf8ff");
@@ -188,6 +189,7 @@ public class SearchActivity extends AppCompatActivity {
                             });
                         }
                     };
+                    ((FirebaseRecyclerAdapter)namesInLatin.getAdapter()).cleanup();
                     namesInLatin.swapAdapter(mAdapterInLatin, true);
                 }
 
@@ -196,6 +198,13 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((FirebaseRecyclerAdapter)namesInLanguage.getAdapter()).cleanup();
+        ((FirebaseRecyclerAdapter)namesInLatin.getAdapter()).cleanup();
     }
 
     private void callListActivity(String listPath, int count) {
