@@ -77,11 +77,10 @@
         android:layout_gravity="start"
         android:choiceMode="singleChoice">
 
-        <fragment
-            android:id="@+id/menu_fragment"
-            android:name="sk.ab.herbsbase.commons.PropertyListFragment"
+        <FrameLayout
+            android:id="@+id/menu_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout="@layout/property_list"/>
+            android:layout_height="match_parent"/>
+
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>
