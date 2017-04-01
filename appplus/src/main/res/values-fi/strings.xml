@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Mikä kukka tämä on? +</string>
+
+    <string name="synchronizing">Synkronointi …</string>
+
+    <string name="offline_mode">Offline-tila</string>
+    <string name="offline_mode_summary">vaatii 250+ Mt lisätilaa</string>
+
+    <string name="search">Hae</string>
 </resources>

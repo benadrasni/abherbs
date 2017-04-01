@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Co to tu kvete? +</string>
+
+    <string name="synchronizing">Synchronizuji …</string>
+
+    <string name="offline_mode">Offline režim</string>
+    <string name="offline_mode_summary">vyžadují 250 + MB dalšího místa</string>
+
+    <string name="search">Hledej</string>
 </resources>

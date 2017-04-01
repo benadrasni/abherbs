@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Que flor é esta? +</string>
+
+    <string name="synchronizing">Sincronização …</string>
+
+    <string name="offline_mode">Modo offline</string>
+    <string name="offline_mode_summary">requer mais de 250+ MB de espaço adicional</string>
+
+    <string name="search">Pesquisa</string>
 </resources>

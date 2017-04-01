@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">この花は何ですか？ +</string>
+
+    <string name="synchronizing">同期 …</string>
+
+    <string name="offline_mode">オフラインモード</string>
+    <string name="offline_mode_summary">250 MB以上の追加容量が必要</string>
+
+    <string name="search">サーチ</string>
 </resources>

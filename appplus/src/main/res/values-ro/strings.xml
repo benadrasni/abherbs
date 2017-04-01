@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ce este acea floare? +</string>
+
+    <string name="synchronizing">Sincronizarea …</string>
+
+    <string name="offline_mode">Modul offline</string>
+    <string name="offline_mode_summary">necesită 250+ MB spațiu suplimentar</string>
+
+    <string name="search">Căutare</string>
 </resources>

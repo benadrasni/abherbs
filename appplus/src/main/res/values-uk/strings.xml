@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Що це за квітка? +</string>
+
+    <string name="synchronizing">Синхронизирующий …</string>
+
+    <string name="offline_mode">Автономний режим</string>
+    <string name="offline_mode_summary">вимагає 250+ MB додаткового простору</string>
+
+    <string name="search">Пошук</string>
 </resources>

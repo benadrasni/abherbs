@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Шта је ово цвет? +</string>
+
+    <string name="synchronizing">Усклађивање …</string>
+
+    <string name="offline_mode">Оффлине режим</string>
+    <string name="offline_mode_summary">захтева 250+ МБ додатни простор</string>
+
+    <string name="search">Претрага</string>
 </resources>

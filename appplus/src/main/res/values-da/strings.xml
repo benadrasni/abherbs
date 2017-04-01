@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Hvad er denne blomst? +</string>
+
+    <string name="synchronizing">Synkroniserings …</string>
+
+    <string name="offline_mode">Offlinetilstand</string>
+    <string name="offline_mode_summary">kræver 250+ MB ekstra plads</string>
+
+    <string name="search">Søg</string>
 </resources>

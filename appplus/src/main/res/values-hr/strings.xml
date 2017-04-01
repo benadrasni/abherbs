@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Što je ovo cvijet? +</string>
+
+    <string name="synchronizing">Sinkronizacija …</string>
+
+    <string name="offline_mode">Offline način rada</string>
+    <string name="offline_mode_summary">treba 250+ MB dodatnog prostora</string>
+
+    <string name="search">Pretraživanje</string>
 </resources>

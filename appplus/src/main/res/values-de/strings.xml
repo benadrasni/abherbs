@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Was blüht denn da? +</string>
+
+    <string name="synchronizing">Synchronisieren …</string>
+
+    <string name="offline_mode">Offline-Modus</string>
+    <string name="offline_mode_summary">Benötigt 250+ MB zusätzlichen Platz</string>
+
+    <string name="search">Suche</string>
 </resources>

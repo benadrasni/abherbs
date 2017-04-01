@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Wat is deze bloem? +</string>
+
+    <string name="synchronizing">Synchroniseren …</string>
+
+    <string name="offline_mode">Offline modus</string>
+    <string name="offline_mode_summary">vereist meer dan 250+ MB extra ruimte</string>
+
+    <string name="search">Zoeken</string>
 </resources>

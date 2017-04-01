@@ -5,4 +5,6 @@
 
     <string name="offline_mode">Offline mode</string>
     <string name="offline_mode_summary">requires 250+ MB additional space</string>
+
+    <string name="search">Search</string>
 </resources>

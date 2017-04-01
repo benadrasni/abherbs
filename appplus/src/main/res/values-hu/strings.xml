@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Miféle virág is ez? +</string>
+
+    <string name="synchronizing">Szinkronizálás …</string>
+
+    <string name="offline_mode">Offline módban</string>
+    <string name="offline_mode_summary">szüksége 250+ MB további helyet</string>
+
+    <string name="search">Keresés</string>
 </resources>
