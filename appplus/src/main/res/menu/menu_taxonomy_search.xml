@@ -3,12 +3,7 @@
       xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_taxonomy"
-        android:title="APG III"
-        android:icon="@android:drawable/ic_menu_agenda"
-        app:showAsAction="always"/>
-    <item
-        android:id="@+id/menu_search"
+        android:id="@+id/menu_taxonomy_search"
         android:title="Search"
         android:icon="@android:drawable/ic_menu_search"
         app:actionViewClass="android.support.v7.widget.SearchView"

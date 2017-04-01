@@ -45,6 +45,9 @@ public class AndroidConstants {
     public final static String DEFAULT_EXTENSION = ".webp";
 
     public final static String RES_TAXONOMY_PREFIX = "taxonomy_";
+    public final static String ROOT_TAXON = "Eukaryota";
+    public final static String TAXON_ORDO = "Ordo";
+    public final static String TAXON_FAMILIA = "Familia";
 
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
     public final static String CHANGE_LOCALE_KEY = "change_locale";
@@ -74,6 +77,8 @@ public class AndroidConstants {
 
     public final static String FIREBASE_APGIII_TYPE = "type";
     public final static String FIREBASE_APGIII_NAMES = "names";
+    public final static String FIREBASE_APGIII_LIST = "list";
+    public final static String FIREBASE_APGIII_COUNT = "count";
 
     public static int getValueResource(Resources resources, String value) {
         int result = 0;

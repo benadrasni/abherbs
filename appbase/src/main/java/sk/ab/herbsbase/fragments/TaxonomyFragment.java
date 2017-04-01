@@ -48,9 +48,6 @@ import sk.ab.herbsbase.tools.Utils;
  */
 public class TaxonomyFragment extends Fragment {
 
-    private static String TAXON_ORDO = "Ordo";
-    private static String TAXON_FAMILIA = "Familia";
-
     private ImageView toxicityClass1;
     private ImageView toxicityClass2;
 
@@ -191,7 +188,7 @@ public class TaxonomyFragment extends Fragment {
                         textLatinName.setVisibility(View.GONE);
                     }
 
-                    if (taxon.getType().equals(TAXON_ORDO) || taxon.getType().equals(TAXON_FAMILIA)) {
+                    if (AndroidConstants.TAXON_ORDO.equals(taxon.getType()) || AndroidConstants.TAXON_FAMILIA.equals(taxon.getType())) {
                         textName.setTypeface(Typeface.DEFAULT_BOLD);
                     }
 

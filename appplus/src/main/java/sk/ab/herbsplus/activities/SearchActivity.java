@@ -94,6 +94,10 @@ public class SearchActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 break;
+            case R.id.menu_taxonomy:
+                Intent intent = new Intent(this, TaxonomyActivity.class);
+                startActivity(intent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -158,7 +162,9 @@ public class SearchActivity extends AppCompatActivity {
                             });
                         }
                     };
-                    ((FirebaseRecyclerAdapter)namesInLanguage.getAdapter()).cleanup();
+                    if (namesInLanguage.getAdapter() != null) {
+                        ((FirebaseRecyclerAdapter) namesInLanguage.getAdapter()).cleanup();
+                    }
                     namesInLanguage.swapAdapter(mAdapterInLanguage, true);
 
                     Query queryInLatin = searchInLatinRef.orderByKey().startAt(newText).endAt(newText + "\uf8ff");
@@ -188,7 +194,9 @@ public class SearchActivity extends AppCompatActivity {
                             });
                         }
                     };
-                    ((FirebaseRecyclerAdapter)namesInLatin.getAdapter()).cleanup();
+                    if (namesInLatin.getAdapter() != null) {
+                        ((FirebaseRecyclerAdapter) namesInLatin.getAdapter()).cleanup();
+                    }
                     namesInLatin.swapAdapter(mAdapterInLatin, true);
                 }
 
@@ -202,8 +210,12 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ((FirebaseRecyclerAdapter)namesInLanguage.getAdapter()).cleanup();
-        ((FirebaseRecyclerAdapter)namesInLatin.getAdapter()).cleanup();
+        if (namesInLanguage.getAdapter() != null) {
+            ((FirebaseRecyclerAdapter) namesInLanguage.getAdapter()).cleanup();
+        }
+        if (namesInLatin.getAdapter() != null) {
+            ((FirebaseRecyclerAdapter) namesInLatin.getAdapter()).cleanup();
+        }
     }
 
     private void callListActivity(String listPath, int count) {
