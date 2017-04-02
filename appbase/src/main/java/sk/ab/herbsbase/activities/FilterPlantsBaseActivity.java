@@ -150,8 +150,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
                     BaseFilterFragment fragment = backStack.pop();
                     FragmentManager fm = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                    fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttribute());
-                    fragmentTransaction.commit();
+                    fragmentTransaction.remove(currentFragment).replace(R.id.filter_content, fragment, "" + fragment.getAttribute()).commit();
                     setCurrentFragment(fragment);
                     removeFromFilter(fragment.getAttribute());
                 } else {
