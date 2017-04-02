@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -113,6 +114,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (countButton != null) {
             countButton.setEnabled(false);
             countButton.setImageDrawable(loadingAnimation);
+            countText.setVisibility(View.INVISIBLE);
             loadingAnimation.start();
         }
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -123,6 +125,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         ((BaseApp)getApplication()).setLoading(false);
         if (countButton != null) {
             countButton.setEnabled(true);
+            countText.setVisibility(View.VISIBLE);
         }
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
