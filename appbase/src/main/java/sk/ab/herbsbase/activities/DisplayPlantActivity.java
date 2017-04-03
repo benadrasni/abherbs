@@ -112,7 +112,7 @@ public class DisplayPlantActivity extends BaseActivity {
     }
 
     @Override
-    protected SharedPreferences getSharedPreferences() {
+    public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(AndroidConstants.PACKAGE, Context.MODE_PRIVATE);
     }
 

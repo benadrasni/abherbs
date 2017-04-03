@@ -4,12 +4,15 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ import sk.ab.common.Constants;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.commons.BaseFilterFragment;
+import sk.ab.herbsbase.commons.RateDialogFragment;
 
 /**
  * Main activity which handles all filter fragments.
@@ -37,6 +41,8 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         setTheme(R.style.Theme_Application);
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.filter_activity);
+
         filter = new HashMap<>();
         if (savedInstanceState != null) {
             filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
@@ -51,8 +57,6 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
                 filter.clear();
             }
         }
-
-        setContentView(R.layout.filter_activity);
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);
         countButton.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +110,37 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
 
         startLoading();
         getCount();
+
+        SharedPreferences preferences = getSharedPreferences();
+        int rateState = preferences.getInt(Constants.RATE_STATE_KEY, AndroidConstants.RATE_NO);
+
+        if (rateState == AndroidConstants.RATE_SHOW) {
+            final LinearLayout rateLayout = (LinearLayout)findViewById(R.id.ratingQuestion);
+            rateLayout.setVisibility(View.VISIBLE);
+
+            Button bYes = (Button)findViewById(R.id.likeYes);
+            bYes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DialogFragment dialog = new RateDialogFragment();
+                    dialog.show(getSupportFragmentManager(), "RateDialogFragment");
+                    rateLayout.setVisibility(View.GONE);
+                }
+            });
+            Button bNo = (Button)findViewById(R.id.likeNo);
+            bNo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SharedPreferences preferences = getSharedPreferences();
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putInt(Constants.RATE_STATE_KEY, AndroidConstants.RATE_NO);
+                    editor.putInt(Constants.RATE_COUNT_KEY, AndroidConstants.RATE_COUNTER);
+                    editor.apply();
+
+                    rateLayout.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 
     @Override

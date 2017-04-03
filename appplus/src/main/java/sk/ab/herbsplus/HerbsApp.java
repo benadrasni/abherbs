@@ -49,13 +49,13 @@ public class HerbsApp extends BaseApp {
 
         SharedPreferences.Editor editor = preferences.edit();
 
-        int rateCounter = preferences.getInt(sk.ab.herbsbase.AndroidConstants.RATE_COUNT_KEY, sk.ab.herbsbase.AndroidConstants.RATE_COUNTER);
+        int rateCounter = preferences.getInt(AndroidConstants.RATE_COUNT_KEY, AndroidConstants.RATE_COUNTER);
         rateCounter--;
-        editor.putInt(sk.ab.herbsbase.AndroidConstants.RATE_COUNT_KEY, rateCounter);
+        editor.putInt(AndroidConstants.RATE_COUNT_KEY, rateCounter);
 
-        int rateState = preferences.getInt(sk.ab.herbsbase.AndroidConstants.RATE_STATE_KEY, sk.ab.herbsbase.AndroidConstants.RATE_NO);
-        if (rateCounter <= 0 && rateState == sk.ab.herbsbase.AndroidConstants.RATE_NO) {
-            editor.putInt(sk.ab.herbsbase.AndroidConstants.RATE_STATE_KEY, sk.ab.herbsbase.AndroidConstants.RATE_SHOW);
+        int rateState = preferences.getInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_NO);
+        if (rateCounter <= 0 && rateState == AndroidConstants.RATE_NO) {
+            editor.putInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_SHOW);
         }
 
         editor.putBoolean(sk.ab.herbsbase.AndroidConstants.RESET_KEY + BuildConfig.VERSION_CODE, true);

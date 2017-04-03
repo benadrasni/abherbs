@@ -60,39 +60,4 @@
             android:scaleType="centerCrop"
             android:src="@drawable/color_of_flowers"/>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:background="@drawable/left_border"
-        android:orientation="horizontal"
-        android:paddingBottom="20dp"
-        android:paddingTop="20dp">
-
-        <Button
-            android:id="@+id/btnNever"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/rate_never"
-            android:textAllCaps="false"/>
-
-        <Button
-            android:id="@+id/btnLater"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/rate_later"
-            android:textAllCaps="false"/>
-
-        <Button
-            android:id="@+id/btnRate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/rate"
-            android:singleLine="true"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:textAllCaps="false"/>
-
-    </LinearLayout>
-
 </LinearLayout>
