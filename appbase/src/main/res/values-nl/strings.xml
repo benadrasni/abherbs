@@ -9,6 +9,8 @@
     <string name="change_locale_summary">to preferred language</string>
     <string name="propose_translation">Do not show button</string>
     <string name="propose_translation_summary">for emailing better translation / description</string>
+    <string name="cache_size">Cache size in MB</string>
+    <string name="cache_size_summary">for photos and illustrations</string>
 
     <string name="color_of_flower">kleur van de bloemen</string>
     <string name="color_white">wit</string>

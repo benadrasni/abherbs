@@ -91,7 +91,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
     }
 
     @Override
-    protected SharedPreferences getSharedPreferences() {
+    public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
 }

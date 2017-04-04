@@ -9,6 +9,8 @@
     <string name="change_locale_summary">um die bevorzugte Sprache</string>
     <string name="propose_translation">Nicht mehr anzeigen Taste</string>
     <string name="propose_translation_summary">für eine bessere Übersetzung / Beschreibung per E-Mail.</string>
+    <string name="cache_size">Cache size in MB</string>
+    <string name="cache_size_summary">for photos and illustrations</string>
 
     <string name="color_of_flower">Blütenfarbe</string>
     <string name="color_white">Weiß</string>

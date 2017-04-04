@@ -59,7 +59,7 @@ public class ListPlantsPlusActivity extends ListPlantsBaseActivity {
     }
 
     @Override
-    protected SharedPreferences getSharedPreferences() {
+    public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
 }

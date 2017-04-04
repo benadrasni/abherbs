@@ -9,6 +9,8 @@
     <string name="change_locale_summary">segundo a língua preferida</string>
     <string name="propose_translation">Ocultar o botão</string>
     <string name="propose_translation_summary">Para enviar uma melhor tradução/descrição</string>
+    <string name="cache_size">Cache size in MB</string>
+    <string name="cache_size_summary">for photos and illustrations</string>
 
     <string name="color_of_flower">cor das flores</string>
     <string name="color_white">branca</string>

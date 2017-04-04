@@ -9,6 +9,8 @@
     <string name="change_locale_summary">a kedvenc nyelvre</string>
     <string name="propose_translation">Kapcsológombok letiltása</string>
     <string name="propose_translation_summary">pontosabb fordítás / leírásra küldése emailen</string>
+    <string name="cache_size">Cache size in MB</string>
+    <string name="cache_size_summary">for photos and illustrations</string>
 
     <string name="color_of_flower">a virágok színe</string>
     <string name="color_white">fehér</string>

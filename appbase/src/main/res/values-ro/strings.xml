@@ -9,6 +9,8 @@
     <string name="change_locale_summary">limba preferată</string>
     <string name="propose_translation">Nu arăta butonul</string>
     <string name="propose_translation_summary">pentru a trimite via email o traducere/descriere mai bună</string>
+    <string name="cache_size">Cache size in MB</string>
+    <string name="cache_size_summary">for photos and illustrations</string>
 
     <string name="color_of_flower">culoarea florilor</string>
     <string name="color_white">alb</string>
