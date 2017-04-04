@@ -1,6 +1,5 @@
 package sk.ab.common.service;
 
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -8,17 +7,12 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
-import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 import sk.ab.common.entity.Count;
 import sk.ab.common.entity.Plant;
 import sk.ab.common.entity.PlantList;
-import sk.ab.common.entity.Rate;
-import sk.ab.common.entity.Taxonomy;
-import sk.ab.common.entity.Translation;
-import sk.ab.common.entity.request.ListRequest;
+
 
 /**
  * Datastore service

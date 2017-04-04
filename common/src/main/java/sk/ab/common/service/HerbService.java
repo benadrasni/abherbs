@@ -8,7 +8,6 @@ import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import sk.ab.common.entity.request.DetailRequest;
-import sk.ab.common.entity.request.ListRequest;
 
 /**
  * Created by adrian on 1.9.2015.
