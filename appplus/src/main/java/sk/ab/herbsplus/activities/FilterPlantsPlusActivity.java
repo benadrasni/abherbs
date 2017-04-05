@@ -19,6 +19,7 @@ import sk.ab.common.util.Utils;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
 import sk.ab.herbsbase.commons.PropertyListFragment;
+import sk.ab.herbsplus.BuildConfig;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
@@ -93,5 +94,10 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
     @Override
     public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+    }
+
+    @Override
+    public String getAppVersion() {
+        return SpecificConstants.PACKAGE.substring(SpecificConstants.PACKAGE.lastIndexOf(".")+1) + AndroidConstants.FIREBASE_SEPARATOR + BuildConfig.VERSION_CODE;
     }
 }

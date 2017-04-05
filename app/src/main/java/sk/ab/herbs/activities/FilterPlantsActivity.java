@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import sk.ab.common.util.Utils;
+import sk.ab.herbs.BuildConfig;
 import sk.ab.herbs.SpecificConstants;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
@@ -62,6 +63,11 @@ public class FilterPlantsActivity extends FilterPlantsBaseActivity {
     @Override
     public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(AndroidConstants.PACKAGE, Context.MODE_PRIVATE);
+    }
+
+    @Override
+    public String getAppVersion() {
+        return SpecificConstants.PACKAGE.substring(SpecificConstants.PACKAGE.lastIndexOf(".")+1) + AndroidConstants.FIREBASE_SEPARATOR + BuildConfig.VERSION_CODE;
     }
 
 }
