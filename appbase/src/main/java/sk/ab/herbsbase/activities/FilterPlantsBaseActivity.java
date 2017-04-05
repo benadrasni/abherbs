@@ -10,21 +10,28 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import java.util.Stack;
 
 import sk.ab.common.Constants;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.commons.BaseFilterFragment;
+import sk.ab.herbsbase.commons.MessageDialogFragment;
 import sk.ab.herbsbase.commons.RateDialogFragment;
 
 /**
@@ -111,36 +118,8 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         startLoading();
         getCount();
 
-        SharedPreferences preferences = getSharedPreferences();
-        int rateState = preferences.getInt(Constants.RATE_STATE_KEY, AndroidConstants.RATE_NO);
-
-        if (rateState == AndroidConstants.RATE_SHOW) {
-            final LinearLayout rateLayout = (LinearLayout)findViewById(R.id.ratingQuestion);
-            rateLayout.setVisibility(View.VISIBLE);
-
-            Button bYes = (Button)findViewById(R.id.likeYes);
-            bYes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DialogFragment dialog = new RateDialogFragment();
-                    dialog.show(getSupportFragmentManager(), "RateDialogFragment");
-                    rateLayout.setVisibility(View.GONE);
-                }
-            });
-            Button bNo = (Button)findViewById(R.id.likeNo);
-            bNo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SharedPreferences preferences = getSharedPreferences();
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putInt(Constants.RATE_STATE_KEY, AndroidConstants.RATE_NO);
-                    editor.putInt(Constants.RATE_COUNT_KEY, AndroidConstants.RATE_COUNTER);
-                    editor.apply();
-
-                    rateLayout.setVisibility(View.GONE);
-                }
-            });
-        }
+        showRateDialog();
+        showMessages();
     }
 
     @Override
@@ -261,6 +240,10 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         }
     }
 
+    public BaseFilterFragment getCurrentFragment() {
+        return currentFragment;
+    }
+
     public void setCurrentFragment(BaseFilterFragment fragment) {
         currentFragment = fragment;
         filterPosition = getCurrentPosition();
@@ -271,13 +254,11 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
 
     }
 
-    public BaseFilterFragment getCurrentFragment() {
-        return currentFragment;
-    }
-
     protected abstract void getCount();
 
     protected abstract void getList();
+
+    protected abstract String getAppVersion();
 
     private List<BaseFilterFragment> getFilterAttributes() {
         return getApp().getFilterAttributes();
@@ -290,16 +271,83 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         return position;
     }
 
-    protected ArrayList<String> insertRateView(SharedPreferences preferences, ArrayList<String> plantHeaderList) {
+    private void showRateDialog() {
+        SharedPreferences preferences = getSharedPreferences();
+
         int rateState = preferences.getInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_NO);
-
         if (rateState == AndroidConstants.RATE_SHOW) {
-            Random rand = new Random();
-            plantHeaderList.add(rand.nextInt(plantHeaderList.size()), null);
-        }
+            final LinearLayout rateLayout = (LinearLayout)findViewById(R.id.ratingQuestion);
+            rateLayout.setVisibility(View.VISIBLE);
 
-        return plantHeaderList;
+            Button bYes = (Button)findViewById(R.id.likeYes);
+            bYes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DialogFragment dialog = new RateDialogFragment();
+                    dialog.show(getSupportFragmentManager(), "RateDialogFragment");
+                    rateLayout.setVisibility(View.GONE);
+                }
+            });
+            Button bNo = (Button)findViewById(R.id.likeNo);
+            bNo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SharedPreferences preferences = getSharedPreferences();
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_NO);
+                    editor.putInt(AndroidConstants.RATE_COUNT_KEY, AndroidConstants.RATE_COUNTER);
+                    editor.apply();
+
+                    rateLayout.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 
+    private void showMessages() {
+        final SharedPreferences preferences = getSharedPreferences();
+        final String lastMessage = preferences.getString(AndroidConstants.MESSAGE_KEY, "");
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_MESSAGES + AndroidConstants.FIREBASE_SEPARATOR
+                + getAppVersion());
+
+        mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String newLastMessage = "";
+                StringBuilder messageToShow = new StringBuilder();
+                boolean addToMessage = false;
+                for (DataSnapshot message : dataSnapshot.getChildren()) {
+                    addToMessage = addToMessage || lastMessage.isEmpty();
+                    if (addToMessage) {
+                        messageToShow.append((String)message.getValue());
+                        newLastMessage = message.getKey();
+                    }
+                    if (lastMessage.equals(message.getKey())) {
+                        addToMessage = true;
+                    }
+                }
+
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString(AndroidConstants.MESSAGE_KEY, newLastMessage);
+                editor.apply();
+
+                if (!messageToShow.toString().isEmpty()) {
+                    DialogFragment dialog = new MessageDialogFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString(AndroidConstants.MESSAGE_KEY, messageToShow.toString());
+                    dialog.setArguments(bundle);
+                    dialog.show(getSupportFragmentManager(), "MessageDialogFragment");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(this.getClass().getName(), databaseError.getMessage());
+                Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
 

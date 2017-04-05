@@ -58,6 +58,7 @@ public class AndroidConstants {
     public final static String RATE_COUNT_KEY = "rate_count";
     public final static String SHOWCASE_FILTER_KEY = "showcase_filter";
     public final static String SHOWCASE_DISPLAY_KEY = "showcase_display";
+    public final static String MESSAGE_KEY = "message";
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";
     public final static String LANGUAGE_LA = "la";
@@ -75,6 +76,7 @@ public class AndroidConstants {
     public final static String FIREBASE_PLANTS = "plants";
     public final static String FIREBASE_APG_III = "APG III";
     public final static String FIREBASE_SEARCH = "search";
+    public final static String FIREBASE_MESSAGES = "messages";
 
     public final static String FIREBASE_APGIII_TYPE = "type";
     public final static String FIREBASE_APGIII_NAMES = "names";
