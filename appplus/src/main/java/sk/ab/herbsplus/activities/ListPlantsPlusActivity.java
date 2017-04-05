@@ -14,7 +14,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import sk.ab.common.entity.Plant;
-import sk.ab.common.util.Utils;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.DisplayPlantActivity;
 import sk.ab.herbsbase.activities.ListPlantsBaseActivity;
