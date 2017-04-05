@@ -74,6 +74,7 @@ public class AndroidConstants {
     public final static String FIREBASE_LISTS = "lists";
     public final static String FIREBASE_PLANTS = "plants";
     public final static String FIREBASE_APG_III = "APG III";
+    public final static String FIREBASE_SEARCH = "search";
 
     public final static String FIREBASE_APGIII_TYPE = "type";
     public final static String FIREBASE_APGIII_NAMES = "names";

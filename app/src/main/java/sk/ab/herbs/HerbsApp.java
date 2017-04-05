@@ -3,6 +3,7 @@ package sk.ab.herbs;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -28,8 +29,12 @@ public class HerbsApp extends BaseApp {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         database.setPersistenceEnabled(true);
+        DatabaseReference countsRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_COUNTS);
+        countsRef.keepSynced(true);
+        DatabaseReference listsRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_LISTS);
+        listsRef.keepSynced(true);
 
-        SharedPreferences preferences = getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         int cacheSize = preferences.getInt(AndroidConstants.CACHE_SIZE_KEY, AndroidConstants.DEFAULT_CACHE_SIZE);

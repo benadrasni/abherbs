@@ -47,6 +47,7 @@ public class ListPlantsPlusActivity extends ListPlantsBaseActivity {
                 startActivity(intent);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 stopLoading();
+                setCountButton();
             }
 
             @Override
@@ -54,6 +55,7 @@ public class ListPlantsPlusActivity extends ListPlantsBaseActivity {
                 Log.e(this.getClass().getName(), databaseError.getMessage());
                 Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
                 stopLoading();
+                setCountButton();
             }
         });
     }

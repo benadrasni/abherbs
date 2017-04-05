@@ -67,7 +67,6 @@ public abstract class BaseApp extends Application {
                 .build();
     }
 
-
     public DisplayImageOptions getOptions() {
         return options;
     }

@@ -112,9 +112,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void startLoading() {
         ((BaseApp)getApplication()).setLoading(true);
         if (countButton != null) {
+            countText.setVisibility(View.INVISIBLE);
             countButton.setEnabled(false);
             countButton.setImageDrawable(loadingAnimation);
-            countText.setVisibility(View.INVISIBLE);
             loadingAnimation.start();
         }
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
