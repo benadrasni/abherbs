@@ -187,7 +187,7 @@ public class InfoFragment extends Fragment {
         flowTextView.setTextColor(R.color.CardText);
         flowTextView.setTextSize(getResources().getDisplayMetrics().scaledDensity * 14.0f);
 
-        final Spanned html = Html.fromHtml(text.toString());
+        final Spanned html = Utils.fromHtml(text.toString());
 
         final DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
         final int orientation = getActivity().getResources().getConfiguration().orientation;

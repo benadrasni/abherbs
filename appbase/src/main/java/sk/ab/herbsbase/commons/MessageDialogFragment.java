@@ -10,13 +10,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
+import org.sufficientlysecure.htmltextview.HtmlTextView;
+
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
+import sk.ab.herbsbase.tools.Utils;
 
 /**
  *
@@ -32,10 +37,10 @@ public class MessageDialogFragment extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         View view = inflater.inflate(R.layout.message_dialog, null);
-        TextView textView = (TextView)view.findViewById(R.id.message);
-        textView.setText(getArguments().getString(AndroidConstants.MESSAGE_KEY));
+        HtmlTextView textView = (HtmlTextView)view.findViewById(R.id.message);
+        textView.setHtml(getArguments().getString(AndroidConstants.MESSAGE_KEY), new HtmlHttpImageGetter(textView));
 
-        builder.setView(inflater.inflate(R.layout.message_dialog, null))
+        builder.setView(view)
                 .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {

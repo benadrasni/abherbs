@@ -34,9 +34,12 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.github.amlcurran.showcaseview:library:5.4.3'
     compile 'com.github.benadrasni:FlowTextView:2.0.4.1'
+    compile 'org.sufficientlysecure:html-textview:3.3'
 }
 
 repositories {
+    jcenter()
+
     maven {
         url 'http://dl.bintray.com/amulyakhare/maven'
     }

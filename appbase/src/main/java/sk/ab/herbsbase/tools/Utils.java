@@ -2,6 +2,8 @@ package sk.ab.herbsbase.tools;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -108,5 +110,16 @@ public class Utils {
             fileUri = AndroidConstants.STORAGE_ENDPOINT + fileName;
         }
         ImageLoader.getInstance().displayImage(fileUri, imageView, options, listener);
+    }
+
+    @SuppressWarnings("deprecation")
+    public static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
     }
 }

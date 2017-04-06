@@ -310,12 +310,12 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_MESSAGES + AndroidConstants.FIREBASE_SEPARATOR
-                + getAppVersion());
+                + getAppVersion()).orderByKey().getRef();
 
         mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String newLastMessage = "";
+                String newLastMessage = lastMessage;
                 StringBuilder messageToShow = new StringBuilder();
                 boolean addToMessage = false;
                 for (DataSnapshot message : dataSnapshot.getChildren()) {
