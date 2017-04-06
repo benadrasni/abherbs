@@ -46,7 +46,6 @@ public class UserPreferencePlusFragment extends UserPreferenceFragment {
         Boolean offlineMode = preferences.getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
         prefOfflineMode = (CheckBoxPreference)findPreference("offlineMode");
         prefOfflineMode.setChecked(offlineMode);
-        prefCacheSize.setEnabled(!offlineMode);
 
         prefOfflineMode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 
