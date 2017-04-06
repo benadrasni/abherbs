@@ -158,6 +158,7 @@ public class StorageLoading {
             @Override
             public void onDataChange(DataSnapshot offline) {
                 progressDialog = new ProgressDialog(activity);
+                progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 progressDialog.setMessage(activity.getResources().getString(R.string.synchronizing));
 

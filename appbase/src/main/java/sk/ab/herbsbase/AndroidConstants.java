@@ -14,6 +14,8 @@ import java.util.Map;
 public class AndroidConstants {
     public final static String PACKAGE = "sk.ab.herbs";
 
+    public final static int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
+
     public final static int DEFAULT_CACHE_SIZE = 50;
 
     public final static String EMAIL = "whatsthoseflowers@gmail.com";
