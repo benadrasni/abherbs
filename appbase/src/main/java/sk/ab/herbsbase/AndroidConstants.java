@@ -52,7 +52,6 @@ public class AndroidConstants {
     public final static String TAXON_FAMILIA = "Familia";
 
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
-    public final static String CHANGE_LOCALE_KEY = "change_locale";
     public final static String PROPOSE_TRANSLATION_KEY = "propose_translation";
     public final static String CACHE_SIZE_KEY = "cache_size";
     public final static String RESET_KEY = "reset";
@@ -61,9 +60,15 @@ public class AndroidConstants {
     public final static String SHOWCASE_FILTER_KEY = "showcase_filter";
     public final static String SHOWCASE_DISPLAY_KEY = "showcase_display";
     public final static String MESSAGE_KEY = "message";
+    public final static String LANGUAGE_NOT_SUPPORTED = " (not supported)";
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";
     public final static String LANGUAGE_LA = "la";
+    public final static String[] LANGUAGES = {"Čeština", "Dansk", "Deutsch", "English", "Español", "Français", "Hrvatski", "Italiano", "Magyar",
+            "Nederlands", "日本語", "Norsk", "Polski", "Português", "Română", "Русский", "Slovenčina", "Slovenščina", "Српски / srpski", "Svenska",
+            "Suomi", "Українська"};
+    public final static String[] LANGUAGE_CODES = {"cs", "da", "de", "en", "es", "fr", "hr", "it", "hu", "nl", "ja", "no", "pl", "pt", "ro", "ru",
+            "sk", "sl", "sr", "sv", "fi", "uk"};
 
     public final static String ITEM_LEGEND = "Legend";
     public final static String ITEM_SETTINGS = "Settings";

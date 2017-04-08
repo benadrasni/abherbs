@@ -26,6 +26,7 @@ import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.commons.PropertyListFragment;
+import sk.ab.herbsbase.tools.Utils;
 
 /**
  * User: adrian
@@ -161,15 +162,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected boolean changeLocale() {
         SharedPreferences preferences = getSharedPreferences();
         String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
-        Boolean changeLocale = preferences.getBoolean(AndroidConstants.CHANGE_LOCALE_KEY, false);
 
         boolean isLocaleChanged = false;
-        if (changeLocale && !Locale.getDefault().getLanguage().equals(language)) {
-            Locale locale = new Locale(language);
-            Locale.setDefault(locale);
-            Configuration config = getResources().getConfiguration();
-            config.setLocale(locale);
-            getBaseContext().createConfigurationContext(config);
+        if (!Locale.getDefault().getLanguage().equals(language)) {
+            Utils.changeLocale(getBaseContext(), language);
             isLocaleChanged = true;
         }
 

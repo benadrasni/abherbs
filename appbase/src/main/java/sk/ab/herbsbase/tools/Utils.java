@@ -1,5 +1,8 @@
 package sk.ab.herbsbase.tools;
 
+import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.Html;
@@ -121,5 +124,14 @@ public class Utils {
             result = Html.fromHtml(html);
         }
         return result;
+    }
+
+    public static void changeLocale(Context context, String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(locale);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 }

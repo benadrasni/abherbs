@@ -43,7 +43,6 @@ public class Constants {
     public final static int VERSION_1_3_1 = 42;
 
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
-    public final static String CHANGE_LOCALE_KEY = "change_locale";
     public final static String PROPOSE_TRANSLATION_KEY = "propose_translation";
     public final static String RESET_KEY = "reset";
     public final static String RATE_STATE_KEY = "rate_state";

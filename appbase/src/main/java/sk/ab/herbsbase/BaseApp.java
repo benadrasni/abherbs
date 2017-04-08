@@ -24,7 +24,7 @@ import sk.ab.herbsbase.commons.BaseFilterFragment;
  */
 
 public abstract class BaseApp extends Application {
-    public static String sDefSystemLanguage;
+    public static Locale sDefSystemLocale;
 
     private static DisplayImageOptions options;
 
@@ -40,7 +40,7 @@ public abstract class BaseApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        sDefSystemLanguage = Locale.getDefault().getLanguage();
+        sDefSystemLocale = Locale.getDefault();
 
         backStack = new Stack<>();
 

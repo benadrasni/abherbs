@@ -5,8 +5,6 @@
     <string name="settings">Asetukset</string>
     <string name="feedback">Palaute</string>
     <string name="pref_language">Preferred language</string>
-    <string name="change_locale">Change locale</string>
-    <string name="change_locale_summary">to preferred language</string>
     <string name="propose_translation">Do not show button</string>
     <string name="propose_translation_summary">for emailing better translation / description</string>
     <string name="cache_size">Cache size in MB</string>

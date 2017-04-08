@@ -25,56 +25,6 @@
     <string name="settings">Settings</string>
     <string name="feedback">Feedback</string>
     <string name="pref_language">Preferred language</string>
-    <string-array translatable="false" name="languages">
-        <item>English</item>
-        <item>Slovenčina</item>
-        <item>Čeština</item>
-        <item>Dansk</item>
-        <item>Deutsch</item>
-        <item>Español</item>
-        <item>Français</item>
-        <item>Hrvatski</item>
-        <item>Italiano</item>
-        <item>Magyar</item>
-        <item>Nederlands</item>
-        <item>日本語</item>
-        <item>Norsk</item>
-        <item>Polski</item>
-        <item>Português</item>
-        <item>Română</item>
-        <item>Русский</item>
-        <item>Slovenščina</item>
-        <item>Српски / srpski</item>
-        <item>Svenska</item>
-        <item>Suomi</item>
-        <item>Українська</item>
-    </string-array>
-    <string-array translatable="false" name="languagesValues">
-        <item>en</item>
-        <item>sk</item>
-        <item>cs</item>
-        <item>da</item>
-        <item>de</item>
-        <item>es</item>
-        <item>fr</item>
-        <item>hr</item>
-        <item>it</item>
-        <item>hu</item>
-        <item>nl</item>
-        <item>ja</item>
-        <item>no</item>
-        <item>pl</item>
-        <item>pt</item>
-        <item>ro</item>
-        <item>ru</item>
-        <item>sl</item>
-        <item>sr</item>
-        <item>sv</item>
-        <item>fi</item>
-        <item>uk</item>
-    </string-array>
-    <string name="change_locale">Change locale</string>
-    <string name="change_locale_summary">to preferred language</string>
     <string name="propose_translation">Do not show button</string>
     <string name="propose_translation_summary">for emailing better translation / description</string>
     <string name="cache_size">Cache size in MB</string>

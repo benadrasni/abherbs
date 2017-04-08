@@ -3,6 +3,7 @@ package sk.ab.herbsplus.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -83,5 +84,15 @@ public class UserPreferencePlusFragment extends UserPreferenceFragment {
     @Override
     protected SharedPreferences getSharedPreferences() {
         return getActivity().getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+    }
+
+    @Override
+    protected void updateViews() {
+        super.updateViews();
+
+        Resources resources = getResources();
+
+        prefOfflineMode.setTitle(resources.getString(R.string.offline_mode));
+        prefOfflineMode.setSummary(resources.getString(R.string.offline_mode_summary));
     }
 }

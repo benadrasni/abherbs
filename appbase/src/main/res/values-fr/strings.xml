@@ -5,8 +5,6 @@
     <string name="settings">Paramètres</string>
     <string name="feedback">Retour d\'information</string>
     <string name="pref_language">Préférence de langue</string>
-    <string name="change_locale">Changer</string>
-    <string name="change_locale_summary">la langue</string>
     <string name="propose_translation">Ne pas afficher le bouton</string>
     <string name="propose_translation_summary">à envoyer une meilleure traduction / description</string>
     <string name="cache_size">Cache size in MB</string>

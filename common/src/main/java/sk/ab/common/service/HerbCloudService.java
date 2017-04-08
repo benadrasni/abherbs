@@ -64,7 +64,9 @@ public interface HerbCloudService {
 
 
     @Headers({
-            "Content-Type: application/json; charset: UTF-8"
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
     })
     @POST("_ah/api/translationApi/v1/translation")
     Call<Translation> saveTranslation(@Body Translation translation);
@@ -83,7 +85,9 @@ public interface HerbCloudService {
                                @Query("lang") String lang);
 
     @Headers({
-            "Content-Type: application/json; charset: UTF-8"
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
     })
     @POST("_ah/api/rateApi/v1/rate")
     Call<Rate> saveRate(@Body Rate rateSave);

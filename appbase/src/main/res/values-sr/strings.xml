@@ -5,8 +5,6 @@
     <string name="settings">Подешавања</string>
     <string name="feedback">Повратне информације</string>
     <string name="pref_language">Језик којем дајете предност</string>
-    <string name="change_locale">Промена локално</string>
-    <string name="change_locale_summary">на жељеном језикуe</string>
     <string name="propose_translation">Do not show button</string>
     <string name="propose_translation_summary">for emailing better translation / description</string>
     <string name="cache_size">Cache size in MB</string>

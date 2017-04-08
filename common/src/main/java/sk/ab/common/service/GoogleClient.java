@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by adrian on 1.9.2015.
  */
 public class GoogleClient {
-    public static final String API_URL = "https://www.googleapis.com";
+    public static final String API_URL = "https://translation.googleapis.com";
 
     private GoogleService googleService;
 

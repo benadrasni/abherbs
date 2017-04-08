@@ -5,8 +5,6 @@
     <string name="settings">Configurações</string>
     <string name="feedback">Configurações</string>
     <string name="pref_language">Língua preferida</string>
-    <string name="change_locale">Mudar a localização</string>
-    <string name="change_locale_summary">segundo a língua preferida</string>
     <string name="propose_translation">Ocultar o botão</string>
     <string name="propose_translation_summary">Para enviar uma melhor tradução/descrição</string>
     <string name="cache_size">Cache size in MB</string>

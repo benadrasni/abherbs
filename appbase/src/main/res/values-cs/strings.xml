@@ -5,8 +5,6 @@
     <string name="settings">Nastavení</string>
     <string name="feedback">Připomínky</string>
     <string name="pref_language">Preferovaný jazyk</string>
-    <string name="change_locale">Změnit lokalizaci</string>
-    <string name="change_locale_summary">podle preferovaného jazyka</string>
     <string name="propose_translation">Nezobrazovat tlačítko</string>
     <string name="propose_translation_summary">na zaslání lepšího překladu / popisu.</string>
     <string name="cache_size">Cache size in MB</string>

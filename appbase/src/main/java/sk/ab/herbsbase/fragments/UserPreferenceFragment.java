@@ -11,12 +11,16 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.UserPreferenceActivity;
+import sk.ab.herbsbase.tools.Utils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,7 +31,6 @@ import sk.ab.herbsbase.activities.UserPreferenceActivity;
  */
 public class UserPreferenceFragment extends PreferenceFragment {
 
-    private CheckBoxPreference prefChangeLocale;
     private ListPreference prefLanguage;
     private CheckBoxPreference prefProposeTranslation;
     protected EditTextPreference prefCacheSize;
@@ -40,54 +43,36 @@ public class UserPreferenceFragment extends PreferenceFragment {
 
         final SharedPreferences preferences = getSharedPreferences();
 
-        Boolean changeLocale = preferences.getBoolean(AndroidConstants.CHANGE_LOCALE_KEY, false);
-        prefChangeLocale = (CheckBoxPreference)findPreference("changeLocale");
-        prefChangeLocale.setChecked(changeLocale);
-
-        String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
+        String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, BaseApp.sDefSystemLocale.getLanguage());
         prefLanguage = (ListPreference)findPreference("prefLanguage");
-        prefLanguage.setEnabled(changeLocale);
-        if (changeLocale) {
-            prefLanguage.setValue(language);
-            prefLanguage.setSummary(prefLanguage.getEntry());
+        List<String> languageList = new ArrayList<>(Arrays.asList(AndroidConstants.LANGUAGES));
+        List<String> languageCodeList = new ArrayList<>(Arrays.asList(AndroidConstants.LANGUAGE_CODES));
+        if (!languageCodeList.contains(BaseApp.sDefSystemLocale.getLanguage())) {
+            languageList.add(0, BaseApp.sDefSystemLocale.getDisplayLanguage() + AndroidConstants.LANGUAGE_NOT_SUPPORTED);
+            languageCodeList.add(0, BaseApp.sDefSystemLocale.getLanguage());
         }
-
-        prefChangeLocale.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                Boolean newChangeLocale = (Boolean) newValue;
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean(AndroidConstants.CHANGE_LOCALE_KEY, newChangeLocale);
-                if (!newChangeLocale) {
-                    editor.remove(AndroidConstants.LANGUAGE_DEFAULT_KEY);
-                    changeLocale(BaseApp.sDefSystemLanguage);
-                    prefLanguage.setValue("");
-                    prefLanguage.setSummary("");
-                }
-                editor.apply();
-                prefLanguage.setEnabled(newChangeLocale);
-                return true;
-            }
-        });
+        String[] languages = languageList.toArray(new String[languageList.size()]);
+        String[] languageCodes = languageCodeList.toArray(new String[languageCodeList.size()]);
+        prefLanguage.setEntries(languages);
+        prefLanguage.setEntryValues(languageCodes);
+        prefLanguage.setValue(language);
+        prefLanguage.setSummary(prefLanguage.getEntry());
 
         prefLanguage.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                prefLanguage.setValue((String) newValue);
-                prefLanguage.setSummary(prefLanguage.getEntry());
-
-                SharedPreferences.Editor editor = preferences.edit();
-
                 String newLanguage = (String) newValue;
-                if (newLanguage.equals(sk.ab.common.Constants.LANGUAGE_ORIGINAL)) {
-                    newLanguage = BaseApp.sDefSystemLanguage;
-                }
-                changeLocale(newLanguage);
+                if (!newLanguage.equals(Locale.getDefault().getLanguage())) {
+                    prefLanguage.setValue(newLanguage);
+                    prefLanguage.setSummary(prefLanguage.getEntry());
 
-                editor.putString(AndroidConstants.LANGUAGE_DEFAULT_KEY, newLanguage);
-                editor.apply();
+                    SharedPreferences.Editor editor = preferences.edit();
+                    changeLocale(newLanguage);
+
+                    editor.putString(AndroidConstants.LANGUAGE_DEFAULT_KEY, newLanguage);
+                    editor.apply();
+                }
 
                 return true;
             }
@@ -130,21 +115,13 @@ public class UserPreferenceFragment extends PreferenceFragment {
     }
 
     private void changeLocale(String language) {
-        Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.setLocale(locale);
-        getActivity().getBaseContext().createConfigurationContext(config);
-
+        Utils.changeLocale(getActivity().getBaseContext(), language);
         updateViews();
         ((UserPreferenceActivity)getActivity()).updateViews();
     }
 
-    private void updateViews() {
+    protected void updateViews() {
         Resources resources = getResources();
-
-        prefChangeLocale.setTitle(resources.getString(R.string.change_locale));
-        prefChangeLocale.setSummary(resources.getString(R.string.change_locale_summary));
 
         prefLanguage.setTitle(resources.getString(R.string.pref_language));
 
