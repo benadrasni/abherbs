@@ -99,4 +99,8 @@
     <string name="rate_later">Mai tarziu</string>
     <string name="rate">Review (Google Play)</string>
     <string name="your_text">textul tau</string>
+    <string name="google_translate">Tradus cu Google Translate</string>
+    <string name="show_original">"Afișați textul English "</string>
+    <string name="improve_translation">Îmbunătățirea traducere</string>
+    <string name="show_translation">Afișați textul tradus</string>
 </resources>

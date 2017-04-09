@@ -99,4 +99,8 @@
     <string name="rate_later">Позже</string>
     <string name="rate">Отзывы (Google Play)</string>
     <string name="your_text">ваш текст</string>
+    <string name="google_translate">Перевод с Google Translate</string>
+    <string name="show_original">Показать английский текст</string>
+    <string name="improve_translation">Улучшить перевод</string>
+    <string name="show_translation">Показать перевод</string>
 </resources>

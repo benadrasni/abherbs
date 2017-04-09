@@ -51,6 +51,8 @@
     <dimen name="search_padding">10dp</dimen>
     <dimen name="search_padding_half">5dp</dimen>
 
+    <dimen name="note_padding">10dp</dimen>
+
     <dimen name="card_taxonomy_separator_height">15dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>

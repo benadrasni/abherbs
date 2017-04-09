@@ -99,4 +99,8 @@
     <string name="rate_later">Dopo</string>
     <string name="rate">Recensioni (Google Play)</string>
     <string name="your_text">il tuo testo</string>
+    <string name="google_translate">Tradotto con Google Traduttore</string>
+    <string name="show_original">Mostra testo inglese</string>
+    <string name="improve_translation">Migliorare la traduzione</string>
+    <string name="show_translation">Mostra testo tradotto</string>
 </resources>

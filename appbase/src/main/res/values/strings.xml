@@ -120,4 +120,8 @@
     <string name="rate_later">Later</string>
     <string name="rate">Review (Google Play)</string>
     <string name="your_text">your text</string>
+    <string name="google_translate">Translated with Google Translate</string>
+    <string name="show_original">Show English text</string>
+    <string name="improve_translation">Improve translation</string>
+    <string name="show_translation">Show translated text</string>
 </resources>

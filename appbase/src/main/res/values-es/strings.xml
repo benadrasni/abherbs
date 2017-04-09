@@ -99,4 +99,8 @@
     <string name="rate">Opinione (Google Play)</string>
     <string name="rate_text"> Al autor de esta aplicación le motivan las reacciones positivas de los usuarios. Mándele, por favor, unas flores de la estrella a través del Google Play Store.</string>
     <string name="your_text">tu texto</string>
+    <string name="google_translate">Traducido con Google Traductor</string>
+    <string name="show_original">Mostrar texto en inglés</string>
+    <string name="improve_translation">Mejorar la traducción</string>
+    <string name="show_translation">Mostrar texto traducido</string>
 </resources>

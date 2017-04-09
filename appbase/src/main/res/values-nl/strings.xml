@@ -99,4 +99,8 @@
     <string name="rate_later">Later</string>
     <string name="rate">Recensies (Google Play)</string>
     <string name="your_text">je berichtje</string>
+    <string name="google_translate">Vertaald met Google Translate</string>
+    <string name="show_original">Toon Engels tekst</string>
+    <string name="improve_translation">Verbeter vertaling</string>
+    <string name="show_translation">Toon vertaalde tekst</string>
 </resources>

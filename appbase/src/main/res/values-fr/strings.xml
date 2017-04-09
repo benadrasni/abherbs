@@ -99,4 +99,8 @@
     <string name="rate">Avis (Google Play)</string>
     <string name="rate_text">L\'auteur de cette application est motivé par les réponses positives des utilisateurs. S\'il vous plaît,  envoyez lui quelques fleurs étoiles via Google Play Store.</string>
     <string name="your_text">votre texte</string>
+    <string name="google_translate">Traduit avec Google Translate</string>
+    <string name="show_original">Afficher le texte en anglais</string>
+    <string name="improve_translation">Améliorer la traduction</string>
+    <string name="show_translation">Afficher le texte traduit</string>
 </resources>

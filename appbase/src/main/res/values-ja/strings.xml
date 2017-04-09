@@ -99,4 +99,8 @@
     <string name="rate_later">Later</string>
     <string name="rate">Review (Google Play)</string>
     <string name="your_text">あなたのテキスト</string>
+    <string name="google_translate">Google翻訳で翻訳された</string>
+    <string name="show_original">英語のテキストを表示する</string>
+    <string name="improve_translation">翻訳を改善する</string>
+    <string name="show_translation">翻訳されたテキストを表示する</string>
 </resources>

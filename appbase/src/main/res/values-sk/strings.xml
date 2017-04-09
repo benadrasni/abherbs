@@ -98,4 +98,8 @@
     <string name="rate_later">Neskôr</string>
     <string name="rate">Recenzia (Google Play)</string>
     <string name="your_text">váš text</string>
+    <string name="google_translate">Preložené pomocou Google prekladača</string>
+    <string name="show_original">Ukáž anglický text</string>
+    <string name="improve_translation">Vylepši preklad</string>
+    <string name="show_translation">Ukáž preložený text</string>
 </resources>

@@ -99,4 +99,8 @@
     <string name="rate_later">Később</string>
     <string name="rate">Vélemények (Google Play)</string>
     <string name="your_text">a te szöveged</string>
+    <string name="google_translate">Lefordítva a Google Translate</string>
+    <string name="show_original">Megjelenítése angol szöveg</string>
+    <string name="improve_translation">Javítani fordítás</string>
+    <string name="show_translation">Fordított szöveg megjelenítése</string>
 </resources>

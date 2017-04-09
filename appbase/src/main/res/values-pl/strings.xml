@@ -99,4 +99,8 @@
     <string name="rate_later">Później</string>
     <string name="rate">Opinie (Google Play)</string>
     <string name="your_text">twój tekst</string>
+    <string name="google_translate">Przetłumaczono z Google Translate</string>
+    <string name="show_original">Pokaż angielski tekst</string>
+    <string name="improve_translation">Popraw tłumaczenie</string>
+    <string name="show_translation">Pokaż przetłumaczony tekst</string>
 </resources>

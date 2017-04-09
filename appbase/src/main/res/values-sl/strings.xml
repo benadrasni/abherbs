@@ -99,4 +99,8 @@
     <string name="rate_later">Kasneje</string>
     <string name="rate">Mnenja (Google Play)</string>
     <string name="your_text">vaše besedilo</string>
+    <string name="google_translate">Prevedeno z Google Translate</string>
+    <string name="show_original">Prikaži angleško besedilo</string>
+    <string name="improve_translation">Izboljšati prevod</string>
+    <string name="show_translation">Pokaži prevedeno besedilo</string>
 </resources>

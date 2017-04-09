@@ -98,4 +98,8 @@
     <string name="rate">Bewertung (Google Play)</string>
     <string name="rate_text">Autor dieser Applikation wird durch positive Antwort von den Benutzern getankt. Bitte senden Sie ihm einige Siebensterne über Google Play Store.</string>
     <string name="your_text">dein Text</string>
+    <string name="google_translate">Übersetzt mit Google Translate</string>
+    <string name="show_original">Englischer Text anzeigen</string>
+    <string name="improve_translation">Verbessere Übersetzung</string>
+    <string name="show_translation">Übersetzten Text anzeigen</string>
 </resources>

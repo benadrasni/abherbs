@@ -14,7 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
@@ -51,6 +53,8 @@ import uk.co.deanwild.flowtextview.FlowTextView;
  */
 public class InfoFragment extends Fragment {
 
+    private boolean isTranslated;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return View.inflate(getActivity().getBaseContext(), R.layout.plant_card_info, null);
@@ -79,7 +83,35 @@ public class InfoFragment extends Fragment {
             editor.apply();
         }
 
+        isTranslated = true;
         getTranslation();
+
+        if (getPlantTranslationGT() != null) {
+            LinearLayout translationNote = (LinearLayout) getView().findViewById(R.id.translation_note);
+            translationNote.setVisibility(View.VISIBLE);
+
+            final Button showOriginal = (Button) getView().findViewById(R.id.show_original);
+            showOriginal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    isTranslated = !isTranslated;
+                    setInfo(isTranslated);
+                    if (isTranslated) {
+                        showOriginal.setText(R.string.show_original);
+                    } else {
+                        showOriginal.setText(R.string.show_translation);
+                    }
+                }
+            });
+
+            Button improveTranslation = (Button) getView().findViewById(R.id.improve_translation);
+            improveTranslation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    improveTranslation();
+                }
+            });
+        }
     }
 
     @Override
@@ -314,7 +346,7 @@ public class InfoFragment extends Fragment {
         setPlantTranslationGT(plantTranslationGT);
     }
 
-    private void proposeTranslation() {
+    private void improveTranslation() {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", AndroidConstants.EMAIL, null));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, getEmailSubject());
         emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(getEmailBody()));

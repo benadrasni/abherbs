@@ -99,4 +99,8 @@
     <string name="rate_later">Senere</string>
     <string name="rate">Anmeldelser (Google Play)</string>
     <string name="your_text">din tekst</string>
+    <string name="google_translate">Oversat med Google Translate</string>
+    <string name="show_original">Vis engelske tekst</string>
+    <string name="improve_translation">Forbedre oversættelse</string>
+    <string name="show_translation">Vis oversatte tekst</string>
 </resources>
