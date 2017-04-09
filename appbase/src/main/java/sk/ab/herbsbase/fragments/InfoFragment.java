@@ -107,7 +107,7 @@ public class InfoFragment extends Fragment {
         int[][] spanIndex = new int[2][sections.length];
 
         for (int i = 1; i < sections.length; i++) {
-            if (sections[i][1] != null) {
+            if (!sections[i][1].isEmpty()) {
                 spanIndex[0][i] = text.length();
                 spanIndex[1][i] = text.length() + sections[i][0].length();
                 text.append("<i>").append(sections[i][0]).append("</i>");
@@ -266,8 +266,9 @@ public class InfoFragment extends Fragment {
 
     private void setTranslation(List<String> translatedTexts) {
         PlantTranslation plantTranslation = getPlantTranslation();
-        PlantTranslation plantTranslationGT = getPlantTranslationGT();
         PlantTranslation plantTranslationEn = getPlantTranslationEn();
+
+        PlantTranslation plantTranslationGT = new PlantTranslation();
 
         int i = 0;
         if (translatedTexts.size() > i && plantTranslation.getDescription() == null && plantTranslationEn.getDescription() != null) {
@@ -309,6 +310,8 @@ public class InfoFragment extends Fragment {
         if (translatedTexts.size() > i && plantTranslation.getTrivia() == null && plantTranslationEn.getTrivia() != null) {
             plantTranslationGT.setTrivia(translatedTexts.get(i));
         }
+
+        setPlantTranslationGT(plantTranslationGT);
     }
 
     private void proposeTranslation() {
@@ -415,6 +418,10 @@ public class InfoFragment extends Fragment {
 
     private PlantTranslation getPlantTranslationGT() {
         return ((DisplayPlantActivity)getActivity()).getPlantTranslationGT();
+    }
+
+    private void setPlantTranslationGT(PlantTranslation plantTranslation) {
+        ((DisplayPlantActivity)getActivity()).setPlantTranslationGT(plantTranslation);
     }
 
     private PlantTranslation getPlantTranslationEn() {

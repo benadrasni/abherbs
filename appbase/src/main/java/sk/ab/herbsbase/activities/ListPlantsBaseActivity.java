@@ -185,6 +185,8 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
 
                 if (plantTranslation != null) {
                     setTranslationInLanguage(new PlantTranslationParcel(plantTranslation));
+                } else {
+                    setTranslationInLanguage(null);
                 }
 
                 counter.increment();
@@ -214,6 +216,8 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
 
                     if (plantTranslation != null) {
                         setTranslationInEnglish(new PlantTranslationParcel(plantTranslation));
+                    } else {
+                        setTranslationInEnglish(null);
                     }
 
                     counter.increment();
@@ -242,6 +246,8 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
 
                     if (plantTranslation != null) {
                         setTranslationInLanguageGT(new PlantTranslationParcel(plantTranslation));
+                    } else {
+                        setTranslationInLanguageGT(null);
                     }
 
                     counter.increment();
@@ -260,6 +266,9 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
                 }
             });
         } else {
+            setTranslationInEnglish(null);
+            setTranslationInLanguageGT(null);
+
             counter.increment();
             counter.increment();
 

@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
+import sk.ab.common.entity.FirebasePlant;
+import sk.ab.common.entity.PlantTranslation;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.entity.PlantParcel;
@@ -120,16 +122,20 @@ public class DisplayPlantActivity extends BaseActivity {
         recreate();
     }
 
-    public PlantParcel getPlant() {
+    public FirebasePlant getPlant() {
         return plantParcel;
     }
 
-    public PlantTranslationParcel getPlantTranslation() {
+    public PlantTranslation getPlantTranslation() {
         return plantTranslationParcel;
     }
 
-    public PlantTranslationParcel getPlantTranslationGT() {
+    public PlantTranslation getPlantTranslationGT() {
         return plantTranslationGTParcel;
+    }
+
+    public void setPlantTranslationGT(PlantTranslation plantTranslation) {
+        plantTranslationGTParcel = new PlantTranslationParcel(plantTranslation);
     }
 
     public PlantTranslationParcel getPlantTranslationEn() {

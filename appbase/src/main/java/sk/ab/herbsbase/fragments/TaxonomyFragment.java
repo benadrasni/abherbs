@@ -108,7 +108,7 @@ public class TaxonomyFragment extends Fragment {
 
     private void getTaxonomy(View view) {
         final DisplayPlantActivity displayPlantActivity = (DisplayPlantActivity) getActivity();
-        final PlantParcel plant = displayPlantActivity.getPlant();
+        final FirebasePlant plant = displayPlantActivity.getPlant();
         final LinearLayout layout = (LinearLayout) view.findViewById(R.id.plant_taxonomy);
 
         if (layout.isShown() || layout.getChildCount() > 0) {
