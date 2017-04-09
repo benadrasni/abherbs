@@ -19,6 +19,7 @@ import java.util.TreeSet;
 import retrofit2.Call;
 import sk.ab.common.Constants;
 import sk.ab.common.entity.Count;
+import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.Plant;
 import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.entity.PlantList;
@@ -173,6 +174,7 @@ public class Firebase {
 
             Map<String, Map<String, Map<String, Boolean>>> names = new HashMap<>();
             Object apgiii = new HashMap<String, Object>();
+            Object translations = new HashMap<String, Object>();
 
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()) {
@@ -188,8 +190,11 @@ public class Firebase {
                     plant.getPhotoUrls().set(i, plant.getPhotoUrls().get(i).substring(plant.getPhotoUrls().get(i).indexOf("abherbs")+8));
                 }
 
-                Call<Plant> callFirebase = firebaseClient.getApiService().savePlant(plantLine[0], plant);
+                FirebasePlant firebasePlant = new FirebasePlant(plant);
+                Call<FirebasePlant> callFirebase = firebaseClient.getApiService().savePlant(plantLine[0], firebasePlant);
                 callFirebase.execute().body();
+
+                updateTranslations(translations, plant);
 
 //                Call<PlantHeader> callCloudPlantHeader = herbCloudClient.getApiService().getHeader(plantLine[0]);
 //                PlantHeader plantHeader = callCloudPlantHeader.execute().body();
@@ -267,8 +272,11 @@ public class Firebase {
 //            }
 //        }
 
-//            Call<Object> callFirebaseCount = firebaseClient.getApiService().saveAPGIII(apgiii);
-//            callFirebaseCount.execute().body();
+//            Call<Object> callFirebaseAPG = firebaseClient.getApiService().saveAPGIII(apgiii);
+//            callFirebaseAPG.execute().body();
+
+            Call<Object> callFirebaseTranslations = firebaseClient.getApiService().saveTranslations(translations);
+            callFirebaseTranslations.execute().body();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -398,4 +406,62 @@ public class Firebase {
             iter = child;
         }
     }
+
+    private static void updateTranslations(Object translations, Plant plant) throws IOException {
+        updateTranslationString(translations, plant.getName(), plant.getLabel(), "label");
+        updateTranslationArray(translations, plant.getName(), plant.getNames(), "names");
+        updateTranslationString(translations, plant.getName(), plant.getDescription(), "description");
+        updateTranslationString(translations, plant.getName(), plant.getFlower(), "flower");
+        updateTranslationString(translations, plant.getName(), plant.getInflorescence(), "inflorescence");
+        updateTranslationString(translations, plant.getName(), plant.getFruit(), "fruit");
+        updateTranslationString(translations, plant.getName(), plant.getStem(), "stem");
+        updateTranslationString(translations, plant.getName(), plant.getLeaf(), "leaf");
+        updateTranslationString(translations, plant.getName(), plant.getHabitat(), "habitat");
+        updateTranslationString(translations, plant.getName(), plant.getToxicity(), "toxicity");
+        updateTranslationString(translations, plant.getName(), plant.getHerbalism(), "herbalism");
+        updateTranslationString(translations, plant.getName(), plant.getWikilinks(), "wikipedia");
+        updateTranslationArray(translations, plant.getName(), plant.getSourceUrls(), "sourceUrls");
+
+    }
+
+    private static void updateTranslationString(Object translations, String name, HashMap<String, String> map, String key) {
+        for (String language : map.keySet()) {
+            if ("la".equals(language)) {
+                continue;
+            }
+            Object lang = ((Map<String, Object>) translations).get(language);
+            if (lang == null) {
+                lang = new HashMap<String, Object>();
+                ((Map<String, Object>) translations).put(language, lang);
+            }
+            Object plantObject = ((Map<String, Object>) lang).get(name);
+            if (plantObject == null) {
+                plantObject = new HashMap<String, Object>();
+                ((Map<String, Object>) lang).put(name, plantObject);
+            }
+            ((Map<String, Object>)plantObject).put(key, map.get(language));
+
+        }
+    }
+
+    private static void updateTranslationArray(Object translations, String name, HashMap<String, ArrayList<String>> map, String key) {
+        for (String language : map.keySet()) {
+            if ("la".equals(language)) {
+                continue;
+            }
+            Object lang = ((Map<String, Object>) translations).get(language);
+            if (lang == null) {
+                lang = new HashMap<String, Object>();
+                ((Map<String, Object>) translations).put(language, lang);
+            }
+            Object plantObject = ((Map<String, Object>) lang).get(name);
+            if (plantObject == null) {
+                plantObject = new HashMap<String, Object>();
+                ((Map<String, Object>) lang).put(name, plantObject);
+            }
+            ((Map<String, Object>)plantObject).put(key, map.get(language));
+
+        }
+    }
+
 }

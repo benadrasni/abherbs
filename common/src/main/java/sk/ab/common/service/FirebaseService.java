@@ -10,6 +10,7 @@ import retrofit2.http.PATCH;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import sk.ab.common.entity.Count;
+import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.Plant;
 import sk.ab.common.entity.PlantList;
 
@@ -49,7 +50,7 @@ public interface FirebaseService {
             "charset: UTF-8"
     })
     @PUT("plants/{taxonomyName}.json")
-    Call<Plant> savePlant(@Path("taxonomyName") String taxonomyName, @Body Plant plant);
+    Call<FirebasePlant> savePlant(@Path("taxonomyName") String taxonomyName, @Body FirebasePlant plant);
 
     @Headers({
             "Content-Type: application/json",
@@ -77,4 +78,7 @@ public interface FirebaseService {
 
     @PUT("APG III.json")
     Call<Object> saveAPGIII(@Body Object object);
+
+    @PUT("translations.json")
+    Call<Object> saveTranslations(@Body Object object);
 }
