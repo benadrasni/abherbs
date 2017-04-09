@@ -7,22 +7,26 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 import sk.ab.common.Constants;
-import sk.ab.common.entity.Plant;
+import sk.ab.common.entity.FirebasePlant;
+import sk.ab.common.entity.PlantTranslation;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
@@ -36,14 +40,14 @@ public class PlantListFragment extends Fragment {
     private int list_position;
     private PropertyAdapter adapter;
 
-    private class PropertyAdapter extends FirebaseIndexRecyclerAdapter<Plant, PlantViewHolder> {
+    private class PropertyAdapter extends FirebaseIndexRecyclerAdapter<FirebasePlant, PlantViewHolder> {
 
-        PropertyAdapter(Class<Plant> modelClass, @LayoutRes int modelLayout, Class<PlantViewHolder> viewHolderClass, Query keyRef, Query dataRef) {
+        PropertyAdapter(Class<FirebasePlant> modelClass, @LayoutRes int modelLayout, Class<PlantViewHolder> viewHolderClass, Query keyRef, Query dataRef) {
             super(modelClass, modelLayout, viewHolderClass, keyRef, dataRef);
         }
 
         @Override
-        protected void populateViewHolder(final PlantViewHolder holder, final Plant plant, int position) {
+        protected void populateViewHolder(final PlantViewHolder holder, final FirebasePlant plant, int position) {
             DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
             holder.getPhoto().setImageResource(android.R.color.transparent);
             if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -64,7 +68,27 @@ public class PlantListFragment extends Fragment {
                         holder.getPhoto(), ((BaseApp) getActivity().getApplication()).getOptions());
             }
 
-            holder.getTitle().setText(getName(plant.getLabel()));
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference mTranslationRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.FIREBASE_SEPARATOR
+                    + Locale.getDefault().getLanguage() + AndroidConstants.FIREBASE_SEPARATOR + plant.getName());
+            mTranslationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    PlantTranslation plantTranslation = dataSnapshot.getValue(PlantTranslation.class);
+
+                    if (plantTranslation != null && plantTranslation.getLabel() != null) {
+                        holder.getTitle().setText(plantTranslation.getLabel());
+                    } else {
+                        holder.getTitle().setText(plant.getName());
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e(this.getClass().getName(), databaseError.getMessage());
+                }
+            });
+
             for(Map.Entry<String, String> entry : plant.getTaxonomy().entrySet()) {
                 if (entry.getKey().endsWith(Constants.TAXONOMY_FAMILY)) {
                     String family = entry.getValue();
@@ -113,7 +137,7 @@ public class PlantListFragment extends Fragment {
             DatabaseReference plantsRef = database.getReference(AndroidConstants.FIREBASE_PLANTS);
             DatabaseReference listRef = database.getReference(((ListPlantsBaseActivity)getActivity()).getListPath());
 
-            adapter = new PropertyAdapter(Plant.class, R.layout.plant_row, PlantViewHolder.class, listRef, plantsRef);
+            adapter = new PropertyAdapter(FirebasePlant.class, R.layout.plant_row, PlantViewHolder.class, listRef, plantsRef);
             list.setAdapter(adapter);
         }
     }
@@ -133,16 +157,5 @@ public class PlantListFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         adapter.cleanup();
-    }
-
-    private String getName(HashMap<String, String> names) {
-        String language = Locale.getDefault().getLanguage();
-
-        String name = names.get(language);
-        if (name == null) {
-            name = names.get(Constants.LANGUAGE_LA);
-        }
-
-        return name;
     }
 }
