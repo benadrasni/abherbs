@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.Plant;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
@@ -108,7 +109,7 @@ public class GalleryFragment extends Fragment {
     }
 
     private void setGallery(View convertView) {
-        final Plant plant = ((DisplayPlantActivity) getActivity()).getPlant();
+        final FirebasePlant plant = ((DisplayPlantActivity) getActivity()).getPlant();
         RecyclerView thumbnails = (RecyclerView) convertView.findViewById(R.id.plant_thumbnails);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());

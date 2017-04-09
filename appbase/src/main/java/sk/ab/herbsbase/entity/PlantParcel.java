@@ -6,12 +6,13 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.Plant;
 
 /**
- * Wrapper for {@link Plant}
+ * Wrapper for {@link FirebasePlant}
  */
-public class PlantParcel extends Plant implements Parcelable {
+public class PlantParcel extends FirebasePlant implements Parcelable {
 
     public static final Creator<PlantParcel> CREATOR = new Creator<PlantParcel>() {
         @Override
@@ -25,7 +26,7 @@ public class PlantParcel extends Plant implements Parcelable {
         }
     };
 
-    public PlantParcel(Plant plant) {
+    public PlantParcel(FirebasePlant plant) {
         plantId = plant.getPlantId();
         name = plant.getName();
         wikiName = plant.getWikiName();
@@ -37,9 +38,8 @@ public class PlantParcel extends Plant implements Parcelable {
         toxicityClass = plant.getToxicityClass();
         synonyms = plant.getSynonyms();
         photoUrls = plant.getPhotoUrls();
-        label = plant.getLabel();
-        names = plant.getNames();
         taxonomy = plant.getTaxonomy();
+        wikilinks = plant.getWikilinks();
 
         filterColor = plant.getFilterColor();
         filterHabitat = plant.getFilterHabitat();
@@ -52,19 +52,6 @@ public class PlantParcel extends Plant implements Parcelable {
         filterLeafVenetation = plant.getFilterLeafVenetation();
         filterLeafArrangement = plant.getFilterLeafArrangement();
         filterRoot = plant.getFilterRoot();
-
-        description = plant.getDescription();
-        flower = plant.getFlower();
-        inflorescence = plant.getInflorescence();
-        fruit = plant.getFruit();
-        leaf = plant.getLeaf();
-        stem = plant.getStem();
-        habitat = plant.getHabitat();
-        trivia = plant.getTrivia();
-        toxicity = plant.getToxicity();
-        herbalism = plant.getHerbalism();
-        wikilinks = plant.getWikilinks();
-        sourceUrls = plant.getSourceUrls();
     }
 
     public PlantParcel(Parcel in) {
@@ -79,9 +66,8 @@ public class PlantParcel extends Plant implements Parcelable {
         toxicityClass = (Integer)in.readSerializable();
         synonyms = (ArrayList<String>)in.readSerializable();
         photoUrls = (ArrayList<String>)in.readSerializable();
-        label = (HashMap<String, String>)in.readSerializable();
-        names = (HashMap<String, ArrayList<String>>)in.readSerializable();
         taxonomy = (HashMap<String, String>)in.readSerializable();
+        wikilinks = (HashMap<String, String>)in.readSerializable();
 
         filterColor = (ArrayList<String>)in.readSerializable();
         filterHabitat = (ArrayList<String>)in.readSerializable();
@@ -94,19 +80,6 @@ public class PlantParcel extends Plant implements Parcelable {
         filterLeafVenetation = (ArrayList<String>)in.readSerializable();
         filterLeafArrangement = (ArrayList<String>)in.readSerializable();
         filterRoot = (ArrayList<String>)in.readSerializable();
-
-        description = (HashMap<String, String>)in.readSerializable();
-        flower = (HashMap<String, String>)in.readSerializable();
-        inflorescence = (HashMap<String, String>)in.readSerializable();
-        fruit = (HashMap<String, String>)in.readSerializable();
-        leaf = (HashMap<String, String>)in.readSerializable();
-        stem = (HashMap<String, String>)in.readSerializable();
-        habitat = (HashMap<String, String>)in.readSerializable();
-        trivia = (HashMap<String, String>)in.readSerializable();
-        toxicity = (HashMap<String, String>)in.readSerializable();
-        herbalism = (HashMap<String, String>)in.readSerializable();
-        wikilinks = (HashMap<String, String>)in.readSerializable();
-        sourceUrls = (HashMap<String, ArrayList<String>>)in.readSerializable();
     }
 
 
@@ -128,9 +101,8 @@ public class PlantParcel extends Plant implements Parcelable {
         parcel.writeSerializable(toxicityClass);
         parcel.writeSerializable(synonyms);
         parcel.writeSerializable(photoUrls);
-        parcel.writeSerializable(label);
-        parcel.writeSerializable(names);
         parcel.writeSerializable(taxonomy);
+        parcel.writeSerializable(wikilinks);
 
         parcel.writeSerializable(filterColor);
         parcel.writeSerializable(filterHabitat);
@@ -143,18 +115,5 @@ public class PlantParcel extends Plant implements Parcelable {
         parcel.writeSerializable(filterLeafVenetation);
         parcel.writeSerializable(filterLeafArrangement);
         parcel.writeSerializable(filterRoot);
-
-        parcel.writeSerializable(description);
-        parcel.writeSerializable(flower);
-        parcel.writeSerializable(inflorescence);
-        parcel.writeSerializable(fruit);
-        parcel.writeSerializable(leaf);
-        parcel.writeSerializable(stem);
-        parcel.writeSerializable(habitat);
-        parcel.writeSerializable(trivia);
-        parcel.writeSerializable(toxicity);
-        parcel.writeSerializable(herbalism);
-        parcel.writeSerializable(wikilinks);
-        parcel.writeSerializable(sourceUrls);
     }
 }

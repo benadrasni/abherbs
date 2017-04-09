@@ -29,6 +29,9 @@ public class AndroidConstants {
     public final static String STATE_PLANT_LIST = "plant_list";
     public final static String STATE_PLANT_LIST_COUNT = "plant_list_count";
     public final static String STATE_PLANT = "plant";
+    public final static String STATE_TRANSLATION_IN_LANGUAGE = "translation_in_language";
+    public final static String STATE_TRANSLATION_IN_LANGUAGE_GT = "translation_in_language_gt";
+    public final static String STATE_TRANSLATION_IN_ENGLISH = "translation_in_english";
 
     public final static String RATE = "RATE";
     public final static int RATE_COUNTER = 5;
@@ -52,6 +55,7 @@ public class AndroidConstants {
     public final static String TAXON_FAMILIA = "Familia";
 
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
+    public final static String LANGUAGE_GT_SUFFIX = "-GT";
     public final static String PROPOSE_TRANSLATION_KEY = "propose_translation";
     public final static String CACHE_SIZE_KEY = "cache_size";
     public final static String RESET_KEY = "reset";
@@ -84,6 +88,7 @@ public class AndroidConstants {
     public final static String FIREBASE_APG_III = "APG III";
     public final static String FIREBASE_SEARCH = "search";
     public final static String FIREBASE_MESSAGES = "messages";
+    public final static String FIREBASE_TRANSLATIONS = "translations";
 
     public final static String FIREBASE_APGIII_TYPE = "type";
     public final static String FIREBASE_APGIII_NAMES = "names";

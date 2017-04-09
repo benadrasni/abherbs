@@ -36,6 +36,10 @@ public class FirebasePlant {
     protected HashMap<String, String> wikilinks = new HashMap<>();
     protected HashMap<String, String> taxonomy = new HashMap<>();
 
+    public FirebasePlant() {
+
+    }
+
     public FirebasePlant(Plant plant) {
         this.plantId = plant.getPlantId();
         this.name = plant.getName();

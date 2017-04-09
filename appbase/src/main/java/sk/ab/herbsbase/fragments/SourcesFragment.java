@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Locale;
 
 import sk.ab.common.Constants;
+import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.Plant;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.DisplayPlantActivity;
@@ -66,7 +67,7 @@ public class SourcesFragment extends Fragment {
     }
 
     private void setSources(View convertView) {
-        Plant plant = ((DisplayPlantActivity) getActivity()).getPlant();
+        FirebasePlant plant = ((DisplayPlantActivity) getActivity()).getPlant();
         String language = Locale.getDefault().getLanguage();
 
         List<String> sourceUrls = new ArrayList<>();
@@ -81,14 +82,15 @@ public class SourcesFragment extends Fragment {
         if (commonslink != null) {
             sourceUrls.add(commonslink);
         }
-        List<String> sources = plant.getSourceUrls().get(language);
-        if (sources != null) {
-            sourceUrls.addAll(sources);
-        }
-        sources = plant.getSourceUrls().get(Constants.LANGUAGE_EN);
-        if (sources != null) {
-            sourceUrls.addAll(sources);
-        }
+        //TODO
+//        List<String> sources = plant.getSourceUrls().get(language);
+//        if (sources != null) {
+//            sourceUrls.addAll(sources);
+//        }
+//        sources = plant.getSourceUrls().get(Constants.LANGUAGE_EN);
+//        if (sources != null) {
+//            sourceUrls.addAll(sources);
+//        }
 
         GridLayout grid = (GridLayout) convertView.findViewById(R.id.plant_source_grid);
         grid.removeAllViews();

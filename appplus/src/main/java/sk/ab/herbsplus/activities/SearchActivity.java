@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Locale;
 import java.util.Map;
 
+import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.Plant;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.DisplayPlantActivity;
@@ -232,7 +233,7 @@ public class SearchActivity extends AppCompatActivity {
         mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Plant plant = dataSnapshot.getValue(Plant.class);
+                FirebasePlant plant = dataSnapshot.getValue(FirebasePlant.class);
 
                 Intent intent = new Intent(getBaseContext(), DisplayPlantActivity.class);
                 intent.putExtra(AndroidConstants.STATE_PLANT, new PlantParcel(plant));

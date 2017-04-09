@@ -18,6 +18,7 @@ import java.util.HashMap;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.entity.PlantParcel;
+import sk.ab.herbsbase.entity.PlantTranslationParcel;
 import sk.ab.herbsbase.fragments.GalleryFragment;
 import sk.ab.herbsbase.fragments.InfoFragment;
 import sk.ab.herbsbase.fragments.SourcesFragment;
@@ -29,7 +30,10 @@ import sk.ab.herbsbase.fragments.TaxonomyFragment;
  */
 public class DisplayPlantActivity extends BaseActivity {
 
-    PlantParcel plantParcel;
+    private PlantParcel plantParcel;
+    private PlantTranslationParcel plantTranslationParcel;
+    private PlantTranslationParcel plantTranslationEnParcel;
+    private PlantTranslationParcel plantTranslationGTParcel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,9 +41,15 @@ public class DisplayPlantActivity extends BaseActivity {
 
         if (savedInstanceState != null) {
             plantParcel = savedInstanceState.getParcelable(AndroidConstants.STATE_PLANT);
+            plantTranslationParcel = savedInstanceState.getParcelable(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE);
+            plantTranslationGTParcel = savedInstanceState.getParcelable(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE_GT);
+            plantTranslationEnParcel = savedInstanceState.getParcelable(AndroidConstants.STATE_TRANSLATION_IN_ENGLISH);
             filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
         } else {
-            plantParcel = getIntent().getExtras().getParcelable("plant");
+            plantParcel = getIntent().getExtras().getParcelable(AndroidConstants.STATE_PLANT);
+            plantTranslationParcel = getIntent().getExtras().getParcelable(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE);
+            plantTranslationGTParcel = getIntent().getExtras().getParcelable(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE_GT);
+            plantTranslationEnParcel = getIntent().getExtras().getParcelable(AndroidConstants.STATE_TRANSLATION_IN_ENGLISH);
             filter = (HashMap<String, String>)getIntent().getExtras().getSerializable(AndroidConstants.STATE_FILTER);
         }
 
@@ -95,6 +105,9 @@ public class DisplayPlantActivity extends BaseActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putParcelable(AndroidConstants.STATE_PLANT, plantParcel);
+        savedInstanceState.putParcelable(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE, plantTranslationParcel);
+        savedInstanceState.putParcelable(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE_GT, plantTranslationGTParcel);
+        savedInstanceState.putParcelable(AndroidConstants.STATE_TRANSLATION_IN_ENGLISH, plantTranslationEnParcel);
         savedInstanceState.putSerializable(AndroidConstants.STATE_FILTER, filter);
 
         super.onSaveInstanceState(savedInstanceState);
@@ -109,6 +122,18 @@ public class DisplayPlantActivity extends BaseActivity {
 
     public PlantParcel getPlant() {
         return plantParcel;
+    }
+
+    public PlantTranslationParcel getPlantTranslation() {
+        return plantTranslationParcel;
+    }
+
+    public PlantTranslationParcel getPlantTranslationGT() {
+        return plantTranslationGTParcel;
+    }
+
+    public PlantTranslationParcel getPlantTranslationEn() {
+        return plantTranslationEnParcel;
     }
 
     @Override

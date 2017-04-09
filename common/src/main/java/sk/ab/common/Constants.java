@@ -23,7 +23,6 @@ public class Constants {
     public final static String LANGUAGE_ES = "es";
     public final static String LANGUAGE_PT = "pt";
 
-    public final static String LANGUAGE_GT_SUFFIX = "-GT";
     public final static String LANGUAGE_ORIGINAL = "original";
 
     public final static String HEIGHT_UNIT = "cm";

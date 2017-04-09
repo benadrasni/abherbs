@@ -31,8 +31,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import sk.ab.common.Constants;
-import sk.ab.common.entity.Plant;
+import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.PlantTaxon;
+import sk.ab.common.entity.PlantTranslation;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.DisplayPlantActivity;
@@ -97,7 +98,7 @@ public class TaxonomyFragment extends Fragment {
             getView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    getTaxonomy(((DisplayPlantActivity) getActivity()).getPlant(), getView());
+                    getTaxonomy(getView());
                     Utils.setVisibility(v, R.id.plant_taxonomy);
                     Utils.setVisibility(v, R.id.agpiii);
                 }
@@ -105,8 +106,9 @@ public class TaxonomyFragment extends Fragment {
         }
     }
 
-    private void getTaxonomy(final Plant plant, View view) {
+    private void getTaxonomy(View view) {
         final DisplayPlantActivity displayPlantActivity = (DisplayPlantActivity) getActivity();
+        final PlantParcel plant = displayPlantActivity.getPlant();
         final LinearLayout layout = (LinearLayout) view.findViewById(R.id.plant_taxonomy);
 
         if (layout.isShown() || layout.getChildCount() > 0) {
@@ -209,7 +211,9 @@ public class TaxonomyFragment extends Fragment {
     }
 
     private void setNames(View view) {
-        PlantParcel plant = ((DisplayPlantActivity) getActivity()).getPlant();
+        FirebasePlant plant = getPlant();
+        PlantTranslation plantTranslation = getPlantTranslation();
+
         Integer toxicityClass = plant.getToxicityClass();
         if (toxicityClass == null) {
             toxicityClass = 0;
@@ -228,13 +232,13 @@ public class TaxonomyFragment extends Fragment {
                 toxicityClass2.setVisibility(View.GONE);
         }
 
-
-        String language = Locale.getDefault().getLanguage();
-
         boolean isLatinName = false;
-        String label = plant.getLabel().get(language);
+        String label = null;
+        if (plantTranslation != null) {
+            label = plantTranslation.getLabel();
+        }
         if (label == null) {
-            label = plant.getLabel().get(Constants.LANGUAGE_LA);
+            label = plant.getName();
             isLatinName = true;
         }
 
@@ -242,32 +246,52 @@ public class TaxonomyFragment extends Fragment {
         species.setText(label);
         if (!isLatinName) {
             TextView species_latin = (TextView) view.findViewById(R.id.plant_species_latin);
-            species_latin.setText(plant.getLabel().get(Constants.LANGUAGE_LA));
+            species_latin.setText(plant.getName());
         }
         TextView namesView = (TextView) view.findViewById(R.id.plant_alt_names);
 
-        List<String> names = plant.getNames().get(language);
-        if (names != null) {
-            int i = 0;
-            StringBuilder namesText = new StringBuilder();
-            for (String name : names) {
+        if (plantTranslation != null) {
+            List<String> names = plantTranslation.getNames();
+            if (names != null) {
+                int i = 0;
+                StringBuilder namesText = new StringBuilder();
+                for (String name : names) {
+                    if (namesText.length() > 0) {
+                        namesText.append(", ");
+                    }
+                    namesText.append(name);
+                    i++;
+                    if (i > Constants.NAMES_TO_DISPLAY) {
+                        break;
+                    }
+                }
                 if (namesText.length() > 0) {
-                    namesText.append(", ");
+                    namesView.setText(namesText.toString());
+                } else {
+                    namesView.setVisibility(View.GONE);
                 }
-                namesText.append(name);
-                i++;
-                if (i > Constants.NAMES_TO_DISPLAY) {
-                    break;
-                }
-            }
-            if (namesText.length() > 0) {
-                namesView.setText(namesText.toString());
             } else {
                 namesView.setVisibility(View.GONE);
             }
         } else {
             namesView.setVisibility(View.GONE);
         }
+    }
+
+    private FirebasePlant getPlant() {
+        return ((DisplayPlantActivity)getActivity()).getPlant();
+    }
+
+    private PlantTranslation getPlantTranslation() {
+        return ((DisplayPlantActivity)getActivity()).getPlantTranslation();
+    }
+
+    private PlantTranslation getPlantTranslationGT() {
+        return ((DisplayPlantActivity)getActivity()).getPlantTranslationGT();
+    }
+
+    private PlantTranslation getPlantTranslationEn() {
+        return ((DisplayPlantActivity)getActivity()).getPlantTranslationEn();
     }
 }
 
