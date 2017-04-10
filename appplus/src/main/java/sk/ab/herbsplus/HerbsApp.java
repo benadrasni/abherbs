@@ -45,10 +45,18 @@ public class HerbsApp extends BaseApp {
             DatabaseReference taxonomyRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_APG_III);
             taxonomyRef.keepSynced(true);
             String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
-            DatabaseReference searchInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH + AndroidConstants.FIREBASE_SEPARATOR + language);
+            DatabaseReference searchInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
+                    + AndroidConstants.FIREBASE_SEPARATOR + language);
             searchInLanguageRef.keepSynced(true);
-            DatabaseReference searchInLatinRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.LANGUAGE_LA);
+            DatabaseReference searchInLatinRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
+                    + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.LANGUAGE_LA);
             searchInLatinRef.keepSynced(true);
+            DatabaseReference translationsInLanguage = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+                    + AndroidConstants.FIREBASE_SEPARATOR + language);
+            translationsInLanguage.keepSynced(true);
+            DatabaseReference translationsInEnglish = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+                    + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.LANGUAGE_EN);
+            translationsInEnglish.keepSynced(true);
         }
 
         // image cache

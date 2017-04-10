@@ -57,10 +57,18 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
                 DatabaseReference taxonomyRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_APG_III);
                 taxonomyRef.keepSynced(newOfflineMode);
                 String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
-                DatabaseReference searchInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH + AndroidConstants.FIREBASE_SEPARATOR + language);
+                DatabaseReference searchInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
+                        + AndroidConstants.FIREBASE_SEPARATOR + language);
                 searchInLanguageRef.keepSynced(newOfflineMode);
-                DatabaseReference searchInLatinRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.LANGUAGE_LA);
+                DatabaseReference searchInLatinRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
+                        + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.LANGUAGE_LA);
                 searchInLatinRef.keepSynced(newOfflineMode);
+                DatabaseReference translationsInLanguage = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+                        + AndroidConstants.FIREBASE_SEPARATOR + language);
+                translationsInLanguage.keepSynced(newOfflineMode);
+                DatabaseReference translationsInEnglish = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+                        + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.LANGUAGE_EN);
+                translationsInEnglish.keepSynced(newOfflineMode);
 
                 if (newOfflineMode) {
                     editor.remove(SpecificConstants.LAST_UPDATE_TIME_KEY);
