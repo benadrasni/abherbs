@@ -12,11 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import sk.ab.common.entity.FirebasePlant;
-import sk.ab.common.entity.Plant;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
-import sk.ab.herbsbase.activities.DisplayPlantActivity;
+import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
 import sk.ab.herbsbase.tools.Utils;
 
 
@@ -109,7 +108,7 @@ public class GalleryFragment extends Fragment {
     }
 
     private void setGallery(View convertView) {
-        final FirebasePlant plant = ((DisplayPlantActivity) getActivity()).getPlant();
+        final FirebasePlant plant = ((DisplayPlantBaseActivity) getActivity()).getPlant();
         RecyclerView thumbnails = (RecyclerView) convertView.findViewById(R.id.plant_thumbnails);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());

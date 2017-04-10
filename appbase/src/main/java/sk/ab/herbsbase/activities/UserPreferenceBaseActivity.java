@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import sk.ab.herbsbase.R;
-import sk.ab.herbsbase.fragments.UserPreferenceFragment;
+import sk.ab.herbsbase.fragments.UserPreferenceBaseFragment;
 
 /**
  * User preferences
  */
-public class UserPreferenceActivity extends PreferenceActivity {
+public abstract class UserPreferenceBaseActivity extends PreferenceActivity {
 
     private Toolbar mActionBar;
 
@@ -51,7 +51,5 @@ public class UserPreferenceActivity extends PreferenceActivity {
         mActionBar.setTitle(R.string.settings);
     }
 
-    protected void addFragment() {
-        getFragmentManager().beginTransaction().replace(R.id.content_wrapper, new UserPreferenceFragment()).commit();
-    }
+    protected abstract void addFragment();
 }

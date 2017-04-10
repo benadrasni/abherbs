@@ -6,7 +6,6 @@
     <string name="feedback">Configurações</string>
     <string name="pref_language">Língua preferida</string>
     <string name="propose_translation">Ocultar o botão</string>
-    <string name="propose_translation_summary">Para enviar uma melhor tradução/descrição</string>
     <string name="cache_size">Cache size in MB</string>
     <string name="cache_size_summary">for photos and illustrations</string>
 

@@ -19,7 +19,7 @@ import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.BaseActivity;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
 import sk.ab.herbsbase.activities.LegendActivity;
-import sk.ab.herbsbase.activities.UserPreferenceActivity;
+import sk.ab.herbsbase.activities.UserPreferenceBaseActivity;
 
 public class PropertyListFragment extends ListFragment {
     private PropertyAdapter adapter;
@@ -151,6 +151,6 @@ public class PropertyListFragment extends ListFragment {
     }
 
     protected Class getUserPreferenceActivityClass() {
-        return UserPreferenceActivity.class;
+        return UserPreferenceBaseActivity.class;
     }
 }

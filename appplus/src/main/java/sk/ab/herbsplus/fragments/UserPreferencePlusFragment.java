@@ -1,7 +1,6 @@
 package sk.ab.herbsplus.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -15,17 +14,13 @@ import java.util.Locale;
 
 import sk.ab.common.util.Utils;
 import sk.ab.herbsbase.AndroidConstants;
-import sk.ab.herbsbase.BaseApp;
-import sk.ab.herbsbase.fragments.UserPreferenceFragment;
+import sk.ab.herbsbase.fragments.UserPreferenceBaseFragment;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.StorageLoading;
-import sk.ab.herbsplus.activities.FilterPlantsPlusActivity;
-import sk.ab.herbsplus.activities.SplashActivity;
-import sk.ab.herbsplus.activities.UserPreferencePlusActivity;
 
 /**
- * @see UserPreferenceFragment
+ * @see UserPreferenceBaseFragment
  *
  * plus preferences_plus:
  * - offline mode
@@ -33,7 +28,7 @@ import sk.ab.herbsplus.activities.UserPreferencePlusActivity;
  * Created by adrian on 12. 3. 2017.
  */
 
-public class UserPreferencePlusFragment extends UserPreferenceFragment {
+public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
 
     private CheckBoxPreference prefOfflineMode;
 

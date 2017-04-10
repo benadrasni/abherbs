@@ -30,7 +30,7 @@ import sk.ab.herbsbase.fragments.TaxonomyFragment;
  * Activity for displaying selected plant
  *
  */
-public class DisplayPlantActivity extends BaseActivity {
+public abstract class DisplayPlantBaseActivity extends BaseActivity {
 
     private PlantParcel plantParcel;
     private PlantTranslationParcel plantTranslationParcel;
@@ -141,10 +141,4 @@ public class DisplayPlantActivity extends BaseActivity {
     public PlantTranslationParcel getPlantTranslationEn() {
         return plantTranslationEnParcel;
     }
-
-    @Override
-    public SharedPreferences getSharedPreferences() {
-        return getSharedPreferences(AndroidConstants.PACKAGE, Context.MODE_PRIVATE);
-    }
-
 }

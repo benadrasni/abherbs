@@ -6,7 +6,6 @@
     <string name="feedback">Sugerencias</string>
     <string name="pref_language">Idioma preferido</string>
     <string name="propose_translation">No mostrar el botón</string>
-    <string name="propose_translation_summary">para enviar correos electrónicos no mejor traducción / descripción.</string>
     <string name="cache_size">Cache size in MB</string>
     <string name="cache_size_summary">for photos and illustrations</string>
 

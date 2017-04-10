@@ -1,11 +1,8 @@
 package sk.ab.herbsbase.fragments;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -19,7 +16,7 @@ import java.util.Locale;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
-import sk.ab.herbsbase.activities.UserPreferenceActivity;
+import sk.ab.herbsbase.activities.UserPreferenceBaseActivity;
 import sk.ab.herbsbase.tools.Utils;
 
 /**
@@ -29,10 +26,9 @@ import sk.ab.herbsbase.tools.Utils;
  * Time: 9:23 PM
  * <p/>
  */
-public class UserPreferenceFragment extends PreferenceFragment {
+public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
 
     private ListPreference prefLanguage;
-    private CheckBoxPreference prefProposeTranslation;
     protected EditTextPreference prefCacheSize;
 
     @Override
@@ -78,20 +74,6 @@ public class UserPreferenceFragment extends PreferenceFragment {
             }
         });
 
-        Boolean proposeTranslation = preferences.getBoolean(AndroidConstants.PROPOSE_TRANSLATION_KEY, false);
-        prefProposeTranslation = (CheckBoxPreference)findPreference("proposeTranslation");
-        prefProposeTranslation.setChecked(proposeTranslation);
-        prefProposeTranslation.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean(AndroidConstants.PROPOSE_TRANSLATION_KEY, (Boolean) newValue);
-                editor.apply();
-                return true;
-            }
-        });
-
         Integer cacheSize = preferences.getInt(AndroidConstants.CACHE_SIZE_KEY, AndroidConstants.DEFAULT_CACHE_SIZE);
         prefCacheSize = (EditTextPreference)findPreference("cacheSize");
         prefCacheSize.setText("" + cacheSize);
@@ -110,23 +92,18 @@ public class UserPreferenceFragment extends PreferenceFragment {
         });
     }
 
-    protected SharedPreferences getSharedPreferences() {
-        return getActivity().getSharedPreferences(AndroidConstants.PACKAGE, Context.MODE_PRIVATE);
-    }
+    protected abstract SharedPreferences getSharedPreferences();
 
     private void changeLocale(String language) {
         Utils.changeLocale(getActivity().getBaseContext(), language);
         updateViews();
-        ((UserPreferenceActivity)getActivity()).updateViews();
+        ((UserPreferenceBaseActivity)getActivity()).updateViews();
     }
 
     protected void updateViews() {
         Resources resources = getResources();
 
         prefLanguage.setTitle(resources.getString(R.string.pref_language));
-
-        prefProposeTranslation.setTitle(resources.getString(R.string.propose_translation));
-        prefProposeTranslation.setSummary(resources.getString(R.string.propose_translation_summary));
 
         prefCacheSize.setTitle(resources.getString(R.string.cache_size));
         prefCacheSize.setSummary(resources.getString(R.string.cache_size_summary));

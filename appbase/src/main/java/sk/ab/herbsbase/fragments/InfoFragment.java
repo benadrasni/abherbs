@@ -38,7 +38,7 @@ import sk.ab.common.entity.PlantTranslation;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
-import sk.ab.herbsbase.activities.DisplayPlantActivity;
+import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
 import sk.ab.herbsbase.commons.FullScreenImageActivity;
 import sk.ab.herbsbase.tools.Keys;
 import sk.ab.herbsbase.tools.Utils;
@@ -64,11 +64,11 @@ public class InfoFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final SharedPreferences preferences = ((DisplayPlantActivity)getActivity()).getSharedPreferences();
+        final SharedPreferences preferences = ((DisplayPlantBaseActivity)getActivity()).getSharedPreferences();
 
         final ImageView drawing = (ImageView) getView().findViewById(R.id.plant_background);
         SharedPreferences.Editor editor = preferences.edit();
-        Boolean showWizard = !preferences.getBoolean(Constants.SHOWCASE_DISPLAY_KEY + Constants.VERSION_1_2_7, false);
+        Boolean showWizard = !preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_2_7, false);
 
         if (showWizard) {
             new ShowcaseView.Builder(getActivity())
@@ -79,7 +79,7 @@ public class InfoFragment extends Fragment {
                     .setContentTitle(R.string.showcase_fullscreen_title)
                     .setContentText(R.string.showcase_fullscreen_message)
                     .build();
-            editor.putBoolean(Constants.SHOWCASE_DISPLAY_KEY + Constants.VERSION_1_2_7, true);
+            editor.putBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_2_7, true);
             editor.apply();
         }
 
@@ -253,7 +253,7 @@ public class InfoFragment extends Fragment {
     }
 
     private void getTranslation(final String source, final String target, final List<String> textToTranslate) {
-        final DisplayPlantActivity displayPlantActivity = (DisplayPlantActivity) getActivity();
+        final DisplayPlantBaseActivity displayPlantActivity = (DisplayPlantBaseActivity) getActivity();
         final BaseApp app = (BaseApp) displayPlantActivity.getApplication();
 
         displayPlantActivity.startLoading();
@@ -354,7 +354,7 @@ public class InfoFragment extends Fragment {
     }
 
     private String getEmailSubject() {
-        return getString(R.string.email_subject_prefix) + " " + ((DisplayPlantActivity) getActivity()).getPlant().getName();
+        return getString(R.string.email_subject_prefix) + " " + ((DisplayPlantBaseActivity) getActivity()).getPlant().getName();
     }
 
     private String getEmailBody() {
@@ -441,23 +441,23 @@ public class InfoFragment extends Fragment {
     }
 
     private FirebasePlant getPlant() {
-        return ((DisplayPlantActivity)getActivity()).getPlant();
+        return ((DisplayPlantBaseActivity)getActivity()).getPlant();
     }
 
     private PlantTranslation getPlantTranslation() {
-        return ((DisplayPlantActivity)getActivity()).getPlantTranslation();
+        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslation();
     }
 
     private PlantTranslation getPlantTranslationGT() {
-        return ((DisplayPlantActivity)getActivity()).getPlantTranslationGT();
+        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslationGT();
     }
 
     private void setPlantTranslationGT(PlantTranslation plantTranslation) {
-        ((DisplayPlantActivity)getActivity()).setPlantTranslationGT(plantTranslation);
+        ((DisplayPlantBaseActivity)getActivity()).setPlantTranslationGT(plantTranslation);
     }
 
     private PlantTranslation getPlantTranslationEn() {
-        return ((DisplayPlantActivity)getActivity()).getPlantTranslationEn();
+        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslationEn();
     }
 }
 

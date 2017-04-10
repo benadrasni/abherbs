@@ -6,11 +6,6 @@
             android:summary=""
             android:title="@string/pref_language" />
 
-    <CheckBoxPreference
-        android:key="proposeTranslation"
-        android:summary="@string/propose_translation_summary"
-        android:title="@string/propose_translation" />
-
     <EditTextPreference
         android:key="cacheSize"
         android:inputType="number"

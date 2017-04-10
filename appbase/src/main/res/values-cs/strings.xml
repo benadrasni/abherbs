@@ -6,7 +6,6 @@
     <string name="feedback">Připomínky</string>
     <string name="pref_language">Preferovaný jazyk</string>
     <string name="propose_translation">Nezobrazovat tlačítko</string>
-    <string name="propose_translation_summary">na zaslání lepšího překladu / popisu.</string>
     <string name="cache_size">Cache size in MB</string>
     <string name="cache_size_summary">for photos and illustrations</string>
 

@@ -27,8 +27,7 @@ public class Habitats extends BaseFilterFragment {
         super.onStart();
 
         FilterPlantsBaseActivity filterPlantsActivity = (FilterPlantsBaseActivity) getActivity();
-        final SharedPreferences preferences = filterPlantsActivity
-                .getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        final SharedPreferences preferences = filterPlantsActivity.getSharedPreferences();
         SharedPreferences.Editor editor = preferences.edit();
         Boolean wasShowCase = preferences.getBoolean(AndroidConstants.SHOWCASE_FILTER_KEY + AndroidConstants.VERSION_1_2_7, false);
 

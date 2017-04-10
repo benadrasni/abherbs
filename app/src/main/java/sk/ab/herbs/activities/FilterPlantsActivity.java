@@ -62,7 +62,7 @@ public class FilterPlantsActivity extends FilterPlantsBaseActivity {
 
     @Override
     public SharedPreferences getSharedPreferences() {
-        return getSharedPreferences(AndroidConstants.PACKAGE, Context.MODE_PRIVATE);
+        return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
 
     @Override

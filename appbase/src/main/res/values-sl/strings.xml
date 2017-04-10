@@ -6,7 +6,6 @@
     <string name="feedback">Povratne informacije</string>
     <string name="pref_language">Želeni jezik</string>
     <string name="propose_translation">Gumb ne kažejo</string>
-    <string name="propose_translation_summary">za pošiljanje e-pošte boljši prevod / opis</string>
     <string name="cache_size">Cache size in MB</string>
     <string name="cache_size_summary">for photos and illustrations</string>
 

@@ -23,8 +23,6 @@ public class Constants {
     public final static String LANGUAGE_ES = "es";
     public final static String LANGUAGE_PT = "pt";
 
-    public final static String LANGUAGE_ORIGINAL = "original";
-
     public final static String HEIGHT_UNIT = "cm";
 
     public final static Map<Integer, String> LANGUAGES;
@@ -37,17 +35,6 @@ public class Constants {
         LANGUAGES.put(5, LANGUAGE_ES);
         LANGUAGES.put(9, LANGUAGE_PT);
     }
-
-    public final static int VERSION_1_2_7 = 36;
-    public final static int VERSION_1_3_1 = 42;
-
-    public final static String LANGUAGE_DEFAULT_KEY = "language_default";
-    public final static String PROPOSE_TRANSLATION_KEY = "propose_translation";
-    public final static String RESET_KEY = "reset";
-    public final static String RATE_STATE_KEY = "rate_state";
-    public final static String RATE_COUNT_KEY = "rate_count";
-    public final static String SHOWCASE_FILTER_KEY = "showcase_filter";
-    public final static String SHOWCASE_DISPLAY_KEY = "showcase_display";
 
     public final static String PLANT = "Plant";
 

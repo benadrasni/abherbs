@@ -26,9 +26,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import sk.ab.common.entity.FirebasePlant;
-import sk.ab.common.entity.Plant;
 import sk.ab.herbsbase.AndroidConstants;
-import sk.ab.herbsbase.activities.DisplayPlantActivity;
+import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
 import sk.ab.herbsbase.entity.PlantParcel;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
@@ -235,7 +234,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 FirebasePlant plant = dataSnapshot.getValue(FirebasePlant.class);
 
-                Intent intent = new Intent(getBaseContext(), DisplayPlantActivity.class);
+                Intent intent = new Intent(getBaseContext(), DisplayPlantBaseActivity.class);
                 intent.putExtra(AndroidConstants.STATE_PLANT, new PlantParcel(plant));
                 startActivity(intent);
             }

@@ -40,10 +40,6 @@ public class AndroidConstants {
     public final static int RATE_SHOW = 1;
     public final static int RATE_DONE = 2;
 
-    public final static String RATE_STATUS_DONE = "done";
-    public final static String RATE_STATUS_NEVER = "never";
-    public final static String RATE_STATUS_LATER = "later";
-
     public final static String STORAGE_ENDPOINT = "http://storage.googleapis.com/abherbs-resources/";
     public final static String STORAGE_FAMILIES = "families/";
     public final static String STORAGE_PHOTOS = "photos/";
@@ -56,7 +52,6 @@ public class AndroidConstants {
 
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
     public final static String LANGUAGE_GT_SUFFIX = "-GT";
-    public final static String PROPOSE_TRANSLATION_KEY = "propose_translation";
     public final static String CACHE_SIZE_KEY = "cache_size";
     public final static String RESET_KEY = "reset";
     public final static String RATE_STATE_KEY = "rate_state";

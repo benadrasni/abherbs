@@ -28,7 +28,7 @@
             android:name="sk.ab.herbsplus.activities.ListPlantsPlusActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
-            android:name="sk.ab.herbsbase.activities.DisplayPlantActivity"
+            android:name="sk.ab.herbsplus.activities.DisplayPlantPlusActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
             android:name="sk.ab.herbsplus.activities.UserPreferencePlusActivity"

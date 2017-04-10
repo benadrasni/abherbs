@@ -279,23 +279,25 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
     }
 
     private void displayPlant() {
-        Intent intent = new Intent(getBaseContext(), DisplayPlantActivity.class);
+        Intent intent = getDisplayPlantActivityIntent();
         intent.putExtra(AndroidConstants.STATE_PLANT, new PlantParcel(getPlant()));
         intent.putExtra(AndroidConstants.STATE_FILTER, filter);
-        if (translationInLanguage != null) {
-            intent.putExtra(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE, new PlantTranslationParcel(translationInLanguage));
+        if (getTranslationInLanguage() != null) {
+            intent.putExtra(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE, new PlantTranslationParcel(getTranslationInLanguage()));
         }
-        if (translationInEnglish != null) {
-            intent.putExtra(AndroidConstants.STATE_TRANSLATION_IN_ENGLISH, new PlantTranslationParcel(translationInEnglish));
+        if (getTranslationInEnglish() != null) {
+            intent.putExtra(AndroidConstants.STATE_TRANSLATION_IN_ENGLISH, new PlantTranslationParcel(getTranslationInEnglish()));
         }
-        if (translationInLanguageGT != null) {
-            intent.putExtra(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE_GT, new PlantTranslationParcel(translationInLanguageGT));
+        if (getTranslationInLanguageGT() != null) {
+            intent.putExtra(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE_GT, new PlantTranslationParcel(getTranslationInLanguageGT()));
         }
         startActivity(intent);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         stopLoading();
         setCountButton();
     }
+
+    protected abstract Intent getDisplayPlantActivityIntent();
 
     public FirebasePlant getPlant() {
         return plant;

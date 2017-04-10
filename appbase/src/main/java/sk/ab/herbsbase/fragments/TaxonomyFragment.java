@@ -36,8 +36,7 @@ import sk.ab.common.entity.PlantTaxon;
 import sk.ab.common.entity.PlantTranslation;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
-import sk.ab.herbsbase.activities.DisplayPlantActivity;
-import sk.ab.herbsbase.entity.PlantParcel;
+import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
 import sk.ab.herbsbase.tools.Utils;
 
 /**
@@ -67,11 +66,11 @@ public class TaxonomyFragment extends Fragment {
             toxicityClass2 = (ImageView) getView().findViewById(R.id.plant_toxicity_class2);
         }
 
-        final DisplayPlantActivity displayPlantActivity = (DisplayPlantActivity) getActivity();
-        final SharedPreferences preferences = displayPlantActivity.getSharedPreferences("sk.ab.herbs", Context.MODE_PRIVATE);
+        final DisplayPlantBaseActivity displayPlantActivity = (DisplayPlantBaseActivity) getActivity();
+        final SharedPreferences preferences = displayPlantActivity.getSharedPreferences();
         SharedPreferences.Editor editor = preferences.edit();
         Boolean showWizard = !preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_3_1, false)
-                && preferences.getBoolean(Constants.SHOWCASE_DISPLAY_KEY + Constants.VERSION_1_2_7, false);
+                && preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_2_7, false);
         final TextView nameView = (TextView) getView().findViewById(R.id.plant_species);
 
         if (showWizard) {
@@ -107,7 +106,7 @@ public class TaxonomyFragment extends Fragment {
     }
 
     private void getTaxonomy(View view) {
-        final DisplayPlantActivity displayPlantActivity = (DisplayPlantActivity) getActivity();
+        final DisplayPlantBaseActivity displayPlantActivity = (DisplayPlantBaseActivity) getActivity();
         final FirebasePlant plant = displayPlantActivity.getPlant();
         final LinearLayout layout = (LinearLayout) view.findViewById(R.id.plant_taxonomy);
 
@@ -279,19 +278,19 @@ public class TaxonomyFragment extends Fragment {
     }
 
     private FirebasePlant getPlant() {
-        return ((DisplayPlantActivity)getActivity()).getPlant();
+        return ((DisplayPlantBaseActivity)getActivity()).getPlant();
     }
 
     private PlantTranslation getPlantTranslation() {
-        return ((DisplayPlantActivity)getActivity()).getPlantTranslation();
+        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslation();
     }
 
     private PlantTranslation getPlantTranslationGT() {
-        return ((DisplayPlantActivity)getActivity()).getPlantTranslationGT();
+        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslationGT();
     }
 
     private PlantTranslation getPlantTranslationEn() {
-        return ((DisplayPlantActivity)getActivity()).getPlantTranslationEn();
+        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslationEn();
     }
 }
 

@@ -6,7 +6,6 @@
     <string name="feedback">Visszajelzés küldése</string>
     <string name="pref_language">Kedvenc nyelv</string>
     <string name="propose_translation">Kapcsológombok letiltása</string>
-    <string name="propose_translation_summary">pontosabb fordítás / leírásra küldése emailen</string>
     <string name="cache_size">Cache size in MB</string>
     <string name="cache_size_summary">for photos and illustrations</string>
 

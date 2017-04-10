@@ -21,9 +21,8 @@ import java.util.Locale;
 
 import sk.ab.common.Constants;
 import sk.ab.common.entity.FirebasePlant;
-import sk.ab.common.entity.Plant;
 import sk.ab.herbsbase.R;
-import sk.ab.herbsbase.activities.DisplayPlantActivity;
+import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
 import sk.ab.herbsbase.tools.Utils;
 
 
@@ -67,7 +66,7 @@ public class SourcesFragment extends Fragment {
     }
 
     private void setSources(View convertView) {
-        FirebasePlant plant = ((DisplayPlantActivity) getActivity()).getPlant();
+        FirebasePlant plant = ((DisplayPlantBaseActivity) getActivity()).getPlant();
         String language = Locale.getDefault().getLanguage();
 
         List<String> sourceUrls = new ArrayList<>();
