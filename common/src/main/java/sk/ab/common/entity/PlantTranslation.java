@@ -11,6 +11,7 @@ public class PlantTranslation {
     private String label;
     private ArrayList<String> names;
     private ArrayList<String> sourceUrls;
+    private String wikipedia;
     private String description;
     private String flower;
     private String inflorescence;
@@ -44,6 +45,14 @@ public class PlantTranslation {
 
     public void setSourceUrls(ArrayList<String> sourceUrls) {
         this.sourceUrls = sourceUrls;
+    }
+
+    public String getWikipedia() {
+        return wikipedia;
+    }
+
+    public void setWikipedia(String wikipedia) {
+        this.wikipedia = wikipedia;
     }
 
     public String getDescription() {

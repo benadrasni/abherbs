@@ -11,6 +11,7 @@ import java.util.TreeMap;
  */
 public class Constants {
     public final static String COMMONS = "commons";
+    public final static String SPECIES = "species";
 
     public final static int LIST_THRESHOLD = 20;
 

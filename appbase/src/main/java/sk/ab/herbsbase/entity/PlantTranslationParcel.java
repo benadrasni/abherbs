@@ -19,6 +19,7 @@ public class PlantTranslationParcel extends PlantTranslation implements Parcelab
             setLabel(plantTranslation.getLabel());
             setNames(plantTranslation.getNames());
             setSourceUrls(plantTranslation.getSourceUrls());
+            setWikipedia(plantTranslation.getWikipedia());
             setDescription(plantTranslation.getDescription());
             setFlower(plantTranslation.getFlower());
             setInflorescence(plantTranslation.getInflorescence());
@@ -36,6 +37,7 @@ public class PlantTranslationParcel extends PlantTranslation implements Parcelab
         setLabel(in.readString());
         setNames((ArrayList<String>)in.readSerializable());
         setSourceUrls((ArrayList<String>)in.readSerializable());
+        setWikipedia(in.readString());
         setDescription(in.readString());
         setFlower(in.readString());
         setInflorescence(in.readString());
@@ -53,6 +55,7 @@ public class PlantTranslationParcel extends PlantTranslation implements Parcelab
         dest.writeString(getLabel());
         dest.writeSerializable(getNames());
         dest.writeSerializable(getSourceUrls());
+        dest.writeString(getWikipedia());
         dest.writeString(getDescription());
         dest.writeString(getFlower());
         dest.writeString(getInflorescence());

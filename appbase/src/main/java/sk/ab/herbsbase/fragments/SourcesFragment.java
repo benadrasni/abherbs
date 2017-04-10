@@ -17,10 +17,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import sk.ab.common.Constants;
 import sk.ab.common.entity.FirebasePlant;
+import sk.ab.common.entity.PlantTranslation;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
 import sk.ab.herbsbase.tools.Utils;
@@ -37,7 +37,10 @@ public class SourcesFragment extends Fragment {
 
     private static final String SOURCE_WIKIPEDIA = "wikipedia.org";
     private static final String SOURCE_LUONTOPORTTI = "luontoportti.com";
-    private static final String SOURCE_WIKIMEDIA = "wikimedia.org";
+    private static final String SOURCE_WIKIMEDIA_COMMONS = "commons.wikimedia.org";
+    private static final String SOURCE_WIKIMEDIA_COMMONS_TITLE = "commons";
+    private static final String SOURCE_WIKIMEDIA_SPECIES = "species.wikimedia.org";
+    private static final String SOURCE_WIKIMEDIA_SPECIES_TITLE = "species";
     private static final String SOURCE_BOTANY = "botany.cz";
     private static final String SOURCE_FLORANORDICA = "floranordica.org";
     private static final String SOURCE_EFLORA = "efloras.org";
@@ -66,30 +69,47 @@ public class SourcesFragment extends Fragment {
     }
 
     private void setSources(View convertView) {
-        FirebasePlant plant = ((DisplayPlantBaseActivity) getActivity()).getPlant();
-        String language = Locale.getDefault().getLanguage();
+        FirebasePlant plant = getPlant();
+        PlantTranslation plantTranslation = getPlantTranslation();
+        PlantTranslation plantTranslationEn = getPlantTranslationEn();
 
         List<String> sourceUrls = new ArrayList<>();
-        String wikilink = plant.getWikilinks().get(language);
-        if (wikilink == null) {
-            wikilink = plant.getWikilinks().get(Constants.LANGUAGE_EN);
+        String wikilink = null;
+        if (plantTranslation != null) {
+            wikilink = plantTranslation.getWikipedia();
+        }
+        if (wikilink == null && plantTranslationEn != null) {
+            wikilink = plantTranslationEn.getWikipedia();
         }
         if (wikilink != null) {
             sourceUrls.add(wikilink);
         }
-        String commonslink = plant.getWikilinks().get(Constants.COMMONS);
-        if (commonslink != null) {
-            sourceUrls.add(commonslink);
+        String commonsLink = null;
+        String speciesLink = null;
+        if (plant.getWikilinks() != null) {
+            commonsLink = plant.getWikilinks().get(Constants.COMMONS);
+            speciesLink = plant.getWikilinks().get(Constants.SPECIES);
         }
-        //TODO
-//        List<String> sources = plant.getSourceUrls().get(language);
-//        if (sources != null) {
-//            sourceUrls.addAll(sources);
-//        }
-//        sources = plant.getSourceUrls().get(Constants.LANGUAGE_EN);
-//        if (sources != null) {
-//            sourceUrls.addAll(sources);
-//        }
+        if (commonsLink != null) {
+            sourceUrls.add(commonsLink);
+        }
+        if (speciesLink != null) {
+            sourceUrls.add(speciesLink);
+        }
+
+        List<String> sources = null;
+        if (plantTranslation != null) {
+            sources = plantTranslation.getSourceUrls();
+            if (sources != null) {
+                sourceUrls.addAll(sources);
+            }
+        }
+        if (plantTranslationEn != null) {
+            sources = plantTranslationEn.getSourceUrls();
+            if (sources != null) {
+                sourceUrls.addAll(sources);
+            }
+        }
 
         GridLayout grid = (GridLayout) convertView.findViewById(R.id.plant_source_grid);
         grid.removeAllViews();
@@ -115,9 +135,12 @@ public class SourcesFragment extends Fragment {
             } else if (url.contains(SOURCE_LUONTOPORTTI)) {
                 image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.luontoportti, null));
                 text.setText(SOURCE_LUONTOPORTTI);
-            } else if (url.contains(SOURCE_WIKIMEDIA)) {
+            } else if (url.contains(SOURCE_WIKIMEDIA_COMMONS)) {
                 image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.commons, null));
-                text.setText(SOURCE_WIKIMEDIA);
+                text.setText(SOURCE_WIKIMEDIA_COMMONS_TITLE);
+            } else if (url.contains(SOURCE_WIKIMEDIA_SPECIES)) {
+                image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.species, null));
+                text.setText(SOURCE_WIKIMEDIA_SPECIES_TITLE);
             } else if (url.contains(SOURCE_BOTANY)) {
                 image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.botany, null));
                 text.setText(SOURCE_BOTANY);
@@ -150,6 +173,18 @@ public class SourcesFragment extends Fragment {
 
             grid.addView(view);
         }
+    }
+
+    private FirebasePlant getPlant() {
+        return ((DisplayPlantBaseActivity)getActivity()).getPlant();
+    }
+
+    private PlantTranslation getPlantTranslation() {
+        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslation();
+    }
+
+    private PlantTranslation getPlantTranslationEn() {
+        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslationEn();
     }
 }
 
