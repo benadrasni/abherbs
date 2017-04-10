@@ -35,9 +35,7 @@ import sk.ab.herbsbase.commons.PlantViewHolder;
 import sk.ab.herbsbase.tools.Utils;
 
 public class PlantListFragment extends Fragment {
-    static final String STATE_POSITION = "list_position";
-
-    private int list_position;
+    private int listPosition;
     private PropertyAdapter adapter;
 
     private class PropertyAdapter extends FirebaseIndexRecyclerAdapter<FirebasePlant, PlantViewHolder> {
@@ -102,7 +100,7 @@ public class PlantListFragment extends Fragment {
             holder.getPhoto().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    list_position = holder.getAdapterPosition();
+                    listPosition = holder.getAdapterPosition();
                     ((ListPlantsBaseActivity)getActivity()).selectPlant(plant.getName());
                 }
             });
@@ -111,10 +109,17 @@ public class PlantListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            list_position = savedInstanceState.getInt(STATE_POSITION);
-        }
-        return inflater.inflate(R.layout.list, null);
+        View view = inflater.inflate(R.layout.list, null);
+
+        RecyclerView list = (RecyclerView) view.findViewById(R.id.plant_list);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference plantsRef = database.getReference(AndroidConstants.FIREBASE_PLANTS);
+        DatabaseReference listRef = database.getReference(((ListPlantsBaseActivity)getActivity()).getListPath());
+
+        adapter = new PropertyAdapter(FirebasePlant.class, R.layout.plant_row, PlantViewHolder.class, listRef, plantsRef);
+        list.setAdapter(adapter);
+
+        return view;
     }
 
     @Override
@@ -123,34 +128,16 @@ public class PlantListFragment extends Fragment {
 
         if (getView() != null) {
             RecyclerView list = (RecyclerView) getView().findViewById(R.id.plant_list);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
 
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             } else {
-                layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             }
-            layoutManager.scrollToPosition(list_position);
-            list.setLayoutManager(layoutManager);
-
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference plantsRef = database.getReference(AndroidConstants.FIREBASE_PLANTS);
-            DatabaseReference listRef = database.getReference(((ListPlantsBaseActivity)getActivity()).getListPath());
-
-            adapter = new PropertyAdapter(FirebasePlant.class, R.layout.plant_row, PlantViewHolder.class, listRef, plantsRef);
-            list.setAdapter(adapter);
+            list.setLayoutManager(linearLayoutManager);
+            linearLayoutManager.scrollToPosition(listPosition);
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        if (getView() != null) {
-            RecyclerView list = (RecyclerView) getView().findViewById(R.id.plant_list);
-            int pos = ((LinearLayoutManager) list.getLayoutManager()).findFirstVisibleItemPosition();
-            savedInstanceState.putInt(STATE_POSITION, pos);
-        }
-
-        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
