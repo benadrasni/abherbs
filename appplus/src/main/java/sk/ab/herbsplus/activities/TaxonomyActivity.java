@@ -1,10 +1,8 @@
 package sk.ab.herbsplus.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,11 +31,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import sk.ab.common.Constants;
-import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.PlantTaxon;
 import sk.ab.herbsbase.AndroidConstants;
-import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
-import sk.ab.herbsbase.entity.PlantParcel;
 import sk.ab.herbsbase.tools.Utils;
 import sk.ab.herbsplus.R;
 
@@ -46,9 +41,7 @@ import sk.ab.herbsplus.R;
  * Created by adrian on 1. 4. 2017.
  */
 
-public class TaxonomyActivity extends AppCompatActivity {
-
-    private SearchView mSearchView;
+public class TaxonomyActivity extends SearchBaseActivity {
 
     private List<PlantTaxon> taxons;
     private ListView taxonomyListView;
@@ -58,7 +51,7 @@ public class TaxonomyActivity extends AppCompatActivity {
         private final List<PlantTaxon> taxons;
         private final ArrayList<PlantTaxon> allTaxons;
 
-        public TaxonAdapter(Context context, List<PlantTaxon> taxons) {
+        TaxonAdapter(Context context, List<PlantTaxon> taxons) {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             this.taxons = taxons;
             this.allTaxons = new ArrayList<>();
@@ -156,7 +149,7 @@ public class TaxonomyActivity extends AppCompatActivity {
             return rowView;
         }
 
-        public void filter(String constraint) {
+        void filter(String constraint) {
             constraint = constraint.toLowerCase();
             taxons.clear();
             if (constraint.isEmpty()) {
@@ -209,7 +202,7 @@ public class TaxonomyActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_taxonomy_search, menu);
         MenuItem menuItem = menu.findItem(R.id.menu_taxonomy_search);
-        mSearchView = (SearchView) menuItem.getActionView();
+        SearchView mSearchView = (SearchView) menuItem.getActionView();
         mSearchView.setMaxWidth(Integer.MAX_VALUE);
         mSearchView.setIconified(false);
         int options = mSearchView.getImeOptions();
@@ -287,34 +280,5 @@ public class TaxonomyActivity extends AppCompatActivity {
             }
             buildTaxonomy((Map)taxonomy.get(key), offset + 1, path + AndroidConstants.FIREBASE_SEPARATOR + key);
         }
-    }
-
-    private void callListActivity(String listPath, int count) {
-        Intent intent = new Intent(getBaseContext(), ListPlantsPlusActivity.class);
-        intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
-        intent.putExtra(AndroidConstants.STATE_LIST_PATH, listPath);
-        startActivity(intent);
-    }
-
-    private void callDetailActivity(String plantName) {
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_PLANTS + AndroidConstants.FIREBASE_SEPARATOR + plantName);
-
-        mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                FirebasePlant plant = dataSnapshot.getValue(FirebasePlant.class);
-
-                Intent intent = new Intent(getBaseContext(), DisplayPlantBaseActivity.class);
-                intent.putExtra(AndroidConstants.STATE_PLANT, new PlantParcel(plant));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e(this.getClass().getName(), databaseError.getMessage());
-                Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

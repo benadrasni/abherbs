@@ -2,7 +2,6 @@ package sk.ab.herbsplus.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -12,23 +11,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
 import java.util.Map;
 
-import sk.ab.common.entity.FirebasePlant;
 import sk.ab.herbsbase.AndroidConstants;
-import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
-import sk.ab.herbsbase.entity.PlantParcel;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.commons.NameViewHolder;
@@ -38,7 +30,7 @@ import sk.ab.herbsplus.commons.NameViewHolder;
  * Created by adrian on 23. 3. 2017.
  */
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends SearchBaseActivity {
 
     private SearchView mSearchView;
     private String mSearchText;
@@ -216,34 +208,5 @@ public class SearchActivity extends AppCompatActivity {
         if (namesInLatin.getAdapter() != null) {
             ((FirebaseRecyclerAdapter) namesInLatin.getAdapter()).cleanup();
         }
-    }
-
-    private void callListActivity(String listPath, int count) {
-        Intent intent = new Intent(getBaseContext(), ListPlantsPlusActivity.class);
-        intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
-        intent.putExtra(AndroidConstants.STATE_LIST_PATH, listPath);
-        startActivity(intent);
-    }
-
-    private void callDetailActivity(String plantName) {
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_PLANTS + AndroidConstants.FIREBASE_SEPARATOR + plantName);
-
-        mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                FirebasePlant plant = dataSnapshot.getValue(FirebasePlant.class);
-
-                Intent intent = new Intent(getBaseContext(), DisplayPlantBaseActivity.class);
-                intent.putExtra(AndroidConstants.STATE_PLANT, new PlantParcel(plant));
-                startActivity(intent);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e(this.getClass().getName(), databaseError.getMessage());
-                Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }
