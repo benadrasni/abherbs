@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,6 +43,8 @@ import sk.ab.herbsplus.R;
  */
 
 public class TaxonomyActivity extends SearchBaseActivity {
+
+    private SearchView mSearchView;
 
     private List<PlantTaxon> taxons;
     private ListView taxonomyListView;
@@ -202,11 +205,13 @@ public class TaxonomyActivity extends SearchBaseActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_taxonomy_search, menu);
         MenuItem menuItem = menu.findItem(R.id.menu_taxonomy_search);
-        SearchView mSearchView = (SearchView) menuItem.getActionView();
+        mSearchView = (SearchView) menuItem.getActionView();
         mSearchView.setMaxWidth(Integer.MAX_VALUE);
         mSearchView.setIconified(false);
         int options = mSearchView.getImeOptions();
         mSearchView.setImeOptions(options | EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        EditText searchViewEditText = (EditText) mSearchView.findViewById(R.id.search_src_text);
+        searchViewEditText.setEnabled(false);
         menuItem.expandActionView();
 
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -247,6 +252,8 @@ public class TaxonomyActivity extends SearchBaseActivity {
 
                 TaxonAdapter adapter = new TaxonAdapter(getApplicationContext(), taxons);
                 taxonomyListView.setAdapter(adapter);
+                EditText searchViewEditText = (EditText) mSearchView.findViewById(R.id.search_src_text);
+                searchViewEditText.setEnabled(true);
             }
 
             @Override
