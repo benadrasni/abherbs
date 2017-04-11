@@ -40,7 +40,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
                     android:textAppearance="@android:style/TextAppearance.Large"
                     android:textColor="@color/CardTitle"/>
 
@@ -49,12 +48,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
                     android:textAppearance="@android:style/TextAppearance.Small"
                     android:textColor="@color/CardSubTitle"
                     android:textStyle="italic"/>
             </LinearLayout>
-
 
         </LinearLayout>
 
@@ -68,8 +65,20 @@
             android:textColor="@color/CardSubTitle"
             android:textStyle="italic"/>
 
+        <TextView
+            android:id="@+id/synonyms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textColor="@color/CardSubTitle"
+            android:textStyle="italic"
+            android:visibility="gone"/>
+
         <RelativeLayout android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
             <LinearLayout
                 android:id="@+id/plant_taxonomy"
                 android:layout_width="match_parent"
@@ -90,8 +99,6 @@
                 android:visibility="gone"/>
         </RelativeLayout>
     </LinearLayout>
-
-
 
     <View
         android:id="@+id/bottomTaxonomy"

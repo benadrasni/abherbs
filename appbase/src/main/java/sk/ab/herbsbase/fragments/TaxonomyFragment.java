@@ -98,6 +98,7 @@ public class TaxonomyFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     getTaxonomy(getView());
+                    Utils.setVisibility(v, R.id.synonyms);
                     Utils.setVisibility(v, R.id.plant_taxonomy);
                     Utils.setVisibility(v, R.id.agpiii);
                 }
@@ -274,6 +275,25 @@ public class TaxonomyFragment extends Fragment {
             }
         } else {
             namesView.setVisibility(View.GONE);
+        }
+
+        TextView synonymsView = (TextView) view.findViewById(R.id.synonyms);
+        List<String> synonyms = plant.getSynonyms();
+        if (synonyms != null) {
+            StringBuilder synonymsText = new StringBuilder();
+            for (String synonym : synonyms) {
+                if (synonymsText.length() > 0) {
+                    synonymsText.append(", ");
+                }
+                synonymsText.append(synonym);
+            }
+            if (synonymsText.length() > 0) {
+                synonymsView.setText("(" + synonymsText.toString() + ")");
+            } else {
+                synonymsView.setVisibility(View.GONE);
+            }
+        } else {
+            synonymsView.setVisibility(View.GONE);
         }
     }
 
