@@ -1,7 +1,5 @@
 package sk.ab.herbsbase.activities;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
