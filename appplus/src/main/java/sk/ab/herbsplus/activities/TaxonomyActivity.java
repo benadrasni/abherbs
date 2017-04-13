@@ -88,11 +88,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
                 namesLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (taxon.getCount() == 1) {
-                            callDetailActivity(taxon.getPlantName());
-                        } else {
-                            callListActivity(taxon.getPath(), taxon.getCount());
-                        }
+                        callProperActivity(taxon);
                     }
                 });
             }
@@ -100,12 +96,24 @@ public class TaxonomyActivity extends SearchBaseActivity {
             TextView textCount = (TextView) rowView.findViewById(R.id.taxonCount);
             if (taxon.getCount() > 0) {
                 textCount.setText("(" + taxon.getCount() + ")");
+                textCount.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        callProperActivity(taxon);
+                    }
+                });
             } else {
                 textCount.setVisibility(View.GONE);
             }
 
             TextView textType = (TextView)rowView.findViewById(R.id.taxonType);
             textType.setText(Utils.getId(AndroidConstants.RES_TAXONOMY_PREFIX + taxon.getType().toLowerCase(), sk.ab.herbsbase.R.string.class));
+            textType.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callProperActivity(taxon);
+                }
+            });
 
             TextView textName = (TextView)rowView.findViewById(R.id.taxonName);
             StringBuilder sbName = new StringBuilder();
@@ -287,6 +295,14 @@ public class TaxonomyActivity extends SearchBaseActivity {
                 continue;
             }
             buildTaxonomy((Map)taxonomy.get(key), offset + 1, path + AndroidConstants.FIREBASE_SEPARATOR + key);
+        }
+    }
+
+    private void callProperActivity(PlantTaxon taxon) {
+        if (taxon.getCount() == 1) {
+            callDetailActivity(taxon.getPlantName());
+        } else {
+            callListActivity(taxon.getPath(), taxon.getCount());
         }
     }
 }
