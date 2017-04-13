@@ -87,30 +87,7 @@ public class InfoFragment extends Fragment {
         getTranslation();
 
         if (getPlantTranslationGT() != null) {
-            LinearLayout translationNote = (LinearLayout) getView().findViewById(R.id.translation_note);
-            translationNote.setVisibility(View.VISIBLE);
-
-            final Button showOriginal = (Button) getView().findViewById(R.id.show_original);
-            showOriginal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    isTranslated = !isTranslated;
-                    setInfo(isTranslated);
-                    if (isTranslated) {
-                        showOriginal.setText(R.string.show_original);
-                    } else {
-                        showOriginal.setText(R.string.show_translation);
-                    }
-                }
-            });
-
-            Button improveTranslation = (Button) getView().findViewById(R.id.improve_translation);
-            improveTranslation.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    improveTranslation();
-                }
-            });
+            showGTSection();
         }
     }
 
@@ -263,37 +240,45 @@ public class InfoFragment extends Fragment {
         final DatabaseReference mTranslationGTRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.FIREBASE_SEPARATOR
                 + Locale.getDefault().getLanguage() + AndroidConstants.LANGUAGE_GT_SUFFIX + AndroidConstants.FIREBASE_SEPARATOR + getPlant().getName());
 
-        app.getGoogleClient().getApiService().translate(
-                Keys.TRANSLATE_API_KEY,
-                source,
-                target,
-                textToTranslate).enqueue(new Callback<Map<String, Map<String, List<Map<String, String>>>>>() {
-            @Override
-            public void onResponse(Call<Map<String, Map<String, List<Map<String, String>>>>> call, Response<Map<String, Map<String, List<Map<String, String>>>>> response) {
-                Map<String, Map<String, List<Map<String, String>>>> data = response.body();
+        if (BaseApp.isNetworkAvailable(displayPlantActivity.getApplicationContext())) {
+            app.getGoogleClient().getApiService().translate(
+                    Keys.TRANSLATE_API_KEY,
+                    source,
+                    target,
+                    textToTranslate).enqueue(new Callback<Map<String, Map<String, List<Map<String, String>>>>>() {
+                @Override
+                public void onResponse(Call<Map<String, Map<String, List<Map<String, String>>>>> call, Response<Map<String, Map<String, List<Map<String, String>>>>> response) {
+                    Map<String, Map<String, List<Map<String, String>>>> data = response.body();
 
-                List<String> translatedTexts = new ArrayList<>();
-                List<Map<String, String>> texts = data.get("data").get("translations");
-                for (Map<String, String> text : texts) {
-                    translatedTexts.add(text.get("translatedText"));
+                    List<String> translatedTexts = new ArrayList<>();
+                    List<Map<String, String>> texts = data.get("data").get("translations");
+                    for (Map<String, String> text : texts) {
+                        translatedTexts.add(text.get("translatedText"));
+                    }
+
+                    setTranslation(translatedTexts);
+                    mTranslationGTRef.setValue(getPlantTranslationGT());
+
+                    setInfo(true);
+                    showGTSection();
+
+                    displayPlantActivity.stopLoading();
+                    displayPlantActivity.countButton.setVisibility(View.GONE);
                 }
 
-                setTranslation(translatedTexts);
-                mTranslationGTRef.setValue(getPlantTranslationGT());
+                @Override
+                public void onFailure(Call<Map<String, Map<String, List<Map<String, String>>>>> call, Throwable t) {
+                    Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
+                    displayPlantActivity.stopLoading();
+                    displayPlantActivity.countButton.setVisibility(View.GONE);
+                }
+            });
+        } else {
+            setInfo(false);
 
-                setInfo(true);
-
-                displayPlantActivity.stopLoading();
-                displayPlantActivity.countButton.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onFailure(Call<Map<String, Map<String, List<Map<String, String>>>>> call, Throwable t) {
-                Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
-                displayPlantActivity.stopLoading();
-                displayPlantActivity.countButton.setVisibility(View.GONE);
-            }
-        });
+            displayPlantActivity.stopLoading();
+            displayPlantActivity.countButton.setVisibility(View.GONE);
+        }
     }
 
     private void setTranslation(List<String> translatedTexts) {
@@ -438,6 +423,35 @@ public class InfoFragment extends Fragment {
         };
 
         return sections;
+    }
+
+    private void showGTSection() {
+        if (getView() != null) {
+            LinearLayout translationNote = (LinearLayout) getView().findViewById(R.id.translation_note);
+            translationNote.setVisibility(View.VISIBLE);
+
+            final Button showOriginal = (Button) getView().findViewById(R.id.show_original);
+            showOriginal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    isTranslated = !isTranslated;
+                    setInfo(isTranslated);
+                    if (isTranslated) {
+                        showOriginal.setText(R.string.show_original);
+                    } else {
+                        showOriginal.setText(R.string.show_translation);
+                    }
+                }
+            });
+
+            Button improveTranslation = (Button) getView().findViewById(R.id.improve_translation);
+            improveTranslation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    improveTranslation();
+                }
+            });
+        }
     }
 
     private FirebasePlant getPlant() {

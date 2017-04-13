@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import sk.ab.herbsbase.AndroidConstants;
+import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsplus.HerbsApp;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.StorageLoading;
@@ -53,7 +54,7 @@ public class SplashActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
         boolean offlineMode = preferences.getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
 
-        if (offlineMode && ((HerbsApp)getApplication()).isNetworkAvailable(getApplicationContext())) {
+        if (offlineMode && BaseApp.isNetworkAvailable(getApplicationContext())) {
             StorageLoading storageLoading = new StorageLoading(this, FilterPlantsPlusActivity.class);
             storageLoading.downloadOfflineFiles();
         } else {

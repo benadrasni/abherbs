@@ -82,9 +82,4 @@ public class HerbsApp extends BaseApp {
         filterAttributes.add(new Habitats());
         filterAttributes.add(new NumberOfPetals());
     }
-
-    public boolean isNetworkAvailable(final Context context) {
-        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
 }
