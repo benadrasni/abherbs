@@ -52,6 +52,16 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
                 editor.putBoolean(SpecificConstants.OFFLINE_MODE_KEY, newOfflineMode);
                 editor.apply();
 
+                if (newOfflineMode) {
+                    editor.remove(SpecificConstants.LAST_UPDATE_TIME_KEY);
+                    editor.apply();
+                    StorageLoading storageLoading = new StorageLoading(getActivity(), null);
+                    storageLoading.downloadOfflineFiles();
+                } else {
+                    // delete offline files
+                    Utils.deleteRecursive(getActivity().getFilesDir());
+                }
+
                 DatabaseReference plantsRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_PLANTS);
                 plantsRef.keepSynced(newOfflineMode);
                 DatabaseReference taxonomyRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_APG_III);
@@ -73,15 +83,6 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
                         + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.LANGUAGE_EN);
                 translationsInEnglish.keepSynced(newOfflineMode);
 
-                if (newOfflineMode) {
-                    editor.remove(SpecificConstants.LAST_UPDATE_TIME_KEY);
-                    editor.apply();
-                    StorageLoading storageLoading = new StorageLoading(getActivity(), null);
-                    storageLoading.downloadOfflineFiles();
-                } else {
-                    // delete offline files
-                    Utils.deleteRecursive(getActivity().getFilesDir());
-                }
                 return true;
             }
         });
