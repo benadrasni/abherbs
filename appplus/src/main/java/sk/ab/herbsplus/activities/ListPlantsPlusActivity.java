@@ -8,9 +8,11 @@ import android.view.WindowManager;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
 import sk.ab.herbsbase.activities.ListPlantsBaseActivity;
+import sk.ab.herbsbase.commons.PropertyListFragment;
 import sk.ab.herbsbase.entity.PlantParcel;
 import sk.ab.herbsbase.entity.PlantTranslationParcel;
 import sk.ab.herbsplus.SpecificConstants;
+import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
 
 /**
  * @see ListPlantsBaseActivity
@@ -23,6 +25,11 @@ public class ListPlantsPlusActivity extends ListPlantsBaseActivity {
     @Override
     protected Intent getDisplayPlantActivityIntent() {
         return new Intent(getBaseContext(), DisplayPlantPlusActivity.class);
+    }
+
+    @Override
+    protected PropertyListFragment getMenuFragment() {
+        return new PropertyListPlusFragment();
     }
 
     @Override
