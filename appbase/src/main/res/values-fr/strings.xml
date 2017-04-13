@@ -95,7 +95,7 @@
     <string name="toxicity1">plante toxique</string>
     <string name="rate_never">Jamais</string>
     <string name="rate_later">Plus tard</string>
-    <string name="rate">Avis (Google Play)</string>
+    <string name="rate">Avis</string>
     <string name="rate_text">L\'auteur de cette application est motivé par les réponses positives des utilisateurs. S\'il vous plaît,  envoyez lui quelques fleurs étoiles via Google Play Store.</string>
     <string name="your_text">votre texte</string>
     <string name="google_translate">Traduit avec Google Translate</string>
