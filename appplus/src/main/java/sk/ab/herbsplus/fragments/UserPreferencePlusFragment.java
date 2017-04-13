@@ -66,6 +66,9 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
                 DatabaseReference translationsInLanguage = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
                         + AndroidConstants.FIREBASE_SEPARATOR + language);
                 translationsInLanguage.keepSynced(newOfflineMode);
+                DatabaseReference translationsInLanguageGT = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+                        + AndroidConstants.FIREBASE_SEPARATOR + language + AndroidConstants.LANGUAGE_GT_SUFFIX);
+                translationsInLanguageGT.keepSynced(newOfflineMode);
                 DatabaseReference translationsInEnglish = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
                         + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.LANGUAGE_EN);
                 translationsInEnglish.keepSynced(newOfflineMode);

@@ -29,6 +29,7 @@ import java.util.Stack;
 
 import sk.ab.common.Constants;
 import sk.ab.herbsbase.AndroidConstants;
+import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.commons.BaseFilterFragment;
 import sk.ab.herbsbase.commons.MessageDialogFragment;
@@ -275,7 +276,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         SharedPreferences preferences = getSharedPreferences();
 
         int rateState = preferences.getInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_NO);
-        if (rateState == AndroidConstants.RATE_SHOW) {
+        if (BaseApp.isNetworkAvailable(getApplicationContext()) && rateState == AndroidConstants.RATE_SHOW) {
             final LinearLayout rateLayout = (LinearLayout)findViewById(R.id.ratingQuestion);
             rateLayout.setVisibility(View.VISIBLE);
 

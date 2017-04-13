@@ -54,6 +54,9 @@ public class HerbsApp extends BaseApp {
             DatabaseReference translationsInLanguage = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
                     + AndroidConstants.FIREBASE_SEPARATOR + language);
             translationsInLanguage.keepSynced(true);
+            DatabaseReference translationsInLanguageGT = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+                    + AndroidConstants.FIREBASE_SEPARATOR + language + AndroidConstants.LANGUAGE_GT_SUFFIX);
+            translationsInLanguageGT.keepSynced(true);
             DatabaseReference translationsInEnglish = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
                     + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.LANGUAGE_EN);
             translationsInEnglish.keepSynced(true);

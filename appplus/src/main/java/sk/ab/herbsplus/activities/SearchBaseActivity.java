@@ -41,7 +41,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    protected void callDetailActivity(String plantName) {
+    protected void callDetailActivity(final String plantName) {
         final SynchronizedCounter counter = new SynchronizedCounter();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -70,14 +70,18 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
 
         // load translations in language
         DatabaseReference mTranslationRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.FIREBASE_SEPARATOR
-                + Locale.getDefault().getLanguage() + AndroidConstants.FIREBASE_SEPARATOR + plantName);
+                + Locale.getDefault().getLanguage());
         mTranslationRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                PlantTranslation plantTranslation = dataSnapshot.getValue(PlantTranslation.class);
+                if (dataSnapshot.hasChild(plantName)) {
+                    PlantTranslation plantTranslation = dataSnapshot.child(plantName).getValue(PlantTranslation.class);
 
-                if (plantTranslation != null) {
-                    setTranslationInLanguage(new PlantTranslationParcel(plantTranslation));
+                    if (plantTranslation != null) {
+                        setTranslationInLanguage(new PlantTranslationParcel(plantTranslation));
+                    } else {
+                        setTranslationInLanguage(null);
+                    }
                 } else {
                     setTranslationInLanguage(null);
                 }
@@ -127,14 +131,18 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
 
             // load translation in language (GT)
             DatabaseReference mTranslationGTRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.FIREBASE_SEPARATOR
-                    + Locale.getDefault().getLanguage() + AndroidConstants.LANGUAGE_GT_SUFFIX + AndroidConstants.FIREBASE_SEPARATOR + plantName);
+                    + Locale.getDefault().getLanguage() + AndroidConstants.LANGUAGE_GT_SUFFIX);
             mTranslationGTRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    PlantTranslation plantTranslation = dataSnapshot.getValue(PlantTranslation.class);
+                    if (dataSnapshot.hasChild(plantName)) {
+                        PlantTranslation plantTranslation = dataSnapshot.child(plantName).getValue(PlantTranslation.class);
 
-                    if (plantTranslation != null) {
-                        setTranslationInLanguageGT(new PlantTranslationParcel(plantTranslation));
+                        if (plantTranslation != null) {
+                            setTranslationInLanguageGT(new PlantTranslationParcel(plantTranslation));
+                        } else {
+                            setTranslationInLanguageGT(null);
+                        }
                     } else {
                         setTranslationInLanguageGT(null);
                     }

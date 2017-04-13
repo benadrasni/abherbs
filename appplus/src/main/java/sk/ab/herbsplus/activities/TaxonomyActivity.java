@@ -197,7 +197,6 @@ public class TaxonomyActivity extends SearchBaseActivity {
         taxonomyListView = (ListView) findViewById(R.id.taxonomy_view);
 
         taxons = new ArrayList<>();
-        loadTaxonomy();
     }
 
     @Override
@@ -226,6 +225,8 @@ public class TaxonomyActivity extends SearchBaseActivity {
                 return false;
             }
         });
+
+        loadTaxonomy();
 
         return super.onCreateOptionsMenu(menu);
     }

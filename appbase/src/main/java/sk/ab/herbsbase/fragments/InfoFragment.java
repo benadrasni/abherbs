@@ -85,10 +85,7 @@ public class InfoFragment extends Fragment {
 
         isTranslated = true;
         getTranslation();
-
-        if (getPlantTranslationGT() != null) {
-            showGTSection();
-        }
+        showGTSection();
     }
 
     @Override
@@ -426,7 +423,7 @@ public class InfoFragment extends Fragment {
     }
 
     private void showGTSection() {
-        if (getView() != null) {
+        if (getView() != null && getPlantTranslationGT() != null) {
             LinearLayout translationNote = (LinearLayout) getView().findViewById(R.id.translation_note);
             translationNote.setVisibility(View.VISIBLE);
 
