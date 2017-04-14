@@ -2,6 +2,7 @@
 .idea
 build
 local.properties
+keystore.properties
 *.iml
 *.tmp
 *.log
