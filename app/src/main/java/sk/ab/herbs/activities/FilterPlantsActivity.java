@@ -15,8 +15,10 @@ import com.google.firebase.database.ValueEventListener;
 import sk.ab.common.util.Utils;
 import sk.ab.herbs.BuildConfig;
 import sk.ab.herbs.SpecificConstants;
+import sk.ab.herbs.fragments.PropertyListFragment;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
+import sk.ab.herbsbase.commons.PropertyListBaseFragment;
 
 /**
  * @see FilterPlantsBaseActivity
@@ -63,6 +65,11 @@ public class FilterPlantsActivity extends FilterPlantsBaseActivity {
     @Override
     public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+    }
+
+    @Override
+    protected PropertyListBaseFragment getMenuFragment() {
+        return new PropertyListFragment();
     }
 
     @Override
