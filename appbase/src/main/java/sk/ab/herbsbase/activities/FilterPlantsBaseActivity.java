@@ -56,6 +56,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
             filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
             filterPosition = savedInstanceState.getInt(AndroidConstants.STATE_FILTER_POSITION);
         } else if (getIntent().getExtras() != null) {
+            filter = (HashMap<String, String>)getIntent().getExtras().getSerializable(AndroidConstants.STATE_FILTER);
             String pos = getIntent().getExtras().getString(AndroidConstants.STATE_FILTER_POSITION);
             if (pos != null) {
                 filterPosition = Integer.parseInt(pos);

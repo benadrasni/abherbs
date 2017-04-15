@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
-import sk.ab.herbsbase.commons.PropertyListFragment;
+import sk.ab.herbsbase.commons.PropertyListBaseFragment;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
 
@@ -17,7 +17,7 @@ import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
 public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
 
     @Override
-    protected PropertyListFragment getMenuFragment() {
+    protected PropertyListBaseFragment getMenuFragment() {
         return new PropertyListPlusFragment();
     }
 

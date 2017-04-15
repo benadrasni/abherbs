@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -144,6 +145,8 @@ public class SearchActivity extends SearchBaseActivity {
                             nameViewHolder.getName().setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                     if (size == 1) {
                                         callDetailActivity(firstName);
                                     } else {
@@ -176,6 +179,8 @@ public class SearchActivity extends SearchBaseActivity {
                             nameViewHolder.getName().setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                     if (size == 1) {
                                         callDetailActivity(firstName);
                                     } else {

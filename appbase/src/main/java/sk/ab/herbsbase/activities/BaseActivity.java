@@ -2,7 +2,6 @@ package sk.ab.herbsbase.activities;
 
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -25,7 +24,7 @@ import sk.ab.common.Constants;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
-import sk.ab.herbsbase.commons.PropertyListFragment;
+import sk.ab.herbsbase.commons.PropertyListBaseFragment;
 import sk.ab.herbsbase.tools.Utils;
 
 /**
@@ -40,7 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private static final String TAG = "BaseActivity";
 
     protected DrawerLayout mDrawerLayout;
-    protected PropertyListFragment mPropertyMenu;
+    protected PropertyListBaseFragment mPropertyMenu;
     protected ActionBarDrawerToggle mDrawerToggle;
     protected AnimationDrawable loadingAnimation;
     protected HashMap<String, String> filter;
@@ -174,7 +173,5 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public abstract SharedPreferences getSharedPreferences();
 
-    protected PropertyListFragment getMenuFragment() {
-        return new PropertyListFragment();
-    }
+    protected abstract PropertyListBaseFragment getMenuFragment();
 }

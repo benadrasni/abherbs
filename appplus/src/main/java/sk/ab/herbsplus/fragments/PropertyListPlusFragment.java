@@ -1,18 +1,24 @@
 package sk.ab.herbsplus.fragments;
 
-import sk.ab.herbsbase.commons.PropertyListFragment;
+import sk.ab.herbsbase.commons.PropertyListBaseFragment;
+import sk.ab.herbsplus.activities.FilterPlantsPlusActivity;
 import sk.ab.herbsplus.activities.UserPreferencePlusActivity;
 
 /**
- * @see PropertyListFragment
+ * @see PropertyListBaseFragment
  *
  * Created by adrian on 12. 3. 2017.
  */
 
-public class PropertyListPlusFragment extends PropertyListFragment {
+public class PropertyListPlusFragment extends PropertyListBaseFragment {
 
     @Override
     protected Class getUserPreferenceActivityClass() {
         return UserPreferencePlusActivity.class;
+    }
+
+    @Override
+    protected Class getFilterPlantActivityClass() {
+        return FilterPlantsPlusActivity.class;
     }
 }

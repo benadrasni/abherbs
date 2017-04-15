@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import sk.ab.common.util.Utils;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
-import sk.ab.herbsbase.commons.PropertyListFragment;
+import sk.ab.herbsbase.commons.PropertyListBaseFragment;
 import sk.ab.herbsplus.BuildConfig;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
@@ -87,7 +87,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
     }
 
     @Override
-    protected PropertyListFragment getMenuFragment() {
+    protected PropertyListBaseFragment getMenuFragment() {
         return new PropertyListPlusFragment();
     }
 

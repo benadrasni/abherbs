@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import sk.ab.herbs.SpecificConstants;
+import sk.ab.herbs.fragments.PropertyListFragment;
 import sk.ab.herbsbase.activities.ListPlantsBaseActivity;
+import sk.ab.herbsbase.commons.PropertyListBaseFragment;
 
 /**
  * @see ListPlantsBaseActivity
@@ -18,6 +20,11 @@ public class ListPlantsActivity extends ListPlantsBaseActivity {
     @Override
     protected Intent getDisplayPlantActivityIntent() {
         return new Intent(getBaseContext(), DisplayPlantActivity.class);
+    }
+
+    @Override
+    protected PropertyListBaseFragment getMenuFragment() {
+        return new PropertyListFragment();
     }
 
     @Override

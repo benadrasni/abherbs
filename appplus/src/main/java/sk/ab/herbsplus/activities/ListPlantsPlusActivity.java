@@ -3,14 +3,9 @@ package sk.ab.herbsplus.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.view.WindowManager;
 
-import sk.ab.herbsbase.AndroidConstants;
-import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
 import sk.ab.herbsbase.activities.ListPlantsBaseActivity;
-import sk.ab.herbsbase.commons.PropertyListFragment;
-import sk.ab.herbsbase.entity.PlantParcel;
-import sk.ab.herbsbase.entity.PlantTranslationParcel;
+import sk.ab.herbsbase.commons.PropertyListBaseFragment;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
 
@@ -28,7 +23,7 @@ public class ListPlantsPlusActivity extends ListPlantsBaseActivity {
     }
 
     @Override
-    protected PropertyListFragment getMenuFragment() {
+    protected PropertyListBaseFragment getMenuFragment() {
         return new PropertyListPlusFragment();
     }
 

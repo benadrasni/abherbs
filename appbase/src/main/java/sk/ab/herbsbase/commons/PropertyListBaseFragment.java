@@ -21,7 +21,7 @@ import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
 import sk.ab.herbsbase.activities.LegendActivity;
 import sk.ab.herbsbase.activities.UserPreferenceBaseActivity;
 
-public class PropertyListFragment extends ListFragment {
+public abstract class PropertyListBaseFragment extends ListFragment {
     private PropertyAdapter adapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,11 +61,13 @@ public class PropertyListFragment extends ListFragment {
                             activity.removeFromFilter(fragment.getAttribute());
                         }
                     } else {
-                        ((BaseActivity) getActivity()).startLoading();
-                        Intent intent = new Intent(getActivity(), FilterPlantsBaseActivity.class);
+                        BaseActivity baseActivity = ((BaseActivity) getActivity());
+                        baseActivity.startLoading();
+                        Intent intent = new Intent(getActivity(), getFilterPlantActivityClass());
                         intent.putExtra(AndroidConstants.STATE_FILTER_POSITION, ""
                                 + ((BaseApp) getActivity().getApplication()).getFilterAttributes()
                                 .indexOf(item));
+                        intent.putExtra(AndroidConstants.STATE_FILTER, baseActivity.getFilter());
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }
@@ -150,7 +152,7 @@ public class PropertyListFragment extends ListFragment {
         }
     }
 
-    protected Class getUserPreferenceActivityClass() {
-        return UserPreferenceBaseActivity.class;
-    }
+    protected abstract Class getUserPreferenceActivityClass();
+
+    protected abstract Class getFilterPlantActivityClass();
 }
