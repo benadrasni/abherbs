@@ -25,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Stack;
 
 import sk.ab.common.Constants;
@@ -318,30 +320,43 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String newLastMessage = lastMessage;
-                StringBuilder messageToShow = new StringBuilder();
-                boolean addToMessage = false;
-                for (DataSnapshot message : dataSnapshot.getChildren()) {
-                    addToMessage = addToMessage || lastMessage.isEmpty();
-                    if (addToMessage) {
-                        messageToShow.append((String)message.getValue());
-                        newLastMessage = message.getKey();
-                    }
-                    if (lastMessage.equals(message.getKey())) {
-                        addToMessage = true;
-                    }
-                }
+                if (dataSnapshot != null) {
+                    try {
+                        Map<String, Map<String, String>> languages = (Map<String, Map<String, String>>) dataSnapshot.getValue();
+                        Map<String, String> messages = languages.get(Locale.getDefault().getLanguage());
+                        if (messages == null) {
+                            messages = languages.get(AndroidConstants.LANGUAGE_EN);
+                        }
 
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString(AndroidConstants.MESSAGE_KEY, newLastMessage);
-                editor.apply();
+                        String newLastMessage = lastMessage;
+                        StringBuilder messageToShow = new StringBuilder();
+                        boolean addToMessage = false;
+                        for (Map.Entry<String, String> message : messages.entrySet()) {
+                            addToMessage = addToMessage || lastMessage.isEmpty();
+                            if (addToMessage) {
+                                messageToShow.append(message.getValue());
+                                newLastMessage = message.getKey();
+                            }
+                            if (lastMessage.equals(message.getKey())) {
+                                addToMessage = true;
+                            }
+                        }
 
-                if (!messageToShow.toString().isEmpty()) {
-                    DialogFragment dialog = new MessageDialogFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putString(AndroidConstants.MESSAGE_KEY, messageToShow.toString());
-                    dialog.setArguments(bundle);
-                    dialog.show(getSupportFragmentManager(), "MessageDialogFragment");
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString(AndroidConstants.MESSAGE_KEY, newLastMessage);
+                        editor.apply();
+
+                        if (!messageToShow.toString().isEmpty()) {
+                            DialogFragment dialog = new MessageDialogFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putString(AndroidConstants.MESSAGE_KEY, messageToShow.toString());
+                            dialog.setArguments(bundle);
+                            dialog.show(getSupportFragmentManager(), "MessageDialogFragment");
+                        }
+                    } catch (Exception ex) {
+                        // something wrong with messages, ignore it and continue
+                        Log.w("MESSAGES", "Wrong structure", ex);
+                    }
                 }
             }
 
