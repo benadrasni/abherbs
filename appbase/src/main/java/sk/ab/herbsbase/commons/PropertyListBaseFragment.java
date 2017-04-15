@@ -64,9 +64,7 @@ public abstract class PropertyListBaseFragment extends ListFragment {
                         BaseActivity baseActivity = ((BaseActivity) getActivity());
                         baseActivity.startLoading();
                         Intent intent = new Intent(getActivity(), getFilterPlantActivityClass());
-                        intent.putExtra(AndroidConstants.STATE_FILTER_POSITION, ""
-                                + ((BaseApp) getActivity().getApplication()).getFilterAttributes()
-                                .indexOf(item));
+                        intent.putExtra(AndroidConstants.STATE_FILTER_POSITION, "" + baseActivity.getApp().getFilterAttributes().indexOf(item));
                         intent.putExtra(AndroidConstants.STATE_FILTER, baseActivity.getFilter());
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);

@@ -53,7 +53,6 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
 
         setContentView(R.layout.filter_activity);
 
-        filter = new HashMap<>();
         if (savedInstanceState != null) {
             filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
             filterPosition = savedInstanceState.getInt(AndroidConstants.STATE_FILTER_POSITION);
@@ -64,9 +63,13 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
                 filterPosition = Integer.parseInt(pos);
             }
             String clearFilter = getIntent().getExtras().getString(AndroidConstants.STATE_FILTER_CLEAR);
-            if (clearFilter != null) {
+            if (clearFilter != null && filter != null) {
                 filter.clear();
             }
+        }
+
+        if (filter == null) {
+            filter = new HashMap<>();
         }
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);
@@ -320,7 +323,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot != null) {
+                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
                     try {
                         Map<String, Map<String, String>> languages = (Map<String, Map<String, String>>) dataSnapshot.getValue();
                         Map<String, String> messages = languages.get(Locale.getDefault().getLanguage());
