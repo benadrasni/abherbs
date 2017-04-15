@@ -29,35 +29,50 @@
             android:id="@+id/rate_icon1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
             android:src="@drawable/color_of_flowers"/>
 
         <ImageView
             android:id="@+id/rate_icon2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
             android:src="@drawable/color_of_flowers"/>
 
         <ImageView
             android:id="@+id/rate_icon3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
             android:src="@drawable/color_of_flowers"/>
 
         <ImageView
             android:id="@+id/rate_icon4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
             android:src="@drawable/color_of_flowers"/>
 
         <ImageView
             android:id="@+id/rate_icon5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
             android:src="@drawable/color_of_flowers"/>
     </LinearLayout>
 </LinearLayout>
