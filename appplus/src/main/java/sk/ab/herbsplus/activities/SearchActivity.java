@@ -70,6 +70,14 @@ public class SearchActivity extends SearchBaseActivity {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+
+
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
          if (mSearchView != null) {
             String searchText = mSearchView.getQuery().toString();

@@ -39,6 +39,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
         intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
         intent.putExtra(AndroidConstants.STATE_LIST_PATH, listPath);
         startActivity(intent);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     protected void callDetailActivity(final String plantName) {

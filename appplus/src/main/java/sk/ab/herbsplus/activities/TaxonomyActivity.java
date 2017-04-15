@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -299,6 +300,8 @@ public class TaxonomyActivity extends SearchBaseActivity {
     }
 
     private void callProperActivity(PlantTaxon taxon) {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         if (taxon.getCount() == 1) {
             callDetailActivity(taxon.getPlantName());
         } else {
