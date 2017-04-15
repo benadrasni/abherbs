@@ -162,8 +162,9 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
                 removeFromFilter(currentFragment.getAttribute());
             } else {
                 Stack<BaseFilterFragment> backStack = getApp().getBackStack();
+                backStack.pop();
                 if (backStack.size() > 0) {
-                    BaseFilterFragment fragment = backStack.pop();
+                    BaseFilterFragment fragment = backStack.get(backStack.size()-1);
                     FragmentManager fm = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fm.beginTransaction();
                     fragmentTransaction.remove(currentFragment).replace(R.id.filter_content, fragment, "" + fragment.getAttribute()).commit();
@@ -177,13 +178,13 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
     }
 
     public void switchContent(final BaseFilterFragment fragment) {
+        Stack<BaseFilterFragment> backStack = getApp().getBackStack();
+        backStack.remove(fragment);
+        backStack.add(fragment);
+
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         if (currentFragment == null || !currentFragment.equals(fragment)) {
-            if (currentFragment != null) {
-                getApp().getBackStack().remove(currentFragment);
-                getApp().getBackStack().add(currentFragment);
-            }
             fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttribute());
         } else {
             fragmentTransaction.detach(fragment);
