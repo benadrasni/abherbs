@@ -8,4 +8,5 @@
     <string name="offline_mode_summary">требуется 250+ МБ дополнительного пространства</string>
 
     <string name="search">Поиск</string>
+    <string name="wait_until_finish">Дождитесь завершения операции.</string>
 </resources>

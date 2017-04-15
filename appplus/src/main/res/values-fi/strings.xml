@@ -8,4 +8,5 @@
     <string name="offline_mode_summary">vaatii 250+ Mt lisätilaa</string>
 
     <string name="search">Hae</string>
+    <string name="wait_until_finish">Odota, kunnes on päättynyt.</string>
 </resources>

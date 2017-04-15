@@ -8,4 +8,5 @@
     <string name="offline_mode_summary">vyžaduje 250+ MB dalšieho priestoru</string>
 
     <string name="search">Hľadaj</string>
+    <string name="wait_until_finish">Počkajte, prosím, na dokončenie operácie.</string>
 </resources>

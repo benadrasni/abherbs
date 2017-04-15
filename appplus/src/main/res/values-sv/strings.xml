@@ -8,4 +8,5 @@
     <string name="offline_mode_summary">kräver 250+ MB extra utrymme</string>
 
     <string name="search">Sök</string>
+    <string name="wait_until_finish">Vänta tills operation är avslutad.</string>
 </resources>

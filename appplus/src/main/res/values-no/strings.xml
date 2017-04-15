@@ -8,4 +8,5 @@
     <string name="offline_mode_summary">krever 250+ MB ekstra plass</string>
 
     <string name="search">Søke</string>
+    <string name="wait_until_finish">Vent til operasjonen er ferdig.</string>
 </resources>

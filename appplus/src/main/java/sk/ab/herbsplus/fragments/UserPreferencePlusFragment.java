@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -47,6 +48,7 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
 
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
+                Toast.makeText(getActivity(), R.string.wait_until_finish, Toast.LENGTH_LONG).show();
                 Boolean newOfflineMode = (Boolean) newValue;
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean(SpecificConstants.OFFLINE_MODE_KEY, newOfflineMode);

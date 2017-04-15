@@ -8,4 +8,5 @@
     <string name="offline_mode_summary">250 MB以上の追加容量が必要</string>
 
     <string name="search">サーチ</string>
+    <string name="wait_until_finish">操作が終了するまでお待ちください。</string>
 </resources>

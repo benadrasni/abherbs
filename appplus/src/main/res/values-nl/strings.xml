@@ -8,4 +8,5 @@
     <string name="offline_mode_summary">vereist meer dan 250+ MB extra ruimte</string>
 
     <string name="search">Zoeken</string>
+    <string name="wait_until_finish">Wacht tot bewerking is voltooid.</string>
 </resources>

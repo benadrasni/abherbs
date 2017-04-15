@@ -8,4 +8,5 @@
     <string name="offline_mode_summary">szüksége 250+ MB további helyet</string>
 
     <string name="search">Keresés</string>
+    <string name="wait_until_finish">Kérem várjon, amíg a művelet befejeződik.</string>
 </resources>
