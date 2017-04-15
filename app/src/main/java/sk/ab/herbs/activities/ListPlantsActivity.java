@@ -23,6 +23,11 @@ public class ListPlantsActivity extends ListPlantsBaseActivity {
     }
 
     @Override
+    protected Class getFilterPlantActivityClass() {
+        return FilterPlantsActivity.class;
+    }
+
+    @Override
     protected PropertyListBaseFragment getMenuFragment() {
         return new PropertyListFragment();
     }

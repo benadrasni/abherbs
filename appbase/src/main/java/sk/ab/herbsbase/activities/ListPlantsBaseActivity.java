@@ -69,8 +69,9 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
             @Override
             public boolean onLongClick(View v) {
                 startLoading();
-                Intent intent = new Intent(ListPlantsBaseActivity.this, FilterPlantsBaseActivity.class);
+                Intent intent = new Intent(ListPlantsBaseActivity.this, getFilterPlantActivityClass());
                 intent.putExtra(AndroidConstants.STATE_FILTER_CLEAR, "true");
+                intent.putExtra(AndroidConstants.STATE_FILTER, filter);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 return true;
@@ -307,6 +308,8 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
     }
 
     protected abstract Intent getDisplayPlantActivityIntent();
+
+    protected abstract Class getFilterPlantActivityClass();
 
     public FirebasePlant getPlant() {
         return plant;
