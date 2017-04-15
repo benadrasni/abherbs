@@ -60,9 +60,9 @@ public class Firebase {
         final HerbCloudClient herbCloudClient = new HerbCloudClient();
         final FirebaseClient firebaseClient = new FirebaseClient();
 
-//        synchronizeCountsAndLists(herbCloudClient, firebaseClient);
+        synchronizeCountsAndLists(herbCloudClient, firebaseClient);
 
-        synchronizeDetailsAndNames(herbCloudClient, firebaseClient);
+//        synchronizeDetailsAndNames(herbCloudClient, firebaseClient);
 //
 //        downloadFamilyIcons();
 //
@@ -143,6 +143,17 @@ public class Firebase {
                     filter.remove(Constants.NUMBER_OF_PETALS);
                 }
                 filter.remove(Constants.HABITAT);
+            }
+
+            filter.clear();
+            for (String color : COLORS) {
+                filter.put(Constants.COLOR_OF_FLOWERS, color);
+
+                for (String petal : PETALS) {
+                    filter.put(Constants.NUMBER_OF_PETALS, petal);
+                    getAndSave(herbCloudClient, firebaseClient, filter);
+
+                }
             }
 
             filter.clear();
