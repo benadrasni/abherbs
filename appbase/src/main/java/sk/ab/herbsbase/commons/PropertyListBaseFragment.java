@@ -105,9 +105,7 @@ public abstract class PropertyListBaseFragment extends ListFragment {
         public @NonNull View getView(int position, View convertView, @NonNull ViewGroup parent) {
             PropertyItem item = getItem(position);
             if (item != null) {
-                if (convertView == null) {
-                    convertView = LayoutInflater.from(getContext()).inflate(item.getPropertyLayout(), null);
-                }
+                convertView = LayoutInflater.from(getContext()).inflate(item.getPropertyLayout(), null);
                 switch (item.getType()) {
                     case PropertyItem.TYPE_FILTER:
                         BaseFilterFragment filterFragment = (BaseFilterFragment) item;
