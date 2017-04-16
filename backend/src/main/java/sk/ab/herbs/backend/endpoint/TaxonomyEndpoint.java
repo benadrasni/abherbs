@@ -45,6 +45,7 @@ import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.entity.Taxon;
 import sk.ab.common.entity.request.ListRequest;
 import sk.ab.common.entity.TaxonInLanguage;
+import sk.ab.common.util.Utils;
 
 /** An endpoint class we are exposing */
 @Api(
@@ -807,22 +808,22 @@ public class TaxonomyEndpoint {
             String propertyName = propertyEntry.getKey();
             switch (propertyName) {
                 case "id":
-                    plant.setPlantId(safeLongToInt((long)propertyEntry.getValue()));
+                    plant.setPlantId(Utils.safeLongToInt((long)propertyEntry.getValue()));
                     break;
                 case "heightFrom":
-                    plant.setHeightFrom(safeLongToInt((long)propertyEntry.getValue()));
+                    plant.setHeightFrom(Utils.safeLongToInt((long)propertyEntry.getValue()));
                     break;
                 case "heightTo":
-                    plant.setHeightTo(safeLongToInt((long)propertyEntry.getValue()));
+                    plant.setHeightTo(Utils.safeLongToInt((long)propertyEntry.getValue()));
                     break;
                 case "floweringFrom":
-                    plant.setFloweringFrom(safeLongToInt((long)propertyEntry.getValue()));
+                    plant.setFloweringFrom(Utils.safeLongToInt((long)propertyEntry.getValue()));
                     break;
                 case "floweringTo":
-                    plant.setFloweringTo(safeLongToInt((long)propertyEntry.getValue()));
+                    plant.setFloweringTo(Utils.safeLongToInt((long)propertyEntry.getValue()));
                     break;
                 case "toxicityClass":
-                    plant.setToxicityClass(safeLongToInt((long)propertyEntry.getValue()));
+                    plant.setToxicityClass(Utils.safeLongToInt((long)propertyEntry.getValue()));
                     break;
                 case "wikiName":
                     plant.setWikiName((String)propertyEntry.getValue());
@@ -971,13 +972,5 @@ public class TaxonomyEndpoint {
         }
 
         return plantHeader;
-    }
-
-    private static int safeLongToInt(long l) {
-        if (l < Integer.MIN_VALUE || l > Integer.MAX_VALUE) {
-            throw new IllegalArgumentException
-                    (l + " cannot be cast to int without changing its value.");
-        }
-        return (int) l;
     }
 }

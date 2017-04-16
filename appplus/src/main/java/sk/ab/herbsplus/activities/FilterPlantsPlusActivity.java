@@ -44,7 +44,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_search_init:
-                Intent intent = new Intent(this, SearchActivity.class);
+                Intent intent = new Intent(this, NameSearchActivity.class);
                 startActivity(intent);
                 return true;
             default:

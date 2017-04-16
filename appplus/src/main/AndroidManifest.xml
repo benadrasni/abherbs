@@ -47,7 +47,7 @@
             android:name="sk.ab.herbsbase.commons.FullScreenImageActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name="sk.ab.herbsplus.activities.SearchActivity"
+            android:name="sk.ab.herbsplus.activities.NameSearchActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
             android:name="sk.ab.herbsplus.activities.TaxonomyActivity"
