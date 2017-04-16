@@ -27,6 +27,7 @@ import java.util.Locale;
 import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.PlantTranslation;
 import sk.ab.herbsbase.AndroidConstants;
+import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.entity.PlantParcel;
 import sk.ab.herbsbase.entity.PlantTranslationParcel;
@@ -145,6 +146,11 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
     };
 
     public void selectPlant(final String plantName) {
+        if (!getApp().isOffline() && !BaseApp.isNetworkAvailable(getApplicationContext())) {
+            Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         startLoading();
 
         final SynchronizedCounter counter = new SynchronizedCounter();

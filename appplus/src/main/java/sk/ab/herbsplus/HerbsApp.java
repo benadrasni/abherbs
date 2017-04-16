@@ -39,9 +39,9 @@ public class HerbsApp extends BaseApp {
         countsRef.keepSynced(true);
         DatabaseReference listsRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_LISTS);
         listsRef.keepSynced(true);
+        DatabaseReference plantsRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_PLANTS);
+        plantsRef.keepSynced(true);
         if (offline) {
-            DatabaseReference plantsRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_PLANTS);
-            plantsRef.keepSynced(true);
             DatabaseReference taxonomyRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_APG_III);
             taxonomyRef.keepSynced(true);
             String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
@@ -84,5 +84,11 @@ public class HerbsApp extends BaseApp {
         filterAttributes.add(new ColorOfFlowers());
         filterAttributes.add(new Habitats());
         filterAttributes.add(new NumberOfPetals());
+    }
+
+    @Override
+    public boolean isOffline() {
+        SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+        return preferences.getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
     }
 }

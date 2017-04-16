@@ -2,7 +2,7 @@
 <resources>
     <string name="about">A cerca de</string>
     <string name="help">Ayuda</string>
-    <string name="settings">Ajustes</string>
+    <string name="settings">Configuración</string>
     <string name="feedback">Sugerencias</string>
     <string name="pref_language">Idioma preferido</string>
     <string name="propose_translation">No mostrar el botón</string>

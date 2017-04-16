@@ -73,6 +73,8 @@ public abstract class BaseApp extends Application {
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
+    public abstract boolean isOffline();
+
     public DisplayImageOptions getOptions() {
         return options;
     }

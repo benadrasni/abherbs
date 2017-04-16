@@ -17,6 +17,7 @@ import java.util.Locale;
 import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.PlantTranslation;
 import sk.ab.herbsbase.AndroidConstants;
+import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.entity.PlantParcel;
 import sk.ab.herbsbase.entity.PlantTranslationParcel;
 import sk.ab.herbsbase.tools.SynchronizedCounter;
@@ -43,6 +44,12 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
     }
 
     protected void callDetailActivity(final String plantName) {
+        if (!((BaseApp)getApplication()).isOffline() && !BaseApp.isNetworkAvailable(getApplicationContext())) {
+            Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            return;
+        }
+
         final SynchronizedCounter counter = new SynchronizedCounter();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 

@@ -64,8 +64,6 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
                     Utils.deleteRecursive(getActivity().getFilesDir());
                 }
 
-                DatabaseReference plantsRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_PLANTS);
-                plantsRef.keepSynced(newOfflineMode);
                 DatabaseReference taxonomyRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_APG_III);
                 taxonomyRef.keepSynced(newOfflineMode);
                 String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());

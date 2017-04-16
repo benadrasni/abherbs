@@ -37,6 +37,8 @@ public class HerbsApp extends BaseApp {
         countsRef.keepSynced(true);
         DatabaseReference listsRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_LISTS);
         listsRef.keepSynced(true);
+        DatabaseReference plantsRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_PLANTS);
+        plantsRef.keepSynced(true);
 
         // image cache
         int cacheSize = preferences.getInt(AndroidConstants.CACHE_SIZE_KEY, AndroidConstants.DEFAULT_CACHE_SIZE);
@@ -59,5 +61,10 @@ public class HerbsApp extends BaseApp {
         filterAttributes.add(new ColorOfFlowers());
         filterAttributes.add(new Habitats());
         filterAttributes.add(new NumberOfPetals());
+    }
+
+    @Override
+    public boolean isOffline() {
+        return false;
     }
 }

@@ -5,7 +5,7 @@
     <string name="synchronizing">Synchronizuji …</string>
 
     <string name="offline_mode">Offline režim</string>
-    <string name="offline_mode_summary">vyžadují 250 + MB dalšího místa</string>
+    <string name="offline_mode_summary">vyžaduje 250+ MB dalšího místa</string>
 
     <string name="search">Hledej</string>
     <string name="wait_until_finish">Počkejte, prosím, na dokončení operace.</string>
