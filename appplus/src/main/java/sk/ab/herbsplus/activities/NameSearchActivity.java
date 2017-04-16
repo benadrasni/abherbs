@@ -253,6 +253,7 @@ public class NameSearchActivity extends SearchBaseActivity {
 
                     name.setName(nameSnapshot.getKey());
                     name.setCount(Utils.safeLongToInt(nameSnapshot.getChildrenCount()));
+                    name.setPlantName(nameSnapshot.getChildren().iterator().next().getKey());
                     latinNames.add(name);
                 }
 
