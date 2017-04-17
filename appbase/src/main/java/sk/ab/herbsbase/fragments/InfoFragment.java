@@ -221,7 +221,8 @@ public class InfoFragment extends Fragment {
             }
 
             if (textToTranslate.size() > 0) {
-                getTranslation(Constants.LANGUAGE_EN, Locale.getDefault().getLanguage(), textToTranslate);
+                String baseLanguage = AndroidConstants.LANGUAGE_CS.equals(Locale.getDefault().getLanguage()) ? AndroidConstants.LANGUAGE_SK : AndroidConstants.LANGUAGE_EN;
+                getTranslation(baseLanguage, Locale.getDefault().getLanguage(), textToTranslate);
             }
         }
     }

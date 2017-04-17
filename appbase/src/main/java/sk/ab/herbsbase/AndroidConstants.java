@@ -62,6 +62,7 @@ public class AndroidConstants {
     public final static String LANGUAGE_NOT_SUPPORTED = " (not supported)";
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";
+    public final static String LANGUAGE_CS = "cs";
     public final static String LANGUAGE_LA = "la";
     public final static String[] LANGUAGES = {"Čeština", "Dansk", "Deutsch", "English", "Español", "Français", "Hrvatski", "Italiano", "Magyar",
             "Nederlands", "日本語", "Norsk", "Polski", "Português", "Română", "Русский", "Slovenčina", "Slovenščina", "Српски / srpski", "Svenska",

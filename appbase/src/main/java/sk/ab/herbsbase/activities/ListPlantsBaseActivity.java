@@ -216,10 +216,11 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
             }
         });
 
-        if (!AndroidConstants.LANGUAGE_EN.equals(Locale.getDefault().getLanguage())) {
-            // load translation in English
+        if (!AndroidConstants.LANGUAGE_EN.equals(Locale.getDefault().getLanguage()) && !AndroidConstants.LANGUAGE_SK.equals(Locale.getDefault().getLanguage())) {
+            // load translation in English, for Czech in Slovak
+            String baseLanguage = AndroidConstants.LANGUAGE_CS.equals(Locale.getDefault().getLanguage()) ? AndroidConstants.LANGUAGE_SK : AndroidConstants.LANGUAGE_EN;
             DatabaseReference mTranslationEnRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.FIREBASE_SEPARATOR
-                    + AndroidConstants.LANGUAGE_EN + AndroidConstants.FIREBASE_SEPARATOR + plantName);
+                    + baseLanguage + AndroidConstants.FIREBASE_SEPARATOR + plantName);
             mTranslationEnRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
