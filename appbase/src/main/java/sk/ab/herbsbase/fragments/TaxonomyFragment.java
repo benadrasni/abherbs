@@ -146,7 +146,7 @@ public class TaxonomyFragment extends Fragment {
                     taxon.setName((List<String>) ((HashMap<String, Object>)taxonomy.get(AndroidConstants.FIREBASE_APGIII_NAMES)).get(Locale.getDefault().getLanguage()));
                 }
 
-                LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater = (LayoutInflater)displayPlantActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 for(PlantTaxon taxon : taxons) {
                     View view = inflater.inflate(R.layout.taxon, null);
                     TextView textType = (TextView)view.findViewById(R.id.taxonType);

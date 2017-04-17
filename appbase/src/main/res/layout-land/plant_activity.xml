@@ -61,13 +61,30 @@
             </LinearLayout>
         </ScrollView>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/countButton"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            app:backgroundTint="@color/MenuWhite"/>
+            android:layout_gravity="bottom|end">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/countButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                app:backgroundTint="@color/MenuWhite"/>
+
+            <TextView
+                android:id="@+id/countText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:elevation="16dp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
 
     <!-- The navigation drawer -->
