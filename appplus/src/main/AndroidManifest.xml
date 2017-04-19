@@ -47,6 +47,9 @@
             android:name="sk.ab.herbsbase.commons.FullScreenImageActivity"
             android:configChanges="orientation|screenSize" />
         <activity
+            android:name="sk.ab.herbsplus.activities.TransparentActivity"
+            android:theme="@style/Theme.Transparent" />
+        <activity
             android:name="sk.ab.herbsplus.activities.NameSearchActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity

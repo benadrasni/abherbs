@@ -12,9 +12,9 @@ import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.tools.Utils;
 
 /**
- * Activty for full screen image view
+ * Activity for full screen image view
  *
- * Created by adrian on 4.4.2016.
+ * Created by adrian on 4. 4. 2016.
  */
 public class FullScreenImageActivity extends Activity {
     @Override

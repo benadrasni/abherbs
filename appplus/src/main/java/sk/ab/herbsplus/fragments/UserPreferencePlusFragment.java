@@ -1,6 +1,7 @@
 package sk.ab.herbsplus.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import sk.ab.herbsbase.fragments.UserPreferenceBaseFragment;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.StorageLoading;
+import sk.ab.herbsplus.activities.TransparentActivity;
 
 /**
  * @see UserPreferenceBaseFragment
@@ -57,8 +59,9 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
                 if (newOfflineMode) {
                     editor.remove(SpecificConstants.LAST_UPDATE_TIME_KEY);
                     editor.apply();
-                    StorageLoading storageLoading = new StorageLoading(getActivity(), null);
-                    storageLoading.downloadOfflineFiles();
+
+                    Intent intent = new Intent(getActivity(), TransparentActivity.class);
+                    getActivity().startActivity(intent);
                 } else {
                     // delete offline files
                     Utils.deleteRecursive(getActivity().getFilesDir());

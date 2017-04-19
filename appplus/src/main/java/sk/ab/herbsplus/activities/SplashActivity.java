@@ -51,16 +51,8 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void startApplication() {
-        SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
-        boolean offlineMode = preferences.getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
-
-        if (offlineMode && BaseApp.isNetworkAvailable(getApplicationContext())) {
-            StorageLoading storageLoading = new StorageLoading(this, FilterPlantsPlusActivity.class);
-            storageLoading.downloadOfflineFiles();
-        } else {
-            Intent intent = new Intent(this, FilterPlantsPlusActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        Intent intent = new Intent(this, FilterPlantsPlusActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

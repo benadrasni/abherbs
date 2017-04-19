@@ -254,6 +254,8 @@ public class TaxonomyFragment extends Fragment {
             species_latin.setText(plant.getName());
         }
 
+        setAltNames(false);
+
         TextView synonymsView = (TextView) getView().findViewById(R.id.synonyms);
         List<String> synonyms = plant.getSynonyms();
         if (synonyms != null) {

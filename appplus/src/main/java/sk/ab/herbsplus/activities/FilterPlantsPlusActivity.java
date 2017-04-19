@@ -3,6 +3,7 @@ package sk.ab.herbsplus.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import sk.ab.common.util.Utils;
 import sk.ab.herbsbase.AndroidConstants;
+import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
 import sk.ab.herbsbase.commons.PropertyListBaseFragment;
 import sk.ab.herbsplus.BuildConfig;
@@ -31,6 +33,17 @@ import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
  */
 
 public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        boolean offlineMode = getSharedPreferences().getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
+        if (offlineMode && BaseApp.isNetworkAvailable(getApplicationContext())) {
+            Intent intent = new Intent(this, TransparentActivity.class);
+            startActivity(intent);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -3,7 +3,6 @@ package sk.ab.herbsplus;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -82,7 +81,7 @@ public class StorageLoading {
             _zipFile.delete();
             if (filesCount == 0) {
                 saveLastUpdateTime();
-                callNextActivity();
+                finish();
             }
         }
 
@@ -136,15 +135,12 @@ public class StorageLoading {
     }
 
     private Activity activity;
-    private Class nextActivity;
-
     private ProgressDialog progressDialog;
     private long filesCount;
     private List<Long> filesTime;
 
-    public StorageLoading(Activity activity, Class nextActivity) {
+    public StorageLoading(Activity activity) {
         this.activity = activity;
-        this.nextActivity = nextActivity;
     }
 
     public void downloadOfflineFiles() {
@@ -203,7 +199,7 @@ public class StorageLoading {
                             } else {
                                 filesCount--;
                                 if (filesCount == 0) {
-                                    callNextActivity();
+                                    finish();
                                 }
                             }
                         }
@@ -212,7 +208,7 @@ public class StorageLoading {
                         public void onFailure(@NonNull Exception exception) {
                             filesCount--;
                             if (filesCount == 0) {
-                                callNextActivity();
+                                finish();
                             }
                         }
                     });
@@ -226,13 +222,9 @@ public class StorageLoading {
 
     }
 
-    private void callNextActivity() {
-        if (nextActivity != null) {
-            Intent intent = new Intent(activity, nextActivity);
-            activity.startActivity(intent);
-            activity.finish();
-        }
+    private void finish() {
         progressDialog.dismiss();
+        activity.finish();
     }
 
     private void saveLastUpdateTime() {
