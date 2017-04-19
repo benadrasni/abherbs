@@ -6,8 +6,8 @@
     <string name="feedback">Připomínky</string>
     <string name="pref_language">Preferovaný jazyk</string>
     <string name="propose_translation">Nezobrazovat tlačítko</string>
-    <string name="cache_size">Cache size in MB</string>
-    <string name="cache_size_summary">for photos and illustrations</string>
+    <string name="cache_size">Velikost mezipaměti v MB</string>
+    <string name="cache_size_summary">pro fotografie a ilustrace</string>
 
     <string name="color_of_flower">barva květů</string>
     <string name="color_white">bílá</string>
@@ -102,4 +102,5 @@
     <string name="show_original">Zobraz slovenský text</string>
     <string name="improve_translation">Zlepšit překlad</string>
     <string name="show_translation">Zobraz přeložený text</string>
+    <string name="rate_question">Líbí se vám aplikace?</string>
 </resources>

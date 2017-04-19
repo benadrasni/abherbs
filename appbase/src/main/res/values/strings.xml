@@ -123,4 +123,5 @@
     <string name="show_original">Show English text</string>
     <string name="improve_translation">Improve translation</string>
     <string name="show_translation">Show translated text</string>
+    <string name="rate_question">Is this app helpful?</string>
 </resources>

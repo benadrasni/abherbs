@@ -6,8 +6,8 @@
     <string name="feedback">Feedback</string>
     <string name="pref_language">Bevorzugte Sprache</string>
     <string name="propose_translation">Nicht mehr anzeigen Taste</string>
-    <string name="cache_size">Cache size in MB</string>
-    <string name="cache_size_summary">for photos and illustrations</string>
+    <string name="cache_size">Cache-Größe in MB</string>
+    <string name="cache_size_summary">für Fotos und Illustrationen</string>
 
     <string name="color_of_flower">Blütenfarbe</string>
     <string name="color_white">Weiß</string>
@@ -101,4 +101,5 @@
     <string name="show_original">Englischer Text anzeigen</string>
     <string name="improve_translation">Verbessere Übersetzung</string>
     <string name="show_translation">Übersetzten Text anzeigen</string>
+    <string name="rate_question">Ist diese Anwendung hilfreich?</string>
 </resources>

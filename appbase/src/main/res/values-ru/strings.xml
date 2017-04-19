@@ -6,8 +6,8 @@
     <string name="feedback">Отправить отзыв</string>
     <string name="pref_language">Предпочтительный язык</string>
     <string name="propose_translation">Do not show button</string>
-    <string name="cache_size">Cache size in MB</string>
-    <string name="cache_size_summary">for photos and illustrations</string>
+    <string name="cache_size">Размер кеша в МБ</string>
+    <string name="cache_size_summary">для фотографий и иллюстраций</string>
 
     <string name="color_of_flower">окраска цветков</string>
     <string name="color_white">белая</string>
@@ -102,4 +102,5 @@
     <string name="show_original">Показать английский текст</string>
     <string name="improve_translation">Улучшить перевод</string>
     <string name="show_translation">Показать перевод</string>
+    <string name="rate_question">Является ли это приложение полезным?</string>
 </resources>

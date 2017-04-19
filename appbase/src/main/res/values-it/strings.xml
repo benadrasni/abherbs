@@ -6,8 +6,8 @@
     <string name="feedback">Invia feedback</string>
     <string name="pref_language">Preferred language</string>
     <string name="propose_translation">Do not show button</string>
-    <string name="cache_size">Cache size in MB</string>
-    <string name="cache_size_summary">for photos and illustrations</string>
+    <string name="cache_size">Dimensione della cache in MB</string>
+    <string name="cache_size_summary">per foto e illustrazioni</string>
 
     <string name="color_of_flower">colore dei fiori</string>
     <string name="color_white">bianca</string>
@@ -102,4 +102,5 @@
     <string name="show_original">Mostra testo inglese</string>
     <string name="improve_translation">Migliorare la traduzione</string>
     <string name="show_translation">Mostra testo tradotto</string>
+    <string name="rate_question">È utile questa applicazione?</string>
 </resources>

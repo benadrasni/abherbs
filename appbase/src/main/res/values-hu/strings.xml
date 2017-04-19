@@ -6,8 +6,8 @@
     <string name="feedback">Visszajelzés küldése</string>
     <string name="pref_language">Kedvenc nyelv</string>
     <string name="propose_translation">Kapcsológombok letiltása</string>
-    <string name="cache_size">Cache size in MB</string>
-    <string name="cache_size_summary">for photos and illustrations</string>
+    <string name="cache_size">Gyorsítótár méret MB-ban</string>
+    <string name="cache_size_summary">fotókhoz és illusztrációkhoz</string>
 
     <string name="color_of_flower">a virágok színe</string>
     <string name="color_white">fehér</string>
@@ -102,4 +102,5 @@
     <string name="show_original">Megjelenítése angol szöveg</string>
     <string name="improve_translation">Javítani fordítás</string>
     <string name="show_translation">Fordított szöveg megjelenítése</string>
+    <string name="rate_question">Ez az alkalmazás hasznos?</string>
 </resources>

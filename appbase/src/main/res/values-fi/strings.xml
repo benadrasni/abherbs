@@ -6,8 +6,8 @@
     <string name="feedback">Palaute</string>
     <string name="pref_language">Preferred language</string>
     <string name="propose_translation">Do not show button</string>
-    <string name="cache_size">Cache size in MB</string>
-    <string name="cache_size_summary">for photos and illustrations</string>
+    <string name="cache_size">Välimuistin koko MB</string>
+    <string name="cache_size_summary">Valokuvia ja kuvia</string>
 
     <string name="color_of_flower">kukkien väri</string>
     <string name="color_white">valkoinen</string>
@@ -102,4 +102,5 @@
     <string name="show_original">Näytä Englanti teksti</string>
     <string name="improve_translation">Parantamaan käännösten</string>
     <string name="show_translation">Näytä käännetty teksti</string>
+    <string name="rate_question">Onko tämä sovellus hyödyllinen?</string>
 </resources>

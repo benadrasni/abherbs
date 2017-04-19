@@ -101,4 +101,5 @@
     <string name="show_original">Ukáž anglický text</string>
     <string name="improve_translation">Vylepši preklad</string>
     <string name="show_translation">Ukáž preložený text</string>
+    <string name="rate_question">Je táto aplikácia užitočná?</string>
 </resources>

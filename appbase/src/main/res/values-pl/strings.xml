@@ -6,8 +6,8 @@
     <string name="feedback">Komentarze</string>
     <string name="pref_language">Preferowany język</string>
     <string name="propose_translation">Czy przycisk nie pokazuj</string>
-    <string name="cache_size">Cache size in MB</string>
-    <string name="cache_size_summary">for photos and illustrations</string>
+    <string name="cache_size">Rozmiar pamięci podręcznej w MB</string>
+    <string name="cache_size_summary">do zdjęć i ilustracji</string>
 
     <string name="color_of_flower">kolor kwiatów</string>
     <string name="color_white">biały</string>
@@ -102,4 +102,5 @@
     <string name="show_original">Pokaż angielski tekst</string>
     <string name="improve_translation">Popraw tłumaczenie</string>
     <string name="show_translation">Pokaż przetłumaczony tekst</string>
+    <string name="rate_question">Czy ta aplikacja jest pomocna?</string>
 </resources>

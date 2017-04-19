@@ -6,8 +6,8 @@
     <string name="feedback">Povratne informacije</string>
     <string name="pref_language">Želeni jezik</string>
     <string name="propose_translation">Gumb ne kažejo</string>
-    <string name="cache_size">Cache size in MB</string>
-    <string name="cache_size_summary">for photos and illustrations</string>
+    <string name="cache_size">Velikost predpomnilnika v MB</string>
+    <string name="cache_size_summary">fotografij in ilustracij</string>
 
     <string name="color_of_flower">barva cvetov</string>
     <string name="color_white">bela</string>
@@ -102,4 +102,5 @@
     <string name="show_original">Prikaži angleško besedilo</string>
     <string name="improve_translation">Izboljšati prevod</string>
     <string name="show_translation">Pokaži prevedeno besedilo</string>
+    <string name="rate_question">Je ta vloga v pomoč?</string>
 </resources>

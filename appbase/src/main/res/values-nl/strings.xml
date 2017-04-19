@@ -6,8 +6,8 @@
     <string name="feedback">Terugkoppeling</string>
     <string name="pref_language">Preferred language</string>
     <string name="propose_translation">Do not show button</string>
-    <string name="cache_size">Cache size in MB</string>
-    <string name="cache_size_summary">for photos and illustrations</string>
+    <string name="cache_size">Cache-grootte in MB</string>
+    <string name="cache_size_summary">voor foto\'s en illustraties</string>
 
     <string name="color_of_flower">kleur van de bloemen</string>
     <string name="color_white">wit</string>
@@ -102,4 +102,5 @@
     <string name="show_original">Toon Engels tekst</string>
     <string name="improve_translation">Verbeter vertaling</string>
     <string name="show_translation">Toon vertaalde tekst</string>
+    <string name="rate_question">Is deze applicatie handig?</string>
 </resources>

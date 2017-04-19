@@ -6,8 +6,8 @@
     <string name="feedback">フィードバック</string>
     <string name="pref_language">Preferred language</string>
     <string name="propose_translation">Do not show button</string>
-    <string name="cache_size">Cache size in MB</string>
-    <string name="cache_size_summary">for photos and illustrations</string>
+    <string name="cache_size">キャッシュサイズ（MB単位）</string>
+    <string name="cache_size_summary">写真やイラスト用</string>
 
     <string name="color_of_flower">花の色</string>
     <string name="color_white">白</string>
@@ -102,4 +102,5 @@
     <string name="show_original">英語のテキストを表示する</string>
     <string name="improve_translation">翻訳を改善する</string>
     <string name="show_translation">翻訳されたテキストを表示する</string>
+    <string name="rate_question">このアプリケーションは役に立ちましたか？</string>
 </resources>

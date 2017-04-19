@@ -6,8 +6,8 @@
     <string name="feedback">Feedback</string>
     <string name="pref_language">Preferred language</string>
     <string name="propose_translation">Do not show button</string>
-    <string name="cache_size">Cache size in MB</string>
-    <string name="cache_size_summary">for photos and illustrations</string>
+    <string name="cache_size">Cachestørrelse i MB</string>
+    <string name="cache_size_summary">til billeder og illustrationer</string>
 
     <string name="color_of_flower">blomsterfarve</string>
     <string name="color_white">hvid</string>
@@ -102,4 +102,5 @@
     <string name="show_original">Vis engelske tekst</string>
     <string name="improve_translation">Forbedre oversættelse</string>
     <string name="show_translation">Vis oversatte tekst</string>
+    <string name="rate_question">Je tato aplikace užitečná?</string>
 </resources>

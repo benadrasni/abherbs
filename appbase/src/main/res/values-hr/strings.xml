@@ -6,8 +6,8 @@
     <string name="feedback">povratna informacija</string>
     <string name="pref_language">Preferirani jezik</string>
     <string name="propose_translation">Do not show button</string>
-    <string name="cache_size">Cache size in MB</string>
-    <string name="cache_size_summary">for photos and illustrations</string>
+    <string name="cache_size">Veličina predmemorije u MB</string>
+    <string name="cache_size_summary">za fotografije i ilustracije</string>
 
     <string name="color_of_flower">boja cvjetova</string>
     <string name="color_white">bijela</string>
@@ -102,4 +102,5 @@
     <string name="show_original">Prikaži engleski tekst</string>
     <string name="improve_translation">Poboljšati prevođenje</string>
     <string name="show_translation">Prikaži prevedeni tekst</string>
+    <string name="rate_question">Je li ova aplikacija korisna?</string>
 </resources>

@@ -6,8 +6,8 @@
     <string name="feedback">Відповідь</string>
     <string name="pref_language">Preferred language</string>
     <string name="propose_translation">Do not show button</string>
-    <string name="cache_size">Cache size in MB</string>
-    <string name="cache_size_summary">for photos and illustrations</string>
+    <string name="cache_size">Розмір кешу в МБ</string>
+    <string name="cache_size_summary">для зображень</string>
 
     <string name="color_of_flower">забарвлення квіток</string>
     <string name="color_white">білий</string>
@@ -102,4 +102,5 @@
     <string name="show_original">Показати англійський текст</string>
     <string name="improve_translation">Поліпшення перекладу</string>
     <string name="show_translation">Показати перекладений текст</string>
+    <string name="rate_question">Чи є це додаток корисним?</string>
 </resources>

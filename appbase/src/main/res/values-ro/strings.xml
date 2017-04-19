@@ -6,8 +6,8 @@
     <string name="feedback">Feedback</string>
     <string name="pref_language">Limba preferată</string>
     <string name="propose_translation">Nu arăta butonul</string>
-    <string name="cache_size">Cache size in MB</string>
-    <string name="cache_size_summary">for photos and illustrations</string>
+    <string name="cache_size">Dimensiunea memoriei cache în MB</string>
+    <string name="cache_size_summary">pentru fotografii și ilustrații</string>
 
     <string name="color_of_flower">culoarea florilor</string>
     <string name="color_white">alb</string>
@@ -102,4 +102,5 @@
     <string name="show_original">"Afișați textul English "</string>
     <string name="improve_translation">Îmbunătățirea traducere</string>
     <string name="show_translation">Afișați textul tradus</string>
+    <string name="rate_question">Este această aplicație utilă?</string>
 </resources>
