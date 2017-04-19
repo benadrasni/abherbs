@@ -51,7 +51,6 @@ public class TaxonomyFragment extends Fragment {
     private ImageView toxicityClass1;
     private ImageView toxicityClass2;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return View.inflate(getActivity().getBaseContext(), R.layout.plant_card_taxonomy, null);
@@ -63,7 +62,19 @@ public class TaxonomyFragment extends Fragment {
 
         if (getView() != null) {
             toxicityClass1 = (ImageView) getView().findViewById(R.id.plant_toxicity_class1);
+            toxicityClass1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), getActivity().getResources().getText(R.string.toxicity1), Toast.LENGTH_LONG).show();
+                }
+            });
             toxicityClass2 = (ImageView) getView().findViewById(R.id.plant_toxicity_class2);
+            toxicityClass2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), getActivity().getResources().getText(R.string.toxicity2), Toast.LENGTH_LONG).show();
+                }
+            });
         }
 
         final DisplayPlantBaseActivity displayPlantActivity = (DisplayPlantBaseActivity) getActivity();
@@ -71,13 +82,13 @@ public class TaxonomyFragment extends Fragment {
         SharedPreferences.Editor editor = preferences.edit();
         Boolean showWizard = !preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_3_1, false)
                 && preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_2_7, false);
-        final TextView nameView = (TextView) getView().findViewById(R.id.plant_species);
+        final ImageView taxonomyView = (ImageView) getView().findViewById(R.id.taxonomy);
 
         if (showWizard) {
             new ShowcaseView.Builder(getActivity())
                     .withMaterialShowcase()
                     .setStyle(R.style.CustomShowcaseTheme)
-                    .setTarget(new ViewTarget(nameView))
+                    .setTarget(new ViewTarget(taxonomyView))
                     .hideOnTouchOutside()
                     .setContentTitle(R.string.showcase_taxonomy_title)
                     .setContentText(R.string.showcase_taxonomy_message)
@@ -85,35 +96,29 @@ public class TaxonomyFragment extends Fragment {
             editor.putBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_3_1, true);
             editor.apply();
         }
+
+        setHeader();
+
+        final LinearLayout layout = (LinearLayout) getView().findViewById(R.id.plant_taxonomy);
+        taxonomyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getTaxonomy(layout);
+                setAltNames(layout.isShown());
+                Utils.setVisibility(getView(), R.id.synonyms);
+                Utils.setVisibility(getView(), R.id.plant_taxonomy);
+                Utils.setVisibility(getView(), R.id.agpiii);
+            }
+        });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        if (getView() != null) {
-            setNames(getView());
-
-            getView().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getTaxonomy(getView());
-                    Utils.setVisibility(v, R.id.synonyms);
-                    Utils.setVisibility(v, R.id.plant_taxonomy);
-                    Utils.setVisibility(v, R.id.agpiii);
-                }
-            });
-        }
-    }
-
-    private void getTaxonomy(View view) {
-        final DisplayPlantBaseActivity displayPlantActivity = (DisplayPlantBaseActivity) getActivity();
-        final FirebasePlant plant = displayPlantActivity.getPlant();
-        final LinearLayout layout = (LinearLayout) view.findViewById(R.id.plant_taxonomy);
-
+    private void getTaxonomy(final LinearLayout layout) {
         if (layout.isShown() || layout.getChildCount() > 0) {
             return;
         }
+
+        final DisplayPlantBaseActivity displayPlantActivity = (DisplayPlantBaseActivity) getActivity();
+        final FirebasePlant plant = displayPlantActivity.getPlant();
 
         displayPlantActivity.startLoading();
         displayPlantActivity.countButton.setVisibility(View.VISIBLE);
@@ -210,7 +215,7 @@ public class TaxonomyFragment extends Fragment {
         });
     }
 
-    private void setNames(View view) {
+    private void setHeader() {
         FirebasePlant plant = getPlant();
         PlantTranslation plantTranslation = getPlantTranslation();
 
@@ -242,42 +247,14 @@ public class TaxonomyFragment extends Fragment {
             isLatinName = true;
         }
 
-        TextView species = (TextView) view.findViewById(R.id.plant_species);
+        TextView species = (TextView) getView().findViewById(R.id.plant_species);
         species.setText(label);
         if (!isLatinName) {
-            TextView species_latin = (TextView) view.findViewById(R.id.plant_species_latin);
+            TextView species_latin = (TextView) getView().findViewById(R.id.plant_species_latin);
             species_latin.setText(plant.getName());
         }
-        TextView namesView = (TextView) view.findViewById(R.id.plant_alt_names);
 
-        if (plantTranslation != null) {
-            List<String> names = plantTranslation.getNames();
-            if (names != null) {
-                int i = 0;
-                StringBuilder namesText = new StringBuilder();
-                for (String name : names) {
-                    if (namesText.length() > 0) {
-                        namesText.append(", ");
-                    }
-                    namesText.append(name);
-                    i++;
-                    if (i > Constants.NAMES_TO_DISPLAY) {
-                        break;
-                    }
-                }
-                if (namesText.length() > 0) {
-                    namesView.setText(namesText.toString());
-                } else {
-                    namesView.setVisibility(View.GONE);
-                }
-            } else {
-                namesView.setVisibility(View.GONE);
-            }
-        } else {
-            namesView.setVisibility(View.GONE);
-        }
-
-        TextView synonymsView = (TextView) view.findViewById(R.id.synonyms);
+        TextView synonymsView = (TextView) getView().findViewById(R.id.synonyms);
         List<String> synonyms = plant.getSynonyms();
         if (synonyms != null) {
             StringBuilder synonymsText = new StringBuilder();
@@ -294,6 +271,40 @@ public class TaxonomyFragment extends Fragment {
             }
         } else {
             synonymsView.setVisibility(View.GONE);
+        }
+    }
+
+    private void setAltNames(boolean all) {
+        PlantTranslation plantTranslation = getPlantTranslation();
+        TextView namesView = (TextView) getView().findViewById(R.id.plant_alt_names);
+        if (plantTranslation != null) {
+            List<String> names = plantTranslation.getNames();
+            if (names != null) {
+                int i = 0;
+                StringBuilder namesText = new StringBuilder();
+                for (String name : names) {
+                    if (namesText.length() > 0) {
+                        namesText.append(", ");
+                    }
+                    namesText.append(name);
+                    i++;
+                    if (!all && i > Constants.NAMES_TO_DISPLAY) {
+                        if (names.size() > i) {
+                           namesText.append("...");
+                        }
+                        break;
+                    }
+                }
+                if (namesText.length() > 0) {
+                    namesView.setText(namesText.toString());
+                } else {
+                    namesView.setVisibility(View.GONE);
+                }
+            } else {
+                namesView.setVisibility(View.GONE);
+            }
+        } else {
+            namesView.setVisibility(View.GONE);
         }
     }
 

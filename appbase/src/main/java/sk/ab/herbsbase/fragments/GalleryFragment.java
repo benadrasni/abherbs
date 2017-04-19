@@ -16,6 +16,7 @@ import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
+import sk.ab.herbsbase.tools.OnSwipeTouchListener;
 import sk.ab.herbsbase.tools.Utils;
 
 
@@ -122,13 +123,36 @@ public class GalleryFragment extends Fragment {
         ThumbnailAdapter adapter = new ThumbnailAdapter(urls);
         thumbnails.setAdapter(adapter);
 
-        ImageView image = (ImageView) convertView.findViewById(R.id.plant_photo);
-        if (plant.getPhotoUrls().size() > thumbnail_position && plant.getPhotoUrls().get(thumbnail_position) != null) {
+        final ImageView image = (ImageView) convertView.findViewById(R.id.plant_photo);
+        displayImage(image, plant, thumbnail_position);
+        image.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
+            public void onSwipeTop() {
+
+            }
+            public void onSwipeRight() {
+                if (thumbnail_position > 0) {
+                    thumbnail_position--;
+                    displayImage(image, plant, thumbnail_position);
+                }
+            }
+            public void onSwipeLeft() {
+                if (thumbnail_position < plant.getPhotoUrls().size()-1) {
+                    thumbnail_position++;
+                    displayImage(image, plant, thumbnail_position);
+                }
+            }
+            public void onSwipeBottom() {
+
+            }
+
+        });
+    }
+
+    private void displayImage(ImageView image, FirebasePlant plant, int position) {
+        if (plant.getPhotoUrls().size() > position && plant.getPhotoUrls().get(position) != null) {
             Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS
-                            + plant.getPhotoUrls().get(thumbnail_position), image, ((BaseApp) getActivity().getApplication()).getOptions());
-        } else if (plant.getPhotoUrls().size() > 0 && plant.getPhotoUrls().get(0) != null) {
-            Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS
-                    + plant.getPhotoUrls().get(0), image, ((BaseApp) getActivity().getApplication()).getOptions());
+                    + plant.getPhotoUrls().get(position), image, ((BaseApp) getActivity().getApplication()).getOptions());
         }
-    }}
+    }
+}
 
