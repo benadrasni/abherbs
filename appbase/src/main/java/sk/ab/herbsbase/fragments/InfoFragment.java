@@ -87,12 +87,6 @@ public class InfoFragment extends Fragment {
         showGTSection();
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        setInfo(true);
-//    }
-
     public void setInfo(boolean withTranslation) {
         final FirebasePlant plant = getPlant();
 
