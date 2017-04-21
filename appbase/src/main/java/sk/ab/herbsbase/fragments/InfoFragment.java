@@ -180,43 +180,43 @@ public class InfoFragment extends Fragment {
         if (plantTranslationGT == null && plantTranslationEn != null) {
             List<String> textToTranslate = new ArrayList<>();
 
-            if (plantTranslation != null && plantTranslation.getDescription() == null && plantTranslationEn.getDescription() != null) {
+            if ((plantTranslation == null || plantTranslation.getDescription() == null) && plantTranslationEn.getDescription() != null) {
                 textToTranslate.add(plantTranslationEn.getDescription());
             }
 
-            if (plantTranslation != null && plantTranslation.getFlower() == null && plantTranslationEn.getFlower() != null) {
+            if ((plantTranslation == null || plantTranslation.getFlower() == null) && plantTranslationEn.getFlower() != null) {
                 textToTranslate.add(plantTranslationEn.getFlower());
             }
 
-            if (plantTranslation != null && plantTranslation.getInflorescence() == null && plantTranslationEn.getInflorescence() != null) {
+            if ((plantTranslation == null || plantTranslation.getInflorescence() == null) && plantTranslationEn.getInflorescence() != null) {
                 textToTranslate.add(plantTranslationEn.getInflorescence());
             }
 
-            if (plantTranslation != null && plantTranslation.getFruit() == null && plantTranslationEn.getFruit() != null) {
+            if ((plantTranslation == null || plantTranslation.getFruit() == null) && plantTranslationEn.getFruit() != null) {
                 textToTranslate.add(plantTranslationEn.getFruit());
             }
 
-            if (plantTranslation != null && plantTranslation.getLeaf() == null && plantTranslationEn.getLeaf() != null) {
+            if ((plantTranslation == null || plantTranslation.getLeaf() == null) && plantTranslationEn.getLeaf() != null) {
                 textToTranslate.add(plantTranslationEn.getLeaf());
             }
 
-            if (plantTranslation != null && plantTranslation.getStem() == null && plantTranslationEn.getStem() != null) {
+            if ((plantTranslation == null || plantTranslation.getStem() == null) && plantTranslationEn.getStem() != null) {
                 textToTranslate.add(plantTranslationEn.getStem());
             }
 
-            if (plantTranslation != null && plantTranslation.getHabitat() == null && plantTranslationEn.getHabitat() != null) {
+            if ((plantTranslation == null || plantTranslation.getHabitat() == null) && plantTranslationEn.getHabitat() != null) {
                 textToTranslate.add(plantTranslationEn.getHabitat());
             }
 
-            if (plantTranslation != null && plantTranslation.getToxicity() == null && plantTranslationEn.getToxicity() != null) {
+            if ((plantTranslation == null || plantTranslation.getToxicity() == null) && plantTranslationEn.getToxicity() != null) {
                 textToTranslate.add(plantTranslationEn.getToxicity());
             }
 
-            if (plantTranslation != null && plantTranslation.getHerbalism() == null && plantTranslationEn.getHerbalism() != null) {
+            if ((plantTranslation == null || plantTranslation.getHerbalism() == null) && plantTranslationEn.getHerbalism() != null) {
                 textToTranslate.add(plantTranslationEn.getHerbalism());
             }
 
-            if (plantTranslation != null && plantTranslation.getTrivia() == null && plantTranslationEn.getTrivia() != null) {
+            if ((plantTranslation == null || plantTranslation.getTrivia() == null) && plantTranslationEn.getTrivia() != null) {
                 textToTranslate.add(plantTranslationEn.getTrivia());
             }
 
@@ -286,43 +286,43 @@ public class InfoFragment extends Fragment {
         PlantTranslation plantTranslationGT = new PlantTranslation();
 
         int i = 0;
-        if (translatedTexts.size() > i && plantTranslation.getDescription() == null && plantTranslationEn.getDescription() != null) {
+        if (translatedTexts.size() > i && (plantTranslation == null || plantTranslation.getDescription() == null) && plantTranslationEn.getDescription() != null) {
             plantTranslationGT.setDescription(translatedTexts.get(i));
             i++;
         }
-        if (translatedTexts.size() > i && plantTranslation.getFlower() == null && plantTranslationEn.getFlower() != null) {
+        if (translatedTexts.size() > i && (plantTranslation == null || plantTranslation.getFlower() == null) && plantTranslationEn.getFlower() != null) {
             plantTranslationGT.setFlower(translatedTexts.get(i));
             i++;
         }
-        if (translatedTexts.size() > i && plantTranslation.getInflorescence() == null && plantTranslationEn.getInflorescence() != null) {
+        if (translatedTexts.size() > i && (plantTranslation == null || plantTranslation.getInflorescence() == null) && plantTranslationEn.getInflorescence() != null) {
             plantTranslationGT.setInflorescence(translatedTexts.get(i));
             i++;
         }
-        if (translatedTexts.size() > i && plantTranslation.getFruit() == null && plantTranslationEn.getFruit() != null) {
+        if (translatedTexts.size() > i && (plantTranslation == null || plantTranslation.getFruit() == null) && plantTranslationEn.getFruit() != null) {
             plantTranslationGT.setFruit(translatedTexts.get(i));
             i++;
         }
-        if (translatedTexts.size() > i && plantTranslation.getLeaf() == null && plantTranslationEn.getLeaf() != null) {
+        if (translatedTexts.size() > i && (plantTranslation == null || plantTranslation.getLeaf() == null) && plantTranslationEn.getLeaf() != null) {
             plantTranslationGT.setLeaf(translatedTexts.get(i));
             i++;
         }
-        if (translatedTexts.size() > i && plantTranslation.getStem() == null && plantTranslationEn.getStem() != null) {
+        if (translatedTexts.size() > i && (plantTranslation == null || plantTranslation.getStem() == null) && plantTranslationEn.getStem() != null) {
             plantTranslationGT.setStem(translatedTexts.get(i));
             i++;
         }
-        if (translatedTexts.size() > i && plantTranslation.getHabitat() == null && plantTranslationEn.getHabitat() != null) {
+        if (translatedTexts.size() > i && (plantTranslation == null || plantTranslation.getHabitat() == null) && plantTranslationEn.getHabitat() != null) {
             plantTranslationGT.setHabitat(translatedTexts.get(i));
             i++;
         }
-        if (translatedTexts.size() > i && plantTranslation.getToxicity() == null && plantTranslationEn.getToxicity() != null) {
+        if (translatedTexts.size() > i && (plantTranslation == null || plantTranslation.getToxicity() == null) && plantTranslationEn.getToxicity() != null) {
             plantTranslationGT.setToxicity(translatedTexts.get(i));
             i++;
         }
-        if (translatedTexts.size() > i && plantTranslation.getHerbalism() == null && plantTranslationEn.getHerbalism() != null) {
+        if (translatedTexts.size() > i && (plantTranslation == null || plantTranslation.getHerbalism() == null) && plantTranslationEn.getHerbalism() != null) {
             plantTranslationGT.setHerbalism(translatedTexts.get(i));
             i++;
         }
-        if (translatedTexts.size() > i && plantTranslation.getTrivia() == null && plantTranslationEn.getTrivia() != null) {
+        if (translatedTexts.size() > i && (plantTranslation == null || plantTranslation.getTrivia() == null) && plantTranslationEn.getTrivia() != null) {
             plantTranslationGT.setTrivia(translatedTexts.get(i));
         }
 
