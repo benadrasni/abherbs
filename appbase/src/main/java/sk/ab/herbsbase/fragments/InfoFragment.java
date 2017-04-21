@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -332,7 +331,7 @@ public class InfoFragment extends Fragment {
     private void improveTranslation() {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", AndroidConstants.EMAIL, null));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, getEmailSubject());
-        emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(getEmailBody()));
+        emailIntent.putExtra(Intent.EXTRA_TEXT, Utils.fromHtml(getEmailBody()));
         startActivity(Intent.createChooser(emailIntent, getEmailSubject()));
     }
 
@@ -341,17 +340,13 @@ public class InfoFragment extends Fragment {
     }
 
     private String getEmailBody() {
-        final StringBuilder text = new StringBuilder();
-
-        text.append(getPlant().getName());
-        text.append("<br/><br/>");
-        text.append(getPlantInLanguage());
-        text.append("<br/><br/>");
-        text.append(Locale.getDefault().getDisplayLanguage());
-        text.append("<br/><br/>");
-        text.append(getPlantPlaceHolder());
-
-        return text.toString();
+        return getPlant().getName() +
+                "<br/><br/>" +
+                getPlantInLanguage() +
+                "<br/><br/>" +
+                Locale.getDefault().getDisplayLanguage() +
+                "<br/><br/>" +
+                getPlantPlaceHolder();
     }
 
     private String getPlantInLanguage() {
