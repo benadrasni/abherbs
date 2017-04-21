@@ -87,11 +87,11 @@ public class InfoFragment extends Fragment {
         showGTSection();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        setInfo(true);
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        setInfo(true);
+//    }
 
     public void setInfo(boolean withTranslation) {
         final FirebasePlant plant = getPlant();
@@ -222,7 +222,11 @@ public class InfoFragment extends Fragment {
             if (textToTranslate.size() > 0) {
                 String baseLanguage = AndroidConstants.LANGUAGE_CS.equals(Locale.getDefault().getLanguage()) ? AndroidConstants.LANGUAGE_SK : AndroidConstants.LANGUAGE_EN;
                 getTranslation(baseLanguage, Locale.getDefault().getLanguage(), textToTranslate);
+            } else {
+                setInfo(false);
             }
+        } else {
+            setInfo(true);
         }
     }
 
