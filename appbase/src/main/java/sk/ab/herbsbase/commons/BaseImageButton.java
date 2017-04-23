@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
@@ -56,8 +57,8 @@ public class BaseImageButton extends AppCompatButton {
 
             @Override
             public void onClick(View view) {
-                if (view.getContext() instanceof FilterPlantsBaseActivity) {
-                    FilterPlantsBaseActivity host = (FilterPlantsBaseActivity) view.getContext();
+                if (((LinearLayout)view.getParent()).getContext() instanceof FilterPlantsBaseActivity) {
+                    FilterPlantsBaseActivity host = (FilterPlantsBaseActivity) ((LinearLayout)view.getParent()).getContext();
 
                     if (host.getCounter() > 0 || host.getFilter().get(host.getCurrentFragment().getAttribute()) != null) {
                         host.addToFilter(value);
