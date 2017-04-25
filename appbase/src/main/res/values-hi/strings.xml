@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about">About</string>
+    <string name="help">Help</string>
+    <string name="settings">Settings</string>
+    <string name="feedback">Feedback</string>
+    <string name="pref_language">Preferred language</string>
+    <string name="propose_translation">Do not show button</string>
+    <string name="cache_size">Cache size in MB</string>
+    <string name="cache_size_summary">for photos and illustrations</string>
+
+    <string name="color_of_flower">color of flowers</string>
+    <string name="color_white">सफेद</string>
+    <string name="color_yellow">पीला</string>
+    <string name="color_red">लाल, गुलाबी</string>
+    <string name="color_blue">नीला, बैंगनी</string>
+    <string name="color_green">हरा, भूरा, काला</string>
+    <string name="color_of_flower_message">What\'s the color of the flower? Choose the closest one.</string>
+
+    <string name="habitats">habitats</string>
+    <string name="habitat_meadow">घास के मैदान या घास के मैदान</string>
+    <string name="habitat_garden">उद्यान या खेतों</string>
+    <string name="habitat_wetland">मोरलैंड्स या झीलों</string>
+    <string name="habitat_forest">जंगलों या जंगलों</string>
+    <string name="habitat_rock">चट्टानों या पहाड़ों</string>
+    <string name="habitat_tree">पेड़ों या झाड़ियाँ</string>
+    <string name="habitat_message">What\'s around you? Identify plant\'s habitat.</string>
+
+    <string name="number_of_petals">number of petals</string>
+    <string name="petal_4">4 या उससे कम</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">5 से अधिक</string>
+    <string name="petal_bisymmetric">bisymmetric</string>
+    <string name="number_of_petals_message">Is the flower bisymmetric? No? Then how many petals does it have?</string>
+
+    <string name="display_info">Right one?</string>
+    <string name="list_info">Pick one</string>
+
+    <string name="plant_info">Info</string>
+    <string name="plant_gallery">Gallery</string>
+    <string name="plant_taxonomy">Taxonomy</string>
+    <string name="plant_sources">Sources</string>
+    <string name="image_desc">Plant illustration</string>
+    <string name="translate_desc">Translate</string>
+    <string name="email_desc">Email</string>
+    <string name="email_subject_prefix">Suggestion for better translation / description of </string>
+
+    <string name="plant_title">title</string>
+    <string name="plant_height_from">Height from</string>
+    <string name="plant_height_to">to</string>
+    <string name="plant_flowering_from">Flowering from</string>
+    <string name="plant_flowering_to">to</string>
+    <string name="plant_flowers">पुष्प</string>
+    <string name="plant_inflorescences">पुष्पक्रम</string>
+    <string name="plant_fruits">फल</string>
+    <string name="plant_leaves">पत्ती</string>
+    <string name="plant_inflorescence">पुष्पक्रम</string>
+    <string name="plant_color_of_flowers">Color of flowers</string>
+    <string name="plant_number_of_petals">Number of petals</string>
+    <string name="plant_sepal">Sepal</string>
+    <string name="plant_leaf_shape">Leaf shape</string>
+    <string name="plant_leaf_margin">Leaf margin</string>
+    <string name="plant_leaf_venation">Leaf venation</string>
+    <string name="plant_leaf_arrangement">Leaf arrangement</string>
+    <string name="plant_stem">तना</string>
+    <string name="plant_root">Root</string>
+    <string name="plant_habitat">पर्यावास</string>
+    <string name="plant_trivia">Trivia</string>
+    <string name="plant_toxicity">Toxicity</string>
+    <string name="plant_herbalism">Herbalism</string>
+
+    <string name="taxonomy_superregnum">Domain</string>
+    <string name="taxonomy_regnum">Kingdom</string>
+    <string name="taxonomy_cladus">(clade)</string>
+    <string name="taxonomy_ordo">Order</string>
+    <string name="taxonomy_familia">Family</string>
+    <string name="taxonomy_subfamilia">Subfamily</string>
+    <string name="taxonomy_tribus">Tribe</string>
+    <string name="taxonomy_subtribus">Subtribe</string>
+    <string name="taxonomy_genus">Genus</string>
+    <string name="taxonomy_species">Species</string>
+
+    <string name="close">Close</string>
+
+    <string name="showcase_propose_title">Suggest better translation / description</string>
+    <string name="showcase_propose_message">You can suggest better translation or description and send it by email.</string>
+    <string name="showcase_fullscreen_title">Larger illustration</string>
+    <string name="showcase_fullscreen_message">You can display illustration on full screen by clicking on it.</string>
+    <string name="showcase_count_button_title">Number of filtered plants</string>
+    <string name="showcase_count_button_message">When number is less than 21 press to jump directly to the list. Long press to clear filter.</string>
+    <string name="showcase_taxonomy_title">Taxonomy according to APG III system</string>
+    <string name="showcase_taxonomy_message">You can show / hide flower\'s taxonomy by clicking on the its name.</string>
+    <string name="legend">Legend</string>
+    <string name="toxicity1">poisonous plant</string>
+    <string name="toxicity2">slightly poisonous plant</string>
+    <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
+    <string name="rate_never">Never</string>
+    <string name="rate_later">Later</string>
+    <string name="rate">Review</string>
+    <string name="your_text">your text</string>
+    <string name="google_translate">Translated with Google Translate</string>
+    <string name="show_original">Show English text</string>
+    <string name="improve_translation">Improve translation</string>
+    <string name="show_translation">Show translated text</string>
+    <string name="rate_question">Is this app helpful?</string>
+</resources>

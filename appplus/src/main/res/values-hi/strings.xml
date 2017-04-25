@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">What\'s that flower? +</string>
+
+    <string name="synchronizing">Synchronizing …</string>
+
+    <string name="offline_mode">Offline mode</string>
+    <string name="offline_mode_summary">requires 250+ MB additional space</string>
+
+    <string name="search">Search</string>
+    <string name="wait_until_finish">Please wait until operation is finished.</string>
+</resources>
