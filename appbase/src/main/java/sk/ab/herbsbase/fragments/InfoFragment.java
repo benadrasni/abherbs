@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
@@ -52,7 +53,15 @@ import uk.co.deanwild.flowtextview.FlowTextView;
  */
 public class InfoFragment extends Fragment {
 
+    private DisplayPlantBaseActivity displayPlantBaseActivity;
     private boolean isTranslated;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        displayPlantBaseActivity = (DisplayPlantBaseActivity) getActivity();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -225,17 +234,16 @@ public class InfoFragment extends Fragment {
     }
 
     private void getTranslation(final String source, final String target, final List<String> textToTranslate) {
-        final DisplayPlantBaseActivity displayPlantActivity = (DisplayPlantBaseActivity) getActivity();
-        final BaseApp app = (BaseApp) displayPlantActivity.getApplication();
+        final BaseApp app = (BaseApp) displayPlantBaseActivity.getApplication();
 
-        displayPlantActivity.startLoading();
-        displayPlantActivity.countButton.setVisibility(View.VISIBLE);
+        displayPlantBaseActivity.startLoading();
+        displayPlantBaseActivity.countButton.setVisibility(View.VISIBLE);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference mTranslationGTRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.FIREBASE_SEPARATOR
                 + Locale.getDefault().getLanguage() + AndroidConstants.LANGUAGE_GT_SUFFIX + AndroidConstants.FIREBASE_SEPARATOR + getPlant().getName());
 
-        if (BaseApp.isNetworkAvailable(displayPlantActivity.getApplicationContext())) {
+        if (BaseApp.isNetworkAvailable(displayPlantBaseActivity.getApplicationContext())) {
             app.getGoogleClient().getApiService().translate(
                     Keys.TRANSLATE_API_KEY,
                     source,
@@ -257,22 +265,22 @@ public class InfoFragment extends Fragment {
                     setInfo(true);
                     showGTSection();
 
-                    displayPlantActivity.stopLoading();
-                    displayPlantActivity.countButton.setVisibility(View.GONE);
+                    displayPlantBaseActivity.stopLoading();
+                    displayPlantBaseActivity.countButton.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onFailure(Call<Map<String, Map<String, List<Map<String, String>>>>> call, Throwable t) {
                     Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
-                    displayPlantActivity.stopLoading();
-                    displayPlantActivity.countButton.setVisibility(View.GONE);
+                    displayPlantBaseActivity.stopLoading();
+                    displayPlantBaseActivity.countButton.setVisibility(View.GONE);
                 }
             });
         } else {
             setInfo(false);
 
-            displayPlantActivity.stopLoading();
-            displayPlantActivity.countButton.setVisibility(View.GONE);
+            displayPlantBaseActivity.stopLoading();
+            displayPlantBaseActivity.countButton.setVisibility(View.GONE);
         }
     }
 
@@ -446,23 +454,23 @@ public class InfoFragment extends Fragment {
     }
 
     private FirebasePlant getPlant() {
-        return ((DisplayPlantBaseActivity)getActivity()).getPlant();
+        return displayPlantBaseActivity.getPlant();
     }
 
     private PlantTranslation getPlantTranslation() {
-        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslation();
+        return displayPlantBaseActivity.getPlantTranslation();
     }
 
     private PlantTranslation getPlantTranslationGT() {
-        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslationGT();
+        return displayPlantBaseActivity.getPlantTranslationGT();
     }
 
     private void setPlantTranslationGT(PlantTranslation plantTranslation) {
-        ((DisplayPlantBaseActivity)getActivity()).setPlantTranslationGT(plantTranslation);
+        displayPlantBaseActivity.setPlantTranslationGT(plantTranslation);
     }
 
     private PlantTranslation getPlantTranslationEn() {
-        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslationEn();
+        return displayPlantBaseActivity.getPlantTranslationEn();
     }
 }
 

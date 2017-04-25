@@ -14,13 +14,13 @@ android {
         }
     }
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId 'sk.ab.herbs'
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 77
-        versionName "3.0.3"
+        versionCode 79
+        versionName "3.0.4"
         vectorDrawables.useSupportLibrary = true
     }
 

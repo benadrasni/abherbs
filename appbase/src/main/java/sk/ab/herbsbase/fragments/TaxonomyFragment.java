@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,9 +52,18 @@ public class TaxonomyFragment extends Fragment {
     private ImageView toxicityClass1;
     private ImageView toxicityClass2;
 
+    private DisplayPlantBaseActivity displayPlantBaseActivity;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        displayPlantBaseActivity = (DisplayPlantBaseActivity) getActivity();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return View.inflate(getActivity().getBaseContext(), R.layout.plant_card_taxonomy, null);
+        return View.inflate(displayPlantBaseActivity.getBaseContext(), R.layout.plant_card_taxonomy, null);
     }
 
     @Override
@@ -65,27 +75,26 @@ public class TaxonomyFragment extends Fragment {
             toxicityClass1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(), getActivity().getResources().getText(R.string.toxicity1), Toast.LENGTH_LONG).show();
+                    Toast.makeText(displayPlantBaseActivity, displayPlantBaseActivity.getResources().getText(R.string.toxicity1), Toast.LENGTH_LONG).show();
                 }
             });
             toxicityClass2 = (ImageView) getView().findViewById(R.id.plant_toxicity_class2);
             toxicityClass2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(), getActivity().getResources().getText(R.string.toxicity2), Toast.LENGTH_LONG).show();
+                    Toast.makeText(displayPlantBaseActivity, displayPlantBaseActivity.getResources().getText(R.string.toxicity2), Toast.LENGTH_LONG).show();
                 }
             });
         }
 
-        final DisplayPlantBaseActivity displayPlantActivity = (DisplayPlantBaseActivity) getActivity();
-        final SharedPreferences preferences = displayPlantActivity.getSharedPreferences();
+        final SharedPreferences preferences = displayPlantBaseActivity.getSharedPreferences();
         SharedPreferences.Editor editor = preferences.edit();
         Boolean showWizard = !preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_3_1, false)
                 && preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_2_7, false);
         final ImageView taxonomyView = (ImageView) getView().findViewById(R.id.taxonomy);
 
         if (showWizard) {
-            new ShowcaseView.Builder(getActivity())
+            new ShowcaseView.Builder(displayPlantBaseActivity)
                     .withMaterialShowcase()
                     .setStyle(R.style.CustomShowcaseTheme)
                     .setTarget(new ViewTarget(taxonomyView))
@@ -117,11 +126,10 @@ public class TaxonomyFragment extends Fragment {
             return;
         }
 
-        final DisplayPlantBaseActivity displayPlantActivity = (DisplayPlantBaseActivity) getActivity();
-        final FirebasePlant plant = displayPlantActivity.getPlant();
+        final FirebasePlant plant = displayPlantBaseActivity.getPlant();
 
-        displayPlantActivity.startLoading();
-        displayPlantActivity.countButton.setVisibility(View.VISIBLE);
+        displayPlantBaseActivity.startLoading();
+        displayPlantBaseActivity.countButton.setVisibility(View.VISIBLE);
 
         final List<String> sortedKeys = new ArrayList<>(plant.getTaxonomy().keySet());
         Collections.sort(sortedKeys, new Comparator() {
@@ -151,7 +159,7 @@ public class TaxonomyFragment extends Fragment {
                     taxon.setName((List<String>) ((HashMap<String, Object>)taxonomy.get(AndroidConstants.FIREBASE_APGIII_NAMES)).get(Locale.getDefault().getLanguage()));
                 }
 
-                LayoutInflater inflater = (LayoutInflater)displayPlantActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater = (LayoutInflater)displayPlantBaseActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 for(PlantTaxon taxon : taxons) {
                     View view = inflater.inflate(R.layout.taxon, null);
                     TextView textType = (TextView)view.findViewById(R.id.taxonType);
@@ -201,16 +209,16 @@ public class TaxonomyFragment extends Fragment {
 
                     layout.addView(view);
                 }
-                displayPlantActivity.stopLoading();
-                displayPlantActivity.countButton.setVisibility(View.GONE);
+                displayPlantBaseActivity.stopLoading();
+                displayPlantBaseActivity.countButton.setVisibility(View.GONE);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.e(this.getClass().getName(), databaseError.getMessage());
-                Toast.makeText(getActivity().getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
-                displayPlantActivity.stopLoading();
-                displayPlantActivity.countButton.setVisibility(View.GONE);
+                Toast.makeText(displayPlantBaseActivity.getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
+                displayPlantBaseActivity.stopLoading();
+                displayPlantBaseActivity.countButton.setVisibility(View.GONE);
             }
         });
     }
@@ -311,19 +319,11 @@ public class TaxonomyFragment extends Fragment {
     }
 
     private FirebasePlant getPlant() {
-        return ((DisplayPlantBaseActivity)getActivity()).getPlant();
+        return displayPlantBaseActivity.getPlant();
     }
 
     private PlantTranslation getPlantTranslation() {
-        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslation();
-    }
-
-    private PlantTranslation getPlantTranslationGT() {
-        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslationGT();
-    }
-
-    private PlantTranslation getPlantTranslationEn() {
-        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslationEn();
+        return displayPlantBaseActivity.getPlantTranslation();
     }
 }
 
