@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Bunga apa itu? +</string>
+
+    <string name="synchronizing">Menyinkronkan ...</string>
+
+    <string name="offline_mode">Mode offline</string>
+    <string name="offline_mode_summary">membutuhkan ruang tambahan 250+ MB</string>
+
+    <string name="search">Pencarian</string>
+    <string name="wait_until_finish">Harap tunggu sampai operasi selesai.</string>
+</resources>

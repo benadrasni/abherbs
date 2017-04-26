@@ -5,7 +5,6 @@
     <string name="settings">Nastavitve</string>
     <string name="feedback">Povratne informacije</string>
     <string name="pref_language">Želeni jezik</string>
-    <string name="propose_translation">Gumb ne kažejo</string>
     <string name="cache_size">Velikost predpomnilnika v MB</string>
     <string name="cache_size_summary">fotografij in ilustracij</string>
 
@@ -82,8 +81,6 @@
 
     <string name="close">Zapri</string>
 
-    <string name="showcase_propose_title">Propose better translation / description</string>
-    <string name="showcase_propose_message">You can send better translation or description by email.</string>
     <string name="showcase_fullscreen_title">Larger illustration</string>
     <string name="showcase_fullscreen_message">You can display illustration on full screen by clicking on it.</string>
     <string name="showcase_count_button_title">Number of filtered plants</string>

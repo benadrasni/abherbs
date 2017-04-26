@@ -5,7 +5,6 @@
     <string name="settings">Configuración</string>
     <string name="feedback">Sugerencias</string>
     <string name="pref_language">Idioma preferido</string>
-    <string name="propose_translation">No mostrar el botón</string>
     <string name="cache_size">Tamaño de caché en MB</string>
     <string name="cache_size_summary">para fotos e ilustraciones</string>
 
@@ -81,8 +80,6 @@
 
     <string name="close">Cerrar</string>
 
-    <string name="showcase_propose_title">Proponer la mejor traducción / Descripción</string>
-    <string name="showcase_propose_message">Puede enviar mejor traducción de la descripción por e-mail.</string>
     <string name="showcase_fullscreen_title">Más grande ilustración</string>
     <string name="showcase_fullscreen_message">Se puede visualizar la ilustración en pantalla completa haciendo clic en él.</string>
     <string name="showcase_count_button_title">Número de flores filtrados</string>

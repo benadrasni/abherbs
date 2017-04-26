@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">+ ما هي تلك الزهرة؟</string>
+
+    <string name="synchronizing">جار المزامنة ...</string>
+
+    <string name="offline_mode">وضع غير متصل بالشبكة</string>
+    <string name="offline_mode_summary">يتطلب 250+ ميغابايت مساحة إضافية</string>
+
+    <string name="search">بحث</string>
+    <string name="wait_until_finish">يرجى الانتظار حتى انتهاء العملية.</string>
+</resources>

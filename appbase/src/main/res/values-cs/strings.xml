@@ -5,7 +5,6 @@
     <string name="settings">Nastavení</string>
     <string name="feedback">Připomínky</string>
     <string name="pref_language">Preferovaný jazyk</string>
-    <string name="propose_translation">Nezobrazovat tlačítko</string>
     <string name="cache_size">Velikost mezipaměti v MB</string>
     <string name="cache_size_summary">pro fotografie a ilustrace</string>
 
@@ -81,8 +80,6 @@
 
     <string name="close">Zavřít</string>
 
-    <string name="showcase_propose_title">Zaslání lepšího překladu / popisu.</string>
-    <string name="showcase_propose_message">Lepší překlad anebo popis můžeš poslat prostřednictvím e-mailu.</string>
     <string name="showcase_fullscreen_title">Větší illustrace</string>
     <string name="showcase_fullscreen_message">Ilustraci můžeš zobrazit na celé obrazovce tím, že na ni klikneš.</string>
     <string name="showcase_count_button_title">Počet květů vyhovujících filtru</string>

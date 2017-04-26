@@ -5,7 +5,6 @@
     <string name="settings">Einstellungen</string>
     <string name="feedback">Feedback</string>
     <string name="pref_language">Bevorzugte Sprache</string>
-    <string name="propose_translation">Nicht mehr anzeigen Taste</string>
     <string name="cache_size">Cache-Größe in MB</string>
     <string name="cache_size_summary">für Fotos und Illustrationen</string>
 
@@ -81,8 +80,6 @@
     <string name="taxonomy_species">Art</string>
 
     <string name="close">Schließen</string>
-    <string name="showcase_propose_title">Einen besseren Übersetzung / Beschreibung</string>
-    <string name="showcase_propose_message">Sie können bessere Übersetzung der Beschreibung per E-Mail senden.</string>
     <string name="showcase_fullscreen_title">Größere Abbildung</string>
     <string name="showcase_fullscreen_message">Sie können durch Klicken auf die Darstellung im Vollbild angezeigt werden soll.</string>
     <string name="showcase_count_button_title">Anzahl der gefilterten Blumen</string>

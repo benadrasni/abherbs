@@ -5,7 +5,6 @@
     <string name="settings">Paramètres</string>
     <string name="feedback">Retour d\'information</string>
     <string name="pref_language">Préférence de langue</string>
-    <string name="propose_translation">Ne pas afficher le bouton</string>
     <string name="cache_size">Taille du cache en MB</string>
     <string name="cache_size_summary">pour photos et illustrations</string>
 
@@ -82,8 +81,6 @@
 
     <string name="close">Sortie</string>
 
-    <string name="showcase_propose_title">Proposer une meilleure traduction / description</string>
-    <string name="showcase_propose_message">Vous pouvez envoyer une meilleure traduction / description par email.</string>
     <string name="showcase_fullscreen_title">Grande illustration</string>
     <string name="showcase_fullscreen_message">Vous pouvez afficher illustration en plein écran en cliquant dessus.</string>
     <string name="showcase_count_button_title">Nombre de plantes correspondantes</string>

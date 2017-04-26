@@ -195,7 +195,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
             fragmentTransaction.detach(fragment);
             fragmentTransaction.attach(fragment);
         }
-        fragmentTransaction.commit();
+        fragmentTransaction.commitAllowingStateLoss();
 
         setCurrentFragment(fragment);
     }

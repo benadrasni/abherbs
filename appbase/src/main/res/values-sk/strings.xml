@@ -5,7 +5,6 @@
     <string name="settings">Nastavenia</string>
     <string name="feedback">Pripomienky</string>
     <string name="pref_language">Preferovaný jazyk</string>
-    <string name="propose_translation">Nezobrazovať tlačidlo</string>
     <string name="cache_size">Veľkosť cache v MB</string>
     <string name="cache_size_summary">pre fotky a ilustrácie</string>
 
@@ -80,8 +79,6 @@
     <string name="taxonomy_species">druh</string>
 
     <string name="close">Zavrieť</string>
-    <string name="showcase_propose_title">Navrhni lepší preklad / popis</string>
-    <string name="showcase_propose_message">Lepší preklad alebo popis môžeš poslať pomocou emailu.</string>
     <string name="showcase_fullscreen_title">Väčšia ilustrácia</string>
     <string name="showcase_fullscreen_message">Ilustráciu môžeš zobraziť na celej obrazovke tým, že na ňu klikneš.</string>
     <string name="showcase_count_button_title">Počet kvetov vyhovujúcich filtru</string>

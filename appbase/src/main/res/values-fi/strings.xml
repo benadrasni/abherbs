@@ -5,7 +5,6 @@
     <string name="settings">Asetukset</string>
     <string name="feedback">Palaute</string>
     <string name="pref_language">Preferred language</string>
-    <string name="propose_translation">Do not show button</string>
     <string name="cache_size">Välimuistin koko MB</string>
     <string name="cache_size_summary">Valokuvia ja kuvia</string>
 
@@ -82,8 +81,6 @@
 
     <string name="close">Lähellä</string>
 
-    <string name="showcase_propose_title">Propose better translation / description</string>
-    <string name="showcase_propose_message">You can send better translation or description by email.</string>
     <string name="showcase_fullscreen_title">Larger illustration</string>
     <string name="showcase_fullscreen_message">You can display illustration on full screen by clicking on it.</string>
     <string name="showcase_count_button_title">Number of filtered plants</string>

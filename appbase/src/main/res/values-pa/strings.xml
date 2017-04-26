@@ -1,25 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string translatable="false" name="app_name"></string>
-
-    <string translatable="false" name="cof_white">white</string>
-    <string translatable="false" name="cof_yellow">yellow</string>
-    <string translatable="false" name="cof_red">red</string>
-    <string translatable="false" name="cof_blue">blue</string>
-    <string translatable="false" name="cof_green">green</string>
-
-    <string translatable="false" name="ph_meadows">meadows or grassland</string>
-    <string translatable="false" name="ph_gardens">gardens or fields</string>
-    <string translatable="false" name="ph_moorlands">moorlands or wetlands</string>
-    <string translatable="false" name="ph_woodlands">woodlands or forests</string>
-    <string translatable="false" name="ph_rocks">rocks or mountains</string>
-    <string translatable="false" name="ph_trees">trees or bushes</string>
-
-    <string translatable="false" name="nop_4">4 or less</string>
-    <string translatable="false" name="nop_5">5</string>
-    <string translatable="false" name="nop_many">Many</string>
-    <string translatable="false" name="nop_bisymmetric">Bisymetric</string>
-
     <string name="about">About</string>
     <string name="help">Help</string>
     <string name="settings">Settings</string>
@@ -110,7 +90,6 @@
     <string name="legend">Legend</string>
     <string name="toxicity1">poisonous plant</string>
     <string name="toxicity2">slightly poisonous plant</string>
-    <string name="agpiii" translatable="false">APG III</string>
     <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
     <string name="rate_never">Never</string>
     <string name="rate_later">Later</string>

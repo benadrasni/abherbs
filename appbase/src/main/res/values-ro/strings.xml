@@ -5,7 +5,6 @@
     <string name="settings">Setări</string>
     <string name="feedback">Feedback</string>
     <string name="pref_language">Limba preferată</string>
-    <string name="propose_translation">Nu arăta butonul</string>
     <string name="cache_size">Dimensiunea memoriei cache în MB</string>
     <string name="cache_size_summary">pentru fotografii și ilustrații</string>
 
@@ -82,8 +81,6 @@
 
     <string name="close">Închide</string>
 
-    <string name="showcase_propose_title">Oferă o traducere / descriere mai bună.</string>
-    <string name="showcase_propose_message">Poți trimite o traducere sau descriere mai bună via email.</string>
     <string name="showcase_fullscreen_title">Ilustrație mare</string>
     <string name="showcase_fullscreen_message">Poți afișa ilustrația pe tot ecranul apăsând pe ea.</string>
     <string name="showcase_count_button_title">Numărul de plante filtrate</string>

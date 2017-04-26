@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about">حول</string>
+    <string name="help">مساعدة</string>
+    <string name="settings">إعدادات</string>
+    <string name="feedback">ردود الفعل</string>
+    <string name="pref_language">اللغة المفضلة</string>
+    <string name="cache_size">حجم ذاكرة التخزين المؤقت بالميغابايت</string>
+    <string name="cache_size_summary">للصور والرسوم التوضيحية</string>
+
+    <string name="color_of_flower">لون الزهور</string>
+    <string name="color_white">أبيض</string>
+    <string name="color_yellow">الأصفر</string>
+    <string name="color_red">أحمر وردي</string>
+    <string name="color_blue">الأزرق الأرجواني</string>
+    <string name="color_green">الأخضر، البني، أسود</string>
+    <string name="color_of_flower_message">ما هو لون زهرة؟ اختيار أقرب واحد.</string>
+
+    <string name="habitats">موطن</string>
+    <string name="habitat_meadow">المروج أو المراعي</string>
+    <string name="habitat_garden">الحدائق أو الحقول</string>
+    <string name="habitat_wetland">المستنقعات أو الأراضي الرطبة</string>
+    <string name="habitat_forest">الغابات أو الغابات</string>
+    <string name="habitat_rock">الصخور أو الجبال</string>
+    <string name="habitat_tree">الأشجار أو الشجيرات</string>
+    <string name="habitat_message">ما هو حولك؟ تحديد موطن النبات.</string>
+
+    <string name="number_of_petals">عدد البتلات</string>
+    <string name="petal_4">4 أو أقل</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">أكثر من 5</string>
+    <string name="petal_bisymmetric">غير منتظم</string>
+    <string name="number_of_petals_message">هو زهرة متناظرة؟ لا؟ ثم كم من بتلات هل لديك؟</string>
+
+    <string name="display_info">حق واحد؟</string>
+    <string name="list_info">إختر واحدة</string>
+
+    <string name="plant_info">معلومات</string>
+    <string name="plant_gallery">صالة عرض</string>
+    <string name="plant_taxonomy">علم التصنيف</string>
+    <string name="plant_sources">مصدر</string>
+    <string name="image_desc">أسس، إلوستراشيون</string>
+    <string name="translate_desc">ترجمه</string>
+    <string name="email_desc">البريد الإلكتروني</string>
+    <string name="email_subject_prefix">اقتراح لتحسين ترجمة / وصف</string>
+
+    <string name="plant_title">عنوان</string>
+    <string name="plant_height_from">الارتفاع من</string>
+    <string name="plant_height_to">إلى</string>
+    <string name="plant_flowering_from">المزهرة من</string>
+    <string name="plant_flowering_to">إلى</string>
+    <string name="plant_flowers">زهرة</string>
+    <string name="plant_inflorescences">ازهرار</string>
+    <string name="plant_fruits">ثمرة</string>
+    <string name="plant_leaves">ورقة نبات</string>
+    <string name="plant_inflorescence">ازهرار</string>
+    <string name="plant_color_of_flowers">لون الزهور</string>
+    <string name="plant_number_of_petals">عدد البتلات</string>
+    <string name="plant_sepal">كأس الزهرة</string>
+    <string name="plant_leaf_shape">شكل الورقة</string>
+    <string name="plant_leaf_margin">هامش الهامش</string>
+    <string name="plant_leaf_venation">أوراق الوريد</string>
+    <string name="plant_leaf_arrangement">ترتيب الأوراق</string>
+    <string name="plant_stem">ساق نبات</string>
+    <string name="plant_root">جذر</string>
+    <string name="plant_habitat">موطن</string>
+    <string name="plant_trivia">هوامش</string>
+    <string name="plant_toxicity">تأثير سمي</string>
+    <string name="plant_herbalism">تداوي بالأعشاب</string>
+
+    <string name="taxonomy_superregnum">النطاق</string>
+    <string name="taxonomy_regnum">المملكة</string>
+    <string name="taxonomy_cladus">(غير مصنف)</string>
+    <string name="taxonomy_ordo">الرتبة</string>
+    <string name="taxonomy_familia">الفصيلة</string>
+    <string name="taxonomy_subfamilia">القطاع</string>
+    <string name="taxonomy_tribus">القبيلة</string>
+    <string name="taxonomy_subtribus">العميرة</string>
+    <string name="taxonomy_genus">الجنس</string>
+    <string name="taxonomy_species">محيط</string>
+
+    <string name="close">قريب</string>
+
+    <string name="showcase_fullscreen_title">التوضيح الأكبر</string>
+    <string name="showcase_fullscreen_message">يمكنك عرض التوضيح على كامل الشاشة عن طريق النقر عليه.</string>
+    <string name="showcase_count_button_title">عدد النباتات التي تمت تصفيتها</string>
+    <string name="showcase_count_button_message">عندما يكون عدد أقل من 21 اضغط على القفز مباشرة إلى القائمة. اضغط لفترة طويلة لمسح المرشح.</string>
+    <string name="showcase_taxonomy_title">التصنيف وفقا لنظام أبغ إي</string>
+    <string name="showcase_taxonomy_message">يمكنك إظهار / إخفاء التصنيف زهرة من خلال النقر على زر.</string>
+    <string name="legend">عنوان تفسيري</string>
+    <string name="toxicity1">النبات السام</string>
+    <string name="toxicity2">نبات سامة قليلا</string>
+    <string name="rate_text">يتم تأليف الكاتب من هذا التطبيق من خلال استجابة إيجابية من المستخدمين. الرجاء ارسال له بعض ستارفلورز من خلال متجر غوغل بلاي.</string>
+    <string name="rate_never">أبدا</string>
+    <string name="rate_later">في وقت لاحق</string>
+    <string name="rate">إعادة النظر</string>
+    <string name="your_text">نصك</string>
+    <string name="google_translate">تمت الترجمة مع الترجمة من غوغل</string>
+    <string name="show_original">عرض النص الإنكليزي</string>
+    <string name="improve_translation">تحسين الترجمة</string>
+    <string name="show_translation">عرض النص المترجم</string>
+    <string name="rate_question">هل هذا التطبيق مفيد؟</string>
+</resources>

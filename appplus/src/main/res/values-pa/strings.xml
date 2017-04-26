@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ਉਹ ਫੁੱਲ ਕੀ ਹੈ? +</string>
+
+    <string name="synchronizing">ਸਿੰਕ੍ਰੋਨਾਈਜ਼ ਕਰ ਰਿਹਾ ਹੈ ...</string>
+
+    <string name="offline_mode">ਔਫਲਾਈਨ ਮੋਡ</string>
+    <string name="offline_mode_summary">250+ ਮੈਬਾ ਵਾਧੂ ਜਗ੍ਹਾ ਦੀ ਲੋੜ ਹੈ</string>
+
+    <string name="search">ਖੋਜ</string>
+    <string name="wait_until_finish">ਕਿਰਪਾ ਕਰਕੇ ਉਦੋਂ ਤਕ ਉਡੀਕ ਕਰੋ ਜਦੋਂ ਤਕ ਓਪਰੇਸ਼ਨ ਪੂਰਾ ਨਹੀਂ ਹੋ ਜਾਂਦਾ.</string>
+</resources>

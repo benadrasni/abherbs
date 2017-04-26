@@ -5,7 +5,6 @@
     <string name="settings">Beállítások</string>
     <string name="feedback">Visszajelzés küldése</string>
     <string name="pref_language">Kedvenc nyelv</string>
-    <string name="propose_translation">Kapcsológombok letiltása</string>
     <string name="cache_size">Gyorsítótár méret MB-ban</string>
     <string name="cache_size_summary">fotókhoz és illusztrációkhoz</string>
 
@@ -82,8 +81,6 @@
 
     <string name="close">Bezár</string>
 
-    <string name="showcase_propose_title">Pontosabb fordítás / leírás javaslása</string>
-    <string name="showcase_propose_message">Emailen is küldhet pontosabb fordítást / leírást.</string>
     <string name="showcase_fullscreen_title">Nagyobb ábra</string>
     <string name="showcase_fullscreen_message">Az ábra érintésével az megjeleníthető teljes képernyőn is.</string>
     <string name="showcase_count_button_title">A kiszűrt növények száma</string>
