@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about">About</string>
+    <string name="about">約</string>
     <string name="help">ヘルプ</string>
     <string name="settings">設定</string>
     <string name="feedback">フィードバック</string>
-    <string name="pref_language">Preferred language</string>
+    <string name="pref_language">優先言語e</string>
     <string name="cache_size">キャッシュサイズ（MB単位）</string>
     <string name="cache_size_summary">写真やイラスト用</string>
 
@@ -14,7 +14,7 @@
     <string name="color_red">赤、ピンク</string>
     <string name="color_blue">青、紫</string>
     <string name="color_green">緑、茶色、黒</string>
-    <string name="color_of_flower_message">What\'s the color of the flower? Choose the closest one.</string>
+    <string name="color_of_flower_message">花の色は何ですか？ 最も近いものを選んでください。</string>
 
     <string name="habitats">生息地</string>
     <string name="habitat_meadow">草地、草原</string>
@@ -23,14 +23,14 @@
     <string name="habitat_forest">森林</string>
     <string name="habitat_rock">山</string>
     <string name="habitat_tree">木、低木</string>
-    <string name="habitat_message">What\'s around you? Identify plant\'s habitat.</string>
+    <string name="habitat_message">あなたの周りには何がありますか？ 植物の生息地を特定する。</string>
 
     <string name="number_of_petals">花びらの数</string>
     <string name="petal_4">4以下</string>
     <string name="petal_5">5</string>
     <string name="petal_many">以上5</string>
     <string name="petal_bisymmetric">不規則な</string>
-    <string name="number_of_petals_message">Is the flower bisymmetric? No? Then how many petals does it have?</string>
+    <string name="number_of_petals_message">花は不規則ですか？ いいえ？ それで花びらは何枚ですか？</string>
 
     <string name="display_info">右の花？</string>
     <string name="list_info">一つを選ぶ</string>
@@ -39,10 +39,10 @@
     <string name="plant_gallery">ギャラリー</string>
     <string name="plant_taxonomy">分類学</string>
     <string name="plant_sources">出典</string>
-    <string name="image_desc">Plant illustration</string>
+    <string name="image_desc">植物イラスト</string>
     <string name="translate_desc">翻訳します</string>
     <string name="email_desc">Eメール</string>
-    <string name="email_subject_prefix">Proposal of better translation / description for </string>
+    <string name="email_subject_prefix">より良い翻訳/説明の提案</string>
 
     <string name="plant_title">名</string>
     <string name="plant_height_from">高さ</string>
@@ -57,10 +57,10 @@
     <string name="plant_color_of_flowers">花の色</string>
     <string name="plant_number_of_petals">花びらの数</string>
     <string name="plant_sepal">萼</string>
-    <string name="plant_leaf_shape">Leaf shape</string>
-    <string name="plant_leaf_margin">Leaf margin</string>
-    <string name="plant_leaf_venation">Leaf venation</string>
-    <string name="plant_leaf_arrangement">Leaf arrangement</string>
+    <string name="plant_leaf_shape">葉の形</string>
+    <string name="plant_leaf_margin">リーフマージン</string>
+    <string name="plant_leaf_venation">リーフ・プレステージ</string>
+    <string name="plant_leaf_arrangement">葉の配列</string>
     <string name="plant_stem">茎</string>
     <string name="plant_root">根</string>
     <string name="plant_habitat">生息地</string>
@@ -79,21 +79,21 @@
     <string name="taxonomy_genus">属</string>
     <string name="taxonomy_species">種</string>
 
-    <string name="close">Close</string>
+    <string name="close">閉じる</string>
 
-    <string name="showcase_fullscreen_title">Larger illustration</string>
-    <string name="showcase_fullscreen_message">You can display illustration on full screen by clicking on it.</string>
-    <string name="showcase_count_button_title">Number of filtered plants</string>
-    <string name="showcase_count_button_message">When number is less than 21 press to jump directly to the list. Long press to clear filter.</string>
-    <string name="showcase_taxonomy_title">Taxonomy according to APG III system</string>
-    <string name="showcase_taxonomy_message">You can show / hide flower\'s taxonomy by clicking on the its name.</string>
-    <string name="legend">Legend</string>
-    <string name="toxicity1">poisonous plant</string>
-    <string name="toxicity2">slightly poisonous plant</string>
-    <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
-    <string name="rate_never">Never</string>
-    <string name="rate_later">Later</string>
-    <string name="rate">Review</string>
+    <string name="showcase_fullscreen_title">より大きなイラスト</string>
+    <string name="showcase_fullscreen_message">フルスクリーンでイラストをクリックすると表示できます。</string>
+    <string name="showcase_count_button_title">ろ過された植物の数</string>
+    <string name="showcase_count_button_message">カウントが21より小さい場合、を押してリストに直接ジャンプします。 長押しするとフィルターが消えます。</string>
+    <string name="showcase_taxonomy_title">APG IIIシステムによる分類</string>
+    <string name="showcase_taxonomy_message">花の分類を表示/非表示にするには、ボタンをクリックします.</string>
+    <string name="legend">伝説</string>
+    <string name="toxicity1">有毒植物</string>
+    <string name="toxicity2">わずかに有毒な植物</string>
+    <string name="rate_text">このアプリケーションの作成者は、ユーザーからの肯定的な応答によって促進されます。 Google Playストアでスターフラワーを送ってください。</string>
+    <string name="rate_never">絶対に</string>
+    <string name="rate_later">後で</string>
+    <string name="rate">レビュー</string>
     <string name="your_text">あなたのテキスト</string>
     <string name="google_translate">Google翻訳で翻訳された</string>
     <string name="show_original">英語のテキストを表示する</string>
