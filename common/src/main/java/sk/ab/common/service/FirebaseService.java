@@ -81,4 +81,15 @@ public interface FirebaseService {
 
     @PUT("translations.json")
     Call<Object> saveTranslations(@Body Object object);
+
+    @PUT("translations/{language}/{name}.json")
+    Call<Object> saveTranslation(@Path("language") String language, @Path("name") String name, @Body Object object);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @GET("translations/{language}/{name}.json")
+    Call<Map<String, Object>> getTranslation(@Path("language") String language, @Path("name") String name);
 }

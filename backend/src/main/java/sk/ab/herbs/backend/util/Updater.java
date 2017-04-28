@@ -22,15 +22,17 @@ import java.util.Map;
 import java.util.Scanner;
 
 import retrofit2.Call;
+import retrofit2.Response;
 import sk.ab.common.entity.Plant;
+import sk.ab.common.service.FirebaseClient;
 import sk.ab.common.service.HerbCloudClient;
 
 /**
  * Created by adrian on 4.5.2016.
  */
 public class Updater {
-//    public static String PATH = "C:/Development/Projects/abherbs/backend/txt/";
-    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
+    public static String PATH = "C:/Dev/Projects/abherbs/backend/txt/";
+//    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
     public static String PLANTS_FILE = "plants.csv";
     public static String MISSING_FILE_SUFFIX = "_missing.txt";
 
@@ -42,9 +44,106 @@ public class Updater {
 
     public static void main(String[] params) {
 
-        missing();
-        //termanianet();
+        //missing();
+        termini();
     }
+
+    private static void termini() {
+        File file = new File(PATH + PLANTS_FILE);
+        final FirebaseClient firebaseClient = new FirebaseClient();
+
+        try {
+            Scanner scan = new Scanner(file);
+            while(scan.hasNextLine()) {
+
+                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
+
+                System.out.println(plantLine[0]);
+
+                termini(firebaseClient, plantLine[0]);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void termini(FirebaseClient firebaseClient, String plantName) {
+
+        try {
+            Document docPlant = Jsoup.connect("http://termini.lza.lv/term.php?term=" + plantName + "&lang=LA").timeout(50*1000).get();
+            Elements results = docPlant.getElementsByClass("translations");
+            if (results.size() > 1) {
+                for(Element result : results) {
+                    if (result.attr("href").endsWith("LV")) {
+                        String[] plantNames = result.text().split(";");
+
+                        Call<Map<String, Object>> translationCall = firebaseClient.getApiService().getTranslation("lv", plantName);
+                        Map<String, Object> translation = translationCall.execute().body();
+                        if (translation == null) {
+                            translation = new HashMap<String, Object>();
+                        }
+                        String label = (String)translation.get("label");
+                        List<String> names = (List) translation.get("names");
+
+                        translation.put("label", plantNames[0]);
+
+                        List<String> newNames = new ArrayList<>();
+                        for (int i=1; i < plantNames.length; i++) {
+                            newNames.add(plantNames[i]);
+                        }
+
+                        if (label != null && !label.toLowerCase().equals(plantNames[0])) {
+                            boolean exists = false;
+                            for(String name : newNames) {
+                                if (label.toLowerCase().equals(name)) {
+                                    exists = true;
+                                    break;
+                                }
+                            }
+                            if (!exists) {
+                                newNames.add(label.toLowerCase());
+                            }
+                        }
+
+                        if (names != null) {
+                            for (String oldName : names) {
+                                if (oldName.toLowerCase().equals(plantNames[0])) {
+                                    continue;
+                                }
+                                boolean exists = false;
+                                for(String name : newNames) {
+                                    if (oldName.toLowerCase().equals(name)) {
+                                        exists = true;
+                                        break;
+                                    }
+                                }
+                                if (!exists) {
+                                    newNames.add(oldName.toLowerCase());
+                                }
+
+                            }
+                        }
+
+                        if (newNames.size() > 0) {
+                            translation.put("names", newNames);
+                        } else {
+                            translation.remove("names");
+                        }
+
+                        Call<Object> callFirebaseSave = firebaseClient.getApiService().saveTranslation("lv", plantName, translation);
+                        callFirebaseSave.execute().body();
+
+                        break;
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private static void termanianet() {
         File file = new File(PATH + PLANTS_FILE);
