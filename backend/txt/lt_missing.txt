@@ -7,12 +7,10 @@ Anthericum ramosum
 Arabis alpina
 Arabis hirsuta
 Arenaria serpyllifolia
-Aristolochia clematitis
 Arum maculatum
 Aruncus dioicus
 Aster amellus
 Atriplex patula
-Atriplex prostrata
 Ballota nigra
 Biscutella laevigata
 Blitum bonus-henricus
@@ -20,13 +18,11 @@ Buddleja davidii
 Buglossoides arvensis
 Buphthalmum salicifolium
 Bupleurum falcatum
-Camelina sativa
 Carduus nutans
 Centaurea montana
 Cerastium fontanum
 Cerastium semidecandrum
 Chaerophyllum bulbosum
-Chaerophyllum temulum
 Chlorophytum comosum
 Circaea alpina
 Circaea lutetiana
@@ -57,7 +53,6 @@ Erigeron acris
 Eryngium campestre
 Euphorbia dulcis
 Euphorbia palustris
-Filago minima
 Forsythia suspensa
 Gagea villosa
 Galium mollugo
@@ -208,3 +203,9 @@ Vicia sepium
 Vicia tetrasperma
 Viola biflora
 Viola reichenbachiana
+Crocosmia aurea
+Argemone mexicana
+Lupinus texensis
+Ratibida columnifera
+Nothoscordum bivalve
+Calyptocarpus vialis

@@ -8,6 +8,7 @@ Cornus sanguinea
 Cotoneaster integerrimus
 Crataegus germanica
 Cytisus nigricans
+Dactylorhiza majalis
 Daphne striata
 Dianthus seguieri
 Euphorbia verrucosa
@@ -49,3 +50,10 @@ Silaum silaus
 Soldanella carpatica
 Thesium pyrenaicum
 Thlaspi perfoliatum
+Crocosmia aurea
+Argemone mexicana
+Lupinus texensis
+Ratibida columnifera
+Nothoscordum bivalve
+Gaillardia pulchella
+Calyptocarpus vialis

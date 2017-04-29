@@ -40,3 +40,6 @@ Stachys germanica
 Stachys recta
 Thesium pyrenaicum
 Valeriana dioica
+Crocosmia aurea
+Nothoscordum bivalve
+Calyptocarpus vialis

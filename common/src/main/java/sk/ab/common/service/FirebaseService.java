@@ -92,4 +92,12 @@ public interface FirebaseService {
     })
     @GET("translations/{language}/{name}.json")
     Call<Map<String, Object>> getTranslation(@Path("language") String language, @Path("name") String name);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @GET("translations.json")
+    Call<Map<String, Object>> getTranslation();
 }

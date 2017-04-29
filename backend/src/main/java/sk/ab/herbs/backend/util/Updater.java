@@ -44,8 +44,116 @@ public class Updater {
 
     public static void main(String[] params) {
 
-        //missing();
-        termini();
+        missing();
+        //latvijasdaba();
+    }
+
+    private static void latvijasdaba() {
+        File file = new File(PATH + PLANTS_FILE);
+        final FirebaseClient firebaseClient = new FirebaseClient();
+
+        try {
+            Scanner scan = new Scanner(file);
+            while(scan.hasNextLine()) {
+
+                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
+
+                System.out.println(plantLine[0]);
+
+                latvijasdaba(firebaseClient, plantLine[0]);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void latvijasdaba(FirebaseClient firebaseClient, String plantName) {
+
+        try {
+            List<String> plantNames = new ArrayList<>();
+            String name1 = "Filago minima";
+            Document docPlant = Jsoup.connect("https://www.latvijasdaba.lv/meklet/augi/?search_input=" + name1).timeout(50*1000).post();
+            Elements results = docPlant.getElementsByClass("translations");
+            if (results.size() == 0) {
+                results = docPlant.getElementsByClass("entryline");
+                if (results.size() > 0) {
+                    results = results.get(0).getElementsByTag("span");
+                    if (results.size() > 1 && "LV".equals(results.get(0).text())) {
+                        for (int i = 1; i < results.size(); i++) {
+                            plantNames.add(results.get(i).text().trim());
+                        }
+                    }
+                }
+            } else {
+                for (Element result : results) {
+                    if (result.attr("href").endsWith("LV")) {
+                        plantNames.add(result.text().trim());
+                        break;
+                    }
+                }
+            }
+
+            if (plantNames.size() > 0) {
+                Call<Map<String, Object>> translationCall = firebaseClient.getApiService().getTranslation("lv", plantName);
+                Map<String, Object> translation = translationCall.execute().body();
+                if (translation == null) {
+                    translation = new HashMap<String, Object>();
+                }
+                String label = (String)translation.get("label");
+                List<String> names = (List) translation.get("names");
+
+                translation.put("label", plantNames.get(0));
+
+                List<String> newNames = new ArrayList<>();
+                for (int i=1; i < plantNames.size(); i++) {
+                    newNames.add(plantNames.get(i).trim());
+                }
+
+                if (label != null && !label.toLowerCase().equals(plantNames.get(0))) {
+                    boolean exists = false;
+                    for(String name : newNames) {
+                        if (label.toLowerCase().equals(name)) {
+                            exists = true;
+                            break;
+                        }
+                    }
+                    if (!exists) {
+                        newNames.add(label.toLowerCase());
+                    }
+                }
+
+                if (names != null) {
+                    for (String oldName : names) {
+                        if (oldName.toLowerCase().equals(plantNames.get(0))) {
+                            continue;
+                        }
+                        boolean exists = false;
+                        for(String name : newNames) {
+                            if (oldName.toLowerCase().equals(name)) {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        if (!exists) {
+                            newNames.add(oldName.toLowerCase());
+                        }
+
+                    }
+                }
+
+                if (newNames.size() > 0) {
+                    translation.put("names", newNames);
+                } else {
+                    translation.remove("names");
+                }
+
+                Call<Object> callFirebaseSave = firebaseClient.getApiService().saveTranslation("lv", plantName, translation);
+                callFirebaseSave.execute().body();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void termini() {
@@ -71,74 +179,85 @@ public class Updater {
     private static void termini(FirebaseClient firebaseClient, String plantName) {
 
         try {
+            List<String> plantNames = new ArrayList<>();
             Document docPlant = Jsoup.connect("http://termini.lza.lv/term.php?term=" + plantName + "&lang=LA").timeout(50*1000).get();
             Elements results = docPlant.getElementsByClass("translations");
-            if (results.size() > 1) {
-                for(Element result : results) {
+            if (results.size() == 0) {
+                results = docPlant.getElementsByClass("entryline");
+                if (results.size() > 0) {
+                    results = results.get(0).getElementsByTag("span");
+                    if (results.size() > 1 && "LV".equals(results.get(0).text())) {
+                        for (int i = 1; i < results.size(); i++) {
+                            plantNames.add(results.get(i).text().trim());
+                        }
+                    }
+                }
+            } else {
+                for (Element result : results) {
                     if (result.attr("href").endsWith("LV")) {
-                        String[] plantNames = result.text().split(";");
-
-                        Call<Map<String, Object>> translationCall = firebaseClient.getApiService().getTranslation("lv", plantName);
-                        Map<String, Object> translation = translationCall.execute().body();
-                        if (translation == null) {
-                            translation = new HashMap<String, Object>();
-                        }
-                        String label = (String)translation.get("label");
-                        List<String> names = (List) translation.get("names");
-
-                        translation.put("label", plantNames[0]);
-
-                        List<String> newNames = new ArrayList<>();
-                        for (int i=1; i < plantNames.length; i++) {
-                            newNames.add(plantNames[i]);
-                        }
-
-                        if (label != null && !label.toLowerCase().equals(plantNames[0])) {
-                            boolean exists = false;
-                            for(String name : newNames) {
-                                if (label.toLowerCase().equals(name)) {
-                                    exists = true;
-                                    break;
-                                }
-                            }
-                            if (!exists) {
-                                newNames.add(label.toLowerCase());
-                            }
-                        }
-
-                        if (names != null) {
-                            for (String oldName : names) {
-                                if (oldName.toLowerCase().equals(plantNames[0])) {
-                                    continue;
-                                }
-                                boolean exists = false;
-                                for(String name : newNames) {
-                                    if (oldName.toLowerCase().equals(name)) {
-                                        exists = true;
-                                        break;
-                                    }
-                                }
-                                if (!exists) {
-                                    newNames.add(oldName.toLowerCase());
-                                }
-
-                            }
-                        }
-
-                        if (newNames.size() > 0) {
-                            translation.put("names", newNames);
-                        } else {
-                            translation.remove("names");
-                        }
-
-                        Call<Object> callFirebaseSave = firebaseClient.getApiService().saveTranslation("lv", plantName, translation);
-                        callFirebaseSave.execute().body();
-
+                        plantNames.add(result.text().trim());
                         break;
                     }
                 }
             }
 
+            if (plantNames.size() > 0) {
+                Call<Map<String, Object>> translationCall = firebaseClient.getApiService().getTranslation("lv", plantName);
+                Map<String, Object> translation = translationCall.execute().body();
+                if (translation == null) {
+                    translation = new HashMap<String, Object>();
+                }
+                String label = (String)translation.get("label");
+                List<String> names = (List) translation.get("names");
+
+                translation.put("label", plantNames.get(0));
+
+                List<String> newNames = new ArrayList<>();
+                for (int i=1; i < plantNames.size(); i++) {
+                    newNames.add(plantNames.get(i).trim());
+                }
+
+                if (label != null && !label.toLowerCase().equals(plantNames.get(0))) {
+                    boolean exists = false;
+                    for(String name : newNames) {
+                        if (label.toLowerCase().equals(name)) {
+                            exists = true;
+                            break;
+                        }
+                    }
+                    if (!exists) {
+                        newNames.add(label.toLowerCase());
+                    }
+                }
+
+                if (names != null) {
+                    for (String oldName : names) {
+                        if (oldName.toLowerCase().equals(plantNames.get(0))) {
+                            continue;
+                        }
+                        boolean exists = false;
+                        for(String name : newNames) {
+                            if (oldName.toLowerCase().equals(name)) {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        if (!exists) {
+                            newNames.add(oldName.toLowerCase());
+                        }
+
+                    }
+                }
+
+                if (newNames.size() > 0) {
+                    translation.put("names", newNames);
+                } else {
+                    translation.remove("names");
+                }
+
+                Call<Object> callFirebaseSave = firebaseClient.getApiService().saveTranslation("lv", plantName, translation);
+                callFirebaseSave.execute().body();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -891,11 +1010,14 @@ public class Updater {
     private static void missing() {
         Map<String, BufferedWriter> missingFiles = new HashMap<>();
         Map<String, Integer> missingCounts = new HashMap<>();
-        String[] languages = {"la", "sk", "cs", "en", "fr", "pt", "es", "ru", "uk", "de", "no", "da", "fi", "sv", "is",
-                "ja", "zh", "hu", "pl", "nl", "tr", "it", "ro", "lt", "lv", "sr", "hr", "sl", "el", "bg", "mt"};
+        String[] languages = {"sk", "cs", "en", "fr", "pt", "es", "ru", "uk", "de", "no", "da", "fi", "sv", "is",
+                "ja", "zh", "hu", "pl", "nl", "tr", "it", "ro", "lt", "lv", "sr", "hr", "sl", "el", "bg", "mt", "et"};
 
         try {
-            final HerbCloudClient herbCloudClient = new HerbCloudClient();
+            final FirebaseClient firebaseClient = new FirebaseClient();
+
+            Call<Map<String, Object>> translationCall = firebaseClient.getApiService().getTranslation();
+            Map<String, Object> translation = translationCall.execute().body();
 
             File file = new File(PATH + PLANTS_FILE);
 
@@ -906,11 +1028,13 @@ public class Updater {
                 String nameLatin = plantLine[0];
                 System.out.println(nameLatin);
 
-                Call<Plant> callCloud = herbCloudClient.getApiService().getDetail(nameLatin);
-                Plant plant = callCloud.execute().body();
-
                 for(String language : languages) {
-                    String value = plant.getLabel().get(language);
+                    String value = null;
+                    Object plantInLanguage = ((Map<String, Object>)translation.get(language)).get(nameLatin);
+                    if (plantInLanguage != null) {
+                        value = (String) ((Map<String, Object>)plantInLanguage).get("label");
+                    }
+
                     if (value == null) {
                         BufferedWriter bw = missingFiles.get(language);
                         if (bw == null) {

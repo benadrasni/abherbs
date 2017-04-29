@@ -279,3 +279,7 @@ Viburnum lantana
 Viola canina
 Viola palustris
 Viola reichenbachiana
+Crocosmia aurea
+Lupinus texensis
+Ratibida columnifera
+Nothoscordum bivalve

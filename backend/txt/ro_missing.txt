@@ -1,4 +1,3 @@
-Aconitum napellus
 Amelanchier ovalis
 Anthericum liliago
 Anthericum ramosum
@@ -125,5 +124,12 @@ Valeriana dioica
 Veronica anagallis-aquatica
 Veronica arvensis
 Veronica triphyllos
-Vinca minor
 Viola palustris
+Crocosmia aurea
+Agave americana
+Argemone mexicana
+Lupinus texensis
+Ratibida columnifera
+Nothoscordum bivalve
+Gaillardia pulchella
+Calyptocarpus vialis
