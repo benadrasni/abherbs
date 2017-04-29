@@ -20,16 +20,19 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_weight="1">
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/CardBorder"/>
             <TextView
                 android:id="@+id/plant_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:paddingStart="@dimen/list_item_padding_left"
+                android:padding="@dimen/list_item_padding_left"
                 android:maxLines="1"
-                android:textAppearance="@android:style/TextAppearance.Small"
-                android:background="@drawable/left_border"/>
+                android:textAppearance="@android:style/TextAppearance.Small"/>
             <TextView
                 android:id="@+id/plant_family"
                 android:layout_width="wrap_content"
@@ -38,13 +41,18 @@
                 android:paddingEnd="@dimen/list_item_padding_right"
                 android:maxLines="1"
                 android:textAppearance="@android:style/TextAppearance.Small"
-                android:textStyle="italic"
-                android:background="@drawable/right_border"/>
+                android:textStyle="italic"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/CardBorder"/>
 
         </LinearLayout>
     </LinearLayout>
     <ImageView
             android:id="@+id/family_icon"
             android:layout_width="@dimen/list_item_family_icon_width"
-            android:layout_height="@dimen/list_item_family_icon_height"/>
+            android:layout_height="@dimen/list_item_family_icon_height"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp"/>
 </RelativeLayout>

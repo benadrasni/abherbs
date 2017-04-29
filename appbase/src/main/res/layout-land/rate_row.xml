@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.4"
-            android:background="@drawable/left_border"
             android:paddingEnd="@dimen/list_item_padding_left"
             android:paddingStart="@dimen/list_item_padding_left"
             android:text="@string/rate_text"
@@ -25,7 +24,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/left_border"
             android:gravity="center_vertical|center"
             android:layout_weight="0.4"
             android:orientation="horizontal"
@@ -71,7 +69,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/left_border"
             android:gravity="bottom|center"
             android:orientation="horizontal"
             android:paddingBottom="10dp"

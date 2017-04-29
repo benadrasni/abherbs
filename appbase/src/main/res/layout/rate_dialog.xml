@@ -9,7 +9,6 @@
         android:id="@+id/rate_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/left_border"
         android:gravity="start"
         android:paddingEnd="@dimen/list_item_padding_left"
         android:paddingStart="@dimen/list_item_padding_left"
@@ -20,7 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:background="@drawable/left_border"
         android:orientation="horizontal"
         android:paddingBottom="20dp"
         android:paddingTop="20dp">

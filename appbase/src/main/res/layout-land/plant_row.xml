@@ -20,6 +20,10 @@
                 android:layout_height="0dp"
                 android:orientation="horizontal"
                 android:layout_weight="1">
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/CardBorder"/>
             <TextView
                 android:id="@+id/plant_title"
                 android:layout_width="0dp"
@@ -27,19 +31,21 @@
                 android:layout_weight="1"
                 android:gravity="start"
                 android:paddingStart="@dimen/list_item_padding_left"
-                android:singleLine="true"
-                android:textAppearance="@android:style/TextAppearance.Small"
-                android:background="@drawable/left_border"/>
+                android:maxLines="1"
+                android:textAppearance="@android:style/TextAppearance.Small"/>
             <TextView
                 android:id="@+id/plant_family"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:paddingEnd="@dimen/list_item_padding_right"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textAppearance="@android:style/TextAppearance.Small"
-                android:textStyle="italic"
-                android:background="@drawable/right_border"/>
+                android:textStyle="italic"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/CardBorder"/>
 
         </LinearLayout>
     </LinearLayout>

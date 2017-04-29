@@ -9,7 +9,6 @@
         android:id="@+id/message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/left_border"
         android:gravity="start"
         android:paddingEnd="@dimen/list_item_padding_left"
         android:paddingStart="@dimen/list_item_padding_left"

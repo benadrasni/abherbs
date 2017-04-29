@@ -13,5 +13,6 @@
     <color name="CardShadowStart">#e5e5e5</color>
     <color name="CardShadowCenter">#d4d4d4</color>
     <color name="CardShadowEnd">#d3d3d3</color>
+    <color name="CardBorder">#d3d7cf</color>
 
 </resources>
