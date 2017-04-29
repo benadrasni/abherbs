@@ -3,7 +3,7 @@
 
     <string name="synchronizing">جار المزامنة ...</string>
 
-    <string name="offline_mode">وضع غير متصل بالشبكة</string>
+    <string name="offline_mode">غير متصل بالشبكة</string>
     <string name="offline_mode_summary">يتطلب 250+ ميغابايت مساحة إضافية</string>
 
     <string name="search">بحث</string>
