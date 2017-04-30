@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Mis lill see on? +</string>
+
+    <string name="synchronizing">Sünkroonimine …</string>
+
+    <string name="offline_mode">Offline režiimis</string>
+    <string name="offline_mode_summary">nõuab 250+ MB lisaruumi</string>
+
+    <string name="search">Otsing</string>
+    <string name="wait_until_finish">Palun oodake, kuni on lõpetatud.</string>
+</resources>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about">Par pieteikumu</string>
+    <string name="help">Palīgā</string>
+    <string name="settings">Iestatījumi</string>
+    <string name="feedback">Atsauksmes</string>
+    <string name="pref_language">Vēlamā valoda</string>
+    <string name="cache_size">Cache izmērs MB</string>
+    <string name="cache_size_summary">fotoattēliem un ilustrācijām</string>
+
+    <string name="color_of_flower">krāsu ziedi</string>
+    <string name="color_white">balts</string>
+    <string name="color_yellow">dzeltens</string>
+    <string name="color_red">sarkanā, rozā</string>
+    <string name="color_blue">zila, violeta</string>
+    <string name="color_green">zaļš, brūns, melns</string>
+    <string name="color_of_flower_message">Kas ir krāsa ziedu? Izvēlieties tuvāko.</string>
+
+    <string name="habitats">biotopi</string>
+    <string name="habitat_meadow">pļavas</string>
+    <string name="habitat_garden">dārzi un lauki</string>
+    <string name="habitat_wetland">mitrāji</string>
+    <string name="habitat_forest">meži</string>
+    <string name="habitat_rock">klintis un kalni</string>
+    <string name="habitat_tree">koki vai krūmi</string>
+    <string name="habitat_message">Kas ir ap jums? Identificēt auga dzīvotni.</string>
+
+    <string name="number_of_petals">skaits ziedlapiņām</string>
+    <string name="petal_4">4 vai mazāk</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">vairāk nekā 5</string>
+    <string name="petal_bisymmetric">neregulārs</string>
+    <string name="number_of_petals_message">Vai ziedu neregulāra? Nē? Tad cik ziedlapiņas tas ir?</string>
+
+    <string name="display_info">Tiesības viens?</string>
+    <string name="list_info">Izvēlēties vienu</string>
+
+    <string name="plant_info">Info</string>
+    <string name="plant_gallery">Galerija</string>
+    <string name="plant_taxonomy">Taksonomija</string>
+    <string name="plant_sources">"Pirmsākums "</string>
+    <string name="image_desc">Augu ilustrācija</string>
+    <string name="translate_desc">Tulkot</string>
+    <string name="email_desc">E-pasts</string>
+    <string name="email_subject_prefix">Ieteikums labākai tulkošanas / aprakstam</string>
+
+    <string name="plant_title">virsraksts</string>
+    <string name="plant_height_from">Augstums</string>
+    <string name="plant_height_to">-</string>
+    <string name="plant_flowering_from">Ziedēšanas no</string>
+    <string name="plant_flowering_to">līdz</string>
+    <string name="plant_flowers">Zieds</string>
+    <string name="plant_inflorescences">Ziedkopa</string>
+    <string name="plant_fruits">Auglis</string>
+    <string name="plant_leaves">Lapas</string>
+    <string name="plant_inflorescence">Ziedkopa</string>
+    <string name="plant_color_of_flowers">Krāsu ziedi</string>
+    <string name="plant_number_of_petals">Skaits ziedlapiņām</string>
+    <string name="plant_sepal">Kauslapa</string>
+    <string name="plant_leaf_shape">Lapu forma</string>
+    <string name="plant_leaf_margin">Lapu mala</string>
+    <string name="plant_leaf_venation">Lapu venation</string>
+    <string name="plant_leaf_arrangement">Lapu vienošanās</string>
+    <string name="plant_stem">Stumbrs</string>
+    <string name="plant_root">Sakne</string>
+    <string name="plant_habitat">Izplatības areāls</string>
+    <string name="plant_trivia">Nieki</string>
+    <string name="plant_toxicity">Toksiskums</string>
+    <string name="plant_herbalism">Herbalism</string>
+
+    <string name="taxonomy_superregnum">Impērija</string>
+    <string name="taxonomy_regnum">Valsts</string>
+    <string name="taxonomy_cladus">(clade)</string>
+    <string name="taxonomy_ordo">Rinda</string>
+    <string name="taxonomy_familia">Dzimta</string>
+    <string name="taxonomy_subfamilia">Subfamily</string>
+    <string name="taxonomy_tribus">Tribe</string>
+    <string name="taxonomy_subtribus">Subtribe</string>
+    <string name="taxonomy_genus">Ģints</string>
+    <string name="taxonomy_species">Suga</string>
+
+    <string name="close">Aizvērt</string>
+
+    <string name="showcase_fullscreen_title">Lielāks ilustrācija</string>
+    <string name="showcase_fullscreen_message">Jūs varat parādīt attēlu par pilna ekrāna, noklikšķinot uz tā.</string>
+    <string name="showcase_count_button_title">Number of filtrēto augiem</string>
+    <string name="showcase_count_button_message">Ja skaitlis ir mazāks nekā 21 nospiediet, lai pārietu tieši uz sarakstu. Turiet nospiestu, lai skaidri filtru.</string>
+    <string name="showcase_taxonomy_title">Taksonomija saskaņā ar APG III sistēmas</string>
+    <string name="showcase_taxonomy_message">Jūs varat parādīt / paslēpt zieda taksonomiju, uzklikšķinot uz ikonas.</string>
+    <string name="legend">Leģenda</string>
+    <string name="toxicity1">indīgs augs</string>
+    <string name="toxicity2">nedaudz indīgs augs</string>
+    <string name="rate_text">Autors šajā pieteikumā ir veicinājuši pozitīvu atbildi no lietotājiem. Lūdzu, sūtiet viņam dažus starflowers izmantojot Google Play veikalā.</string>
+    <string name="rate_never">Nekad</string>
+    <string name="rate_later">Vēlāk</string>
+    <string name="rate">Pārskats</string>
+    <string name="your_text">jūsu teksts</string>
+    <string name="google_translate">Tulkots ar Google Translate</string>
+    <string name="show_original">Rādīt angļu valodā</string>
+    <string name="improve_translation">Uzlabot tulkojumu</string>
+    <string name="show_translation">Rādīt tulkoto tekstu</string>
+    <string name="rate_question">Vai šī app noderīga?</string>
+</resources>

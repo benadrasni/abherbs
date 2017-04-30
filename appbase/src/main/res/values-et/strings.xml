@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about">Rakenduse kohta</string>
+    <string name="help">Appi</string>
+    <string name="settings">Reguleerimine</string>
+    <string name="feedback">Tagasiside</string>
+    <string name="pref_language">Eelistatud keel</string>
+    <string name="cache_size">Cache suurus MB</string>
+    <string name="cache_size_summary">fotod ja illustratsioonid</string>
+
+    <string name="color_of_flower">värvi lilled</string>
+    <string name="color_white">valge</string>
+    <string name="color_yellow">kollane</string>
+    <string name="color_red">punane, roosa</string>
+    <string name="color_blue">sinine, lilla</string>
+    <string name="color_green">roheline, pruun, must</string>
+    <string name="color_of_flower_message">Mis värvi lill? Vali lähim.</string>
+
+    <string name="habitats">elupaikade</string>
+    <string name="habitat_meadow">heinamaad või rohumaade</string>
+    <string name="habitat_garden">aiad või väljad</string>
+    <string name="habitat_wetland">moorlandi või märgala</string>
+    <string name="habitat_forest">metsamaad või metsade</string>
+    <string name="habitat_rock">kivid või mägedes</string>
+    <string name="habitat_tree">puud või põõsad</string>
+    <string name="habitat_message">Mis teie ümber? Nimetage taime elupaiga.</string>
+
+    <string name="number_of_petals">arvu kroonlehed</string>
+    <string name="petal_4">4 või vähem</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">rohkem kui 5</string>
+    <string name="petal_bisymmetric">ebaregulaarne</string>
+    <string name="number_of_petals_message">Kas lill ebaregulaarne? Ei? Siis, kui palju kroonlehed see on?</string>
+
+    <string name="display_info">Õige?</string>
+    <string name="list_info">Vali üks</string>
+
+    <string name="plant_info">Info</string>
+    <string name="plant_gallery">Galerii</string>
+    <string name="plant_taxonomy">Taksonoomia</string>
+    <string name="plant_sources">Allikad</string>
+    <string name="image_desc">Plant illustratsioon</string>
+    <string name="translate_desc">Tõlkima</string>
+    <string name="email_desc">Saatke</string>
+    <string name="email_subject_prefix">Soovitus paremat tõlget / kirjeldus</string>
+
+    <string name="plant_title">pealkiri</string>
+    <string name="plant_height_from">Kõrgus</string>
+    <string name="plant_height_to">-</string>
+    <string name="plant_flowering_from">Õitsemine</string>
+    <string name="plant_flowering_to">-</string>
+    <string name="plant_flowers">Õis</string>
+    <string name="plant_inflorescences">Õisik</string>
+    <string name="plant_fruits">Vili</string>
+    <string name="plant_leaves">Lehed</string>
+    <string name="plant_inflorescence">Õisik</string>
+    <string name="plant_color_of_flowers">Värvi lilled</string>
+    <string name="plant_number_of_petals">Arvu kroonlehed</string>
+    <string name="plant_sepal">Õietupp</string>
+    <string name="plant_leaf_shape">Lehe kuju</string>
+    <string name="plant_leaf_margin">Lehe servad</string>
+    <string name="plant_leaf_venation">Leaf venation</string>
+    <string name="plant_leaf_arrangement">Leheseis</string>
+    <string name="plant_stem">Vars</string>
+    <string name="plant_root">Juur</string>
+    <string name="plant_habitat">Elupaik</string>
+    <string name="plant_trivia">Tühiasi</string>
+    <string name="plant_toxicity">Mürgisus</string>
+    <string name="plant_herbalism">Raviteaduse</string>
+
+    <string name="taxonomy_superregnum">Domeen</string>
+    <string name="taxonomy_regnum">Riik</string>
+    <string name="taxonomy_cladus">(clade)</string>
+    <string name="taxonomy_ordo">Selts</string>
+    <string name="taxonomy_familia">Sugukond</string>
+    <string name="taxonomy_subfamilia">Subfamily</string>
+    <string name="taxonomy_tribus">Triibus</string>
+    <string name="taxonomy_subtribus">Subtriibus</string>
+    <string name="taxonomy_genus">Perekond</string>
+    <string name="taxonomy_species">Liik</string>
+
+    <string name="close">Sulge</string>
+
+    <string name="showcase_fullscreen_title">Suurem illustratsioon</string>
+    <string name="showcase_fullscreen_message">Saate kuvada illustratsioon täisekraani klõpsates seda.</string>
+    <string name="showcase_count_button_title">Arv filtriti taimi</string>
+    <string name="showcase_count_button_message">Kui number on väiksem kui 21 vajutage hüpata otse nimekirja. Pikk vajutus, et selge filter.</string>
+    <string name="showcase_taxonomy_title">Taxonomy vastavalt APG III süsteem</string>
+    <string name="showcase_taxonomy_message">Saate näidata / peita lille taksonoomia klõpsates ikoonil.</string>
+    <string name="legend">Legend</string>
+    <string name="toxicity1">mürgine taim</string>
+    <string name="toxicity2">veidi mürgine taim</string>
+    <string name="rate_text">Autor käesoleva taotluse toidab positiivse vastuse kasutajatele. Palun saatke talle mõned starflowers Google Play Store.</string>
+    <string name="rate_never">Mitte kunagi</string>
+    <string name="rate_later">Pärast</string>
+    <string name="rate">Arvustus</string>
+    <string name="your_text">oma teksti</string>
+    <string name="google_translate">Tõlgitud Google Translate</string>
+    <string name="show_original">Näita ingliskeelne tekst</string>
+    <string name="improve_translation">Parandada tõlge</string>
+    <string name="show_translation">Kuva tõlgitud tekst</string>
+    <string name="rate_question">See app kasulik?</string>
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Kas ziedu tas ir? +</string>
+
+    <string name="synchronizing">Sinhronizēšana …</string>
+
+    <string name="offline_mode">Bezsaistes režīms</string>
+    <string name="offline_mode_summary">prasa 250+ MB papildu vieta</string>
+
+    <string name="search">Meklēt</string>
+    <string name="wait_until_finish">Lūdzu, uzgaidiet, līdz operācija ir pabeigta.</string>
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">איזה פרח זה? +</string>
+
+    <string name="synchronizing">סנכרון ...</string>
+
+    <string name="offline_mode">מצב לא מקוון</string>
+    <string name="offline_mode_summary">דורש 250+ MB שטח נוסף</string>
+
+    <string name="search">חפש</string>
+    <string name="wait_until_finish">המתן עד לסיום הפעולה.</string>
+</resources>

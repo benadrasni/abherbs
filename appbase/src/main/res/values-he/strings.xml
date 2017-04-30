@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about">על היישום</string>
+    <string name="help">עֶזרָה</string>
+    <string name="settings">הגדרות</string>
+    <string name="feedback">מָשׁוֹב</string>
+    <string name="pref_language">שפה מועדפת</string>
+    <string name="cache_size">גודל הקובץ השמור ב- MB</string>
+    <string name="cache_size_summary">לתמונות ואיורים</string>
+
+    <string name="color_of_flower">צבע של פרחים</string>
+    <string name="color_white">לבן</string>
+    <string name="color_yellow">צהוב</string>
+    <string name="color_red">אדום, ורוד</string>
+    <string name="color_green">ירוק, חום, שחור</string>
+    <string name="color_of_flower_message">מה צבע הפרח? בחר את הקרוב ביותר.</string>
+
+    <string name="habitats">בתי גידול</string>
+    <string name="habitat_meadow">כרי דשא או מרעה</string>
+    <string name="habitat_garden">גנים או שדות</string>
+    <string name="habitat_wetland">מורלנדס או ביצות</string>
+    <string name="habitat_forest">יערות</string>
+    <string name="habitat_rock">סלעים או הרים</string>
+    <string name="habitat_tree">עצים או שיחים</string>
+    <string name="habitat_message">מה מסביבך? זיהוי בית הגידול של הצמח.</string>
+
+    <string name="number_of_petals">מספר עלי כותרת</string>
+    <string name="petal_4">4 או פחות</string>
+    <string name="petal_5">5</string>
+    <string name="petal_many">יותר מ 5</string>
+    <string name="petal_bisymmetric">לֹא סָדִיר</string>
+    <string name="number_of_petals_message">האם הפרח אינו סדיר? לא? אז כמה עלי כותרת יש את זה?</string>
+
+    <string name="display_info">הנכון?</string>
+    <string name="list_info">לבחור אחד</string>
+
+    <string name="plant_info">מידע</string>
+    <string name="plant_gallery">גלריה</string>
+    <string name="plant_taxonomy">טקסונומיה</string>
+    <string name="plant_sources">מקורות</string>
+    <string name="image_desc">איור איור</string>
+    <string name="translate_desc">לתרגם</string>
+    <string name="email_desc">אֶלֶקטרוֹנִי</string>
+    <string name="email_subject_prefix">הצעה לתרגום / תיאור טוב יותר של</string>
+
+    <string name="plant_title">כותרת</string>
+    <string name="plant_height_from">גובה מ</string>
+    <string name="plant_height_to">עד</string>
+    <string name="plant_flowering_from">פריחה מ</string>
+    <string name="plant_flowering_to">ל</string>
+    <string name="plant_flowers">פרח</string>
+    <string name="plant_inflorescences">תִפרַחַת</string>
+    <string name="plant_fruits">פרי</string>
+    <string name="plant_leaves">עלים</string>
+    <string name="plant_inflorescence">תִפרַחַת</string>
+    <string name="plant_color_of_flowers">צבע של פרחים</string>
+    <string name="plant_number_of_petals">מספר עלי כותרת</string>
+    <string name="plant_sepal">עלי גביע</string>
+    <string name="plant_leaf_shape">צורת העלה</string>
+    <string name="plant_leaf_margin">שולי העלה</string>
+    <string name="plant_leaf_venation">עלים עלים</string>
+    <string name="plant_leaf_arrangement">סידור העלה</string>
+    <string name="plant_stem">גבעול</string>
+    <string name="plant_root">שורש</string>
+    <string name="plant_habitat">בית גידול</string>
+    <string name="plant_trivia">דְבָרִים בְּטֵלִים</string>
+    <string name="plant_toxicity">רַעֲלָנוּת</string>
+    <string name="plant_herbalism">צמחי מרפא</string>
+
+    <string name="taxonomy_superregnum">על-ממלכה</string>
+    <string name="taxonomy_regnum">ממלכה</string>
+    <string name="taxonomy_cladus">(clade)</string>
+    <string name="taxonomy_ordo">סדרה</string>
+    <string name="taxonomy_familia">משפחה</string>
+    <string name="taxonomy_subfamilia">תת־משפחה</string>
+    <string name="taxonomy_tribus">Tribe</string>
+    <string name="taxonomy_subtribus">Subtribe</string>
+    <string name="taxonomy_genus">סוג</string>
+    <string name="taxonomy_species">מין</string>
+
+    <string name="close">לִסְגוֹר</string>
+
+    <string name="showcase_fullscreen_title">איור גדול יותר</string>
+    <string name="showcase_fullscreen_message">ניתן להציג איור על מסך מלא על ידי לחיצה עליו.</string>
+    <string name="showcase_count_button_title">מספר הצמחים המסוננים</string>
+    <string name="showcase_count_button_message">כאשר המספר הוא פחות מ 21 לחץ כדי לקפוץ ישירות לרשימה. לחץ לחיצה ארוכה כדי לנקות את המסנן.</string>
+    <string name="showcase_taxonomy_title">טקסונומיה על פי מערכת APG III</string>
+    <string name="showcase_taxonomy_message">ניתן להציג / להסתיר את הטקסונומיה של הפרחים על ידי לחיצה על הסמל.</string>
+    <string name="legend">אגדה</string>
+    <string name="toxicity1">צמח רעיל</string>
+    <string name="toxicity2">צמח רעיל במקצת</string>
+    <string name="rate_text">מחבר של יישום זה הוא fueled על ידי תגובה חיובית של המשתמשים. שלח לו כמה כוכבים באמצעות חנות Google Play.</string>
+    <string name="rate_never">לעולם לא</string>
+    <string name="rate_later">יותר מאוחר</string>
+    <string name="rate">סקירה</string>
+    <string name="your_text">הטקסט שלך</string>
+    <string name="google_translate">תורגם עם Google Translate</string>
+    <string name="show_original">הצג טקסט באנגלית</string>
+    <string name="improve_translation">שפר את התרגום</string>
+    <string name="show_translation">הצג טקסט מתורגם</string>
+    <string name="rate_question">האם האפליקציה הזו מועילה?</string>
+    <string name="color_blue">כחול, סגול</string>
+</resources>

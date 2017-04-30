@@ -46,7 +46,7 @@
 
     <string name="plant_title">judul</string>
     <string name="plant_height_from">Tinggi dari</string>
-    <string name="plant_height_to">"sampai "</string>
+    <string name="plant_height_to">sampai</string>
     <string name="plant_flowering_from">Berbunga dari</string>
     <string name="plant_flowering_to">"sampai "</string>
     <string name="plant_flowers">Bunga</string>

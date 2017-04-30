@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Kas gėlė tai? +</string>
+
+    <string name="synchronizing">Sinchronizavimas …</string>
+
+    <string name="offline_mode">Offline režimas</string>
+    <string name="offline_mode_summary">reikia 250+ MB papildomos vietos</string>
+
+    <string name="search">Paieška</string>
+    <string name="wait_until_finish">Prašome palaukti, kol operacija bus baigta.</string>
+</resources>
