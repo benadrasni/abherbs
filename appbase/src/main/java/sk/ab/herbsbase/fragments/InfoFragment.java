@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
@@ -42,7 +42,6 @@ import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
 import sk.ab.herbsbase.commons.FullScreenImageActivity;
 import sk.ab.herbsbase.tools.Keys;
 import sk.ab.herbsbase.tools.Utils;
-import uk.co.deanwild.flowtextview.FlowTextView;
 
 /**
  * Created with IntelliJ IDEA.
@@ -108,22 +107,11 @@ public class InfoFragment extends Fragment {
                 .append(getResources().getString(R.string.plant_flowering_to)).append(" ").append("<i>")
                 .append(Utils.getMonthName(plant.getFloweringTo() - 1)).append("</i>.<br/>");
 
+        final String[][] sections = getSections(withTranslation);
+        text.append(sections[0][1]);
 
-        String[][] sections = getSections(withTranslation);
-        text.append(sections[0][1]).append("<br/>");
-
-        int[][] spanIndex = new int[2][sections.length];
-
-        for (int i = 1; i < sections.length; i++) {
-            if (!sections[i][1].isEmpty()) {
-                spanIndex[0][i] = text.length();
-                spanIndex[1][i] = text.length() + sections[i][0].length();
-                text.append("<i>").append(sections[i][0]).append("</i>");
-                text.append(": ");
-                text.append(sections[i][1]);
-                text.append("<br/>");
-            }
-        }
+        final TextView description = (TextView) getView().findViewById(R.id.plant_description);
+        description.setText(Utils.fromHtml(text.toString()));
 
         final ImageView drawing = (ImageView) getView().findViewById(R.id.plant_background);
         drawing.setOnClickListener(new View.OnClickListener() {
@@ -140,14 +128,9 @@ public class InfoFragment extends Fragment {
             }
         });
 
-        final FlowTextView flowTextView = (FlowTextView) getView().findViewById(R.id.plantInfoLayout);
-        flowTextView.setTextColor(R.color.CardText);
-        flowTextView.setTextSize(getResources().getDisplayMetrics().scaledDensity * 14.0f);
-
-        final Spanned html = Utils.fromHtml(text.toString());
-
         final DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
         final int orientation = getActivity().getResources().getConfiguration().orientation;
+        final LinearLayout layoutBelow = (LinearLayout)getView().findViewById(R.id.plant_texts_below);
 
         if (plant.getIllustrationUrl() != null) {
             Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + plant.getIllustrationUrl(),
@@ -161,17 +144,44 @@ public class InfoFragment extends Fragment {
                                 width = width/2;
                             }
                             double ratio = (double)loadedImage.getWidth()/(double)loadedImage.getHeight();
+                            int height = (int)(width/ratio);
 
                             drawing.getLayoutParams().width = width;
-                            drawing.getLayoutParams().height = (int)(drawing.getLayoutParams().width/ratio);
+                            drawing.getLayoutParams().height = height;
 
-                            flowTextView.setText(html);
+                            LinearLayout layout = (LinearLayout)getView().findViewById(R.id.plant_texts);
+
+                            int lineHeight = description.getLineHeight();
+                            int lines = 0;
+                            for (int i = 1; i < sections.length; i++) {
+                                if (!sections[i][1].isEmpty()) {
+                                    String sectionText = "<i>" + sections[i][0] + "</i>: " + sections[i][1];
+
+                                    TextView sectionView = new TextView(getContext());
+                                    sectionView.setText(Utils.fromHtml(sectionText));
+                                    if (lines * lineHeight < height) {
+                                        layout.addView(sectionView);
+                                    } else {
+                                        layoutBelow.addView(sectionView);
+                                    }
+
+                                    lines += (sectionText.length() * (float)1.1) / (width / (sectionView.getTextSize() / dm.scaledDensity)) + 1;
+                                }
+                            }
                         }
                     });
         } else {
-            flowTextView.setText(html);
-        }
+            for (int i = 1; i < sections.length; i++) {
+                if (!sections[i][1].isEmpty()) {
+                    String sectionText = "<i>" + sections[i][0] + "</i>: " + sections[i][1];
 
+                    TextView sectionView = new TextView(getContext());
+                    sectionView.setText(Utils.fromHtml(sectionText));
+
+                    layoutBelow.addView(sectionView);
+                }
+            }
+        }
     }
 
     private void getTranslation() {
