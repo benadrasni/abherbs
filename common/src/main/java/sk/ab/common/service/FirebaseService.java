@@ -76,6 +76,14 @@ public interface FirebaseService {
     @PUT("search_new/{language}/{name}.json")
     Call<Map<String, Boolean>> saveName(@Path("language") String language, @Path("name") String name, @Body Map<String, Boolean> plants);
 
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @PUT("search/{language}.json")
+    Call<Object> saveSearch(@Path("language") String language, @Body Map<String, Map<String, Boolean>> plants);
+
     @PUT("APG III.json")
     Call<Object> saveAPGIII(@Body Object object);
 
@@ -100,4 +108,12 @@ public interface FirebaseService {
     })
     @GET("translations.json")
     Call<Map<String, Object>> getTranslation();
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @GET("translations/{language}.json")
+    Call<Map<String, Object>> getTranslation(@Path("language") String language);
 }

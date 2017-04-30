@@ -40,8 +40,8 @@ public class Firebase {
 
     private static String GOOGLE_STORAGE_URL = "https://storage.googleapis.com/abherbs";
 
-    private static final List<String> LANGUAGES = new ArrayList<>(Arrays.asList("cs", "da", "de", "en", "es", "fi", "fr", "hr", "hu", "it", "ja", "la", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"));
-//    private static final List<String> LANGUAGES = new ArrayList<>(Arrays.asList("en"));
+//    private static final List<String> LANGUAGES = new ArrayList<>(Arrays.asList("cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "la", "lv", "lt", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"));
+    private static final List<String> LANGUAGES = new ArrayList<>(Arrays.asList("ja", "lv", "lt", "et"));
 
     private static final String[] COLORS = {"white", "yellow", "red", "blue", "green"};
     private static final String[] HABITATS = {"meadows or grassland", "gardens or fields", "moorlands or wetlands", "woodlands or forests", "rocks or mountains", "trees or bushes"};

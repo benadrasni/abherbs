@@ -44,7 +44,8 @@ public class Updater {
 
     public static void main(String[] params) {
 
-        missing();
+        //missing();
+        search();
     }
 
     private static void termini() {
@@ -902,7 +903,7 @@ public class Updater {
         Map<String, BufferedWriter> missingFiles = new HashMap<>();
         Map<String, Integer> missingCounts = new HashMap<>();
         String[] languages = {"sk", "cs", "en", "fr", "pt", "es", "ru", "uk", "de", "no", "da", "fi", "sv", "is",
-                "ja", "zh", "hu", "pl", "nl", "tr", "it", "ro", "lt", "lv", "sr", "hr", "sl", "el", "bg", "mt", "et"};
+                "ja", "zh", "hu", "pl", "nl", "tr", "it", "ro", "lt", "lv", "sr", "hr", "sl", "el", "bg", "mt", "et", "fa", "ar", "hi", "pa", "id", "he"};
 
         try {
             final FirebaseClient firebaseClient = new FirebaseClient();
@@ -1081,6 +1082,60 @@ public class Updater {
                 System.out.println(plantLine[0]);
             }
         }
+    }
+
+    private static void search() {
+        String[] languages = {};
+        final FirebaseClient firebaseClient = new FirebaseClient();
+
+
+        try {
+            for (String language : languages) {
+                Map<String, Map<String, Boolean>> searchMap = new HashMap<>();
+
+                Call<Map<String, Object>> translationCall = firebaseClient.getApiService().getTranslation(language);
+                Map<String, Object> translation = translationCall.execute().body();
+
+                for (Map.Entry<String, Object> entry : translation.entrySet()) {
+                    String plantName = entry.getKey();
+                    System.out.println(plantName);
+                    Map<String, Object> plant = (Map<String, Object>) entry.getValue();
+
+                    Map<String, Boolean> searchForLabel = null;
+                    String label = (String)plant.get("label");
+                    if (label != null) {
+                        label = label.toLowerCase();
+                        searchForLabel = searchMap.get(label);
+                        if (searchForLabel == null) {
+                            searchForLabel = new HashMap<>();
+                            searchMap.put(label, searchForLabel);
+                        }
+                        searchForLabel.put(plantName, true);
+                    }
+
+                    List<String> names = (List<String>)plant.get("names");
+                    if (names != null) {
+                        for (String name : names) {
+                            name = name.toLowerCase();
+                            searchForLabel = searchMap.get(name);
+                            if (searchForLabel == null) {
+                                searchForLabel = new HashMap<>();
+                                searchMap.put(name, searchForLabel);
+                            }
+                            searchForLabel.put(plantName, true);
+                        }
+                    }
+                }
+
+                // name
+                Call<Object> callFirebaseSearch = firebaseClient.getApiService().saveSearch(language, searchMap);
+                callFirebaseSearch.execute().body();
+
+            }
+        } catch (IOException ex) {
+
+        }
+
     }
 
     private static boolean containsCaseInsensitive(String strToCompare, List<String>list)
