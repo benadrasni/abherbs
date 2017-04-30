@@ -18,6 +18,8 @@
         android:background="@drawable/meadow"
         android:text="@string/habitat_meadow"
         android:textColor="@color/MenuWhite"
+        android:textStyle="bold"
+        android:textSize="18sp"
         custom:value="@string/ph_meadows"/>
 
     <sk.ab.herbsbase.commons.BaseImageButton
@@ -32,6 +34,8 @@
         android:background="@drawable/garden"
         android:text="@string/habitat_garden"
         android:textColor="@color/MenuWhite"
+        android:textStyle="bold"
+        android:textSize="18sp"
         custom:value="@string/ph_gardens"/>
 
     <sk.ab.herbsbase.commons.BaseImageButton
@@ -45,6 +49,8 @@
         android:background="@drawable/swamp"
         android:text="@string/habitat_wetland"
         android:textColor="@color/MenuWhite"
+        android:textStyle="bold"
+        android:textSize="18sp"
         custom:value="@string/ph_moorlands"/>
 
     <sk.ab.herbsbase.commons.BaseImageButton
@@ -58,6 +64,8 @@
         android:background="@drawable/forest"
         android:text="@string/habitat_forest"
         android:textColor="@color/MenuWhite"
+        android:textStyle="bold"
+        android:textSize="18sp"
         custom:value="@string/ph_woodlands"/>
 
     <sk.ab.herbsbase.commons.BaseImageButton
@@ -71,6 +79,8 @@
         android:background="@drawable/mountain"
         android:text="@string/habitat_rock"
         android:textColor="@color/MenuWhite"
+        android:textStyle="bold"
+        android:textSize="18sp"
         custom:value="@string/ph_rocks"/>
 
     <sk.ab.herbsbase.commons.BaseImageButton
@@ -82,6 +92,8 @@
         android:background="@drawable/tree"
         android:text="@string/habitat_tree"
         android:textColor="@color/MenuWhite"
+        android:textStyle="bold"
+        android:textSize="18sp"
         custom:value="@string/ph_trees"/>
 
     <TextView
