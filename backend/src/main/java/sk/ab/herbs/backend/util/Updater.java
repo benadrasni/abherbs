@@ -1085,7 +1085,7 @@ public class Updater {
     }
 
     private static void search() {
-        String[] languages = {};
+        String[] languages = {""};
         final FirebaseClient firebaseClient = new FirebaseClient();
 
 
