@@ -111,6 +111,7 @@
     <string name="toxicity1">poisonous plant</string>
     <string name="toxicity2">slightly poisonous plant</string>
     <string name="agpiii" translatable="false">APG III</string>
+    <string name="rate_question">Is this app helpful?</string>
     <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
     <string name="rate_never">Never</string>
     <string name="rate_later">Later</string>
@@ -120,5 +121,13 @@
     <string name="show_original">Show English text</string>
     <string name="improve_translation">Improve translation</string>
     <string name="show_translation">Show translated text</string>
-    <string name="rate_question">Is this app helpful?</string>
+
+    <string name="feedback_intro">You have been contributing to this application since you installed it on your device. If you are looking for something more, here are some options:</string>
+    <string name="feedback_review">You can write a positive review in Google Play.</string>
+    <string name="feedback_google_play">Google Play</string>
+    <string name="feedback_title">Contribution</string>
+    <string name="feedback_translate">You can report any typo or mistake you found or submit new translation in your language.</string>
+    <string name="feedback_submit_translate">Send email to developer</string>
+    <string name="feedback_cash">You can support new development and database extension with cash.</string>
+    <string name="feedback_submit_cash">Pay</string>
 </resources>

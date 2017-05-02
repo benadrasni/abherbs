@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/list_padding"
+                android:text="@string/feedback_intro"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/list_padding">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/CardsForeground"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/list_padding"
+                    android:paddingTop="@dimen/list_padding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/list_padding"
+                        android:text="@string/feedback_review"
+                        android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingBottom="20dp"
+                        android:paddingTop="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:maxHeight="50dp"
+                            android:maxWidth="50dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/color_of_flowers"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:maxHeight="50dp"
+                            android:maxWidth="50dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/color_of_flowers"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:maxHeight="50dp"
+                            android:maxWidth="50dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/color_of_flowers"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:maxHeight="50dp"
+                            android:maxWidth="50dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/color_of_flowers"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:maxHeight="50dp"
+                            android:maxWidth="50dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/color_of_flowers"/>
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/contribution_submit_review"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/feedback_google_play"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@drawable/list_item_shadow_bottom"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/CardsForeground"
+                android:orientation="vertical"
+                android:padding="@dimen/list_padding">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/CardsForeground"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/list_padding"
+                    android:paddingTop="@dimen/list_padding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/list_padding"
+                        android:text="@string/feedback_translate"
+                        android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingBottom="20dp"
+                        android:paddingTop="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:maxHeight="50dp"
+                            android:maxWidth="50dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/translate"/>
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/contribution_submit_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/feedback_submit_translate"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@drawable/list_item_shadow_bottom"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/CardsForeground"
+                android:orientation="vertical"
+                android:padding="@dimen/list_padding">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/CardsForeground"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/list_padding"
+                    android:paddingTop="@dimen/list_padding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/list_padding"
+                        android:text="@string/feedback_cash"
+                        android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingBottom="20dp"
+                        android:paddingTop="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:maxHeight="50dp"
+                            android:maxWidth="70dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/dolar"/>
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/contribution_cash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/feedback_submit_cash"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@drawable/list_item_shadow_bottom"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

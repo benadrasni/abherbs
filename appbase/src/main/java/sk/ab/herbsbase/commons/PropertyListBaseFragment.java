@@ -82,6 +82,9 @@ public abstract class PropertyListBaseFragment extends ListFragment {
                             startActivity(intent);
                             break;
                         case AndroidConstants.ITEM_FEEDBACK:
+                            intent = new Intent(getActivity(), getFeedbackActivityClass());
+                            startActivity(intent);
+                            break;
                         case AndroidConstants.ITEM_HELP:
                         case AndroidConstants.ITEM_ABOUT:
                             intent = new Intent(getActivity(), HtmlActivity.class);
@@ -149,6 +152,8 @@ public abstract class PropertyListBaseFragment extends ListFragment {
     }
 
     protected abstract Class getUserPreferenceActivityClass();
+
+    protected abstract Class getFeedbackActivityClass();
 
     protected abstract Class getFilterPlantActivityClass();
 }

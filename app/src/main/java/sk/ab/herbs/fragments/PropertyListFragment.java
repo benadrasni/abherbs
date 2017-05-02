@@ -1,5 +1,6 @@
 package sk.ab.herbs.fragments;
 
+import sk.ab.herbs.activities.FeedbackActivity;
 import sk.ab.herbs.activities.FilterPlantsActivity;
 import sk.ab.herbs.activities.UserPreferenceActivity;
 import sk.ab.herbsbase.commons.PropertyListBaseFragment;
@@ -15,6 +16,11 @@ public class PropertyListFragment extends PropertyListBaseFragment {
     @Override
     protected Class getUserPreferenceActivityClass() {
         return UserPreferenceActivity.class;
+    }
+
+    @Override
+    protected Class getFeedbackActivityClass() {
+        return FeedbackActivity.class;
     }
 
     @Override

@@ -44,6 +44,10 @@
             android:configChanges="orientation|screenSize|locale"
             android:theme="@style/Theme.Settings" />
         <activity
+            android:name="sk.ab.herbsplus.activities.FeedbackPlusActivity"
+            android:configChanges="orientation|screenSize|locale"
+            android:theme="@style/Theme.Settings" />
+        <activity
             android:name="sk.ab.herbsbase.commons.FullScreenImageActivity"
             android:configChanges="orientation|screenSize" />
         <activity
