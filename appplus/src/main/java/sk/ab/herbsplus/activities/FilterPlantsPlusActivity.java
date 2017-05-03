@@ -3,6 +3,7 @@ package sk.ab.herbsplus.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -112,5 +113,10 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
     @Override
     public String getAppVersion() {
         return SpecificConstants.PACKAGE.substring(SpecificConstants.PACKAGE.lastIndexOf(".")+1) + AndroidConstants.FIREBASE_SEPARATOR + BuildConfig.VERSION_CODE;
+    }
+
+    @Override
+    public boolean isAdsAllowed() {
+        return false;
     }
 }

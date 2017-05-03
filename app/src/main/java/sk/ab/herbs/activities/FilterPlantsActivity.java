@@ -45,10 +45,7 @@ public class FilterPlantsActivity extends FilterPlantsBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences preferences = getSharedPreferences();
-        Boolean showAds = preferences.getBoolean(SpecificConstants.SHOW_ADS_KEY, true);
-
-        if (showAds && getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+        if (isAdsAllowed()) {
             FrameLayout frameLayout = (FrameLayout)findViewById(sk.ab.herbsbase.R.id.filter_ads);
             MobileAds.initialize(getApplicationContext(), getResources().getString(R.string.banner_ad_unit_id));
 
@@ -115,4 +112,9 @@ public class FilterPlantsActivity extends FilterPlantsBaseActivity {
         return SpecificConstants.PACKAGE.substring(SpecificConstants.PACKAGE.lastIndexOf(".")+1) + AndroidConstants.FIREBASE_SEPARATOR + BuildConfig.VERSION_CODE;
     }
 
+    @Override
+    public boolean isAdsAllowed() {
+        SharedPreferences preferences = getSharedPreferences();
+        return preferences.getBoolean(SpecificConstants.SHOW_ADS_KEY, true) && getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+    }
 }

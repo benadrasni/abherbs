@@ -182,6 +182,8 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         }
     }
 
+    public abstract boolean isAdsAllowed();
+
     public void switchContent(final BaseFilterFragment fragment) {
         Stack<BaseFilterFragment> backStack = getApp().getBackStack();
         backStack.remove(fragment);

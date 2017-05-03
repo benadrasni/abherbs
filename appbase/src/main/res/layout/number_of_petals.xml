@@ -1,88 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
 
-        android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:paddingLeft="10dp"
-            android:paddingTop="20dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="15dp">
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:paddingBottom="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="20dp">
 
         <sk.ab.herbsbase.commons.BaseImageButton
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/ib4"
-                android:layout_gravity="center"
-                android:text="@string/petal_4"
-                android:gravity="end"
-                android:background="@drawable/nop_4"
-                custom:value="@string/nop_4"
-                android:layout_weight="1"/>
-        <sk.ab.herbsbase.commons.BaseImageButton
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/ib5"
-                android:layout_gravity="center"
-                android:text="@string/petal_5"
-                android:gravity="end"
-                android:background="@drawable/nop_5"
-                custom:value="@string/nop_5"
-                android:layout_weight="1"/>
-    </LinearLayout>
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:paddingLeft="10dp"
-            android:paddingTop="15dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="20dp">
-
-        <sk.ab.herbsbase.commons.BaseImageButton
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/ibMany"
-                android:text="@string/petal_many"
-                android:gravity="end"
-                android:background="@drawable/nop_many"
-                custom:value="@string/nop_many"
-                android:layout_weight="1"/>
-        <sk.ab.herbsbase.commons.BaseImageButton
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/ibBisymmetric"
-                android:text="@string/petal_bisymmetric"
-                android:gravity="end"
-                android:background="@drawable/nop_bisymmetric"
-                custom:value="@string/nop_bisymmetric"
-                android:layout_weight="1"/>
-    </LinearLayout>
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:id="@+id/ib4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:padding="20dp">
+            android:background="@drawable/nop_4"
+            android:gravity="end"
+            android:text="@string/petal_4"
+            custom:value="@string/nop_4"/>
 
-        <TextView android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:layout_gravity="bottom"
-                  android:text="@string/number_of_petals_message"
-                  android:lines="2"
-                  android:textAlignment="center"
-                  android:textStyle="italic"
-                  android:textSize="16sp"
-                  android:gravity="bottom">
+        <sk.ab.herbsbase.commons.BaseImageButton
+            android:id="@+id/ib5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/nop_5"
+            android:gravity="end"
+            android:text="@string/petal_5"
+            custom:value="@string/nop_5"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="15dp">
+
+        <sk.ab.herbsbase.commons.BaseImageButton
+            android:id="@+id/ibMany"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/nop_many"
+            android:gravity="end"
+            android:text="@string/petal_many"
+            custom:value="@string/nop_many"/>
+
+        <sk.ab.herbsbase.commons.BaseImageButton
+            android:id="@+id/ibBisymmetric"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/nop_bisymmetric"
+            android:gravity="end"
+            android:text="@string/petal_bisymmetric"
+            custom:value="@string/nop_bisymmetric"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/filter_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:lines="2"
+            android:text="@string/number_of_petals_message"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="italic">
 
         </TextView>
     </LinearLayout>

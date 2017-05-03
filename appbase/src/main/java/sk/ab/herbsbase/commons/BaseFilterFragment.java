@@ -5,8 +5,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import sk.ab.herbsbase.R;
+import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
 
 public abstract class BaseFilterFragment extends Fragment implements PropertyItem {
     protected String attribute;
@@ -33,7 +35,13 @@ public abstract class BaseFilterFragment extends Fragment implements PropertyIte
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle(title);
 
-        return inflater.inflate(layout, null);
+        View view = inflater.inflate(layout, null);
+        if (((FilterPlantsBaseActivity)getActivity()).isAdsAllowed()) {
+            TextView infoText = (TextView)view.findViewById(R.id.filter_info);
+            infoText.setVisibility(View.INVISIBLE);
+        }
+
+        return view;
     }
 
     public String getAttribute() {
