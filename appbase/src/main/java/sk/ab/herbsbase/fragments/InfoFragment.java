@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -158,6 +159,7 @@ public class InfoFragment extends Fragment {
                                     String sectionText = "<i>" + sections[i][0] + "</i>: " + sections[i][1];
 
                                     TextView sectionView = new TextView(getContext());
+                                    sectionView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
                                     sectionView.setText(Utils.fromHtml(sectionText));
                                     if (lines * lineHeight < height) {
                                         layout.addView(sectionView);
