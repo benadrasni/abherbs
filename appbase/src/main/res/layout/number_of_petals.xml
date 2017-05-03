@@ -11,8 +11,12 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4" android:paddingLeft="10dp" android:paddingTop="20dp" android:paddingRight="10dp"
+            android:layout_weight="2"
+            android:paddingLeft="10dp"
+            android:paddingTop="20dp"
+            android:paddingRight="10dp"
             android:paddingBottom="15dp">
+
         <sk.ab.herbsbase.commons.BaseImageButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -22,7 +26,7 @@
                 android:gravity="end"
                 android:background="@drawable/nop_4"
                 custom:value="@string/nop_4"
-                android:layout_weight="6"/>
+                android:layout_weight="1"/>
         <sk.ab.herbsbase.commons.BaseImageButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -32,14 +36,18 @@
                 android:gravity="end"
                 android:background="@drawable/nop_5"
                 custom:value="@string/nop_5"
-                android:layout_weight="6"/>
+                android:layout_weight="1"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4" android:paddingLeft="10dp" android:paddingTop="15dp" android:paddingRight="10dp"
+            android:layout_weight="2"
+            android:paddingLeft="10dp"
+            android:paddingTop="15dp"
+            android:paddingRight="10dp"
             android:paddingBottom="20dp">
+
         <sk.ab.herbsbase.commons.BaseImageButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -48,7 +56,7 @@
                 android:gravity="end"
                 android:background="@drawable/nop_many"
                 custom:value="@string/nop_many"
-                android:layout_weight="6"/>
+                android:layout_weight="1"/>
         <sk.ab.herbsbase.commons.BaseImageButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -57,24 +65,24 @@
                 android:gravity="end"
                 android:background="@drawable/nop_bisymmetric"
                 custom:value="@string/nop_bisymmetric"
-                android:layout_weight="6"/>
+                android:layout_weight="1"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
-            android:paddingLeft="10dp" android:paddingRight="10dp">
+            android:layout_weight="1"
+            android:padding="20dp">
 
         <TextView android:layout_width="match_parent"
                   android:layout_height="match_parent"
+                  android:layout_gravity="bottom"
                   android:text="@string/number_of_petals_message"
                   android:lines="2"
+                  android:textAlignment="center"
                   android:textStyle="italic"
-                  android:textSize="12sp"
-                  android:paddingStart="70dp"
-                  android:paddingEnd="70dp"
-                  android:gravity="center">
+                  android:textSize="16sp"
+                  android:gravity="bottom">
 
         </TextView>
     </LinearLayout>

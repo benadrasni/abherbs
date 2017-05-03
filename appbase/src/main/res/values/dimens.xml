@@ -56,4 +56,6 @@
     <dimen name="card_taxonomy_separator_height">15dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_ads_margin">50dp</dimen>
+    <dimen name="ads_margin">5dp</dimen>
 </resources>

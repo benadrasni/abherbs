@@ -119,7 +119,7 @@
             android:gravity="center"
             android:lines="2"
             android:text="@string/color_of_flower_message"
-            android:textSize="12dp"
+            android:textSize="16dp"
             android:textStyle="italic">
 
         </TextView>

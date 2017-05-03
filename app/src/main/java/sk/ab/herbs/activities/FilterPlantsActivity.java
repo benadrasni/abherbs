@@ -3,9 +3,19 @@ package sk.ab.herbs.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import sk.ab.common.util.Utils;
 import sk.ab.herbs.BuildConfig;
+import sk.ab.herbs.R;
 import sk.ab.herbs.SpecificConstants;
 import sk.ab.herbs.fragments.PropertyListFragment;
 import sk.ab.herbsbase.AndroidConstants;
@@ -27,6 +38,31 @@ import sk.ab.herbsbase.commons.PropertyListBaseFragment;
  */
 
 public class FilterPlantsActivity extends FilterPlantsBaseActivity {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        SharedPreferences preferences = getSharedPreferences();
+        Boolean showAds = preferences.getBoolean(SpecificConstants.SHOW_ADS_KEY, true);
+
+        if (showAds && getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            FrameLayout frameLayout = (FrameLayout)findViewById(sk.ab.herbsbase.R.id.filter_ads);
+            MobileAds.initialize(getApplicationContext(), getResources().getString(R.string.banner_ad_unit_id));
+
+            AdView mAdView = new AdView(getApplicationContext());
+            mAdView.setAdSize(AdSize.BANNER);
+            mAdView.setAdUnitId(getResources().getString(R.string.banner_ad_unit_id));
+
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            mAdView.setLayoutParams(params);
+
+            frameLayout.addView(mAdView);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+        }
+    }
 
     @Override
     protected void getCount() {

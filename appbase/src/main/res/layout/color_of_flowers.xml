@@ -110,9 +110,9 @@
             android:gravity="center"
             android:lines="2"
             android:text="@string/color_of_flower_message"
-            android:textSize="12sp"
-            android:paddingStart="70dp"
-            android:paddingEnd="70dp"
+            android:textSize="16sp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:textStyle="italic">
 
         </TextView>

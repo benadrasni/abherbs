@@ -126,7 +126,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/habitat_message"
-        android:textSize="12sp"
+        android:textSize="16sp"
         android:textStyle="italic">
 
     </TextView>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string translatable="false" name="banner_ad_unit_id">ca-app-pub-4417568961191754/4427869221</string>
     <string translatable="false" name="app_name"></string>
 
     <string translatable="false" name="cof_white">white</string>
