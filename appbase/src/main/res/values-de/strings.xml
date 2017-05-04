@@ -3,7 +3,7 @@
     <string name="about">Über</string>
     <string name="help">Hilfe</string>
     <string name="settings">Einstellungen</string>
-    <string name="feedback">Feedback</string>
+    <string name="feedback">Feedback / Beitrag</string>
     <string name="pref_language">Bevorzugte Sprache</string>
     <string name="cache_size">Cache-Größe in MB</string>
     <string name="cache_size_summary">für Fotos und Illustrationen</string>
@@ -99,12 +99,13 @@
     <string name="improve_translation">Verbessere Übersetzung</string>
     <string name="show_translation">Übersetzten Text anzeigen</string>
     <string name="rate_question">Ist diese Anwendung hilfreich?</string>
-    <string name="feedback_intro">You have been contributing to this application since you installed it on your device. If you are looking for more here are some options:</string>
-    <string name="feedback_review">You can write a positive review in Google Play.</string>
+
+    <string name="feedback_intro">Sie haben zu dieser Anwendung beigetragen, seit Sie es auf Ihrem Gerät installiert haben, danke. Wenn Sie nach etwas mehr suchen, hier sind einige Optionen:</string>
+    <string name="feedback_review">Sie können eine positive Bewertung in Google Play schreiben.</string>
     <string name="feedback_google_play">Google Play</string>
-    <string name="feedback_title">Contribution</string>
-    <string name="feedback_translate">You can report any typo or mistake you found or submit new translation in your language.</string>
-    <string name="feedback_submit_translate">Send email to developer</string>
-    <string name="feedback_cash">You can support new development and database extension with cash.</string>
-    <string name="feedback_submit_cash">Pay</string>
+    <string name="feedback_title">Wie kann ich dazu beitragen?</string>
+    <string name="feedback_translate">Sie können irgendwelche Tippfehler oder Fehler melden, die Sie gefunden haben oder eine neue Übersetzung in Ihrer Sprache einreichen.</string>
+    <string name="feedback_submit_translate">E-Mail an Entwickler senden</string>
+    <string name="feedback_cash">Sie können neue Entwicklung und Datenbankerweiterung mit Bargeld unterstützen.</string>
+    <string name="feedback_submit_cash">Spenden</string>
 </resources>

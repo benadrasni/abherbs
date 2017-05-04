@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Co to tu kvete?</string>
-    <string name="feedback_ads_allowed">AdMob by Google is displaying advertisement in the application. Thanks!</string>
-    <string name="feedback_ads_not_allowed">You can enable advertisement by Google\'s AdMob in the application.</string>
-    <string name="feedback_enable_ads">Enable advertisement by AdMob</string>
-    <string name="feedback_disable_ads">Disable advertisement by AdMob</string>
-    <string name="feedback_buy_extended">You can buy extended (+) version with additional functionality like offline mode, search in names and search in taxonomy.</string>
-    <string name="feedback_submit_buy">Go to extended (+) version</string>
+    <string name="feedback_ads_allowed">AdMob od Google zobrazuje reklamy v aplikaci. Děkuji!</string>
+    <string name="feedback_ads_not_allowed">Můžete povolit zobrazování reklam v aplikaci.</string>
+    <string name="feedback_enable_ads">Povolit reklamy</string>
+    <string name="feedback_disable_ads">Zakázat reklamy</string>
+    <string name="feedback_buy_extended">Můžete si koupit rozšířenou (+) verzi s funkcemi navíc jako například ofline režim, vyhledávání v názvech a v taxonomii.</string>
+    <string name="feedback_submit_buy">Ukaž rozšířenou (+) verzi</string>
 </resources>

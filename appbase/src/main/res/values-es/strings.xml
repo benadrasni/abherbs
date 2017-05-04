@@ -3,7 +3,7 @@
     <string name="about">A cerca de</string>
     <string name="help">Ayuda</string>
     <string name="settings">Configuración</string>
-    <string name="feedback">Sugerencias</string>
+    <string name="feedback">Sugerencias / Contribución</string>
     <string name="pref_language">Idioma preferido</string>
     <string name="cache_size">Tamaño de caché en MB</string>
     <string name="cache_size_summary">para fotos e ilustraciones</string>
@@ -100,12 +100,13 @@
     <string name="improve_translation">Mejorar la traducción</string>
     <string name="show_translation">Mostrar texto traducido</string>
     <string name="rate_question">¿Es útil esta aplicación?</string>
-    <string name="feedback_intro">You have been contributing to this application since you installed it on your device. If you are looking for more here are some options:</string>
-    <string name="feedback_review">You can write a positive review in Google Play.</string>
+
+    <string name="feedback_intro">Ha estado contribuyendo a esta aplicación desde que la ha instalado en su dispositivo, gracias. Si está buscando algo más, aquí hay algunas opciones:</string>
+    <string name="feedback_review">Puedes escribir una crítica positiva en Google Play.</string>
     <string name="feedback_google_play">Google Play</string>
-    <string name="feedback_title">Contribution</string>
-    <string name="feedback_translate">You can report any typo or mistake you found or submit new translation in your language.</string>
-    <string name="feedback_submit_translate">Send email to developer</string>
-    <string name="feedback_cash">You can support new development and database extension with cash.</string>
-    <string name="feedback_submit_cash">Pay</string>
+    <string name="feedback_title">Cómo contribuir</string>
+    <string name="feedback_translate">Puede reportar cualquier error tipográfico o error que encontró o enviar una nueva traducción en su idioma.</string>
+    <string name="feedback_submit_translate">Enviar e-mail al desarrollador</string>
+    <string name="feedback_cash">Puede apoyar el desarrollo de nuevos y la extensión de la base de datos con dinero en efectivo.</string>
+    <string name="feedback_submit_cash">Donar</string>
 </resources>

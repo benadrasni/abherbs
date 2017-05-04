@@ -100,12 +100,12 @@
     <string name="improve_translation">تحسين الترجمة</string>
     <string name="show_translation">عرض النص المترجم</string>
     <string name="rate_question">هل هذا التطبيق مفيد؟</string>
-    <string name="feedback_intro">You have been contributing to this application since you installed it on your device. If you are looking for more here are some options:</string>
+    <string name="feedback_intro">You have been contributing to this application since you have installed it on your device, thanks. If you are looking for something more, here are some options:</string>
     <string name="feedback_review">You can write a positive review in Google Play.</string>
     <string name="feedback_google_play">Google Play</string>
-    <string name="feedback_title">Contribution</string>
+    <string name="feedback_title">How to contribute</string>
     <string name="feedback_translate">You can report any typo or mistake you found or submit new translation in your language.</string>
     <string name="feedback_submit_translate">Send email to developer</string>
     <string name="feedback_cash">You can support new development and database extension with cash.</string>
-    <string name="feedback_submit_cash">Pay</string>
+    <string name="feedback_submit_cash">Donate</string>
 </resources>

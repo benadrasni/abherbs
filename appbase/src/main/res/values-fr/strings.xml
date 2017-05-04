@@ -3,7 +3,7 @@
     <string name="about">À propos</string>
     <string name="help">Aide</string>
     <string name="settings">Paramètres</string>
-    <string name="feedback">Retour d\'information</string>
+    <string name="feedback">Retour d\'information / Contribution</string>
     <string name="pref_language">Préférence de langue</string>
     <string name="cache_size">Taille du cache en MB</string>
     <string name="cache_size_summary">pour photos et illustrations</string>
@@ -42,7 +42,7 @@
     <string name="image_desc">Illustration des plantes</string>
     <string name="translate_desc">Traduire</string>
     <string name="email_desc">Email</string>
-    <string name="email_subject_prefix">Proposition de meilleure traduction / description </string>
+    <string name="email_subject_prefix">"Suggestion de meilleure traduction / description "</string>
 
     <string name="plant_title">titre</string>
     <string name="plant_height_from">Hauteur entre</string>
@@ -100,12 +100,13 @@
     <string name="improve_translation">Améliorer la traduction</string>
     <string name="show_translation">Afficher le texte traduit</string>
     <string name="rate_question">Cette application est-elle utile?</string>
-    <string name="feedback_intro">You have been contributing to this application since you installed it on your device. If you are looking for more here are some options:</string>
-    <string name="feedback_review">You can write a positive review in Google Play.</string>
+
+    <string name="feedback_intro">Vous avez contribué à cette application car vous l\'avez installé sur votre appareil, merci. Si vous cherchez quelque chose de plus, voici quelques options:</string>
+    <string name="feedback_review">Vous pouvez écrire une critique positive dans Google Play.</string>
     <string name="feedback_google_play">Google Play</string>
     <string name="feedback_title">Contribution</string>
-    <string name="feedback_translate">You can report any typo or mistake you found or submit new translation in your language.</string>
-    <string name="feedback_submit_translate">Send email to developer</string>
-    <string name="feedback_cash">You can support new development and database extension with cash.</string>
-    <string name="feedback_submit_cash">Pay</string>
+    <string name="feedback_translate">Vous pouvez signaler toute erreur de frappe ou erreur que vous avez trouvée ou vous envoyer une nouvelle traduction dans votre langue.</string>
+    <string name="feedback_submit_translate">Envoyer un courrier électronique au développeur</string>
+    <string name="feedback_cash">Vous pouvez supporter le développement et l\'extension de la base de données en espèces.</string>
+    <string name="feedback_submit_cash">Faire un don</string>
 </resources>

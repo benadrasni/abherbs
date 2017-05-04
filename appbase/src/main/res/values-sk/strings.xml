@@ -3,7 +3,7 @@
     <string name="about">O aplikácii</string>
     <string name="help">Pomoc</string>
     <string name="settings">Nastavenia</string>
-    <string name="feedback">Pripomienky</string>
+    <string name="feedback">Pripomienky / Príspevky</string>
     <string name="pref_language">Preferovaný jazyk</string>
     <string name="cache_size">Veľkosť cache v MB</string>
     <string name="cache_size_summary">pre fotky a ilustrácie</string>
@@ -99,12 +99,13 @@
     <string name="improve_translation">Vylepši preklad</string>
     <string name="show_translation">Ukáž preložený text</string>
     <string name="rate_question">Je táto aplikácia užitočná?</string>
-    <string name="feedback_intro">You have been contributing to this application since you installed it on your device. If you are looking for more here are some options:</string>
-    <string name="feedback_review">You can write a positive review in Google Play.</string>
+
+    <string name="feedback_intro">Túto aplikáciu podporujete odkedy ste si ju nainštalovali na svoje mobilné zariadenie, ďakujem. Ak hľadáte iné formy podpory, tu sú niektoré možnosti:</string>
+    <string name="feedback_review">Môžete napísať pozitívnu recenziu na Google Play.</string>
     <string name="feedback_google_play">Google Play</string>
-    <string name="feedback_title">Contribution</string>
-    <string name="feedback_translate">You can report any typo or mistake you found or submit new translation in your language.</string>
-    <string name="feedback_submit_translate">Send email to developer</string>
-    <string name="feedback_cash">You can support new development and database extension with cash.</string>
-    <string name="feedback_submit_cash">Pay</string>
+    <string name="feedback_title">Ako prispieť</string>
+    <string name="feedback_translate">Môžete upozorniť na gramatické a faktické chyby v texte.</string>
+    <string name="feedback_submit_translate">Poslať autorovi email</string>
+    <string name="feedback_cash">Môžete podporiť nový vývoj a rozširovanie databázy nejakou hotovosťou.</string>
+    <string name="feedback_submit_cash">Prispieť</string>
 </resources>
