@@ -31,11 +31,18 @@ public class FeedbackPlusActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(R.string.feedback_title);
         }
 
+        initializeReviewButton();
+
+        initializeTranslateButton();
+    }
+
+    private void initializeReviewButton() {
+        final SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+
         Button submitReview = (Button)findViewById(R.id.contribution_submit_review);
         submitReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_DONE);
                 editor.apply();
@@ -54,7 +61,9 @@ public class FeedbackPlusActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    private void initializeTranslateButton() {
         Button submitTranslate = (Button)findViewById(R.id.contribution_submit_email);
         submitTranslate.setOnClickListener(new View.OnClickListener() {
             @Override
