@@ -192,6 +192,9 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         if (currentFragment == null || !currentFragment.equals(fragment)) {
+            if (currentFragment != null) {
+                fragmentTransaction.remove(currentFragment);
+            }
             fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttribute());
         } else {
             fragmentTransaction.detach(fragment);
