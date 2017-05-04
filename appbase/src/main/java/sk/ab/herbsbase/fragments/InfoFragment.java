@@ -167,7 +167,7 @@ public class InfoFragment extends Fragment {
                                         layoutBelow.addView(sectionView);
                                     }
 
-                                    lines += (sectionText.length() * (float)1.1) / (width / (sectionView.getTextSize() / dm.scaledDensity)) + 1;
+                                    lines += (sectionText.length() * (float)1.2) / (width / (sectionView.getTextSize() / dm.scaledDensity)) + 1;
                                 }
                             }
                         }
