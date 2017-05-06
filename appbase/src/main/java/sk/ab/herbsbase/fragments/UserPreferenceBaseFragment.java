@@ -7,6 +7,7 @@ import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,18 +75,22 @@ public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
             }
         });
 
-        Integer cacheSize = preferences.getInt(AndroidConstants.CACHE_SIZE_KEY, AndroidConstants.DEFAULT_CACHE_SIZE);
+        final Integer cacheSize = preferences.getInt(AndroidConstants.CACHE_SIZE_KEY, AndroidConstants.DEFAULT_CACHE_SIZE);
         prefCacheSize = (EditTextPreference)findPreference("cacheSize");
         prefCacheSize.setText("" + cacheSize);
         prefCacheSize.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                int cacheSize = Integer.parseInt((String)newValue);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt(AndroidConstants.CACHE_SIZE_KEY, cacheSize);
-                editor.apply();
+                int newCacheSize = Integer.parseInt((String)newValue);
+                if (newCacheSize > 0) {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putInt(AndroidConstants.CACHE_SIZE_KEY, newCacheSize);
+                    editor.apply();
 
-                ((BaseApp)getActivity().getApplication()).initImageLoader(getActivity().getApplicationContext(), cacheSize);
+                    ((BaseApp) getActivity().getApplication()).initImageLoader(getActivity().getApplicationContext(), newCacheSize);
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Cache size must be greater than 0", Toast.LENGTH_LONG).show();
+                }
 
                 return true;
             }
