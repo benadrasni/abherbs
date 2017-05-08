@@ -76,7 +76,9 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Integer count = dataSnapshot.getValue(Integer.class);
-                setCount(count);
+                if (count != null) {
+                    setCount(count);
+                }
             }
 
             @Override
