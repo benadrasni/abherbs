@@ -42,7 +42,7 @@
     <string name="image_desc">Werk Illustration</string>
     <string name="translate_desc">Übersetzen</string>
     <string name="email_desc">Email</string>
-    <string name="email_subject_prefix">Einen besseren Übersetzung / Beschreibung für </string>
+    <string name="email_subject_prefix">Eine bessere Übersetzung / Beschreibung für </string>
 
     <string name="plant_title">Titel</string>
     <string name="plant_height_from">Höhe</string>
