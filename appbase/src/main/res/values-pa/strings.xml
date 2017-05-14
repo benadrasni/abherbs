@@ -3,7 +3,7 @@
     <string name="about">ਇਸ ਬਾਰੇ</string>
     <string name="help">ਮਦਦ ਕਰੋ</string>
     <string name="settings">ਸੈਟਿੰਗਜ਼</string>
-    <string name="feedback">ਸੁਝਾਅ / ਯੋਗਦਾਨ</string>
+    <string name="feedback">ਸੁਝਾਅ</string>
     <string name="pref_language">ਤਰਜੀਹੀ ਭਾਸ਼ਾ</string>
     <string name="cache_size">MB ਵਿੱਚ ਕੈਂਚੇ ਦਾ ਆਕਾਰ</string>
     <string name="cache_size_summary">ਤਸਵੀਰਾਂ ਅਤੇ ਵਰਣਨ ਲਈ</string>
@@ -17,13 +17,13 @@
     <string name="color_of_flower_message">ਫੁੱਲ ਦਾ ਰੰਗ ਕਿਹੜਾ ਹੈ? ਸਭ ਤੋਂ ਨਜ਼ਦੀਕੀ ਚੁਣੋ</string>
 
     <string name="habitats">ਆਵਾਸ</string>
-    <string name="habitat_meadow">ਘਾਹ ਦੇ ਮੈਦਾਨੇ ਜਾਂ ਘਾਹ ਦੇ ਮੈਦਾਨ</string>
-    <string name="habitat_garden">ਬਾਗ ਜਾਂ ਖੇਤ</string>
+    <string name="habitat_meadow">ਅਨੁਵਾਦ ਸੁਧਾਰੋ</string>
+    <string name="habitat_garden">ਪਲਾਂਟ ਦਾ ਦ੍ਰਿਸ਼ਟੀਕੋਣ</string>
     <string name="habitat_wetland">ਪਹਾੜਾਂ ਜਾਂ ਝੂਲਿਆਂ</string>
-    <string name="habitat_forest">ਜੰਗਲਾਂ ਜਾਂ ਜੰਗਲਾਂ</string>
-    <string name="habitat_rock">ਚੱਟਾਨਾਂ ਜਾਂ ਪਹਾੜਾਂ</string>
+    <string name="habitat_forest">ਮਦਦ ਕਰੋ</string>
+    <string name="habitat_rock">ਇਕ ਚੁਣੋ</string>
     <string name="habitat_tree">ਰੁੱਖ ਜਾਂ ਬੂਟੇ</string>
-    <string name="habitat_message">ਤੁਹਾਡੇ ਆਲੇ ਦੁਆਲੇ ਕੀ ਹੈ? ਪਲਾਂਟ ਦੇ ਨਿਵਾਸ ਸਥਾਨ ਦੀ ਪਛਾਣ ਕਰੋ</string>
+    <string name="habitat_message">ਦੰਤਕਥਾ</string>
 
     <string name="number_of_petals">ਫੁੱਲਾਂ ਦੀ ਗਿਣਤੀ</string>
     <string name="petal_4">4 ਜਾਂ ਘੱਟ</string>
@@ -95,17 +95,17 @@
     <string name="rate_later">ਬਾਅਦ ਵਿਚ</string>
     <string name="rate">ਸਮੀਖਿਆ</string>
     <string name="your_text">ਤੁਹਾਡਾ ਪਾਠ</string>
-    <string name="google_translate">Google ਅਨੁਵਾਦ ਨਾਲ ਅਨੁਵਾਦ ਕੀਤਾ</string>
+    <string name="google_translate">ਆਵਾਸ</string>
     <string name="show_original">ਅੰਗ੍ਰੇਜ਼ੀ ਪਾਠ ਦਿਖਾਓ</string>
     <string name="improve_translation">ਅਨੁਵਾਦ ਸੁਧਾਰੋ</string>
     <string name="show_translation">ਅਨੁਵਾਦ ਕੀਤਾ ਟੈਕਸਟ ਦਿਖਾਉ</string>
     <string name="rate_question">ਕੀ ਇਹ ਐਪ ਉਪਯੋਗੀ ਹੈ?</string>
-    <string name="feedback_intro">You have been contributing to this application since you have installed it on your device, thanks. If you are looking for something more, here are some options:</string>
-    <string name="feedback_review">You can write a positive review in Google Play.</string>
-    <string name="feedback_google_play">Google Play</string>
-    <string name="feedback_title">How to contribute</string>
-    <string name="feedback_translate">You can report any typo or mistake you found or submit new translation in your language.</string>
-    <string name="feedback_submit_translate">Send email to developer</string>
-    <string name="feedback_cash">You can support new development and database extension with cash.</string>
-    <string name="feedback_submit_cash">Donate</string>
+    <string name="feedback_intro">ਬਾਗ ਜਾਂ ਖੇਤ</string>
+    <string name="feedback_review">ਘਾਹ ਦੇ ਮੈਦਾਨੇ ਜਾਂ ਘਾਹ ਦੇ ਮੈਦਾਨ</string>
+    <string name="feedback_google_play">ਜੰਗਲਾਂ ਜਾਂ ਜੰਗਲਾਂ</string>
+    <string name="feedback_title">ਰੁੱਖ ਜਾਂ ਬੂਟੇ</string>
+    <string name="feedback_translate">ਪਹਾੜਾਂ ਜਾਂ ਝੂਲਿਆਂ</string>
+    <string name="feedback_submit_translate">ਚੱਟਾਨਾਂ ਜਾਂ ਪਹਾੜਾਂ</string>
+    <string name="feedback_cash">Google ਅਨੁਵਾਦ ਨਾਲ ਅਨੁਵਾਦ ਕੀਤਾ</string>
+    <string name="feedback_submit_cash">ਤੁਹਾਡੇ ਆਲੇ ਦੁਆਲੇ ਕੀ ਹੈ? ਪਲਾਂਟ ਦੇ ਨਿਵਾਸ ਸਥਾਨ ਦੀ ਪਛਾਣ ਕਰੋ</string>
 </resources>
