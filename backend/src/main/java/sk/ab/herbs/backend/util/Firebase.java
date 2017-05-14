@@ -60,9 +60,9 @@ public class Firebase {
         final HerbCloudClient herbCloudClient = new HerbCloudClient();
         final FirebaseClient firebaseClient = new FirebaseClient();
 
-//        synchronizeCountsAndLists(herbCloudClient, firebaseClient);
+        synchronizeCountsAndLists(herbCloudClient, firebaseClient);
 
-        synchronizeDetailsAndNames(herbCloudClient, firebaseClient);
+//        synchronizeDetailsAndNames(herbCloudClient, firebaseClient);
 //
 //        downloadFamilyIcons();
 //
@@ -348,21 +348,19 @@ public class Firebase {
         callFirebaseCount.execute().body();
 
         // list
-        if (filter.size() == 3 || count.getCount() <= Constants.LIST_THRESHOLD) {
-            Call<PlantList> callCloudList = herbCloudClient.getApiService().getList(new ListRequest(Constants.PLANT, filter));
-            PlantList list = callCloudList.execute().body();
+        Call<PlantList> callCloudList = herbCloudClient.getApiService().getList(new ListRequest(Constants.PLANT, filter));
+        PlantList list = callCloudList.execute().body();
 
-            if (list.getItems() != null) {
-                Map<String, Boolean> plantList = new HashMap<>();
-                for (PlantHeader plantHeader : list.getItems()) {
-                    plantList.put(plantHeader.getId(), true);
-                }
-
-                Map<String, Map<String, Boolean>> filterList = new HashMap<>();
-                filterList.put(filterKey, plantList);
-                Call<Map> callFirebaseList = firebaseClient.getApiService().saveList(filterList);
-                callFirebaseList.execute().body();
+        if (list.getItems() != null) {
+            Map<String, Boolean> plantList = new HashMap<>();
+            for (PlantHeader plantHeader : list.getItems()) {
+                plantList.put(plantHeader.getId(), true);
             }
+
+            Map<String, Map<String, Boolean>> filterList = new HashMap<>();
+            filterList.put(filterKey, plantList);
+            Call<Map> callFirebaseList = firebaseClient.getApiService().saveList(filterList);
+            callFirebaseList.execute().body();
         }
     }
 
