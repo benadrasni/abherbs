@@ -131,7 +131,10 @@ public class InfoFragment extends Fragment {
 
         final DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
         final int orientation = getActivity().getResources().getConfiguration().orientation;
+        final LinearLayout layout = (LinearLayout)getView().findViewById(R.id.plant_texts);
+        layout.removeAllViews();
         final LinearLayout layoutBelow = (LinearLayout)getView().findViewById(R.id.plant_texts_below);
+        layoutBelow.removeAllViews();
 
         if (plant.getIllustrationUrl() != null) {
             Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + plant.getIllustrationUrl(),
@@ -149,8 +152,6 @@ public class InfoFragment extends Fragment {
 
                             drawing.getLayoutParams().width = width;
                             drawing.getLayoutParams().height = height;
-
-                            LinearLayout layout = (LinearLayout)getView().findViewById(R.id.plant_texts);
 
                             int lineHeight = description.getLineHeight();
                             int lines = 0;
