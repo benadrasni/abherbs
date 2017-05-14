@@ -76,7 +76,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         countButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count <= Constants.LIST_THRESHOLD  && count > 0) {
+                if (count > 0) {
                     startLoading();
                     getList();
                 }
