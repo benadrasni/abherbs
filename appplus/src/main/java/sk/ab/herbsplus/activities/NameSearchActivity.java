@@ -52,10 +52,12 @@ public class NameSearchActivity extends SearchBaseActivity {
     private RecyclerView namesInLatin;
 
     private class NameAdapter extends RecyclerView.Adapter<NameViewHolder> {
+        private final String language;
         private final List<PlantName> names;
         private final ArrayList<PlantName> allNames;
 
-        NameAdapter(List<PlantName> names) {
+        NameAdapter(String language, List<PlantName> names) {
+            this.language = language;
             this.names = names;
             this.allNames = new ArrayList<>();
             this.allNames.addAll(names);
@@ -82,7 +84,7 @@ public class NameSearchActivity extends SearchBaseActivity {
                         callDetailActivity(name.getPlantName());
                     } else {
                         callListActivity(SpecificConstants.FIREBASE_SEARCH + AndroidConstants.FIREBASE_SEPARATOR
-                                + Locale.getDefault().getLanguage() + AndroidConstants.FIREBASE_SEPARATOR + name.getName(), name.getCount());
+                                + language + AndroidConstants.FIREBASE_SEPARATOR + name.getName(), name.getCount());
                     }
                 }
             });
@@ -227,7 +229,7 @@ public class NameSearchActivity extends SearchBaseActivity {
                     names.add(name);
                 }
 
-                NameAdapter adapter = new NameAdapter(names);
+                NameAdapter adapter = new NameAdapter(Locale.getDefault().getLanguage(), names);
                 namesInLanguage.setAdapter(adapter);
 
                 counter.increment();
@@ -257,7 +259,7 @@ public class NameSearchActivity extends SearchBaseActivity {
                     latinNames.add(name);
                 }
 
-                NameAdapter adapter = new NameAdapter(latinNames);
+                NameAdapter adapter = new NameAdapter(AndroidConstants.LANGUAGE_LA, latinNames);
                 namesInLatin.setAdapter(adapter);
 
                 counter.increment();

@@ -143,32 +143,34 @@ public class InfoFragment extends Fragment {
                         @Override
                         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 
-                            int width = (dm.widthPixels - Utils.convertDpToPx(25, dm))/2;
-                            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                                width = width/2;
-                            }
-                            double ratio = (double)loadedImage.getWidth()/(double)loadedImage.getHeight();
-                            int height = (int)(width/ratio);
+                            if (drawing.getLayoutParams() != null) {
+                                int width = (dm.widthPixels - Utils.convertDpToPx(25, dm)) / 2;
+                                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                                    width = width / 2;
+                                }
+                                double ratio = (double) loadedImage.getWidth() / (double) loadedImage.getHeight();
+                                int height = (int) (width / ratio);
 
-                            drawing.getLayoutParams().width = width;
-                            drawing.getLayoutParams().height = height;
+                                drawing.getLayoutParams().width = width;
+                                drawing.getLayoutParams().height = height;
 
-                            int lineHeight = description.getLineHeight();
-                            int lines = 0;
-                            for (int i = 1; i < sections.length; i++) {
-                                if (!sections[i][1].isEmpty()) {
-                                    String sectionText = "<i>" + sections[i][0] + "</i>: " + sections[i][1];
+                                int lineHeight = description.getLineHeight();
+                                int lines = 0;
+                                for (int i = 1; i < sections.length; i++) {
+                                    if (!sections[i][1].isEmpty()) {
+                                        String sectionText = "<i>" + sections[i][0] + "</i>: " + sections[i][1];
 
-                                    TextView sectionView = new TextView(getContext());
-                                    sectionView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-                                    sectionView.setText(Utils.fromHtml(sectionText));
-                                    if (lines * lineHeight < height) {
-                                        layout.addView(sectionView);
-                                    } else {
-                                        layoutBelow.addView(sectionView);
+                                        TextView sectionView = new TextView(getContext());
+                                        sectionView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                                        sectionView.setText(Utils.fromHtml(sectionText));
+                                        if (lines * lineHeight < height) {
+                                            layout.addView(sectionView);
+                                        } else {
+                                            layoutBelow.addView(sectionView);
+                                        }
+
+                                        lines += (sectionText.length() * (float) 1.2) / (width / (sectionView.getTextSize() / dm.scaledDensity)) + 1;
                                     }
-
-                                    lines += (sectionText.length() * (float)1.2) / (width / (sectionView.getTextSize() / dm.scaledDensity)) + 1;
                                 }
                             }
                         }
