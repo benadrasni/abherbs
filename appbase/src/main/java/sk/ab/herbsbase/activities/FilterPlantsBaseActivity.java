@@ -29,7 +29,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Stack;
 
-import sk.ab.common.Constants;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
@@ -175,15 +174,19 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
                 removeFromFilter(currentFragment.getAttribute());
             } else {
                 Stack<BaseFilterFragment> backStack = getApp().getBackStack();
-                backStack.pop();
                 if (backStack.size() > 0) {
-                    BaseFilterFragment fragment = backStack.get(backStack.size()-1);
-                    FragmentManager fm = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                    fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttribute());
-                    fragmentTransaction.commitAllowingStateLoss();
-                    setCurrentFragment(fragment);
-                    removeFromFilter(fragment.getAttribute());
+                    backStack.pop();
+                    if (backStack.size() > 0) {
+                        BaseFilterFragment fragment = backStack.get(backStack.size() - 1);
+                        FragmentManager fm = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                        fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttribute());
+                        fragmentTransaction.commitAllowingStateLoss();
+                        setCurrentFragment(fragment);
+                        removeFromFilter(fragment.getAttribute());
+                    } else {
+                        super.onBackPressed();
+                    }
                 } else {
                     super.onBackPressed();
                 }
