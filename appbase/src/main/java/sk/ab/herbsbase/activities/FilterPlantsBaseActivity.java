@@ -42,6 +42,7 @@ import sk.ab.herbsbase.commons.RateDialogFragment;
  *
  */
 public abstract class FilterPlantsBaseActivity extends BaseActivity {
+    protected static boolean active = false;
 
     private Integer filterPosition;
     private BaseFilterFragment currentFragment;
@@ -132,6 +133,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
+        active = true;
 
         if (filterPosition == null) {
             filterPosition = 0;
@@ -139,6 +141,12 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
 
         switchContent(getFilterAttributes().get(filterPosition));
         removeFromFilter(currentFragment.getAttribute());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
     }
 
     @Override
@@ -172,7 +180,8 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
                     BaseFilterFragment fragment = backStack.get(backStack.size()-1);
                     FragmentManager fm = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                    fragmentTransaction.remove(currentFragment).replace(R.id.filter_content, fragment, "" + fragment.getAttribute()).commit();
+                    fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttribute());
+                    fragmentTransaction.commitAllowingStateLoss();
                     setCurrentFragment(fragment);
                     removeFromFilter(fragment.getAttribute());
                 } else {
@@ -189,18 +198,12 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         backStack.remove(fragment);
         backStack.add(fragment);
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
         if (currentFragment == null || !currentFragment.equals(fragment)) {
-            if (currentFragment != null) {
-                fragmentTransaction.remove(currentFragment);
-            }
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
             fragmentTransaction.replace(R.id.filter_content, fragment, "" + fragment.getAttribute());
-        } else {
-            fragmentTransaction.detach(fragment);
-            fragmentTransaction.attach(fragment);
+            fragmentTransaction.commitAllowingStateLoss();
         }
-        fragmentTransaction.commitAllowingStateLoss();
 
         setCurrentFragment(fragment);
     }
