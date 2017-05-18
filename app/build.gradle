@@ -19,8 +19,8 @@ android {
         applicationId 'sk.ab.herbs'
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 89
-        versionName "3.1.4"
+        versionCode 91
+        versionName "3.1.5"
         vectorDrawables.useSupportLibrary = true
     }
 

@@ -223,8 +223,12 @@ public class StorageLoading {
     }
 
     private void finish() {
-        progressDialog.dismiss();
-        activity.finish();
+        if (!activity.isDestroyed()) {
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+            activity.finish();
+        }
     }
 
     private void saveLastUpdateTime() {
