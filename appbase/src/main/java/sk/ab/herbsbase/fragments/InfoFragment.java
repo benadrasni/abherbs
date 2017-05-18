@@ -96,7 +96,7 @@ public class InfoFragment extends Fragment {
         showGTSection();
     }
 
-    public void setInfo(boolean withTranslation) {
+    private void setInfo(boolean withTranslation) {
         final FirebasePlant plant = getPlant();
 
         final StringBuilder text = new StringBuilder();
@@ -160,16 +160,18 @@ public class InfoFragment extends Fragment {
                                     if (!sections[i][1].isEmpty()) {
                                         String sectionText = "<i>" + sections[i][0] + "</i>: " + sections[i][1];
 
-                                        TextView sectionView = new TextView(getContext());
-                                        sectionView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-                                        sectionView.setText(Utils.fromHtml(sectionText));
-                                        if (lines * lineHeight < height) {
-                                            layout.addView(sectionView);
-                                        } else {
-                                            layoutBelow.addView(sectionView);
-                                        }
+                                        if (getContext() != null) {
+                                            TextView sectionView = new TextView(getContext());
+                                            sectionView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                                            sectionView.setText(Utils.fromHtml(sectionText));
+                                            if (lines * lineHeight < height) {
+                                                layout.addView(sectionView);
+                                            } else {
+                                                layoutBelow.addView(sectionView);
+                                            }
 
-                                        lines += (sectionText.length() * (float) 1.2) / (width / (sectionView.getTextSize() / dm.scaledDensity)) + 1;
+                                            lines += (sectionText.length() * (float) 1.2) / (width / (sectionView.getTextSize() / dm.scaledDensity)) + 1;
+                                        }
                                     }
                                 }
                             }

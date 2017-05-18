@@ -65,9 +65,9 @@ public class AndroidConstants {
     public final static String LANGUAGE_CS = "cs";
     public final static String LANGUAGE_LA = "la";
     public final static String[] LANGUAGES = {"العربية", "Čeština", "Dansk", "Deutsch", "English", "Español", "Eesti", "فارسی", "Français", "हिन्दी", "עברית",
-            "Hrvatski", "Bahasa Indonesia", "Italiano", "Latviešu", "Lietuvių", "Magyar", "Nederlands", "日本語", "Norsk", "ਪੰਜਾਬੀ", "Polski", "Português", "Română",
+            "Hrvatski", "Italiano", "Latviešu", "Lietuvių", "Magyar", "Nederlands", "日本語", "Norsk", "ਪੰਜਾਬੀ", "Polski", "Português", "Română",
             "Русский", "Slovenčina", "Slovenščina", "Српски / srpski", "Svenska", "Suomi", "Українська"};
-    public final static String[] LANGUAGE_CODES = {"ar", "cs", "da", "de", "en", "es", "et", "fa", "fr", "hi", "he", "hr", "id", "it", "lv", "lt", "hu", "nl",
+    public final static String[] LANGUAGE_CODES = {"ar", "cs", "da", "de", "en", "es", "et", "fa", "fr", "hi", "he", "hr", "it", "lv", "lt", "hu", "nl",
             "ja", "no", "pa", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "fi", "uk"};
 
     public final static String ITEM_LEGEND = "Legend";
