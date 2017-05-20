@@ -38,6 +38,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private static final String TAG = "BaseActivity";
 
+    protected boolean isLoading = false;
+    protected View overlay;
     protected DrawerLayout mDrawerLayout;
     protected PropertyListBaseFragment mPropertyMenu;
     protected ActionBarDrawerToggle mDrawerToggle;
@@ -110,24 +112,21 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void startLoading() {
-        ((BaseApp)getApplication()).setLoading(true);
+        overlay.setVisibility(View.VISIBLE);
         if (countButton != null) {
             countText.setVisibility(View.INVISIBLE);
             countButton.setEnabled(false);
             countButton.setImageDrawable(loadingAnimation);
             loadingAnimation.start();
         }
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     public void stopLoading() {
-        ((BaseApp)getApplication()).setLoading(false);
         if (countButton != null) {
             countButton.setEnabled(true);
             countText.setVisibility(View.VISIBLE);
         }
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        overlay.setVisibility(View.GONE);
     }
 
     public HashMap<String, String> getFilter() {

@@ -9,6 +9,8 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.widget.Toast;
 
+import com.google.common.base.Strings;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -81,17 +83,22 @@ public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
         prefCacheSize.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                int newCacheSize = Integer.parseInt((String)newValue);
-                if (newCacheSize > 0) {
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putInt(AndroidConstants.CACHE_SIZE_KEY, newCacheSize);
-                    editor.apply();
+                try {
+                    int newCacheSize = Integer.parseInt((String) newValue);
+                    if (newCacheSize > 0) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putInt(AndroidConstants.CACHE_SIZE_KEY, newCacheSize);
+                        editor.apply();
 
-                    ((BaseApp) getActivity().getApplication()).initImageLoader(getActivity().getApplicationContext(), newCacheSize);
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Cache size must be greater than 0", Toast.LENGTH_LONG).show();
+                        BaseApp.initImageLoader(getActivity().getApplicationContext(), newCacheSize);
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "Cache size must be greater than 0", Toast.LENGTH_LONG).show();
+                        prefCacheSize.setText("" + cacheSize);
+                    }
+                } catch (Exception ex) {
+                    Toast.makeText(getActivity().getApplicationContext(), "Cache size must be integer value", Toast.LENGTH_LONG).show();
+                    prefCacheSize.setText("" + cacheSize);
                 }
-
                 return true;
             }
         });

@@ -2,11 +2,13 @@ package sk.ab.herbsbase.commons;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.SystemClock;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
 
@@ -17,6 +19,7 @@ import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
  * Time: 18:54
  */
 public class BaseImageButton extends AppCompatButton {
+    private long mLastClickTime;
     private String value;
 
     public BaseImageButton(Context context) {
@@ -57,11 +60,16 @@ public class BaseImageButton extends AppCompatButton {
 
             @Override
             public void onClick(View view) {
-                if (((LinearLayout)view.getParent()).getContext() instanceof FilterPlantsBaseActivity) {
-                    FilterPlantsBaseActivity host = (FilterPlantsBaseActivity) ((LinearLayout)view.getParent()).getContext();
+                long currentClickTime = SystemClock.uptimeMillis();
+                long elapsedTime = currentClickTime - mLastClickTime;
+                mLastClickTime = currentClickTime;
+                if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
+                    if (((LinearLayout) view.getParent()).getContext() instanceof FilterPlantsBaseActivity) {
+                        FilterPlantsBaseActivity host = (FilterPlantsBaseActivity) ((LinearLayout) view.getParent()).getContext();
 
-                    if (host.getCounter() > 0 || host.getFilter().get(host.getCurrentFragment().getAttribute()) != null) {
-                        host.addToFilter(value);
+                        if (host.getCounter() > 0 || host.getFilter().get(host.getCurrentFragment().getAttribute()) != null) {
+                            host.addToFilter(value);
+                        }
                     }
                 }
             }

@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -54,6 +55,14 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
         }
 
         setContentView(R.layout.plant_activity);
+
+        overlay = findViewById(R.id.overlay);
+        overlay.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);
         if (countButton != null) {

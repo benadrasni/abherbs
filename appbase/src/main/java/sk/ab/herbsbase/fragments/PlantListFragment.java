@@ -2,6 +2,7 @@ package sk.ab.herbsbase.fragments;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,6 +36,8 @@ import sk.ab.herbsbase.commons.PlantViewHolder;
 import sk.ab.herbsbase.tools.Utils;
 
 public class PlantListFragment extends Fragment {
+    private long mLastClickTime;
+
     private int listPosition;
     private PropertyAdapter adapter;
 
@@ -100,8 +103,13 @@ public class PlantListFragment extends Fragment {
             holder.getPhoto().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listPosition = holder.getAdapterPosition();
-                    ((ListPlantsBaseActivity)getActivity()).selectPlant(plant.getName());
+                    long currentClickTime = SystemClock.uptimeMillis();
+                    long elapsedTime = currentClickTime - mLastClickTime;
+                    mLastClickTime = currentClickTime;
+                    if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
+                        listPosition = holder.getAdapterPosition();
+                        ((ListPlantsBaseActivity) getActivity()).selectPlant(plant.getName());
+                    }
                 }
             });
         }

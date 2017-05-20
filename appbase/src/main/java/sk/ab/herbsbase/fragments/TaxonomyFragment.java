@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -48,6 +49,7 @@ import sk.ab.herbsbase.tools.Utils;
  * <p/>
  */
 public class TaxonomyFragment extends Fragment {
+    private long mLastClickTime;
 
     private ImageView toxicityClass1;
     private ImageView toxicityClass2;
@@ -112,11 +114,16 @@ public class TaxonomyFragment extends Fragment {
         taxonomyView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getTaxonomy(layout);
-                setAltNames(layout.isShown());
-                Utils.setVisibility(getView(), R.id.synonyms);
-                Utils.setVisibility(getView(), R.id.plant_taxonomy);
-                Utils.setVisibility(getView(), R.id.agpiii);
+                long currentClickTime = SystemClock.uptimeMillis();
+                long elapsedTime = currentClickTime - mLastClickTime;
+                mLastClickTime = currentClickTime;
+                if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
+                    getTaxonomy(layout);
+                    setAltNames(layout.isShown());
+                    Utils.setVisibility(getView(), R.id.synonyms);
+                    Utils.setVisibility(getView(), R.id.plant_taxonomy);
+                    Utils.setVisibility(getView(), R.id.agpiii);
+                }
             }
         });
     }

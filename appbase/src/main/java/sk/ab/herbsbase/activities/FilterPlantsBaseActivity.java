@@ -3,6 +3,7 @@ package sk.ab.herbsbase.activities;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +12,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -41,7 +43,7 @@ import sk.ab.herbsbase.commons.RateDialogFragment;
  *
  */
 public abstract class FilterPlantsBaseActivity extends BaseActivity {
-    protected static boolean active = false;
+    private long mLastClickTime;
 
     private Integer filterPosition;
     private BaseFilterFragment currentFragment;
@@ -72,13 +74,27 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
             filter = new HashMap<>();
         }
 
+        overlay = findViewById(R.id.overlay);
+        overlay.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
         countButton = (FloatingActionButton) findViewById(R.id.countButton);
         countButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count > 0) {
-                    startLoading();
-                    getList();
+                long currentClickTime = SystemClock.uptimeMillis();
+                long elapsedTime = currentClickTime - mLastClickTime;
+                mLastClickTime = currentClickTime;
+                if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
+                    if (count > 0) {
+                        isLoading = true;
+                        startLoading();
+                        getList();
+                    }
                 }
             }
         });
@@ -122,7 +138,6 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
 
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
-        startLoading();
         getCount();
 
         showRateDialog();
@@ -132,7 +147,12 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        active = true;
+
+        if (isLoading) {
+            startLoading();
+        } else {
+            stopLoading();
+        }
 
         if (filterPosition == null) {
             filterPosition = 0;
@@ -140,12 +160,6 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
 
         switchContent(getFilterAttributes().get(filterPosition));
         removeFromFilter(currentFragment.getAttribute());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        active = false;
     }
 
     @Override
@@ -243,9 +257,8 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         if (getFilterAttributes().size() == filter.size() && count > 0) {
             getList();
         } else {
-            if (count != 0) {
-                if (filter.get(currentFragment.getAttribute()) != null
-                        && getFilterAttributes().size() > filter.size()) {
+            if (count > 0) {
+                if (filter.get(currentFragment.getAttribute()) != null && getFilterAttributes().size() > filter.size()) {
                     for (BaseFilterFragment fragment : getFilterAttributes()) {
                         if (filter.get(fragment.getAttribute()) == null) {
                             switchContent(fragment);
@@ -257,6 +270,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
             stopLoading();
             setCountButton();
         }
+        isLoading = false;
     }
 
     public BaseFilterFragment getCurrentFragment() {

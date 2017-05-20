@@ -67,6 +67,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
 
     @Override
     protected void getCount() {
+        isLoading = true;
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_COUNTS + AndroidConstants.FIREBASE_SEPARATOR
                 + Utils.getFilterKey(filter, SpecificConstants.FILTER_ATTRIBUTES));
@@ -75,8 +76,11 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Integer count = dataSnapshot.getValue(Integer.class);
-                if (count != null && active) {
+                if (count != null) {
                     setCount(count);
+                } else {
+                    stopLoading();
+                    isLoading = false;
                 }
             }
 
@@ -85,6 +89,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
                 Log.e(this.getClass().getName(), databaseError.getMessage());
                 Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
                 stopLoading();
+                isLoading = false;
             }
         });
     }
