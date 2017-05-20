@@ -139,10 +139,10 @@ public class TaxonomyFragment extends Fragment {
         displayPlantBaseActivity.countButton.setVisibility(View.VISIBLE);
 
         final List<String> sortedKeys = new ArrayList<>(plant.getTaxonomy().keySet());
-        Collections.sort(sortedKeys, new Comparator() {
+        Collections.sort(sortedKeys, new Comparator<String>() {
             @Override
-            public int compare(Object o1, Object o2) {
-                return ((String)o2).compareTo((String)o1);
+            public int compare(String s1, String s2) {
+                return s2.compareTo(s1);
             }
         });
 
