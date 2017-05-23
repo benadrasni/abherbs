@@ -11,31 +11,20 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 import java.util.Stack;
 
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.commons.BaseFilterFragment;
-import sk.ab.herbsbase.commons.MessageDialogFragment;
 import sk.ab.herbsbase.commons.RateDialogFragment;
 
 /**
@@ -43,8 +32,9 @@ import sk.ab.herbsbase.commons.RateDialogFragment;
  *
  */
 public abstract class FilterPlantsBaseActivity extends BaseActivity {
-    private long mLastClickTime;
 
+
+    private long mLastClickTime;
     private Integer filterPosition;
     private BaseFilterFragment currentFragment;
 
@@ -141,7 +131,6 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         getCount();
 
         showRateDialog();
-        showMessages();
     }
 
     @Override
@@ -166,14 +155,15 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
     public void onConfigurationChanged (Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        getIntent().putExtra(AndroidConstants.STATE_FILTER_POSITION, "" + getFilterAttributes().indexOf(currentFragment));
+        getIntent().putExtra(AndroidConstants.STATE_FILTER_POSITION, filterPosition);
+        getIntent().putExtra(AndroidConstants.STATE_FILTER, filter);
 
         recreate();
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putInt(AndroidConstants.STATE_FILTER_POSITION, getCurrentPosition());
+        savedInstanceState.putInt(AndroidConstants.STATE_FILTER_POSITION, filterPosition);
         savedInstanceState.putSerializable(AndroidConstants.STATE_FILTER, filter);
 
         super.onSaveInstanceState(savedInstanceState);
@@ -335,65 +325,6 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
                 }
             });
         }
-    }
-
-    private void showMessages() {
-        final SharedPreferences preferences = getSharedPreferences();
-        final String lastMessage = preferences.getString(AndroidConstants.MESSAGE_KEY, "");
-
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_MESSAGES + AndroidConstants.FIREBASE_SEPARATOR
-                + getAppVersion()).orderByKey().getRef();
-
-        mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
-                    try {
-                        Map<String, Map<String, String>> languages = (Map<String, Map<String, String>>) dataSnapshot.getValue();
-                        Map<String, String> messages = languages.get(Locale.getDefault().getLanguage());
-                        if (messages == null) {
-                            messages = languages.get(AndroidConstants.LANGUAGE_EN);
-                        }
-
-                        String newLastMessage = lastMessage;
-                        StringBuilder messageToShow = new StringBuilder();
-                        boolean addToMessage = false;
-                        for (Map.Entry<String, String> message : messages.entrySet()) {
-                            addToMessage = addToMessage || lastMessage.isEmpty();
-                            if (addToMessage) {
-                                messageToShow.append(message.getValue());
-                                newLastMessage = message.getKey();
-                            }
-                            if (lastMessage.equals(message.getKey())) {
-                                addToMessage = true;
-                            }
-                        }
-
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString(AndroidConstants.MESSAGE_KEY, newLastMessage);
-                        editor.apply();
-
-                        if (!messageToShow.toString().isEmpty()) {
-                            DialogFragment dialog = new MessageDialogFragment();
-                            Bundle bundle = new Bundle();
-                            bundle.putString(AndroidConstants.MESSAGE_KEY, messageToShow.toString());
-                            dialog.setArguments(bundle);
-                            dialog.show(getSupportFragmentManager(), "MessageDialogFragment");
-                        }
-                    } catch (Exception ex) {
-                        // something wrong with messages, ignore it and continue
-                        Log.w("MESSAGES", "Wrong structure", ex);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e(this.getClass().getName(), databaseError.getMessage());
-                Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }
 

@@ -152,72 +152,74 @@ public class TaxonomyFragment extends Fragment {
         taxonomyRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String, Object> taxonomy = (HashMap<String, Object>) dataSnapshot.getValue();
+                if (!displayPlantBaseActivity.isDestroyed()) {
+                    Map<String, Object> taxonomy = (HashMap<String, Object>) dataSnapshot.getValue();
 
-                List<PlantTaxon> taxons = new ArrayList<>();
-                for (String key : sortedKeys) {
-                    String value = plant.getTaxonomy().get(key);
-                    PlantTaxon taxon = new PlantTaxon();
-                    taxons.add(0, taxon);
+                    List<PlantTaxon> taxons = new ArrayList<>();
+                    for (String key : sortedKeys) {
+                        String value = plant.getTaxonomy().get(key);
+                        PlantTaxon taxon = new PlantTaxon();
+                        taxons.add(0, taxon);
 
-                    taxonomy = (HashMap<String, Object>) taxonomy.get(value);
-                    taxon.setType((String) taxonomy.get(AndroidConstants.FIREBASE_APGIII_TYPE));
-                    taxon.setLatinName((List<String>) ((HashMap<String, Object>)taxonomy.get(AndroidConstants.FIREBASE_APGIII_NAMES)).get(Constants.LANGUAGE_LA));
-                    taxon.setName((List<String>) ((HashMap<String, Object>)taxonomy.get(AndroidConstants.FIREBASE_APGIII_NAMES)).get(Locale.getDefault().getLanguage()));
-                }
-
-                LayoutInflater inflater = (LayoutInflater)displayPlantBaseActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                for(PlantTaxon taxon : taxons) {
-                    View view = inflater.inflate(R.layout.taxon, null);
-                    TextView textType = (TextView)view.findViewById(R.id.taxonType);
-                    textType.setText(Utils.getId(AndroidConstants.RES_TAXONOMY_PREFIX + taxon.getType().toLowerCase(),R.string.class));
-
-                    TextView textName = (TextView)view.findViewById(R.id.taxonName);
-                    StringBuilder sbName = new StringBuilder();
-                    if (taxon.getName() != null) {
-                        for (String s : taxon.getName()) {
-                            if (sbName.length() > 0) {
-                                sbName.append(", ");
-                            }
-                            sbName.append(s);
-                        }
+                        taxonomy = (HashMap<String, Object>) taxonomy.get(value);
+                        taxon.setType((String) taxonomy.get(AndroidConstants.FIREBASE_APGIII_TYPE));
+                        taxon.setLatinName((List<String>) ((HashMap<String, Object>) taxonomy.get(AndroidConstants.FIREBASE_APGIII_NAMES)).get(Constants.LANGUAGE_LA));
+                        taxon.setName((List<String>) ((HashMap<String, Object>) taxonomy.get(AndroidConstants.FIREBASE_APGIII_NAMES)).get(Locale.getDefault().getLanguage()));
                     }
 
-                    TextView textLatinName = (TextView)view.findViewById(R.id.taxonLatinName);
-                    StringBuilder sbLatinName = new StringBuilder();
-                    if (taxon.getLatinName() != null) {
-                        for (String s : taxon.getLatinName()) {
+                    LayoutInflater inflater = (LayoutInflater) displayPlantBaseActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    for (PlantTaxon taxon : taxons) {
+                        View view = inflater.inflate(R.layout.taxon, null);
+                        TextView textType = (TextView) view.findViewById(R.id.taxonType);
+                        textType.setText(Utils.getId(AndroidConstants.RES_TAXONOMY_PREFIX + taxon.getType().toLowerCase(), R.string.class));
+
+                        TextView textName = (TextView) view.findViewById(R.id.taxonName);
+                        StringBuilder sbName = new StringBuilder();
+                        if (taxon.getName() != null) {
+                            for (String s : taxon.getName()) {
+                                if (sbName.length() > 0) {
+                                    sbName.append(", ");
+                                }
+                                sbName.append(s);
+                            }
+                        }
+
+                        TextView textLatinName = (TextView) view.findViewById(R.id.taxonLatinName);
+                        StringBuilder sbLatinName = new StringBuilder();
+                        if (taxon.getLatinName() != null) {
+                            for (String s : taxon.getLatinName()) {
+                                if (sbLatinName.length() > 0) {
+                                    sbLatinName.append(", ");
+                                }
+                                sbLatinName.append(s);
+                            }
+                        }
+
+                        if (sbName.length() > 0) {
+                            textName.setText(sbName.toString());
                             if (sbLatinName.length() > 0) {
-                                sbLatinName.append(", ");
+                                textLatinName.setText(sbLatinName.toString());
+                            } else {
+                                textLatinName.setVisibility(View.GONE);
                             }
-                            sbLatinName.append(s);
-                        }
-                    }
-
-                    if (sbName.length() > 0) {
-                        textName.setText(sbName.toString());
-                        if (sbLatinName.length() > 0) {
-                            textLatinName.setText(sbLatinName.toString());
                         } else {
+                            if (sbLatinName.length() > 0) {
+                                textName.setText(sbLatinName.toString());
+                            } else {
+                                textName.setVisibility(View.GONE);
+                            }
                             textLatinName.setVisibility(View.GONE);
                         }
-                    } else {
-                        if (sbLatinName.length() > 0) {
-                            textName.setText(sbLatinName.toString());
-                        } else {
-                            textName.setVisibility(View.GONE);
+
+                        if (AndroidConstants.TAXON_ORDO.equals(taxon.getType()) || AndroidConstants.TAXON_FAMILIA.equals(taxon.getType())) {
+                            textName.setTypeface(Typeface.DEFAULT_BOLD);
                         }
-                        textLatinName.setVisibility(View.GONE);
-                    }
 
-                    if (AndroidConstants.TAXON_ORDO.equals(taxon.getType()) || AndroidConstants.TAXON_FAMILIA.equals(taxon.getType())) {
-                        textName.setTypeface(Typeface.DEFAULT_BOLD);
+                        layout.addView(view);
                     }
-
-                    layout.addView(view);
+                    displayPlantBaseActivity.stopLoading();
+                    displayPlantBaseActivity.countButton.setVisibility(View.GONE);
                 }
-                displayPlantBaseActivity.stopLoading();
-                displayPlantBaseActivity.countButton.setVisibility(View.GONE);
             }
 
             @Override

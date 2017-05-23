@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.google.common.base.Strings;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -143,7 +144,7 @@ public class InfoFragment extends Fragment {
                         @Override
                         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 
-                            if (drawing.getLayoutParams() != null) {
+                            if (!displayPlantBaseActivity.isDestroyed()) {
                                 int width = (dm.widthPixels - Utils.convertDpToPx(25, dm)) / 2;
                                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                                     width = width / 2;
@@ -199,43 +200,43 @@ public class InfoFragment extends Fragment {
         if (plantTranslationGT == null && plantTranslationEn != null) {
             List<String> textToTranslate = new ArrayList<>();
 
-            if ((plantTranslation == null || plantTranslation.getDescription() == null) && plantTranslationEn.getDescription() != null) {
+            if ((plantTranslation == null || plantTranslation.getDescription() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getDescription())) {
                 textToTranslate.add(plantTranslationEn.getDescription());
             }
 
-            if ((plantTranslation == null || plantTranslation.getFlower() == null) && plantTranslationEn.getFlower() != null) {
+            if ((plantTranslation == null || plantTranslation.getFlower() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getFlower())) {
                 textToTranslate.add(plantTranslationEn.getFlower());
             }
 
-            if ((plantTranslation == null || plantTranslation.getInflorescence() == null) && plantTranslationEn.getInflorescence() != null) {
+            if ((plantTranslation == null || plantTranslation.getInflorescence() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getInflorescence())) {
                 textToTranslate.add(plantTranslationEn.getInflorescence());
             }
 
-            if ((plantTranslation == null || plantTranslation.getFruit() == null) && plantTranslationEn.getFruit() != null) {
+            if ((plantTranslation == null || plantTranslation.getFruit() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getFruit())) {
                 textToTranslate.add(plantTranslationEn.getFruit());
             }
 
-            if ((plantTranslation == null || plantTranslation.getLeaf() == null) && plantTranslationEn.getLeaf() != null) {
+            if ((plantTranslation == null || plantTranslation.getLeaf() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getLeaf())) {
                 textToTranslate.add(plantTranslationEn.getLeaf());
             }
 
-            if ((plantTranslation == null || plantTranslation.getStem() == null) && plantTranslationEn.getStem() != null) {
+            if ((plantTranslation == null || plantTranslation.getStem() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getStem())) {
                 textToTranslate.add(plantTranslationEn.getStem());
             }
 
-            if ((plantTranslation == null || plantTranslation.getHabitat() == null) && plantTranslationEn.getHabitat() != null) {
+            if ((plantTranslation == null || plantTranslation.getHabitat() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getHabitat())) {
                 textToTranslate.add(plantTranslationEn.getHabitat());
             }
 
-            if ((plantTranslation == null || plantTranslation.getToxicity() == null) && plantTranslationEn.getToxicity() != null) {
+            if ((plantTranslation == null || plantTranslation.getToxicity() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getToxicity())) {
                 textToTranslate.add(plantTranslationEn.getToxicity());
             }
 
-            if ((plantTranslation == null || plantTranslation.getHerbalism() == null) && plantTranslationEn.getHerbalism() != null) {
+            if ((plantTranslation == null || plantTranslation.getHerbalism() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getHerbalism())) {
                 textToTranslate.add(plantTranslationEn.getHerbalism());
             }
 
-            if ((plantTranslation == null || plantTranslation.getTrivia() == null) && plantTranslationEn.getTrivia() != null) {
+            if ((plantTranslation == null || plantTranslation.getTrivia() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getTrivia())) {
                 textToTranslate.add(plantTranslationEn.getTrivia());
             }
 
@@ -268,22 +269,26 @@ public class InfoFragment extends Fragment {
                     textToTranslate).enqueue(new Callback<Map<String, Map<String, List<Map<String, String>>>>>() {
                 @Override
                 public void onResponse(Call<Map<String, Map<String, List<Map<String, String>>>>> call, Response<Map<String, Map<String, List<Map<String, String>>>>> response) {
-                    Map<String, Map<String, List<Map<String, String>>>> data = response.body();
+                    if (!displayPlantBaseActivity.isDestroyed()) {
+                        Map<String, Map<String, List<Map<String, String>>>> data = response.body();
 
-                    List<String> translatedTexts = new ArrayList<>();
-                    List<Map<String, String>> texts = data.get("data").get("translations");
-                    for (Map<String, String> text : texts) {
-                        translatedTexts.add(text.get("translatedText"));
+                        if (data != null && data.get("data") != null && data.get("data").get("translations") != null) {
+                            List<String> translatedTexts = new ArrayList<>();
+                            List<Map<String, String>> texts = data.get("data").get("translations");
+                            for (Map<String, String> text : texts) {
+                                translatedTexts.add(text.get("translatedText"));
+                            }
+
+                            setTranslation(translatedTexts);
+                            mTranslationGTRef.setValue(getPlantTranslationGT());
+
+                            setInfo(true);
+                            showGTSection();
+                        }
+
+                        displayPlantBaseActivity.stopLoading();
+                        displayPlantBaseActivity.countButton.setVisibility(View.GONE);
                     }
-
-                    setTranslation(translatedTexts);
-                    mTranslationGTRef.setValue(getPlantTranslationGT());
-
-                    setInfo(true);
-                    showGTSection();
-
-                    displayPlantBaseActivity.stopLoading();
-                    displayPlantBaseActivity.countButton.setVisibility(View.GONE);
                 }
 
                 @Override
