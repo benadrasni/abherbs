@@ -186,8 +186,12 @@ public class NameSearchActivity extends SearchBaseActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                ((NameAdapter) namesInLanguage.getAdapter()).filter(newText);
-                ((NameAdapter) namesInLatin.getAdapter()).filter(newText);
+                if (namesInLanguage.getAdapter() != null) {
+                    ((NameAdapter) namesInLanguage.getAdapter()).filter(newText);
+                }
+                if (namesInLatin.getAdapter() != null) {
+                    ((NameAdapter) namesInLatin.getAdapter()).filter(newText);
+                }
                 return false;
             }
         });

@@ -101,12 +101,12 @@ public class InfoFragment extends Fragment {
         final FirebasePlant plant = getPlant();
 
         final StringBuilder text = new StringBuilder();
-        text.append(getResources().getString(R.string.plant_height_from)).append(" <i>").append(plant.getHeightFrom())
-                .append("</i>").append(" ").append(getResources().getString(R.string.plant_height_to)).append(" ")
+        text.append(displayPlantBaseActivity.getResources().getString(R.string.plant_height_from)).append(" <i>").append(plant.getHeightFrom())
+                .append("</i>").append(" ").append(displayPlantBaseActivity.getResources().getString(R.string.plant_height_to)).append(" ")
                 .append("<i>").append(plant.getHeightTo()).append("</i>").append(" ").append(Constants.HEIGHT_UNIT)
-                .append(". <br/>").append(getResources().getString(R.string.plant_flowering_from)).append(" <i>")
+                .append(". <br/>").append(displayPlantBaseActivity.getResources().getString(R.string.plant_flowering_from)).append(" <i>")
                 .append(Utils.getMonthName(plant.getFloweringFrom() - 1)).append("</i>").append(" ")
-                .append(getResources().getString(R.string.plant_flowering_to)).append(" ").append("<i>")
+                .append(displayPlantBaseActivity.getResources().getString(R.string.plant_flowering_to)).append(" ").append("<i>")
                 .append(Utils.getMonthName(plant.getFloweringTo() - 1)).append("</i>.<br/>");
 
         final String[][] sections = getSections(withTranslation);
