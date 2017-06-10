@@ -1,5 +1,6 @@
 package sk.ab.common.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -57,6 +58,22 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
+    @PUT("plants/{taxonomyName}/APGIV.json")
+    Call<HashMap<String, String>> savePlantAPGIV(@Path("taxonomyName") String taxonomyName, @Body HashMap<String, String> apgiv);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @GET("plants/{name}.json")
+    Call<FirebasePlant> getPlant(@Path("name") String name);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
     @PATCH("counts.json")
     Call<Map> saveCount(@Body Map<String, Integer> count);
 
@@ -86,6 +103,18 @@ public interface FirebaseService {
 
     @PUT("APG III.json")
     Call<Object> saveAPGIII(@Body Object object);
+
+    @PUT("APG III_new.json")
+    Call<Object> saveAPGIIINew(@Body Object object);
+
+    @GET("APG III_new.json")
+    Call<Map<String, Object>> getAPGIIINew();
+
+    @GET("APG IV.json")
+    Call<Map<String, Object>> getAPGIV();
+
+    @PUT("APG IV.json")
+    Call<Object> saveAPGIV(@Body Object object);
 
     @PUT("translations.json")
     Call<Object> saveTranslations(@Body Object object);

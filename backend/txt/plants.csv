@@ -51,7 +51,7 @@ Arctium minus;Arctium minus;190664
 Arctium tomentosum;Arctium tomentosum;190635
 Arctostaphylos uva-ursi;Arctostaphylos uva-ursi;189952
 Arenaria serpyllifolia;Arenaria serpyllifolia;189779
-Argentina anserina;Argentina anserina;190231
+Potentilla anserina;Potentilla anserina;190231
 Aristolochia clematitis;Aristolochia clematitis;190250
 Armeria maritima;Armeria maritima;190131
 Arnica montana;Arnica montana;190449
@@ -189,7 +189,7 @@ Epipactis palustris;Epipactis palustris;190399
 Erica tetralix;Erica tetralix;190162
 Erigeron acris;Erigeron acris;190507
 Erodium cicutarium;Erodium cicutarium;190032
-Erophila verna;Erophila verna;189744
+Draba verna;Draba verna;189744
 Eryngium campestre;Eryngium campestre;189797
 Eryngium maritimum;Eryngium maritimum;190550
 Erysimum cheiranthoides;Erysimum cheiranthoides;190239
@@ -328,7 +328,7 @@ Lotus pedunculatus;Lotus pedunculatus;190453
 Lunaria rediviva;Lunaria rediviva;190123
 Lupinus polyphyllus;Lupinus polyphyllus;190720
 Lychnis flos-cuculi;Lychnis flos-cuculi;190035
-Lycopsis arvensis;Lycopsis arvensis;190151
+Anchusa arvensis;Anchusa arvensis;190151
 Lycopus europaeus;Lycopus europaeus;190709
 Lysimachia europaea;Lysimachia europaea;190306
 Lysimachia nummularia;Lysimachia nummularia;190230
@@ -437,7 +437,7 @@ Potamogeton natans;Potamogeton natans;190576
 Potentilla alba;Potentilla alba;189976
 Potentilla argentea;Potentilla argentea;190409
 Potentilla erecta;Potentilla erecta;190234
-Potentilla neumanniana;Potentilla neumanniana;189949
+Potentilla pusilla;Potentilla pusilla;189949
 Potentilla reptans;Potentilla reptans;190282
 Potentilla sterilis;Potentilla sterilis;189962
 Prenanthes purpurea;Prenanthes purpurea;190611
@@ -526,7 +526,7 @@ Securigera varia;Securigera varia;190458
 Sedum acre;Sedum acre;190421
 Sedum album;Sedum album;189795
 Sedum sexangulare;Sedum sexangulare;190422
-Senecio jacobaea;Senecio jacobaea;190687
+Jacobaea vulgaris;Jacobaea vulgaris;190687
 Senecio ovatus;Senecio ovatus;190688
 Senecio viscosus;Senecio viscosus;190435
 Senecio vulgaris;Senecio vulgaris;189998
@@ -646,3 +646,4 @@ Ratibida columnifera;Ratibida columnifera;200004
 Nothoscordum bivalve;Nothoscordum bivalve;200005
 Gaillardia pulchella;Gaillardia pulchella;200006
 Calyptocarpus vialis;Calyptocarpus vialis;200007
+Tulipa sylvestris;Tulipa sylvestris;2000008

@@ -35,6 +35,7 @@ public class FirebasePlant {
 
     protected HashMap<String, String> wikilinks = new HashMap<>();
     protected HashMap<String, String> taxonomy = new HashMap<>();
+    protected HashMap<String, String> APGIV = new HashMap<>();
 
     public FirebasePlant() {
 
@@ -264,5 +265,13 @@ public class FirebasePlant {
 
     public void setTaxonomy(HashMap<String, String> taxonomy) {
         this.taxonomy = taxonomy;
+    }
+
+    public HashMap<String, String> getAPGIV() {
+        return APGIV;
+    }
+
+    public void setAPGIV(HashMap<String, String> APGIV) {
+        this.APGIV = APGIV;
     }
 }
