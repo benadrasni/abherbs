@@ -252,12 +252,12 @@ public class TaxonomyActivity extends SearchBaseActivity {
 
     private void loadTaxonomy() {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_APG_III);
+        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_APG_IV);
 
         mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                buildTaxonomy((Map)((Map)dataSnapshot.getValue()).get(AndroidConstants.ROOT_TAXON), 0, AndroidConstants.FIREBASE_APG_III
+                buildTaxonomy((Map)((Map)dataSnapshot.getValue()).get(AndroidConstants.ROOT_TAXON), 0, AndroidConstants.FIREBASE_APG_IV
                         + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.ROOT_TAXON);
 
                 TaxonAdapter adapter = new TaxonAdapter(getApplicationContext(), taxons);
@@ -276,14 +276,15 @@ public class TaxonomyActivity extends SearchBaseActivity {
 
     private void buildTaxonomy(Map taxonomy, int offset, String path) {
         PlantTaxon taxon = new PlantTaxon();
-        taxon.setPath(path + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.FIREBASE_APGIII_LIST);
+        taxon.setPath(path + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.FIREBASE_APG_LIST);
         taxon.setOffset(offset);
-        taxon.setType((String) taxonomy.get(AndroidConstants.FIREBASE_APGIII_TYPE));
-        taxon.setLatinName((List<String>) ((HashMap<String, Object>) taxonomy.get(AndroidConstants.FIREBASE_APGIII_NAMES)).get(Constants.LANGUAGE_LA));
-        taxon.setName((List<String>) ((HashMap<String, Object>)taxonomy.get(AndroidConstants.FIREBASE_APGIII_NAMES)).get(Locale.getDefault().getLanguage()));
-        if (taxonomy.get(AndroidConstants.FIREBASE_APGIII_COUNT) != null) {
-            taxon.setCount(((Long)taxonomy.get(AndroidConstants.FIREBASE_APGIII_COUNT)).intValue());
-            Map<String, Object> plants = (HashMap<String, Object>)taxonomy.get(AndroidConstants.FIREBASE_APGIII_LIST);
+        taxon.setType((String) taxonomy.get(AndroidConstants.FIREBASE_APG_TYPE));
+        taxon.setLatinName((List<String>) ((HashMap<String, Object>) taxonomy.get(AndroidConstants.FIREBASE_APG_NAMES)).get(Constants.LANGUAGE_LA));
+        taxon.setName((List<String>) ((HashMap<String, Object>)taxonomy.get(AndroidConstants.FIREBASE_APG_NAMES)).get(Locale.getDefault().getLanguage()));
+        Long count = (Long)taxonomy.get(AndroidConstants.FIREBASE_APG_COUNT);
+        if (count != null && count > 0) {
+            taxon.setCount(count.intValue());
+            Map<String, Object> plants = (HashMap<String, Object>)taxonomy.get(AndroidConstants.FIREBASE_APG_LIST);
             Map.Entry<String, Object> entry = plants.entrySet().iterator().next();
             taxon.setPlantName(entry.getKey());
         }
@@ -291,8 +292,8 @@ public class TaxonomyActivity extends SearchBaseActivity {
 
         final List<String> keys = new ArrayList<>(taxonomy.keySet());
         for (String key : keys) {
-            if (AndroidConstants.FIREBASE_APGIII_TYPE.equals(key) || AndroidConstants.FIREBASE_APGIII_NAMES.equals(key)
-                    || AndroidConstants.FIREBASE_APGIII_LIST.equals(key) || AndroidConstants.FIREBASE_APGIII_COUNT.equals(key)) {
+            if (AndroidConstants.FIREBASE_APG_TYPE.equals(key) || AndroidConstants.FIREBASE_APG_NAMES.equals(key)
+                    || AndroidConstants.FIREBASE_APG_LIST.equals(key) || AndroidConstants.FIREBASE_APG_COUNT.equals(key)) {
                 continue;
             }
             buildTaxonomy((Map)taxonomy.get(key), offset + 1, path + AndroidConstants.FIREBASE_SEPARATOR + key);

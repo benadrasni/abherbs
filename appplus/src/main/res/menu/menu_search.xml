@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/menu_taxonomy"
-        android:title="@string/agpiii"
+        android:title="@string/agpiv"
         app:showAsAction="always"/>
     <item
         android:id="@+id/menu_search"

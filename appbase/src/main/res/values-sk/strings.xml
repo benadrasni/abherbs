@@ -108,4 +108,10 @@
     <string name="feedback_submit_translate">Poslať autorovi email</string>
     <string name="feedback_cash">Môžete podporiť nový vývoj a rozširovanie databázy nejakou hotovosťou.</string>
     <string name="feedback_submit_cash">Prispieť</string>
+    <string name="taxonomy_subgenus">Subgenus</string>
+    <string name="taxonomy_sectio">Sectio</string>
+    <string name="taxonomy_subsectio">Subsectio</string>
+    <string name="taxonomy_serie">Serie</string>
+    <string name="taxonomy_subserie">Subserie</string>
+    <string name="taxonomy_supersectio">Supersectio</string>
 </resources>

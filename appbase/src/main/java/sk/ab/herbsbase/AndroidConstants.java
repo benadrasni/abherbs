@@ -83,15 +83,15 @@ public class AndroidConstants {
     public final static String FIREBASE_COUNTS = "counts";
     public final static String FIREBASE_LISTS = "lists";
     public final static String FIREBASE_PLANTS = "plants";
-    public final static String FIREBASE_APG_III = "APG III";
+    public final static String FIREBASE_APG_IV = "APG IV";
     public final static String FIREBASE_SEARCH = "search";
     public final static String FIREBASE_MESSAGES = "messages";
     public final static String FIREBASE_TRANSLATIONS = "translations";
 
-    public final static String FIREBASE_APGIII_TYPE = "type";
-    public final static String FIREBASE_APGIII_NAMES = "names";
-    public final static String FIREBASE_APGIII_LIST = "list";
-    public final static String FIREBASE_APGIII_COUNT = "count";
+    public final static String FIREBASE_APG_TYPE = "type";
+    public final static String FIREBASE_APG_NAMES = "names";
+    public final static String FIREBASE_APG_LIST = "list";
+    public final static String FIREBASE_APG_COUNT = "count";
 
     public static int getValueResource(Resources resources, String value) {
         int result = 0;

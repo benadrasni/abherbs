@@ -105,12 +105,12 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/agpiii"
+                android:id="@+id/apg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:text="@string/agpiii"
+                android:text="@string/agpiv"
                 android:textAppearance="@android:style/TextAppearance.Medium"
                 android:textColor="@color/CardText"
                 android:visibility="gone"/>

@@ -52,25 +52,25 @@ public class Creater {
     private static final Map<String, String> apgivOrdoNameMap;
     static {
         Map<String, String> aMap = new HashMap<>();
-        aMap.put("Amborellales", "Superregnum/Regnum/Angiosperms/Cladus/Ordo");
-        aMap.put("Austrobaileyales", "Superregnum/Regnum/Angiosperms/Cladus/Ordo");
-        aMap.put("Nymphaeales", "Superregnum/Regnum/Angiosperms/Cladus/Ordo");
-        aMap.put("Canellales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
-        aMap.put("Laurales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
-        aMap.put("Magnoliales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
-        aMap.put("Piperales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
-        aMap.put("Acorales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
-        aMap.put("Alismatales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
-        aMap.put("Arecales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
-        aMap.put("Asparagales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
-        aMap.put("Commelinales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
-        aMap.put("Dioscoreales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
-        aMap.put("Liliales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
-        aMap.put("Pandanales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
-        aMap.put("Petrosaviales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
-        aMap.put("Poales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
-        aMap.put("Zingiberales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
-        aMap.put("Buxales", "Superregnum/Regnum/Angiosperms/Cladus/Cladus/Ordo");
+        aMap.put("Amborellales", "Superregnum/Regnum/Cladus/Cladus/Ordo");
+        aMap.put("Austrobaileyales", "Superregnum/Regnum/Cladus/Cladus/Ordo");
+        aMap.put("Nymphaeales", "Superregnum/Regnum/Cladus/Cladus/Ordo");
+        aMap.put("Canellales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Laurales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Magnoliales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Piperales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Acorales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Alismatales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Arecales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Asparagales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Commelinales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Dioscoreales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Liliales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Pandanales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Petrosaviales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Poales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Zingiberales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Buxales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
         aMap.put("Ceratophyllales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
         aMap.put("Dilleniales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
         aMap.put("Gunnerales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
@@ -287,18 +287,18 @@ public class Creater {
 //            Call<Map<String, Object>> callFirebaseAPGIV = firebaseClient.getApiService().getAPGIV();
 //            Map<String, Object> apgIV = callFirebaseAPGIV.execute().body();
 //
-//            File fileOld = new File(PATH_TO_PLANTS);
-//
-//            Scanner scannerOld = new Scanner(fileOld);
-//
-//            while (scannerOld.hasNextLine()) {
-//                final String[] plantLine = scannerOld.nextLine().split(";");
-//                System.out.println(plantLine[0]);
-//
-//                //updateTaxonomy(apgivOrdoMap, apgIV, plantLine[0], plantLine[1]);
-//                updatePlantTaxonomy(firebaseClient, plantLine[0], plantLine[1]);
-//            }
-//            scannerOld.close();
+            File fileOld = new File(PATH_TO_PLANTS);
+
+            Scanner scannerOld = new Scanner(fileOld);
+
+            while (scannerOld.hasNextLine()) {
+                final String[] plantLine = scannerOld.nextLine().split(";");
+                System.out.println(plantLine[0]);
+
+                //updateTaxonomy(apgivOrdoMap, apgIV, plantLine[0], plantLine[1]);
+                updatePlantTaxonomy(firebaseClient, plantLine[0], plantLine[1]);
+            }
+            scannerOld.close();
 
             File file = new File(PATH_TO_PLANTS_TO_ADD);
 
@@ -316,7 +316,8 @@ public class Creater {
 //                updateTaxonomy(apgiiiOrdoMap, apgIII, plantName, wikiSpeciesName);
 //                updateTaxonomy(apgivOrdoMap, apgIV, plantName, wikiSpeciesName);
 
-                addOrUpdateTranslations(firebaseClient, plantName, wikiSpeciesName);
+//                updatePlantTaxonomy(firebaseClient, plantName, wikiSpeciesName);
+//                addOrUpdateTranslations(firebaseClient, plantName, wikiSpeciesName);
             }
             scan.close();
 

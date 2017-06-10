@@ -39,6 +39,7 @@ public class PlantParcel extends FirebasePlant implements Parcelable {
         synonyms = plant.getSynonyms();
         photoUrls = plant.getPhotoUrls();
         taxonomy = plant.getTaxonomy();
+        APGIV = plant.getAPGIV();
         wikilinks = plant.getWikilinks();
 
         filterColor = plant.getFilterColor();
@@ -67,6 +68,7 @@ public class PlantParcel extends FirebasePlant implements Parcelable {
         synonyms = (ArrayList<String>)in.readSerializable();
         photoUrls = (ArrayList<String>)in.readSerializable();
         taxonomy = (HashMap<String, String>)in.readSerializable();
+        APGIV = (HashMap<String, String>)in.readSerializable();
         wikilinks = (HashMap<String, String>)in.readSerializable();
 
         filterColor = (ArrayList<String>)in.readSerializable();
@@ -102,6 +104,7 @@ public class PlantParcel extends FirebasePlant implements Parcelable {
         parcel.writeSerializable(synonyms);
         parcel.writeSerializable(photoUrls);
         parcel.writeSerializable(taxonomy);
+        parcel.writeSerializable(APGIV);
         parcel.writeSerializable(wikilinks);
 
         parcel.writeSerializable(filterColor);

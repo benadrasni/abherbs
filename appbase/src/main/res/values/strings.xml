@@ -97,6 +97,12 @@
     <string name="taxonomy_tribus">Tribe</string>
     <string name="taxonomy_subtribus">Subtribe</string>
     <string name="taxonomy_genus">Genus</string>
+    <string name="taxonomy_subgenus">Subgenus</string>
+    <string name="taxonomy_supersectio">Supersectio</string>
+    <string name="taxonomy_sectio">Sectio</string>
+    <string name="taxonomy_subsectio">Subsectio</string>
+    <string name="taxonomy_serie">Serie</string>
+    <string name="taxonomy_subserie">Subserie</string>
     <string name="taxonomy_species">Species</string>
 
     <string name="close">Close</string>
@@ -111,6 +117,7 @@
     <string name="toxicity1">poisonous plant</string>
     <string name="toxicity2">slightly poisonous plant</string>
     <string name="agpiii" translatable="false">APG III</string>
+    <string name="agpiv" translatable="false">APG IV</string>
     <string name="rate_question">Is this app helpful?</string>
     <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
     <string name="rate_never">Never</string>

@@ -108,4 +108,10 @@
     <string name="feedback_submit_translate">चट्टान या पहाड़</string>
     <string name="feedback_cash">Google अनुवाद के द्वारा अनुवादित</string>
     <string name="feedback_submit_cash">तुम्हारे आस पास क्या है? संयंत्र के आवास की पहचान करें</string>
+    <string name="taxonomy_subgenus">Subgenus</string>
+    <string name="taxonomy_sectio">Sectio</string>
+    <string name="taxonomy_subsectio">Subsectio</string>
+    <string name="taxonomy_serie">Serie</string>
+    <string name="taxonomy_subserie">Subserie</string>
+    <string name="taxonomy_supersectio">Supersectio</string>
 </resources>

@@ -122,7 +122,7 @@ public class TaxonomyFragment extends Fragment {
                     setAltNames(layout.isShown());
                     Utils.setVisibility(getView(), R.id.synonyms);
                     Utils.setVisibility(getView(), R.id.plant_taxonomy);
-                    Utils.setVisibility(getView(), R.id.agpiii);
+                    Utils.setVisibility(getView(), R.id.apg);
                 }
             }
         });
@@ -138,7 +138,7 @@ public class TaxonomyFragment extends Fragment {
         displayPlantBaseActivity.startLoading();
         displayPlantBaseActivity.countButton.setVisibility(View.VISIBLE);
 
-        final List<String> sortedKeys = new ArrayList<>(plant.getTaxonomy().keySet());
+        final List<String> sortedKeys = new ArrayList<>(plant.getAPGIV().keySet());
         Collections.sort(sortedKeys, new Comparator<String>() {
             @Override
             public int compare(String s1, String s2) {
@@ -147,7 +147,7 @@ public class TaxonomyFragment extends Fragment {
         });
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference taxonomyRef = database.getReference(AndroidConstants.FIREBASE_APG_III);
+        DatabaseReference taxonomyRef = database.getReference(AndroidConstants.FIREBASE_APG_IV);
 
         taxonomyRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -157,14 +157,14 @@ public class TaxonomyFragment extends Fragment {
 
                     List<PlantTaxon> taxons = new ArrayList<>();
                     for (String key : sortedKeys) {
-                        String value = plant.getTaxonomy().get(key);
+                        String value = plant.getAPGIV().get(key);
                         PlantTaxon taxon = new PlantTaxon();
                         taxons.add(0, taxon);
 
                         taxonomy = (HashMap<String, Object>) taxonomy.get(value);
-                        taxon.setType((String) taxonomy.get(AndroidConstants.FIREBASE_APGIII_TYPE));
-                        taxon.setLatinName((List<String>) ((HashMap<String, Object>) taxonomy.get(AndroidConstants.FIREBASE_APGIII_NAMES)).get(Constants.LANGUAGE_LA));
-                        taxon.setName((List<String>) ((HashMap<String, Object>) taxonomy.get(AndroidConstants.FIREBASE_APGIII_NAMES)).get(Locale.getDefault().getLanguage()));
+                        taxon.setType((String) taxonomy.get(AndroidConstants.FIREBASE_APG_TYPE));
+                        taxon.setLatinName((List<String>) ((HashMap<String, Object>) taxonomy.get(AndroidConstants.FIREBASE_APG_NAMES)).get(Constants.LANGUAGE_LA));
+                        taxon.setName((List<String>) ((HashMap<String, Object>) taxonomy.get(AndroidConstants.FIREBASE_APG_NAMES)).get(Locale.getDefault().getLanguage()));
                     }
 
                     LayoutInflater inflater = (LayoutInflater) displayPlantBaseActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
