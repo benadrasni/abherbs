@@ -248,31 +248,31 @@ public class Creater {
         aMap.put("Poales", "Eukaryota/Plantae/Angiosperms/Monocots/Commelinids/Poales");
         aMap.put("Proteales", "Eukaryota/Plantae/Angiosperms/Eudicots/Proteales");
         aMap.put("Ranunculales", "Eukaryota/Plantae/Angiosperms/Eudicots/Ranunculales");
-        aMap.put("Caryophyllales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Caryophyllales");
-        aMap.put("Santalales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Santalales");
-        aMap.put("Saxifragales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Saxifragales");
-        aMap.put("Cornales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Asterids/Cornales");
-        aMap.put("Ericales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Asterids/Ericales");
-        aMap.put("Apiales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Asterids/Euasterids II/Apiales");
-        aMap.put("Aquifoliales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Asterids/Euasterids II/Aquifoliales");
-        aMap.put("Asterales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Asterids/Euasterids II/Asterales");
-        aMap.put("Dipsacales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Asterids/Euasterids II/Dipsacales");
-        aMap.put("Boraginales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Asterids/Euasterids I/Boraginales");
-        aMap.put("Gentianales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Asterids/Euasterids I/Gentianales");
-        aMap.put("Lamiales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Asterids/Euasterids I/Lamiales");
-        aMap.put("Solanales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Asterids/Euasterids I/Solanales");
-        aMap.put("Celastrales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Rosids/Eurosids I/Celastrales");
-        aMap.put("Malpighiales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Rosids/Eurosids I/Malpighiales");
-        aMap.put("Oxalidales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Rosids/Eurosids I/Oxalidales");
-        aMap.put("Vitales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Rosids/Eurosids I/Vitales");
-        aMap.put("Cucurbitales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Rosids/Eurosids I/Cucurbitales");
-        aMap.put("Fabales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Rosids/Eurosids I/Fabales");
-        aMap.put("Rosales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Rosids/Eurosids I/Rosales");
-        aMap.put("Brassicales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Rosids/Eurosids II/Brassicales");
-        aMap.put("Geraniales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Rosids/Eurosids II/Geraniales");
-        aMap.put("Malvales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Rosids/Eurosids II/Malvales");
-        aMap.put("Myrtales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Rosids/Eurosids II/Myrtales");
-        aMap.put("Sapindales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core eudicots/Rosids/Eurosids II/Sapindales");
+        aMap.put("Caryophyllales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Caryophyllales");
+        aMap.put("Santalales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Santalales");
+        aMap.put("Saxifragales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Saxifragales");
+        aMap.put("Cornales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Asterids/Cornales");
+        aMap.put("Ericales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Asterids/Ericales");
+        aMap.put("Apiales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Asterids/Euasterids_II/Apiales");
+        aMap.put("Aquifoliales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Asterids/Euasterids_II/Aquifoliales");
+        aMap.put("Asterales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Asterids/Euasterids_II/Asterales");
+        aMap.put("Dipsacales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Asterids/Euasterids_II/Dipsacales");
+        aMap.put("Boraginales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Asterids/Euasterids_I/Boraginales");
+        aMap.put("Gentianales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Asterids/Euasterids_I/Gentianales");
+        aMap.put("Lamiales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Asterids/Euasterids_I/Lamiales");
+        aMap.put("Solanales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Asterids/Euasterids_I/Solanales");
+        aMap.put("Celastrales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Rosids/Eurosids_I/Celastrales");
+        aMap.put("Malpighiales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Rosids/Eurosids_I/Malpighiales");
+        aMap.put("Oxalidales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Rosids/Eurosids_I/Oxalidales");
+        aMap.put("Vitales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Rosids/Eurosids_I/Vitales");
+        aMap.put("Cucurbitales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Rosids/Eurosids_I/Cucurbitales");
+        aMap.put("Fabales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Rosids/Eurosids_I/Fabales");
+        aMap.put("Rosales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Rosids/Eurosids_I/Rosales");
+        aMap.put("Brassicales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Rosids/Eurosids_II/Brassicales");
+        aMap.put("Geraniales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Rosids/Eurosids_II/Geraniales");
+        aMap.put("Malvales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Rosids/Eurosids_II/Malvales");
+        aMap.put("Myrtales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Rosids/Eurosids_II/Myrtales");
+        aMap.put("Sapindales", "Eukaryota/Plantae/Angiosperms/Eudicots/Core_eudicots/Rosids/Eurosids_II/Sapindales");
 
         apgiiiOrdoMap = Collections.unmodifiableMap(aMap);
     }
@@ -287,18 +287,18 @@ public class Creater {
 //            Call<Map<String, Object>> callFirebaseAPGIV = firebaseClient.getApiService().getAPGIV();
 //            Map<String, Object> apgIV = callFirebaseAPGIV.execute().body();
 //
-            File fileOld = new File(PATH_TO_PLANTS);
-
-            Scanner scannerOld = new Scanner(fileOld);
-
-            while (scannerOld.hasNextLine()) {
-                final String[] plantLine = scannerOld.nextLine().split(";");
-                System.out.println(plantLine[0]);
-
-                //updateTaxonomy(apgivOrdoMap, apgIV, plantLine[0], plantLine[1]);
-                updatePlantTaxonomy(firebaseClient, plantLine[0], plantLine[1]);
-            }
-            scannerOld.close();
+//            File fileOld = new File(PATH_TO_PLANTS);
+//
+//            Scanner scannerOld = new Scanner(fileOld);
+//
+//            while (scannerOld.hasNextLine()) {
+//                final String[] plantLine = scannerOld.nextLine().split(";");
+//                System.out.println(plantLine[0]);
+//
+//                //updateTaxonomy(apgivOrdoMap, apgIV, plantLine[0], plantLine[1]);
+//                updatePlantTaxonomy(firebaseClient, plantLine[0], plantLine[1]);
+//            }
+//            scannerOld.close();
 
             File file = new File(PATH_TO_PLANTS_TO_ADD);
 
@@ -313,11 +313,11 @@ public class Creater {
 //
 //                plantId++;
 
-//                updateTaxonomy(apgiiiOrdoMap, apgIII, plantName, wikiSpeciesName);
-//                updateTaxonomy(apgivOrdoMap, apgIV, plantName, wikiSpeciesName);
+//                updateTaxonomy(apgiiiOrdoMap, apgIII, plantName, wikiSpeciesName, true);
+//                updateTaxonomy(apgivOrdoMap, apgIV, plantName, wikiSpeciesName, false);
 
 //                updatePlantTaxonomy(firebaseClient, plantName, wikiSpeciesName);
-//                addOrUpdateTranslations(firebaseClient, plantName, wikiSpeciesName);
+                addOrUpdateTranslations(firebaseClient, plantName, wikiSpeciesName);
             }
             scan.close();
 
@@ -366,11 +366,13 @@ public class Creater {
                         isEng = true;
                         ArrayList<String> sources = new ArrayList<>();
                         File file = new File("C:/Dev/Plants/" + familia + "/" + plantName+ "/sources.txt");
-                        Scanner scan = new Scanner(file);
-                        while(scan.hasNextLine()) {
-                            sources.add(scan.nextLine());
+                        if (file.exists()) {
+                            Scanner scan = new Scanner(file);
+                            while (scan.hasNextLine()) {
+                                sources.add(scan.nextLine());
+                            }
+                            plantTranslation.setSourceUrls(sources);
                         }
-                        plantTranslation.setSourceUrls(sources);
 
                         plantTranslation.setDescription("...");
                         plantTranslation.setFlower("...");
@@ -492,6 +494,7 @@ public class Creater {
             String pathAPGIII = "";
             String pathNameAPGIV = "";
             String pathAPGIV = "";
+            boolean isGenus = false;
             for (int i = 0; i < taxonValues.size(); i++) {
                 String taxonName = taxonNames.get(i).text().trim();
                 if (taxonName.endsWith(":")) {
@@ -505,8 +508,13 @@ public class Creater {
                 }
 
                 if (!pathNameAPGIII.isEmpty()) {
-                    pathNameAPGIII = pathNameAPGIII + "/" + taxonName;
-                    pathAPGIII = pathAPGIII + "/" + taxonValue;
+                    if (!isGenus) {
+                        pathNameAPGIII = pathNameAPGIII + "/" + taxonName;
+                        pathAPGIII = pathAPGIII + "/" + taxonValue;
+                        if ("Genus".equals(taxonName)) {
+                            isGenus = true;
+                        }
+                    }
                     pathNameAPGIV = pathNameAPGIV + "/" + taxonName;
                     pathAPGIV = pathAPGIV + "/" + taxonValue;
                 }
@@ -519,32 +527,32 @@ public class Creater {
                 }
             }
 
-//            String[] namesIII = pathNameAPGIII.split("/");
-//            String[] valuesIII = pathAPGIII.split("/");
-//            HashMap<String, String> apgIII = new HashMap<>();
-//            for (int k = valuesIII.length - 1; k >= 0; k--) {
-//                apgIII.put((k < 10 ? "0" : "") + k + "_" + namesIII[valuesIII.length-1-k], valuesIII[valuesIII.length-1-k]);
-//            }
-//            Call<HashMap<String, String>> savePlantTaxonomy = firebaseClient.getApiService().savePlantTaxonomy(plantName, apgIII);
-//            Response<HashMap<String, String>> responseAPGIII = savePlantTaxonomy.execute();
-
-
-            String[] namesIV = pathNameAPGIV.split("/");
-            String[] valuesIV = pathAPGIV.split("/");
-            HashMap<String, String> apgIV = new HashMap<>();
-            for (int k = valuesIV.length - 1; k >= 0; k--) {
-                apgIV.put((k < 10 ? "0" : "") + k + "_" + namesIV[valuesIV.length-1-k], valuesIV[valuesIV.length-1-k]);
+            String[] namesIII = pathNameAPGIII.split("/");
+            String[] valuesIII = pathAPGIII.split("/");
+            HashMap<String, String> apgIII = new HashMap<>();
+            for (int k = valuesIII.length - 1; k >= 0; k--) {
+                apgIII.put((k < 10 ? "0" : "") + k + "_" + namesIII[valuesIII.length-1-k], valuesIII[valuesIII.length-1-k]);
             }
+            Call<HashMap<String, String>> savePlantTaxonomy = firebaseClient.getApiService().savePlantTaxonomy(plantName, apgIII);
+            Response<HashMap<String, String>> responseAPGIII = savePlantTaxonomy.execute();
 
-            Call<HashMap<String, String>> savePlantAPGIV = firebaseClient.getApiService().savePlantAPGIV(plantName, apgIV);
-            Response<HashMap<String, String>> responseAPGIV = savePlantAPGIV.execute();
+
+//            String[] namesIV = pathNameAPGIV.split("/");
+//            String[] valuesIV = pathAPGIV.split("/");
+//            HashMap<String, String> apgIV = new HashMap<>();
+//            for (int k = valuesIV.length - 1; k >= 0; k--) {
+//                apgIV.put((k < 10 ? "0" : "") + k + "_" + namesIV[valuesIV.length-1-k], valuesIV[valuesIV.length-1-k]);
+//            }
+//
+//            Call<HashMap<String, String>> savePlantAPGIV = firebaseClient.getApiService().savePlantAPGIV(plantName, apgIV);
+//            Response<HashMap<String, String>> responseAPGIV = savePlantAPGIV.execute();
         } catch (IOException e) {
 
         }
 
     }
 
-    private static void updateTaxonomy(Map<String, String> apgBase, Map<String, Object> apg, String plantName, String wikiSpeciesName) {
+    private static void updateTaxonomy(Map<String, String> apgBase, Map<String, Object> apg, String plantName, String wikiSpeciesName, boolean isAPGIII) {
         try {
             Document doc = Jsoup.connect("https://species.wikimedia.org/wiki/" + wikiSpeciesName).get();
             Elements ps = doc.getElementsByTag("p");
@@ -591,7 +599,11 @@ public class Creater {
             }
 
             String path = "";
+            boolean isGenus = false;
             for (int i = 0; i < taxonValues.size(); i++) {
+                if (isGenus && isAPGIII) {
+                    break;
+                }
                 String taxonName = taxonNames.get(i).text().trim();
                 if (taxonName.endsWith(":")) {
                     taxonName = taxonName.substring(0,taxonName.length()-1);
@@ -615,7 +627,7 @@ public class Creater {
                     if (taxonBellow == null) {
                         System.out.println(taxonName + ": " + taxonValue);
                         taxonBellow = createTaxon(taxonName, taxonValue, taxonLink);
-                        if (i == taxonValues.size()-1) {
+                        if (i == taxonValues.size()-1 || (isAPGIII && "Genus".equals(taxonName))) {
                             Map<String, Boolean> list = new HashMap<>();
                             list.put(plantName, true);
                             taxonBellow.put("list", list);
@@ -637,6 +649,10 @@ public class Creater {
 
                 if ("Ordo".equals(taxonName)) {
                     path = apgBase.get(taxonValue);
+                }
+
+                if ("Genus".equals(taxonName)) {
+                    isGenus = true;
                 }
             }
 

@@ -1,11 +1,3 @@
-Leontopodium nivale
-Eranthis hyemalis
-Oxalis violacea
-Geranium carolinianum
-Oenothera speciosa
-Rudbeckia amplexicaulis
-Glandularia bipinnatifida
-Triodanis perfoliata
 Pseudofumaria lutea
 Aconitum lycoctonum
 Nymphaea caerulea
@@ -118,7 +110,6 @@ Mitchella repens
 Monarda media
 Monarda fistulosa
 Nymphaea odorata
-Oxalis stricta
 Panax trifolius
 Parthenocissus quinquefolia
 Passiflora incarnata

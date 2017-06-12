@@ -66,6 +66,14 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
+    @PUT("plants/{taxonomyName}/taxonomy.json")
+    Call<HashMap<String, String>> savePlantTaxonomy(@Path("taxonomyName") String taxonomyName, @Body HashMap<String, String> apgiii);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
     @GET("plants/{name}.json")
     Call<FirebasePlant> getPlant(@Path("name") String name);
 
