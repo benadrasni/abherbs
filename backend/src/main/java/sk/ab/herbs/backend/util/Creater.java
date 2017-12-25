@@ -303,15 +303,15 @@ public class Creater {
             File file = new File(PATH_TO_PLANTS_TO_ADD);
 
             Scanner scan = new Scanner(file);
-            Integer plantId = 200008;
+            Integer plantId = 200052;
             while(scan.hasNextLine()){
                 final String plantName = scan.nextLine();
                 final String wikiSpeciesName = plantName;
                 System.out.println(plantName);
 
-//                addOrUpdateBasic(firebaseClient, plantId, plantName, wikiSpeciesName);
+//                    addOrUpdateBasic(firebaseClient, plantId, plantName, wikiSpeciesName);
 //
-//                plantId++;
+                plantId++;
 
 //                updateTaxonomy(apgiiiOrdoMap, apgIII, plantName, wikiSpeciesName, true);
 //                updateTaxonomy(apgivOrdoMap, apgIV, plantName, wikiSpeciesName, false);
@@ -634,6 +634,12 @@ public class Creater {
                             taxonBellow.put("count", list.size());
                         }
                         taxon.put(taxonValue, taxonBellow);
+                    } else {
+                        if (i == taxonValues.size()-1 || (isAPGIII && "Genus".equals(taxonName))) {
+                            Map<String, Boolean> list = (Map<String, Boolean>)taxonBellow.get("list");
+                            list.put(plantName, true);
+                            taxonBellow.put("count", list.size());
+                        }
                     }
 
                     Map<String, Boolean> list = (Map<String, Boolean>)taxon.get("list");
