@@ -13,12 +13,12 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
-    compileSdkVersion 25
+    compileSdkVersion 27
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId 'sk.ab.herbs'
         minSdkVersion 17
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 97
         versionName "3.1.8"
         vectorDrawables.useSupportLibrary = true
@@ -39,7 +39,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':common')
     compile project(':appbase')
-    compile 'com.google.firebase:firebase-ads:10.2.4'
+    compile 'com.google.firebase:firebase-ads:11.8.0'
 }
 
 configurations {
