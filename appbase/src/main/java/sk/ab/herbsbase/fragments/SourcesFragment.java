@@ -74,6 +74,8 @@ public class SourcesFragment extends Fragment {
         PlantTranslation plantTranslationEn = getPlantTranslationEn();
 
         List<String> sourceUrls = new ArrayList<>();
+
+        // add link to wikipedia
         String wikilink = null;
         if (plantTranslation != null) {
             wikilink = plantTranslation.getWikipedia();
@@ -84,6 +86,8 @@ public class SourcesFragment extends Fragment {
         if (wikilink != null) {
             sourceUrls.add(wikilink);
         }
+
+        // add link to commons
         String commonsLink = null;
         String speciesLink = null;
         if (plant.getWikilinks() != null) {
@@ -93,10 +97,13 @@ public class SourcesFragment extends Fragment {
         if (commonsLink != null) {
             sourceUrls.add(commonsLink);
         }
+
+        // add link to wikispecies
         if (speciesLink != null) {
             sourceUrls.add(speciesLink);
         }
 
+        // add links to sources in language
         List<String> sources = null;
         if (plantTranslation != null) {
             sources = plantTranslation.getSourceUrls();
@@ -104,11 +111,19 @@ public class SourcesFragment extends Fragment {
                 sourceUrls.addAll(sources);
             }
         }
-        if (plantTranslationEn != null) {
+
+        // add links to sources in English
+        if (sources == null && plantTranslationEn != null) {
             sources = plantTranslationEn.getSourceUrls();
             if (sources != null) {
                 sourceUrls.addAll(sources);
             }
+        }
+
+        // add links to common sources
+        sources = plant.getSourceUrls();
+        if (sources != null) {
+            sourceUrls.addAll(sources);
         }
 
         GridLayout grid = (GridLayout) convertView.findViewById(R.id.plant_source_grid);

@@ -62,16 +62,14 @@ public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 String newLanguage = (String) newValue;
-                if (!newLanguage.equals(Locale.getDefault().getLanguage())) {
-                    prefLanguage.setValue(newLanguage);
-                    prefLanguage.setSummary(prefLanguage.getEntry());
+                prefLanguage.setValue(newLanguage);
+                prefLanguage.setSummary(prefLanguage.getEntry());
 
-                    SharedPreferences.Editor editor = preferences.edit();
-                    changeLocale(newLanguage);
+                SharedPreferences.Editor editor = preferences.edit();
+                changeLocale(newLanguage);
 
-                    editor.putString(AndroidConstants.LANGUAGE_DEFAULT_KEY, newLanguage);
-                    editor.apply();
-                }
+                editor.putString(AndroidConstants.LANGUAGE_DEFAULT_KEY, newLanguage);
+                editor.apply();
 
                 return true;
             }

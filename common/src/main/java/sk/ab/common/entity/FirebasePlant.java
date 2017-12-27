@@ -20,6 +20,7 @@ public class FirebasePlant {
     protected Integer toxicityClass;
     protected ArrayList<String> synonyms = new ArrayList<>();
     protected ArrayList<String> photoUrls = new ArrayList<>();
+    protected ArrayList<String> sourceUrls = new ArrayList<>();
 
     protected ArrayList<String> filterColor;
     protected ArrayList<String> filterHabitat;
@@ -53,6 +54,7 @@ public class FirebasePlant {
         this.toxicityClass = plant.getToxicityClass();
         this.synonyms = plant.getSynonyms();
         this.photoUrls = plant.getPhotoUrls();
+        this.sourceUrls = plant.getSourceUrls().get("");
         this.filterColor = plant.getFilterColor();
         this.filterHabitat = plant.getFilterHabitat();
         this.filterPetal = plant.getFilterPetal();
@@ -163,7 +165,15 @@ public class FirebasePlant {
         this.photoUrls = photoUrls;
     }
 
-     public ArrayList<String> getFilterColor() {
+    public ArrayList<String> getSourceUrls() {
+        return sourceUrls;
+    }
+
+    public void setSourceUrls(ArrayList<String> sourceUrls) {
+        this.sourceUrls = sourceUrls;
+    }
+
+    public ArrayList<String> getFilterColor() {
         return filterColor;
     }
 
