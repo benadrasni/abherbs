@@ -177,6 +177,8 @@ public class SourcesFragment extends Fragment {
             } else if (url.contains(SOURCE_USFS)) {
                 image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.usfs, null));
                 text.setText(SOURCE_USFS);
+            } else {
+                image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.internet, null));
             }
 
             image.setOnClickListener(new View.OnClickListener() {
