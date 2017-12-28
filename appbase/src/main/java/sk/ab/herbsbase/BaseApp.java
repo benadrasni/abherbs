@@ -72,6 +72,14 @@ public abstract class BaseApp extends Application {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
+    
+    public static boolean isConnectedToWifi(final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+
+        return connectivityManager.getActiveNetworkInfo() != null
+                && connectivityManager.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI
+                && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
 
     public abstract boolean isOffline();
 

@@ -39,7 +39,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
         super.onCreate(savedInstanceState);
 
         boolean offlineMode = getSharedPreferences().getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
-        if (offlineMode && BaseApp.isNetworkAvailable(getApplicationContext())) {
+        if (offlineMode && BaseApp.isConnectedToWifi(getApplicationContext())) {
             Intent intent = new Intent(this, TransparentActivity.class);
             startActivity(intent);
         }
@@ -104,6 +104,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
         startActivity(intent);
         stopLoading();
         setCountButton();
+        isLoading = false;
     }
 
     @Override
