@@ -17,7 +17,7 @@ import sk.ab.common.entity.PlantList;
 
 
 /**
- * Datastore service
+ * Firebase service
  */
 public interface FirebaseService {
 
@@ -82,7 +82,7 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
-    @PATCH("counts.json")
+    @PATCH("counts_new.json")
     Call<Map> saveCount(@Body Map<String, Integer> count);
 
     @Headers({
@@ -90,7 +90,7 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
-    @PATCH("lists.json")
+    @PATCH("lists_new.json")
     Call<Map> saveList(@Body Map<String, Map<String, Boolean>> list);
 
     @Headers({
@@ -106,8 +106,17 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
-    @PUT("search/{language}.json")
+    @PUT("search_new/{language}.json")
     Call<Object> saveSearch(@Path("language") String language, @Body Map<String, Map<String, Boolean>> plants);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @PUT("search_new/{language}/{key}.json")
+    Call<Object> savePartialSearch(@Path("language") String language, @Path("key") String key, @Body Map<String, Boolean> plants);
+
 
     @PUT("APG III.json")
     Call<Object> saveAPGIII(@Body Object object);
