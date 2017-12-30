@@ -44,8 +44,8 @@ public class Updater {
 
     public static void main(String[] params) {
 
-        //missing();
-        search();
+        missing();
+        //search();
     }
 
     private static void termini() {
