@@ -166,7 +166,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         savedInstanceState.putInt(AndroidConstants.STATE_FILTER_POSITION, filterPosition);
         savedInstanceState.putSerializable(AndroidConstants.STATE_FILTER, filter);
 
-        super.onSaveInstanceState(savedInstanceState);
+        //super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
