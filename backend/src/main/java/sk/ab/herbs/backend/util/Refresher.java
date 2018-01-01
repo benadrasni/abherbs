@@ -20,7 +20,7 @@ import sk.ab.common.service.FirebaseClient;
 
 public class Refresher {
 
-    public static String PATH = "D:/Projects/abherbs/backend/txt/";
+    public static String PATH = "c:/Dev/Projects/abherbs/backend/txt/";
     public static String PLANTS_FILE = "plants.csv"; //"sample.csv";
 
     public static String CELL_DELIMITER = ";";
@@ -241,7 +241,7 @@ public class Refresher {
 
     public static void main(String[] params) {
 
-        //countAndList();
+        countAndList();
         search();
     }
 

@@ -303,14 +303,14 @@ public class Creater {
             File file = new File(PATH_TO_PLANTS_TO_ADD);
 
             Scanner scan = new Scanner(file);
-            Integer plantId = 200052;
+            Integer plantId = 200157;
             while(scan.hasNextLine()){
                 final String plantName = scan.nextLine();
                 final String wikiSpeciesName = plantName;
                 System.out.println(plantName);
 
-//                    addOrUpdateBasic(firebaseClient, plantId, plantName, wikiSpeciesName);
-//
+                addOrUpdateBasic(firebaseClient, plantId, plantName, wikiSpeciesName);
+
                 plantId++;
 
 //                updateTaxonomy(apgiiiOrdoMap, apgIII, plantName, wikiSpeciesName, true);
@@ -364,16 +364,6 @@ public class Creater {
 
                     if (Constants.LANGUAGE_EN.equals(language)) {
                         isEng = true;
-                        ArrayList<String> sources = new ArrayList<>();
-                        File file = new File("C:/Dev/Plants/" + familia + "/" + plantName+ "/sources.txt");
-                        if (file.exists()) {
-                            Scanner scan = new Scanner(file);
-                            while (scan.hasNextLine()) {
-                                sources.add(scan.nextLine());
-                            }
-                            plantTranslation.setSourceUrls(sources);
-                        }
-
                         plantTranslation.setDescription("...");
                         plantTranslation.setFlower("...");
                         plantTranslation.setInflorescence("...");
@@ -791,7 +781,7 @@ public class Creater {
 
         ArrayList<String> urls = new ArrayList<>();
         for (int i = 1; i < 6; i++) {
-            File file = new File("C:/Dev/Storage/batch 1/photos/" + ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantName.substring(0,1).toLowerCase() + plantName.substring(plantName.indexOf(" ") + 1, plantName.indexOf(" ") + 2) + i + ".webp");
+            File file = new File("C:/Dev/Storage/storage/photos/" + ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantName.substring(0,1).toLowerCase() + plantName.substring(plantName.indexOf(" ") + 1, plantName.indexOf(" ") + 2) + i + ".webp");
             if (file.exists()) {
                 urls.add(ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantName.substring(0,1).toLowerCase() + plantName.substring(plantName.indexOf(" ") + 1, plantName.indexOf(" ") + 2) + i + ".webp");
             } else {
@@ -803,6 +793,16 @@ public class Creater {
         ArrayList<String> synonyms = getSynonyms(wikiSpeciesName);
         if (!synonyms.isEmpty()) {
             plantBasic.setSynonyms(synonyms);
+        }
+
+        ArrayList<String> sources = new ArrayList<>();
+        File file = new File("C:/Dev/Plants/" + familia + "/" + plantName+ "/sources.txt");
+        if (file.exists()) {
+            Scanner scan = new Scanner(file);
+            while (scan.hasNextLine()) {
+                sources.add(scan.nextLine());
+            }
+            plantBasic.setSourceUrls(sources);
         }
 
         Call<FirebasePlant> savePlant = firebaseClient.getApiService().savePlant(plantName, plantBasic);
