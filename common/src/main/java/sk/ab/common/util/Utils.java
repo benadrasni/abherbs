@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.Normalizer;
 import java.util.Map;
 
 /**
@@ -85,5 +86,10 @@ public class Utils {
                     (l + " cannot be cast to int without changing its value.");
         }
         return (int) l;
+    }
+
+    public static String removeDiacriticalMarks(String string) {
+        return Normalizer.normalize(string, Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
 }

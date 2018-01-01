@@ -60,6 +60,7 @@ public class NameSearchActivity extends SearchBaseActivity {
             this.language = language;
             this.names = names;
             this.allNames = new ArrayList<>();
+
             this.allNames.addAll(names);
         }
 
@@ -101,13 +102,13 @@ public class NameSearchActivity extends SearchBaseActivity {
         }
 
         void filter(String constraint) {
-            constraint = constraint.toLowerCase();
+            constraint = Utils.removeDiacriticalMarks(constraint.toLowerCase());
             names.clear();
             if (constraint.isEmpty()) {
                 names.addAll(allNames);
             } else {
                 for (PlantName name : allNames) {
-                    if (name.getName().toLowerCase().contains(constraint)) {
+                    if (name.getNameWithoutDiacritics().contains(constraint)) {
                         names.add(name);
                     }
                 }
@@ -165,7 +166,7 @@ public class NameSearchActivity extends SearchBaseActivity {
         mSearchView.setIconified(false);
         int options = mSearchView.getImeOptions();
         mSearchView.setImeOptions(options| EditorInfo.IME_FLAG_NO_EXTRACT_UI);
-        EditText searchViewEditText = (EditText) mSearchView.findViewById(R.id.search_src_text);
+        EditText searchViewEditText = mSearchView.findViewById(R.id.search_src_text);
         searchViewEditText.setEnabled(false);
         menuItem.expandActionView();
 
@@ -227,7 +228,9 @@ public class NameSearchActivity extends SearchBaseActivity {
                 for (DataSnapshot nameSnapshot : dataSnapshot.getChildren()) {
                     PlantName name = new PlantName();
 
+                    String nameKey = nameSnapshot.getKey();
                     name.setName(nameSnapshot.getKey());
+                    name.setNameWithoutDiacritics(Utils.removeDiacriticalMarks(nameKey));
                     name.setCount(Utils.safeLongToInt(nameSnapshot.getChildrenCount()));
                     name.setPlantName(nameSnapshot.getChildren().iterator().next().getKey());
                     names.add(name);
@@ -257,7 +260,9 @@ public class NameSearchActivity extends SearchBaseActivity {
                 for (DataSnapshot nameSnapshot : dataSnapshot.getChildren()) {
                     PlantName name = new PlantName();
 
-                    name.setName(nameSnapshot.getKey());
+                    String nameKey = nameSnapshot.getKey();
+                    name.setName(nameKey);
+                    name.setNameWithoutDiacritics(nameKey);
                     name.setCount(Utils.safeLongToInt(nameSnapshot.getChildrenCount()));
                     name.setPlantName(nameSnapshot.getChildren().iterator().next().getKey());
                     latinNames.add(name);
@@ -282,7 +287,7 @@ public class NameSearchActivity extends SearchBaseActivity {
     }
 
     private void enableSearch() {
-        EditText searchViewEditText = (EditText) mSearchView.findViewById(R.id.search_src_text);
+        EditText searchViewEditText = mSearchView.findViewById(R.id.search_src_text);
         searchViewEditText.setEnabled(true);
     }
 }

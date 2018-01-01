@@ -6,6 +6,7 @@ package sk.ab.common.entity;
  */
 public class PlantName {
     private String name;
+    private String nameWithoutDiacritics;
     private int count;
     private String plantName;
 
@@ -15,6 +16,14 @@ public class PlantName {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNameWithoutDiacritics() {
+        return nameWithoutDiacritics;
+    }
+
+    public void setNameWithoutDiacritics(String nameWithoutDiacritics) {
+        this.nameWithoutDiacritics = nameWithoutDiacritics;
     }
 
     public int getCount() {

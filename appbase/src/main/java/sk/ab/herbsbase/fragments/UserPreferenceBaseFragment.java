@@ -9,12 +9,9 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.widget.Toast;
 
-import com.google.common.base.Strings;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
@@ -62,11 +59,14 @@ public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 String newLanguage = (String) newValue;
+                String oldLanguage = prefLanguage.getValue();
                 prefLanguage.setValue(newLanguage);
                 prefLanguage.setSummary(prefLanguage.getEntry());
 
                 SharedPreferences.Editor editor = preferences.edit();
                 changeLocale(newLanguage);
+
+                updateLanguagePreferences(oldLanguage, newLanguage);
 
                 editor.putString(AndroidConstants.LANGUAGE_DEFAULT_KEY, newLanguage);
                 editor.apply();
@@ -119,4 +119,7 @@ public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
         prefCacheSize.setSummary(resources.getString(R.string.cache_size_summary));
     }
 
+    protected void updateLanguagePreferences(String oldLanguage, String newLanguage) {
+
+    }
 }

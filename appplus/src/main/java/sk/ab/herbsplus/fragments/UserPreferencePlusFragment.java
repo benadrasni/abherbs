@@ -19,7 +19,6 @@ import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.fragments.UserPreferenceBaseFragment;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
-import sk.ab.herbsplus.StorageLoading;
 import sk.ab.herbsplus.activities.TransparentActivity;
 
 /**
@@ -104,5 +103,34 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
 
         prefOfflineMode.setTitle(resources.getString(R.string.offline_mode));
         prefOfflineMode.setSummary(resources.getString(R.string.offline_mode_summary));
+    }
+
+    @Override
+    protected void updateLanguagePreferences(String oldLanguage, String newLanguage) {
+        final SharedPreferences preferences = getSharedPreferences();
+
+        Boolean offlineMode = preferences.getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
+        if (offlineMode) {
+            DatabaseReference searchInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
+                    + AndroidConstants.FIREBASE_SEPARATOR + newLanguage);
+            searchInLanguageRef.keepSynced(true);
+            searchInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
+                    + AndroidConstants.FIREBASE_SEPARATOR + oldLanguage);
+            searchInLanguageRef.keepSynced(false);
+
+            DatabaseReference translationsInLanguage = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+                    + AndroidConstants.FIREBASE_SEPARATOR + newLanguage);
+            translationsInLanguage.keepSynced(true);
+            translationsInLanguage = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+                    + AndroidConstants.FIREBASE_SEPARATOR + oldLanguage);
+            translationsInLanguage.keepSynced(false);
+            DatabaseReference translationsInLanguageGT = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+                    + AndroidConstants.FIREBASE_SEPARATOR + newLanguage + AndroidConstants.LANGUAGE_GT_SUFFIX);
+            translationsInLanguageGT.keepSynced(true);
+            translationsInLanguageGT = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+                    + AndroidConstants.FIREBASE_SEPARATOR + oldLanguage + AndroidConstants.LANGUAGE_GT_SUFFIX);
+            translationsInLanguageGT.keepSynced(false);
+        }
+
     }
 }
