@@ -263,7 +263,7 @@ public class Refresher {
 
                 final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
 
-                System.out.println(plantLine[0]);
+                //System.out.println(plantLine[0]);
 
                 Call<FirebasePlant> plantCall = firebaseClient.getApiService().getPlant(plantLine[0]);
                 FirebasePlant plant = plantCall.execute().body();
@@ -374,7 +374,7 @@ public class Refresher {
 
                 final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
 
-                System.out.println(plantLine[0]);
+                //System.out.println(plantLine[0]);
 
                 Call<FirebasePlant> plantCall = firebaseClient.getApiService().getPlant(plantLine[0]);
                 FirebasePlant plant = plantCall.execute().body();
