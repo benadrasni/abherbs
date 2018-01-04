@@ -82,10 +82,10 @@ public class NameSearchActivity extends SearchBaseActivity {
                     getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     if (name.getCount() == 1) {
-                        callDetailActivity(name.getPlantName());
+                        callDetailActivity(name.getPlantName(), false);
                     } else {
                         callListActivity(SpecificConstants.FIREBASE_SEARCH + AndroidConstants.FIREBASE_SEPARATOR
-                                + language + AndroidConstants.FIREBASE_SEPARATOR + name.getName(), name.getCount());
+                                + language + AndroidConstants.FIREBASE_SEPARATOR + name.getName(), name.getCount(), false);
                     }
                 }
             });

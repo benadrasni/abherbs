@@ -304,9 +304,9 @@ public class TaxonomyActivity extends SearchBaseActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         if (taxon.getCount() == 1) {
-            callDetailActivity(taxon.getPlantName());
+            callDetailActivity(taxon.getPlantName(), false);
         } else {
-            callListActivity(taxon.getPath(), taxon.getCount());
+            callListActivity(taxon.getPath(), taxon.getCount(), false);
         }
     }
 }

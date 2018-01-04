@@ -9,34 +9,34 @@ import java.util.HashMap;
 @Entity
 public class FirebasePlant {
 
-    @Id protected Integer plantId;
-    protected String name;
-    protected String wikiName;
-    protected String illustrationUrl;
-    protected Integer heightFrom;
-    protected Integer heightTo;
-    protected Integer floweringFrom;
-    protected Integer floweringTo;
-    protected Integer toxicityClass;
-    protected ArrayList<String> synonyms = new ArrayList<>();
-    protected ArrayList<String> photoUrls = new ArrayList<>();
-    protected ArrayList<String> sourceUrls = new ArrayList<>();
+    @Id private Integer plantId;
+    private String name;
+    private String wikiName;
+    private String illustrationUrl;
+    private Integer heightFrom;
+    private Integer heightTo;
+    private Integer floweringFrom;
+    private Integer floweringTo;
+    private Integer toxicityClass;
+    private ArrayList<String> synonyms = new ArrayList<>();
+    private ArrayList<String> photoUrls = new ArrayList<>();
+    private ArrayList<String> sourceUrls = new ArrayList<>();
 
-    protected ArrayList<String> filterColor;
-    protected ArrayList<String> filterHabitat;
-    protected ArrayList<String> filterPetal;
-    protected ArrayList<String> filterInflorescence;
-    protected ArrayList<String> filterSepal;
-    protected ArrayList<String> filterStem;
-    protected ArrayList<String> filterLeafShape;
-    protected ArrayList<String> filterLeafMargin;
-    protected ArrayList<String> filterLeafVenetation;
-    protected ArrayList<String> filterLeafArrangement;
-    protected ArrayList<String> filterRoot;
+    private ArrayList<String> filterColor;
+    private ArrayList<String> filterHabitat;
+    private ArrayList<String> filterPetal;
+    private ArrayList<String> filterInflorescence;
+    private ArrayList<String> filterSepal;
+    private ArrayList<String> filterStem;
+    private ArrayList<String> filterLeafShape;
+    private ArrayList<String> filterLeafMargin;
+    private ArrayList<String> filterLeafVenetation;
+    private ArrayList<String> filterLeafArrangement;
+    private ArrayList<String> filterRoot;
 
-    protected HashMap<String, String> wikilinks = new HashMap<>();
-    protected HashMap<String, String> taxonomy = new HashMap<>();
-    protected HashMap<String, String> APGIV = new HashMap<>();
+    private HashMap<String, String> wikilinks = new HashMap<>();
+    private HashMap<String, String> taxonomy = new HashMap<>();
+    private HashMap<String, String> APGIV = new HashMap<>();
 
     public FirebasePlant() {
 

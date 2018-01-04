@@ -22,6 +22,11 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
     }
 
     @Override
+    protected Class getFilterPlantActivityClass() {
+        return FilterPlantsPlusActivity.class;
+    }
+
+    @Override
     public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }

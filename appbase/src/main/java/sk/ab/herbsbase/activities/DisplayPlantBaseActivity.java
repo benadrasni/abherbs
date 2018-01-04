@@ -1,5 +1,6 @@
 package sk.ab.herbsbase.activities;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -31,6 +32,7 @@ import sk.ab.herbsbase.fragments.TaxonomyFragment;
  */
 public abstract class DisplayPlantBaseActivity extends BaseActivity {
 
+    private boolean fromNotification;
     private PlantParcel plantParcel;
     private PlantTranslationParcel plantTranslationParcel;
     private PlantTranslationParcel plantTranslationEnParcel;
@@ -41,12 +43,14 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
+            fromNotification = savedInstanceState.getBoolean(AndroidConstants.STATE_FROM_NOTIFICATION);
             plantParcel = savedInstanceState.getParcelable(AndroidConstants.STATE_PLANT);
             plantTranslationParcel = savedInstanceState.getParcelable(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE);
             plantTranslationGTParcel = savedInstanceState.getParcelable(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE_GT);
             plantTranslationEnParcel = savedInstanceState.getParcelable(AndroidConstants.STATE_TRANSLATION_IN_ENGLISH);
             filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
         } else {
+            fromNotification = getIntent().getExtras().getBoolean(AndroidConstants.STATE_FROM_NOTIFICATION);
             plantParcel = getIntent().getExtras().getParcelable(AndroidConstants.STATE_PLANT);
             plantTranslationParcel = getIntent().getExtras().getParcelable(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE);
             plantTranslationGTParcel = getIntent().getExtras().getParcelable(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE_GT);
@@ -113,6 +117,7 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putBoolean(AndroidConstants.STATE_FROM_NOTIFICATION, fromNotification);
         savedInstanceState.putParcelable(AndroidConstants.STATE_PLANT, plantParcel);
         savedInstanceState.putParcelable(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE, plantTranslationParcel);
         savedInstanceState.putParcelable(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE_GT, plantTranslationGTParcel);
@@ -127,6 +132,17 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
         super.onConfigurationChanged(newConfig);
 
         recreate();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (fromNotification) {
+            Intent intent = new Intent(this, getFilterPlantActivityClass());
+            startActivity(intent);
+            finish();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public FirebasePlant getPlant() {
@@ -148,4 +164,6 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
     public PlantTranslationParcel getPlantTranslationEn() {
         return plantTranslationEnParcel;
     }
+
+    protected abstract Class getFilterPlantActivityClass();
 }

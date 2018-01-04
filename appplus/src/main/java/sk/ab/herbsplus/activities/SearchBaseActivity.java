@@ -47,15 +47,16 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
         changeLocale();
     }
 
-    protected void callListActivity(String listPath, int count) {
+    protected void callListActivity(String listPath, int count, boolean fromNotification) {
         Intent intent = new Intent(getBaseContext(), ListPlantsPlusActivity.class);
+        intent.putExtra(AndroidConstants.STATE_FROM_NOTIFICATION, fromNotification);
         intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
         intent.putExtra(AndroidConstants.STATE_LIST_PATH, listPath);
         startActivity(intent);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
-    protected void callDetailActivity(final String plantName) {
+    protected void callDetailActivity(final String plantName, final boolean fromNotification) {
         if (!((BaseApp)getApplication()).isOffline() && !BaseApp.isNetworkAvailable(getApplicationContext())) {
             Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -77,7 +78,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
                 counter.increment();
 
                 if (counter.value() == API_CALLS) {
-                    displayPlant();
+                    displayPlant(fromNotification);
                 }
             }
 
@@ -109,7 +110,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
                 counter.increment();
 
                 if (counter.value() == API_CALLS) {
-                    displayPlant();
+                    displayPlant(fromNotification);
                 }
             }
 
@@ -139,7 +140,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
                     counter.increment();
 
                     if (counter.value() == API_CALLS) {
-                        displayPlant();
+                        displayPlant(fromNotification);
                     }
                 }
 
@@ -171,7 +172,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
                     counter.increment();
 
                     if (counter.value() == API_CALLS) {
-                        displayPlant();
+                        displayPlant(fromNotification);
                     }
                 }
 
@@ -189,13 +190,14 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
             counter.increment();
 
             if (counter.value() == API_CALLS) {
-                displayPlant();
+                displayPlant(fromNotification);
             }
         }
     }
 
-    private void displayPlant() {
+    private void displayPlant(boolean fromNotification) {
         Intent intent = new Intent(getBaseContext(), DisplayPlantPlusActivity.class);
+        intent.putExtra(AndroidConstants.STATE_FROM_NOTIFICATION, fromNotification);
         intent.putExtra(AndroidConstants.STATE_PLANT, new PlantParcel(getPlant()));
         if (getTranslationInLanguage() != null) {
             intent.putExtra(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE, new PlantTranslationParcel(getTranslationInLanguage()));

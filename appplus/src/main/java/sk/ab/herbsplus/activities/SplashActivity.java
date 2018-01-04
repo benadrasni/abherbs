@@ -10,7 +10,10 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.WindowManager;
 
+import sk.ab.common.entity.PlantTaxon;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsplus.HerbsApp;
@@ -23,10 +26,12 @@ import sk.ab.herbsplus.StorageLoading;
  *
  * Created by adrian on 11.3.2017.
  */
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends SearchBaseActivity {
+
+    private static final String TAG = "SplashActivity";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -51,8 +56,25 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void startApplication() {
-        Intent intent = new Intent(this, FilterPlantsPlusActivity.class);
-        startActivity(intent);
+        if (getIntent().getExtras() != null) {
+            String count = getIntent().getExtras().getString(AndroidConstants.FIREBASE_DATA_COUNT);
+            String path = getIntent().getExtras().getString(AndroidConstants.FIREBASE_DATA_PATH);
+            Log.d(TAG, path + " (" + count + ")");
+            callProperActivity(Integer.parseInt(count), path);
+        } else {
+            Intent intent = new Intent(this, FilterPlantsPlusActivity.class);
+            startActivity(intent);
+        }
         finish();
+    }
+
+    private void callProperActivity(Integer count, String path) {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        if (count == 1) {
+            callDetailActivity(path, true);
+        } else {
+            callListActivity(path, count, true);
+        }
     }
 }

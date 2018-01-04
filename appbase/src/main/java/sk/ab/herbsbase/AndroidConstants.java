@@ -34,6 +34,7 @@ public class AndroidConstants {
     public final static String STATE_TRANSLATION_IN_LANGUAGE = "translation_in_language";
     public final static String STATE_TRANSLATION_IN_LANGUAGE_GT = "translation_in_language_gt";
     public final static String STATE_TRANSLATION_IN_ENGLISH = "translation_in_english";
+    public final static String STATE_FROM_NOTIFICATION = "from_notification";
 
     public final static String RATE = "RATE";
     public final static int RATE_COUNTER = 5;
@@ -85,13 +86,15 @@ public class AndroidConstants {
     public final static String FIREBASE_PLANTS = "plants";
     public final static String FIREBASE_APG_IV = "APG IV";
     public final static String FIREBASE_SEARCH = "search";
-    public final static String FIREBASE_MESSAGES = "messages";
     public final static String FIREBASE_TRANSLATIONS = "translations";
 
     public final static String FIREBASE_APG_TYPE = "type";
     public final static String FIREBASE_APG_NAMES = "names";
     public final static String FIREBASE_APG_LIST = "list";
     public final static String FIREBASE_APG_COUNT = "count";
+
+    public final static String FIREBASE_DATA_COUNT = "count";
+    public final static String FIREBASE_DATA_PATH = "path";
 
     public static int getValueResource(Resources resources, String value) {
         int result = 0;

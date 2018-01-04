@@ -27,63 +27,63 @@ public class PlantParcel extends FirebasePlant implements Parcelable {
     };
 
     public PlantParcel(FirebasePlant plant) {
-        plantId = plant.getPlantId();
-        name = plant.getName();
-        wikiName = plant.getWikiName();
-        illustrationUrl = plant.getIllustrationUrl();
-        heightFrom = plant.getHeightFrom();
-        heightTo = plant.getHeightTo();
-        floweringFrom = plant.getFloweringFrom();
-        floweringTo = plant.getFloweringTo();
-        toxicityClass = plant.getToxicityClass();
-        synonyms = plant.getSynonyms();
-        photoUrls = plant.getPhotoUrls();
-        sourceUrls = plant.getSourceUrls();
-        taxonomy = plant.getTaxonomy();
-        APGIV = plant.getAPGIV();
-        wikilinks = plant.getWikilinks();
+        setPlantId(plant.getPlantId());
+        setName(plant.getName());
+        setWikiName(plant.getWikiName());
+        setIllustrationUrl(plant.getIllustrationUrl());
+        setHeightFrom(plant.getHeightFrom());
+        setHeightTo(plant.getHeightTo());
+        setFloweringFrom(plant.getFloweringFrom());
+        setFloweringTo(plant.getFloweringTo());
+        setToxicityClass(plant.getToxicityClass());
+        setSynonyms(plant.getSynonyms());
+        setPhotoUrls(plant.getPhotoUrls());
+        setSourceUrls(plant.getSourceUrls());
+        setTaxonomy(plant.getTaxonomy());
+        setAPGIV(plant.getAPGIV());
+        setWikilinks(plant.getWikilinks());
 
-        filterColor = plant.getFilterColor();
-        filterHabitat = plant.getFilterHabitat();
-        filterPetal = plant.getFilterPetal();
-        filterInflorescence = plant.getFilterInflorescence();
-        filterSepal = plant.getFilterSepal();
-        filterStem = plant.getFilterStem();
-        filterLeafShape = plant.getFilterLeafShape();
-        filterLeafMargin = plant.getFilterLeafMargin();
-        filterLeafVenetation = plant.getFilterLeafVenetation();
-        filterLeafArrangement = plant.getFilterLeafArrangement();
-        filterRoot = plant.getFilterRoot();
+        setFilterColor(plant.getFilterColor());
+        setFilterHabitat(plant.getFilterHabitat());
+        setFilterPetal(plant.getFilterPetal());
+        setFilterInflorescence(plant.getFilterInflorescence());
+        setFilterSepal(plant.getFilterSepal());
+        setFilterStem(plant.getFilterStem());
+        setFilterLeafShape(plant.getFilterLeafShape());
+        setFilterLeafMargin(plant.getFilterLeafMargin());
+        setFilterLeafVenetation(plant.getFilterLeafVenetation());
+        setFilterLeafArrangement(plant.getFilterLeafArrangement());
+        setFilterRoot(plant.getFilterRoot());
     }
 
     public PlantParcel(Parcel in) {
-        plantId = (Integer)in.readSerializable();
-        name = in.readString();
-        wikiName = in.readString();
-        illustrationUrl = in.readString();
-        heightFrom = (Integer)in.readSerializable();
-        heightTo = (Integer)in.readSerializable();
-        floweringFrom = (Integer)in.readSerializable();
-        floweringTo = (Integer)in.readSerializable();
-        toxicityClass = (Integer)in.readSerializable();
-        synonyms = (ArrayList<String>)in.readSerializable();
-        photoUrls = (ArrayList<String>)in.readSerializable();
-        sourceUrls = (ArrayList<String>)in.readSerializable();
-        taxonomy = (HashMap<String, String>)in.readSerializable();
-        APGIV = (HashMap<String, String>)in.readSerializable();
-        wikilinks = (HashMap<String, String>)in.readSerializable();
+        setPlantId((Integer)in.readSerializable());
+        setName(in.readString());
+        setWikiName(in.readString());
+        setIllustrationUrl(in.readString());
+        setHeightFrom((Integer)in.readSerializable());
+        setHeightTo((Integer)in.readSerializable());
+        setFloweringFrom((Integer)in.readSerializable());
+        setFloweringTo((Integer)in.readSerializable());
+        setToxicityClass((Integer)in.readSerializable());
+        setSynonyms((ArrayList<String>)in.readSerializable());
+        setPhotoUrls((ArrayList<String>)in.readSerializable());
+        setSourceUrls((ArrayList<String>)in.readSerializable());
+        setTaxonomy((HashMap<String, String>)in.readSerializable());
+        setAPGIV((HashMap<String, String>)in.readSerializable());
+        setWikilinks((HashMap<String, String>)in.readSerializable());
 
-        filterColor = (ArrayList<String>)in.readSerializable();
-        filterHabitat = (ArrayList<String>)in.readSerializable();
-        filterPetal = (ArrayList<String>)in.readSerializable();
-        filterInflorescence = (ArrayList<String>)in.readSerializable();
-        filterSepal = (ArrayList<String>)in.readSerializable();
-        filterStem = (ArrayList<String>)in.readSerializable();
-        filterLeafShape = (ArrayList<String>)in.readSerializable();
-        filterLeafMargin = (ArrayList<String>)in.readSerializable();
-        filterLeafVenetation = (ArrayList<String>)in.readSerializable();
-        filterLeafArrangement = (ArrayList<String>)in.readSerializable();
-        filterRoot = (ArrayList<String>)in.readSerializable();
+        setFilterColor((ArrayList<String>)in.readSerializable());
+        setFilterHabitat((ArrayList<String>)in.readSerializable());
+        setFilterPetal((ArrayList<String>)in.readSerializable());
+        setFilterInflorescence((ArrayList<String>)in.readSerializable());
+        setFilterSepal((ArrayList<String>)in.readSerializable());
+        setFilterStem((ArrayList<String>)in.readSerializable());
+        setFilterLeafShape((ArrayList<String>)in.readSerializable());
+        setFilterLeafMargin((ArrayList<String>)in.readSerializable());
+        setFilterLeafVenetation((ArrayList<String>)in.readSerializable());
+        setFilterLeafArrangement((ArrayList<String>)in.readSerializable());
+        setFilterRoot((ArrayList<String>)in.readSerializable());
     }
 
 
@@ -94,32 +94,32 @@ public class PlantParcel extends FirebasePlant implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeSerializable(plantId);
-        parcel.writeString(name);
-        parcel.writeString(wikiName);
-        parcel.writeString(illustrationUrl);
-        parcel.writeSerializable(heightFrom);
-        parcel.writeSerializable(heightTo);
-        parcel.writeSerializable(floweringFrom);
-        parcel.writeSerializable(floweringTo);
-        parcel.writeSerializable(toxicityClass);
-        parcel.writeSerializable(synonyms);
-        parcel.writeSerializable(photoUrls);
-        parcel.writeSerializable(sourceUrls);
-        parcel.writeSerializable(taxonomy);
-        parcel.writeSerializable(APGIV);
-        parcel.writeSerializable(wikilinks);
+        parcel.writeSerializable(getPlantId());
+        parcel.writeString(getName());
+        parcel.writeString(getWikiName());
+        parcel.writeString(getIllustrationUrl());
+        parcel.writeSerializable(getHeightFrom());
+        parcel.writeSerializable(getHeightTo());
+        parcel.writeSerializable(getFloweringFrom());
+        parcel.writeSerializable(getFloweringTo());
+        parcel.writeSerializable(getToxicityClass());
+        parcel.writeSerializable(getSynonyms());
+        parcel.writeSerializable(getPhotoUrls());
+        parcel.writeSerializable(getSourceUrls());
+        parcel.writeSerializable(getTaxonomy());
+        parcel.writeSerializable(getAPGIV());
+        parcel.writeSerializable(getWikilinks());
 
-        parcel.writeSerializable(filterColor);
-        parcel.writeSerializable(filterHabitat);
-        parcel.writeSerializable(filterPetal);
-        parcel.writeSerializable(filterInflorescence);
-        parcel.writeSerializable(filterSepal);
-        parcel.writeSerializable(filterStem);
-        parcel.writeSerializable(filterLeafShape);
-        parcel.writeSerializable(filterLeafMargin);
-        parcel.writeSerializable(filterLeafVenetation);
-        parcel.writeSerializable(filterLeafArrangement);
-        parcel.writeSerializable(filterRoot);
+        parcel.writeSerializable(getFilterColor());
+        parcel.writeSerializable(getFilterHabitat());
+        parcel.writeSerializable(getFilterPetal());
+        parcel.writeSerializable(getFilterInflorescence());
+        parcel.writeSerializable(getFilterSepal());
+        parcel.writeSerializable(getFilterStem());
+        parcel.writeSerializable(getFilterLeafShape());
+        parcel.writeSerializable(getFilterLeafMargin());
+        parcel.writeSerializable(getFilterLeafVenetation());
+        parcel.writeSerializable(getFilterLeafArrangement());
+        parcel.writeSerializable(getFilterRoot());
     }
 }

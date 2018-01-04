@@ -45,6 +45,7 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
 
     protected String listPath;
 
+    private boolean fromNotification;
     private FirebasePlant plant;
     private PlantTranslation translationInLanguage;
     private PlantTranslation translationInLanguageGT;
@@ -55,10 +56,12 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
+            fromNotification = savedInstanceState.getBoolean(AndroidConstants.STATE_FROM_NOTIFICATION);
             count = savedInstanceState.getInt(AndroidConstants.STATE_PLANT_LIST_COUNT);
             filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
             listPath = savedInstanceState.getString(AndroidConstants.STATE_LIST_PATH);
         } else {
+            fromNotification = getIntent().getExtras().getBoolean(AndroidConstants.STATE_FROM_NOTIFICATION);
             count = getIntent().getExtras().getInt(AndroidConstants.STATE_PLANT_LIST_COUNT);
             filter = (HashMap<String, String>)getIntent().getExtras().getSerializable(AndroidConstants.STATE_FILTER);
             listPath = getIntent().getStringExtra(AndroidConstants.STATE_LIST_PATH);
@@ -143,11 +146,23 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putBoolean(AndroidConstants.STATE_FROM_NOTIFICATION, fromNotification);
         savedInstanceState.putInt(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
         savedInstanceState.putSerializable(AndroidConstants.STATE_FILTER, filter);
         savedInstanceState.putString(AndroidConstants.STATE_LIST_PATH, listPath);
 
         super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (fromNotification) {
+            Intent intent = new Intent(this, getFilterPlantActivityClass());
+            startActivity(intent);
+            finish();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public String getListPath() {
@@ -306,6 +321,7 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
 
     private void displayPlant() {
         Intent intent = getDisplayPlantActivityIntent();
+        intent.putExtra(AndroidConstants.STATE_FROM_NOTIFICATION, false);
         intent.putExtra(AndroidConstants.STATE_PLANT, new PlantParcel(getPlant()));
         intent.putExtra(AndroidConstants.STATE_FILTER, filter);
         if (getTranslationInLanguage() != null) {
