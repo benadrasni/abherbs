@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.firebase.database.DataSnapshot;
@@ -49,6 +50,8 @@ import sk.ab.herbsbase.tools.Utils;
  * <p/>
  */
 public class TaxonomyFragment extends Fragment {
+    private static final String TAG = "TaxonomyFragment";
+
     private long mLastClickTime;
 
     private ImageView toxicityClass1;
@@ -162,7 +165,14 @@ public class TaxonomyFragment extends Fragment {
                         taxons.add(0, taxon);
 
                         taxonomy = (HashMap<String, Object>) taxonomy.get(value);
-                        taxon.setType((String) taxonomy.get(AndroidConstants.FIREBASE_APG_TYPE));
+                        Object type = taxonomy.get(AndroidConstants.FIREBASE_APG_TYPE);
+                        if (type == null) {
+                            Crashlytics.log("Wrong type: " + plant.getName());
+                            taxon.setType(AndroidConstants.FIREBASE_APG_UNKNOWN_TYPE);
+                        } else {
+                            taxon.setType((String) type);
+                        }
+
                         taxon.setLatinName((List<String>) ((HashMap<String, Object>) taxonomy.get(AndroidConstants.FIREBASE_APG_NAMES)).get(Constants.LANGUAGE_LA));
                         taxon.setName((List<String>) ((HashMap<String, Object>) taxonomy.get(AndroidConstants.FIREBASE_APG_NAMES)).get(Locale.getDefault().getLanguage()));
                     }

@@ -39,6 +39,8 @@ public class HerbsApp extends BaseApp {
         listsRef.keepSynced(true);
         DatabaseReference plantsRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_PLANTS);
         plantsRef.keepSynced(true);
+        DatabaseReference taxonomyRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_APG_IV);
+        taxonomyRef.keepSynced(true);
 
         // image cache
         int cacheSize = preferences.getInt(AndroidConstants.CACHE_SIZE_KEY, AndroidConstants.DEFAULT_CACHE_SIZE);

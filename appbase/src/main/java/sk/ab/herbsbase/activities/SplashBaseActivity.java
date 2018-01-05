@@ -20,8 +20,13 @@ public abstract class SplashBaseActivity extends SearchBaseActivity {
         if (getIntent().getExtras() != null) {
             String count = getIntent().getExtras().getString(AndroidConstants.FIREBASE_DATA_COUNT);
             String path = getIntent().getExtras().getString(AndroidConstants.FIREBASE_DATA_PATH);
-            Log.d(TAG, path + " (" + count + ")");
-            callProperActivity(Integer.parseInt(count), path);
+            if (count != null) {
+                Log.d(TAG, path + " (" + count + ")");
+                callProperActivity(Integer.parseInt(count), path);
+            } else {
+                Intent intent = new Intent(this, getFilterPlantsActivityClass());
+                startActivity(intent);
+            }
         } else {
             Intent intent = new Intent(this, getFilterPlantsActivityClass());
             startActivity(intent);

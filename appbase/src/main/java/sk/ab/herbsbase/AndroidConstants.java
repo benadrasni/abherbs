@@ -100,6 +100,8 @@ public class AndroidConstants {
     public final static String FIREBASE_DATA_COUNT = "count";
     public final static String FIREBASE_DATA_PATH = "path";
 
+    public final static String FIREBASE_APG_UNKNOWN_TYPE = "Unknown type";
+
     public static int getValueResource(Resources resources, String value) {
         int result = 0;
         if (value.equals(resources.getString(R.string.cof_white))) {

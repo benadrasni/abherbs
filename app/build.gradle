@@ -19,8 +19,8 @@ android {
         applicationId 'sk.ab.herbs'
         minSdkVersion 17
         targetSdkVersion 27
-        versionCode 103
-        versionName "3.3.0"
+        versionCode 105
+        versionName "3.3.1"
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -39,6 +39,9 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':common')
     compile project(':appbase')
+    compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
+        transitive = true
+    }
     compile 'com.google.firebase:firebase-ads:11.8.0'
 }
 
@@ -53,3 +56,4 @@ repositories {
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
