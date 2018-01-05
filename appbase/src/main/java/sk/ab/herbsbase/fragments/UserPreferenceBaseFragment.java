@@ -105,7 +105,7 @@ public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
             }
         });
 
-        Boolean subscribe = preferences.getBoolean(AndroidConstants.SUBSCRIBE_NEW_KEY, false);
+        Boolean subscribe = preferences.getBoolean(AndroidConstants.SUBSCRIBE_FACT_KEY, false);
         prefSubscribe = (CheckBoxPreference)findPreference("subscribeNew");
         prefSubscribe.setChecked(subscribe);
         prefSubscribe.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -114,14 +114,14 @@ public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 Boolean newSubscribeNew = (Boolean) newValue;
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean(AndroidConstants.SUBSCRIBE_NEW_KEY, newSubscribeNew);
+                editor.putBoolean(AndroidConstants.SUBSCRIBE_FACT_KEY, newSubscribeNew);
                 editor.apply();
 
                 if (newSubscribeNew) {
-                    FirebaseMessaging.getInstance().subscribeToTopic(AndroidConstants.SUBSCRIBE_NEW_TOPIC);
+                    FirebaseMessaging.getInstance().subscribeToTopic(AndroidConstants.SUBSCRIBE_FACT_TOPIC);
                     Toast.makeText(getActivity(), R.string.subscribed_to_new, Toast.LENGTH_SHORT).show();
                 } else {
-                    FirebaseMessaging.getInstance().unsubscribeFromTopic(AndroidConstants.SUBSCRIBE_NEW_TOPIC);
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic(AndroidConstants.SUBSCRIBE_FACT_TOPIC);
                     Toast.makeText(getActivity(), R.string.unsubscribed_to_new, Toast.LENGTH_SHORT).show();
                 }
 

@@ -114,8 +114,8 @@
     <string name="taxonomy_serie">Serie</string>
     <string name="taxonomy_subserie">Subserie</string>
     <string name="taxonomy_supersectio">Supersectio</string>
-    <string name="subscribe">Lass mich über neue Blumen wissen</string>
-    <string name="subscribe_summary">Benachrichtigung senden, wenn neue Blumen hinzugefügt wurden.</string>
     <string name="subscribed_to_new">Gezeichnet.</string>
     <string name="unsubscribed_to_new">Abgemeldet.</string>
+    <string name="subscribe">Interessante Fakten über Blumen</string>
+    <string name="subscribe_summary">Abonnieren Sie gelegentlich interessante Fakten über bestimmte Blumen.</string>
 </resources>
