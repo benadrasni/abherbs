@@ -32,6 +32,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
+import sk.ab.common.util.Utils;
 import sk.ab.herbsplus.entity.OfflineFile;
 
 /**
@@ -173,6 +174,9 @@ public class StorageLoading {
                             if (lastUpdateTime < storageMetadata.getUpdatedTimeMillis()) {
                                 progressDialog.show();
                                 progressDialog.setProgress(0);
+
+                                // delete offline files
+                                Utils.deleteRecursive(activity.getApplicationContext().getFilesDir());
 
                                 filesTime.add(storageMetadata.getUpdatedTimeMillis());
 
