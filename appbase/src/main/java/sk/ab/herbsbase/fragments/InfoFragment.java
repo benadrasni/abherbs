@@ -201,43 +201,43 @@ public class InfoFragment extends Fragment {
             List<String> textToTranslate = new ArrayList<>();
 
             if ((plantTranslation == null || plantTranslation.getDescription() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getDescription())) {
-                textToTranslate.add(plantTranslationEn.getDescription());
+                textToTranslate.add(removeHtmlTags(plantTranslationEn.getDescription()));
             }
 
             if ((plantTranslation == null || plantTranslation.getFlower() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getFlower())) {
-                textToTranslate.add(plantTranslationEn.getFlower());
+                textToTranslate.add(removeHtmlTags(plantTranslationEn.getFlower()));
             }
 
             if ((plantTranslation == null || plantTranslation.getInflorescence() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getInflorescence())) {
-                textToTranslate.add(plantTranslationEn.getInflorescence());
+                textToTranslate.add(removeHtmlTags(plantTranslationEn.getInflorescence()));
             }
 
             if ((plantTranslation == null || plantTranslation.getFruit() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getFruit())) {
-                textToTranslate.add(plantTranslationEn.getFruit());
+                textToTranslate.add(removeHtmlTags(plantTranslationEn.getFruit()));
             }
 
             if ((plantTranslation == null || plantTranslation.getLeaf() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getLeaf())) {
-                textToTranslate.add(plantTranslationEn.getLeaf());
+                textToTranslate.add(removeHtmlTags(plantTranslationEn.getLeaf()));
             }
 
             if ((plantTranslation == null || plantTranslation.getStem() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getStem())) {
-                textToTranslate.add(plantTranslationEn.getStem());
+                textToTranslate.add(removeHtmlTags(plantTranslationEn.getStem()));
             }
 
             if ((plantTranslation == null || plantTranslation.getHabitat() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getHabitat())) {
-                textToTranslate.add(plantTranslationEn.getHabitat());
+                textToTranslate.add(removeHtmlTags(plantTranslationEn.getHabitat()));
             }
 
             if ((plantTranslation == null || plantTranslation.getToxicity() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getToxicity())) {
-                textToTranslate.add(plantTranslationEn.getToxicity());
+                textToTranslate.add(removeHtmlTags(plantTranslationEn.getToxicity()));
             }
 
             if ((plantTranslation == null || plantTranslation.getHerbalism() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getHerbalism())) {
-                textToTranslate.add(plantTranslationEn.getHerbalism());
+                textToTranslate.add(removeHtmlTags(plantTranslationEn.getHerbalism()));
             }
 
             if ((plantTranslation == null || plantTranslation.getTrivia() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getTrivia())) {
-                textToTranslate.add(plantTranslationEn.getTrivia());
+                textToTranslate.add(removeHtmlTags(plantTranslationEn.getTrivia()));
             }
 
             if (textToTranslate.size() > 0) {
@@ -249,6 +249,10 @@ public class InfoFragment extends Fragment {
         } else {
             setInfo(true);
         }
+    }
+
+    private String removeHtmlTags(String text) {
+        return text.replace(AndroidConstants.HTML_BOLD, "").replace(AndroidConstants.HTML_BOLD_CLOSE, "");
     }
 
     private void getTranslation(final String source, final String target, final List<String> textToTranslate) {

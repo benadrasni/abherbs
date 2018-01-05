@@ -61,7 +61,6 @@ public class AndroidConstants {
     public final static String RATE_COUNT_KEY = "rate_count";
     public final static String SHOWCASE_FILTER_KEY = "showcase_filter";
     public final static String SHOWCASE_DISPLAY_KEY = "showcase_display";
-    public final static String MESSAGE_KEY = "message";
     public final static String LANGUAGE_NOT_SUPPORTED = " (not supported)";
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";
@@ -72,6 +71,9 @@ public class AndroidConstants {
             "Русский", "Slovenčina", "Slovenščina", "Српски / srpski", "Svenska", "Suomi", "Українська"};
     public final static String[] LANGUAGE_CODES = {"ar", "cs", "da", "de", "en", "es", "et", "fa", "fr", "hi", "he", "hr", "it", "lv", "lt", "hu", "nl",
             "ja", "no", "pa", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "fi", "uk"};
+
+    public final static String HTML_BOLD = "<b>";
+    public final static String HTML_BOLD_CLOSE = "</b>";
 
     public final static String ITEM_LEGEND = "Legend";
     public final static String ITEM_SETTINGS = "Settings";
