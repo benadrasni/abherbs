@@ -1,6 +1,8 @@
 package sk.ab.herbsplus.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +31,7 @@ import java.util.Locale;
 
 import sk.ab.common.entity.PlantName;
 import sk.ab.common.util.Utils;
+import sk.ab.herbsbase.activities.SearchBaseActivity;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.tools.SynchronizedCounter;
 import sk.ab.herbsplus.R;
@@ -214,6 +217,26 @@ public class NameSearchActivity extends SearchBaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected Class getFilterPlantsActivityClass() {
+        return FilterPlantsPlusActivity.class;
+    }
+
+    @Override
+    protected Class getListPlantsActivityClass() {
+        return ListPlantsPlusActivity.class;
+    }
+
+    @Override
+    protected Class getDisplayPlantActivityClass() {
+        return DisplayPlantPlusActivity.class;
+    }
+
+    @Override
+    public SharedPreferences getSharedPreferences() {
+        return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
 
     private void loadNames() {

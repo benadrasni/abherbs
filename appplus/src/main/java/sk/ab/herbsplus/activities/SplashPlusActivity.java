@@ -2,23 +2,16 @@ package sk.ab.herbsplus.activities;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.WindowManager;
 
-import sk.ab.common.entity.PlantTaxon;
 import sk.ab.herbsbase.AndroidConstants;
-import sk.ab.herbsbase.BaseApp;
-import sk.ab.herbsplus.HerbsApp;
+import sk.ab.herbsbase.activities.SplashBaseActivity;
 import sk.ab.herbsplus.SpecificConstants;
-import sk.ab.herbsplus.StorageLoading;
 
 
 /**
@@ -26,9 +19,7 @@ import sk.ab.herbsplus.StorageLoading;
  *
  * Created by adrian on 11.3.2017.
  */
-public class SplashActivity extends SearchBaseActivity {
-
-    private static final String TAG = "SplashActivity";
+public class SplashPlusActivity extends SplashBaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,26 +46,23 @@ public class SplashActivity extends SearchBaseActivity {
         }
     }
 
-    private void startApplication() {
-        if (getIntent().getExtras() != null) {
-            String count = getIntent().getExtras().getString(AndroidConstants.FIREBASE_DATA_COUNT);
-            String path = getIntent().getExtras().getString(AndroidConstants.FIREBASE_DATA_PATH);
-            Log.d(TAG, path + " (" + count + ")");
-            callProperActivity(Integer.parseInt(count), path);
-        } else {
-            Intent intent = new Intent(this, FilterPlantsPlusActivity.class);
-            startActivity(intent);
-        }
-        finish();
+    @Override
+    protected Class getFilterPlantsActivityClass() {
+        return FilterPlantsPlusActivity.class;
     }
 
-    private void callProperActivity(Integer count, String path) {
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        if (count == 1) {
-            callDetailActivity(path, true);
-        } else {
-            callListActivity(path, count, true);
-        }
+    @Override
+    protected Class getListPlantsActivityClass() {
+        return ListPlantsPlusActivity.class;
+    }
+
+    @Override
+    protected Class getDisplayPlantActivityClass() {
+        return DisplayPlantPlusActivity.class;
+    }
+
+    @Override
+    public SharedPreferences getSharedPreferences() {
+        return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
 }

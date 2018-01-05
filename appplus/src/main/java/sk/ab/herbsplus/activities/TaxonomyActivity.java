@@ -1,6 +1,7 @@
 package sk.ab.herbsplus.activities;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -34,9 +35,11 @@ import java.util.Map;
 
 import sk.ab.common.Constants;
 import sk.ab.common.entity.PlantTaxon;
+import sk.ab.herbsbase.activities.SearchBaseActivity;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.tools.Utils;
 import sk.ab.herbsplus.R;
+import sk.ab.herbsplus.SpecificConstants;
 
 /**
  *
@@ -248,6 +251,26 @@ public class TaxonomyActivity extends SearchBaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected Class getFilterPlantsActivityClass() {
+        return FilterPlantsPlusActivity.class;
+    }
+
+    @Override
+    protected Class getListPlantsActivityClass() {
+        return ListPlantsPlusActivity.class;
+    }
+
+    @Override
+    protected Class getDisplayPlantActivityClass() {
+        return DisplayPlantPlusActivity.class;
+    }
+
+    @Override
+    public SharedPreferences getSharedPreferences() {
+        return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
 
     private void loadTaxonomy() {

@@ -1,6 +1,5 @@
-package sk.ab.herbsplus.activities;
+package sk.ab.herbsbase.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,7 +24,6 @@ import sk.ab.herbsbase.entity.PlantParcel;
 import sk.ab.herbsbase.entity.PlantTranslationParcel;
 import sk.ab.herbsbase.tools.SynchronizedCounter;
 import sk.ab.herbsbase.tools.Utils;
-import sk.ab.herbsplus.SpecificConstants;
 
 /**
  *
@@ -48,7 +46,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
     }
 
     protected void callListActivity(String listPath, int count, boolean fromNotification) {
-        Intent intent = new Intent(getBaseContext(), ListPlantsPlusActivity.class);
+        Intent intent = new Intent(getBaseContext(), getListPlantsActivityClass());
         intent.putExtra(AndroidConstants.STATE_FROM_NOTIFICATION, fromNotification);
         intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
         intent.putExtra(AndroidConstants.STATE_LIST_PATH, listPath);
@@ -196,7 +194,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
     }
 
     private void displayPlant(boolean fromNotification) {
-        Intent intent = new Intent(getBaseContext(), DisplayPlantPlusActivity.class);
+        Intent intent = new Intent(getBaseContext(), getDisplayPlantActivityClass());
         intent.putExtra(AndroidConstants.STATE_FROM_NOTIFICATION, fromNotification);
         intent.putExtra(AndroidConstants.STATE_PLANT, new PlantParcel(getPlant()));
         if (getTranslationInLanguage() != null) {
@@ -245,11 +243,19 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
     }
 
     protected void changeLocale() {
-        SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences();
         String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
 
         if (!Locale.getDefault().getLanguage().equals(language)) {
             Utils.changeLocale(getBaseContext(), language);
         }
     }
+
+    protected abstract Class getFilterPlantsActivityClass();
+
+    protected abstract Class getListPlantsActivityClass();
+
+    protected abstract Class getDisplayPlantActivityClass();
+
+    public abstract SharedPreferences getSharedPreferences();
 }
