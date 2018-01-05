@@ -3,11 +3,14 @@ package sk.ab.herbsbase.fragments;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.widget.Toast;
+
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +33,7 @@ public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
 
     private ListPreference prefLanguage;
     protected EditTextPreference prefCacheSize;
+    private CheckBoxPreference prefSubscribe;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,6 +101,30 @@ public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
                     Toast.makeText(getActivity().getApplicationContext(), "Cache size must be integer value", Toast.LENGTH_LONG).show();
                     prefCacheSize.setText("" + cacheSize);
                 }
+                return true;
+            }
+        });
+
+        Boolean subscribe = preferences.getBoolean(AndroidConstants.SUBSCRIBE_NEW_KEY, false);
+        prefSubscribe = (CheckBoxPreference)findPreference("subscribeNew");
+        prefSubscribe.setChecked(subscribe);
+        prefSubscribe.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                Boolean newSubscribeNew = (Boolean) newValue;
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(AndroidConstants.SUBSCRIBE_NEW_KEY, newSubscribeNew);
+                editor.apply();
+
+                if (newSubscribeNew) {
+                    FirebaseMessaging.getInstance().subscribeToTopic(AndroidConstants.SUBSCRIBE_NEW_TOPIC);
+                    Toast.makeText(getActivity(), R.string.subscribed_to_new, Toast.LENGTH_SHORT).show();
+                } else {
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic(AndroidConstants.SUBSCRIBE_NEW_TOPIC);
+                    Toast.makeText(getActivity(), R.string.unsubscribed_to_new, Toast.LENGTH_SHORT).show();
+                }
+
                 return true;
             }
         });

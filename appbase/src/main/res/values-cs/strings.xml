@@ -115,4 +115,8 @@
     <string name="taxonomy_serie">Serie</string>
     <string name="taxonomy_subserie">Subserie</string>
     <string name="taxonomy_supersectio">Supersectio</string>
+    <string name="subscribe">Dej mi vědet o nových květinách</string>
+    <string name="subscribe_summary">Přijmi upozornění při přidání nových květin.</string>
+    <string name="subscribed_to_new">Přihlášen k odběru.</string>
+    <string name="unsubscribed_to_new">Odhlášen.</string>
 </resources>

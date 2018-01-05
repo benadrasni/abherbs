@@ -56,6 +56,8 @@ public class AndroidConstants {
     public final static String LANGUAGE_DEFAULT_KEY = "language_default";
     public final static String LANGUAGE_GT_SUFFIX = "-GT";
     public final static String CACHE_SIZE_KEY = "cache_size";
+    public final static String SUBSCRIBE_NEW_KEY = "subscribe_new_flowers";
+    public final static String SUBSCRIBE_NEW_TOPIC = "new_flowers";
     public final static String RESET_KEY = "reset";
     public final static String RATE_STATE_KEY = "rate_state";
     public final static String RATE_COUNT_KEY = "rate_count";
