@@ -14,9 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -75,12 +77,17 @@ public class PlantListFragment extends Fragment {
             mTranslationRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    PlantTranslation plantTranslation = dataSnapshot.getValue(PlantTranslation.class);
+                    try {
+                        PlantTranslation plantTranslation = dataSnapshot.getValue(PlantTranslation.class);
 
-                    if (plantTranslation != null && plantTranslation.getLabel() != null) {
-                        holder.getTitle().setText(plantTranslation.getLabel());
-                    } else {
-                        holder.getTitle().setText(plant.getName());
+                        if (plantTranslation != null && plantTranslation.getLabel() != null) {
+                            holder.getTitle().setText(plantTranslation.getLabel());
+                        } else {
+                            holder.getTitle().setText(plant.getName());
+                        }
+                    } catch (DatabaseException ex) {
+                        Crashlytics.log("Translation (" + Locale.getDefault().getLanguage() + "): " + plant.getName());
+                        Crashlytics.log(ex.getMessage());
                     }
                 }
 

@@ -167,7 +167,7 @@ public class TaxonomyFragment extends Fragment {
                         taxonomy = (HashMap<String, Object>) taxonomy.get(value);
                         Object type = taxonomy.get(AndroidConstants.FIREBASE_APG_TYPE);
                         if (type == null) {
-                            Crashlytics.log("Wrong type: " + plant.getName());
+                            Crashlytics.log("Wrong APG IV type: " + plant.getName());
                             taxon.setType(AndroidConstants.FIREBASE_APG_UNKNOWN_TYPE);
                         } else {
                             taxon.setType((String) type);
