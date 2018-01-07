@@ -66,9 +66,11 @@ public class PlantListFragment extends Fragment {
                     .setMargins(holder.getPhoto().getLayoutParams().width - Utils.convertDpToPx(55, dm),
                             holder.getPhoto().getLayoutParams().height - Utils.convertDpToPx(25, dm), 0, 0);
 
-            if (plant.getPhotoUrls().get(0) != null) {
+            if (plant.getPhotoUrls() != null && plant.getPhotoUrls().size() > 0) {
                 Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + plant.getPhotoUrls().get(0),
                         holder.getPhoto(), ((BaseApp) getActivity().getApplication()).getOptions());
+            } else {
+                Crashlytics.log("Empty photoUrls: " + plant.getName());
             }
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
