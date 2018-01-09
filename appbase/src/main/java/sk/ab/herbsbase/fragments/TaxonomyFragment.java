@@ -131,6 +131,168 @@ public class TaxonomyFragment extends Fragment {
         });
     }
 
+    private void getTaxonomyNew(final LinearLayout layout) {
+        if (layout.isShown() || layout.getChildCount() > 0) {
+            return;
+        }
+		
+		final FirebasePlant plant = displayPlantBaseActivity.getPlant();
+
+        displayPlantBaseActivity.startLoading();
+        displayPlantBaseActivity.countButton.setVisibility(View.VISIBLE);
+
+        final List<String> sortedKeys = new ArrayList<>(plant.getAPGIV().keySet());
+        Collections.sort(sortedKeys);
+		
+		StringBuffer taxonomyPath = new StringBuffer();
+		for (String taxon : sortedKeys) {
+			taxonomyPath.append("/");
+			taxonomyPath.append(plant.getAPGIV().get(taxon));
+		}
+		
+		final SynchronizedCounter counter = new SynchronizedCounter();
+		int maxCounter = sortedKeys.size() * 3;
+		
+		FirebaseDatabase database = FirebaseDatabase.getInstance();
+		
+		final List<PlantTaxon> taxons = new ArrayList<>();
+		String taxonomy = taxonomyPath.toString();
+		for (int i = 0; i < sortedKeys.size(); i++) {
+			final PlantTaxon taxon = new PlantTaxon();
+            taxons.add(taxon);
+			
+			// type
+			DatabaseReference taxonTypeRef = database.getReference(AndroidConstants.FIREBASE_APG_IV + taxonomy + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.FIREBASE_APG_TYPE);
+			taxonTypeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+				@Override
+				public void onDataChange(DataSnapshot dataSnapshot) {
+					Object type = dataSnapshot.getValue();
+					if (type == null) {
+						Crashlytics.log("Wrong APG IV type: " + plant.getName());
+						taxon.setType(AndroidConstants.FIREBASE_APG_UNKNOWN_TYPE);
+					} else {
+						taxon.setType((String) type);
+					}
+				
+					counter.increment();
+				
+					if (counter.value == maxCounter) {
+						printTaxonomy(layout, taxons);
+					}
+				}
+				
+				@Override
+				public void onCancelled(DatabaseError databaseError) {
+					Log.e(this.getClass().getName(), databaseError.getMessage());
+					Toast.makeText(displayPlantBaseActivity.getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
+					displayPlantBaseActivity.stopLoading();
+					displayPlantBaseActivity.countButton.setVisibility(View.GONE);
+				}
+			});	
+			
+			// name
+			DatabaseReference taxonNameRef = database.getReference(AndroidConstants.FIREBASE_APG_IV + taxonomy + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.FIREBASE_APG_NAMES + AndroidConstants.FIREBASE_SEPARATOR + Locale.getDefault().getLanguage());
+			taxonNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+				@Override
+				public void onDataChange(DataSnapshot dataSnapshot) {
+					taxon.setName((List<String>) dataSnapshot.getValue());
+				
+					counter.increment();
+				
+					if (counter.value == maxCounter) {
+						printTaxonomy(layout, taxons);
+					}
+				}
+				
+				@Override
+				public void onCancelled(DatabaseError databaseError) {
+					Log.e(this.getClass().getName(), databaseError.getMessage());
+					Toast.makeText(displayPlantBaseActivity.getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
+					displayPlantBaseActivity.stopLoading();
+					displayPlantBaseActivity.countButton.setVisibility(View.GONE);
+				}
+			});	
+
+			// latin name
+			DatabaseReference taxonLatinNameRef = database.getReference(AndroidConstants.FIREBASE_APG_IV + taxonomy + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.FIREBASE_APG_NAMES + AndroidConstants.FIREBASE_SEPARATOR + Constants.LANGUAGE_LA);
+			taxonLatinNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+				@Override
+				public void onDataChange(DataSnapshot dataSnapshot) {
+					taxon.setLatinName((List<String>) dataSnapshot.getValue());
+				
+					counter.increment();
+				
+					if (counter.value == maxCounter) {
+						printTaxonomy(layout, taxons);
+					}
+				}
+				
+				@Override
+				public void onCancelled(DatabaseError databaseError) {
+					Log.e(this.getClass().getName(), databaseError.getMessage());
+					Toast.makeText(displayPlantBaseActivity.getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
+					displayPlantBaseActivity.stopLoading();
+					displayPlantBaseActivity.countButton.setVisibility(View.GONE);
+				}
+			});	
+		}
+	}
+	
+	private void printTaxonomy(final LinearLayout layout, List<PlantTaxon> taxons) {
+		LayoutInflater inflater = (LayoutInflater) displayPlantBaseActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		for (PlantTaxon taxon : taxons) {
+			View view = inflater.inflate(R.layout.taxon, null);
+			TextView textType = (TextView) view.findViewById(R.id.taxonType);
+			textType.setText(Utils.getId(AndroidConstants.RES_TAXONOMY_PREFIX + taxon.getType().toLowerCase(), R.string.class));
+
+			TextView textName = (TextView) view.findViewById(R.id.taxonName);
+			StringBuilder sbName = new StringBuilder();
+			if (taxon.getName() != null) {
+				for (String s : taxon.getName()) {
+					if (sbName.length() > 0) {
+						sbName.append(", ");
+					}
+					sbName.append(s);
+				}
+			}
+
+			TextView textLatinName = (TextView) view.findViewById(R.id.taxonLatinName);
+			StringBuilder sbLatinName = new StringBuilder();
+			if (taxon.getLatinName() != null) {
+				for (String s : taxon.getLatinName()) {
+					if (sbLatinName.length() > 0) {
+						sbLatinName.append(", ");
+					}
+					sbLatinName.append(s);
+				}
+			}
+
+			if (sbName.length() > 0) {
+				textName.setText(sbName.toString());
+				if (sbLatinName.length() > 0) {
+					textLatinName.setText(sbLatinName.toString());
+				} else {
+					textLatinName.setVisibility(View.GONE);
+				}
+			} else {
+				if (sbLatinName.length() > 0) {
+					textName.setText(sbLatinName.toString());
+				} else {
+					textName.setVisibility(View.GONE);
+				}
+				textLatinName.setVisibility(View.GONE);
+			}
+
+			if (AndroidConstants.TAXON_ORDO.equals(taxon.getType()) || AndroidConstants.TAXON_FAMILIA.equals(taxon.getType())) {
+				textName.setTypeface(Typeface.DEFAULT_BOLD);
+			}
+
+			layout.addView(view);
+		}
+		displayPlantBaseActivity.stopLoading();
+		displayPlantBaseActivity.countButton.setVisibility(View.GONE);	
+	}
+	
     private void getTaxonomy(final LinearLayout layout) {
         if (layout.isShown() || layout.getChildCount() > 0) {
             return;
@@ -345,4 +507,3 @@ public class TaxonomyFragment extends Fragment {
         return displayPlantBaseActivity.getPlantTranslation();
     }
 }
-
