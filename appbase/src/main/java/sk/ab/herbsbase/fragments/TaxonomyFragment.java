@@ -28,10 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import sk.ab.common.Constants;
 import sk.ab.common.entity.FirebasePlant;
@@ -40,6 +38,7 @@ import sk.ab.common.entity.PlantTranslation;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
+import sk.ab.herbsbase.tools.SynchronizedCounter;
 import sk.ab.herbsbase.tools.Utils;
 
 /**
@@ -131,7 +130,7 @@ public class TaxonomyFragment extends Fragment {
         });
     }
 
-    private void getTaxonomyNew(final LinearLayout layout) {
+    private void getTaxonomy(final LinearLayout layout) {
         if (layout.isShown() || layout.getChildCount() > 0) {
             return;
         }
@@ -142,16 +141,21 @@ public class TaxonomyFragment extends Fragment {
         displayPlantBaseActivity.countButton.setVisibility(View.VISIBLE);
 
         final List<String> sortedKeys = new ArrayList<>(plant.getAPGIV().keySet());
-        Collections.sort(sortedKeys);
-		
-		StringBuffer taxonomyPath = new StringBuffer();
+        Collections.sort(sortedKeys, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return s2.compareTo(s1);
+            }
+        });
+
+        StringBuilder taxonomyPath = new StringBuilder();
 		for (String taxon : sortedKeys) {
 			taxonomyPath.append("/");
 			taxonomyPath.append(plant.getAPGIV().get(taxon));
 		}
 		
 		final SynchronizedCounter counter = new SynchronizedCounter();
-		int maxCounter = sortedKeys.size() * 3;
+		final int maxCounter = sortedKeys.size() * 3;
 		
 		FirebaseDatabase database = FirebaseDatabase.getInstance();
 		
@@ -176,7 +180,7 @@ public class TaxonomyFragment extends Fragment {
 				
 					counter.increment();
 				
-					if (counter.value == maxCounter) {
+					if (counter.value() == maxCounter) {
 						printTaxonomy(layout, taxons);
 					}
 				}
@@ -199,7 +203,7 @@ public class TaxonomyFragment extends Fragment {
 				
 					counter.increment();
 				
-					if (counter.value == maxCounter) {
+					if (counter.value() == maxCounter) {
 						printTaxonomy(layout, taxons);
 					}
 				}
@@ -222,7 +226,7 @@ public class TaxonomyFragment extends Fragment {
 				
 					counter.increment();
 				
-					if (counter.value == maxCounter) {
+					if (counter.value() == maxCounter) {
 						printTaxonomy(layout, taxons);
 					}
 				}
@@ -234,7 +238,9 @@ public class TaxonomyFragment extends Fragment {
 					displayPlantBaseActivity.stopLoading();
 					displayPlantBaseActivity.countButton.setVisibility(View.GONE);
 				}
-			});	
+			});
+
+			taxonomy = taxonomy.substring(0, taxonomy.lastIndexOf("/"));
 		}
 	}
 	
@@ -292,117 +298,6 @@ public class TaxonomyFragment extends Fragment {
 		displayPlantBaseActivity.stopLoading();
 		displayPlantBaseActivity.countButton.setVisibility(View.GONE);	
 	}
-	
-    private void getTaxonomy(final LinearLayout layout) {
-        if (layout.isShown() || layout.getChildCount() > 0) {
-            return;
-        }
-
-        final FirebasePlant plant = displayPlantBaseActivity.getPlant();
-
-        displayPlantBaseActivity.startLoading();
-        displayPlantBaseActivity.countButton.setVisibility(View.VISIBLE);
-
-        final List<String> sortedKeys = new ArrayList<>(plant.getAPGIV().keySet());
-        Collections.sort(sortedKeys, new Comparator<String>() {
-            @Override
-            public int compare(String s1, String s2) {
-                return s2.compareTo(s1);
-            }
-        });
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference taxonomyRef = database.getReference(AndroidConstants.FIREBASE_APG_IV);
-
-        taxonomyRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!displayPlantBaseActivity.isDestroyed()) {
-                    Map<String, Object> taxonomy = (HashMap<String, Object>) dataSnapshot.getValue();
-
-                    List<PlantTaxon> taxons = new ArrayList<>();
-                    for (String key : sortedKeys) {
-                        String value = plant.getAPGIV().get(key);
-                        PlantTaxon taxon = new PlantTaxon();
-                        taxons.add(0, taxon);
-
-                        taxonomy = (HashMap<String, Object>) taxonomy.get(value);
-                        Object type = taxonomy.get(AndroidConstants.FIREBASE_APG_TYPE);
-                        if (type == null) {
-                            Crashlytics.log("Wrong APG IV type: " + plant.getName());
-                            taxon.setType(AndroidConstants.FIREBASE_APG_UNKNOWN_TYPE);
-                        } else {
-                            taxon.setType((String) type);
-                        }
-
-                        taxon.setLatinName((List<String>) ((HashMap<String, Object>) taxonomy.get(AndroidConstants.FIREBASE_APG_NAMES)).get(Constants.LANGUAGE_LA));
-                        taxon.setName((List<String>) ((HashMap<String, Object>) taxonomy.get(AndroidConstants.FIREBASE_APG_NAMES)).get(Locale.getDefault().getLanguage()));
-                    }
-
-                    LayoutInflater inflater = (LayoutInflater) displayPlantBaseActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    for (PlantTaxon taxon : taxons) {
-                        View view = inflater.inflate(R.layout.taxon, null);
-                        TextView textType = (TextView) view.findViewById(R.id.taxonType);
-                        textType.setText(Utils.getId(AndroidConstants.RES_TAXONOMY_PREFIX + taxon.getType().toLowerCase(), R.string.class));
-
-                        TextView textName = (TextView) view.findViewById(R.id.taxonName);
-                        StringBuilder sbName = new StringBuilder();
-                        if (taxon.getName() != null) {
-                            for (String s : taxon.getName()) {
-                                if (sbName.length() > 0) {
-                                    sbName.append(", ");
-                                }
-                                sbName.append(s);
-                            }
-                        }
-
-                        TextView textLatinName = (TextView) view.findViewById(R.id.taxonLatinName);
-                        StringBuilder sbLatinName = new StringBuilder();
-                        if (taxon.getLatinName() != null) {
-                            for (String s : taxon.getLatinName()) {
-                                if (sbLatinName.length() > 0) {
-                                    sbLatinName.append(", ");
-                                }
-                                sbLatinName.append(s);
-                            }
-                        }
-
-                        if (sbName.length() > 0) {
-                            textName.setText(sbName.toString());
-                            if (sbLatinName.length() > 0) {
-                                textLatinName.setText(sbLatinName.toString());
-                            } else {
-                                textLatinName.setVisibility(View.GONE);
-                            }
-                        } else {
-                            if (sbLatinName.length() > 0) {
-                                textName.setText(sbLatinName.toString());
-                            } else {
-                                textName.setVisibility(View.GONE);
-                            }
-                            textLatinName.setVisibility(View.GONE);
-                        }
-
-                        if (AndroidConstants.TAXON_ORDO.equals(taxon.getType()) || AndroidConstants.TAXON_FAMILIA.equals(taxon.getType())) {
-                            textName.setTypeface(Typeface.DEFAULT_BOLD);
-                        }
-
-                        layout.addView(view);
-                    }
-                    displayPlantBaseActivity.stopLoading();
-                    displayPlantBaseActivity.countButton.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e(this.getClass().getName(), databaseError.getMessage());
-                Toast.makeText(displayPlantBaseActivity.getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
-                displayPlantBaseActivity.stopLoading();
-                displayPlantBaseActivity.countButton.setVisibility(View.GONE);
-            }
-        });
-    }
 
     private void setHeader() {
         FirebasePlant plant = getPlant();
