@@ -118,4 +118,5 @@
     <string name="unsubscribed_to_new">Unsubscribed.</string>
     <string name="subscribe">Interesting facts about flowers</string>
     <string name="subscribe_summary">Subscribe to occasional interesting fact about certain flower.</string>
+    <string name="taxonomy_unknown">未知の</string>
 </resources>

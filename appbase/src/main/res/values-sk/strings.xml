@@ -118,4 +118,5 @@
     <string name="unsubscribed_to_new">Odhlásený.</string>
     <string name="subscribe">Zaujímavé fakty o kvetoch</string>
     <string name="subscribe_summary">Z času na čas mi príde zaujímavý fakt o nejakom kvete.</string>
+    <string name="taxonomy_unknown">neznámy</string>
 </resources>

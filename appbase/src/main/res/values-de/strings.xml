@@ -118,4 +118,5 @@
     <string name="unsubscribed_to_new">Abgemeldet.</string>
     <string name="subscribe">Interessante Fakten über Blumen</string>
     <string name="subscribe_summary">Abonnieren Sie gelegentlich interessante Fakten über bestimmte Blumen.</string>
+    <string name="taxonomy_unknown">unbekannte</string>
 </resources>
