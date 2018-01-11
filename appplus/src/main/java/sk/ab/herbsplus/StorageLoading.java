@@ -171,7 +171,7 @@ public class StorageLoading {
                     fileReference.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
                         @Override
                         public void onSuccess(final StorageMetadata storageMetadata) {
-                            if (lastUpdateTime < storageMetadata.getUpdatedTimeMillis()) {
+                            if (!activity.isDestroyed() && lastUpdateTime < storageMetadata.getUpdatedTimeMillis()) {
                                 progressDialog.show();
                                 progressDialog.setProgress(0);
 

@@ -60,7 +60,7 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
             count = savedInstanceState.getInt(AndroidConstants.STATE_PLANT_LIST_COUNT);
             filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
             listPath = savedInstanceState.getString(AndroidConstants.STATE_LIST_PATH);
-        } else {
+        } else if (getIntent().getExtras() != null) {
             fromNotification = getIntent().getExtras().getBoolean(AndroidConstants.STATE_FROM_NOTIFICATION);
             count = getIntent().getExtras().getInt(AndroidConstants.STATE_PLANT_LIST_COUNT);
             filter = (HashMap<String, String>)getIntent().getExtras().getSerializable(AndroidConstants.STATE_FILTER);
