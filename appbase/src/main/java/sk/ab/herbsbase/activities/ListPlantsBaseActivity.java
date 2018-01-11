@@ -60,7 +60,7 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
             count = savedInstanceState.getInt(AndroidConstants.STATE_PLANT_LIST_COUNT);
             filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
             listPath = savedInstanceState.getString(AndroidConstants.STATE_LIST_PATH);
-        } else {
+        } else if (getIntent().getExtras() != null) {
             fromNotification = getIntent().getExtras().getBoolean(AndroidConstants.STATE_FROM_NOTIFICATION);
             count = getIntent().getExtras().getInt(AndroidConstants.STATE_PLANT_LIST_COUNT);
             filter = (HashMap<String, String>)getIntent().getExtras().getSerializable(AndroidConstants.STATE_FILTER);
@@ -131,7 +131,13 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
         super.onStart();
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(R.string.list_info);
+            if (fromNotification) {
+                String taxonName = listPath.substring(0, listPath.lastIndexOf(AndroidConstants.FIREBASE_SEPARATOR));
+                taxonName = taxonName.substring(taxonName.lastIndexOf(AndroidConstants.FIREBASE_SEPARATOR)+1);
+                getSupportActionBar().setTitle(taxonName);
+            } else {
+                getSupportActionBar().setTitle(R.string.list_info);
+            }
         }
 
         stopLoading();
@@ -158,6 +164,7 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
     public void onBackPressed() {
         if (fromNotification) {
             Intent intent = new Intent(this, getFilterPlantActivityClass());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         } else {
