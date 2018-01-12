@@ -13,7 +13,10 @@ import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import java.util.HashMap;
+import java.util.Locale;
 
 import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.PlantTranslation;
@@ -31,6 +34,8 @@ import sk.ab.herbsbase.fragments.TaxonomyFragment;
  *
  */
 public abstract class DisplayPlantBaseActivity extends BaseActivity {
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     private boolean fromNotification;
     private PlantParcel plantParcel;
@@ -56,6 +61,14 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
             plantTranslationGTParcel = getIntent().getExtras().getParcelable(AndroidConstants.STATE_TRANSLATION_IN_LANGUAGE_GT);
             plantTranslationEnParcel = getIntent().getExtras().getParcelable(AndroidConstants.STATE_TRANSLATION_IN_ENGLISH);
             filter = (HashMap<String, String>)getIntent().getExtras().getSerializable(AndroidConstants.STATE_FILTER);
+        }
+
+        if (plantParcel != null) {
+            mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.ITEM_LOCATION_ID, Locale.getDefault().getLanguage());
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, plantParcel.getName());
+            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
         }
 
         setContentView(R.layout.plant_activity);
