@@ -361,52 +361,9 @@ public class InfoFragment extends Fragment {
     }
 
     private void improveTranslation() {
-        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", AndroidConstants.EMAIL, null));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, getEmailSubject());
-        emailIntent.putExtra(Intent.EXTRA_TEXT, Utils.fromHtml(getEmailBody()));
-        startActivity(Intent.createChooser(emailIntent, getEmailSubject()));
-    }
-
-    private String getEmailSubject() {
-        return getString(R.string.email_subject_prefix) + " " + ((DisplayPlantBaseActivity) getActivity()).getPlant().getName();
-    }
-
-    private String getEmailBody() {
-        return getPlant().getName() +
-                "<br/><br/>" +
-                getPlantInLanguage() +
-                "<br/><br/>" +
-                Locale.getDefault().getDisplayLanguage() +
-                "<br/><br/>" +
-                getPlantPlaceHolder();
-    }
-
-    private String getPlantInLanguage() {
-        final StringBuilder text = new StringBuilder(getPlant().getName());
-        for(String[] section : getSections(true) ) {
-            text.append("<b>").append(section[0]).append("</b>");
-            text.append(": ");
-            if (section[1] != null) {
-                text.append(section[1]);
-            }
-            text.append("<br/>");
-        }
-
-        return text.toString();
-    }
-
-    private String getPlantPlaceHolder() {
-        final StringBuilder text = new StringBuilder(getPlant().getName());
-        for(String[] section : getSections(true) ) {
-            text.append("<b>").append(section[0]).append("</b>");
-            text.append(": <br/>");
-            text.append("<i>");
-            text.append(getResources().getString(R.string.your_text));
-            text.append("</i>");
-            text.append("<br/>");
-        }
-
-        return text.toString();
+        Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
+                + "?plant=" + ((DisplayPlantBaseActivity) getActivity()).getPlant().getName() + "#translate_flower"));
+        startActivity(browserIntent);
     }
 
     private String[][] getSections(boolean withTranslation) {

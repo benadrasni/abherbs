@@ -21,6 +21,7 @@ public class AndroidConstants {
     public static final long MIN_CLICK_INTERVAL = 600;
 
     public final static String EMAIL = "whatsthoseflowers@gmail.com";
+    public final static String WEB_URL = "https://whatsthatflower.com/";
     public final static int VERSION_1_2_7 = 36;
     public final static int VERSION_1_3_1 = 42;
 
