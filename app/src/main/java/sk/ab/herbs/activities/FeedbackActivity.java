@@ -103,10 +103,9 @@ public class FeedbackActivity extends AppCompatActivity {
         submitTranslate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String subject = getString(sk.ab.herbsbase.R.string.email_subject_prefix);
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", AndroidConstants.EMAIL, null));
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-                startActivity(Intent.createChooser(emailIntent, subject));
+                Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
+                        + "#translate_flower"));
+                startActivity(browserIntent);
             }
         });
     }
