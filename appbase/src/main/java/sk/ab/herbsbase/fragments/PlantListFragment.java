@@ -40,7 +40,6 @@ import sk.ab.herbsbase.tools.Utils;
 public class PlantListFragment extends Fragment {
     private long mLastClickTime;
 
-    private int listPosition;
     private PropertyAdapter adapter;
 
     private class PropertyAdapter extends FirebaseIndexRecyclerAdapter<FirebasePlant, PlantViewHolder> {
@@ -51,9 +50,11 @@ public class PlantListFragment extends Fragment {
 
         @Override
         protected void populateViewHolder(final PlantViewHolder holder, final FirebasePlant plant, int position) {
-            DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
+            final ListPlantsBaseActivity activity = (ListPlantsBaseActivity) getActivity();
+            activity.setListPosition(holder.getAdapterPosition());
+            DisplayMetrics dm = activity.getResources().getDisplayMetrics();
             holder.getPhoto().setImageResource(android.R.color.transparent);
-            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 int size = dm.widthPixels;
                 holder.getPhoto().getLayoutParams().width = size;
                 holder.getPhoto().getLayoutParams().height = size;
@@ -67,8 +68,8 @@ public class PlantListFragment extends Fragment {
                             holder.getPhoto().getLayoutParams().height - Utils.convertDpToPx(25, dm), 0, 0);
 
             if (plant.getPhotoUrls() != null && plant.getPhotoUrls().size() > 0) {
-                Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + plant.getPhotoUrls().get(0),
-                        holder.getPhoto(), ((BaseApp) getActivity().getApplication()).getOptions());
+                Utils.displayImage(activity.getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + plant.getPhotoUrls().get(0),
+                        holder.getPhoto(), ((BaseApp) activity.getApplication()).getOptions());
             } else {
                 Crashlytics.log("Empty photoUrls: " + plant.getName());
             }
@@ -103,8 +104,8 @@ public class PlantListFragment extends Fragment {
                 if (entry.getKey().endsWith(Constants.TAXONOMY_FAMILY)) {
                     String family = entry.getValue();
                     holder.getFamily().setText(family);
-                    Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_FAMILIES + family
-                            + AndroidConstants.DEFAULT_EXTENSION, holder.getFamilyIcon(), ((BaseApp) getActivity().getApplication()).getOptions());
+                    Utils.displayImage(activity.getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_FAMILIES + family
+                            + AndroidConstants.DEFAULT_EXTENSION, holder.getFamilyIcon(), ((BaseApp) activity.getApplication()).getOptions());
                     break;
                 }
             }
@@ -116,8 +117,8 @@ public class PlantListFragment extends Fragment {
                     long elapsedTime = currentClickTime - mLastClickTime;
                     mLastClickTime = currentClickTime;
                     if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
-                        listPosition = holder.getAdapterPosition();
-                        ((ListPlantsBaseActivity) getActivity()).selectPlant(plant.getName());
+                        activity.setListPosition(holder.getAdapterPosition());
+                        activity.selectPlant(plant.getName());
                     }
                 }
             });
@@ -127,11 +128,12 @@ public class PlantListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list, null);
+        ListPlantsBaseActivity activity = (ListPlantsBaseActivity) getActivity();
 
         RecyclerView list = (RecyclerView) view.findViewById(R.id.plant_list);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference plantsRef = database.getReference(AndroidConstants.FIREBASE_PLANTS);
-        DatabaseReference listRef = database.getReference(((ListPlantsBaseActivity)getActivity()).getListPath());
+        DatabaseReference listRef = database.getReference(activity.getListPath());
 
         adapter = new PropertyAdapter(FirebasePlant.class, R.layout.plant_row, PlantViewHolder.class, listRef, plantsRef);
         list.setAdapter(adapter);
@@ -144,16 +146,17 @@ public class PlantListFragment extends Fragment {
         super.onStart();
 
         if (getView() != null) {
+            ListPlantsBaseActivity activity = (ListPlantsBaseActivity) getActivity();
             RecyclerView list = (RecyclerView) getView().findViewById(R.id.plant_list);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity.getBaseContext());
 
-            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             } else {
                 linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             }
             list.setLayoutManager(linearLayoutManager);
-            linearLayoutManager.scrollToPosition(listPosition);
+            list.scrollToPosition(activity.getListPosition());
         }
     }
 

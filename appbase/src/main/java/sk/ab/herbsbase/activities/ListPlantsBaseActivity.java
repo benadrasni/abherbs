@@ -50,6 +50,7 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
     private PlantTranslation translationInLanguage;
     private PlantTranslation translationInLanguageGT;
     private PlantTranslation translationInEnglish;
+    private int listPosition;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,11 +61,13 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
             count = savedInstanceState.getInt(AndroidConstants.STATE_PLANT_LIST_COUNT);
             filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
             listPath = savedInstanceState.getString(AndroidConstants.STATE_LIST_PATH);
+            listPosition = savedInstanceState.getInt(AndroidConstants.STATE_LIST_POSITION);
         } else if (getIntent().getExtras() != null) {
             fromNotification = getIntent().getExtras().getBoolean(AndroidConstants.STATE_FROM_NOTIFICATION);
             count = getIntent().getExtras().getInt(AndroidConstants.STATE_PLANT_LIST_COUNT);
             filter = (HashMap<String, String>)getIntent().getExtras().getSerializable(AndroidConstants.STATE_FILTER);
             listPath = getIntent().getStringExtra(AndroidConstants.STATE_LIST_PATH);
+            listPosition = getIntent().getExtras().getInt(AndroidConstants.STATE_LIST_POSITION);
         }
 
         setContentView(R.layout.list_activity);
@@ -156,6 +159,7 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
         savedInstanceState.putInt(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
         savedInstanceState.putSerializable(AndroidConstants.STATE_FILTER, filter);
         savedInstanceState.putString(AndroidConstants.STATE_LIST_PATH, listPath);
+        savedInstanceState.putInt(AndroidConstants.STATE_LIST_POSITION, listPosition);
 
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -380,5 +384,13 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
 
     public void setTranslationInEnglish(PlantTranslation translationInEnglish) {
         this.translationInEnglish = translationInEnglish;
+    }
+
+    public int getListPosition() {
+        return listPosition;
+    }
+
+    public void setListPosition(int listPosition) {
+        this.listPosition = listPosition;
     }
 }

@@ -29,13 +29,13 @@ public class AndroidConstants {
     public final static String STATE_FILTER_CLEAR = "filter_clear";
     public final static String STATE_FILTER_POSITION = "filter_position";
     public final static String STATE_LIST_PATH = "list_path";
-    public final static String STATE_PLANT_LIST = "plant_list";
     public final static String STATE_PLANT_LIST_COUNT = "plant_list_count";
     public final static String STATE_PLANT = "plant";
     public final static String STATE_TRANSLATION_IN_LANGUAGE = "translation_in_language";
     public final static String STATE_TRANSLATION_IN_LANGUAGE_GT = "translation_in_language_gt";
     public final static String STATE_TRANSLATION_IN_ENGLISH = "translation_in_english";
     public final static String STATE_FROM_NOTIFICATION = "from_notification";
+    public final static String STATE_LIST_POSITION = "list_position";
 
     public final static String RATE = "RATE";
     public final static int RATE_COUNTER = 5;
