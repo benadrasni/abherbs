@@ -32,6 +32,11 @@ public class HerbsApp extends BaseApp {
 
         // image cache
         int cacheSize = preferences.getInt(AndroidConstants.CACHE_SIZE_KEY, AndroidConstants.DEFAULT_CACHE_SIZE);
+        if (cacheSize <= 0) {
+            cacheSize = AndroidConstants.DEFAULT_CACHE_SIZE;
+            editor.putInt(AndroidConstants.CACHE_SIZE_KEY, cacheSize);
+            editor.apply();
+        }
         initImageLoader(getApplicationContext(), cacheSize);
 
         // rate counter
