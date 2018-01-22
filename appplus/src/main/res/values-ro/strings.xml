@@ -9,4 +9,5 @@
 
     <string name="search">Căutare</string>
     <string name="wait_until_finish">Vă rugăm să așteptați până când se termină operație.</string>
+    <string name="authentication_failed">Authentication Failed.</string>
 </resources>

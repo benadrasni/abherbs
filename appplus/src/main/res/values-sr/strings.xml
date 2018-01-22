@@ -9,4 +9,5 @@
 
     <string name="search">Претрага</string>
     <string name="wait_until_finish">Сачекајте док операција завршена.</string>
+    <string name="authentication_failed">Authentication Failed.</string>
 </resources>

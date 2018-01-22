@@ -9,4 +9,5 @@
 
     <string name="search">Buscar</string>
     <string name="wait_until_finish">Espere hasta que finalice la operación.</string>
+    <string name="authentication_failed">Authentication Failed.</string>
 </resources>

@@ -9,4 +9,5 @@
 
     <string name="search">サーチ</string>
     <string name="wait_until_finish">操作が終了するまでお待ちください。</string>
+    <string name="authentication_failed">Authentication Failed.</string>
 </resources>

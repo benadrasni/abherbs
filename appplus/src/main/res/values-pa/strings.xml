@@ -8,4 +8,5 @@
 
     <string name="search">ਖੋਜ</string>
     <string name="wait_until_finish">ਕਿਰਪਾ ਕਰਕੇ ਉਦੋਂ ਤਕ ਉਡੀਕ ਕਰੋ ਜਦੋਂ ਤਕ ਓਪਰੇਸ਼ਨ ਪੂਰਾ ਨਹੀਂ ਹੋ ਜਾਂਦਾ.</string>
+    <string name="authentication_failed">Authentication Failed.</string>
 </resources>

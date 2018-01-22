@@ -81,16 +81,6 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
             }
         });
 
-        countButton = (FloatingActionButton) findViewById(R.id.countButton);
-        if (countButton != null) {
-            countButton.setVisibility(View.GONE);
-        }
-
-        countText = (TextView) findViewById(R.id.countText);
-        if (countText != null) {
-            countText.setVisibility(View.GONE);
-        }
-
         mDrawerLayout = (DrawerLayout) findViewById(R.id.plant_drawer_layout);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,

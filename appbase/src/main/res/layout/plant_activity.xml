@@ -55,8 +55,8 @@
         </ScrollView>
 
         <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="bottom|end">
 
             <android.support.design.widget.FloatingActionButton
@@ -64,7 +64,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
+                android:visibility="invisible"
                 android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_remove_red_eye_black_24dp"
                 app:backgroundTint="@color/MenuWhite"/>
 
             <TextView
@@ -72,10 +74,51 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:visibility="invisible"
                 android:elevation="16dp"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_add_a_photo_black_24dp"
+                android:visibility="invisible"
+                app:backgroundTint="@color/FABBlue" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_photo_black_24dp"
+                android:visibility="invisible"
+                app:backgroundTint="@color/FABBlue" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_location_on_black_24dp"
+                android:visibility="invisible"
+                app:backgroundTint="@color/FABBlue" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_note_add_black_24dp"
+                android:visibility="invisible"
+                app:backgroundTint="@color/FABBlue" />
 
         </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
