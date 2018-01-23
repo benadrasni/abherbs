@@ -108,7 +108,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
     }
 
     @Override
-    protected PropertyListBaseFragment getMenuFragment() {
+    protected PropertyListBaseFragment getNewMenuFragment() {
         return new PropertyListPlusFragment();
     }
 

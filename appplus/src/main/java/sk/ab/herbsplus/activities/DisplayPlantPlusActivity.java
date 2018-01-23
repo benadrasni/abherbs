@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,7 +13,6 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -39,10 +37,8 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
     private static final int RC_SIGN_IN = 123;
 
     private long mLastClickTime;
-    private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
 
-    private boolean FAB_Status = false;
+    private boolean isFABExpanded = false;
 
     private FloatingActionButton fabCamera;
     private FloatingActionButton fabGallery;
@@ -63,8 +59,6 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
 
         fabCamera = (FloatingActionButton) findViewById(R.id.fab_camera);
         fabGallery = (FloatingActionButton) findViewById(R.id.fab_gallery);
@@ -90,8 +84,9 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                     long elapsedTime = currentClickTime - mLastClickTime;
                     mLastClickTime = currentClickTime;
                     if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
+                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                         if (currentUser != null) {
-                            if (FAB_Status) {
+                            if (isFABExpanded) {
                                 hideFAB();
                             } else {
                                 expandFAB();
@@ -100,9 +95,9 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                             List<AuthUI.IdpConfig> providers = Arrays.asList(
                                     new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                                     new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
-                                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
-//                                    new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
-//                                    new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build());
+                                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
+                                    new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
+                                    new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build());
                             startActivityForResult(
                                     AuthUI.getInstance()
                                             .createSignInIntentBuilder()
@@ -121,11 +116,11 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
-            IdpResponse response = IdpResponse.fromResultIntent(data);
+            //IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
-                currentUser = mAuth.getCurrentUser();
+                getMenuFragment().manageUserSettings();
                 expandFAB();
             } else {
                 // Sign in failed, check response for error code
@@ -135,7 +130,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
     }
 
     @Override
-    protected PropertyListBaseFragment getMenuFragment() {
+    protected PropertyListBaseFragment getNewMenuFragment() {
         return new PropertyListPlusFragment();
     }
 
@@ -149,71 +144,73 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
 
-    private void expandFAB() {
+    public void expandFAB() {
+        if (!isFABExpanded) {
+            FrameLayout.LayoutParams layoutParamsCamera = (FrameLayout.LayoutParams) fabCamera.getLayoutParams();
+            layoutParamsCamera.bottomMargin += (int) (fabCamera.getHeight() * 1.5);
+            fabCamera.setVisibility(View.VISIBLE);
+            fabCamera.setLayoutParams(layoutParamsCamera);
+            fabCamera.startAnimation(showFabCamera);
+            fabCamera.setClickable(true);
 
-        FrameLayout.LayoutParams layoutParamsCamera = (FrameLayout.LayoutParams) fabCamera.getLayoutParams();
-        layoutParamsCamera.bottomMargin += (int) (fabCamera.getHeight() * 1.5);
-        fabCamera.setVisibility(View.VISIBLE);
-        fabCamera.setLayoutParams(layoutParamsCamera);
-        fabCamera.startAnimation(showFabCamera);
-        fabCamera.setClickable(true);
+            FrameLayout.LayoutParams layoutParamsGallery = (FrameLayout.LayoutParams) fabGallery.getLayoutParams();
+            layoutParamsGallery.bottomMargin += (int) (fabGallery.getHeight() * 3.0);
+            fabGallery.setVisibility(View.VISIBLE);
+            fabGallery.setLayoutParams(layoutParamsGallery);
+            fabGallery.startAnimation(showFabGallery);
+            fabGallery.setClickable(true);
 
-        FrameLayout.LayoutParams layoutParamsGallery = (FrameLayout.LayoutParams) fabGallery.getLayoutParams();
-        layoutParamsGallery.bottomMargin += (int) (fabGallery.getHeight() * 3.0);
-        fabGallery.setVisibility(View.VISIBLE);
-        fabGallery.setLayoutParams(layoutParamsGallery);
-        fabGallery.startAnimation(showFabGallery);
-        fabGallery.setClickable(true);
+            FrameLayout.LayoutParams layoutParamsNote = (FrameLayout.LayoutParams) fabNote.getLayoutParams();
+            layoutParamsNote.bottomMargin += (int) (fabNote.getHeight() * 4.5);
+            fabNote.setVisibility(View.VISIBLE);
+            fabNote.setLayoutParams(layoutParamsNote);
+            fabNote.startAnimation(showFabNote);
+            fabNote.setClickable(true);
 
-        FrameLayout.LayoutParams layoutParamsNote = (FrameLayout.LayoutParams) fabNote.getLayoutParams();
-        layoutParamsNote.bottomMargin += (int) (fabNote.getHeight() * 4.5);
-        fabNote.setVisibility(View.VISIBLE);
-        fabNote.setLayoutParams(layoutParamsNote);
-        fabNote.startAnimation(showFabNote);
-        fabNote.setClickable(true);
+            FrameLayout.LayoutParams layoutParamsLocation = (FrameLayout.LayoutParams) fabLocation.getLayoutParams();
+            layoutParamsLocation.bottomMargin += (int) (fabLocation.getHeight() * 6.0);
+            fabLocation.setVisibility(View.VISIBLE);
+            fabLocation.setLayoutParams(layoutParamsLocation);
+            fabLocation.startAnimation(showFabLocation);
+            fabLocation.setClickable(true);
 
-        FrameLayout.LayoutParams layoutParamsLocation = (FrameLayout.LayoutParams) fabLocation.getLayoutParams();
-        layoutParamsLocation.bottomMargin += (int) (fabLocation.getHeight() * 6.0);
-        fabLocation.setVisibility(View.VISIBLE);
-        fabLocation.setLayoutParams(layoutParamsLocation);
-        fabLocation.startAnimation(showFabLocation);
-        fabLocation.setClickable(true);
-
-        FAB_Status = true;
+            isFABExpanded = true;
+        }
     }
 
 
-    private void hideFAB() {
+    public void hideFAB() {
+        if (isFABExpanded) {
+            FrameLayout.LayoutParams layoutParamsCamera = (FrameLayout.LayoutParams) fabCamera.getLayoutParams();
+            layoutParamsCamera.bottomMargin -= (int) (fabCamera.getHeight() * 1.5);
+            fabCamera.setLayoutParams(layoutParamsCamera);
+            fabCamera.startAnimation(hideFabCamera);
+            fabCamera.setClickable(false);
+            fabCamera.setVisibility(View.INVISIBLE);
 
-        FrameLayout.LayoutParams layoutParamsCamera = (FrameLayout.LayoutParams) fabCamera.getLayoutParams();
-        layoutParamsCamera.bottomMargin -= (int) (fabCamera.getHeight() * 1.5);
-        fabCamera.setLayoutParams(layoutParamsCamera);
-        fabCamera.startAnimation(hideFabCamera);
-        fabCamera.setClickable(false);
-        fabCamera.setVisibility(View.INVISIBLE);
+            FrameLayout.LayoutParams layoutParamsGallery = (FrameLayout.LayoutParams) fabGallery.getLayoutParams();
+            layoutParamsGallery.bottomMargin -= (int) (fabGallery.getHeight() * 3.0);
+            fabGallery.setLayoutParams(layoutParamsGallery);
+            fabGallery.startAnimation(hideFabGallery);
+            fabGallery.setClickable(false);
+            fabGallery.setVisibility(View.INVISIBLE);
 
-        FrameLayout.LayoutParams layoutParamsGallery = (FrameLayout.LayoutParams) fabGallery.getLayoutParams();
-        layoutParamsGallery.bottomMargin -= (int) (fabGallery.getHeight() * 3.0);
-        fabGallery.setLayoutParams(layoutParamsGallery);
-        fabGallery.startAnimation(hideFabGallery);
-        fabGallery.setClickable(false);
-        fabGallery.setVisibility(View.INVISIBLE);
+            FrameLayout.LayoutParams layoutParamsNote = (FrameLayout.LayoutParams) fabNote.getLayoutParams();
+            layoutParamsNote.bottomMargin -= (int) (fabNote.getHeight() * 4.5);
+            fabNote.setLayoutParams(layoutParamsNote);
+            fabNote.startAnimation(hideFabNote);
+            fabNote.setClickable(false);
+            fabNote.setVisibility(View.INVISIBLE);
 
-        FrameLayout.LayoutParams layoutParamsNote = (FrameLayout.LayoutParams) fabNote.getLayoutParams();
-        layoutParamsNote.bottomMargin -= (int) (fabNote.getHeight() * 4.5);
-        fabNote.setLayoutParams(layoutParamsNote);
-        fabNote.startAnimation(hideFabNote);
-        fabNote.setClickable(false);
-        fabNote.setVisibility(View.INVISIBLE);
+            FrameLayout.LayoutParams layoutParamsLocation = (FrameLayout.LayoutParams) fabLocation.getLayoutParams();
+            layoutParamsLocation.bottomMargin -= (int) (fabLocation.getHeight() * 6.0);
+            fabLocation.setLayoutParams(layoutParamsLocation);
+            fabLocation.startAnimation(hideFabLocation);
+            fabLocation.setClickable(false);
+            fabLocation.setVisibility(View.INVISIBLE);
 
-        FrameLayout.LayoutParams layoutParamsLocation = (FrameLayout.LayoutParams) fabLocation.getLayoutParams();
-        layoutParamsLocation.bottomMargin -= (int) (fabLocation.getHeight() * 6.0);
-        fabLocation.setLayoutParams(layoutParamsLocation);
-        fabLocation.startAnimation(hideFabLocation);
-        fabLocation.setClickable(false);
-        fabLocation.setVisibility(View.INVISIBLE);
-
-        FAB_Status = false;
+            isFABExpanded = false;
+        }
     }
 
 }

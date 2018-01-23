@@ -10,4 +10,5 @@
     <string name="search">Пошук</string>
     <string name="wait_until_finish">Будь ласка, зачекайте, поки операція не буде завершена.</string>
     <string name="authentication_failed">Authentication Failed.</string>
+    <string name="logout">Logout</string>
 </resources>

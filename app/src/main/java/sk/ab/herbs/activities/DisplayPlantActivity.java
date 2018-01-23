@@ -17,7 +17,7 @@ import sk.ab.herbsbase.commons.PropertyListBaseFragment;
 public class DisplayPlantActivity extends DisplayPlantBaseActivity {
 
     @Override
-    protected PropertyListBaseFragment getMenuFragment() {
+    protected PropertyListBaseFragment getNewMenuFragment() {
         return new PropertyListFragment();
     }
 

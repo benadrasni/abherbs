@@ -124,7 +124,7 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
         if (plantListFragment == null) {
             ft.replace(R.id.list_content, new PlantListFragment(), "PlantList");
         }
-        mPropertyMenu = getMenuFragment();
+        mPropertyMenu = getNewMenuFragment();
         ft.replace(R.id.menu_content, mPropertyMenu);
         ft.commit();
     }

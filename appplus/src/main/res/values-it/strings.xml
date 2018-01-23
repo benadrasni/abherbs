@@ -10,4 +10,5 @@
     <string name="search">Ricerca</string>
     <string name="wait_until_finish">Si prega di attendere il tertmine dell\'operazione.</string>
     <string name="authentication_failed">Authentication Failed.</string>
+    <string name="logout">Logout</string>
 </resources>

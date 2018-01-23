@@ -10,4 +10,5 @@
     <string name="search">Zoeken</string>
     <string name="wait_until_finish">Wacht tot bewerking is voltooid.</string>
     <string name="authentication_failed">Authentication Failed.</string>
+    <string name="logout">Logout</string>
 </resources>

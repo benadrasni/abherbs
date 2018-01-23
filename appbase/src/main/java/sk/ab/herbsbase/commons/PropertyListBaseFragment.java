@@ -19,15 +19,16 @@ import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.BaseActivity;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
 import sk.ab.herbsbase.activities.LegendActivity;
-import sk.ab.herbsbase.activities.UserPreferenceBaseActivity;
 
 public abstract class PropertyListBaseFragment extends ListFragment {
-    private PropertyAdapter adapter;
+    protected PropertyAdapter adapter;
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.property_list, container, false);
     }
 
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         adapter = new PropertyAdapter(getActivity());
@@ -46,6 +47,14 @@ public abstract class PropertyListBaseFragment extends ListFragment {
 
         setListAdapter(adapter);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        manageUserSettings();
+    }
+
 
     @Override
     public void onListItemClick(ListView lv, View v, int position, long id) {
@@ -91,6 +100,8 @@ public abstract class PropertyListBaseFragment extends ListFragment {
                             intent.putExtra("title", setting.getName());
                             startActivity(intent);
                             break;
+                        default:
+                            handleUserSettings(setting);
                     }
                     break;
             }
@@ -156,4 +167,10 @@ public abstract class PropertyListBaseFragment extends ListFragment {
     protected abstract Class getFeedbackActivityClass();
 
     protected abstract Class getFilterPlantActivityClass();
+
+    protected void handleUserSettings(BaseSetting setting) {
+    };
+
+    public void manageUserSettings() {
+    };
 }

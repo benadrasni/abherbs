@@ -137,6 +137,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         return count;
     }
 
+    public PropertyListBaseFragment getMenuFragment() {
+        return mPropertyMenu;
+    }
+
     protected void setCountButton() {
         BaseApp app = (BaseApp)getApplication();
 
@@ -172,5 +176,5 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public abstract SharedPreferences getSharedPreferences();
 
-    protected abstract PropertyListBaseFragment getMenuFragment();
+    protected abstract PropertyListBaseFragment getNewMenuFragment();
 }

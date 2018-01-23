@@ -10,4 +10,5 @@
     <string name="search">Hae</string>
     <string name="wait_until_finish">Odota, kunnes on päättynyt.</string>
     <string name="authentication_failed">Authentication Failed.</string>
+    <string name="logout">Logout</string>
 </resources>

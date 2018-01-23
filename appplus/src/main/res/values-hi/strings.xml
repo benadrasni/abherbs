@@ -9,4 +9,5 @@
     <string name="search">खोज</string>
     <string name="wait_until_finish">ऑपरेशन समाप्त होने तक कृपया प्रतीक्षा करें</string>
     <string name="authentication_failed">Authentication Failed.</string>
+    <string name="logout">Logout</string>
 </resources>

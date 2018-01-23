@@ -28,7 +28,7 @@ public class ListPlantsPlusActivity extends ListPlantsBaseActivity {
     }
 
     @Override
-    protected PropertyListBaseFragment getMenuFragment() {
+    protected PropertyListBaseFragment getNewMenuFragment() {
         return new PropertyListPlusFragment();
     }
 

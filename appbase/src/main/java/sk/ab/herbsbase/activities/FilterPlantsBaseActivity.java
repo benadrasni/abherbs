@@ -101,7 +101,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         FragmentManager.enableDebugLogging(true);
         FragmentManager fm = getSupportFragmentManager();
 
-        mPropertyMenu = getMenuFragment();
+        mPropertyMenu = getNewMenuFragment();
 
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.menu_content, mPropertyMenu);

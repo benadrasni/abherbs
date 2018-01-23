@@ -9,4 +9,5 @@
     <string name="search">חפש</string>
     <string name="wait_until_finish">המתן עד לסיום הפעולה.</string>
     <string name="authentication_failed">Authentication Failed.</string>
+    <string name="logout">Logout</string>
 </resources>
