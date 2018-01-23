@@ -3,16 +3,16 @@ package sk.ab.herbsplus.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
@@ -48,45 +48,16 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
     private boolean isFABExpanded = false;
 
     private List<FloatingActionButton> fabList;
-    private FloatingActionButton fabCamera;
-    private FloatingActionButton fabGallery;
-    private FloatingActionButton fabNote;
-    private FloatingActionButton fabLocation;
-
-    //Animations
-    Animation showFabCamera;
-    Animation hideFabCamera;
-    Animation showFabGallery;
-    Animation hideFabGallery;
-    Animation showFabNote;
-    Animation hideFabNote;
-    Animation showFabLocation;
-    Animation hideFabLocation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        fabCamera = (FloatingActionButton) findViewById(R.id.fab_camera);
-        fabGallery = (FloatingActionButton) findViewById(R.id.fab_gallery);
-        fabNote = (FloatingActionButton) findViewById(R.id.fab_note);
-        fabLocation = (FloatingActionButton) findViewById(R.id.fab_location);
-
         fabList = new ArrayList<>();
-        fabList.add(fabCamera);
-        fabList.add(fabGallery);
-        fabList.add(fabNote);
-        fabList.add(fabLocation);
-
-        showFabCamera = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_camera_show);
-        hideFabCamera = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_camera_hide);
-        showFabGallery = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_gallery_show);
-        hideFabGallery = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_gallery_hide);
-        showFabNote = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_note_show);
-        hideFabNote = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_note_hide);
-        showFabLocation = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_location_show);
-        hideFabLocation = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_location_hide);
+        fabList.add((FloatingActionButton) findViewById(R.id.fab_camera));
+        fabList.add((FloatingActionButton) findViewById(R.id.fab_gallery));
+        fabList.add((FloatingActionButton) findViewById(R.id.fab_note));
+        fabList.add((FloatingActionButton) findViewById(R.id.fab_location));
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);
         if (countButton != null) {
@@ -160,13 +131,21 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
 
     public void expandFAB() {
         if (!isFABExpanded) {
-            float bottomMarginScale = 1.5f;
+            float marginScale = 1.5f;
             for (FloatingActionButton fab : fabList) {
                 FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) fab.getLayoutParams();
-                layoutParams.bottomMargin += (int) (fab.getHeight() * bottomMarginScale);
 
                 AnimationSet animSet = new AnimationSet(false);
-                Animation animT = new TranslateAnimation(0f, 0f, 150f, 0f);
+                animSet.setFillAfter(true);
+                Animation animT;
+                float scale = fab.getHeight() * marginScale;
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    layoutParams.bottomMargin += (int) scale;
+                    animT = new TranslateAnimation(0f, 0f, scale, 0f);
+                } else {
+                    layoutParams.rightMargin += (int) scale;
+                    animT = new TranslateAnimation(scale, 0f, 0f, 0f);
+                }
                 animT.setDuration(1000);
                 animT.setInterpolator(new LinearInterpolator());
                 animSet.addAnimation(animT);
@@ -180,37 +159,8 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                 fab.startAnimation(animSet);
                 fab.setClickable(true);
 
-                bottomMarginScale += 1.5;
+                marginScale += 1.5;
             }
-
-//            FrameLayout.LayoutParams layoutParamsCamera = (FrameLayout.LayoutParams) fabCamera.getLayoutParams();
-//            layoutParamsCamera.bottomMargin += (int) (fabCamera.getHeight() * 1.5);
-//            fabCamera.setVisibility(View.VISIBLE);
-//            fabCamera.setLayoutParams(layoutParamsCamera);
-//            fabCamera.startAnimation(showFabCamera);
-//            fabCamera.setClickable(true);
-//
-//            FrameLayout.LayoutParams layoutParamsGallery = (FrameLayout.LayoutParams) fabGallery.getLayoutParams();
-//            layoutParamsGallery.bottomMargin += (int) (fabGallery.getHeight() * 3.0);
-//            fabGallery.setVisibility(View.VISIBLE);
-//            fabGallery.setLayoutParams(layoutParamsGallery);
-//            fabGallery.startAnimation(showFabGallery);
-//            fabGallery.setClickable(true);
-//
-//            FrameLayout.LayoutParams layoutParamsNote = (FrameLayout.LayoutParams) fabNote.getLayoutParams();
-//            layoutParamsNote.bottomMargin += (int) (fabNote.getHeight() * 4.5);
-//            fabNote.setVisibility(View.VISIBLE);
-//            fabNote.setLayoutParams(layoutParamsNote);
-//            fabNote.startAnimation(showFabNote);
-//            fabNote.setClickable(true);
-//
-//            FrameLayout.LayoutParams layoutParamsLocation = (FrameLayout.LayoutParams) fabLocation.getLayoutParams();
-//            layoutParamsLocation.bottomMargin += (int) (fabLocation.getHeight() * 6.0);
-//            fabLocation.setVisibility(View.VISIBLE);
-//            fabLocation.setLayoutParams(layoutParamsLocation);
-//            fabLocation.startAnimation(showFabLocation);
-//            fabLocation.setClickable(true);
-
             isFABExpanded = true;
         }
     }
@@ -218,57 +168,35 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
 
     public void hideFAB() {
         if (isFABExpanded) {
-            float bottomMarginScale = 1.5f;
+            float marginScale = 1.5f;
             for (FloatingActionButton fab : fabList) {
                 FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) fab.getLayoutParams();
-                layoutParams.bottomMargin -= (int) (fab.getHeight() * bottomMarginScale);
-
                 AnimationSet animSet = new AnimationSet(false);
-                Animation animT = new TranslateAnimation(0f, 0f, -150f, 0f);
+                Animation animT;
+                float scale = -1 * fab.getHeight() * marginScale;
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    layoutParams.bottomMargin += (int) scale;
+                    animT = new TranslateAnimation(0f, 0f, scale, 0f);
+                } else {
+                    layoutParams.rightMargin += (int) scale;
+                    animT = new TranslateAnimation(scale, 0f, 0f, 0f);
+                }
+
                 animT.setDuration(1000);
                 animT.setInterpolator(new LinearInterpolator());
                 animSet.addAnimation(animT);
                 Animation animA =  new AlphaAnimation(1f, 0f);
                 animA.setDuration(2000);
-                animA.setInterpolator(new DecelerateInterpolator());
+                animA.setInterpolator(new AccelerateInterpolator());
                 animSet.addAnimation(animA);
 
-                fab.setVisibility(View.VISIBLE);
+                fab.setVisibility(View.INVISIBLE);
                 fab.setLayoutParams(layoutParams);
                 fab.startAnimation(animSet);
-                fab.setClickable(true);
+                fab.setClickable(false);
 
-                bottomMarginScale += 1.5;
+                marginScale += 1.5;
             }
-
-//            FrameLayout.LayoutParams layoutParamsCamera = (FrameLayout.LayoutParams) fabCamera.getLayoutParams();
-//            layoutParamsCamera.bottomMargin -= (int) (fabCamera.getHeight() * 1.5);
-//            fabCamera.setLayoutParams(layoutParamsCamera);
-//            fabCamera.startAnimation(hideFabCamera);
-//            fabCamera.setClickable(false);
-//            fabCamera.setVisibility(View.INVISIBLE);
-//
-//            FrameLayout.LayoutParams layoutParamsGallery = (FrameLayout.LayoutParams) fabGallery.getLayoutParams();
-//            layoutParamsGallery.bottomMargin -= (int) (fabGallery.getHeight() * 3.0);
-//            fabGallery.setLayoutParams(layoutParamsGallery);
-//            fabGallery.startAnimation(hideFabGallery);
-//            fabGallery.setClickable(false);
-//            fabGallery.setVisibility(View.INVISIBLE);
-//
-//            FrameLayout.LayoutParams layoutParamsNote = (FrameLayout.LayoutParams) fabNote.getLayoutParams();
-//            layoutParamsNote.bottomMargin -= (int) (fabNote.getHeight() * 4.5);
-//            fabNote.setLayoutParams(layoutParamsNote);
-//            fabNote.startAnimation(hideFabNote);
-//            fabNote.setClickable(false);
-//            fabNote.setVisibility(View.INVISIBLE);
-//
-//            FrameLayout.LayoutParams layoutParamsLocation = (FrameLayout.LayoutParams) fabLocation.getLayoutParams();
-//            layoutParamsLocation.bottomMargin -= (int) (fabLocation.getHeight() * 6.0);
-//            fabLocation.setLayoutParams(layoutParamsLocation);
-//            fabLocation.startAnimation(hideFabLocation);
-//            fabLocation.setClickable(false);
-//            fabLocation.setVisibility(View.INVISIBLE);
-
             isFABExpanded = false;
         }
     }

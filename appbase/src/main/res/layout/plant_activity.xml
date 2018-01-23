@@ -87,6 +87,7 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@drawable/ic_add_a_photo_black_24dp"
+                android:onClick="addCamera"
                 android:visibility="invisible"
                 app:backgroundTint="@color/FABBlue" />
 
@@ -97,16 +98,7 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@drawable/ic_photo_black_24dp"
-                android:visibility="invisible"
-                app:backgroundTint="@color/FABBlue" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/ic_location_on_black_24dp"
+                android:onClick="addGallery"
                 android:visibility="invisible"
                 app:backgroundTint="@color/FABBlue" />
 
@@ -117,8 +109,21 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@drawable/ic_note_add_black_24dp"
+                android:onClick="addNote"
                 android:visibility="invisible"
                 app:backgroundTint="@color/FABBlue" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_location_on_black_24dp"
+                android:onClick="addLocation"
+                android:visibility="invisible"
+                app:backgroundTint="@color/FABBlue" />
+
 
         </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
