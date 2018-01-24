@@ -12,6 +12,8 @@ public class SpecificConstants {
     public final static String STORAGE = "gs://abherbs-resources";
     public final static String OFFLINE = "/offline";
 
+    public final static int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 0;
+
     public final static String LAST_UPDATE_TIME_KEY = "last_update_time";
     public final static String OFFLINE_MODE_KEY = "offline_mode";
 

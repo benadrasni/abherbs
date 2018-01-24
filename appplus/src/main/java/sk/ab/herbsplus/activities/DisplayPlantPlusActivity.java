@@ -3,10 +3,13 @@ package sk.ab.herbsplus.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -48,16 +51,51 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
     private boolean isFABExpanded = false;
 
     private List<FloatingActionButton> fabList;
+    private FloatingActionButton fabLocation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         fabList = new ArrayList<>();
-        fabList.add((FloatingActionButton) findViewById(R.id.fab_camera));
-        fabList.add((FloatingActionButton) findViewById(R.id.fab_gallery));
-        fabList.add((FloatingActionButton) findViewById(R.id.fab_note));
-        fabList.add((FloatingActionButton) findViewById(R.id.fab_location));
+        FloatingActionButton fabCamera = (FloatingActionButton) findViewById(R.id.fab_camera);
+        fabCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addCameraPhoto();
+            }
+        });
+        fabList.add(fabCamera);
+
+        FloatingActionButton fabGallery = (FloatingActionButton) findViewById(R.id.fab_gallery);
+        fabGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addGalleryPhoto();
+            }
+        });
+        fabList.add(fabGallery);
+
+        FloatingActionButton fabNote = (FloatingActionButton) findViewById(R.id.fab_note);
+        fabNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNote();
+            }
+        });
+        fabList.add(fabNote);
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            fabLocation = (FloatingActionButton) findViewById(R.id.fab_location);
+            fabLocation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ActivityCompat.requestPermissions(DisplayPlantPlusActivity.this,
+                            new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, SpecificConstants.MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+                }
+            });
+            fabList.add(fabLocation);
+        }
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);
         if (countButton != null) {
@@ -110,6 +148,18 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
             } else {
                 // Sign in failed, check response for error code
                 Toast.makeText(this, R.string.authentication_failed, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case SpecificConstants.MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    hideFABLocation();
+                }
             }
         }
     }
@@ -199,6 +249,47 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
             }
             isFABExpanded = false;
         }
+    }
+
+    private void hideFABLocation() {
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) fabLocation.getLayoutParams();
+        AnimationSet animSet = new AnimationSet(false);
+        Animation animT;
+        float scale = -1 * fabLocation.getHeight() * 6.0f;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            layoutParams.bottomMargin += (int) scale;
+            animT = new TranslateAnimation(0f, 0f, scale, 0f);
+        } else {
+            layoutParams.rightMargin += (int) scale;
+            animT = new TranslateAnimation(scale, 0f, 0f, 0f);
+        }
+
+        animT.setDuration(1000);
+        animT.setInterpolator(new LinearInterpolator());
+        animSet.addAnimation(animT);
+        Animation animA =  new AlphaAnimation(1f, 0f);
+        animA.setDuration(2000);
+        animA.setInterpolator(new AccelerateInterpolator());
+        animSet.addAnimation(animA);
+
+        fabLocation.setVisibility(View.INVISIBLE);
+        fabLocation.setLayoutParams(layoutParams);
+        fabLocation.startAnimation(animSet);
+        fabLocation.setClickable(false);
+
+        fabList.remove(fabLocation);
+    }
+
+    private void addCameraPhoto() {
+
+    }
+
+    private void addGalleryPhoto() {
+
+    }
+
+    private void addNote() {
+
     }
 
 }
