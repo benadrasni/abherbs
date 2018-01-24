@@ -10,4 +10,5 @@
     <string name="wait_until_finish">ਕਿਰਪਾ ਕਰਕੇ ਉਦੋਂ ਤਕ ਉਡੀਕ ਕਰੋ ਜਦੋਂ ਤਕ ਓਪਰੇਸ਼ਨ ਪੂਰਾ ਨਹੀਂ ਹੋ ਜਾਂਦਾ.</string>
     <string name="authentication_failed">Authentication Failed.</string>
     <string name="logout">Logout</string>
+    <string name="camera_failed">Camera failed.</string>
 </resources>

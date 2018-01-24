@@ -11,4 +11,5 @@
     <string name="wait_until_finish">Molimo pričekajte dok se operacija završi.</string>
     <string name="authentication_failed">Authentication Failed.</string>
     <string name="logout">Logout</string>
+    <string name="camera_failed">Camera failed.</string>
 </resources>

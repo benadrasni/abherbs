@@ -42,6 +42,7 @@ dependencies {
     compile project(':common')
     compile project(':appbase')
     compile 'com.android.support:multidex:1.0.2'
+    compile 'com.google.android.gms:play-services-location:11.8.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') { transitive = true }
     compile 'com.google.firebase:firebase-storage:11.8.0'
     compile 'com.firebaseui:firebase-ui-auth:3.1.3'

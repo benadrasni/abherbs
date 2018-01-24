@@ -5,11 +5,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.SystemClock;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -22,13 +28,22 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
+import sk.ab.common.entity.Observation;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
 import sk.ab.herbsbase.commons.PropertyListBaseFragment;
@@ -42,13 +57,20 @@ import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
  * Created by adrian on 9. 4. 2017.
  */
 
-public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
+public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    private static final int RC_SIGN_IN = 123;
+    private static final int REQUEST_SIGN_IN = 123;
+    private static final int REQUEST_TAKE_PHOTO = 1;
+
+    private GoogleApiClient mGoogleApiClient;
+    private FirebaseUser currentUser;
+    private Observation observation;
 
     private long mLastClickTime;
-
-    private boolean isFABExpanded = false;
+    private boolean isFABExpanded;
+    private Location mLastLocation;
+    private Uri mCurrentPhotoUri;
+    private String path;
 
     private List<FloatingActionButton> fabList;
     private FloatingActionButton fabLocation;
@@ -57,6 +79,17 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        isFABExpanded = false;
         fabList = new ArrayList<>();
         FloatingActionButton fabCamera = (FloatingActionButton) findViewById(R.id.fab_camera);
         fabCamera.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +128,8 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                 }
             });
             fabList.add(fabLocation);
+        } else {
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         }
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);
@@ -107,12 +142,14 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                     long elapsedTime = currentClickTime - mLastClickTime;
                     mLastClickTime = currentClickTime;
                     if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
-                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                         if (currentUser != null) {
                             if (isFABExpanded) {
                                 hideFAB();
+                                saveObservation();
                             } else {
                                 expandFAB();
+                                observation = new Observation();
+                                observation.setDate(new Date());
                             }
                         } else {
                             List<AuthUI.IdpConfig> providers = Arrays.asList(
@@ -126,7 +163,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                                             .createSignInIntentBuilder()
                                             .setAvailableProviders(providers)
                                             .build(),
-                                    RC_SIGN_IN);
+                                    REQUEST_SIGN_IN);
                         }
                     }
                 }
@@ -138,17 +175,35 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RC_SIGN_IN) {
-            //IdpResponse response = IdpResponse.fromResultIntent(data);
+        switch (requestCode) {
+            case REQUEST_SIGN_IN:
+                if (resultCode == RESULT_OK) {
+                    // Successfully signed in
+                    getMenuFragment().manageUserSettings();
+                    expandFAB();
+                    currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                } else {
+                    // Sign in failed, check response for error code
+                    Toast.makeText(this, R.string.authentication_failed, Toast.LENGTH_LONG).show();
+                }
+                break;
+            case REQUEST_TAKE_PHOTO:
+                if (resultCode == RESULT_OK) {
+                    List<String> photoPaths = observation.getPhotoPaths();
+                    if (photoPaths == null) {
+                        photoPaths = new ArrayList<>();
+                        observation.setPhotoPaths(photoPaths);
+                    }
 
-            if (resultCode == RESULT_OK) {
-                // Successfully signed in
-                getMenuFragment().manageUserSettings();
-                expandFAB();
-            } else {
-                // Sign in failed, check response for error code
-                Toast.makeText(this, R.string.authentication_failed, Toast.LENGTH_LONG).show();
-            }
+                    photoPaths.add(path + mCurrentPhotoUri.getLastPathSegment());
+                    if (mLastLocation != null) {
+                        observation.setLatitude(mLastLocation.getLatitude());
+                        observation.setLongitude(mLastLocation.getLongitude());
+                    }
+                } else {
+                    // Camera failed, check response for error code
+                    Toast.makeText(this, R.string.camera_failed, Toast.LENGTH_LONG).show();
+                }
         }
     }
 
@@ -159,9 +214,25 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     hideFABLocation();
+                    mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
                 }
             }
         }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 
     @Override
@@ -281,7 +352,24 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
     }
 
     private void addCameraPhoto() {
-
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this, "sk.ab.herbsplus.fileprovider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                mCurrentPhotoUri = photoURI;
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
     }
 
     private void addGalleryPhoto() {
@@ -292,4 +380,19 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
 
     }
 
+    private File createImageFile() throws IOException {
+        Date date = new Date();
+        path = AndroidConstants.FIREBASE_SEPARATOR + currentUser.getUid() + AndroidConstants.FIREBASE_SEPARATOR;
+
+        String imageFileName = "JPEG_" + date.getTime() + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES + path);
+
+        return File.createTempFile(imageFileName, ".jpg", storageDir);
+    }
+
+    private void saveObservation() {
+        DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference o = mFirebaseRef.child(AndroidConstants.FIREBASE_OBSERVATIONS).child(currentUser.getUid()).child("" + observation.getDate().getTime()).push();
+        o.setValue(observation);
+    }
 }
