@@ -11,18 +11,18 @@ import java.util.List;
 
 public class Observation {
 
-    private String id;
+    private String plant;
     private Date date;
     private double longitude;
     private double latitude;
     private List<String> photoPaths;
 
-    public String getId() {
-        return id;
+    public String getPlant() {
+        return plant;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setPlant(String plant) {
+        this.plant = plant;
     }
 
     public Date getDate() {

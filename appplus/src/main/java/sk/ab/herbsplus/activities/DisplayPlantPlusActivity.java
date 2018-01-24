@@ -30,7 +30,9 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -63,6 +65,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
     private static final int REQUEST_TAKE_PHOTO = 1;
 
     private GoogleApiClient mGoogleApiClient;
+    private FusedLocationProviderClient mFusedLocationClient;
     private FirebaseUser currentUser;
     private Observation observation;
 
@@ -129,7 +132,17 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
             });
             fabList.add(fabLocation);
         } else {
-            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                mLastLocation = location;
+                            }
+                        }
+                    });
         }
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);
@@ -150,6 +163,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                                 expandFAB();
                                 observation = new Observation();
                                 observation.setDate(new Date());
+                                observation.setPlant(DisplayPlantPlusActivity.this.getPlant().getName());
                             }
                         } else {
                             List<AuthUI.IdpConfig> providers = Arrays.asList(
@@ -194,12 +208,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                         photoPaths = new ArrayList<>();
                         observation.setPhotoPaths(photoPaths);
                     }
-
                     photoPaths.add(path + mCurrentPhotoUri.getLastPathSegment());
-                    if (mLastLocation != null) {
-                        observation.setLatitude(mLastLocation.getLatitude());
-                        observation.setLongitude(mLastLocation.getLongitude());
-                    }
                 } else {
                     // Camera failed, check response for error code
                     Toast.makeText(this, R.string.camera_failed, Toast.LENGTH_LONG).show();
@@ -214,7 +223,17 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     hideFABLocation();
-                    mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                    mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+                    mFusedLocationClient.getLastLocation()
+                            .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                                @Override
+                                public void onSuccess(Location location) {
+                                    // Got last known location. In some rare situations this can be null.
+                                    if (location != null) {
+                                        mLastLocation = location;
+                                    }
+                                }
+                            });
                 }
             }
         }
@@ -392,7 +411,27 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
 
     private void saveObservation() {
         DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference o = mFirebaseRef.child(AndroidConstants.FIREBASE_OBSERVATIONS).child(currentUser.getUid()).child("" + observation.getDate().getTime()).push();
-        o.setValue(observation);
+        if (mLastLocation != null) {
+            observation.setLatitude(mLastLocation.getLatitude());
+            observation.setLongitude(mLastLocation.getLongitude());
+        }
+
+        // by user, by date
+        mFirebaseRef.child(AndroidConstants.FIREBASE_OBSERVATIONS)
+                .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
+                .child(currentUser.getUid())
+                .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE)
+                .child("" + observation.getDate().getTime())
+                .setValue(observation);
+        // by user, by plant, by date
+        mFirebaseRef.child(AndroidConstants.FIREBASE_OBSERVATIONS)
+                .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
+                .child(currentUser.getUid())
+                .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT)
+                .child(observation.getPlant())
+                .child("" + observation.getDate().getTime())
+                .setValue(observation);
+
+        Toast.makeText(this, R.string.observation_saved, Toast.LENGTH_LONG).show();
     }
 }

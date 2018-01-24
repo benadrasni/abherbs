@@ -94,6 +94,10 @@ public class AndroidConstants {
     public final static String FIREBASE_SEARCH = "search";
     public final static String FIREBASE_TRANSLATIONS = "translations";
     public final static String FIREBASE_OBSERVATIONS = "observations";
+    public final static String FIREBASE_OBSERVATIONS_BY_USERS = "by users";
+    public final static String FIREBASE_OBSERVATIONS_BY_DATE = "by date";
+    public final static String FIREBASE_OBSERVATIONS_BY_PLANT = "by plant";
+    public final static String FIREBASE_OBSERVATIONS_PUBLIC = "public";
 
     public final static String FIREBASE_APG_TYPE = "type";
     public final static String FIREBASE_APG_NAMES = "names";
