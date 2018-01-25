@@ -16,6 +16,7 @@
     <android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -87,7 +88,6 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@drawable/ic_add_a_photo_black_24dp"
-                android:onClick="addCamera"
                 android:visibility="invisible"
                 app:backgroundTint="@color/FABBlue" />
 
@@ -98,7 +98,6 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@drawable/ic_photo_black_24dp"
-                android:onClick="addGallery"
                 android:visibility="invisible"
                 app:backgroundTint="@color/FABBlue" />
 
@@ -109,7 +108,6 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@drawable/ic_note_add_black_24dp"
-                android:onClick="addNote"
                 android:visibility="invisible"
                 app:backgroundTint="@color/FABBlue" />
 
@@ -120,12 +118,11 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@drawable/ic_location_on_black_24dp"
-                android:onClick="addLocation"
                 android:visibility="invisible"
                 app:backgroundTint="@color/FABBlue" />
 
-
         </FrameLayout>
+
     </android.support.design.widget.CoordinatorLayout>
 
     <!-- The navigation drawer -->

@@ -12,4 +12,6 @@
     <string name="logout">Logout</string>
     <string name="camera_failed">Camera failed.</string>
     <string name="observation_saved">Observation was saved.</string>
+    <string name="select_photo">Select photo</string>
+    <string name="gallery_failed">Gallery failed</string>
 </resources>

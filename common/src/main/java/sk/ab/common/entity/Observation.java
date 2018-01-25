@@ -15,6 +15,7 @@ public class Observation {
     private Date date;
     private double longitude;
     private double latitude;
+    private String note;
     private List<String> photoPaths;
 
     public String getPlant() {
@@ -47,6 +48,14 @@ public class Observation {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public List<String> getPhotoPaths() {

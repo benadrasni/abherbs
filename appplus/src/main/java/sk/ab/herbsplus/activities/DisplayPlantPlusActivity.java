@@ -13,9 +13,12 @@ import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -24,7 +27,10 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -63,6 +69,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
 
     private static final int REQUEST_SIGN_IN = 123;
     private static final int REQUEST_TAKE_PHOTO = 1;
+    private static final int REQUEST_PICK_PHOTO = 2;
 
     private GoogleApiClient mGoogleApiClient;
     private FusedLocationProviderClient mFusedLocationClient;
@@ -75,6 +82,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
     private Uri mCurrentPhotoUri;
     private String path;
 
+    private CoordinatorLayout mCoordinatorLayout;
     private List<FloatingActionButton> fabList;
     private FloatingActionButton fabLocation;
 
@@ -91,6 +99,8 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
         }
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl);
 
         isFABExpanded = false;
         fabList = new ArrayList<>();
@@ -159,11 +169,15 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                             if (isFABExpanded) {
                                 hideFAB();
                                 saveObservation();
+                                countButton.setImageResource(R.drawable.ic_remove_red_eye_black_24dp);
                             } else {
                                 expandFAB();
-                                observation = new Observation();
-                                observation.setDate(new Date());
-                                observation.setPlant(DisplayPlantPlusActivity.this.getPlant().getName());
+                                if (observation == null) {
+                                    observation = new Observation();
+                                    observation.setDate(new Date());
+                                    observation.setPlant(DisplayPlantPlusActivity.this.getPlant().getName());
+                                }
+                                countButton.setImageResource(R.drawable.ic_save_black_24dp);
                             }
                         } else {
                             List<AuthUI.IdpConfig> providers = Arrays.asList(
@@ -212,6 +226,18 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                 } else {
                     // Camera failed, check response for error code
                     Toast.makeText(this, R.string.camera_failed, Toast.LENGTH_LONG).show();
+                }
+            case REQUEST_PICK_PHOTO:
+                if (resultCode == RESULT_OK) {
+                    List<String> photoPaths = observation.getPhotoPaths();
+                    if (photoPaths == null) {
+                        photoPaths = new ArrayList<>();
+                        observation.setPhotoPaths(photoPaths);
+                    }
+                    photoPaths.add(path + mCurrentPhotoUri.getLastPathSegment());
+                } else {
+                    // Camera failed, check response for error code
+                    Toast.makeText(this, R.string.gallery_failed, Toast.LENGTH_LONG).show();
                 }
         }
     }
@@ -392,11 +418,48 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
     }
 
     private void addGalleryPhoto() {
+        Intent pickPictureIntent = new Intent();
+        pickPictureIntent.setType("image/*");
+        pickPictureIntent.setAction(Intent.ACTION_GET_CONTENT);
+        if (pickPictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this, "sk.ab.herbsplus.fileprovider", photoFile);
+                pickPictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                mCurrentPhotoUri = photoURI;
+                startActivityForResult(pickPictureIntent, REQUEST_PICK_PHOTO);
+            }
+        }
 
     }
 
     private void addNote() {
+        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
 
+        View noteView = inflater.inflate(R.layout.note_layout,null);
+        final PopupWindow mPopupWindow = new PopupWindow(
+                noteView,
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                true
+        );
+        final EditText note = noteView.findViewById(R.id.note);
+        note.setText(observation.getNote());
+
+        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                observation.setNote(note.getText().toString());
+            }
+        });
+        mPopupWindow.showAtLocation(mCoordinatorLayout, Gravity.CENTER,0,0);
     }
 
     private File createImageFile() throws IOException {
