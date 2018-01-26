@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Entity which represents single observation
  *
- * Created by adrian on 28.9.2016.
+ * Created by adrian on 23. 1. 2018.
  */
 
 public class Observation {

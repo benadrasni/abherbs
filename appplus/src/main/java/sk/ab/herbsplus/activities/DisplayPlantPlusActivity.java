@@ -15,7 +15,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.media.ExifInterface;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -45,7 +47,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -55,8 +61,13 @@ import sk.ab.common.entity.Observation;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
 import sk.ab.herbsbase.commons.PropertyListBaseFragment;
+import sk.ab.herbsbase.fragments.GalleryFragment;
+import sk.ab.herbsbase.fragments.InfoFragment;
+import sk.ab.herbsbase.fragments.SourcesFragment;
+import sk.ab.herbsbase.fragments.TaxonomyFragment;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
+import sk.ab.herbsplus.fragments.ObservationFragment;
 import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
 
 /**
@@ -222,11 +233,23 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                         photoPaths = new ArrayList<>();
                         observation.setPhotoPaths(photoPaths);
                     }
-                    photoPaths.add(path + mCurrentPhotoUri.getLastPathSegment());
+                    photoPaths.add(mCurrentPhotoUri.getPath());
+                    try (InputStream inputStream = this.getContentResolver().openInputStream(mCurrentPhotoUri)) {
+                        ExifInterface exif = new ExifInterface(inputStream);
+                        observation.setDate(new Date(exif.getDateTime()));
+                        double[] latLong = exif.getLatLong();
+                        if (latLong != null) {
+                            observation.setLatitude(latLong[0]);
+                            observation.setLongitude(latLong[1]);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     // Camera failed, check response for error code
                     Toast.makeText(this, R.string.camera_failed, Toast.LENGTH_LONG).show();
                 }
+                break;
             case REQUEST_PICK_PHOTO:
                 if (resultCode == RESULT_OK) {
                     List<String> photoPaths = observation.getPhotoPaths();
@@ -234,11 +257,24 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                         photoPaths = new ArrayList<>();
                         observation.setPhotoPaths(photoPaths);
                     }
-                    photoPaths.add(path + mCurrentPhotoUri.getLastPathSegment());
+                    mCurrentPhotoUri = data.getData();
+                    photoPaths.add(mCurrentPhotoUri.getPath());
+                    try (FileInputStream inputStream = (FileInputStream) this.getContentResolver().openInputStream(mCurrentPhotoUri)) {
+                        ExifInterface exif = new ExifInterface(inputStream);
+                        observation.setDate(new Date(exif.getDateTime()));
+                        double[] latLong = exif.getLatLong();
+                        if (latLong != null) {
+                            observation.setLatitude(latLong[0]);
+                            observation.setLongitude(latLong[1]);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     // Camera failed, check response for error code
                     Toast.makeText(this, R.string.gallery_failed, Toast.LENGTH_LONG).show();
                 }
+                break;
         }
     }
 
@@ -291,6 +327,15 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
     }
 
     @Override
+    protected void addFragments(FragmentTransaction ft) {
+        ft.replace(sk.ab.herbsbase.R.id.taxonomy_fragment, new TaxonomyFragment(), "Taxonomy");
+        ft.replace(sk.ab.herbsbase.R.id.info_fragment, new InfoFragment(), "Info");
+        ft.replace(sk.ab.herbsbase.R.id.gallery_fragment, new GalleryFragment(), "Gallery");
+        ft.replace(sk.ab.herbsbase.R.id.observation_fragment, new ObservationFragment(), "Observation");
+        ft.replace(sk.ab.herbsbase.R.id.sources_fragment, new SourcesFragment(), "Sources");
+    }
+
+    @Override
     public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
@@ -331,7 +376,6 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
         }
     }
 
-
     public void hideFAB() {
         if (isFABExpanded) {
             float marginScale = 1.5f;
@@ -365,6 +409,10 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
             }
             isFABExpanded = false;
         }
+    }
+
+    public FirebaseUser getCurrentUser() {
+        return currentUser;
     }
 
     private void hideFABLocation() {

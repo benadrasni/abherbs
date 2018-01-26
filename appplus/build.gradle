@@ -17,7 +17,7 @@ android {
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "sk.ab.herbsplus"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 200
         versionName "2.0.0"
@@ -41,7 +41,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':common')
     compile project(':appbase')
-    compile 'com.android.support:multidex:1.0.2'
     compile 'com.google.android.gms:play-services-location:11.8.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') { transitive = true }
     compile 'com.google.firebase:firebase-storage:11.8.0'

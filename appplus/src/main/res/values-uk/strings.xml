@@ -15,4 +15,6 @@
     <string name="observation_saved">Observation was saved.</string>
     <string name="select_photo">Select photo</string>
     <string name="gallery_failed">Gallery failed</string>
+    <string name="plant_observations">Observations</string>
+    <string name="photo">photo</string>
 </resources>

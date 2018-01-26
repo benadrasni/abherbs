@@ -16,7 +16,9 @@ public class AndroidConstants {
 
     public final static int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
 
+    public final static String DATE_SKELETON = "ddMMMyyyyHHmm";
     public final static int DEFAULT_CACHE_SIZE = 50;
+    public final static int IMAGE_SIZE = 512;
 
     public static final long MIN_CLICK_INTERVAL = 600;
 

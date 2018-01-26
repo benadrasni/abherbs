@@ -3,6 +3,7 @@ package sk.ab.herbsbase.tools;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.Html;
@@ -14,6 +15,9 @@ import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.io.File;
@@ -101,7 +105,8 @@ public class Utils {
         } else {
             fileUri = AndroidConstants.STORAGE_ENDPOINT + fileName;
         }
-        ImageLoader.getInstance().displayImage(fileUri, imageView, options);
+
+        ImageLoader.getInstance().displayImage(fileUri, new ImageViewAware(imageView), options, new ImageSize(AndroidConstants.IMAGE_SIZE, AndroidConstants.IMAGE_SIZE), null, null);
     }
 
     public static void displayImage(File filesDir, String fileName, ImageView imageView, DisplayImageOptions options, ImageLoadingListener listener) {

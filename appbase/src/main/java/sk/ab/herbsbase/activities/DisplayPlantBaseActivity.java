@@ -3,6 +3,7 @@ package sk.ab.herbsbase.activities;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -10,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 
@@ -79,6 +81,9 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
             }
         });
 
+        countButton = (FloatingActionButton) findViewById(R.id.countButton);
+        countText = (TextView) findViewById(R.id.countText);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.plant_drawer_layout);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
@@ -91,12 +96,8 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        TaxonomyFragment taxonomyFragment = (TaxonomyFragment) fm.findFragmentByTag("Taxonomy");
-        if (taxonomyFragment == null) {
-            ft.replace(R.id.taxonomy_fragment, new TaxonomyFragment(), "Taxonomy");
-            ft.replace(R.id.info_fragment, new InfoFragment(), "Info");
-            ft.replace(R.id.gallery_fragment, new GalleryFragment(), "Gallery");
-            ft.replace(R.id.sources_fragment, new SourcesFragment(), "Sources");
+        if (fm.getFragments().size() == 0) {
+            addFragments(ft);
         }
         ft.replace(R.id.menu_content, mPropertyMenu);
         ft.commit();
@@ -167,4 +168,6 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
     }
 
     protected abstract Class getFilterPlantActivityClass();
+
+    protected abstract void addFragments(FragmentTransaction ft);
 }

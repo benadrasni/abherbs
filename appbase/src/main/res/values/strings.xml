@@ -65,7 +65,7 @@
     <string name="email_desc">Email</string>
     <string name="email_subject_prefix">Suggestion for better translation / description of </string>
 
-    <string name="plant_title">title</string>
+    <string name="plant_title">observationDate</string>
     <string name="plant_height_from">Height from</string>
     <string name="plant_height_to">to</string>
     <string name="plant_flowering_from">Flowering from</string>

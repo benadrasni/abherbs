@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/plantObservationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/CardsForeground"
+        android:orientation="vertical"
+        android:padding="@dimen/list_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/plant_observations"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@color/CardTitle"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/observations"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/bottomSources"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/plantSourcesLayout"
+        android:background="@drawable/list_item_shadow_bottom"/>
+
+</LinearLayout>
