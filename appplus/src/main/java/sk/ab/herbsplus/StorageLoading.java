@@ -92,7 +92,7 @@ public class StorageLoading {
             ZipInputStream zis;
             int totalSize = 0;
             try {
-                String path;
+                String path = activity.getApplicationContext().getFilesDir() + "/";
                 String filename;
                 is = new FileInputStream(_zipFile);
                 zis = new ZipInputStream(new BufferedInputStream(is));
@@ -101,7 +101,6 @@ public class StorageLoading {
                 int count;
                 while ((ze = zis.getNextEntry()) != null) {
                     filename = ze.getName();
-                    path = activity.getApplicationContext().getFilesDir() + "/";
 
                     if (ze.isDirectory()) {
                         File fmd = new File(path + filename);
