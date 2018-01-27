@@ -2,7 +2,6 @@ package sk.ab.herbsplus;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -48,19 +47,19 @@ public class HerbsApp extends BaseApp {
             taxonomyRef.keepSynced(true);
             String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
             DatabaseReference searchInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
-                    + AndroidConstants.FIREBASE_SEPARATOR + language);
+                    + AndroidConstants.SEPARATOR + language);
             searchInLanguageRef.keepSynced(true);
             DatabaseReference searchInLatinRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
-                    + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.LANGUAGE_LA);
+                    + AndroidConstants.SEPARATOR + AndroidConstants.LANGUAGE_LA);
             searchInLatinRef.keepSynced(true);
             DatabaseReference translationsInLanguage = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
-                    + AndroidConstants.FIREBASE_SEPARATOR + language);
+                    + AndroidConstants.SEPARATOR + language);
             translationsInLanguage.keepSynced(true);
             DatabaseReference translationsInLanguageGT = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
-                    + AndroidConstants.FIREBASE_SEPARATOR + language + AndroidConstants.LANGUAGE_GT_SUFFIX);
+                    + AndroidConstants.SEPARATOR + language + AndroidConstants.LANGUAGE_GT_SUFFIX);
             translationsInLanguageGT.keepSynced(true);
             DatabaseReference translationsInEnglish = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
-                    + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.LANGUAGE_EN);
+                    + AndroidConstants.SEPARATOR + AndroidConstants.LANGUAGE_EN);
             translationsInEnglish.keepSynced(true);
         }
 

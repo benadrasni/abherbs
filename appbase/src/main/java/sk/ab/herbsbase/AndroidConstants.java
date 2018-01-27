@@ -87,7 +87,7 @@ public class AndroidConstants {
     public final static String ITEM_ABOUT = "About";
     public final static String ITEM_LOGOUT = "Logout";
 
-    public final static String FIREBASE_SEPARATOR = "/";
+    public final static String SEPARATOR = "/";
 
     public final static String FIREBASE_COUNTS = "counts";
     public final static String FIREBASE_LISTS = "lists";

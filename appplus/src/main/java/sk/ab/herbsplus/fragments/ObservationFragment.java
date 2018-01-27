@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +24,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Locale;
 
 import sk.ab.common.entity.Observation;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.tools.Utils;
-import sk.ab.herbsplus.HerbsApp;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.activities.DisplayPlantPlusActivity;
 import sk.ab.herbsplus.commons.ObservationHolder;
@@ -50,6 +51,11 @@ public class ObservationFragment extends Fragment {
             final DisplayPlantPlusActivity activity = (DisplayPlantPlusActivity) getActivity();
             holder.getObservationDate().setText(DateFormat.format(DateFormat.getBestDateTimePattern(Locale.getDefault(),
                     AndroidConstants.DATE_SKELETON), observation.getDate()));
+            holder.getPhoto().setImageResource(android.R.color.transparent);
+            DisplayMetrics dm = activity.getResources().getDisplayMetrics();
+            int size = dm.widthPixels;
+            holder.getPhoto().getLayoutParams().width = size;
+            holder.getPhoto().getLayoutParams().height = size;
 
             if (observation.getPhotoPaths() != null && observation.getPhotoPaths().size() > 0) {
                 Utils.displayImage(activity.getApplicationContext().getFilesDir(), observation.getPhotoPaths().get(0),
@@ -65,16 +71,17 @@ public class ObservationFragment extends Fragment {
         View view = inflater.inflate(R.layout.plant_card_observations, null);
         DisplayPlantPlusActivity activity = (DisplayPlantPlusActivity) getActivity();
 
-        RecyclerView recyclerView = view.findViewById(R.id.observations);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference observationsRef = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS + AndroidConstants.FIREBASE_SEPARATOR
-                + AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS + AndroidConstants.FIREBASE_SEPARATOR + activity.getCurrentUser().getUid()
-                + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT + AndroidConstants.FIREBASE_SEPARATOR
-                + activity.getPlant().getName());
+        if (activity.getCurrentUser() != null) {
+            RecyclerView recyclerView = view.findViewById(R.id.observations);
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference observationsRef = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS + AndroidConstants.SEPARATOR
+                    + AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS + AndroidConstants.SEPARATOR + activity.getCurrentUser().getUid()
+                    + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT + AndroidConstants.SEPARATOR
+                    + activity.getPlant().getName());
 
-        adapter = new PropertyAdapter(Observation.class, R.layout.observation, ObservationHolder.class, observationsRef);
-        recyclerView.setAdapter(adapter);
-
+            adapter = new PropertyAdapter(Observation.class, R.layout.observation, ObservationHolder.class, observationsRef);
+            recyclerView.setAdapter(adapter);
+        }
         return view;
     }
 
@@ -86,6 +93,8 @@ public class ObservationFragment extends Fragment {
             RecyclerView recyclerView = getView().findViewById(R.id.observations);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            linearLayoutManager.setReverseLayout(true);
+            linearLayoutManager.setStackFromEnd(true);
             recyclerView.setLayoutManager(linearLayoutManager);
         }
     }

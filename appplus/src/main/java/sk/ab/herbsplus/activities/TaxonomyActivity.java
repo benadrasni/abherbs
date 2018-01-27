@@ -281,7 +281,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 buildTaxonomy((Map)((Map)dataSnapshot.getValue()).get(AndroidConstants.ROOT_TAXON), 0, AndroidConstants.FIREBASE_APG_IV
-                        + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.ROOT_TAXON);
+                        + AndroidConstants.SEPARATOR + AndroidConstants.ROOT_TAXON);
 
                 TaxonAdapter adapter = new TaxonAdapter(getApplicationContext(), taxons);
                 taxonomyListView.setAdapter(adapter);
@@ -299,7 +299,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
 
     private void buildTaxonomy(Map taxonomy, int offset, String path) {
         PlantTaxon taxon = new PlantTaxon();
-        taxon.setPath(path + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.FIREBASE_APG_LIST);
+        taxon.setPath(path + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_APG_LIST);
         taxon.setOffset(offset);
         taxon.setType((String) taxonomy.get(AndroidConstants.FIREBASE_APG_TYPE));
         taxon.setLatinName((List<String>) ((HashMap<String, Object>) taxonomy.get(AndroidConstants.FIREBASE_APG_NAMES)).get(Constants.LANGUAGE_LA));
@@ -319,7 +319,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
                     || AndroidConstants.FIREBASE_APG_LIST.equals(key) || AndroidConstants.FIREBASE_APG_COUNT.equals(key)) {
                 continue;
             }
-            buildTaxonomy((Map)taxonomy.get(key), offset + 1, path + AndroidConstants.FIREBASE_SEPARATOR + key);
+            buildTaxonomy((Map)taxonomy.get(key), offset + 1, path + AndroidConstants.SEPARATOR + key);
         }
     }
 

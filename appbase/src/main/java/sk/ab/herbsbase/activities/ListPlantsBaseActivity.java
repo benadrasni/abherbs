@@ -135,8 +135,8 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
 
         if (getSupportActionBar() != null) {
             if (fromNotification) {
-                String taxonName = listPath.substring(0, listPath.lastIndexOf(AndroidConstants.FIREBASE_SEPARATOR));
-                taxonName = taxonName.substring(taxonName.lastIndexOf(AndroidConstants.FIREBASE_SEPARATOR)+1);
+                String taxonName = listPath.substring(0, listPath.lastIndexOf(AndroidConstants.SEPARATOR));
+                taxonName = taxonName.substring(taxonName.lastIndexOf(AndroidConstants.SEPARATOR)+1);
                 getSupportActionBar().setTitle(taxonName);
             } else {
                 getSupportActionBar().setTitle(R.string.list_info);
@@ -193,7 +193,7 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         // load non-translatable attributes
-        DatabaseReference mPlantRef = database.getReference(AndroidConstants.FIREBASE_PLANTS + AndroidConstants.FIREBASE_SEPARATOR + plantName);
+        DatabaseReference mPlantRef = database.getReference(AndroidConstants.FIREBASE_PLANTS + AndroidConstants.SEPARATOR + plantName);
         mPlantRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -218,7 +218,7 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
         });
 
         // load translations in language
-        DatabaseReference mTranslationRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.FIREBASE_SEPARATOR
+        DatabaseReference mTranslationRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.SEPARATOR
                 + Locale.getDefault().getLanguage());
         mTranslationRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -254,8 +254,8 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
         if (!AndroidConstants.LANGUAGE_EN.equals(Locale.getDefault().getLanguage()) && !AndroidConstants.LANGUAGE_SK.equals(Locale.getDefault().getLanguage())) {
             // load translation in English, for Czech in Slovak
             String baseLanguage = AndroidConstants.LANGUAGE_CS.equals(Locale.getDefault().getLanguage()) ? AndroidConstants.LANGUAGE_SK : AndroidConstants.LANGUAGE_EN;
-            DatabaseReference mTranslationEnRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.FIREBASE_SEPARATOR
-                    + baseLanguage + AndroidConstants.FIREBASE_SEPARATOR + plantName);
+            DatabaseReference mTranslationEnRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.SEPARATOR
+                    + baseLanguage + AndroidConstants.SEPARATOR + plantName);
             mTranslationEnRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -284,7 +284,7 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
             });
 
             // load translation in language (GT)
-            DatabaseReference mTranslationGTRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.FIREBASE_SEPARATOR
+            DatabaseReference mTranslationGTRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.SEPARATOR
                     + Locale.getDefault().getLanguage() + AndroidConstants.LANGUAGE_GT_SUFFIX);
 
             mTranslationGTRef.addListenerForSingleValueEvent(new ValueEventListener() {

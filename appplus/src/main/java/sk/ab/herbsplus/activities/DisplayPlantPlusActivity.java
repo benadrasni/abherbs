@@ -41,17 +41,17 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.common.io.ByteStreams;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.channels.FileChannel;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -91,7 +91,6 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
     private boolean isFABExpanded;
     private Location mLastLocation;
     private Uri mCurrentPhotoUri;
-    private String path;
 
     private CoordinatorLayout mCoordinatorLayout;
     private List<FloatingActionButton> fabList;
@@ -158,7 +157,6 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location location) {
-                            // Got last known location. In some rare situations this can be null.
                             if (location != null) {
                                 mLastLocation = location;
                             }
@@ -172,39 +170,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
             countButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    long currentClickTime = SystemClock.uptimeMillis();
-                    long elapsedTime = currentClickTime - mLastClickTime;
-                    mLastClickTime = currentClickTime;
-                    if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
-                        if (currentUser != null) {
-                            if (isFABExpanded) {
-                                hideFAB();
-                                saveObservation();
-                                countButton.setImageResource(R.drawable.ic_remove_red_eye_black_24dp);
-                            } else {
-                                expandFAB();
-                                if (observation == null) {
-                                    observation = new Observation();
-                                    observation.setDate(new Date());
-                                    observation.setPlant(DisplayPlantPlusActivity.this.getPlant().getName());
-                                }
-                                countButton.setImageResource(R.drawable.ic_save_black_24dp);
-                            }
-                        } else {
-                            List<AuthUI.IdpConfig> providers = Arrays.asList(
-                                    new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                                    new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
-                                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
-                                    new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
-                                    new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build());
-                            startActivityForResult(
-                                    AuthUI.getInstance()
-                                            .createSignInIntentBuilder()
-                                            .setAvailableProviders(providers)
-                                            .build(),
-                                    REQUEST_SIGN_IN);
-                        }
-                    }
+                    handleClickOnObservation();
                 }
             });
         }
@@ -228,23 +194,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                 break;
             case REQUEST_TAKE_PHOTO:
                 if (resultCode == RESULT_OK) {
-                    List<String> photoPaths = observation.getPhotoPaths();
-                    if (photoPaths == null) {
-                        photoPaths = new ArrayList<>();
-                        observation.setPhotoPaths(photoPaths);
-                    }
-                    photoPaths.add(mCurrentPhotoUri.getPath());
-                    try (InputStream inputStream = this.getContentResolver().openInputStream(mCurrentPhotoUri)) {
-                        ExifInterface exif = new ExifInterface(inputStream);
-                        observation.setDate(new Date(exif.getDateTime()));
-                        double[] latLong = exif.getLatLong();
-                        if (latLong != null) {
-                            observation.setLatitude(latLong[0]);
-                            observation.setLongitude(latLong[1]);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    processPhoto(mCurrentPhotoUri);
                 } else {
                     // Camera failed, check response for error code
                     Toast.makeText(this, R.string.camera_failed, Toast.LENGTH_LONG).show();
@@ -252,24 +202,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                 break;
             case REQUEST_PICK_PHOTO:
                 if (resultCode == RESULT_OK) {
-                    List<String> photoPaths = observation.getPhotoPaths();
-                    if (photoPaths == null) {
-                        photoPaths = new ArrayList<>();
-                        observation.setPhotoPaths(photoPaths);
-                    }
-                    mCurrentPhotoUri = data.getData();
-                    photoPaths.add(mCurrentPhotoUri.getPath());
-                    try (FileInputStream inputStream = (FileInputStream) this.getContentResolver().openInputStream(mCurrentPhotoUri)) {
-                        ExifInterface exif = new ExifInterface(inputStream);
-                        observation.setDate(new Date(exif.getDateTime()));
-                        double[] latLong = exif.getLatLong();
-                        if (latLong != null) {
-                            observation.setLatitude(latLong[0]);
-                            observation.setLongitude(latLong[1]);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    processPhoto(data.getData());
                 } else {
                     // Camera failed, check response for error code
                     Toast.makeText(this, R.string.gallery_failed, Toast.LENGTH_LONG).show();
@@ -457,9 +390,8 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this, "sk.ab.herbsplus.fileprovider", photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                mCurrentPhotoUri = photoURI;
+                mCurrentPhotoUri = FileProvider.getUriForFile(this, "sk.ab.herbsplus.fileprovider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mCurrentPhotoUri);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
@@ -485,7 +417,6 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                 startActivityForResult(pickPictureIntent, REQUEST_PICK_PHOTO);
             }
         }
-
     }
 
     private void addNote() {
@@ -511,13 +442,75 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
     }
 
     private File createImageFile() throws IOException {
-        Date date = new Date();
-        path = AndroidConstants.FIREBASE_SEPARATOR + currentUser.getUid() + AndroidConstants.FIREBASE_SEPARATOR;
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES + AndroidConstants.SEPARATOR + currentUser.getUid());
+        return File.createTempFile("JPEG_", ".jpg", storageDir);
+    }
 
-        String imageFileName = "JPEG_" + date.getTime() + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES + path);
+    private void processPhoto(Uri uri) {
+        String dirname = AndroidConstants.FIREBASE_OBSERVATIONS + AndroidConstants.SEPARATOR
+                + currentUser.getUid() + AndroidConstants.SEPARATOR;
+        String filename = mCurrentPhotoUri.getLastPathSegment();
+        String path = this.getApplicationContext().getFilesDir() + AndroidConstants.SEPARATOR + dirname + filename;
+        File dir = new File(this.getApplicationContext().getFilesDir() + AndroidConstants.SEPARATOR + dirname);
+        dir.mkdirs();
+        try (InputStream inputStream = this.getContentResolver().openInputStream(uri);
+             OutputStream outputStream = new FileOutputStream(path)) {
 
-        return File.createTempFile(imageFileName, ".jpg", storageDir);
+            if (inputStream != null) {
+                ByteStreams.copy(inputStream, outputStream);
+                ExifInterface exif = new ExifInterface(path);
+
+                // fill observation
+                observation.getPhotoPaths().add(dirname + filename);
+                if (exif.getDateTime() > 0) {
+                    observation.setDate(new Date(exif.getDateTime()));
+                }
+                double[] latLong = exif.getLatLong();
+                if (latLong != null) {
+                    observation.setLatitude(latLong[0]);
+                    observation.setLongitude(latLong[1]);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handleClickOnObservation() {
+        long currentClickTime = SystemClock.uptimeMillis();
+        long elapsedTime = currentClickTime - mLastClickTime;
+        mLastClickTime = currentClickTime;
+        if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
+            if (currentUser != null) {
+                if (isFABExpanded) {
+                    hideFAB();
+                    saveObservation();
+                    countButton.setImageResource(R.drawable.ic_remove_red_eye_black_24dp);
+                } else {
+                    expandFAB();
+                    if (observation == null) {
+                        observation = new Observation();
+                        observation.setDate(new Date());
+                        observation.setPlant(DisplayPlantPlusActivity.this.getPlant().getName());
+                        observation.setPhotoPaths(new ArrayList<String>());
+                    }
+                    countButton.setImageResource(R.drawable.ic_save_black_24dp);
+                }
+            } else {
+                List<AuthUI.IdpConfig> providers = Arrays.asList(
+                        new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                        new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
+                        new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
+                        new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
+                        new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build());
+                startActivityForResult(
+                        AuthUI.getInstance()
+                                .createSignInIntentBuilder()
+                                .setAvailableProviders(providers)
+                                .build(),
+                        REQUEST_SIGN_IN);
+            }
+        }
     }
 
     private void saveObservation() {

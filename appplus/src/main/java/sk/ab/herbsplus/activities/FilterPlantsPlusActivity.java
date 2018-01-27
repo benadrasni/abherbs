@@ -69,7 +69,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
     protected void getCount() {
         isLoading = true;
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_COUNTS + AndroidConstants.FIREBASE_SEPARATOR
+        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_COUNTS + AndroidConstants.SEPARATOR
                 + Utils.getFilterKey(filter, SpecificConstants.FILTER_ATTRIBUTES));
 
         mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -99,7 +99,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
         Intent intent = new Intent(getBaseContext(), ListPlantsPlusActivity.class);
         intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
         intent.putExtra(AndroidConstants.STATE_FILTER, filter);
-        intent.putExtra(AndroidConstants.STATE_LIST_PATH, AndroidConstants.FIREBASE_LISTS + AndroidConstants.FIREBASE_SEPARATOR
+        intent.putExtra(AndroidConstants.STATE_LIST_PATH, AndroidConstants.FIREBASE_LISTS + AndroidConstants.SEPARATOR
                 + Utils.getFilterKey(filter, SpecificConstants.FILTER_ATTRIBUTES));
         startActivity(intent);
         stopLoading();
@@ -119,7 +119,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
 
     @Override
     public String getAppVersion() {
-        return SpecificConstants.PACKAGE.substring(SpecificConstants.PACKAGE.lastIndexOf(".")+1) + AndroidConstants.FIREBASE_SEPARATOR + BuildConfig.VERSION_CODE;
+        return SpecificConstants.PACKAGE.substring(SpecificConstants.PACKAGE.lastIndexOf(".")+1) + AndroidConstants.SEPARATOR + BuildConfig.VERSION_CODE;
     }
 
     @Override

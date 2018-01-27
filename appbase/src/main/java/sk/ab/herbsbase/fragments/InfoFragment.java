@@ -262,8 +262,8 @@ public class InfoFragment extends Fragment {
         displayPlantBaseActivity.countButton.setVisibility(View.VISIBLE);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference mTranslationGTRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.FIREBASE_SEPARATOR
-                + Locale.getDefault().getLanguage() + AndroidConstants.LANGUAGE_GT_SUFFIX + AndroidConstants.FIREBASE_SEPARATOR + getPlant().getName());
+        final DatabaseReference mTranslationGTRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.SEPARATOR
+                + Locale.getDefault().getLanguage() + AndroidConstants.LANGUAGE_GT_SUFFIX + AndroidConstants.SEPARATOR + getPlant().getName());
 
         if (BaseApp.isNetworkAvailable(displayPlantBaseActivity.getApplicationContext())) {
             app.getGoogleClient().getApiService().translate(

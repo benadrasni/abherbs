@@ -3,7 +3,6 @@ package sk.ab.herbsbase.tools;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.Html;
@@ -15,7 +14,6 @@ import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -99,7 +97,7 @@ public class Utils {
 
     public static void displayImage(File filesDir, String fileName, ImageView imageView, DisplayImageOptions options) {
         String fileUri;
-        File imgFile = new File(filesDir.getPath() + AndroidConstants.FIREBASE_SEPARATOR + fileName);
+        File imgFile = new File(filesDir.getPath() + AndroidConstants.SEPARATOR + fileName);
         if (imgFile.exists()) {
             fileUri = "file:///" + imgFile.getPath();
         } else {
@@ -111,7 +109,7 @@ public class Utils {
 
     public static void displayImage(File filesDir, String fileName, ImageView imageView, DisplayImageOptions options, ImageLoadingListener listener) {
         String fileUri;
-        File imgFile = new File(filesDir.getPath() + AndroidConstants.FIREBASE_SEPARATOR + fileName);
+        File imgFile = new File(filesDir.getPath() + AndroidConstants.SEPARATOR + fileName);
         if (imgFile.exists()) {
             fileUri = "file:///" + imgFile.getPath();
         } else {
