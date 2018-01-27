@@ -31,10 +31,10 @@ public class GalleryFragment extends Fragment {
     private static final String THUMBNAIL_DIR = "/.thumbnails";
 
     private int thumbnail_position;
+    private ImageView photoView;
 
     private class ThumbnailAdapter extends RecyclerView.Adapter<ThumbnailAdapter.ViewHolder> {
         private String urls[];
-        private View cardGallery;
 
         class ViewHolder extends RecyclerView.ViewHolder {
             ImageView mImageView;
@@ -52,7 +52,6 @@ public class GalleryFragment extends Fragment {
         @Override
         public ThumbnailAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.thumbnail, parent, false);
-            cardGallery = (View) parent.getParent();
             return new ViewHolder(v);
         }
 
@@ -62,21 +61,12 @@ public class GalleryFragment extends Fragment {
             Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + getThumbnailUrl(url),
                     holder.mImageView, ((BaseApp) getActivity().getApplication()).getOptions());
 
-            final ImageView imageView = (ImageView) cardGallery.findViewById(R.id.plant_photo);
-            DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
-            int size = dm.widthPixels - Utils.convertDpToPx(25, dm);
-            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                size = size/2;
-            }
-            imageView.getLayoutParams().width = size;
-            imageView.getLayoutParams().height = size;
-
             holder.mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     thumbnail_position = position;
                     Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + url,
-                            imageView, ((BaseApp) getActivity().getApplication()).getOptions());
+                            photoView, ((BaseApp) getActivity().getApplication()).getOptions());
                 }
             });
         }
@@ -97,55 +87,63 @@ public class GalleryFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.plant_card_gallery, null);
+        View view = inflater.inflate(R.layout.plant_card_gallery, null);
+        photoView = (ImageView) view.findViewById(R.id.plant_photo);
+        return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
         if (getView() != null) {
-            setGallery(getView());
+            final FirebasePlant plant = ((DisplayPlantBaseActivity) getActivity()).getPlant();
+            RecyclerView thumbnails = (RecyclerView) getView().findViewById(R.id.plant_thumbnails);
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            layoutManager.scrollToPosition(thumbnail_position);
+            thumbnails.setLayoutManager(layoutManager);
+
+            String[] urls = new String[plant.getPhotoUrls().size()];
+            plant.getPhotoUrls().toArray(urls);
+
+            ThumbnailAdapter adapter = new ThumbnailAdapter(urls);
+            thumbnails.setAdapter(adapter);
+
+            DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
+            int size = dm.widthPixels - Utils.convertDpToPx(20, dm);
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                size = size / 2;
+            }
+            photoView.getLayoutParams().width = size;
+            photoView.getLayoutParams().height = size;
+
+            displayImage(photoView, plant, thumbnail_position);
+            photoView.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
+                public void onSwipeTop() {
+
+                }
+
+                public void onSwipeRight() {
+                    if (thumbnail_position > 0) {
+                        thumbnail_position--;
+                        displayImage(photoView, plant, thumbnail_position);
+                    }
+                }
+
+                public void onSwipeLeft() {
+                    if (thumbnail_position < plant.getPhotoUrls().size() - 1) {
+                        thumbnail_position++;
+                        displayImage(photoView, plant, thumbnail_position);
+                    }
+                }
+
+                public void onSwipeBottom() {
+
+                }
+
+            });
         }
-    }
-
-    private void setGallery(View convertView) {
-        final FirebasePlant plant = ((DisplayPlantBaseActivity) getActivity()).getPlant();
-        RecyclerView thumbnails = (RecyclerView) convertView.findViewById(R.id.plant_thumbnails);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        layoutManager.scrollToPosition(thumbnail_position);
-        thumbnails.setLayoutManager(layoutManager);
-
-        String[] urls = new String[plant.getPhotoUrls().size()];
-        plant.getPhotoUrls().toArray(urls);
-
-        ThumbnailAdapter adapter = new ThumbnailAdapter(urls);
-        thumbnails.setAdapter(adapter);
-
-        final ImageView image = (ImageView) convertView.findViewById(R.id.plant_photo);
-        displayImage(image, plant, thumbnail_position);
-        image.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
-            public void onSwipeTop() {
-
-            }
-            public void onSwipeRight() {
-                if (thumbnail_position > 0) {
-                    thumbnail_position--;
-                    displayImage(image, plant, thumbnail_position);
-                }
-            }
-            public void onSwipeLeft() {
-                if (thumbnail_position < plant.getPhotoUrls().size()-1) {
-                    thumbnail_position++;
-                    displayImage(image, plant, thumbnail_position);
-                }
-            }
-            public void onSwipeBottom() {
-
-            }
-
-        });
     }
 
     private void displayImage(ImageView image, FirebasePlant plant, int position) {

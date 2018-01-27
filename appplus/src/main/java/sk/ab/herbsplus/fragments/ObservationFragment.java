@@ -1,12 +1,10 @@
 package sk.ab.herbsplus.fragments;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
@@ -14,8 +12,6 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -23,8 +19,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-import java.io.File;
-import java.io.InputStream;
 import java.util.Locale;
 
 import sk.ab.common.entity.Observation;
@@ -33,6 +27,7 @@ import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.tools.Utils;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.activities.DisplayPlantPlusActivity;
+import sk.ab.herbsplus.activities.MapActivity;
 import sk.ab.herbsplus.commons.ObservationHolder;
 
 public class ObservationFragment extends Fragment {
@@ -51,9 +46,15 @@ public class ObservationFragment extends Fragment {
             final DisplayPlantPlusActivity activity = (DisplayPlantPlusActivity) getActivity();
             holder.getObservationDate().setText(DateFormat.format(DateFormat.getBestDateTimePattern(Locale.getDefault(),
                     AndroidConstants.DATE_SKELETON), observation.getDate()));
+
+            holder.initializeMapView(activity, observation.getLatitude(), observation.getLongitude());
+
             holder.getPhoto().setImageResource(android.R.color.transparent);
             DisplayMetrics dm = activity.getResources().getDisplayMetrics();
-            int size = dm.widthPixels;
+            int size = dm.widthPixels - Utils.convertDpToPx(40, dm);
+            if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                size = size / 2;
+            }
             holder.getPhoto().getLayoutParams().width = size;
             holder.getPhoto().getLayoutParams().height = size;
 
@@ -62,6 +63,10 @@ public class ObservationFragment extends Fragment {
                         holder.getPhoto(), ((BaseApp) activity.getApplication()).getOptions());
             } else {
                 Crashlytics.log("Empty photoPaths: " + activity.getPlant().getName());
+            }
+
+            if (observation.getNote() != null) {
+                holder.getObservationNote().setText(observation.getNote());
             }
         }
     }

@@ -38,6 +38,8 @@ public class AndroidConstants {
     public final static String STATE_TRANSLATION_IN_ENGLISH = "translation_in_english";
     public final static String STATE_FROM_NOTIFICATION = "from_notification";
     public final static String STATE_LIST_POSITION = "list_position";
+    public final static String STATE_LATITUDE = "latitude";
+    public final static String STATE_LONGITUDE = "longitude";
 
     public final static String RATE = "RATE";
     public final static int RATE_COUNTER = 5;

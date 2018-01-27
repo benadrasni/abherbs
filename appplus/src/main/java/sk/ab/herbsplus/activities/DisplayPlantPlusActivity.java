@@ -141,8 +141,8 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
         });
         fabList.add(fabNote);
 
+        fabLocation = (FloatingActionButton) findViewById(R.id.fab_location);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            fabLocation = (FloatingActionButton) findViewById(R.id.fab_location);
             fabLocation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -150,7 +150,6 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                             new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, SpecificConstants.MY_PERMISSIONS_REQUEST_FINE_LOCATION);
                 }
             });
-            fabList.add(fabLocation);
         } else {
             mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
             mFusedLocationClient.getLastLocation()
@@ -162,7 +161,20 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                             }
                         }
                     });
+            fabLocation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(DisplayPlantPlusActivity.this, MapActivity.class);
+
+                    Bundle extras = new Bundle();
+                    extras.putDouble(AndroidConstants.STATE_LATITUDE, observation.getLatitude());
+                    extras.putDouble(AndroidConstants.STATE_LONGITUDE, observation.getLongitude());
+                    intent.putExtras(extras);
+                    startActivity(intent);
+                }
+            });
         }
+        fabList.add(fabLocation);
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);
         if (countButton != null) {
@@ -217,7 +229,6 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
             case SpecificConstants.MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    hideFABLocation();
                     mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
                     mFusedLocationClient.getLastLocation()
                             .addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -226,6 +237,10 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                                     // Got last known location. In some rare situations this can be null.
                                     if (location != null) {
                                         mLastLocation = location;
+                                        if (observation != null && observation.getLatitude() == 0d) {
+                                            observation.setLatitude(mLastLocation.getLatitude());
+                                            observation.setLongitude(mLastLocation.getLongitude());
+                                        }
                                     }
                                 }
                             });
@@ -348,35 +363,6 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
         return currentUser;
     }
 
-    private void hideFABLocation() {
-        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) fabLocation.getLayoutParams();
-        AnimationSet animSet = new AnimationSet(false);
-        Animation animT;
-        float scale = -1 * fabLocation.getHeight() * 6.0f;
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            layoutParams.bottomMargin += (int) scale;
-            animT = new TranslateAnimation(0f, 0f, scale, 0f);
-        } else {
-            layoutParams.rightMargin += (int) scale;
-            animT = new TranslateAnimation(scale, 0f, 0f, 0f);
-        }
-
-        animT.setDuration(1000);
-        animT.setInterpolator(new LinearInterpolator());
-        animSet.addAnimation(animT);
-        Animation animA =  new AlphaAnimation(1f, 0f);
-        animA.setDuration(2000);
-        animA.setInterpolator(new AccelerateInterpolator());
-        animSet.addAnimation(animA);
-
-        fabLocation.setVisibility(View.INVISIBLE);
-        fabLocation.setLayoutParams(layoutParams);
-        fabLocation.startAnimation(animSet);
-        fabLocation.setClickable(false);
-
-        fabList.remove(fabLocation);
-    }
-
     private void addCameraPhoto() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -493,6 +479,10 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                         observation.setDate(new Date());
                         observation.setPlant(DisplayPlantPlusActivity.this.getPlant().getName());
                         observation.setPhotoPaths(new ArrayList<String>());
+                        if (mLastLocation != null) {
+                            observation.setLatitude(mLastLocation.getLatitude());
+                            observation.setLongitude(mLastLocation.getLongitude());
+                        }
                     }
                     countButton.setImageResource(R.drawable.ic_save_black_24dp);
                 }
