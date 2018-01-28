@@ -402,7 +402,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, SpecificConstants.MY_PERMISSIONS_REQUEST_FINE_LOCATION);
         } else {
             mFusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(DisplayPlantPlusActivity.this, new OnSuccessListener<Location>() {
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location location) {
                             if (location != null) {
@@ -424,13 +424,13 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
     }
 
     private File createImageFile() throws IOException {
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES + AndroidConstants.SEPARATOR + currentUser.getUid());
-        return File.createTempFile("JPEG_", ".jpg", storageDir);
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(observation.getId() + "_", ".jpg", storageDir);
     }
 
     private void processPhoto(Uri uri) {
         String dirname = AndroidConstants.FIREBASE_OBSERVATIONS + AndroidConstants.SEPARATOR
-                + currentUser.getUid() + AndroidConstants.SEPARATOR;
+                + currentUser.getUid() + AndroidConstants.SEPARATOR + getPlant().getName() + AndroidConstants.SEPARATOR;
         String filename = mCurrentPhotoUri.getLastPathSegment();
         String path = this.getApplicationContext().getFilesDir() + AndroidConstants.SEPARATOR + dirname + filename;
         File dir = new File(this.getApplicationContext().getFilesDir() + AndroidConstants.SEPARATOR + dirname);
@@ -475,7 +475,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                         observation = new Observation();
                         observation.setId(currentUser.getUid() + "_" + date.getTime());
                         observation.setDate(date);
-                        observation.setPlant(DisplayPlantPlusActivity.this.getPlant().getName());
+                        observation.setPlant(getPlant().getName());
                         observation.setPhotoPaths(new ArrayList<String>());
                     }
                     countButton.setImageResource(R.drawable.ic_save_black_24dp);
