@@ -175,16 +175,16 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                 if (resultCode == RESULT_OK) {
                     // Successfully signed in
                     getMenuFragment().manageUserSettings();
-                    if (isFABClicked) {
-                        expandFAB();
-                        isFABClicked = false;
-                    }
                     currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     Fragment observationFragment = getSupportFragmentManager().findFragmentByTag("Observation");
                     final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.detach(observationFragment);
                     ft.attach(observationFragment);
                     ft.commit();
+                    if (isFABClicked) {
+                        handleClickOnObservation();
+                        isFABClicked = false;
+                    }
                 } else {
                     // Sign in failed, check response for error code
                     Toast.makeText(this, R.string.authentication_failed, Toast.LENGTH_LONG).show();
