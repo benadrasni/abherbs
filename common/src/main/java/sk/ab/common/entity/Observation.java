@@ -11,12 +11,21 @@ import java.util.List;
 
 public class Observation {
 
+    private String id;
     private String plant;
     private Date date;
-    private double longitude;
-    private double latitude;
+    private Double longitude;
+    private Double latitude;
     private String note;
     private List<String> photoPaths;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getPlant() {
         return plant;
@@ -34,19 +43,19 @@ public class Observation {
         this.date = date;
     }
 
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 

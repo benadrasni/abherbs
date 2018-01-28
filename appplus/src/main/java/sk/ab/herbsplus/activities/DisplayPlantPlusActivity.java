@@ -12,7 +12,6 @@ import android.os.Environment;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.media.ExifInterface;
@@ -36,8 +35,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -76,13 +73,12 @@ import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
  * Created by adrian on 9. 4. 2017.
  */
 
-public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
 
     private static final int REQUEST_SIGN_IN = 123;
     private static final int REQUEST_TAKE_PHOTO = 1;
     private static final int REQUEST_PICK_PHOTO = 2;
 
-    private GoogleApiClient mGoogleApiClient;
     private FusedLocationProviderClient mFusedLocationClient;
     private FirebaseUser currentUser;
     private Observation observation;
@@ -94,20 +90,11 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
 
     private CoordinatorLayout mCoordinatorLayout;
     private List<FloatingActionButton> fabList;
-    private FloatingActionButton fabLocation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-        }
-
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl);
@@ -141,17 +128,16 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
         });
         fabList.add(fabNote);
 
-        fabLocation = (FloatingActionButton) findViewById(R.id.fab_location);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            fabLocation.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ActivityCompat.requestPermissions(DisplayPlantPlusActivity.this,
-                            new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, SpecificConstants.MY_PERMISSIONS_REQUEST_FINE_LOCATION);
-                }
-            });
-        } else {
-            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        FloatingActionButton fabLocation = (FloatingActionButton) findViewById(R.id.fab_location);
+        fabLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addLocation();
+            }
+        });
+        fabList.add(fabLocation);
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mFusedLocationClient.getLastLocation()
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
@@ -161,20 +147,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                             }
                         }
                     });
-            fabLocation.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(DisplayPlantPlusActivity.this, MapActivity.class);
-
-                    Bundle extras = new Bundle();
-                    extras.putDouble(AndroidConstants.STATE_LATITUDE, observation.getLatitude());
-                    extras.putDouble(AndroidConstants.STATE_LONGITUDE, observation.getLongitude());
-                    intent.putExtras(extras);
-                    startActivity(intent);
-                }
-            });
         }
-        fabList.add(fabLocation);
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);
         if (countButton != null) {
@@ -186,6 +159,12 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                 }
             });
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        saveObservation(false);
+        super.onDestroy();
     }
 
     @Override
@@ -229,17 +208,15 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
             case SpecificConstants.MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
                     mFusedLocationClient.getLastLocation()
                             .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                                 @Override
                                 public void onSuccess(Location location) {
                                     // Got last known location. In some rare situations this can be null.
                                     if (location != null) {
-                                        mLastLocation = location;
-                                        if (observation != null && observation.getLatitude() == 0d) {
-                                            observation.setLatitude(mLastLocation.getLatitude());
-                                            observation.setLongitude(mLastLocation.getLongitude());
+                                        if (observation != null && (observation.getLatitude() == null || observation.getLongitude() == null)) {
+                                            observation.setLatitude(location.getLatitude());
+                                            observation.setLongitude(location.getLongitude());
                                         }
                                     }
                                 }
@@ -247,21 +224,6 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
                 }
             }
         }
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 
     @Override
@@ -427,6 +389,33 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
         mPopupWindow.showAtLocation(mCoordinatorLayout, Gravity.CENTER,0,0);
     }
 
+    private void addLocation() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, SpecificConstants.MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+        } else {
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(DisplayPlantPlusActivity.this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                if (observation.getLatitude() == null || observation.getLongitude() == null) {
+                                    observation.setLatitude(location.getLatitude());
+                                    observation.setLongitude(location.getLongitude());
+                                }
+                                Intent intent = new Intent(DisplayPlantPlusActivity.this, MapActivity.class);
+
+                                Bundle extras = new Bundle();
+                                extras.putDouble(AndroidConstants.STATE_LATITUDE, observation.getLatitude());
+                                extras.putDouble(AndroidConstants.STATE_LONGITUDE, observation.getLongitude());
+                                intent.putExtras(extras);
+                                startActivity(intent);
+                            }
+                        }
+                    });
+        }
+    }
+
     private File createImageFile() throws IOException {
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES + AndroidConstants.SEPARATOR + currentUser.getUid());
         return File.createTempFile("JPEG_", ".jpg", storageDir);
@@ -470,19 +459,17 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
             if (currentUser != null) {
                 if (isFABExpanded) {
                     hideFAB();
-                    saveObservation();
+                    saveObservation(true);
                     countButton.setImageResource(R.drawable.ic_remove_red_eye_black_24dp);
                 } else {
                     expandFAB();
                     if (observation == null) {
+                        Date date =  new Date();
                         observation = new Observation();
-                        observation.setDate(new Date());
+                        observation.setId(currentUser.getUid() + "_" + date.getTime());
+                        observation.setDate(date);
                         observation.setPlant(DisplayPlantPlusActivity.this.getPlant().getName());
                         observation.setPhotoPaths(new ArrayList<String>());
-                        if (mLastLocation != null) {
-                            observation.setLatitude(mLastLocation.getLatitude());
-                            observation.setLongitude(mLastLocation.getLongitude());
-                        }
                     }
                     countButton.setImageResource(R.drawable.ic_save_black_24dp);
                 }
@@ -503,29 +490,44 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity implement
         }
     }
 
-    private void saveObservation() {
-        DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference();
-        if (mLastLocation != null) {
-            observation.setLatitude(mLastLocation.getLatitude());
-            observation.setLongitude(mLastLocation.getLongitude());
+    private void saveObservation(boolean withMessage) {
+        if (observation != null && observation.getPhotoPaths() != null && observation.getPhotoPaths().size() > 0) {
+            if (observation.getLatitude() == null || observation.getLongitude() == null) {
+                if (mLastLocation != null) {
+                    observation.setLatitude(mLastLocation.getLatitude());
+                    observation.setLongitude(mLastLocation.getLongitude());
+                } else {
+                    if (withMessage) {
+                        Toast.makeText(this, R.string.observation_not_saved, Toast.LENGTH_LONG).show();
+                    }
+                    return;
+                }
+            }
+
+            DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference();
+            // by user, by date
+            mFirebaseRef.child(AndroidConstants.FIREBASE_OBSERVATIONS)
+                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
+                    .child(currentUser.getUid())
+                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE)
+                    .child(observation.getId())
+                    .setValue(observation);
+            // by user, by plant, by date
+            mFirebaseRef.child(AndroidConstants.FIREBASE_OBSERVATIONS)
+                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
+                    .child(currentUser.getUid())
+                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT)
+                    .child(observation.getPlant())
+                    .child(observation.getId())
+                    .setValue(observation);
+
+            if (withMessage) {
+                Toast.makeText(this, R.string.observation_saved, Toast.LENGTH_LONG).show();
+            }
+        } else {
+            if (withMessage) {
+                Toast.makeText(this, R.string.observation_not_saved, Toast.LENGTH_LONG).show();
+            }
         }
-
-        // by user, by date
-        mFirebaseRef.child(AndroidConstants.FIREBASE_OBSERVATIONS)
-                .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
-                .child(currentUser.getUid())
-                .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE)
-                .child("" + observation.getDate().getTime())
-                .setValue(observation);
-        // by user, by plant, by date
-        mFirebaseRef.child(AndroidConstants.FIREBASE_OBSERVATIONS)
-                .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
-                .child(currentUser.getUid())
-                .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT)
-                .child(observation.getPlant())
-                .child("" + observation.getDate().getTime())
-                .setValue(observation);
-
-        Toast.makeText(this, R.string.observation_saved, Toast.LENGTH_LONG).show();
     }
 }

@@ -16,4 +16,5 @@
     <string name="gallery_failed">Gallery failed</string>
     <string name="plant_observations">Observations</string>
     <string name="photo">photo</string>
+    <string name="observation_not_saved">Observation was incompleted thus it wasn\'t saved.</string>
 </resources>

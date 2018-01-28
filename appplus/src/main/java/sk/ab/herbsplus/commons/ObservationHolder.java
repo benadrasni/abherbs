@@ -50,7 +50,7 @@ public class ObservationHolder extends RecyclerView.ViewHolder implements OnMapR
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
 
-    public void initializeMapView(Context context, double latitude, double longitude) {
+    public void initializeMapView(Context context, Double latitude, Double longitude) {
         this.context = context;
         this.latitude = latitude;
         this.longitude = longitude;
