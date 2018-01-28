@@ -16,6 +16,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.media.ExifInterface;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
 import android.view.Gravity;
@@ -178,6 +179,11 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                     getMenuFragment().manageUserSettings();
                     expandFAB();
                     currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    Fragment observationFragment = getSupportFragmentManager().findFragmentByTag("Observation");
+                    final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.detach(observationFragment);
+                    ft.attach(observationFragment);
+                    ft.commit();
                 } else {
                     // Sign in failed, check response for error code
                     Toast.makeText(this, R.string.authentication_failed, Toast.LENGTH_LONG).show();

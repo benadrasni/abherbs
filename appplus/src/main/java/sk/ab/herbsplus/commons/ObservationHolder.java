@@ -23,21 +23,30 @@ import sk.ab.herbsplus.R;
 
 public class ObservationHolder extends RecyclerView.ViewHolder implements OnMapReadyCallback {
     private TextView observationDate;
+    private ImageView delete;
     private MapView mapView;
+    private ImageView prevPhoto;
     private ImageView photo;
+    private ImageView nextPhoto;
     private TextView observationNote;
 
     private GoogleMap map;
     private double latitude;
     private double longitude;
     private Context context;
+    private int photoPosition;
 
     public ObservationHolder(View itemView) {
         super(itemView);
         observationDate = itemView.findViewById(R.id.observation_date);
+        delete = itemView.findViewById(R.id.observation_delete);
+        prevPhoto = itemView.findViewById(R.id.observation_prev_photo);
         photo = itemView.findViewById(R.id.observation_photo);
+        nextPhoto = itemView.findViewById(R.id.observation_next_photo);
         mapView = itemView.findViewById(R.id.observation_map);
         observationNote = itemView.findViewById(R.id.observation_note);
+        photoPosition = 0;
+        prevPhoto.setVisibility(View.GONE);
     }
 
     @Override
@@ -62,15 +71,36 @@ public class ObservationHolder extends RecyclerView.ViewHolder implements OnMapR
         return observationDate;
     }
 
-    public MapView getMapView() {
-        return mapView;
+    public ImageView getDelete() {
+        return delete;
+    }
+
+    public ImageView getPrevPhoto() {
+        return prevPhoto;
     }
 
     public ImageView getPhoto() {
         return photo;
     }
 
+    public ImageView getNextPhoto() {
+        return nextPhoto;
+    }
+
     public TextView getObservationNote() {
         return observationNote;
     }
+
+    public int getPhotoPosition() {
+        return photoPosition;
+    }
+
+    public void incPosition() {
+        photoPosition++;
+    }
+
+    public void decPosition() {
+        photoPosition--;
+    }
+
 }
