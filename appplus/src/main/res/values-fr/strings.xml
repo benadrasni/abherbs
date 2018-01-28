@@ -25,4 +25,5 @@
     <string name="no_observations">There are no visible observations yet.</string>
     <string name="no_observations_login">Observations are available only for logged users. Please log in from menu or by clicking on Observation button.</string>
     <string name="login">Login</string>
+    <string name="save_position">Save position</string>
 </resources>

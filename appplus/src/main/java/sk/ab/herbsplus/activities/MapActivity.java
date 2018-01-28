@@ -8,6 +8,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import sk.ab.herbsbase.AndroidConstants;
@@ -16,7 +17,7 @@ import sk.ab.herbsplus.R;
 /**
  * This shows how to create a simple activity with a map and a marker on the map.
  */
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
 
     private LatLng position;
 
@@ -38,7 +39,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap map) {
-        map.addMarker(new MarkerOptions().position(position).title("Marker"));
+        map.addMarker(new MarkerOptions().position(position).draggable(true).title("Marker"));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
+        map.setOnMarkerDragListener(this);
+    }
+
+    @Override
+    public void onMarkerDragStart(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDrag(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDragEnd(Marker marker) {
+        position = marker.getPosition();
     }
 }
