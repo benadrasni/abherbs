@@ -22,6 +22,16 @@
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@color/CardTitle"/>
 
+        <TextView
+            android:id="@+id/no_observations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/CardTitle"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/observations"
             android:layout_width="match_parent"

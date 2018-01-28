@@ -14,13 +14,16 @@ import java.util.Map;
 public class AndroidConstants {
     public final static String PACKAGE = "sk.ab.herbs";
 
-    public final static int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
+    public final static int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
+    public final static int REQUEST_SIGN_IN = 100;
+    public final static int REQUEST_TAKE_PHOTO = 101;
+    public final static int REQUEST_PICK_PHOTO = 102;
 
     public final static String DATE_SKELETON = "ddMMMyyyyHHmm";
     public final static int DEFAULT_CACHE_SIZE = 50;
     public final static int IMAGE_SIZE = 512;
 
-    public static final long MIN_CLICK_INTERVAL = 600;
+    public final static long MIN_CLICK_INTERVAL = 600;
 
     public final static String EMAIL = "whatsthoseflowers@gmail.com";
     public final static String WEB_URL = "https://whatsthatflower.com/";
@@ -87,6 +90,7 @@ public class AndroidConstants {
     public final static String ITEM_FEEDBACK = "Feedback";
     public final static String ITEM_HELP = "Help";
     public final static String ITEM_ABOUT = "About";
+    public final static String ITEM_LOGIN = "Login";
     public final static String ITEM_LOGOUT = "Logout";
 
     public final static String SEPARATOR = "/";

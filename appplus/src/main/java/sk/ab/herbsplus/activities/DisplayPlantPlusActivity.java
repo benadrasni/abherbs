@@ -76,16 +76,13 @@ import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
 
 public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
 
-    private static final int REQUEST_SIGN_IN = 123;
-    private static final int REQUEST_TAKE_PHOTO = 1;
-    private static final int REQUEST_PICK_PHOTO = 2;
-
     private FusedLocationProviderClient mFusedLocationClient;
     private FirebaseUser currentUser;
     private Observation observation;
 
     private long mLastClickTime;
     private boolean isFABExpanded;
+    private boolean isFABClicked;
     private Location mLastLocation;
     private Uri mCurrentPhotoUri;
 
@@ -101,6 +98,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl);
 
         isFABExpanded = false;
+        isFABClicked = false;
         fabList = new ArrayList<>();
         FloatingActionButton fabCamera = (FloatingActionButton) findViewById(R.id.fab_camera);
         fabCamera.setOnClickListener(new View.OnClickListener() {
@@ -173,11 +171,14 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-            case REQUEST_SIGN_IN:
+            case AndroidConstants.REQUEST_SIGN_IN:
                 if (resultCode == RESULT_OK) {
                     // Successfully signed in
                     getMenuFragment().manageUserSettings();
-                    expandFAB();
+                    if (isFABClicked) {
+                        expandFAB();
+                        isFABClicked = false;
+                    }
                     currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     Fragment observationFragment = getSupportFragmentManager().findFragmentByTag("Observation");
                     final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -189,7 +190,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                     Toast.makeText(this, R.string.authentication_failed, Toast.LENGTH_LONG).show();
                 }
                 break;
-            case REQUEST_TAKE_PHOTO:
+            case AndroidConstants.REQUEST_TAKE_PHOTO:
                 if (resultCode == RESULT_OK) {
                     processPhoto(mCurrentPhotoUri);
                 } else {
@@ -197,7 +198,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                     Toast.makeText(this, R.string.camera_failed, Toast.LENGTH_LONG).show();
                 }
                 break;
-            case REQUEST_PICK_PHOTO:
+            case AndroidConstants.REQUEST_PICK_PHOTO:
                 if (resultCode == RESULT_OK) {
                     processPhoto(data.getData());
                 } else {
@@ -346,7 +347,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
             if (photoFile != null) {
                 mCurrentPhotoUri = FileProvider.getUriForFile(this, "sk.ab.herbsplus.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mCurrentPhotoUri);
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+                startActivityForResult(takePictureIntent, AndroidConstants.REQUEST_TAKE_PHOTO);
             }
         }
     }
@@ -368,7 +369,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                 Uri photoURI = FileProvider.getUriForFile(this, "sk.ab.herbsplus.fileprovider", photoFile);
                 pickPictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 mCurrentPhotoUri = photoURI;
-                startActivityForResult(pickPictureIntent, REQUEST_PICK_PHOTO);
+                startActivityForResult(pickPictureIntent, AndroidConstants.REQUEST_PICK_PHOTO);
             }
         }
     }
@@ -480,6 +481,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                     countButton.setImageResource(R.drawable.ic_save_black_24dp);
                 }
             } else {
+                isFABClicked = true;
                 List<AuthUI.IdpConfig> providers = Arrays.asList(
                         new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                         new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
@@ -491,7 +493,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                                 .createSignInIntentBuilder()
                                 .setAvailableProviders(providers)
                                 .build(),
-                        REQUEST_SIGN_IN);
+                        AndroidConstants.REQUEST_SIGN_IN);
             }
         }
     }

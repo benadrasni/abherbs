@@ -14,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -35,6 +36,7 @@ import sk.ab.herbsplus.commons.ObservationHolder;
 public class ObservationFragment extends Fragment {
     private long mLastClickTime;
 
+    private TextView noObservations;
     private PropertyAdapter adapter;
 
     private class PropertyAdapter extends FirebaseRecyclerAdapter<Observation, ObservationHolder> {
@@ -131,11 +133,17 @@ public class ObservationFragment extends Fragment {
                 holder.getObservationNote().setText(observation.getNote());
             }
         }
+
+        @Override
+        protected void onDataChanged() {
+            noObservationsMessage(getItemCount() == 0, R.string.no_observations);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.plant_card_observations, null);
+        noObservations = (TextView) view.findViewById(R.id.no_observations);
         DisplayPlantPlusActivity activity = (DisplayPlantPlusActivity) getActivity();
 
         if (activity.getCurrentUser() != null) {
@@ -148,6 +156,8 @@ public class ObservationFragment extends Fragment {
 
             adapter = new PropertyAdapter(Observation.class, R.layout.observation, ObservationHolder.class, observationsRef);
             recyclerView.setAdapter(adapter);
+        } else {
+            noObservationsMessage(true, R.string.no_observations_login);
         }
         return view;
     }
@@ -224,5 +234,14 @@ public class ObservationFragment extends Fragment {
                 })
                 .create();
         return confirmDeleteDialogBox;
+    }
+
+    private void noObservationsMessage(boolean show, int message) {
+        if (show) {
+            noObservations.setText(message);
+            noObservations.setVisibility(View.VISIBLE);
+        } else {
+            noObservations.setVisibility(View.GONE);
+        }
     }
 }

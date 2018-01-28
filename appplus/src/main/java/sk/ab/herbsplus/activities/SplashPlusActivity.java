@@ -27,7 +27,7 @@ public class SplashPlusActivity extends SplashBaseActivity {
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    AndroidConstants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                    AndroidConstants.PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
         } else {
             startApplication();
         }
@@ -36,7 +36,7 @@ public class SplashPlusActivity extends SplashBaseActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
-            case AndroidConstants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+            case AndroidConstants.PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startApplication();
                 } else {
