@@ -18,6 +18,7 @@ public class AndroidConstants {
     public final static int REQUEST_SIGN_IN = 100;
     public final static int REQUEST_TAKE_PHOTO = 101;
     public final static int REQUEST_PICK_PHOTO = 102;
+    public final static int REQUEST_LOCATION = 103;
 
     public final static String DATE_SKELETON = "ddMMMyyyyHHmm";
     public final static int DEFAULT_CACHE_SIZE = 50;

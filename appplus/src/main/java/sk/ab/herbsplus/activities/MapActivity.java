@@ -1,7 +1,12 @@
 package sk.ab.herbsplus.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,6 +30,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_activity);
+
+        FloatingActionButton saveButton = (FloatingActionButton) findViewById(R.id.fab_save);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent data = new Intent();
+                data.putExtra(AndroidConstants.STATE_LATITUDE, position.latitude);
+                data.putExtra(AndroidConstants.STATE_LONGITUDE, position.longitude);
+                setResult(RESULT_OK, data);
+                finish();
+            }
+        });
 
         if (getIntent().getExtras() != null) {
             double latitude = getIntent().getExtras().getDouble(AndroidConstants.STATE_LATITUDE);

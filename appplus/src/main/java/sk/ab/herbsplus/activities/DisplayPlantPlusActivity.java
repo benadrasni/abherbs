@@ -206,6 +206,16 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                     Toast.makeText(this, R.string.gallery_failed, Toast.LENGTH_LONG).show();
                 }
                 break;
+            case AndroidConstants.REQUEST_LOCATION:
+                if (resultCode == RESULT_OK) {
+                    if (data.hasExtra(AndroidConstants.STATE_LATITUDE)) {
+                        double latitude = data.getExtras().getDouble(AndroidConstants.STATE_LATITUDE);
+                        double longitude = data.getExtras().getDouble(AndroidConstants.STATE_LONGITUDE);
+                        observation.setLatitude(latitude);
+                        observation.setLongitude(longitude);
+                    }
+                }
+                break;
         }
     }
 
@@ -416,7 +426,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                                 extras.putDouble(AndroidConstants.STATE_LATITUDE, observation.getLatitude());
                                 extras.putDouble(AndroidConstants.STATE_LONGITUDE, observation.getLongitude());
                                 intent.putExtras(extras);
-                                startActivity(intent);
+                                startActivityForResult(intent, AndroidConstants.REQUEST_LOCATION);
                             }
                         }
                     });
