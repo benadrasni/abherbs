@@ -13,9 +13,9 @@
     <string name="logout">Logout</string>
 
     <string name="wait_until_finish">Please wait until operation is finished.</string>
-    <string name="authentication_failed">Authentication Failed.</string>
+    <string name="authentication_failed">Authentication failed.</string>
     <string name="camera_failed">No picture was taken.</string>
-    <string name="gallery_failed">No picture was added</string>
+    <string name="gallery_failed">No picture was added.</string>
     <string name="observation_saved">Observation was saved.</string>
     <string name="observation_not_saved">Observation was incompleted thus it wasn\'t saved.</string>
     <string name="observation_delete">Delete observation</string>
