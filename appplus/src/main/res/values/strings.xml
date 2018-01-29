@@ -19,7 +19,7 @@
     <string name="observation_saved">Observation was saved.</string>
     <string name="observation_not_saved">Observation was incompleted thus it wasn\'t saved.</string>
     <string name="observation_delete">Delete observation</string>
-    <string name="observation_delete_question">Do you want to delete observation?</string>
+    <string name="observation_delete_question">Do you want to delete the observation?</string>
     <string name="plant_observations">Observations</string>
     <string name="no_observations">There is no observation yet.</string>
     <string name="no_observations_login">Observations are available only for logged users. Please log in from menu or by clicking on Observation button.</string>
