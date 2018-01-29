@@ -24,7 +24,7 @@
     <string name="observation_delete_question">Chcete zmazať pozorovanie?</string>
     <string name="no_observations">Zatiaľ nie je žiadne pozorovanie.</string>
     <string name="no_observations_login">Pozorovania sú dostupné iba prihláseným používateľom. Prihláste sa, prosím, cez Ponuku alebo kliknutím na tlačidlo "Pozorovanie".</string>
-    
-    <string name="select_photo">Vybrať fotografiu</string>
-    <string name="photo">fotografia</string>
+
+    <string name="photo_delete">Remove photo</string>
+    <string name="photo_delete_question">Do you want to remove/delete photo from the observation?</string>
 </resources>

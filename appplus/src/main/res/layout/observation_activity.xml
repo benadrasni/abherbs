@@ -13,7 +13,7 @@
         <LinearLayout
             android:id="@+id/mainLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -46,7 +46,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/button_margin"
-                        android:contentDescription="@string/observation_delete"
                         android:src="@drawable/ic_add_a_photo_black_24dp"/>
 
                     <ImageView
@@ -54,7 +53,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/button_margin"
-                        android:contentDescription="@string/observation_delete"
                         android:src="@drawable/ic_photo_black_24dp"/>
 
                     <ImageView
@@ -62,7 +60,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/button_margin"
-                        android:contentDescription="@string/observation_delete"
                         android:src="@drawable/ic_location_on_black_24dp"/>
 
                 </LinearLayout>
@@ -77,52 +74,64 @@
                 app:liteMode="true"
                 app:mapType="none"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                android:background="@color/CardsForeground"
-                android:gravity="center">
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/CardsForeground">
 
-                <ImageButton
-                    android:id="@+id/observation_prev_photo"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/observation_prev_photo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/CardsForeground"
+                        android:padding="@dimen/button_margin"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
+
+                    <TextView
+                        android:id="@+id/observation_photo_counter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/button_margin"
+                        android:textAppearance="@android:style/TextAppearance.Medium"
+                        android:textColor="@color/CardTitle"/>
+
+                    <ImageButton
+                        android:id="@+id/observation_next_photo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/CardsForeground"
+                        android:padding="@dimen/button_margin"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/observation_delete_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:padding="@dimen/button_margin"
-                    android:background="@color/CardsForeground"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
-
-                <TextView
-                    android:id="@+id/observation_photo_counter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/button_margin"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textColor="@color/CardTitle"/>
-
-                <ImageButton
-                    android:id="@+id/observation_next_photo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/button_margin"
-                    android:background="@color/CardsForeground"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
-
-            </LinearLayout>
+                    android:src="@drawable/ic_delete_black_24dp"/>
+            </RelativeLayout>
 
             <ImageView
                 android:id="@+id/observation_photo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/CardsForeground"
-                android:contentDescription="@string/photo"
                 android:scaleType="centerCrop"/>
 
             <EditText
@@ -145,7 +154,9 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="bottom|end">
+        android:layout_gravity="bottom|end"
+        app:layout_anchor="@+id/scrollview"
+        app:layout_anchorGravity="left|center">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_save"

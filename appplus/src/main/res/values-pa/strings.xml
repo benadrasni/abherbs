@@ -12,10 +12,8 @@
     <string name="logout">Logout</string>
     <string name="camera_failed">Camera failed.</string>
     <string name="observation_saved">Observation was saved.</string>
-    <string name="select_photo">Select photo</string>
     <string name="gallery_failed">Gallery failed</string>
     <string name="plant_observations">Observations</string>
-    <string name="photo">photo</string>
     <string name="observation_not_saved">Observation was incompleted thus it wasn\'t saved.</string>
     <string name="observation_delete">Delete observation</string>
     <string name="observation_delete_question">Do you want to delete observation?</string>
@@ -24,4 +22,6 @@
     <string name="no_observations">There are no visible observations yet.</string>
     <string name="no_observations_login">Observations are available only for logged users. Please log in from menu or by clicking on Observation button.</string>
     <string name="login">Login</string>
+    <string name="photo_delete">Remove photo</string>
+    <string name="photo_delete_question">Do you want to remove/delete photo from the observation?</string>
 </resources>

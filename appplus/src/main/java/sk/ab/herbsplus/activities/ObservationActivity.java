@@ -1,5 +1,7 @@
 package sk.ab.herbsplus.activities;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,10 +27,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -53,8 +57,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import sk.ab.common.entity.Observation;
 import sk.ab.herbsbase.AndroidConstants;
@@ -178,7 +183,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 finish();
                 break;
             case R.id.menu_delete_observation:
-                AlertDialog dialogBox = DeleteConfirmationDialog(observation);
+                AlertDialog dialogBox = DeleteObservationDialog(observation);
                 dialogBox.show();
                 break;
         }
@@ -283,28 +288,6 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
         }
     }
 
-//    private void addNote() {
-//        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-//
-//        View noteView = inflater.inflate(R.layout.note_layout,null);
-//        final PopupWindow mPopupWindow = new PopupWindow(
-//                noteView,
-//                RelativeLayout.LayoutParams.WRAP_CONTENT,
-//                RelativeLayout.LayoutParams.WRAP_CONTENT,
-//                true
-//        );
-//        final EditText note = noteView.findViewById(R.id.note);
-//        note.setText(observation.getNote());
-//
-//        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-//            @Override
-//            public void onDismiss() {
-//                observation.setNote(note.getText().toString());
-//            }
-//        });
-//        mPopupWindow.showAtLocation(mCoordinatorLayout, Gravity.CENTER,0,0);
-//    }
-
     private void addLocation() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -353,8 +336,10 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
 
                 // fill observation_row
                 observation.getPhotoPaths().add(dirname + filename);
-                if (exif.getDateTime() > 0) {
-                    observation.setDate(new Date(exif.getDateTime()));
+                if (exif.getGpsDateTime() > -1) {
+                    observation.getDate().setTime(exif.getGpsDateTime());
+                } else if (exif.getDateTime() > -1) {
+                    observation.getDate().setTime(exif.getDateTime() - TimeZone.getDefault().getOffset(exif.getDateTime()));
                 }
                 double[] latLong = exif.getLatLong();
                 if (latLong != null) {
@@ -434,18 +419,21 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
     }
 
     private void initializeObservation() {
-        TextView observationDate = (TextView) findViewById(R.id.observation_date);
+        final TextView observationDate = (TextView) findViewById(R.id.observation_date);
         observationDate.setText(DateFormat.format(DateFormat.getBestDateTimePattern(Locale.getDefault(),
                 AndroidConstants.DATE_SKELETON), observation.getDate()));
+        observationDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDateTimePicker(observationDate);
+            }
+        });
 
         MapView mapView = (MapView) findViewById(R.id.observation_map);
         mapView.onCreate(null);
         mapView.getMapAsync(this);
 
-        final ImageView photo = (ImageView) findViewById(R.id.observation_photo);
-        final ImageView prevPhoto = (ImageView) findViewById(R.id.observation_prev_photo);
-        final ImageView nextPhoto = (ImageView) findViewById(R.id.observation_next_photo);
-
+        ImageView photo = (ImageView) findViewById(R.id.observation_photo);
         photo.setImageResource(android.R.color.transparent);
         DisplayMetrics dm = getResources().getDisplayMetrics();
         int size = dm.widthPixels - Utils.convertDpToPx(20, dm);
@@ -455,6 +443,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
         photo.getLayoutParams().width = size;
         photo.getLayoutParams().height = size;
 
+        ImageView prevPhoto = (ImageView) findViewById(R.id.observation_prev_photo);
         prevPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -467,6 +456,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
+        ImageView nextPhoto = (ImageView) findViewById(R.id.observation_next_photo);
         nextPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -475,6 +465,20 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 mLastClickTime = currentClickTime;
                 if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
                     displayPhoto(++photoPosition);
+                }
+            }
+        });
+
+        ImageView deletePhoto = (ImageView) findViewById(R.id.observation_delete_photo);
+        deletePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long currentClickTime = SystemClock.uptimeMillis();
+                long elapsedTime = currentClickTime - mLastClickTime;
+                mLastClickTime = currentClickTime;
+                if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
+                    AlertDialog dialogBox = DeletePhotoDialog(photoPosition);
+                    dialogBox.show();
                 }
             }
         });
@@ -503,7 +507,29 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
         }
     }
 
-    private AlertDialog DeleteConfirmationDialog(final Observation observation) {
+    private void showDateTimePicker(final TextView observationDateTextView) {
+        final Calendar observationDate = Calendar.getInstance();
+        final Calendar date = Calendar.getInstance();
+        observationDate.setTime(observation.getDate());
+        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                date.set(year, monthOfYear, dayOfMonth);
+                new TimePickerDialog(ObservationActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        date.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        date.set(Calendar.MINUTE, minute);
+                        observation.setDate(date.getTime());
+                        observationDateTextView.setText(DateFormat.format(DateFormat.getBestDateTimePattern(Locale.getDefault(),
+                                AndroidConstants.DATE_SKELETON), observation.getDate()));
+                    }
+                }, observationDate.get(Calendar.HOUR_OF_DAY), observationDate.get(Calendar.MINUTE), false).show();
+            }
+        }, observationDate.get(Calendar.YEAR), observationDate.get(Calendar.MONTH), observationDate.get(Calendar.DATE)).show();
+    }
+
+    private AlertDialog DeleteObservationDialog(final Observation observation) {
         return new AlertDialog.Builder(this)
                 //set message, title, and icon
                 .setTitle(R.string.observation_delete)
@@ -516,6 +542,30 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                         deleteObservation(observation);
                         dialog.dismiss();
                         finish();
+                    }
+
+                })
+
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+    }
+
+    private AlertDialog DeletePhotoDialog(final int position) {
+        return new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle(R.string.photo_delete)
+                .setMessage(R.string.photo_delete_question)
+                .setIcon(R.drawable.ic_delete_black_24dp)
+
+                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        deletePhoto();
+                        dialog.dismiss();
                     }
 
                 })
@@ -543,7 +593,21 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
         if (position >= 0 && position < observation.getPhotoPaths().size()) {
             Utils.displayImage(getApplicationContext().getFilesDir(), observation.getPhotoPaths().get(position),
                     photo, ((BaseApp) getApplication()).getOptions());
+        } else {
+            photo.setImageDrawable(getResources().getDrawable(R.drawable.no_image_available));
         }
+    }
+
+    private void deletePhoto() {
+        File photoFile = new File( getApplicationContext().getFilesDir() + AndroidConstants.SEPARATOR + observation.getPhotoPaths().get(photoPosition));
+        if (photoFile.exists()) {
+            photoFile.delete();
+        }
+        observation.getPhotoPaths().remove(photoPosition);
+        if (photoPosition > 0 && photoPosition == observation.getPhotoPaths().size()) {
+            photoPosition--;
+        }
+        displayPhoto(photoPosition);
     }
 
     @Override
