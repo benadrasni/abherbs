@@ -23,14 +23,15 @@ import sk.ab.herbsplus.R;
 
 public class ObservationHolder extends RecyclerView.ViewHolder implements OnMapReadyCallback {
     private TextView observationDate;
+    private ImageView edit;
     private ImageView delete;
     private MapView mapView;
     private ImageView prevPhoto;
+    private TextView counter;
     private ImageView photo;
     private ImageView nextPhoto;
     private TextView observationNote;
 
-    private GoogleMap map;
     private double latitude;
     private double longitude;
     private Context context;
@@ -39,24 +40,24 @@ public class ObservationHolder extends RecyclerView.ViewHolder implements OnMapR
     public ObservationHolder(View itemView) {
         super(itemView);
         observationDate = itemView.findViewById(R.id.observation_date);
+        edit = itemView.findViewById(R.id.observation_edit);
         delete = itemView.findViewById(R.id.observation_delete);
-        prevPhoto = itemView.findViewById(R.id.observation_prev_photo);
-        photo = itemView.findViewById(R.id.observation_photo);
-        nextPhoto = itemView.findViewById(R.id.observation_next_photo);
         mapView = itemView.findViewById(R.id.observation_map);
+        prevPhoto = itemView.findViewById(R.id.observation_prev_photo);
+        counter = itemView.findViewById(R.id.observation_photo_counter);
+        nextPhoto = itemView.findViewById(R.id.observation_next_photo);
+        photo = itemView.findViewById(R.id.observation_photo);
         observationNote = itemView.findViewById(R.id.observation_note);
         photoPosition = 0;
-        prevPhoto.setVisibility(View.GONE);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(context);
         LatLng latLong = new LatLng(latitude, longitude);
-        map = googleMap;
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, 13f));
-        map.addMarker(new MarkerOptions().position(latLong));
-        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, 13f));
+        googleMap.addMarker(new MarkerOptions().position(latLong));
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
 
     public void initializeMapView(Context context, Double latitude, Double longitude) {
@@ -71,6 +72,10 @@ public class ObservationHolder extends RecyclerView.ViewHolder implements OnMapR
         return observationDate;
     }
 
+    public ImageView getEdit() {
+        return edit;
+    }
+
     public ImageView getDelete() {
         return delete;
     }
@@ -79,12 +84,16 @@ public class ObservationHolder extends RecyclerView.ViewHolder implements OnMapR
         return prevPhoto;
     }
 
-    public ImageView getPhoto() {
-        return photo;
+    public TextView getCounter() {
+        return counter;
     }
 
     public ImageView getNextPhoto() {
         return nextPhoto;
+    }
+
+    public ImageView getPhoto() {
+        return photo;
     }
 
     public TextView getObservationNote() {

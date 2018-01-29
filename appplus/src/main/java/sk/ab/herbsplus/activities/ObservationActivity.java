@@ -135,8 +135,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                         @Override
                         public void onSuccess(Location location) {
                             if (location != null) {
-                                observation.setLatitude(location.getLatitude());
-                                observation.setLongitude(location.getLongitude());
+                                addMarkerToMap(location.getLatitude(), location.getLongitude(), false);
                             }
                         }
                     });
@@ -149,12 +148,6 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        saveObservation(false);
-        super.onDestroy();
     }
 
     @Override
@@ -218,7 +211,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                     if (data.hasExtra(AndroidConstants.STATE_LATITUDE) && data.hasExtra(AndroidConstants.STATE_LONGITUDE)) {
                         double latitude = data.getExtras().getDouble(AndroidConstants.STATE_LATITUDE);
                         double longitude = data.getExtras().getDouble(AndroidConstants.STATE_LONGITUDE);
-                        addMarkerToMap(latitude, longitude);
+                        addMarkerToMap(latitude, longitude, true);
                     }
                 }
                 break;
@@ -238,7 +231,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                                     // Got last known location. In some rare situations this can be null.
                                     if (location != null) {
                                         if (observation.getLatitude() == null || observation.getLongitude() == null) {
-                                            addMarkerToMap(location.getLatitude(), location.getLongitude());
+                                            addMarkerToMap(location.getLatitude(), location.getLongitude(), false);
                                         }
                                     }
                                 }
@@ -365,9 +358,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 }
                 double[] latLong = exif.getLatLong();
                 if (latLong != null) {
-                    observation.setLatitude(latLong[0]);
-                    observation.setLongitude(latLong[1]);
-                    addMarkerToMap(latLong[0], latLong[1]);
+                    addMarkerToMap(latLong[0], latLong[1], true);
                 }
                 photoPosition = observation.getPhotoPaths().size() - 1;
                 displayPhoto(photoPosition);
@@ -560,16 +551,26 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
         MapsInitializer.initialize(this);
         map = googleMap;
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        LatLng latLong = new LatLng(observation.getLatitude(), observation.getLongitude());
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, 13f));
-        marker = map.addMarker(new MarkerOptions().position(latLong));
+        if (observation.getLatitude() != null && observation.getLongitude() != null) {
+            LatLng latLong = new LatLng(observation.getLatitude(), observation.getLongitude());
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, 13f));
+            marker = map.addMarker(new MarkerOptions().position(latLong));
+        }
     }
 
-    private void addMarkerToMap(Double latitude, Double longitude) {
-        observation.setLatitude(latitude);
-        observation.setLongitude(longitude);
-        LatLng latLong = new LatLng(observation.getLatitude(), observation.getLongitude());
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, 13f));
-        marker.setPosition(latLong);
+    private void addMarkerToMap(Double latitude, Double longitude, boolean rewrite) {
+        if (rewrite || observation.getLatitude() == null || observation.getLongitude() == null) {
+            observation.setLatitude(latitude);
+            observation.setLongitude(longitude);
+        }
+        if (map != null && observation.getLatitude() != null && observation.getLongitude() != null) {
+            LatLng latLong = new LatLng(observation.getLatitude(), observation.getLongitude());
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, 13f));
+            if (marker == null) {
+                marker = map.addMarker(new MarkerOptions().position(latLong));
+            } else {
+                marker.setPosition(latLong);
+            }
+        }
     }
 }

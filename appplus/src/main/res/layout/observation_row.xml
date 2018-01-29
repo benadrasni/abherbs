@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mainLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              xmlns:map="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/mainLayout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,15 +23,31 @@
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@color/CardTitle"/>
 
-        <ImageView
-            android:id="@+id/observation_delete"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="false"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:contentDescription="@string/observation_delete"
-            android:src="@drawable/ic_delete_black_24dp"/>
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/observation_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/button_margin"
+                android:contentDescription="@string/observation_delete"
+                android:src="@drawable/ic_mode_edit_black_24dp"/>
+
+            <ImageView
+                android:id="@+id/observation_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/button_margin"
+                android:contentDescription="@string/observation_delete"
+                android:src="@drawable/ic_delete_black_24dp"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -41,43 +57,55 @@
         android:layout_height="150dp"
         android:layout_margin="10dp"
         map:liteMode="true"
-        map:mapType="none" />
+        map:mapType="none"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center_vertical">
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/CardsForeground"
+        android:gravity="center">
 
-        <ImageView
-            android:id="@+id/observation_photo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/CardsForeground"
-            android:contentDescription="@string/photo"
-            android:scaleType="centerCrop" />
-
-        <ImageView
+        <ImageButton
             android:id="@+id/observation_prev_photo"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:scaleType="fitCenter"
-            android:alpha="0.2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/button_margin"
             android:background="@color/CardsForeground"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
 
-        <ImageView
+        <TextView
+            android:id="@+id/observation_photo_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/button_margin"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/CardTitle"/>
+
+        <ImageButton
             android:id="@+id/observation_next_photo"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:scaleType="fitCenter"
-            android:alpha="0.2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/button_margin"
             android:background="@color/CardsForeground"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
 
-    </RelativeLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/observation_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/CardsForeground"
+        android:contentDescription="@string/photo"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/observation_note"
@@ -90,6 +118,6 @@
         android:maxLines="4"
         android:minLines="4"
         android:padding="20sp"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"/>
 
 </LinearLayout>

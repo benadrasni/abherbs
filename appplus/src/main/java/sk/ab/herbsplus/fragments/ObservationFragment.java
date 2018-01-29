@@ -1,6 +1,7 @@
 package sk.ab.herbsplus.fragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -16,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,7 +31,9 @@ import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.tools.Utils;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.activities.DisplayPlantPlusActivity;
+import sk.ab.herbsplus.activities.ObservationActivity;
 import sk.ab.herbsplus.commons.ObservationHolder;
+import sk.ab.herbsplus.entity.ObservationParcel;
 
 public class ObservationFragment extends Fragment {
     private long mLastClickTime;
@@ -50,6 +52,15 @@ public class ObservationFragment extends Fragment {
             final DisplayPlantPlusActivity activity = (DisplayPlantPlusActivity) getActivity();
             holder.getObservationDate().setText(DateFormat.format(DateFormat.getBestDateTimePattern(Locale.getDefault(),
                     AndroidConstants.DATE_SKELETON), observation.getDate()));
+
+            holder.getEdit().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(activity, ObservationActivity.class);
+                    intent.putExtra(AndroidConstants.STATE_OBSERVATION, new ObservationParcel(observation));
+                    startActivity(intent);
+                }
+            });
 
             holder.getDelete().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,7 +81,6 @@ public class ObservationFragment extends Fragment {
             holder.getPhoto().getLayoutParams().width = size;
             holder.getPhoto().getLayoutParams().height = size;
 
-            holder.getPrevPhoto().getLayoutParams().height = size;
             holder.getPrevPhoto().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -79,24 +89,11 @@ public class ObservationFragment extends Fragment {
                     mLastClickTime = currentClickTime;
                     if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
                         holder.decPosition();
-                        holder.getNextPhoto().setVisibility(View.VISIBLE);
-                        if (holder.getPhotoPosition() == 0) {
-                            holder.getPrevPhoto().setVisibility(View.GONE);
-                        } else {
-                            holder.getPrevPhoto().setVisibility(View.VISIBLE);
-                        }
-                        Utils.displayImage(activity.getApplicationContext().getFilesDir(), observation.getPhotoPaths().get(holder.getPhotoPosition()),
-                                holder.getPhoto(), ((BaseApp) activity.getApplication()).getOptions());
+                        displayPhoto(holder, observation);
                     }
                 }
             });
-            if (holder.getPhotoPosition() == 0) {
-                holder.getPrevPhoto().setVisibility(View.GONE);
-            } else {
-                holder.getPrevPhoto().setVisibility(View.VISIBLE);
-            }
 
-            holder.getNextPhoto().getLayoutParams().height = size;
             holder.getNextPhoto().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -105,29 +102,12 @@ public class ObservationFragment extends Fragment {
                     mLastClickTime = currentClickTime;
                     if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
                         holder.incPosition();
-                        holder.getPrevPhoto().setVisibility(View.VISIBLE);
-                        if (holder.getPhotoPosition() == observation.getPhotoPaths().size() - 1) {
-                            holder.getNextPhoto().setVisibility(View.GONE);
-                        } else {
-                            holder.getNextPhoto().setVisibility(View.VISIBLE);
-                        }
-                        Utils.displayImage(activity.getApplicationContext().getFilesDir(), observation.getPhotoPaths().get(holder.getPhotoPosition()),
-                                holder.getPhoto(), ((BaseApp) activity.getApplication()).getOptions());
+                        displayPhoto(holder, observation);
                     }
                 }
             });
-            if (holder.getPhotoPosition() == observation.getPhotoPaths().size() - 1) {
-                holder.getNextPhoto().setVisibility(View.GONE);
-            } else {
-                holder.getNextPhoto().setVisibility(View.VISIBLE);
-            }
 
-            if (observation.getPhotoPaths() != null && holder.getPhotoPosition() >= 0 && holder.getPhotoPosition() < observation.getPhotoPaths().size()) {
-                Utils.displayImage(activity.getApplicationContext().getFilesDir(), observation.getPhotoPaths().get(holder.getPhotoPosition()),
-                        holder.getPhoto(), ((BaseApp) activity.getApplication()).getOptions());
-            } else {
-                Crashlytics.log("Empty photoPaths: " + activity.getPlant().getName());
-            }
+            displayPhoto(holder, observation);
 
             if (observation.getNote() != null) {
                 holder.getObservationNote().setText(observation.getNote());
@@ -143,7 +123,7 @@ public class ObservationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.plant_card_observations, null);
-        noObservations = (TextView) view.findViewById(R.id.no_observations);
+        noObservations = view.findViewById(R.id.no_observations);
         DisplayPlantPlusActivity activity = (DisplayPlantPlusActivity) getActivity();
 
         if (activity.getCurrentUser() != null) {
@@ -212,7 +192,7 @@ public class ObservationFragment extends Fragment {
     }
 
     private AlertDialog DeleteConfirmationDialog(final Observation observation) {
-        AlertDialog confirmDeleteDialogBox =new AlertDialog.Builder(getActivity())
+        return new AlertDialog.Builder(getActivity())
                 //set message, title, and icon
                 .setTitle(R.string.observation_delete)
                 .setMessage(R.string.observation_delete_question)
@@ -233,7 +213,6 @@ public class ObservationFragment extends Fragment {
                     }
                 })
                 .create();
-        return confirmDeleteDialogBox;
     }
 
     private void noObservationsMessage(boolean show, int message) {
@@ -242,6 +221,21 @@ public class ObservationFragment extends Fragment {
             noObservations.setVisibility(View.VISIBLE);
         } else {
             noObservations.setVisibility(View.GONE);
+        }
+    }
+
+    private void displayPhoto(ObservationHolder holder, Observation observation) {
+        DisplayPlantPlusActivity activity = (DisplayPlantPlusActivity) getActivity();
+
+        holder.getPrevPhoto().setClickable(holder.getPhotoPosition() > 0);
+        holder.getNextPhoto().setClickable(holder.getPhotoPosition() < observation.getPhotoPaths().size() -1);
+
+        String counterText = (observation.getPhotoPaths().size() == 0 ? holder.getPhotoPosition() : holder.getPhotoPosition() + 1) + " / " + observation.getPhotoPaths().size();
+        holder.getCounter().setText(counterText);
+
+        if (holder.getPhotoPosition() >= 0 && holder.getPhotoPosition() < observation.getPhotoPaths().size()) {
+            Utils.displayImage(activity.getApplicationContext().getFilesDir(), observation.getPhotoPaths().get(holder.getPhotoPosition()),
+                    holder.getPhoto(), ((BaseApp) activity.getApplication()).getOptions());
         }
     }
 }
