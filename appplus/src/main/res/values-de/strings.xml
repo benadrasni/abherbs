@@ -8,21 +8,23 @@
     <string name="offline_mode_summary">Benötigt 250+ MB zusätzlichen Platz</string>
 
     <string name="search">Suche</string>
+    <string name="delete">Löschen</string>
+    <string name="cancel">Stornieren</string>
+    <string name="login">Anmeldung</string>
+    <string name="logout">Ausloggen</string>
+    
     <string name="wait_until_finish">Bitte warten, bis der Betrieb beendet ist.</string>
-    <string name="authentication_failed">Authentication Failed.</string>
-    <string name="logout">Logout</string>
-    <string name="camera_failed">Camera failed.</string>
-    <string name="observation_saved">Observation was saved.</string>
-    <string name="select_photo">Select photo</string>
-    <string name="gallery_failed">Gallery failed</string>
-    <string name="plant_observations">Observations</string>
-    <string name="photo">photo</string>
-    <string name="observation_not_saved">Observation was incompleted thus it wasn\'t saved.</string>
-    <string name="observation_delete">Delete observation</string>
-    <string name="observation_delete_question">Do you want to delete observation?</string>
-    <string name="delete">Delete</string>
-    <string name="cancel">Cancel</string>
-    <string name="no_observations">There are no visible observations yet.</string>
-    <string name="no_observations_login">Observations are available only for logged users. Please log in from menu or by clicking on Observation button.</string>
-    <string name="login">Login</string>
+    <string name="authentication_failed">Authentifizierung fehlgeschlagen.</string>
+    <string name="camera_failed">Kein Foto wurde aufgenommen.</string>
+    <string name="gallery_failed">Kein Foto wurde hinzugefügt.</string>
+    <string name="observation_saved">Beobachtung wurde gespeichert.</string>
+    <string name="plant_observations">Beobachtungen</string>
+    <string name="observation_not_saved">Die Beobachtung wurde nicht abgeschlossen, so dass es nicht gespeichert wurde.</string>
+    <string name="observation_delete">Beobachtung löschen</string>
+    <string name="observation_delete_question">Möchten Sie die Beobachtung löschen?</string>
+    <string name="no_observations">Es gibt noch keine Beobachtung.</string>
+    <string name="no_observations_login">Beobachtungen sind nur für angemeldete Benutzer verfügbar. Bitte melden Sie sich über das Menü oder durch Klicken auf die Schaltfläche Beobachtung an.</string>
+    
+    <string name="select_photo">Wählen Sie ein Foto aus</string>
+    <string name="photo">Foto</string>
 </resources>
