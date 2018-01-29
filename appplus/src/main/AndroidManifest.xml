@@ -84,6 +84,9 @@
             android:name="sk.ab.herbsplus.activities.TaxonomyActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
+            android:name="sk.ab.herbsplus.activities.ObservationActivity"
+            android:configChanges="orientation|screenSize|locale" />
+        <activity
             android:name="sk.ab.herbsplus.activities.MapActivity"
             android:configChanges="orientation|screenSize|locale" />
 

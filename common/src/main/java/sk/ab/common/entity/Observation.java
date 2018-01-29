@@ -1,5 +1,6 @@
 package sk.ab.common.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Observation {
     private Double longitude;
     private Double latitude;
     private String note;
-    private List<String> photoPaths;
+    private ArrayList<String> photoPaths;
 
     public String getId() {
         return id;
@@ -67,11 +68,11 @@ public class Observation {
         this.note = note;
     }
 
-    public List<String> getPhotoPaths() {
+    public ArrayList<String> getPhotoPaths() {
         return photoPaths;
     }
 
-    public void setPhotoPaths(List<String> photoPaths) {
+    public void setPhotoPaths(ArrayList<String> photoPaths) {
         this.photoPaths = photoPaths;
     }
 }

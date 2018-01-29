@@ -72,10 +72,6 @@ public class PropertyListPlusFragment extends PropertyListBaseFragment {
                         .signOut(getActivity())
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             public void onComplete(@NonNull Task<Void> task) {
-                                BaseActivity activity = (BaseActivity) PropertyListPlusFragment.this.getActivity();
-                                if (activity instanceof DisplayPlantPlusActivity) {
-                                    ((DisplayPlantPlusActivity)activity).hideFAB();
-                                }
                                 manageUserSettings();
                             }
                         });

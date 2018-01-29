@@ -154,7 +154,7 @@ public class ObservationFragment extends Fragment {
                     + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT + AndroidConstants.SEPARATOR
                     + activity.getPlant().getName());
 
-            adapter = new PropertyAdapter(Observation.class, R.layout.observation, ObservationHolder.class, observationsRef);
+            adapter = new PropertyAdapter(Observation.class, R.layout.observation_row, ObservationHolder.class, observationsRef);
             recyclerView.setAdapter(adapter);
         } else {
             noObservationsMessage(true, R.string.no_observations_login);
