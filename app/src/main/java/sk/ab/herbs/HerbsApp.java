@@ -62,4 +62,9 @@ public class HerbsApp extends BaseApp {
     public boolean isOffline() {
         return false;
     }
+
+    @Override
+    public void setToken(String token) {
+
+    }
 }

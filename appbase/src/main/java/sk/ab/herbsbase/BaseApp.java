@@ -33,8 +33,6 @@ public abstract class BaseApp extends Application {
     private Stack<BaseFilterFragment> backStack;
     private boolean isLoading;
 
-    private HerbCloudClient herbCloudClient;
-    private FirebaseClient firebaseClient;
     private GoogleClient googleClient;
 
     @Override
@@ -45,8 +43,6 @@ public abstract class BaseApp extends Application {
 
         backStack = new Stack<>();
 
-        herbCloudClient = new HerbCloudClient();
-        firebaseClient = new FirebaseClient();
         googleClient = new GoogleClient();
     }
 
@@ -87,14 +83,6 @@ public abstract class BaseApp extends Application {
         return options;
     }
 
-    public HerbCloudClient getHerbCloudClient() {
-        return herbCloudClient;
-    }
-
-    public FirebaseClient getFirebaseClient() {
-        return firebaseClient;
-    }
-
     public GoogleClient getGoogleClient() {
         return googleClient;
     }
@@ -114,4 +102,6 @@ public abstract class BaseApp extends Application {
     public void setLoading(boolean loading) {
         this.isLoading = loading;
     }
+
+    public abstract void setToken(String token);
 }

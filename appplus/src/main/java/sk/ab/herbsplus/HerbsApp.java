@@ -82,7 +82,7 @@ public class HerbsApp extends BaseApp {
         }
 
         // version specific key
-        editor.putBoolean(sk.ab.herbsbase.AndroidConstants.RESET_KEY + BuildConfig.VERSION_CODE, true);
+        editor.putBoolean(AndroidConstants.RESET_KEY + BuildConfig.VERSION_CODE, true);
         editor.apply();
 
         filterAttributes = new ArrayList<>();
@@ -95,5 +95,13 @@ public class HerbsApp extends BaseApp {
     public boolean isOffline() {
         SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
         return preferences.getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
+    }
+
+    @Override
+    public void setToken(String token) {
+        SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(AndroidConstants.TOKEN_KEY, token);
+        editor.apply();
     }
 }

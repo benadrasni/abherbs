@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,11 +46,13 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
 
     private FirebaseUser currentUser;
     private long mLastClickTime;
+    private boolean shouldOpenObservation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        shouldOpenObservation = false;
 
         countButton = (FloatingActionButton) findViewById(R.id.countButton);
         if (countButton != null) {
@@ -72,11 +76,12 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                     // Successfully signed in
                     getMenuFragment().manageUserSettings();
                     currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    Fragment observationFragment = getSupportFragmentManager().findFragmentByTag("Observation");
-                    final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.detach(observationFragment);
-                    ft.attach(observationFragment);
-                    ft.commit();
+                    refreshObservations();
+                    saveToken();
+                    if (shouldOpenObservation) {
+                        handleClickOnObservation();
+                        shouldOpenObservation = false;
+                    }
                 } else {
                     // Sign in failed, check response for error code
                     Toast.makeText(this, R.string.authentication_failed, Toast.LENGTH_LONG).show();
@@ -113,6 +118,11 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
         return currentUser;
     }
 
+    public void handleLogout() {
+        currentUser = null;
+        refreshObservations();
+    }
+
     private void handleClickOnObservation() {
         long currentClickTime = SystemClock.uptimeMillis();
         long elapsedTime = currentClickTime - mLastClickTime;
@@ -130,6 +140,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                 intent.putExtra(AndroidConstants.STATE_OBSERVATION, new ObservationParcel(observation));
                 startActivity(intent);
             } else {
+                shouldOpenObservation = true;
                 List<AuthUI.IdpConfig> providers = Arrays.asList(
                         new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                         new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
@@ -144,5 +155,25 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                         AndroidConstants.REQUEST_SIGN_IN);
             }
         }
+    }
+
+    private void saveToken() {
+        String token = getSharedPreferences().getString(AndroidConstants.TOKEN_KEY, null);
+        if (token != null) {
+            DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference();
+            // by user, by date
+            mFirebaseRef.child(AndroidConstants.FIREBASE_USERS)
+                    .child(currentUser.getUid())
+                    .child(AndroidConstants.FIREBASE_USERS_TOKEN)
+                    .setValue(token);
+        }
+    }
+
+    private void refreshObservations() {
+        Fragment observationFragment = getSupportFragmentManager().findFragmentByTag("Observation");
+        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.detach(observationFragment);
+        ft.attach(observationFragment);
+        ft.commit();
     }
 }

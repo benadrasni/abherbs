@@ -73,6 +73,7 @@ public class PropertyListPlusFragment extends PropertyListBaseFragment {
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             public void onComplete(@NonNull Task<Void> task) {
                                 manageUserSettings();
+                                ((DisplayPlantPlusActivity)PropertyListPlusFragment.this.getActivity()).handleLogout();
                             }
                         });
                 break;

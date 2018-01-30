@@ -73,6 +73,8 @@ public class AndroidConstants {
     public final static String RATE_COUNT_KEY = "rate_count";
     public final static String SHOWCASE_FILTER_KEY = "showcase_filter";
     public final static String SHOWCASE_DISPLAY_KEY = "showcase_display";
+    public final static String TOKEN_KEY = "token";
+
     public final static String LANGUAGE_NOT_SUPPORTED = " (not supported)";
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";
@@ -108,6 +110,8 @@ public class AndroidConstants {
     public final static String FIREBASE_OBSERVATIONS_BY_DATE = "by date";
     public final static String FIREBASE_OBSERVATIONS_BY_PLANT = "by plant";
     public final static String FIREBASE_OBSERVATIONS_PUBLIC = "public";
+    public final static String FIREBASE_USERS = "users";
+    public final static String FIREBASE_USERS_TOKEN = "token";
 
     public final static String FIREBASE_APG_TYPE = "type";
     public final static String FIREBASE_APG_NAMES = "names";

@@ -346,7 +346,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                     addMarkerToMap(latLong[0], latLong[1], true);
                 }
                 photoPosition = observation.getPhotoPaths().size() - 1;
-                displayPhoto(photoPosition);
+                refreshObservation();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -418,10 +418,25 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 .setValue(null);
     }
 
-    private void initializeObservation() {
-        final TextView observationDate = (TextView) findViewById(R.id.observation_date);
+    private void refreshObservation() {
+        TextView observationDate = (TextView) findViewById(R.id.observation_date);
         observationDate.setText(DateFormat.format(DateFormat.getBestDateTimePattern(Locale.getDefault(),
                 AndroidConstants.DATE_SKELETON), observation.getDate()));
+
+        if (observation.getLatitude() != null && observation.getLongitude() != null) {
+            addMarkerToMap(observation.getLatitude(), observation.getLongitude(), false);
+        }
+
+        displayPhoto(photoPosition);
+
+        if (observation.getNote() != null) {
+            EditText observationNote = (EditText) findViewById(R.id.observation_note);
+            observationNote.setText(observation.getNote());
+        }
+    }
+
+    private void initializeObservation() {
+        final TextView observationDate = (TextView) findViewById(R.id.observation_date);
         observationDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -483,8 +498,6 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
-        displayPhoto(photoPosition);
-
         final EditText observationNote = (EditText) findViewById(R.id.observation_note);
         observationNote.addTextChangedListener(new TextWatcher() {
             @Override
@@ -502,9 +515,8 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 observation.setNote(editable.toString());
             }
         });
-        if (observation.getNote() != null) {
-            observationNote.setText(observation.getNote());
-        }
+
+        refreshObservation();
     }
 
     private void showDateTimePicker(final TextView observationDateTextView) {
