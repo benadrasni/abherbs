@@ -5,11 +5,11 @@
     <item
         android:id="@+id/menu_taxonomy"
         android:title="@string/agpiv"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/menu_search"
         android:title="@string/search"
         android:icon="@drawable/ic_search_black_24dp"
         app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
 </menu>
