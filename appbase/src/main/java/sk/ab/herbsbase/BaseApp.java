@@ -61,6 +61,8 @@ public abstract class BaseApp extends Application {
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
+                .showImageForEmptyUri(R.drawable.no_image_available)
+                .showImageOnFail(R.drawable.no_image_available)
                 .build();
     }
 
