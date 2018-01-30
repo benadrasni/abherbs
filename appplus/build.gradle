@@ -22,6 +22,7 @@ android {
         versionCode 200
         versionName "2.0.0"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
     buildTypes {
         release {
