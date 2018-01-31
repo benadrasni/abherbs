@@ -104,6 +104,10 @@ public class ObservationHolder extends RecyclerView.ViewHolder implements OnMapR
         return photoPosition;
     }
 
+    public void setPhotoPosition(int photoPosition) {
+        this.photoPosition = photoPosition;
+    }
+
     public void incPosition() {
         photoPosition++;
     }

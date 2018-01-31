@@ -114,13 +114,14 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
 
-    public FirebaseUser getCurrentUser() {
-        return currentUser;
-    }
-
+    @Override
     public void handleLogout() {
         currentUser = null;
         refreshObservations();
+    }
+
+    public FirebaseUser getCurrentUser() {
+        return currentUser;
     }
 
     private void handleClickOnObservation() {

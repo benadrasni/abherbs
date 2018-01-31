@@ -174,6 +174,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         return isLocaleChanged;
     }
 
+    public void handleLogout() {
+
+    }
+
     public abstract SharedPreferences getSharedPreferences();
 
     protected abstract PropertyListBaseFragment getNewMenuFragment();

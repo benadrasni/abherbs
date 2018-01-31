@@ -89,6 +89,9 @@ public class ObservationFragment extends Fragment {
                     mLastClickTime = currentClickTime;
                     if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
                         holder.decPosition();
+                        if (holder.getPhotoPosition() < 0) {
+                            holder.setPhotoPosition(observation.getPhotoPaths().size()-1);
+                        }
                         displayPhoto(holder, observation);
                     }
                 }
@@ -102,6 +105,9 @@ public class ObservationFragment extends Fragment {
                     mLastClickTime = currentClickTime;
                     if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
                         holder.incPosition();
+                        if (holder.getPhotoPosition() == observation.getPhotoPaths().size()) {
+                            holder.setPhotoPosition(0);
+                        }
                         displayPhoto(holder, observation);
                     }
                 }
@@ -226,9 +232,6 @@ public class ObservationFragment extends Fragment {
 
     private void displayPhoto(ObservationHolder holder, Observation observation) {
         DisplayPlantPlusActivity activity = (DisplayPlantPlusActivity) getActivity();
-
-        holder.getPrevPhoto().setClickable(holder.getPhotoPosition() > 0);
-        holder.getNextPhoto().setClickable(holder.getPhotoPosition() < observation.getPhotoPaths().size() -1);
 
         String counterText = (observation.getPhotoPaths().size() == 0 ? holder.getPhotoPosition() : holder.getPhotoPosition() + 1) + " / " + observation.getPhotoPaths().size();
         holder.getCounter().setText(counterText);

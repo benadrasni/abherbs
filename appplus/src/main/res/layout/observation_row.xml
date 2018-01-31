@@ -73,6 +73,7 @@
             android:padding="@dimen/button_margin"
             android:background="@color/CardsForeground"
             android:scaleType="fitCenter"
+            android:clickable="true"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
 
         <TextView
@@ -90,6 +91,7 @@
             android:padding="@dimen/button_margin"
             android:background="@color/CardsForeground"
             android:scaleType="fitCenter"
+            android:clickable="true"
             android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
 
     </LinearLayout>

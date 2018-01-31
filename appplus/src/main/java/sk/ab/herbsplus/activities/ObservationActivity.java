@@ -334,7 +334,21 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 ByteStreams.copy(inputStream, outputStream);
                 ExifInterface exif = new ExifInterface(path);
 
-                // fill observation_row
+                // check duplicates
+                for (String photoPath : observation.getPhotoPaths()) {
+                    File photoOld = new File(this.getApplicationContext().getFilesDir() + AndroidConstants.SEPARATOR + photoPath);
+                    if (photoOld.exists()) {
+                        ExifInterface exifOld = new ExifInterface(photoOld.getPath());
+                        if (exifOld.getDateTime() > -1 && exifOld.getDateTime() == exif.getDateTime()) {
+                            File photoNew = new File(path);
+                            photoNew.delete();
+                            Toast.makeText(this, R.string.photo_duplicate, Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                    }
+                }
+
+                // fill observation
                 observation.getPhotoPaths().add(dirname + filename);
                 if (exif.getGpsDateTime() > -1) {
                     observation.getDate().setTime(exif.getGpsDateTime());
@@ -466,7 +480,11 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 long elapsedTime = currentClickTime - mLastClickTime;
                 mLastClickTime = currentClickTime;
                 if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
-                    displayPhoto(--photoPosition);
+                    photoPosition--;
+                    if (photoPosition < 0) {
+                        photoPosition = observation.getPhotoPaths().size() - 1;
+                    }
+                    displayPhoto(photoPosition);
                 }
             }
         });
@@ -479,7 +497,11 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 long elapsedTime = currentClickTime - mLastClickTime;
                 mLastClickTime = currentClickTime;
                 if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
-                    displayPhoto(++photoPosition);
+                    photoPosition++;
+                    if (photoPosition == observation.getPhotoPaths().size()) {
+                        photoPosition = 0;
+                    }
+                    displayPhoto(photoPosition);
                 }
             }
         });
@@ -595,9 +617,6 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
         final ImageButton prevPhoto = (ImageButton) findViewById(R.id.observation_prev_photo);
         final ImageButton nextPhoto = (ImageButton) findViewById(R.id.observation_next_photo);
         final TextView counter = (TextView) findViewById(R.id.observation_photo_counter);
-
-        prevPhoto.setClickable(position > 0);
-        nextPhoto.setClickable(position < observation.getPhotoPaths().size() -1);
 
         String counterText = (observation.getPhotoPaths().size() == 0 ? position : position + 1) + " / " + observation.getPhotoPaths().size();
         counter.setText(counterText);
