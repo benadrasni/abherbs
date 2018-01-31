@@ -17,7 +17,7 @@
     <string name="camera_failed">No picture was taken.</string>
     <string name="gallery_failed">No picture was added.</string>
     <string name="observation_saved">Observation was saved.</string>
-    <string name="observation_not_saved">Observation was incompleted thus it wasn\'t saved.</string>
+    <string name="observation_not_saved">Observation was incomplete thus it wasn\'t saved. Location or photo is misssing.</string>
     <string name="observation_delete">Delete observation</string>
     <string name="observation_delete_question">Do you want to delete the observation?</string>
     <string name="plant_observations">Observations</string>

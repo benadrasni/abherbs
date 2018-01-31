@@ -436,7 +436,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
     }
 
     private void initializeObservation() {
-        final TextView observationDate = (TextView) findViewById(R.id.observation_date);
+        final TextView observationDate = findViewById(R.id.observation_date);
         observationDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -444,11 +444,11 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
-        MapView mapView = (MapView) findViewById(R.id.observation_map);
+        MapView mapView = findViewById(R.id.observation_map);
         mapView.onCreate(null);
         mapView.getMapAsync(this);
 
-        ImageView photo = (ImageView) findViewById(R.id.observation_photo);
+        ImageView photo = findViewById(R.id.observation_photo);
         photo.setImageResource(android.R.color.transparent);
         DisplayMetrics dm = getResources().getDisplayMetrics();
         int size = dm.widthPixels - Utils.convertDpToPx(20, dm);
@@ -458,7 +458,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
         photo.getLayoutParams().width = size;
         photo.getLayoutParams().height = size;
 
-        ImageView prevPhoto = (ImageView) findViewById(R.id.observation_prev_photo);
+        ImageView prevPhoto = findViewById(R.id.observation_prev_photo);
         prevPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -471,7 +471,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
-        ImageView nextPhoto = (ImageView) findViewById(R.id.observation_next_photo);
+        ImageView nextPhoto = findViewById(R.id.observation_next_photo);
         nextPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -484,7 +484,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
-        ImageView deletePhoto = (ImageView) findViewById(R.id.observation_delete_photo);
+        ImageView deletePhoto = findViewById(R.id.observation_delete_photo);
         deletePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -492,13 +492,15 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 long elapsedTime = currentClickTime - mLastClickTime;
                 mLastClickTime = currentClickTime;
                 if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
-                    AlertDialog dialogBox = DeletePhotoDialog(photoPosition);
-                    dialogBox.show();
+                    if (observation.getPhotoPaths().size() > 0) {
+                        AlertDialog dialogBox = DeletePhotoDialog(photoPosition);
+                        dialogBox.show();
+                    }
                 }
             }
         });
 
-        final EditText observationNote = (EditText) findViewById(R.id.observation_note);
+        final EditText observationNote = findViewById(R.id.observation_note);
         observationNote.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -543,7 +545,6 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
 
     private AlertDialog DeleteObservationDialog(final Observation observation) {
         return new AlertDialog.Builder(this)
-                //set message, title, and icon
                 .setTitle(R.string.observation_delete)
                 .setMessage(R.string.observation_delete_question)
                 .setIcon(R.drawable.ic_delete_black_24dp)
@@ -568,7 +569,6 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
 
     private AlertDialog DeletePhotoDialog(final int position) {
         return new AlertDialog.Builder(this)
-                //set message, title, and icon
                 .setTitle(R.string.photo_delete)
                 .setMessage(R.string.photo_delete_question)
                 .setIcon(R.drawable.ic_delete_black_24dp)
