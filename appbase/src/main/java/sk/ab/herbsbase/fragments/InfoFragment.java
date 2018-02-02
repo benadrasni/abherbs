@@ -8,6 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -100,6 +103,7 @@ public class InfoFragment extends Fragment {
     private void setInfo(boolean withTranslation) {
         final FirebasePlant plant = getPlant();
 
+
         final StringBuilder text = new StringBuilder();
         text.append(displayPlantBaseActivity.getResources().getString(R.string.plant_height_from)).append(" <i>").append(plant.getHeightFrom())
                 .append("</i>").append(" ").append(displayPlantBaseActivity.getResources().getString(R.string.plant_height_to)).append(" ")
@@ -109,13 +113,13 @@ public class InfoFragment extends Fragment {
                 .append(displayPlantBaseActivity.getResources().getString(R.string.plant_flowering_to)).append(" ").append("<i>")
                 .append(Utils.getMonthName(plant.getFloweringTo() - 1)).append("</i>.<br/>");
 
-        final String[][] sections = getSections(withTranslation);
+        final Object[][] sections = getSections(withTranslation);
         text.append(sections[0][1]);
 
-        final TextView description = (TextView) getView().findViewById(R.id.plant_description);
+        final TextView description = getView().findViewById(R.id.plant_description);
         description.setText(Utils.fromHtml(text.toString()));
 
-        final ImageView drawing = (ImageView) getView().findViewById(R.id.plant_background);
+        final ImageView drawing = getView().findViewById(R.id.plant_background);
         drawing.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -132,9 +136,9 @@ public class InfoFragment extends Fragment {
 
         final DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
         final int orientation = getActivity().getResources().getConfiguration().orientation;
-        final LinearLayout layout = (LinearLayout)getView().findViewById(R.id.plant_texts);
+        final LinearLayout layout = getView().findViewById(R.id.plant_texts);
         layout.removeAllViews();
-        final LinearLayout layoutBelow = (LinearLayout)getView().findViewById(R.id.plant_texts_below);
+        final LinearLayout layoutBelow = getView().findViewById(R.id.plant_texts_below);
         layoutBelow.removeAllViews();
 
         if (plant.getIllustrationUrl() != null) {
@@ -158,13 +162,11 @@ public class InfoFragment extends Fragment {
                                 int lineHeight = description.getLineHeight();
                                 int lines = 0;
                                 for (int i = 1; i < sections.length; i++) {
-                                    if (!sections[i][1].isEmpty()) {
-                                        String sectionText = "<i>" + sections[i][0] + "</i>: " + sections[i][1];
+                                    if (!((String)sections[i][1]).isEmpty()) {
+                                        String sectionText = "   " + sections[i][1];
 
                                         if (getContext() != null) {
-                                            TextView sectionView = new TextView(getContext());
-                                            sectionView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-                                            sectionView.setText(Utils.fromHtml(sectionText));
+                                            TextView sectionView = getSpanTextView((int)sections[i][0], sectionText);
                                             if (lines * lineHeight < height) {
                                                 layout.addView(sectionView);
                                             } else {
@@ -180,16 +182,26 @@ public class InfoFragment extends Fragment {
                     });
         } else {
             for (int i = 1; i < sections.length; i++) {
-                if (!sections[i][1].isEmpty()) {
-                    String sectionText = "<i>" + sections[i][0] + "</i>: " + sections[i][1];
-
-                    TextView sectionView = new TextView(getContext());
-                    sectionView.setText(Utils.fromHtml(sectionText));
-
-                    layoutBelow.addView(sectionView);
+                if (!((String)sections[i][1]).isEmpty()) {
+                    String sectionText = "   " + sections[i][1];
+                    layoutBelow.addView(getSpanTextView((int)sections[i][0], sectionText));
                 }
             }
         }
+    }
+
+    private TextView getSpanTextView(int resource, String text) {
+        TextView sectionView = new TextView(getContext());
+        sectionView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        if (resource != 0) {
+            ImageSpan span = new ImageSpan(getContext(), resource, ImageSpan.ALIGN_BOTTOM);
+            SpannableStringBuilder ssb = new SpannableStringBuilder(text);
+            ssb.setSpan(span, 0, 3, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            sectionView.setText(ssb);
+        } else {
+            sectionView.setText(text);
+        }
+        return sectionView;
     }
 
     private void getTranslation() {
@@ -366,40 +378,40 @@ public class InfoFragment extends Fragment {
         startActivity(browserIntent);
     }
 
-    private String[][] getSections(boolean withTranslation) {
+    private Object[][] getSections(boolean withTranslation) {
         PlantTranslation plantTranslation = getPlantTranslation();
         PlantTranslation plantTranslationGT = getPlantTranslationGT();
         PlantTranslation plantTranslationEn = getPlantTranslationEn();
 
-        String[][] sections = {
-                {"Description", plantTranslation != null && plantTranslation.getDescription() != null ? plantTranslation.getDescription()
+        Object[][] sections = {
+                {0, plantTranslation != null && plantTranslation.getDescription() != null ? plantTranslation.getDescription()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getDescription() != null
                         ? plantTranslationGT.getDescription() : plantTranslationEn != null && plantTranslationEn.getDescription() != null ? plantTranslationEn.getDescription() : ""},
-                {getResources().getString(R.string.plant_flowers), plantTranslation != null && plantTranslation.getFlower() != null ? plantTranslation.getFlower()
+                {R.drawable.ic_flower_black_24dp, plantTranslation != null && plantTranslation.getFlower() != null ? plantTranslation.getFlower()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getFlower() != null
                         ? plantTranslationGT.getFlower() : plantTranslationEn != null && plantTranslationEn.getFlower() != null ? plantTranslationEn.getFlower() : ""},
-                {getResources().getString(R.string.plant_inflorescences), plantTranslation != null && plantTranslation.getInflorescence() != null ? plantTranslation.getInflorescence()
+                {R.drawable.ic_inflorescence_black_24dp, plantTranslation != null && plantTranslation.getInflorescence() != null ? plantTranslation.getInflorescence()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getInflorescence() != null
                         ? plantTranslationGT.getInflorescence() : plantTranslationEn != null && plantTranslationEn.getInflorescence() != null ? plantTranslationEn.getInflorescence() : ""},
-                {getResources().getString(R.string.plant_fruits), plantTranslation != null && plantTranslation.getFruit() != null ? plantTranslation.getFruit()
+                {R.drawable.ic_fruit_black_24dp, plantTranslation != null && plantTranslation.getFruit() != null ? plantTranslation.getFruit()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getFruit() != null
                         ? plantTranslationGT.getFruit() : plantTranslationEn != null && plantTranslationEn.getFruit() != null ? plantTranslationEn.getFruit() : ""},
-                {getResources().getString(R.string.plant_leaves), plantTranslation != null && plantTranslation.getLeaf() != null ? plantTranslation.getLeaf()
+                {R.drawable.ic_leaf_black_24dp, plantTranslation != null && plantTranslation.getLeaf() != null ? plantTranslation.getLeaf()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getLeaf() != null
                         ? plantTranslationGT.getLeaf() : plantTranslationEn != null && plantTranslationEn.getLeaf() != null ? plantTranslationEn.getLeaf() : ""},
-                {getResources().getString(R.string.plant_stem), plantTranslation != null && plantTranslation.getStem() != null ? plantTranslation.getStem()
+                {R.drawable.ic_stem_black_24dp, plantTranslation != null && plantTranslation.getStem() != null ? plantTranslation.getStem()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getStem() != null
                         ? plantTranslationGT.getStem() : plantTranslationEn != null && plantTranslationEn.getStem() != null ? plantTranslationEn.getStem() : ""},
-                {getResources().getString(R.string.plant_habitat), plantTranslation != null && plantTranslation.getHabitat() != null ? plantTranslation.getHabitat()
+                {R.drawable.ic_home_black_24dp, plantTranslation != null && plantTranslation.getHabitat() != null ? plantTranslation.getHabitat()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getHabitat() != null
                         ? plantTranslationGT.getHabitat() : plantTranslationEn != null && plantTranslationEn.getHabitat() != null ? plantTranslationEn.getHabitat() : ""},
-                {getResources().getString(R.string.plant_toxicity), plantTranslation != null && plantTranslation.getToxicity() != null ? plantTranslation.getToxicity()
+                {R.drawable.ic_toxicity_black_24dp, plantTranslation != null && plantTranslation.getToxicity() != null ? plantTranslation.getToxicity()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getToxicity() != null
                         ? plantTranslationGT.getToxicity() : plantTranslationEn != null && plantTranslationEn.getToxicity() != null ? plantTranslationEn.getToxicity() : ""},
-                {getResources().getString(R.string.plant_herbalism), plantTranslation != null && plantTranslation.getHerbalism() != null ? plantTranslation.getHerbalism()
+                {R.drawable.ic_local_pharmacy_black_24dp, plantTranslation != null && plantTranslation.getHerbalism() != null ? plantTranslation.getHerbalism()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getHerbalism() != null
                         ? plantTranslationGT.getHerbalism() : plantTranslationEn != null && plantTranslationEn.getHerbalism() != null ? plantTranslationEn.getHerbalism() : ""},
-                {getResources().getString(R.string.plant_trivia), plantTranslation != null && plantTranslation.getTrivia() != null ? plantTranslation.getTrivia()
+                {R.drawable.ic_question_mark_black_24dp, plantTranslation != null && plantTranslation.getTrivia() != null ? plantTranslation.getTrivia()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getTrivia() != null
                         ? plantTranslationGT.getTrivia() : plantTranslationEn != null && plantTranslationEn.getTrivia() != null ? plantTranslationEn.getTrivia() : ""}
         };
