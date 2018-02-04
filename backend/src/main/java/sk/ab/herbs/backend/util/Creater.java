@@ -303,7 +303,7 @@ public class Creater {
             File file = new File(PATH_TO_PLANTS_TO_ADD);
 
             Scanner scan = new Scanner(file);
-            Integer plantId = 835;
+            Integer plantId = 840;
             while(scan.hasNextLine()){
                 final String plantName = scan.nextLine();
                 final String wikiSpeciesName = plantName;
@@ -345,8 +345,6 @@ public class Creater {
             Map<String, List<String>> names = readNames(wikiSpeciesName, "/wiki/" + wikiSpeciesName);
             Map<String, String> sitelinks = readWikilinks("/wiki/" + wikiSpeciesName);
 
-            boolean isEng = false;
-            boolean isSvk = false;
             for (String language : names.keySet()) {
                 if (Constants.LANGUAGE_LA.equals(language)) {
                     continue;
@@ -363,7 +361,6 @@ public class Creater {
                     }
 
                     if (Constants.LANGUAGE_EN.equals(language)) {
-                        isEng = true;
                         plantTranslation.setDescription("...");
                         plantTranslation.setFlower("...");
                         plantTranslation.setInflorescence("...");
@@ -374,7 +371,6 @@ public class Creater {
                     }
 
                     if (Constants.LANGUAGE_SK.equals(language)) {
-                        isSvk = true;
                         plantTranslation.setDescription("...");
                         plantTranslation.setFlower("...");
                         plantTranslation.setInflorescence("...");
@@ -390,46 +386,6 @@ public class Creater {
                 }
 
                 Call<Object> saveTranslationCall = firebaseClient.getApiService().saveTranslation(language, plantName, plantTranslation);
-                saveTranslationCall.execute();
-            }
-
-            if (!isEng) {
-                PlantTranslation plantTranslation = new PlantTranslation();
-                ArrayList<String> sources = new ArrayList<>();
-                File file = new File("C:/Dev/Plants/" + familia + "/" + plantName+ "/sources.txt");
-                Scanner scan = new Scanner(file);
-                while(scan.hasNextLine()) {
-                    sources.add(scan.nextLine());
-                }
-                plantTranslation.setSourceUrls(sources);
-
-                plantTranslation.setDescription("...");
-                plantTranslation.setFlower("...");
-                plantTranslation.setInflorescence("...");
-                plantTranslation.setFruit("...");
-                plantTranslation.setLeaf("...");
-                plantTranslation.setStem("...");
-                plantTranslation.setHabitat("...");
-                if (sitelinks.get(Constants.LANGUAGE_EN) != null) {
-                    plantTranslation.setWikipedia(sitelinks.get(Constants.LANGUAGE_EN));
-                }
-                Call<Object> saveTranslationCall = firebaseClient.getApiService().saveTranslation(Constants.LANGUAGE_EN, plantName, plantTranslation);
-                saveTranslationCall.execute();
-            }
-
-            if (!isSvk) {
-                PlantTranslation plantTranslation = new PlantTranslation();
-                plantTranslation.setDescription("...");
-                plantTranslation.setFlower("...");
-                plantTranslation.setInflorescence("...");
-                plantTranslation.setFruit("...");
-                plantTranslation.setLeaf("...");
-                plantTranslation.setStem("...");
-                plantTranslation.setHabitat("...");
-                if (sitelinks.get(Constants.LANGUAGE_SK) != null) {
-                    plantTranslation.setWikipedia(sitelinks.get(Constants.LANGUAGE_SK));
-                }
-                Call<Object> saveTranslationCall = firebaseClient.getApiService().saveTranslation(Constants.LANGUAGE_SK, plantName, plantTranslation);
                 saveTranslationCall.execute();
             }
         } catch (IOException ex) {
@@ -780,7 +736,7 @@ public class Creater {
         plantBasic.setIllustrationUrl(ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantName.replace(" ", "_") + ".webp");
 
         ArrayList<String> urls = new ArrayList<>();
-        for (int i = 1; i < 6; i++) {
+        for (int i = 1; i < 10; i++) {
             File file = new File("C:/Dev/Storage/storage/photos/" + ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantName.substring(0,1).toLowerCase() + plantName.substring(plantName.indexOf(" ") + 1, plantName.indexOf(" ") + 2) + i + ".webp");
             if (file.exists()) {
                 urls.add(ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantName.substring(0,1).toLowerCase() + plantName.substring(plantName.indexOf(" ") + 1, plantName.indexOf(" ") + 2) + i + ".webp");
