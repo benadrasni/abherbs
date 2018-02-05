@@ -178,7 +178,8 @@ public class InfoFragment extends Fragment {
 //                                             paint.setTextSize(currentSize);
 //                                             paint.getTextBounds(testString, 0, testString.length(), bounds);
 
-//                                             int width = (int) Math.ceil((float) bounds.width() / currentSize);                                            
+//                                             int width = (int) Math.ceil((float) bounds.width() / currentSize);      
+//                                             http://www.programering.com/a/MDN1gjMwATk.html
 
                                             lines += (sectionText.length() * (float) 1.2) / (width / (sectionView.getTextSize() / dm.scaledDensity)) + 1;
                                         }
