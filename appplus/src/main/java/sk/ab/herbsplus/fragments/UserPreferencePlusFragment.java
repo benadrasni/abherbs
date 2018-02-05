@@ -20,6 +20,7 @@ import sk.ab.herbsbase.fragments.UserPreferenceBaseFragment;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.activities.TransparentActivity;
+import sk.ab.herbsplus.services.SynchronizationService;
 
 /**
  * @see UserPreferenceBaseFragment
@@ -56,11 +57,12 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
                 editor.apply();
 
                 if (newOfflineMode) {
-                    editor.remove(SpecificConstants.LAST_UPDATE_TIME_KEY);
+                    editor.remove(SpecificConstants.OFFLINE_PLANT_KEY);
+                    editor.remove(SpecificConstants.OFFLINE_FAMILY_KEY);
                     editor.apply();
 
-//                    Intent intent = new Intent(getActivity(), TransparentActivity.class);
-//                    getActivity().startActivity(intent);
+                    Intent intent = new Intent(getActivity(), SynchronizationService.class);
+                    getActivity().startService(intent);
                 } else {
                     // delete offline files
                     Utils.deleteRecursive(getActivity().getFilesDir());
