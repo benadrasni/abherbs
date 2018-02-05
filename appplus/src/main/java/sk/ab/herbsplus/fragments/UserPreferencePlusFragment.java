@@ -59,8 +59,8 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
                     editor.remove(SpecificConstants.LAST_UPDATE_TIME_KEY);
                     editor.apply();
 
-                    Intent intent = new Intent(getActivity(), TransparentActivity.class);
-                    getActivity().startActivity(intent);
+//                    Intent intent = new Intent(getActivity(), TransparentActivity.class);
+//                    getActivity().startActivity(intent);
                 } else {
                     // delete offline files
                     Utils.deleteRecursive(getActivity().getFilesDir());

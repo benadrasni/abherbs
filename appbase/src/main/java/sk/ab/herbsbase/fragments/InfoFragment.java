@@ -116,10 +116,10 @@ public class InfoFragment extends Fragment {
         final Object[][] sections = getSections(withTranslation);
         text.append(sections[0][1]);
 
-        final TextView description = getView().findViewById(R.id.plant_description);
+        final TextView description = (TextView)getView().findViewById(R.id.plant_description);
         description.setText(Utils.fromHtml(text.toString()));
 
-        final ImageView drawing = getView().findViewById(R.id.plant_background);
+        final ImageView drawing = (ImageView)getView().findViewById(R.id.plant_background);
         drawing.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -136,9 +136,9 @@ public class InfoFragment extends Fragment {
 
         final DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
         final int orientation = getActivity().getResources().getConfiguration().orientation;
-        final LinearLayout layout = getView().findViewById(R.id.plant_texts);
+        final LinearLayout layout = (LinearLayout)getView().findViewById(R.id.plant_texts);
         layout.removeAllViews();
-        final LinearLayout layoutBelow = getView().findViewById(R.id.plant_texts_below);
+        final LinearLayout layoutBelow = (LinearLayout)getView().findViewById(R.id.plant_texts_below);
         layoutBelow.removeAllViews();
 
         if (plant.getIllustrationUrl() != null) {

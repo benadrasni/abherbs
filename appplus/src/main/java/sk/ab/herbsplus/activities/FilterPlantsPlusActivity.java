@@ -25,6 +25,7 @@ import sk.ab.herbsplus.BuildConfig;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
+import sk.ab.herbsplus.services.SynchronizationService;
 
 /**
  * @see FilterPlantsBaseActivity
@@ -38,11 +39,14 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        boolean offlineMode = getSharedPreferences().getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
-        if (offlineMode && BaseApp.isConnectedToWifi(getApplicationContext())) {
-            Intent intent = new Intent(this, TransparentActivity.class);
-            startActivity(intent);
-        }
+        Intent intent = new Intent(this, SynchronizationService.class);
+        startService(intent);
+
+//        boolean offlineMode = getSharedPreferences().getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
+//        if (offlineMode && BaseApp.isConnectedToWifi(getApplicationContext())) {
+//            Intent intent = new Intent(this, TransparentActivity.class);
+//            startActivity(intent);
+//        }
     }
 
     @Override

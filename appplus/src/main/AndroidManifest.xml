@@ -47,16 +47,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="sk.ab.herbsplus.activities.FilterPlantsPlusActivity"
+            android:name=".activities.FilterPlantsPlusActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
-            android:name="sk.ab.herbsplus.activities.ListPlantsPlusActivity"
+            android:name=".activities.ListPlantsPlusActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
-            android:name="sk.ab.herbsplus.activities.DisplayPlantPlusActivity"
+            android:name=".activities.DisplayPlantPlusActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
-            android:name="sk.ab.herbsplus.activities.UserPreferencePlusActivity"
+            android:name=".activities.UserPreferencePlusActivity"
             android:configChanges="orientation|screenSize|locale"
             android:label="@string/settings"
             android:theme="@style/Theme.Settings" />
@@ -69,44 +69,43 @@
             android:configChanges="orientation|screenSize|locale"
             android:theme="@style/Theme.Settings" />
         <activity
-            android:name="sk.ab.herbsplus.activities.FeedbackPlusActivity"
-            android:configChanges="orientation|screenSize|locale"
-            android:theme="@style/Theme.Settings" />
-        <activity
             android:name="sk.ab.herbsbase.commons.FullScreenImageActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name="sk.ab.herbsplus.activities.TransparentActivity"
+            android:name=".activities.FeedbackPlusActivity"
+            android:configChanges="orientation|screenSize|locale"
+            android:theme="@style/Theme.Settings" />
+        <activity
+            android:name=".activities.TransparentActivity"
             android:theme="@style/Theme.Transparent" />
         <activity
-            android:name="sk.ab.herbsplus.activities.NameSearchActivity"
+            android:name=".activities.NameSearchActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
-            android:name="sk.ab.herbsplus.activities.TaxonomyActivity"
+            android:name=".activities.TaxonomyActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
-            android:name="sk.ab.herbsplus.activities.ObservationActivity"
+            android:name=".activities.ObservationActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
-            android:name="sk.ab.herbsplus.activities.MapActivity"
+            android:name=".activities.MapActivity"
             android:configChanges="orientation|screenSize|locale" />
 
-        <!-- [START firebase_service] -->
         <service
             android:name="sk.ab.herbsbase.BaseFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-        <!-- [END firebase_service] -->
-        <!-- [START firebase_iid_service] -->
         <service
             android:name="sk.ab.herbsbase.BaseFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
-        <!-- [END firebase_iid_service] -->
+        <service
+            android:name=".services.SynchronizationService"
+            android:exported="false"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

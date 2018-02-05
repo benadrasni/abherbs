@@ -57,6 +57,7 @@ public class AndroidConstants {
     public final static String STORAGE_FAMILIES = "families/";
     public final static String STORAGE_PHOTOS = "photos/";
     public final static String DEFAULT_EXTENSION = ".webp";
+    public static final String THUMBNAIL_DIR = "/.thumbnails";
 
     public final static String RES_TAXONOMY_PREFIX = "taxonomy_";
     public final static String ROOT_TAXON = "Eukaryota";
@@ -102,6 +103,7 @@ public class AndroidConstants {
     public final static String FIREBASE_COUNTS = "counts";
     public final static String FIREBASE_LISTS = "lists";
     public final static String FIREBASE_PLANTS = "plants";
+    public final static String FIREBASE_PLANTS_TO_UPDATE = "plants_to_update";
     public final static String FIREBASE_APG_IV = "APG IV";
     public final static String FIREBASE_SEARCH = "search";
     public final static String FIREBASE_TRANSLATIONS = "translations";
@@ -112,6 +114,7 @@ public class AndroidConstants {
     public final static String FIREBASE_OBSERVATIONS_PUBLIC = "public";
     public final static String FIREBASE_USERS = "users";
     public final static String FIREBASE_USERS_TOKEN = "token";
+    public final static String FIREBASE_USERS_OFFLINE_SYNCHRONIZATION = "offline synchronization";
 
     public final static String FIREBASE_APG_TYPE = "type";
     public final static String FIREBASE_APG_NAMES = "names";

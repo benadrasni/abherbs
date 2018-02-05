@@ -137,4 +137,12 @@ public class Utils {
         configuration.setLocale(locale);
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
+
+    public static String getThumbnailUrl(String url) {
+        String result = url;
+        if (url.lastIndexOf('/') > -1) {
+            result = url.substring(0, url.lastIndexOf('/')) + AndroidConstants.THUMBNAIL_DIR + url.substring(url.lastIndexOf('/'));
+        }
+        return result;
+    }
 }

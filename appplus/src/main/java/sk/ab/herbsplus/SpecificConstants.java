@@ -11,11 +11,14 @@ public class SpecificConstants {
     public static final String PACKAGE = "sk.ab.herbsplus";
     public final static String STORAGE = "gs://abherbs-resources";
     public final static String OFFLINE = "/offline";
+    public final static String PHOTOS = "/photos";
 
     public final static int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 0;
 
     public final static String LAST_UPDATE_TIME_KEY = "last_update_time";
     public final static String OFFLINE_MODE_KEY = "offline_mode";
+    public final static String OFFLINE_PLANT_KEY = "offline_plant";
+    public final static String OFFLINE_FAMILY_KEY = "offline_family";
 
     public final static String FIREBASE_SEARCH = "search";
     public final static String STATE_SEARCH_TEXT = "search_text";
