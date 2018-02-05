@@ -172,6 +172,13 @@ public class InfoFragment extends Fragment {
                                             } else {
                                                 layoutBelow.addView(sectionView);
                                             }
+                                            
+//                                             Rect bounds = new Rect();
+//                                             Paint paint = new Paint();
+//                                             paint.setTextSize(currentSize);
+//                                             paint.getTextBounds(testString, 0, testString.length(), bounds);
+
+//                                             int width = (int) Math.ceil((float) bounds.width() / currentSize);                                            
 
                                             lines += (sectionText.length() * (float) 1.2) / (width / (sectionView.getTextSize() / dm.scaledDensity)) + 1;
                                         }
