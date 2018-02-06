@@ -20,10 +20,9 @@
             android:paddingTop="@dimen/list_padding"
             android:textSize="16sp"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/plant_background"
@@ -37,21 +36,9 @@
                 android:id="@+id/plant_texts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"/>
 
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/plant_texts_below"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/list_padding"
-            android:paddingEnd="@dimen/list_padding"
-            android:paddingStart="@dimen/list_padding">
-
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

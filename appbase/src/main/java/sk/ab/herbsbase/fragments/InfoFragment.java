@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -46,6 +49,7 @@ import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
 import sk.ab.herbsbase.commons.FullScreenImageActivity;
 import sk.ab.herbsbase.tools.Keys;
+import sk.ab.herbsbase.tools.MyLeadingMarginSpan2;
 import sk.ab.herbsbase.tools.Utils;
 
 /**
@@ -68,8 +72,8 @@ public class InfoFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return View.inflate(getActivity().getBaseContext(), R.layout.plant_card_info, null);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return View.inflate(getActivity(), R.layout.plant_card_info, null);
     }
 
     @Override
@@ -103,7 +107,6 @@ public class InfoFragment extends Fragment {
     private void setInfo(boolean withTranslation) {
         final FirebasePlant plant = getPlant();
 
-
         final StringBuilder text = new StringBuilder();
         text.append(displayPlantBaseActivity.getResources().getString(R.string.plant_height_from)).append(" <i>").append(plant.getHeightFrom())
                 .append("</i>").append(" ").append(displayPlantBaseActivity.getResources().getString(R.string.plant_height_to)).append(" ")
@@ -136,10 +139,9 @@ public class InfoFragment extends Fragment {
 
         final DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
         final int orientation = getActivity().getResources().getConfiguration().orientation;
+
         final LinearLayout layout = (LinearLayout)getView().findViewById(R.id.plant_texts);
         layout.removeAllViews();
-        final LinearLayout layoutBelow = (LinearLayout)getView().findViewById(R.id.plant_texts_below);
-        layoutBelow.removeAllViews();
 
         if (plant.getIllustrationUrl() != null) {
             Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + plant.getIllustrationUrl(),
@@ -159,57 +161,43 @@ public class InfoFragment extends Fragment {
                                 drawing.getLayoutParams().width = width;
                                 drawing.getLayoutParams().height = height;
 
-                                int lineHeight = description.getLineHeight();
-                                int lines = 0;
+                                int lines = (int) (height/description.getLineHeight());
+
+                                Paint paint = new Paint();
+                                paint.setTextSize(description.getLineHeight());
+
                                 for (int i = 1; i < sections.length; i++) {
                                     if (!((String)sections[i][1]).isEmpty()) {
-                                        String sectionText = "   " + sections[i][1];
+                                        Spanned sectionText = Utils.fromHtml("&nbsp;&nbsp;&nbsp;" + sections[i][1]);
 
                                         if (getContext() != null) {
-                                            TextView sectionView = getSpanTextView((int)sections[i][0], sectionText);
-                                            if (lines * lineHeight < height) {
-                                                layout.addView(sectionView);
-                                            } else {
-                                                layoutBelow.addView(sectionView);
+                                            SpannableStringBuilder ssb = new SpannableStringBuilder(sectionText);
+                                            // add icon
+                                            if ((int)sections[i][0] != 0) {
+                                                ImageSpan span = new ImageSpan(getContext(), (int)sections[i][0], ImageSpan.ALIGN_BOTTOM);
+                                                ssb.setSpan(span, 0, 3, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                                             }
-                                            
-//                                             Rect bounds = new Rect();
-//                                             Paint paint = new Paint();
-//                                             paint.setTextSize(currentSize);
-//                                             paint.getTextBounds(testString, 0, testString.length(), bounds);
 
-//                                             int width = (int) Math.ceil((float) bounds.width() / currentSize);      
-//                                             http://www.programering.com/a/MDN1gjMwATk.html
+                                            // add margin for illustration
+                                            if (lines > 0) {
+                                                MyLeadingMarginSpan2 span = new MyLeadingMarginSpan2(lines, width + 10);
+                                                ssb.setSpan(span, 0, sectionText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            }
 
-                                            lines += (sectionText.length() * (float) 1.2) / (width / (sectionView.getTextSize() / dm.scaledDensity)) + 1;
+                                            TextView sectionView = new TextView(getContext());
+                                            sectionView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                                            sectionView.setText(ssb);
+                                            layout.addView(sectionView);
+
+                                            List<String> strings = Utils.splitWordsIntoStringsThatFit(ssb.toString(), width, paint);
+                                            lines -= strings.size();
                                         }
                                     }
                                 }
                             }
                         }
                     });
-        } else {
-            for (int i = 1; i < sections.length; i++) {
-                if (!((String)sections[i][1]).isEmpty()) {
-                    String sectionText = "   " + sections[i][1];
-                    layoutBelow.addView(getSpanTextView((int)sections[i][0], sectionText));
-                }
-            }
         }
-    }
-
-    private TextView getSpanTextView(int resource, String text) {
-        TextView sectionView = new TextView(getContext());
-        sectionView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        if (resource != 0) {
-            ImageSpan span = new ImageSpan(getContext(), resource, ImageSpan.ALIGN_BOTTOM);
-            SpannableStringBuilder ssb = new SpannableStringBuilder(text);
-            ssb.setSpan(span, 0, 3, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-            sectionView.setText(ssb);
-        } else {
-            sectionView.setText(text);
-        }
-        return sectionView;
     }
 
     private void getTranslation() {
