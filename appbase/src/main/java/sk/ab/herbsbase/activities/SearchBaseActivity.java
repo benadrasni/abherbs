@@ -66,6 +66,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
 
         // load non-translatable attributes
         DatabaseReference mPlantRef = database.getReference(AndroidConstants.FIREBASE_PLANTS + AndroidConstants.SEPARATOR + plantName);
+        mPlantRef.keepSynced(true);
         mPlantRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -90,6 +91,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
         // load translations in language
         DatabaseReference mTranslationRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.SEPARATOR
                 + Locale.getDefault().getLanguage());
+        mTranslationRef.keepSynced(true);
         mTranslationRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -124,6 +126,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
             String baseLanguage = AndroidConstants.LANGUAGE_CS.equals(Locale.getDefault().getLanguage()) ? AndroidConstants.LANGUAGE_SK : AndroidConstants.LANGUAGE_EN;
             DatabaseReference mTranslationEnRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.SEPARATOR
                     + baseLanguage + AndroidConstants.SEPARATOR + plantName);
+            mTranslationEnRef.keepSynced(true);
             mTranslationEnRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -152,6 +155,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
             // load translation in language (GT)
             DatabaseReference mTranslationGTRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.SEPARATOR
                     + Locale.getDefault().getLanguage() + AndroidConstants.LANGUAGE_GT_SUFFIX);
+            mTranslationGTRef.keepSynced(true);
             mTranslationGTRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

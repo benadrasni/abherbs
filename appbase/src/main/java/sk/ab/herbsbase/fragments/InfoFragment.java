@@ -161,10 +161,10 @@ public class InfoFragment extends Fragment {
                                 drawing.getLayoutParams().width = width;
                                 drawing.getLayoutParams().height = height;
 
-                                int lines = (int) (height/description.getLineHeight());
+                                int lines = (int) (height/description.getTextSize()) + 1;
 
                                 Paint paint = new Paint();
-                                paint.setTextSize(description.getLineHeight());
+                                paint.setTextSize(description.getTextSize());
 
                                 for (int i = 1; i < sections.length; i++) {
                                     if (!((String)sections[i][1]).isEmpty()) {
