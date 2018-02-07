@@ -76,9 +76,6 @@
             android:configChanges="orientation|screenSize|locale"
             android:theme="@style/Theme.Settings" />
         <activity
-            android:name=".activities.TransparentActivity"
-            android:theme="@style/Theme.Transparent" />
-        <activity
             android:name=".activities.NameSearchActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity

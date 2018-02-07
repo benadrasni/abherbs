@@ -12,6 +12,7 @@ public class SpecificConstants {
     public final static String STORAGE = "gs://abherbs-resources";
     public final static String OFFLINE = "/offline";
     public final static String PHOTOS = "/photos";
+    public final static String FAMILIES = "/families";
 
     public final static int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 0;
 

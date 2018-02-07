@@ -9,8 +9,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,9 +36,9 @@ public class SynchronizationService extends IntentService {
 
     private static final String TAG = "SynchronizationService";
     private static final String FIRST_FLOWER = "Acer campestre";
+    private static final String FIRST_FAMILY = "Acanthaceae";
 
     private FirebaseDatabase database;
-    private FirebaseUser currentUser;
 
     public SynchronizationService() {
         super(TAG);
@@ -50,11 +48,6 @@ public class SynchronizationService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         boolean offlineMode = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
         if (!offlineMode || !BaseApp.isConnectedToWifi(getApplicationContext())) {
-            return;
-        }
-
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser == null) {
             return;
         }
 
@@ -80,6 +73,15 @@ public class SynchronizationService extends IntentService {
                             synchronizePlant(from + 1, countAll);
                         } else {
                             synchronizePlant(0, countAll);
+                        }
+
+                        File familyIcon = new File(SynchronizationService.this.getApplicationContext().getFilesDir()
+                                + AndroidConstants.SEPARATOR + AndroidConstants.STORAGE_FAMILIES + FIRST_FAMILY + AndroidConstants.DEFAULT_EXTENSION);
+                        if (familyIcon.exists()) {
+                            int from = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getInt(SpecificConstants.OFFLINE_FAMILY_KEY, -1);
+                            synchronizeFamily(from + 1);
+                        } else {
+                            synchronizeFamily(0);
                         }
                     }
 
@@ -161,7 +163,7 @@ public class SynchronizationService extends IntentService {
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 counter.increment();
                 if (counter.value() == numberOfFiles) {
-                    saveOffline(number, countAll);
+                    savePlantOffline(number, countAll);
                 }
             }
         });
@@ -174,7 +176,7 @@ public class SynchronizationService extends IntentService {
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     counter.increment();
                     if (counter.value() == numberOfFiles) {
-                        saveOffline(number, countAll);
+                        savePlantOffline(number, countAll);
                     }
                 }
             });
@@ -187,14 +189,14 @@ public class SynchronizationService extends IntentService {
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     counter.increment();
                     if (counter.value() == numberOfFiles) {
-                        saveOffline(number, countAll);
+                        savePlantOffline(number, countAll);
                     }
                 }
             });
         }
     }
 
-    private void saveOffline(Integer number, Integer countAll) {
+    private void savePlantOffline(Integer number, Integer countAll) {
         SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
         int from = preferences.getInt(SpecificConstants.OFFLINE_PLANT_KEY, -1);
         if (from < number) {
@@ -217,5 +219,57 @@ public class SynchronizationService extends IntentService {
                 .putExtra(AndroidConstants.EXTENDED_DATA_COUNT_ALL, countAll)
                 .putExtra(AndroidConstants.EXTENDED_DATA_COUNT_SYNCHONIZED, number);
         LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
+    }
+
+    private void synchronizeFamily(final Integer from) {
+        DatabaseReference mFirebaseRefPlant = database.getReference(AndroidConstants.FIREBASE_FAMILIES_TO_UPDATE
+                + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_DATA_LIST + AndroidConstants.SEPARATOR + from);
+        mFirebaseRefPlant.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    String familyName = dataSnapshot.getValue(String.class);
+                    downloadFamily(from, familyName);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, databaseError.getMessage());
+            }
+        });
+    }
+
+    private void downloadFamily(final Integer number, String familyName) {
+        FirebaseStorage storage = FirebaseStorage.getInstance(SpecificConstants.STORAGE);
+
+        String localPath = getApplicationContext().getFilesDir() + AndroidConstants.SEPARATOR + AndroidConstants.STORAGE_FAMILIES;
+
+        File plantDir = new File(localPath);
+        plantDir.mkdirs();
+
+        String fileName = familyName + AndroidConstants.DEFAULT_EXTENSION;
+        File illustrationFile = new File(localPath + fileName);
+        StorageReference storageRefIcon = storage.getReference(SpecificConstants.FAMILIES + AndroidConstants.SEPARATOR + fileName);
+        storageRefIcon.getFile(illustrationFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                saveFamilyOffline(number);
+            }
+        });
+    }
+
+    private void saveFamilyOffline(Integer number) {
+        SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+        int from = preferences.getInt(SpecificConstants.OFFLINE_FAMILY_KEY, -1);
+        if (from < number) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(SpecificConstants.OFFLINE_FAMILY_KEY, number);
+            editor.apply();
+
+            if (BaseApp.isConnectedToWifi(getApplicationContext())) {
+                synchronizeFamily(number + 1);
+            }
+        }
     }
 }

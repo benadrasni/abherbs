@@ -43,12 +43,6 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
 
         Intent intent = new Intent(this, SynchronizationService.class);
         startService(intent);
-
-//        boolean offlineMode = getSharedPreferences().getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
-//        if (offlineMode && BaseApp.isConnectedToWifi(getApplicationContext())) {
-//            Intent intent = new Intent(this, TransparentActivity.class);
-//            startActivity(intent);
-//        }
     }
 
     @Override
