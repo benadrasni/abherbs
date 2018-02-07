@@ -20,6 +20,10 @@ public class AndroidConstants {
     public final static int REQUEST_PICK_PHOTO = 102;
     public final static int REQUEST_LOCATION = 103;
 
+    public static final String BROADCAST_ACTION = "BROADCAST_UPDATE";
+    public static final String EXTENDED_DATA_COUNT_ALL = "count_all";
+    public static final String EXTENDED_DATA_COUNT_SYNCHONIZED = "count_synchronized";
+
     public final static String DATE_SKELETON = "ddMMMyyyyHHmm";
     public final static int DEFAULT_CACHE_SIZE = 50;
     public final static int IMAGE_SIZE = 512;
@@ -104,6 +108,7 @@ public class AndroidConstants {
     public final static String FIREBASE_LISTS = "lists";
     public final static String FIREBASE_PLANTS = "plants";
     public final static String FIREBASE_PLANTS_TO_UPDATE = "plants_to_update";
+    public final static String FIREBASE_FAMILIES_TO_UPDATE = "families_to_update";
     public final static String FIREBASE_APG_IV = "APG IV";
     public final static String FIREBASE_SEARCH = "search";
     public final static String FIREBASE_TRANSLATIONS = "translations";
@@ -122,6 +127,7 @@ public class AndroidConstants {
     public final static String FIREBASE_APG_COUNT = "count";
 
     public final static String FIREBASE_DATA_COUNT = "count";
+    public final static String FIREBASE_DATA_LIST = "list";
     public final static String FIREBASE_DATA_PATH = "path";
 
     public final static String FIREBASE_APG_UNKNOWN_TYPE = "unknown";

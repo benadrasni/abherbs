@@ -35,6 +35,8 @@ import sk.ab.herbsplus.services.SynchronizationService;
 
 public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
 
+    private Menu menu;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_search_init, menu);
+        this.menu = menu;
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -129,5 +132,18 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
     @Override
     public boolean isAdsAllowed() {
         return false;
+    }
+
+    @Override
+    protected void handleSynchronizationUpdate(Integer number, Integer countAll) {
+        MenuItem synchronizationMenuItem = menu.findItem(R.id.menu_synchronization);
+
+        if (number != null && number > -1) {
+            synchronizationMenuItem.setVisible(true);
+            synchronizationMenuItem.setTitle("▼"+(countAll - number));
+        } else {
+            synchronizationMenuItem.setVisible(false);
+            synchronizationMenuItem.setTitle("");
+        }
     }
 }

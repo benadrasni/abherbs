@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,6 +35,7 @@ import sk.ab.herbsplus.SpecificConstants;
  */
 
 public class SynchronizationService extends IntentService {
+
     private static final String TAG = "SynchronizationService";
     private static final String FIRST_FLOWER = "Acer campestre";
 
@@ -58,31 +60,48 @@ public class SynchronizationService extends IntentService {
 
         database = FirebaseDatabase.getInstance();
 
-        DatabaseReference mFirebaseRefPlant = database.getReference(AndroidConstants.FIREBASE_PLANTS + AndroidConstants.SEPARATOR + FIRST_FLOWER);
-        mFirebaseRefPlant.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference mFirebaseRefCount = database.getReference(AndroidConstants.FIREBASE_PLANTS_TO_UPDATE
+                + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_DATA_COUNT);
+        mFirebaseRefCount.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                FirebasePlant plant =   dataSnapshot.getValue(FirebasePlant.class);
+                final Integer countAll = ((Long)dataSnapshot.getValue()).intValue();
 
-                File photoIllustration = new File(SynchronizationService.this.getApplicationContext().getFilesDir()
-                        + AndroidConstants.SEPARATOR + AndroidConstants.STORAGE_PHOTOS + plant.getIllustrationUrl());
-                if (photoIllustration.exists()) {
-                    int from = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getInt(SpecificConstants.OFFLINE_PLANT_KEY, -1);
-                    synchronizePlant(from + 1);
-                } else {
-                    synchronizePlant(0);
-                }
+                DatabaseReference mFirebaseRefPlant = database.getReference(AndroidConstants.FIREBASE_PLANTS + AndroidConstants.SEPARATOR + FIRST_FLOWER);
+                mFirebaseRefPlant.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        FirebasePlant plant = dataSnapshot.getValue(FirebasePlant.class);
+
+                        File photoIllustration = new File(SynchronizationService.this.getApplicationContext().getFilesDir()
+                                + AndroidConstants.SEPARATOR + AndroidConstants.STORAGE_PHOTOS + plant.getIllustrationUrl());
+                        if (photoIllustration.exists()) {
+                            int from = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getInt(SpecificConstants.OFFLINE_PLANT_KEY, -1);
+                            synchronizePlant(from + 1, countAll);
+                        } else {
+                            synchronizePlant(0, countAll);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e(TAG, databaseError.getMessage());
+                        broadcast(-1, -1);
+                    }
+                });
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.e(TAG, databaseError.getMessage());
+                broadcast(-1, -1);
             }
         });
     }
 
-    private void synchronizePlant(final Integer from) {
-        DatabaseReference mFirebaseRefPlant = database.getReference(AndroidConstants.FIREBASE_PLANTS_TO_UPDATE + AndroidConstants.SEPARATOR + from);
+    private void synchronizePlant(final Integer from, final Integer countAll) {
+        DatabaseReference mFirebaseRefPlant = database.getReference(AndroidConstants.FIREBASE_PLANTS_TO_UPDATE
+                + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_DATA_LIST + AndroidConstants.SEPARATOR + from);
         mFirebaseRefPlant.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -95,26 +114,32 @@ public class SynchronizationService extends IntentService {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getValue() != null) {
                                 FirebasePlant plant = dataSnapshot.getValue(FirebasePlant.class);
-                                downloadPlant(from, plant);
+                                downloadPlant(from, plant, countAll);
+                            } else {
+                                broadcast(-1, -1);
                             }
                         }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                             Log.e(TAG, databaseError.getMessage());
+                            broadcast(-1, -1);
                         }
                     });
+                } else {
+                    broadcast(-1, -1);
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.e(TAG, databaseError.getMessage());
+                broadcast(-1, -1);
             }
         });
     }
 
-    private void downloadPlant(final int number, FirebasePlant firebasePlant) {
+    private void downloadPlant(final int number, FirebasePlant firebasePlant, final Integer countAll) {
         FirebaseStorage storage = FirebaseStorage.getInstance(SpecificConstants.STORAGE);
 
         String localPath = getApplicationContext().getFilesDir() + AndroidConstants.SEPARATOR + AndroidConstants.STORAGE_PHOTOS;
@@ -136,7 +161,7 @@ public class SynchronizationService extends IntentService {
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 counter.increment();
                 if (counter.value() == numberOfFiles) {
-                    saveOffline(number);
+                    saveOffline(number, countAll);
                 }
             }
         });
@@ -149,7 +174,7 @@ public class SynchronizationService extends IntentService {
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     counter.increment();
                     if (counter.value() == numberOfFiles) {
-                        saveOffline(number);
+                        saveOffline(number, countAll);
                     }
                 }
             });
@@ -162,21 +187,35 @@ public class SynchronizationService extends IntentService {
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     counter.increment();
                     if (counter.value() == numberOfFiles) {
-                        saveOffline(number);
+                        saveOffline(number, countAll);
                     }
                 }
             });
         }
     }
 
-    private void saveOffline(final int number) {
+    private void saveOffline(Integer number, Integer countAll) {
         SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
         int from = preferences.getInt(SpecificConstants.OFFLINE_PLANT_KEY, -1);
         if (from < number) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putInt(SpecificConstants.OFFLINE_PLANT_KEY, number);
             editor.apply();
-            synchronizePlant(number + 1);
+
+            broadcast(number, countAll);
+
+            if (BaseApp.isConnectedToWifi(getApplicationContext())) {
+                synchronizePlant(number + 1, countAll);
+            } else {
+                broadcast(-1, -1);
+            }
         }
+    }
+
+    private void broadcast(Integer number, Integer countAll) {
+        Intent localIntent = new Intent(AndroidConstants.BROADCAST_ACTION)
+                .putExtra(AndroidConstants.EXTENDED_DATA_COUNT_ALL, countAll)
+                .putExtra(AndroidConstants.EXTENDED_DATA_COUNT_SYNCHONIZED, number);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
     }
 }

@@ -1,11 +1,16 @@
 package sk.ab.herbsbase.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,7 +19,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -36,6 +40,19 @@ import sk.ab.herbsbase.tools.Utils;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
+    private class DownloadStateReceiver extends BroadcastReceiver
+    {
+        private DownloadStateReceiver() {
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Integer number = intent.getIntExtra(AndroidConstants.EXTENDED_DATA_COUNT_SYNCHONIZED, -1);
+            Integer countAll = intent.getIntExtra(AndroidConstants.EXTENDED_DATA_COUNT_ALL, -1);
+            handleSynchronizationUpdate(number, countAll);
+        }
+    }
+
     private static final String TAG = "BaseActivity";
 
     protected boolean isLoading = false;
@@ -56,6 +73,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         changeLocale();
+
+        IntentFilter statusIntentFilter = new IntentFilter(AndroidConstants.BROADCAST_ACTION);
+        DownloadStateReceiver mDownloadStateReceiver = new DownloadStateReceiver();
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                mDownloadStateReceiver,
+                statusIntentFilter);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -181,4 +204,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     public abstract SharedPreferences getSharedPreferences();
 
     protected abstract PropertyListBaseFragment getNewMenuFragment();
+
+    protected void handleSynchronizationUpdate(Integer number, Integer countAll) {
+
+    }
 }
