@@ -134,7 +134,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
 
         if (number != null && number > -1) {
             synchronizationMenuItem.setVisible(true);
-            synchronizationMenuItem.setTitle("▼"+(countAll - number));
+            synchronizationMenuItem.setTitle("▼"+(countAll - number)); //▲
         } else {
             synchronizationMenuItem.setVisible(false);
             synchronizationMenuItem.setTitle("");
