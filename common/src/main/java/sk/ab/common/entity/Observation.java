@@ -19,6 +19,7 @@ public class Observation {
     private Double latitude;
     private String note;
     private ArrayList<String> photoPaths;
+    private boolean isPublic;
 
     public String getId() {
         return id;
@@ -74,5 +75,13 @@ public class Observation {
 
     public void setPhotoPaths(ArrayList<String> photoPaths) {
         this.photoPaths = photoPaths;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
     }
 }

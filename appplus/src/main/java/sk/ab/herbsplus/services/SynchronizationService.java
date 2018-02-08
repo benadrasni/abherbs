@@ -11,10 +11,13 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
@@ -23,6 +26,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 
 import sk.ab.common.entity.FirebasePlant;
+import sk.ab.common.entity.Observation;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.tools.SynchronizedCounter;
@@ -55,6 +59,7 @@ public class SynchronizationService extends IntentService {
 
         database = FirebaseDatabase.getInstance();
 
+        // download photos and family icons
         DatabaseReference mFirebaseRefCount = database.getReference(AndroidConstants.FIREBASE_PLANTS_TO_UPDATE
                 + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_DATA_COUNT);
         mFirebaseRefCount.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -101,6 +106,31 @@ public class SynchronizationService extends IntentService {
                 broadcast(-1, -1);
             }
         });
+
+        // upload observations
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null && isSubscription(currentUser)) {
+            Query mFirebaseRefObservations = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS
+                    + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS
+                    + AndroidConstants.SEPARATOR + currentUser.getUid()
+                    + AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE).orderByChild(AndroidConstants.FIREBASE_OBSERVATIONS_PUBLIC).equalTo(false);
+            mFirebaseRefObservations.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        Observation observation = data.getValue(Observation.class);
+
+                        System.out.println(observation.getDate());
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e(TAG, databaseError.getMessage());
+                }
+
+            });
+        }
     }
 
     private void synchronizePlant(final Integer from, final Integer countAll) {
@@ -295,5 +325,9 @@ public class SynchronizationService extends IntentService {
                 synchronizeFamily(number + 1);
             }
         }
+    }
+
+    private boolean isSubscription(FirebaseUser user) {
+        return true;
     }
 }
