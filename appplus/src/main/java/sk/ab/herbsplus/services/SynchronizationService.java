@@ -4,10 +4,12 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -166,6 +168,11 @@ public class SynchronizationService extends IntentService {
                     savePlantOffline(number, countAll);
                 }
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                broadcast(-1, -1);
+            }
         });
 
         for (String photoPath : firebasePlant.getPhotoUrls()) {
@@ -179,6 +186,11 @@ public class SynchronizationService extends IntentService {
                         savePlantOffline(number, countAll);
                     }
                 }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    broadcast(-1, -1);
+                }
             });
 
             String thumbPath = Utils.getThumbnailUrl(photoPath);
@@ -191,6 +203,11 @@ public class SynchronizationService extends IntentService {
                     if (counter.value() == numberOfFiles) {
                         savePlantOffline(number, countAll);
                     }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    broadcast(-1, -1);
                 }
             });
         }
@@ -206,7 +223,8 @@ public class SynchronizationService extends IntentService {
 
             broadcast(number, countAll);
 
-            if (BaseApp.isConnectedToWifi(getApplicationContext())) {
+            boolean offlineMode = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
+            if (offlineMode && BaseApp.isConnectedToWifi(getApplicationContext())) {
                 synchronizePlant(number + 1, countAll);
             } else {
                 broadcast(-1, -1);
@@ -256,6 +274,11 @@ public class SynchronizationService extends IntentService {
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 saveFamilyOffline(number);
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                broadcast(-1, -1);
+            }
         });
     }
 
@@ -267,7 +290,8 @@ public class SynchronizationService extends IntentService {
             editor.putInt(SpecificConstants.OFFLINE_FAMILY_KEY, number);
             editor.apply();
 
-            if (BaseApp.isConnectedToWifi(getApplicationContext())) {
+            boolean offlineMode = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
+            if (offlineMode && BaseApp.isConnectedToWifi(getApplicationContext())) {
                 synchronizeFamily(number + 1);
             }
         }
