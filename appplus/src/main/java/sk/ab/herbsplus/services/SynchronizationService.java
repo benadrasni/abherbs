@@ -366,10 +366,8 @@ public class SynchronizationService extends IntentService {
                                         File photoFile = new File(getApplicationContext().getFilesDir()
                                                 + AndroidConstants.SEPARATOR + photoPath);
                                         if (photoFile.exists()) {
-                                            FirebaseStorage storage = FirebaseStorage.getInstance();
-                                            StorageReference storageRef = storage.getReferenceFromUrl(SpecificConstants.STORAGE);
-
-                                            StorageReference imagesRef = storageRef.child(photoPath);
+                                            FirebaseStorage storage = FirebaseStorage.getInstance(SpecificConstants.STORAGE);
+                                            StorageReference imagesRef = storage.getReference().child(photoPath);
                                             UploadTask uploadTask = imagesRef.putFile(Uri.fromFile(photoFile));
                                             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                                 @Override
@@ -407,7 +405,7 @@ public class SynchronizationService extends IntentService {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
 
-            observation.setStatus(SpecificConstants.FIREBASE_STATUS_PUBLIC);
+            observation.setStatus(SpecificConstants.FIREBASE_STATUS_REVIEW);
 
             // by date
             database.getReference().child(AndroidConstants.FIREBASE_OBSERVATIONS)
