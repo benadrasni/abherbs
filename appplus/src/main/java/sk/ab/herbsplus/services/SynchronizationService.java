@@ -14,7 +14,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +36,8 @@ import sk.ab.herbsbase.tools.Utils;
 import sk.ab.herbsplus.SpecificConstants;
 
 /**
+ * Service to synchronize offline photos (download) and observations (upload)
+ *
  * Created by adrian on 2/4/2018.
  */
 
@@ -68,6 +69,7 @@ public class SynchronizationService extends IntentService {
             mFirebaseRefCount.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    assert dataSnapshot.getValue() != null;
                     final Integer countAll = ((Long) dataSnapshot.getValue()).intValue();
 
                     DatabaseReference mFirebaseRefPlant = database.getReference(AndroidConstants.FIREBASE_PLANTS + AndroidConstants.SEPARATOR + FIRST_FLOWER);
@@ -76,6 +78,7 @@ public class SynchronizationService extends IntentService {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             FirebasePlant plant = dataSnapshot.getValue(FirebasePlant.class);
 
+                            assert plant != null;
                             File photoIllustration = new File(SynchronizationService.this.getApplicationContext().getFilesDir()
                                     + AndroidConstants.SEPARATOR + AndroidConstants.STORAGE_PHOTOS + plant.getIllustrationUrl());
                             if (photoIllustration.exists()) {
@@ -359,6 +362,7 @@ public class SynchronizationService extends IntentService {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getChildrenCount() > 0) {
                                 final Observation observation = dataSnapshot.getChildren().iterator().next().getValue(Observation.class);
+                                assert observation != null;
                                 if (observation.getPhotoPaths().size() > 0) {
                                     final SynchronizedCounter counter = new SynchronizedCounter();
 
