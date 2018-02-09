@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.File;
 import java.util.Locale;
 
 import sk.ab.common.util.Utils;
@@ -60,7 +61,7 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
                     getActivity().startService(intent);
                 } else {
                     // delete offline files
-                    Utils.deleteRecursive(getActivity().getFilesDir());
+                    Utils.deleteRecursive(new File(getActivity().getFilesDir() + AndroidConstants.SEPARATOR + AndroidConstants.STORAGE_PHOTOS));
                     editor.remove(SpecificConstants.OFFLINE_PLANT_KEY);
                     editor.remove(SpecificConstants.OFFLINE_FAMILY_KEY);
                     editor.apply();
