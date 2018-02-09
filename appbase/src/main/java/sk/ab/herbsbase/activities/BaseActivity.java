@@ -49,7 +49,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             Integer number = intent.getIntExtra(AndroidConstants.EXTENDED_DATA_COUNT_SYNCHONIZED, -1);
             Integer countAll = intent.getIntExtra(AndroidConstants.EXTENDED_DATA_COUNT_ALL, -1);
-            handleSynchronizationUpdate(number, countAll);
+            if (AndroidConstants.BROADCAST_DOWNLOAD.equals(intent.getAction())) {
+                handleSynchronizationDownload(number, countAll);
+            } else {
+                handleSynchronizationUpload(number, countAll);
+            }
         }
     }
 
@@ -74,11 +78,15 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         changeLocale();
 
-        IntentFilter statusIntentFilter = new IntentFilter(AndroidConstants.BROADCAST_ACTION);
         DownloadStateReceiver mDownloadStateReceiver = new DownloadStateReceiver();
+        IntentFilter downloadIntentFilter = new IntentFilter(AndroidConstants.BROADCAST_DOWNLOAD);
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 mDownloadStateReceiver,
-                statusIntentFilter);
+                downloadIntentFilter);
+        IntentFilter uploadIntentFilter = new IntentFilter(AndroidConstants.BROADCAST_UPLOAD);
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                mDownloadStateReceiver,
+                uploadIntentFilter);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -205,7 +213,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract PropertyListBaseFragment getNewMenuFragment();
 
-    protected void handleSynchronizationUpdate(Integer number, Integer countAll) {
+    protected void handleSynchronizationDownload(Integer number, Integer countAll) {
 
     }
+
+    protected void handleSynchronizationUpload(Integer number, Integer countAll) {
+
+    }
+
 }

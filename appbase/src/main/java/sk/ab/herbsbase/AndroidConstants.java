@@ -20,7 +20,8 @@ public class AndroidConstants {
     public final static int REQUEST_PICK_PHOTO = 102;
     public final static int REQUEST_LOCATION = 103;
 
-    public static final String BROADCAST_ACTION = "BROADCAST_UPDATE";
+    public static final String BROADCAST_DOWNLOAD = "BROADCAST_DOWNLOAD";
+    public static final String BROADCAST_UPLOAD = "BROADCAST_UPLOAD";
     public static final String EXTENDED_DATA_COUNT_ALL = "count_all";
     public static final String EXTENDED_DATA_COUNT_SYNCHONIZED = "count_synchronized";
 
@@ -117,9 +118,9 @@ public class AndroidConstants {
     public final static String FIREBASE_OBSERVATIONS_BY_DATE = "by date";
     public final static String FIREBASE_OBSERVATIONS_BY_PLANT = "by plant";
     public final static String FIREBASE_OBSERVATIONS_PUBLIC = "public";
+    public final static String FIREBASE_OBSERVATIONS_STATUS = "status";
     public final static String FIREBASE_USERS = "users";
     public final static String FIREBASE_USERS_TOKEN = "token";
-    public final static String FIREBASE_USERS_OFFLINE_SYNCHRONIZATION = "offline synchronization";
 
     public final static String FIREBASE_APG_TYPE = "type";
     public final static String FIREBASE_APG_NAMES = "names";

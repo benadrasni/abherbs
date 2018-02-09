@@ -8,7 +8,12 @@
         android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/menu_synchronization"
+        android:id="@+id/menu_synchronization_download"
+        android:title=""
+        android:visible="false"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_synchronization_upload"
         android:title=""
         android:visible="false"
         app:showAsAction="always"/>

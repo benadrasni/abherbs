@@ -129,15 +129,33 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
     }
 
     @Override
-    protected void handleSynchronizationUpdate(Integer number, Integer countAll) {
-        MenuItem synchronizationMenuItem = menu.findItem(R.id.menu_synchronization);
+    protected void handleSynchronizationDownload(Integer number, Integer countAll) {
+        if (menu != null) {
+            MenuItem synchronizationMenuItem = menu.findItem(R.id.menu_synchronization_download);
 
-        if (number != null && number > -1) {
-            synchronizationMenuItem.setVisible(true);
-            synchronizationMenuItem.setTitle("▼"+(countAll - number)); //▲
-        } else {
-            synchronizationMenuItem.setVisible(false);
-            synchronizationMenuItem.setTitle("");
+            if (number != null && number > -1) {
+                synchronizationMenuItem.setVisible(true);
+                synchronizationMenuItem.setTitle("▼" + (countAll - number));
+            } else {
+                synchronizationMenuItem.setVisible(false);
+                synchronizationMenuItem.setTitle("");
+            }
         }
     }
+
+    @Override
+    protected void handleSynchronizationUpload(Integer number, Integer countAll) {
+        if (menu != null) {
+            MenuItem synchronizationMenuItem = menu.findItem(R.id.menu_synchronization_upload);
+
+            if (number != null && number > -1) {
+                synchronizationMenuItem.setVisible(true);
+                synchronizationMenuItem.setTitle("▲" + (countAll - number));
+            } else {
+                synchronizationMenuItem.setVisible(false);
+                synchronizationMenuItem.setTitle("");
+            }
+        }
+    }
+
 }

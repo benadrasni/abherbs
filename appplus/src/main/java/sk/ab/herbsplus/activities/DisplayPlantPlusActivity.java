@@ -132,7 +132,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
             if (currentUser != null) {
                 Date date =  new Date();
                 Observation observation = new Observation();
-                observation.setPublic(false);
+                observation.setStatus(SpecificConstants.FIREBASE_STATUS_PRIVATE);
                 observation.setId(currentUser.getUid() + "_" + date.getTime());
                 observation.setDate(date);
                 observation.setPlant(getPlant().getName());

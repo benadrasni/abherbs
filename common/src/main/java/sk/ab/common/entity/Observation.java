@@ -2,7 +2,6 @@ package sk.ab.common.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Entity which represents single observation
@@ -19,7 +18,7 @@ public class Observation {
     private Double latitude;
     private String note;
     private ArrayList<String> photoPaths;
-    private boolean isPublic;
+    private String status;
 
     public String getId() {
         return id;
@@ -77,11 +76,11 @@ public class Observation {
         this.photoPaths = photoPaths;
     }
 
-    public boolean isPublic() {
-        return isPublic;
+    public String getStatus() {
+        return status;
     }
 
-    public void setPublic(boolean aPublic) {
-        isPublic = aPublic;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
