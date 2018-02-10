@@ -116,7 +116,7 @@ public class SynchronizationService extends IntentService {
 
         // upload observations
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null && isSubscription(currentUser)) {
+        if (currentUser != null && sk.ab.herbsplus.util.Utils.isSubscription(currentUser)) {
             DatabaseReference mFirebaseRefObservations = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS
                     + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS
                     + AndroidConstants.SEPARATOR + currentUser.getUid() + AndroidConstants.SEPARATOR
@@ -529,9 +529,5 @@ public class SynchronizationService extends IntentService {
                 }
             });
         }
-    }
-
-    private boolean isSubscription(FirebaseUser user) {
-        return true;
     }
 }

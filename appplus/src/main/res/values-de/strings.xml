@@ -28,4 +28,6 @@
     <string name="photo_delete">Foto entfernen</string>
     <string name="photo_delete_question">Möchten Sie das Foto aus der Beobachtung entfernen?</string>
     <string name="photo_duplicate">Das Foto wurde bereits hinzugefügt.</string>
+    <string name="subscription">Subscription</string>
+    <string name="subscription_info">Public observations are visible only for subscribed users.</string>
 </resources>

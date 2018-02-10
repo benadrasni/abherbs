@@ -28,4 +28,6 @@
     <string name="photo_delete">Odstrániť fotografiu</string>
     <string name="photo_delete_question">Chcete odstrániť fotografiu z Pozorovania?</string>
     <string name="photo_duplicate">Fotografia už bola raz pridaná.</string>
+    <string name="subscription">Subscription</string>
+    <string name="subscription_info">Public observations are visible only for subscribed users.</string>
 </resources>

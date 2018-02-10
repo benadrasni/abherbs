@@ -25,4 +25,6 @@
     <string name="photo_delete">Remove photo</string>
     <string name="photo_delete_question">Do you want to remove/delete photo from the observation?</string>
     <string name="photo_duplicate">Duplicate photo. Skipped.</string>
+    <string name="subscription">Subscription</string>
+    <string name="subscription_info">Public observations are visible only for subscribed users.</string>
 </resources>

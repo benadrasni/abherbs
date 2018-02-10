@@ -15,6 +15,9 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.ScrollView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -39,36 +42,48 @@ public class ObservationFragment extends Fragment {
     private long mLastClickTime;
 
     private TextView noObservations;
-    private PropertyAdapter adapter;
+    private PropertyAdapter adapterPrivate;
+    private PropertyAdapter adapterPublic;
 
     private class PropertyAdapter extends FirebaseRecyclerAdapter<Observation, ObservationHolder> {
 
-        PropertyAdapter(Class<Observation> modelClass, @LayoutRes int modelLayout, Class<ObservationHolder> viewHolderClass, Query dataRef) {
+        private boolean isPrivate;
+
+        PropertyAdapter(Class<Observation> modelClass, @LayoutRes int modelLayout, Class<ObservationHolder> viewHolderClass, Query dataRef, boolean isPrivate) {
             super(modelClass, modelLayout, viewHolderClass, dataRef);
+            this.isPrivate = isPrivate;
         }
 
         @Override
         protected void populateViewHolder(final ObservationHolder holder, final Observation observation, int position) {
             final DisplayPlantPlusActivity activity = (DisplayPlantPlusActivity) getActivity();
+            holder.setPhotoPosition(0);
             holder.getObservationDate().setText(DateFormat.format(DateFormat.getBestDateTimePattern(Locale.getDefault(),
                     AndroidConstants.DATE_SKELETON), observation.getDate()));
 
-            holder.getEdit().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(activity, ObservationActivity.class);
-                    intent.putExtra(AndroidConstants.STATE_OBSERVATION, new ObservationParcel(observation));
-                    startActivity(intent);
-                }
-            });
+            if (isPrivate) {
+                holder.getEdit().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(activity, ObservationActivity.class);
+                        intent.putExtra(AndroidConstants.STATE_OBSERVATION, new ObservationParcel(observation));
+                        startActivity(intent);
+                    }
+                });
+                holder.getEdit().setVisibility(View.VISIBLE);
 
-            holder.getDelete().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AlertDialog dialogBox = DeleteConfirmationDialog(observation);
-                    dialogBox.show();
-                }
-            });
+                holder.getDelete().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AlertDialog dialogBox = DeleteConfirmationDialog(observation);
+                        dialogBox.show();
+                    }
+                });
+                holder.getDelete().setVisibility(View.VISIBLE);
+            } else {
+                holder.getEdit().setVisibility(View.GONE);
+                holder.getDelete().setVisibility(View.GONE);
+            }
 
             holder.initializeMapView(activity, observation.getLatitude(), observation.getLongitude());
 
@@ -115,8 +130,13 @@ public class ObservationFragment extends Fragment {
 
             displayPhoto(holder, observation);
 
-            if (observation.getNote() != null) {
-                holder.getObservationNote().setText(observation.getNote());
+            if (isPrivate) {
+                if (observation.getNote() != null) {
+                    holder.getObservationNote().setText(observation.getNote());
+                }
+                holder.getObservationNote().setVisibility(View.VISIBLE);
+            } else {
+                holder.getObservationNote().setVisibility(View.GONE);
             }
         }
 
@@ -130,18 +150,43 @@ public class ObservationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.plant_card_observations, null);
         noObservations = view.findViewById(R.id.no_observations);
-        DisplayPlantPlusActivity activity = (DisplayPlantPlusActivity) getActivity();
+        final DisplayPlantPlusActivity activity = (DisplayPlantPlusActivity) getActivity();
 
         if (activity.getCurrentUser() != null) {
-            RecyclerView recyclerView = view.findViewById(R.id.observations);
+            final RecyclerView recyclerView = view.findViewById(R.id.observations);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference observationsRef = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS + AndroidConstants.SEPARATOR
+            final DatabaseReference privateObservationsRef = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS + AndroidConstants.SEPARATOR
                     + AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS + AndroidConstants.SEPARATOR + activity.getCurrentUser().getUid()
                     + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT + AndroidConstants.SEPARATOR
                     + activity.getPlant().getName());
+            final DatabaseReference publicObservationsRef = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS + AndroidConstants.SEPARATOR
+                    + AndroidConstants.FIREBASE_OBSERVATIONS_PUBLIC + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT
+                    + AndroidConstants.SEPARATOR + activity.getPlant().getName());
 
-            adapter = new PropertyAdapter(Observation.class, R.layout.observation_row, ObservationHolder.class, observationsRef);
-            recyclerView.setAdapter(adapter);
+            adapterPrivate = new PropertyAdapter(Observation.class, R.layout.observation_row, ObservationHolder.class, privateObservationsRef, true);
+            adapterPublic = new PropertyAdapter(Observation.class, R.layout.observation_row, ObservationHolder.class, publicObservationsRef, false);
+            recyclerView.setAdapter(adapterPrivate);
+
+            Switch privatePublicSwitch = view.findViewById(R.id.private_public_switch);
+            privatePublicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        if (sk.ab.herbsplus.util.Utils.isSubscription(activity.getCurrentUser())) {
+                            recyclerView.swapAdapter(adapterPublic, true);
+                            adapterPublic.onDataChanged();
+                        } else {
+                            AlertDialog dialogBox = SubscriptionDialog();
+                            dialogBox.show();
+                            buttonView.setChecked(false);
+                        }
+                    } else {
+                        recyclerView.swapAdapter(adapterPrivate, true);
+                        adapterPrivate.onDataChanged();
+                    }
+                }
+            });
         } else {
             noObservationsMessage(true, R.string.no_observations_login);
         }
@@ -165,8 +210,8 @@ public class ObservationFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (adapter != null) {
-            adapter.cleanup();
+        if (adapterPrivate != null) {
+            adapterPrivate.cleanup();
         }
     }
 
@@ -218,6 +263,24 @@ public class ObservationFragment extends Fragment {
                         dialog.dismiss();
                     }
                 })
+                .create();
+    }
+
+    private AlertDialog SubscriptionDialog() {
+        return new AlertDialog.Builder(getActivity())
+                //set message, title, and icon
+                .setTitle(R.string.subscription)
+                .setMessage(R.string.subscription_info)
+                .setIcon(R.drawable.ic_flower_black_24dp)
+
+                .setNeutralButton(R.string.close, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+
+                })
+
                 .create();
     }
 

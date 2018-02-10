@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package sk.ab.herbsplus.util;
+package sk.ab.herbsplus.util.purchase;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package sk.ab.herbsplus.util;
+package sk.ab.herbsplus.util.purchase;
 
 /**
  * Exception thrown when something went wrong with in-app billing.
