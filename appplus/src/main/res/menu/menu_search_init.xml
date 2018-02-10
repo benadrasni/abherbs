@@ -3,6 +3,11 @@
       xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menu_observations"
+        android:title="@string/plant_observations"
+        android:icon="@drawable/ic_remove_red_eye_black_24dp"
+        app:showAsAction="always"/>
+    <item
         android:id="@+id/menu_search_init"
         android:title="@string/search"
         android:icon="@drawable/ic_search_black_24dp"

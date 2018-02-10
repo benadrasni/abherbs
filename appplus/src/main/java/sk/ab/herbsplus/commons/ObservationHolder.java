@@ -22,6 +22,7 @@ import sk.ab.herbsplus.R;
  */
 
 public class ObservationHolder extends RecyclerView.ViewHolder implements OnMapReadyCallback {
+    private TextView plantName;
     private TextView observationDate;
     private ImageView edit;
     private ImageView delete;
@@ -39,6 +40,7 @@ public class ObservationHolder extends RecyclerView.ViewHolder implements OnMapR
 
     public ObservationHolder(View itemView) {
         super(itemView);
+        plantName = itemView.findViewById(R.id.observation_plant);
         observationDate = itemView.findViewById(R.id.observation_date);
         edit = itemView.findViewById(R.id.observation_edit);
         delete = itemView.findViewById(R.id.observation_delete);
@@ -66,6 +68,10 @@ public class ObservationHolder extends RecyclerView.ViewHolder implements OnMapR
         this.longitude = longitude;
         mapView.onCreate(null);
         mapView.getMapAsync(this);
+    }
+
+    public TextView getPlantName() {
+        return plantName;
     }
 
     public TextView getObservationDate() {

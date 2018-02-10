@@ -386,6 +386,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
                     .child(currentUser.getUid())
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE)
+                    .child(AndroidConstants.FIREBASE_DATA_LIST)
                     .child(observation.getId())
                     .setValue(observation);
             // by user, by plant, by date
@@ -394,6 +395,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                     .child(currentUser.getUid())
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT)
                     .child(observation.getPlant())
+                    .child(AndroidConstants.FIREBASE_DATA_LIST)
                     .child(observation.getId())
                     .setValue(observation);
 
@@ -420,6 +422,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
                 .child(currentUser.getUid())
                 .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE)
+                .child(AndroidConstants.FIREBASE_DATA_LIST)
                 .child(observation.getId())
                 .setValue(null);
         // by user, by plant, by date
@@ -428,6 +431,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 .child(currentUser.getUid())
                 .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT)
                 .child(observation.getPlant())
+                .child(AndroidConstants.FIREBASE_DATA_LIST)
                 .child(observation.getId())
                 .setValue(null);
     }

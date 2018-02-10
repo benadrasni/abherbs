@@ -6,6 +6,15 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/observation_plant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/list_item_padding_left"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@color/CardTitle"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

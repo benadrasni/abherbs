@@ -122,7 +122,7 @@ public class SynchronizationService extends IntentService {
                     + AndroidConstants.SEPARATOR + currentUser.getUid() + AndroidConstants.SEPARATOR
                     + AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE);
             mFirebaseRefObservations.keepSynced(true);
-            final Query query = mFirebaseRefObservations
+            final Query query = mFirebaseRefObservations.child(AndroidConstants.FIREBASE_DATA_LIST)
                     .orderByChild(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
                     .equalTo(SpecificConstants.FIREBASE_STATUS_PRIVATE);
             mFirebaseRefObservations.child("refreshMock").setValue("mock", new DatabaseReference.CompletionListener() {
@@ -350,7 +350,7 @@ public class SynchronizationService extends IntentService {
                     + AndroidConstants.SEPARATOR + currentUser.getUid() + AndroidConstants.SEPARATOR
                     + AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE);
             mFirebaseRefObservations.keepSynced(true);
-            final Query query = mFirebaseRefObservations
+            final Query query = mFirebaseRefObservations.child(AndroidConstants.FIREBASE_DATA_LIST)
                     .orderByChild(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
                     .equalTo(SpecificConstants.FIREBASE_STATUS_PRIVATE)
                     .limitToFirst(1);
@@ -415,6 +415,7 @@ public class SynchronizationService extends IntentService {
             database.getReference().child(AndroidConstants.FIREBASE_OBSERVATIONS)
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_PUBLIC)
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE)
+                    .child(AndroidConstants.FIREBASE_DATA_LIST)
                     .child("" + observation.getDate().getTime())
                     .setValue(observation);
 
@@ -423,6 +424,7 @@ public class SynchronizationService extends IntentService {
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_PUBLIC)
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT)
                     .child(observation.getPlant())
+                    .child(AndroidConstants.FIREBASE_DATA_LIST)
                     .child("" + observation.getDate().getTime())
                     .setValue(observation);
 
@@ -472,6 +474,7 @@ public class SynchronizationService extends IntentService {
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
                     .child(currentUser.getUid())
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE)
+                    .child(AndroidConstants.FIREBASE_DATA_LIST)
                     .child(observation.getId())
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
                     .setValue(status);
@@ -481,6 +484,7 @@ public class SynchronizationService extends IntentService {
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
                     .child(currentUser.getUid())
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT)
+                    .child(AndroidConstants.FIREBASE_DATA_LIST)
                     .child(observation.getPlant())
                     .child(observation.getId())
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
@@ -503,7 +507,7 @@ public class SynchronizationService extends IntentService {
                     + AndroidConstants.SEPARATOR + currentUser.getUid() + AndroidConstants.SEPARATOR
                     + AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE);
             mFirebaseRefObservations.keepSynced(true);
-            final Query query = mFirebaseRefObservations
+            final Query query = mFirebaseRefObservations.child(AndroidConstants.FIREBASE_DATA_LIST)
                     .orderByChild(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
                     .equalTo(SpecificConstants.FIREBASE_STATUS_INCOMPLETE);
             mFirebaseRefObservations.child("refreshMock").setValue("mock", new DatabaseReference.CompletionListener() {

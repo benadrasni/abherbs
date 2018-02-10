@@ -85,6 +85,9 @@
             android:name=".activities.ObservationActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
+            android:name=".activities.ListObservationsActivity"
+            android:configChanges="orientation|screenSize|locale" />
+        <activity
             android:name=".activities.MapActivity"
             android:configChanges="orientation|screenSize|locale" />
 
