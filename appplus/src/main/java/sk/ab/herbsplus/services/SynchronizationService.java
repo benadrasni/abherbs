@@ -434,6 +434,7 @@ public class SynchronizationService extends IntentService {
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
                     .child(currentUser.getUid())
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE)
+                    .child(AndroidConstants.FIREBASE_DATA_LIST)
                     .child(observation.getId())
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
                     .setValue(SpecificConstants.FIREBASE_STATUS_PUBLIC);
@@ -443,6 +444,7 @@ public class SynchronizationService extends IntentService {
                     .child(currentUser.getUid())
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT)
                     .child(observation.getPlant())
+                    .child(AndroidConstants.FIREBASE_DATA_LIST)
                     .child(observation.getId())
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
                     .setValue(SpecificConstants.FIREBASE_STATUS_PUBLIC);
@@ -453,7 +455,7 @@ public class SynchronizationService extends IntentService {
 
     private void continueUpload(Integer number, Integer countAll) {
         broadcastUpload(number, countAll);
-        if (number + 1 < countAll) {
+        if (number + 1 <= countAll) {
             if (BaseApp.isConnectedToWifi(getApplicationContext())) {
                 uploadOneObservation(number + 1, countAll);
             } else {

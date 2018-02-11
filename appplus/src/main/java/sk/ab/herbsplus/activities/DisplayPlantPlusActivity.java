@@ -120,10 +120,6 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
         refreshObservations();
     }
 
-    public FirebaseUser getCurrentUser() {
-        return currentUser;
-    }
-
     private void handleClickOnObservation() {
         long currentClickTime = SystemClock.uptimeMillis();
         long elapsedTime = currentClickTime - mLastClickTime;
@@ -133,7 +129,6 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                 Date date =  new Date();
                 Observation observation = new Observation();
                 observation.setStatus(SpecificConstants.FIREBASE_STATUS_PRIVATE);
-                observation.setId(currentUser.getUid() + "_" + date.getTime());
                 observation.setDate(date);
                 observation.setPlant(getPlant().getName());
                 observation.setPhotoPaths(new ArrayList<String>());

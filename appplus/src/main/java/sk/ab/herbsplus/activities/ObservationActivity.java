@@ -270,6 +270,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
         Intent pickPictureIntent = new Intent();
         pickPictureIntent.setType("image/*");
         pickPictureIntent.setAction(Intent.ACTION_GET_CONTENT);
+        pickPictureIntent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
         if (pickPictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
             File photoFile = null;
@@ -317,12 +318,20 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
 
     private File createImageFile() throws IOException {
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        return File.createTempFile(observation.getId() + "_", ".jpg", storageDir);
+        String prefix = "unknown_";
+        if (observation.getPlant() != null) {
+            String[] names = observation.getPlant().toLowerCase().split(" ");
+            if (names.length > 1) {
+                prefix = names[0].substring(0, 1) + names[1].substring(0, 1) + "_";
+            }
+        }
+        return File.createTempFile(prefix, ".jpg", storageDir);
     }
 
     private void processPhoto(Uri uri) {
         String dirname = AndroidConstants.FIREBASE_OBSERVATIONS + AndroidConstants.SEPARATOR
-                + currentUser.getUid() + AndroidConstants.SEPARATOR + observation.getPlant() + AndroidConstants.SEPARATOR;
+                + currentUser.getUid() + AndroidConstants.SEPARATOR
+                + observation.getPlant().replace(" ", "_") + AndroidConstants.SEPARATOR;
         String filename = mCurrentPhotoUri.getLastPathSegment();
         String path = this.getApplicationContext().getFilesDir() + AndroidConstants.SEPARATOR + dirname + filename;
         File dir = new File(this.getApplicationContext().getFilesDir() + AndroidConstants.SEPARATOR + dirname);
@@ -385,6 +394,9 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
         if (observation != null && observation.getPhotoPaths() != null && observation.getPhotoPaths().size() > 0
                 && observation.getLatitude() != null && observation.getLongitude() != null)  {
             DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference();
+            if (observation.getId() == null) {
+                observation.setId(currentUser.getUid() + "_" + observation.getDate().getTime());
+            }
             // by user, by date
             mFirebaseRef.child(AndroidConstants.FIREBASE_OBSERVATIONS)
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
@@ -420,24 +432,26 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 photoFile.delete();
             }
         }
-        DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference();
-        // by user, by date
-        mFirebaseRef.child(AndroidConstants.FIREBASE_OBSERVATIONS)
-                .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
-                .child(currentUser.getUid())
-                .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE)
-                .child(AndroidConstants.FIREBASE_DATA_LIST)
-                .child(observation.getId())
-                .setValue(null);
-        // by user, by plant, by date
-        mFirebaseRef.child(AndroidConstants.FIREBASE_OBSERVATIONS)
-                .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
-                .child(currentUser.getUid())
-                .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT)
-                .child(observation.getPlant())
-                .child(AndroidConstants.FIREBASE_DATA_LIST)
-                .child(observation.getId())
-                .setValue(null);
+        if (observation.getId() != null) {
+            DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference();
+            // by user, by date
+            mFirebaseRef.child(AndroidConstants.FIREBASE_OBSERVATIONS)
+                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
+                    .child(currentUser.getUid())
+                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE)
+                    .child(AndroidConstants.FIREBASE_DATA_LIST)
+                    .child(observation.getId())
+                    .setValue(null);
+            // by user, by plant, by date
+            mFirebaseRef.child(AndroidConstants.FIREBASE_OBSERVATIONS)
+                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
+                    .child(currentUser.getUid())
+                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT)
+                    .child(observation.getPlant())
+                    .child(AndroidConstants.FIREBASE_DATA_LIST)
+                    .child(observation.getId())
+                    .setValue(null);
+        }
     }
 
     private void refreshObservation() {
