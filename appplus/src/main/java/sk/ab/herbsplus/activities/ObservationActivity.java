@@ -350,13 +350,17 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
 
                 // fill observation
                 observation.getPhotoPaths().add(dirname + filename);
-                if (exif.getGpsDateTime() > -1) {
-                    observation.getDate().setTime(exif.getGpsDateTime());
-                } else if (exif.getDateTime() > -1) {
-                    observation.getDate().setTime(exif.getDateTime() - TimeZone.getDefault().getOffset(exif.getDateTime()));
+                long timeGPS = exif.getGpsDateTime();
+                if (timeGPS > 0) {
+                    observation.getDate().setTime(timeGPS);
+                } else {
+                    long timeLocal = exif.getDateTime();
+                    if (timeLocal > 0) {
+                        observation.getDate().setTime(timeLocal - TimeZone.getDefault().getOffset(timeLocal));
+                    }
                 }
                 double[] latLong = exif.getLatLong();
-                if (latLong != null) {
+                if (latLong != null && latLong[0] != 0 && latLong[1] != 0) {
                     addMarkerToMap(latLong[0], latLong[1], true);
                 }
                 photoPosition = observation.getPhotoPaths().size() - 1;
