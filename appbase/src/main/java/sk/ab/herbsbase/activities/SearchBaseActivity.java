@@ -45,7 +45,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
         changeLocale();
     }
 
-    protected void callListActivity(String listPath, int count, boolean fromNotification) {
+    public void callListActivity(String listPath, int count, boolean fromNotification) {
         Intent intent = new Intent(getBaseContext(), getListPlantsActivityClass());
         intent.putExtra(AndroidConstants.STATE_FROM_NOTIFICATION, fromNotification);
         intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
@@ -54,7 +54,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
-    protected void callDetailActivity(final String plantName, final boolean fromNotification) {
+    public void callDetailActivity(final String plantName, final boolean fromNotification) {
         if (!((BaseApp)getApplication()).isOffline() && !BaseApp.isNetworkAvailable(getApplicationContext())) {
             Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
