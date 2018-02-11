@@ -96,7 +96,7 @@ public class ObservationAdapter extends FirebaseRecyclerAdapter<Observation, Obs
 
         holder.getPhoto().setImageResource(android.R.color.transparent);
         DisplayMetrics dm = activity.getResources().getDisplayMetrics();
-        int size = dm.widthPixels - Utils.convertDpToPx(40, dm);
+        int size = dm.widthPixels - Utils.convertDpToPx(20, dm);
         if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             size = size / 2;
         }
