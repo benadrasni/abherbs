@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -27,6 +28,7 @@ import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.tools.Utils;
 import sk.ab.herbsplus.R;
+import sk.ab.herbsplus.activities.ListObservationsActivity;
 import sk.ab.herbsplus.activities.ObservationActivity;
 import sk.ab.herbsplus.entity.ObservationParcel;
 
@@ -59,6 +61,14 @@ public class ObservationAdapter extends FirebaseRecyclerAdapter<Observation, Obs
     protected void populateViewHolder(final ObservationHolder holder, final Observation observation, int position) {
         if (isPlant) {
             holder.getPlantName().setText(observation.getPlant());
+            holder.getPlantName().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    ((ListObservationsActivity)activity).callDetailActivity(observation.getPlant(), false);
+                }
+            });
             holder.getPlantName().setVisibility(View.VISIBLE);
         } else {
             holder.getPlantName().setVisibility(View.GONE);

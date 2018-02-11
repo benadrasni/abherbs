@@ -1,5 +1,7 @@
 package sk.ab.herbsplus.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -21,7 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import sk.ab.common.entity.Observation;
 import sk.ab.herbsbase.AndroidConstants;
+import sk.ab.herbsbase.activities.SearchBaseActivity;
 import sk.ab.herbsplus.R;
+import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.commons.ObservationAdapter;
 import sk.ab.herbsplus.commons.ObservationHolder;
 import sk.ab.herbsplus.util.Utils;
@@ -32,7 +36,7 @@ import sk.ab.herbsplus.util.Utils;
  * Created by adrian on 2/10/2018.
  */
 
-public class ListObservationsActivity extends AppCompatActivity {
+public class ListObservationsActivity extends SearchBaseActivity {
 
     private RecyclerView recyclerView;
     private ObservationAdapter adapterPrivate;
@@ -48,7 +52,6 @@ public class ListObservationsActivity extends AppCompatActivity {
         setContentView(R.layout.list_observations_activity);
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setTitle(R.string.plant_observations);
@@ -146,5 +149,25 @@ public class ListObservationsActivity extends AppCompatActivity {
         if (adapterPublic != null) {
             adapterPublic.cleanup();
         }
+    }
+
+    @Override
+    protected Class getFilterPlantsActivityClass() {
+        return FilterPlantsPlusActivity.class;
+    }
+
+    @Override
+    protected Class getListPlantsActivityClass() {
+        return ListPlantsPlusActivity.class;
+    }
+
+    @Override
+    protected Class getDisplayPlantActivityClass() {
+        return DisplayPlantPlusActivity.class;
+    }
+
+    @Override
+    public SharedPreferences getSharedPreferences() {
+        return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
 }
