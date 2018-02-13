@@ -7,7 +7,7 @@
     <string name="offline_mode_summary">prasa 250+ MB papildu vieta</string>
 
     <string name="search">Meklēt</string>
-    <string name="wait_until_finish">Lūdzu, uzgaidiet, līdz operācija ir pabeigta.</string>
+    <string name="synchronization_on_background">Lūdzu, uzgaidiet, līdz operācija ir pabeigta.</string>
     <string name="authentication_failed">Authentication Failed.</string>
     <string name="logout">Logout</string>
     <string name="camera_failed">Camera failed.</string>

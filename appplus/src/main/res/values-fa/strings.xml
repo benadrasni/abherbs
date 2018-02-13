@@ -7,7 +7,7 @@
     <string name="offline_mode_summary">يتطلب 250+ ميغابايت مساحة إضافية</string>
 
     <string name="search">بحث</string>
-    <string name="wait_until_finish">يرجى الانتظار حتى انتهاء العملية.</string>
+    <string name="synchronization_on_background">يرجى الانتظار حتى انتهاء العملية.</string>
     <string name="authentication_failed">Authentication Failed.</string>
     <string name="logout">Logout</string>
     <string name="camera_failed">Camera failed.</string>

@@ -13,7 +13,7 @@
     <string name="login">Anmeldung</string>
     <string name="logout">Ausloggen</string>
     
-    <string name="wait_until_finish">Bitte warten, bis der Betrieb beendet ist.</string>
+    <string name="synchronization_on_background">Bitte warten, bis der Betrieb beendet ist.</string>
     <string name="authentication_failed">Authentifizierung fehlgeschlagen.</string>
     <string name="camera_failed">Kein Foto wurde aufgenommen.</string>
     <string name="gallery_failed">Kein Foto wurde hinzugefügt.</string>

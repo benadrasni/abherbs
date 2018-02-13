@@ -7,7 +7,7 @@
     <string name="offline_mode_summary">nõuab 250+ MB lisaruumi</string>
 
     <string name="search">Otsing</string>
-    <string name="wait_until_finish">Palun oodake, kuni on lõpetatud.</string>
+    <string name="synchronization_on_background">Palun oodake, kuni on lõpetatud.</string>
     <string name="authentication_failed">Authentication Failed.</string>
     <string name="logout">Logout</string>
     <string name="camera_failed">Camera failed.</string>

@@ -8,7 +8,7 @@
     <string name="offline_mode_summary">richiede oltre 250+ MB di spazio aggiuntivo</string>
 
     <string name="search">Ricerca</string>
-    <string name="wait_until_finish">Si prega di attendere il tertmine dell\'operazione.</string>
+    <string name="synchronization_on_background">Si prega di attendere il tertmine dell\'operazione.</string>
     <string name="authentication_failed">Authentication Failed.</string>
     <string name="logout">Logout</string>
     <string name="camera_failed">Camera failed.</string>

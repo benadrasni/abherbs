@@ -64,38 +64,50 @@ public class SynchronizationService extends IntentService {
         boolean offlineMode = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
         if (offlineMode) {
             // download photos and family icons
-            DatabaseReference mFirebaseRefCount = database.getReference(AndroidConstants.FIREBASE_PLANTS_TO_UPDATE
-                    + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_DATA_COUNT);
-            mFirebaseRefCount.addListenerForSingleValueEvent(new ValueEventListener() {
+            DatabaseReference mFirebaseRefCount = database.getReference(AndroidConstants.FIREBASE_PLANTS_TO_UPDATE);
+            mFirebaseRefCount.keepSynced(true);
+            final Query queryCount = mFirebaseRefCount.child(AndroidConstants.FIREBASE_DATA_COUNT);
+            mFirebaseRefCount.child("refreshMock").setValue("mock", new DatabaseReference.CompletionListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    assert dataSnapshot.getValue() != null;
-                    final Integer countAll = ((Long) dataSnapshot.getValue()).intValue();
-
-                    DatabaseReference mFirebaseRefPlant = database.getReference(AndroidConstants.FIREBASE_PLANTS + AndroidConstants.SEPARATOR + FIRST_FLOWER);
-                    mFirebaseRefPlant.addListenerForSingleValueEvent(new ValueEventListener() {
+                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                    queryCount.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            FirebasePlant plant = dataSnapshot.getValue(FirebasePlant.class);
+                            assert dataSnapshot.getValue() != null;
+                            final Integer countAll = ((Long) dataSnapshot.getValue()).intValue();
 
-                            assert plant != null;
-                            File photoIllustration = new File(SynchronizationService.this.getApplicationContext().getFilesDir()
-                                    + AndroidConstants.SEPARATOR + AndroidConstants.STORAGE_PHOTOS + plant.getIllustrationUrl());
-                            if (photoIllustration.exists()) {
-                                int from = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getInt(SpecificConstants.OFFLINE_PLANT_KEY, -1);
-                                synchronizePlant(from + 1, countAll);
-                            } else {
-                                synchronizePlant(0, countAll);
-                            }
+                            DatabaseReference mFirebaseRefPlant = database.getReference(AndroidConstants.FIREBASE_PLANTS + AndroidConstants.SEPARATOR + FIRST_FLOWER);
+                            mFirebaseRefPlant.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    FirebasePlant plant = dataSnapshot.getValue(FirebasePlant.class);
 
-                            File familyIcon = new File(SynchronizationService.this.getApplicationContext().getFilesDir()
-                                    + AndroidConstants.SEPARATOR + AndroidConstants.STORAGE_FAMILIES + FIRST_FAMILY + AndroidConstants.DEFAULT_EXTENSION);
-                            if (familyIcon.exists()) {
-                                int from = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getInt(SpecificConstants.OFFLINE_FAMILY_KEY, -1);
-                                synchronizeFamily(from + 1);
-                            } else {
-                                synchronizeFamily(0);
-                            }
+                                    assert plant != null;
+                                    File photoIllustration = new File(SynchronizationService.this.getApplicationContext().getFilesDir()
+                                            + AndroidConstants.SEPARATOR + AndroidConstants.STORAGE_PHOTOS + plant.getIllustrationUrl());
+                                    if (photoIllustration.exists()) {
+                                        int from = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getInt(SpecificConstants.OFFLINE_PLANT_KEY, -1);
+                                        synchronizePlant(from + 1, countAll);
+                                    } else {
+                                        synchronizePlant(0, countAll);
+                                    }
+
+                                    File familyIcon = new File(SynchronizationService.this.getApplicationContext().getFilesDir()
+                                            + AndroidConstants.SEPARATOR + AndroidConstants.STORAGE_FAMILIES + FIRST_FAMILY + AndroidConstants.DEFAULT_EXTENSION);
+                                    if (familyIcon.exists()) {
+                                        int from = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getInt(SpecificConstants.OFFLINE_FAMILY_KEY, -1);
+                                        synchronizeFamily(from + 1);
+                                    } else {
+                                        synchronizeFamily(0);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    Log.e(TAG, databaseError.getMessage());
+                                    broadcastDownload(-1, -1);
+                                }
+                            });
                         }
 
                         @Override
@@ -105,16 +117,10 @@ public class SynchronizationService extends IntentService {
                         }
                     });
                 }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.e(TAG, databaseError.getMessage());
-                    broadcastDownload(-1, -1);
-                }
             });
         }
 
-        // upload observations
+            // upload observations
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null && sk.ab.herbsplus.util.Utils.isSubscription(currentUser)) {
             DatabaseReference mFirebaseRefObservations = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS
@@ -122,13 +128,13 @@ public class SynchronizationService extends IntentService {
                     + AndroidConstants.SEPARATOR + currentUser.getUid() + AndroidConstants.SEPARATOR
                     + AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE);
             mFirebaseRefObservations.keepSynced(true);
-            final Query query = mFirebaseRefObservations.child(AndroidConstants.FIREBASE_DATA_LIST)
+            final Query queryPrivate = mFirebaseRefObservations.child(AndroidConstants.FIREBASE_DATA_LIST)
                     .orderByChild(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
                     .equalTo(SpecificConstants.FIREBASE_STATUS_PRIVATE);
             mFirebaseRefObservations.child("refreshMock").setValue("mock", new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    queryPrivate.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getChildrenCount() > 0) {

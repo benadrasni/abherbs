@@ -8,7 +8,7 @@
     <string name="offline_mode_summary">требуется 250+ МБ дополнительного пространства</string>
 
     <string name="search">Поиск</string>
-    <string name="wait_until_finish">Дождитесь завершения операции.</string>
+    <string name="synchronization_on_background">Дождитесь завершения операции.</string>
     <string name="authentication_failed">Authentication Failed.</string>
     <string name="logout">Logout</string>
     <string name="camera_failed">Camera failed.</string>

@@ -7,7 +7,7 @@
     <string name="offline_mode_summary">דורש 250+ MB שטח נוסף</string>
 
     <string name="search">חפש</string>
-    <string name="wait_until_finish">המתן עד לסיום הפעולה.</string>
+    <string name="synchronization_on_background">המתן עד לסיום הפעולה.</string>
     <string name="authentication_failed">Authentication Failed.</string>
     <string name="logout">Logout</string>
     <string name="camera_failed">Camera failed.</string>

@@ -1,7 +1,6 @@
 package sk.ab.herbsplus.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.fragments.UserPreferenceBaseFragment;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
-import sk.ab.herbsplus.services.SynchronizationService;
 
 /**
  * @see UserPreferenceBaseFragment
@@ -50,16 +48,13 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
 
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                Toast.makeText(getActivity(), R.string.wait_until_finish, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), R.string.synchronization_on_background, Toast.LENGTH_LONG).show();
                 Boolean newOfflineMode = (Boolean) newValue;
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean(SpecificConstants.OFFLINE_MODE_KEY, newOfflineMode);
                 editor.apply();
 
-                if (newOfflineMode) {
-                    Intent intent = new Intent(getActivity(), SynchronizationService.class);
-                    getActivity().startService(intent);
-                } else {
+                if (!newOfflineMode) {
                     // delete offline files
                     Utils.deleteRecursive(new File(getActivity().getFilesDir() + AndroidConstants.SEPARATOR + AndroidConstants.STORAGE_PHOTOS));
                     editor.remove(SpecificConstants.OFFLINE_PLANT_KEY);
@@ -77,7 +72,7 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
                         + AndroidConstants.SEPARATOR + AndroidConstants.LANGUAGE_LA);
                 searchInLatinRef.keepSynced(newOfflineMode);
                 DatabaseReference translationsInLanguage = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
-                        + AndroidConstants.SEPARATOR + language);
+                   + AndroidConstants.SEPARATOR + language);
                 translationsInLanguage.keepSynced(newOfflineMode);
                 DatabaseReference translationsInLanguageGT = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
                         + AndroidConstants.SEPARATOR + language + AndroidConstants.LANGUAGE_GT_SUFFIX);

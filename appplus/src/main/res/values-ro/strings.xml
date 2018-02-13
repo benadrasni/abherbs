@@ -8,7 +8,7 @@
     <string name="offline_mode_summary">necesită 250+ MB spațiu suplimentar</string>
 
     <string name="search">Căutare</string>
-    <string name="wait_until_finish">Vă rugăm să așteptați până când se termină operație.</string>
+    <string name="synchronization_on_background">Vă rugăm să așteptați până când se termină operație.</string>
     <string name="authentication_failed">Authentication Failed.</string>
     <string name="logout">Logout</string>
     <string name="camera_failed">Camera failed.</string>

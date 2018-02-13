@@ -7,7 +7,7 @@
     <string name="offline_mode_summary">membutuhkan ruang tambahan 250+ MB</string>
 
     <string name="search">Pencarian</string>
-    <string name="wait_until_finish">Harap tunggu sampai operasi selesai.</string>
+    <string name="synchronization_on_background">Harap tunggu sampai operasi selesai.</string>
     <string name="authentication_failed">Authentication Failed.</string>
     <string name="logout">Logout</string>
     <string name="camera_failed">Camera failed.</string>

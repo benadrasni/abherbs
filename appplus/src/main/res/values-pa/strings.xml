@@ -7,7 +7,7 @@
     <string name="offline_mode_summary">250+ ਮੈਬਾ ਵਾਧੂ ਜਗ੍ਹਾ ਦੀ ਲੋੜ ਹੈ</string>
 
     <string name="search">ਖੋਜ</string>
-    <string name="wait_until_finish">ਕਿਰਪਾ ਕਰਕੇ ਉਦੋਂ ਤਕ ਉਡੀਕ ਕਰੋ ਜਦੋਂ ਤਕ ਓਪਰੇਸ਼ਨ ਪੂਰਾ ਨਹੀਂ ਹੋ ਜਾਂਦਾ.</string>
+    <string name="synchronization_on_background">ਕਿਰਪਾ ਕਰਕੇ ਉਦੋਂ ਤਕ ਉਡੀਕ ਕਰੋ ਜਦੋਂ ਤਕ ਓਪਰੇਸ਼ਨ ਪੂਰਾ ਨਹੀਂ ਹੋ ਜਾਂਦਾ.</string>
     <string name="authentication_failed">Authentication Failed.</string>
     <string name="logout">Logout</string>
     <string name="camera_failed">Camera failed.</string>

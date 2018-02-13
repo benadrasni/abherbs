@@ -8,7 +8,7 @@
     <string name="offline_mode_summary">kræver 250+ MB ekstra plads</string>
 
     <string name="search">Søg</string>
-    <string name="wait_until_finish">Vent, indtil operationen er afsluttet.</string>
+    <string name="synchronization_on_background">Vent, indtil operationen er afsluttet.</string>
     <string name="authentication_failed">Authentication Failed.</string>
     <string name="logout">Logout</string>
     <string name="camera_failed">Camera failed.</string>

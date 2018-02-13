@@ -7,7 +7,7 @@
     <string name="offline_mode_summary">reikia 250+ MB papildomos vietos</string>
 
     <string name="search">Paieška</string>
-    <string name="wait_until_finish">Prašome palaukti, kol operacija bus baigta.</string>
+    <string name="synchronization_on_background">Prašome palaukti, kol operacija bus baigta.</string>
     <string name="authentication_failed">Authentication Failed.</string>
     <string name="logout">Logout</string>
     <string name="camera_failed">Camera failed.</string>

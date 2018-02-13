@@ -8,7 +8,7 @@
     <string name="offline_mode_summary">захтева 250+ МБ додатни простор</string>
 
     <string name="search">Претрага</string>
-    <string name="wait_until_finish">Сачекајте док операција завршена.</string>
+    <string name="synchronization_on_background">Сачекајте док операција завршена.</string>
     <string name="authentication_failed">Authentication Failed.</string>
     <string name="logout">Logout</string>
     <string name="camera_failed">Camera failed.</string>

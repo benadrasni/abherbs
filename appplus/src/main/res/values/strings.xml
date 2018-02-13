@@ -12,7 +12,7 @@
     <string name="login">Login</string>
     <string name="logout">Logout</string>
 
-    <string name="wait_until_finish">Please wait until operation is finished.</string>
+    <string name="synchronization_on_background">Synchronization will start on the background after application will restart on wi-fi network.</string>
     <string name="authentication_failed">Authentication failed.</string>
     <string name="camera_failed">No picture was taken.</string>
     <string name="gallery_failed">No picture was added.</string>

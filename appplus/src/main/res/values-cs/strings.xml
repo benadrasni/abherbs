@@ -13,7 +13,7 @@
     <string name="login">Přihlásit</string>
     <string name="logout">Odhlásit</string>
     
-    <string name="wait_until_finish">Počkejte, prosím, na dokončení operace.</string>
+    <string name="synchronization_on_background">Počkejte, prosím, na dokončení operace.</string>
     <string name="authentication_failed">Přihlášení bylo neúspěšné.</string>
     <string name="camera_failed">Nebyla přidána žádna fotografie.</string>
     <string name="gallery_failed">Nebyla přidána žádna fotografie.</string>
