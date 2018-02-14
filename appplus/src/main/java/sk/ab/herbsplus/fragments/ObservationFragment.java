@@ -36,7 +36,7 @@ public class ObservationFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.plant_card_observations, null);
-        TextView noObservations = view.findViewById(R.id.no_observations);
+        final TextView noObservations = view.findViewById(R.id.no_observations);
         recyclerView = view.findViewById(R.id.observations);
 
         final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -59,8 +59,6 @@ public class ObservationFragment extends Fragment {
 
             adapterPrivate = new ObservationAdapter(activity, noObservations, Observation.class,
                     R.layout.observation_row, ObservationHolder.class, privateObservationsRef, false, true);
-            adapterPublic = new ObservationAdapter(activity, noObservations, Observation.class,
-                    R.layout.observation_row, ObservationHolder.class, publicObservationsRef, false, false);
             recyclerView.setAdapter(adapterPrivate);
 
             SwitchCompat privatePublicSwitch = view.findViewById(R.id.private_public_switch_button);
@@ -70,8 +68,14 @@ public class ObservationFragment extends Fragment {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
                         if (sk.ab.herbsplus.util.Utils.isSubscription(currentUser)) {
-                            recyclerView.swapAdapter(adapterPublic, true);
-                            adapterPublic.onDataChanged();
+                            if (adapterPublic == null) {
+                                adapterPublic = new ObservationAdapter(activity, noObservations, Observation.class,
+                                        R.layout.observation_row, ObservationHolder.class, publicObservationsRef, false, false);
+                                recyclerView.swapAdapter(adapterPublic, true);
+                            } else {
+                                recyclerView.swapAdapter(adapterPublic, true);
+                                adapterPublic.onDataChanged();
+                            }
                         } else {
                             AlertDialog dialogBox = Utils.SubscriptionDialog(getActivity());
                             dialogBox.show();
