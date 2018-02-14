@@ -6,11 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.Switch;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,7 +63,7 @@ public class ObservationFragment extends Fragment {
                     R.layout.observation_row, ObservationHolder.class, publicObservationsRef, false, false);
             recyclerView.setAdapter(adapterPrivate);
 
-            Switch privatePublicSwitch = view.findViewById(R.id.private_public_switch);
+            SwitchCompat privatePublicSwitch = view.findViewById(R.id.private_public_switch_button);
             privatePublicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
                 @Override
@@ -83,6 +84,8 @@ public class ObservationFragment extends Fragment {
                 }
             });
         } else {
+            LinearLayout linearLayout = view.findViewById(R.id.private_public_switch);
+            linearLayout.setVisibility(View.GONE);
             noObservations.setText(R.string.no_observations_login);
             noObservations.setVisibility(View.VISIBLE);
         }

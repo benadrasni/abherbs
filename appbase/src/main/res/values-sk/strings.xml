@@ -116,7 +116,7 @@
     <string name="taxonomy_supersectio">Supersectio</string>
     <string name="subscribed_to_new">Prihlásený k odberu.</string>
     <string name="unsubscribed_to_new">Odhlásený.</string>
-    <string name="subscribe">Zaujímavé fakty o kvetoch</string>
-    <string name="subscribe_summary">Z času na čas mi príde zaujímavý fakt o nejakom kvete.</string>
+    <string name="subscribe_to_new">Zaujímavé fakty o kvetoch</string>
+    <string name="subscribe_to_new_summary">Z času na čas mi príde zaujímavý fakt o nejakom kvete.</string>
     <string name="taxonomy_unknown">neznámy</string>
 </resources>

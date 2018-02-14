@@ -14,7 +14,7 @@
 
     <CheckBoxPreference
         android:key="subscribeNew"
-        android:summary="@string/subscribe_summary"
-        android:title="@string/subscribe" />
+        android:summary="@string/subscribe_to_new_summary"
+        android:title="@string/subscribe_to_new" />
 
 </PreferenceScreen>

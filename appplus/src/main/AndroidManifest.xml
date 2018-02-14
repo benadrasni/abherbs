@@ -90,6 +90,9 @@
         <activity
             android:name=".activities.MapActivity"
             android:configChanges="orientation|screenSize|locale" />
+        <activity
+            android:name=".activities.SubscriptionActivity"
+            android:configChanges="orientation|screenSize|locale" />
 
         <service
             android:name="sk.ab.herbsbase.BaseFirebaseMessagingService">

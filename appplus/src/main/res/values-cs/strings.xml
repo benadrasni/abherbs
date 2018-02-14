@@ -30,4 +30,10 @@
     <string name="photo_duplicate">Fotografie byla již jednou přidána.</string>
     <string name="subscription">Subscription</string>
     <string name="subscription_info">Public observations are visible only for subscribed users.</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="subscription_yearly_button_text">Subscribe for 1 year</string>
+    <string name="subscription_monthly_button_text">Subscribe for 1 month</string>
+    <string name="subscription_yearly_text">Your observations made within subscrition period will be persisted during application\'s life.</string>
+    <string name="subscription_monthly_text">Your observations made within subscrition period will be persisted during application\'s life.</string>
+    <string name="subscription_intro"><![CDATA[Your observation\'s date, location and note are persisted without subscription, but photos are stored only on the device. You will lose them when you\'ll clear data, reinstall or switch device. You are about to subscribe for persisiting your observations (photos) accross all your devices> With subscription you\'ll be able to see observations made by other subscribed users. Based on these observations distribution maps will be created along with other, not yet implemented, goodies.]]></string>
 </resources>

@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,8 +66,14 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
                 startActivity(intent);
                 return true;
             case R.id.menu_observations:
-                intent = new Intent(this, ListObservationsActivity.class);
-                startActivity(intent);
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (currentUser != null) {
+                    intent = new Intent(this, ListObservationsActivity.class);
+                    startActivity(intent);
+                } else {
+                    AlertDialog dialogBox = sk.ab.herbsplus.util.Utils.LoginDialog(this);
+                    dialogBox.show();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -29,6 +29,8 @@ public class FeedbackPlusActivity extends AppCompatActivity {
         setContentView(R.layout.feedback_activity);
 
         if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setTitle(R.string.feedback_title);
         }
 
