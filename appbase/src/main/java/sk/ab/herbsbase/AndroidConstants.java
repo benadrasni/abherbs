@@ -50,6 +50,7 @@ public class AndroidConstants {
     public final static String STATE_OBSERVATION = "latitude";
     public final static String STATE_LATITUDE = "latitude";
     public final static String STATE_LONGITUDE = "longitude";
+    public final static String STATE_IS_SUBSCRIBED = "is_subscribed";
 
     public final static String RATE = "RATE";
     public final static int RATE_COUNTER = 5;

@@ -15,7 +15,6 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +24,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import sk.ab.common.Constants;
+import sk.ab.herbs.billingmodule.BasePlayActivity;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
@@ -38,7 +38,7 @@ import sk.ab.herbsbase.tools.Utils;
  * Base Activity
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends BasePlayActivity {
 
     private class DownloadStateReceiver extends BroadcastReceiver
     {

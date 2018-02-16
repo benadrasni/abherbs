@@ -67,7 +67,7 @@ public class ObservationFragment extends Fragment {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        if (sk.ab.herbsplus.util.Utils.isSubscription(currentUser)) {
+                        if (activity.isMonthlySubscribed() || activity.isYearlySubscribed()) {
                             if (adapterPublic == null) {
                                 adapterPublic = new ObservationAdapter(activity, noObservations, Observation.class,
                                         R.layout.observation_row, ObservationHolder.class, publicObservationsRef, false, false);

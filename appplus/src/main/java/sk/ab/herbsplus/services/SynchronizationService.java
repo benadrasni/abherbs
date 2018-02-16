@@ -61,6 +61,7 @@ public class SynchronizationService extends IntentService {
 
         database = FirebaseDatabase.getInstance();
 
+        boolean isSubscribed = intent.getBooleanExtra(AndroidConstants.STATE_IS_SUBSCRIBED, false);
         boolean offlineMode = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
         if (offlineMode) {
             // download photos and family icons
@@ -122,7 +123,7 @@ public class SynchronizationService extends IntentService {
 
             // upload observations
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null && sk.ab.herbsplus.util.Utils.isSubscription(currentUser)) {
+        if (currentUser != null && isSubscribed) {
             DatabaseReference mFirebaseRefObservations = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS
                     + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS
                     + AndroidConstants.SEPARATOR + currentUser.getUid() + AndroidConstants.SEPARATOR

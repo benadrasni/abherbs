@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import sk.ab.herbsbase.AndroidConstants;
+import sk.ab.herbsbase.R;
 
 
 /**
@@ -15,6 +16,12 @@ import sk.ab.herbsbase.AndroidConstants;
 public abstract class SplashBaseActivity extends SearchBaseActivity {
 
     private static final String TAG = "SplashBaseActivity";
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.splash_activity;
+    };
+
 
     protected void startApplication() {
         if (getIntent().getExtras() != null) {

@@ -46,8 +46,6 @@ public class ListObservationsActivity extends SearchBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.list_observations_activity);
-
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
@@ -104,7 +102,7 @@ public class ListObservationsActivity extends SearchBaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    if (sk.ab.herbsplus.util.Utils.isSubscription(currentUser)) {
+                    if (isMonthlySubscribed() || isYearlySubscribed()) {
                         recyclerView.swapAdapter(adapterPublic, true);
                         adapterPublic.onDataChanged();
                     } else {
@@ -162,4 +160,9 @@ public class ListObservationsActivity extends SearchBaseActivity {
     public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.list_observations_activity;
+    };
 }

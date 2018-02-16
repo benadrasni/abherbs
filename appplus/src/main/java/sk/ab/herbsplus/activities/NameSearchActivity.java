@@ -130,7 +130,6 @@ public class NameSearchActivity extends SearchBaseActivity {
             mSearchText = "";
         }
 
-        setContentView(R.layout.search_activity);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -238,6 +237,11 @@ public class NameSearchActivity extends SearchBaseActivity {
     public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.search_activity;
+    };
 
     private void loadNames() {
         final SynchronizedCounter counter = new SynchronizedCounter();

@@ -43,8 +43,6 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         setTheme(R.style.Theme_Application);
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.filter_activity);
-
         if (savedInstanceState != null) {
             filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
             filterPosition = savedInstanceState.getInt(AndroidConstants.STATE_FILTER_POSITION);
@@ -197,6 +195,12 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
             }
         }
     }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.filter_activity;
+    };
+
 
     public abstract boolean isAdsAllowed();
 

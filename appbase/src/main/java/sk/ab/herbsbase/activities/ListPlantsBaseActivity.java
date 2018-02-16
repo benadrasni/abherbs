@@ -70,8 +70,6 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
             listPosition = getIntent().getExtras().getInt(AndroidConstants.STATE_LIST_POSITION);
         }
 
-        setContentView(R.layout.list_activity);
-
         overlay = findViewById(R.id.overlay);
         overlay.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -175,6 +173,11 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
             super.onBackPressed();
         }
     }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.list_activity;
+    };
 
     public String getListPath() {
         return listPath;

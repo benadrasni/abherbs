@@ -45,6 +45,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent = new Intent(this, SynchronizationService.class);
+        intent.putExtra(AndroidConstants.STATE_IS_SUBSCRIBED, isMonthlySubscribed() || isYearlySubscribed());
         startService(intent);
     }
 

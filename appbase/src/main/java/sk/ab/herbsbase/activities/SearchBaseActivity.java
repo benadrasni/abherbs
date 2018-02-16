@@ -18,6 +18,7 @@ import java.util.Locale;
 
 import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.PlantTranslation;
+import sk.ab.herbs.billingmodule.BasePlayActivity;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.entity.PlantParcel;
@@ -30,7 +31,7 @@ import sk.ab.herbsbase.tools.Utils;
  * Created by adrian on 23. 3. 2017.
  */
 
-public abstract class SearchBaseActivity extends AppCompatActivity {
+public abstract class SearchBaseActivity extends BasePlayActivity {
     private final static int API_CALLS = 4;
 
     private FirebasePlant plant;

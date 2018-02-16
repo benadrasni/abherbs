@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 
 import com.firebase.ui.auth.AuthUI;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,10 +20,6 @@ import sk.ab.herbsplus.activities.SubscriptionActivity;
  */
 
 public class Utils {
-
-    public static boolean isSubscription(FirebaseUser user) {
-        return false;
-    }
 
     public static AlertDialog SubscriptionDialog(final Activity activity) {
         return new AlertDialog.Builder(activity)

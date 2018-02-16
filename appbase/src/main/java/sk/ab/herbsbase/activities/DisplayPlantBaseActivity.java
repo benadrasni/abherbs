@@ -71,8 +71,6 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
         }
 
-        setContentView(R.layout.plant_activity);
-
         overlay = findViewById(R.id.overlay);
         overlay.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -146,6 +144,11 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
             super.onBackPressed();
         }
     }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.plant_activity;
+    };
 
     public FirebasePlant getPlant() {
         return plantParcel;

@@ -1,33 +1,33 @@
 package sk.ab.herbsplus.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import sk.ab.herbs.billingmodule.BasePlayActivity;
 
 import sk.ab.herbsplus.R;
 
 /**
  *
- * Created by adrian on 1. 5. 2017.
+ * Created by adrian on 13. 2. 2018.
  */
 
-public class SubscriptionActivity extends AppCompatActivity {
+public class SubscriptionActivity extends BasePlayActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.subscription_activity);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setTitle(R.string.subscription);
         }
+    }
 
-        initializeMonthlySubscription();
-
-        initializeYearlySubscription();
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.subscription_activity;
     }
 
     @Override
@@ -40,13 +40,4 @@ public class SubscriptionActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    private void initializeMonthlySubscription() {
-
-    }
-
-    private void initializeYearlySubscription() {
-
-    }
-
 }
