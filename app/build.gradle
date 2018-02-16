@@ -22,6 +22,7 @@ android {
         versionCode 117
         versionName "3.3.6"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
 
     buildTypes {

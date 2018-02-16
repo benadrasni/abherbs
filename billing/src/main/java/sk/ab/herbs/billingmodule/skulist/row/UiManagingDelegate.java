@@ -13,9 +13,8 @@
 // limitations under the License.
 package sk.ab.herbs.billingmodule.skulist.row;
 
-import android.widget.Toast;
 import com.android.billingclient.api.BillingClient.SkuType;
-import com.example.billingmodule.R;
+
 import sk.ab.herbs.billingmodule.billing.BillingProvider;
 
 /**
@@ -41,10 +40,5 @@ public abstract class UiManagingDelegate {
     public void onButtonClicked(SkuRowData data) {
         mBillingProvider.getBillingManager().initiatePurchaseFlow(data.getSku(),
                 data.getSkuType());
-    }
-
-    protected void showAlreadyPurchasedToast() {
-        Toast.makeText(mBillingProvider.getBillingManager().getContext(),
-                R.string.alert_already_purchased, Toast.LENGTH_SHORT).show();
     }
 }
