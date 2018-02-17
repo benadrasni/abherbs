@@ -22,14 +22,52 @@
                 android:text="@string/subscription_intro1"
                 android:textAppearance="@android:style/TextAppearance.Medium"/>
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:maxHeight="25dp"
-                android:maxWidth="25dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/color"/>
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="25dp"
+                    android:maxWidth="25dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/color"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="25dp"
+                    android:maxWidth="25dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/color"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="25dp"
+                    android:maxWidth="25dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/color"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="25dp"
+                    android:maxWidth="25dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/color"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="25dp"
+                    android:maxWidth="25dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/color"/>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -39,13 +77,13 @@
                 android:textAppearance="@android:style/TextAppearance.Medium"/>
 
             <ImageView
+                android:id="@+id/cc0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:maxHeight="25dp"
-                android:maxWidth="25dp"
+                android:maxWidth="100dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/color"/>
+                android:src="@drawable/cc0"/>
 
             <TextView
                 android:layout_width="match_parent"

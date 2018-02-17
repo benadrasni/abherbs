@@ -23,20 +23,16 @@
     <string name="observation_delete">Zmazať pozorovanie</string>
     <string name="observation_delete_question">Chcete zmazať pozorovanie?</string>
     <string name="no_observations">Zatiaľ nie je žiadne pozorovanie.</string>
-    <string name="no_observations_login">Pozorovania sú dostupné iba prihláseným používateľom. Prihláste sa, prosím, cez Ponuku alebo kliknutím na tlačidlo "Pozorovanie".</string>
+    <string name="no_observations_login">Pozorovania sú dostupné iba prihláseným používateľom. Prihláste sa, prosím.</string>
 
     <string name="photo_delete">Odstrániť fotografiu</string>
     <string name="photo_delete_question">Chcete odstrániť fotografiu z Pozorovania?</string>
     <string name="photo_duplicate">Fotografia už bola raz pridaná.</string>
-    <string name="subscription">Subscription</string>
-    <string name="subscription_info">Public observations are visible only for subscribed users.</string>
-    <string name="subscribe">Subscribe</string>
-    <string name="subscription_yearly_button_text">Subscribe for 1 year</string>
-    <string name="subscription_monthly_button_text">Subscribe for 1 month</string>
-    <string name="subscription_yearly_text">Your observations made within subscrition period will be persisted during application\'s life.</string>
-    <string name="subscription_monthly_text">Your observations made within subscrition period will be persisted during application\'s life.</string>
-    <string name="subscription_intro1"><![CDATA[Your observation\'s date, location and note are persisted without subscription, but photos are stored only on the device. You will lose them when you\'ll clear data, reinstall or switch device. You are about to subscribe for persisiting your observations (photos) accross all your devices> With subscription you\'ll be able to see observations made by other subscribed users. Based on these observations distribution maps will be created along with other, not yet implemented, goodies.]]></string>
-    <string name="subscription_intro3">Based on these observations distribution maps will be created along with other, not yet implemented, goodies.</string>
-    <string name="subscription_intro2">You are about to subscribe for saving and persisting your photos across all your devices. With subscription you\\\'ll agree with sharing your observations with other subscribed users. You\\\'ll also be able to see their observations.</string>
-    <string name="subscription_intro4">If you still hesitate to hit button below, there is 30 days trial period for both kind of subscriptions.</string>
+    <string name="subscription">Predplatné</string>
+    <string name="subscription_info">Zdieľané pozorovania sú prístupné iba používateľom s predplatným.</string>
+    <string name="subscribe">Predplatiť</string>
+    <string name="subscription_intro1">Dátum, miesto a poznámka k Pozorovaniu sa automaticky ukladajú a sú dostupné na všetkých zariadeniach bez predplatného. Na druhej strane fotografie sú uložené iba lokálne. Po vymazaní dát, preinštalovaní aplikácie alebo výmene mobilu sa fotografie pri pozorovaniach ďalej nezobrazujú (tie, ktoré boli urobené priamo z aplikácie sa dokonca vymažú).</string>
+    <string name="subscription_intro2">Práve sa chystáte predplatiť si uchovávanie fotografií a ich zobrazenie na všetkých zariadeniach. Zároveň s predplatným súhlasíte so zdieľaním vašich pozorovaní s ostatnými platiacimi používateľmi. Ich pozorovania zároveň budú zobrazené aj vám. Zdieľané pozorovania sú anonymné, poznámky ostávajú súkromné a nezdieľajú sa. Pre zjednodušenie procesu všetky fotogiafie budú zdieľané pod licenciou Creative Commons Zero, takže zároveň súhlasíte aj s tým.</string>
+    <string name="subscription_intro3">Na základe zdieľaných pozorovaní budú vytvorené mapy výskytu ako aj ďalšie, zatiaľ neimplementované, funkcie, ku ktorým budú mať prístup iba používatelia s predplatným.</string>
+    <string name="subscription_intro4">Ak ešte stále váhate so stlačením tlačidla na konci stránky, tak predplatné obsahuje skúšobnú dobu 30 dní, počas ktorých bude zadarmo.</string>
 </resources>

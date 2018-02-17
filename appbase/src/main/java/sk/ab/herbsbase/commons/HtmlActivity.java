@@ -52,6 +52,9 @@ public class HtmlActivity extends AppCompatActivity {
                 case AndroidConstants.ITEM_ABOUT:
                     html.loadUrl("file:///android_asset/" + language + "_about.html");
                     break;
+                case AndroidConstants.ITEM_CC0:
+                    html.loadUrl("https://creativecommons.org/publicdomain/zero/1.0/");
+                    break;
             }
         }
     }

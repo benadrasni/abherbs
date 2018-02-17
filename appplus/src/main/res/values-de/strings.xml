@@ -23,20 +23,16 @@
     <string name="observation_delete">Beobachtung löschen</string>
     <string name="observation_delete_question">Möchten Sie die Beobachtung löschen?</string>
     <string name="no_observations">Es gibt noch keine Beobachtung.</string>
-    <string name="no_observations_login">Beobachtungen sind nur für angemeldete Benutzer verfügbar. Bitte melden Sie sich über das Menü oder durch Klicken auf die Schaltfläche Beobachtung an.</string>
+    <string name="no_observations_login">Beobachtungen sind nur für angemeldete Benutzer verfügbar. Bitte loggen Sie sich ein.</string>
 
     <string name="photo_delete">Foto entfernen</string>
     <string name="photo_delete_question">Möchten Sie das Foto aus der Beobachtung entfernen?</string>
     <string name="photo_duplicate">Das Foto wurde bereits hinzugefügt.</string>
-    <string name="subscription">Subscription</string>
-    <string name="subscription_info">Public observations are visible only for subscribed users.</string>
-    <string name="subscribe">Subscribe</string>
-    <string name="subscription_yearly_button_text">Subscribe for 1 year</string>
-    <string name="subscription_monthly_button_text">Subscribe for 1 month</string>
-    <string name="subscription_yearly_text">Your observations made within subscrition period will be persisted during application\'s life.</string>
-    <string name="subscription_monthly_text">Your observations made within subscrition period will be persisted during application\'s life.</string>
-    <string name="subscription_intro1"><![CDATA[Your observation\'s date, location and note are persisted without subscription, but photos are stored only on the device. You will lose them when you\'ll clear data, reinstall or switch device. You are about to subscribe for persisiting your observations (photos) accross all your devices> With subscription you\'ll be able to see observations made by other subscribed users. Based on these observations distribution maps will be created along with other, not yet implemented, goodies.]]></string>
-    <string name="subscription_intro3">Based on these observations distribution maps will be created along with other, not yet implemented, goodies.</string>
-    <string name="subscription_intro2">You are about to subscribe for saving and persisting your photos across all your devices. With subscription you\\\'ll agree with sharing your observations with other subscribed users. You\\\'ll also be able to see their observations.</string>
-    <string name="subscription_intro4">If you still hesitate to hit button below, there is 30 days trial period for both kind of subscriptions.</string>
+    <string name="subscription">Abonnement</string>
+    <string name="subscription_info">Gemeinsame Beobachtungen sind nur für abonnierte Benutzer sichtbar.</string>
+    <string name="subscribe">Abonnieren</string>
+    <string name="subscription_intro1">Das Datum, der Standort und der Hinweis Ihrer Beobachtung werden auf Geräten ohne Abonnement gespeichert und beibehalten, aber Fotos werden nur lokal auf dem Gerät gespeichert. Sie verlieren die Verbindung zu ihnen (sogar Foto selbst, wenn Sie es aus der Anwendung erschossen), wenn Sie Daten löschen, neu installieren oder Gerät wechseln.</string>
+    <string name="subscription_intro2">Sie sind dabei, Ihre Fotos auf allen Ihren Geräten zu speichern und dauerhaft zu speichern. Mit dem Abonnement stimmen Sie zu, Ihre Beobachtungen mit anderen abonnierten Benutzern zu teilen. Sie werden auch ihre Beobachtungen sehen können. Alle gemeinsamen Beobachtungen sind anonym und ihre Notiz bleibt privat und wird nicht geteilt. Um den Prozess zu vereinfachen, werden Ihre Fotos unter der CC0-Lizenz (Creative Commons Zero) geteilt, also stimmen Sie auch zu.</string>
+    <string name="subscription_intro3">Basierend auf diesen Beobachtungen werden Verbreitungskarten zusammen mit anderen, noch nicht implementierten Goodies erstellt, die nur für registrierte Benutzer zugänglich sind.</string>
+    <string name="subscription_intro4">Wenn Sie immer noch zögern, den unten stehenden Button zu drücken, gibt es eine 30-tägige Probezeit für beide Abonnements.</string>
 </resources>

@@ -8,6 +8,7 @@ import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.entity.ObservationParcel;
 import sk.ab.herbsplus.fragments.ObservationFragment;
 import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
+import sk.ab.herbsplus.util.Utils;
 
 /**
  * @see DisplayPlantBaseActivity
@@ -137,19 +139,9 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                 intent.putExtra(AndroidConstants.STATE_OBSERVATION, new ObservationParcel(observation));
                 startActivity(intent);
             } else {
+                AlertDialog dialogBox = Utils.LoginDialog(this);
+                dialogBox.show();
                 shouldOpenObservation = true;
-                List<AuthUI.IdpConfig> providers = Arrays.asList(
-                        new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                        new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
-                        new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
-                        new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
-                        new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build());
-                startActivityForResult(
-                        AuthUI.getInstance()
-                                .createSignInIntentBuilder()
-                                .setAvailableProviders(providers)
-                                .build(),
-                        AndroidConstants.REQUEST_SIGN_IN);
             }
         }
     }

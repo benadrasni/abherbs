@@ -102,6 +102,7 @@ public class AndroidConstants {
     public final static String ITEM_FEEDBACK = "Feedback";
     public final static String ITEM_HELP = "Help";
     public final static String ITEM_ABOUT = "About";
+    public final static String ITEM_CC0 = "Creative Commons Zero";
     public final static String ITEM_LOGIN = "Login";
     public final static String ITEM_LOGOUT = "Logout";
     public final static String ITEM_SUBSCRIPTION = "Subscription";

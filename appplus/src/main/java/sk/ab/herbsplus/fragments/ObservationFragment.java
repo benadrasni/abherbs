@@ -57,6 +57,8 @@ public class ObservationFragment extends Fragment {
                     + activity.getPlant().getName() + AndroidConstants.SEPARATOR
                     + AndroidConstants.FIREBASE_DATA_LIST);
 
+            adapterPublic = new ObservationAdapter(activity, noObservations, Observation.class,
+                    R.layout.observation_row, ObservationHolder.class, publicObservationsRef, false, false);
             adapterPrivate = new ObservationAdapter(activity, noObservations, Observation.class,
                     R.layout.observation_row, ObservationHolder.class, privateObservationsRef, false, true);
             recyclerView.setAdapter(adapterPrivate);
@@ -68,14 +70,8 @@ public class ObservationFragment extends Fragment {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
                         if (activity.isMonthlySubscribed() || activity.isYearlySubscribed()) {
-                            if (adapterPublic == null) {
-                                adapterPublic = new ObservationAdapter(activity, noObservations, Observation.class,
-                                        R.layout.observation_row, ObservationHolder.class, publicObservationsRef, false, false);
-                                recyclerView.swapAdapter(adapterPublic, true);
-                            } else {
-                                recyclerView.swapAdapter(adapterPublic, true);
-                                adapterPublic.onDataChanged();
-                            }
+                            recyclerView.swapAdapter(adapterPublic, true);
+                            adapterPublic.onDataChanged();
                         } else {
                             AlertDialog dialogBox = Utils.SubscriptionDialog(getActivity());
                             dialogBox.show();
