@@ -1,12 +1,12 @@
 package sk.ab.herbsplus.entity;
 
-import sk.ab.common.entity.Observation;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import sk.ab.common.entity.Observation;
 
 /**
  *

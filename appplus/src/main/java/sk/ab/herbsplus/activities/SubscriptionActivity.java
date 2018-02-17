@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import sk.ab.herbs.billingmodule.BasePlayActivity;
-
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.commons.HtmlActivity;
 import sk.ab.herbsplus.R;

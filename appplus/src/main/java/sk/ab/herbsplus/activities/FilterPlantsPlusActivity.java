@@ -3,7 +3,6 @@ package sk.ab.herbsplus.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
@@ -21,14 +20,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import sk.ab.common.util.Utils;
 import sk.ab.herbsbase.AndroidConstants;
-import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
 import sk.ab.herbsbase.commons.PropertyListBaseFragment;
 import sk.ab.herbsplus.BuildConfig;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
-import sk.ab.herbsplus.services.SynchronizationService;
 
 /**
  * @see FilterPlantsBaseActivity

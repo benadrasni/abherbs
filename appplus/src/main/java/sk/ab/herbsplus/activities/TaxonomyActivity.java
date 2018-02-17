@@ -35,8 +35,8 @@ import java.util.Map;
 
 import sk.ab.common.Constants;
 import sk.ab.common.entity.PlantTaxon;
-import sk.ab.herbsbase.activities.SearchBaseActivity;
 import sk.ab.herbsbase.AndroidConstants;
+import sk.ab.herbsbase.activities.SearchBaseActivity;
 import sk.ab.herbsbase.tools.Utils;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
