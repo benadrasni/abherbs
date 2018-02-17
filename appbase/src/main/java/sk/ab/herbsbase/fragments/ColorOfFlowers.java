@@ -1,8 +1,8 @@
 package sk.ab.herbsbase.fragments;
 
 import sk.ab.common.Constants;
-import sk.ab.herbsbase.commons.BaseFilterFragment;
 import sk.ab.herbsbase.R;
+import sk.ab.herbsbase.commons.BaseFilterFragment;
 
 public class ColorOfFlowers extends BaseFilterFragment {
 

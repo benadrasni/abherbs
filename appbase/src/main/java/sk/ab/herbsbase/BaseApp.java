@@ -14,9 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Stack;
 
-import sk.ab.common.service.FirebaseClient;
 import sk.ab.common.service.GoogleClient;
-import sk.ab.common.service.HerbCloudClient;
 import sk.ab.herbsbase.commons.BaseFilterFragment;
 
 /**

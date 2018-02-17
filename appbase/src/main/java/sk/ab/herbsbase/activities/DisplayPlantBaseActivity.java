@@ -24,10 +24,6 @@ import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.entity.PlantParcel;
 import sk.ab.herbsbase.entity.PlantTranslationParcel;
-import sk.ab.herbsbase.fragments.GalleryFragment;
-import sk.ab.herbsbase.fragments.InfoFragment;
-import sk.ab.herbsbase.fragments.SourcesFragment;
-import sk.ab.herbsbase.fragments.TaxonomyFragment;
 
 /**
  * Activity for displaying selected plant

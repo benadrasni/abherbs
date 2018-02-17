@@ -1,7 +1,6 @@
 package sk.ab.herbsbase.commons;
 
 import android.app.Dialog;
-
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;

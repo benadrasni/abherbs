@@ -2,9 +2,6 @@ package sk.ab.herbsbase;
 
 import android.content.res.Resources;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created with IntelliJ IDEA.
  * User: adrian

@@ -1,5 +1,4 @@
 <android.support.v4.widget.DrawerLayout
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/plant_drawer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -98,51 +97,6 @@
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab_camera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/ic_add_a_photo_black_24dp"
-                android:onClick="addCamera"
-                android:visibility="invisible"
-                app:backgroundTint="@color/FABBlue" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab_gallery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/ic_photo_black_24dp"
-                android:onClick="addGallery"
-                android:visibility="invisible"
-                app:backgroundTint="@color/FABBlue" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab_note"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/ic_note_add_black_24dp"
-                android:onClick="addNote"
-                android:visibility="invisible"
-                app:backgroundTint="@color/FABBlue" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/ic_location_on_black_24dp"
-                android:onClick="addLocation"
-                android:visibility="invisible"
-                app:backgroundTint="@color/FABBlue" />
-
         </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
 
