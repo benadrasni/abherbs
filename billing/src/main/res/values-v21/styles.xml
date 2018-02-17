@@ -19,7 +19,7 @@
     <style name="ButtonStyle" parent="BaseButtonStyle">
         <item name="android:backgroundTint">@color/ascent_color</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_gravity">bottom|center</item>
     </style>
 
     <style name="DriveButtonStyle" parent="ButtonStyle">
