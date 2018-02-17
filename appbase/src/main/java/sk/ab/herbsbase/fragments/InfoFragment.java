@@ -175,7 +175,8 @@ public class InfoFragment extends Fragment {
                                             // add icon
                                             if ((int)sections[i][0] != 0) {
                                                 ImageSpan span = new ImageSpan(getContext(), (int)sections[i][0], ImageSpan.ALIGN_BOTTOM);
-                                                ssb.setSpan(span, 0, 3, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                                                span.getDrawable().setAlpha(AndroidConstants.ICON_OPACITY);
+                                                ssb.setSpan(span, 0, 2, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                                             }
 
                                             // add margin for illustration
