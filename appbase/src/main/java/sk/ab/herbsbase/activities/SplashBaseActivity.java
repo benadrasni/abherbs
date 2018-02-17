@@ -38,7 +38,6 @@ public abstract class SplashBaseActivity extends SearchBaseActivity {
             Intent intent = new Intent(this, getFilterPlantsActivityClass());
             startActivity(intent);
         }
-        finish();
     }
 
     private void callProperActivity(Integer count, String path) {

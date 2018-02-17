@@ -147,10 +147,8 @@ public class ObservationAdapter extends FirebaseRecyclerAdapter<Observation, Obs
 
         displayPhoto(holder, observation);
 
-        if (isPrivate) {
-            if (observation.getNote() != null) {
-                holder.getObservationNote().setText(observation.getNote());
-            }
+        if (isPrivate && observation.getNote() != null) {
+            holder.getObservationNote().setText(observation.getNote());
             holder.getObservationNote().setVisibility(View.VISIBLE);
         } else {
             holder.getObservationNote().setVisibility(View.GONE);

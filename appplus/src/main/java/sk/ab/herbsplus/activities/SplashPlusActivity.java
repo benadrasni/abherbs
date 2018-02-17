@@ -2,6 +2,7 @@ package sk.ab.herbsplus.activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.SplashBaseActivity;
 import sk.ab.herbsplus.SpecificConstants;
+import sk.ab.herbsplus.services.SynchronizationService;
 
 
 /**
@@ -64,5 +66,14 @@ public class SplashPlusActivity extends SplashBaseActivity {
     @Override
     public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+    }
+
+    @Override
+    public void showRefreshedUi() {
+        Intent intent = new Intent(this, SynchronizationService.class);
+        intent.putExtra(AndroidConstants.STATE_IS_SUBSCRIBED, isMonthlySubscribed() || isYearlySubscribed());
+        startService(intent);
+
+        finish();
     }
 }
