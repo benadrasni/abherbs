@@ -45,7 +45,7 @@ public class YearlyDelegate extends UiManagingDelegate {
                     ? R.string.button_change : R.string.button_buy;
             holder.button.setText(textId);
         }
-        holder.skuIcon.setImageResource(R.drawable.gold_icon);
+        holder.skuIcon.setImageResource(R.drawable.app_icon);
     }
 
     @Override
