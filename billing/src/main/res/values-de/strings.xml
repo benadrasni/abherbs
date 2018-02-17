@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_no_skus">Wir haben keine SKUs gefunden, die angezeigt werden können&#8230; Überprüfen Sie Ihre Internetverbindung und vergewissern Sie sich, dass Ihre Google Developer Console ordnungsgemäß eingerichtet wurde.</string>
+    <string name="error_billing_unavailable">Abrechnung nicht verfügbar. Vergewissern Sie sich, dass Ihre Google Play App korrekt eingerichtet ist.</string>
+    <string name="error_billing_default">Abrechnung nicht verfügbar. Bitte überprüfen Sie Ihr Gerät.</string>
+
+    <string name="button_purchase">Abonnieren</string>
+    <string name="button_buy">Kauf</string>
+    <string name="button_own">Bezahlt</string>
+    <string name="button_update">Aktualisieren</string>
+    <string name="button_change">Veränderung</string>
+
+    <string name="header_subscriptions">Abonnements</string>
+    <string name="header_inapp">Einmaliger Deal</string>
+    <string name="content_description_app_loading_image">App loading image</string>
+</resources>
