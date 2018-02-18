@@ -1,7 +1,6 @@
 package sk.ab.herbsbase.fragments;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
@@ -25,8 +24,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.common.base.Strings;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -80,25 +77,6 @@ public class InfoFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final SharedPreferences preferences = ((DisplayPlantBaseActivity)getActivity()).getSharedPreferences();
-
-        final ImageView drawing = (ImageView) getView().findViewById(R.id.plant_background);
-        SharedPreferences.Editor editor = preferences.edit();
-        Boolean showWizard = !preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_2_7, false);
-
-        if (showWizard) {
-            new ShowcaseView.Builder(getActivity())
-                    .withMaterialShowcase()
-                    .setStyle(R.style.CustomShowcaseTheme)
-                    .setTarget(new ViewTarget(drawing))
-                    .hideOnTouchOutside()
-                    .setContentTitle(R.string.showcase_fullscreen_title)
-                    .setContentText(R.string.showcase_fullscreen_message)
-                    .build();
-            editor.putBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_2_7, true);
-            editor.apply();
-        }
-
         isTranslated = true;
         getTranslation();
         showGTSection();
@@ -119,10 +97,10 @@ public class InfoFragment extends Fragment {
         final Object[][] sections = getSections(withTranslation);
         text.append(sections[0][1]);
 
-        final TextView description = (TextView)getView().findViewById(R.id.plant_description);
+        final TextView description = getView().findViewById(R.id.plant_description);
         description.setText(Utils.fromHtml(text.toString()));
 
-        final ImageView drawing = (ImageView)getView().findViewById(R.id.plant_background);
+        final ImageView drawing = getView().findViewById(R.id.plant_background);
         drawing.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -140,7 +118,7 @@ public class InfoFragment extends Fragment {
         final DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
         final int orientation = getActivity().getResources().getConfiguration().orientation;
 
-        final LinearLayout layout = (LinearLayout)getView().findViewById(R.id.plant_texts);
+        final LinearLayout layout = getView().findViewById(R.id.plant_texts);
         layout.removeAllViews();
 
         if (plant.getIllustrationUrl() != null) {
@@ -380,7 +358,7 @@ public class InfoFragment extends Fragment {
         PlantTranslation plantTranslationGT = getPlantTranslationGT();
         PlantTranslation plantTranslationEn = getPlantTranslationEn();
 
-        Object[][] sections = {
+        return new Object[][]{
                 {0, plantTranslation != null && plantTranslation.getDescription() != null ? plantTranslation.getDescription()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getDescription() != null
                         ? plantTranslationGT.getDescription() : plantTranslationEn != null && plantTranslationEn.getDescription() != null ? plantTranslationEn.getDescription() : ""},
@@ -412,16 +390,14 @@ public class InfoFragment extends Fragment {
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getTrivia() != null
                         ? plantTranslationGT.getTrivia() : plantTranslationEn != null && plantTranslationEn.getTrivia() != null ? plantTranslationEn.getTrivia() : ""}
         };
-
-        return sections;
     }
 
     private void showGTSection() {
         if (getView() != null && getPlantTranslationGT() != null) {
-            LinearLayout translationNote = (LinearLayout) getView().findViewById(R.id.translation_note);
+            LinearLayout translationNote = getView().findViewById(R.id.translation_note);
             translationNote.setVisibility(View.VISIBLE);
 
-            final Button showOriginal = (Button) getView().findViewById(R.id.show_original);
+            final Button showOriginal = getView().findViewById(R.id.show_original);
             showOriginal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -435,7 +411,7 @@ public class InfoFragment extends Fragment {
                 }
             });
 
-            Button improveTranslation = (Button) getView().findViewById(R.id.improve_translation);
+            Button improveTranslation = getView().findViewById(R.id.improve_translation);
             improveTranslation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

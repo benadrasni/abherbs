@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import sk.ab.herbs.SpecificConstants;
 import sk.ab.herbs.fragments.PropertyListFragment;
+import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
 import sk.ab.herbsbase.commons.PropertyListBaseFragment;
 import sk.ab.herbsbase.fragments.GalleryFragment;
@@ -44,4 +45,17 @@ public class DisplayPlantActivity extends DisplayPlantBaseActivity {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
 
+    @Override
+    protected void showWizard() {
+        final SharedPreferences preferences = getSharedPreferences();
+        SharedPreferences.Editor editor = preferences.edit();
+        Boolean showWizard1 = !preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_2_7, false);
+        Boolean showWizard2 = !preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_3_1, false);
+
+        if (showWizard1) {
+            showWizardIllustration(editor);
+        } else if (showWizard2) {
+            showWizardTaxonomy(editor);
+        }
+    }
 }

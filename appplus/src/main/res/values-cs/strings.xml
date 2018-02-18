@@ -35,4 +35,8 @@
     <string name="subscription_intro2">Právě se chystáte předplatit si uchovávání fotografií a jejich zobrazení na všech zařízeních. Zároveň s předplatným souhlasíte se sdílením vašich pozorování s ostatními platícími uživateli. Jejich pozorování zároveň budou zobrazeny i vám. Sdílené pozorování jsou anonymní, poznámky zůstávají soukromé a nesdílejí se. Pro zjednodušení procesu všechny fotogiafie budou sdíleny pod licencí Creative Commons Zero, takže zároveň souhlasíte i s tím.</string>
     <string name="subscription_intro3">Na základě sdílených pozorování budou vytvořeny mapy výskytu jakož i další, zatím neimplementované, funkce, ke kterým budou mít přístup pouze uživatelé s předplatným.</string>
     <string name="subscription_intro4">Pokud ještě stále váháte se stisknutím tlačítka na konci stránky, tak předplatné obsahuje zkušební dobu 30 dní, během kterých bude zdarma.</string>
+    <string name="showcase_observation_title">Observations</string>
+    <string name="showcase_observation_message">Create and save your observation with date, location, photos and personal note.</string>
+    <string name="showcase_switch_title">Private/Shared</string>
+    <string name="showcase_switch_message">Switch between private and shared observations.</string>
 </resources>

@@ -41,9 +41,8 @@ public class SplashPlusActivity extends SplashBaseActivity {
             case AndroidConstants.PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startApplication();
-                } else {
-                    finish();
                 }
+                finish();
             }
         }
     }
@@ -74,6 +73,8 @@ public class SplashPlusActivity extends SplashBaseActivity {
         intent.putExtra(AndroidConstants.STATE_IS_SUBSCRIBED, isMonthlySubscribed() || isYearlySubscribed());
         startService(intent);
 
-        finish();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            finish();
+        }
     }
 }

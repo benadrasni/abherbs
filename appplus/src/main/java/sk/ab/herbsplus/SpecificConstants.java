@@ -13,6 +13,9 @@ public class SpecificConstants {
     public final static String PHOTOS = "/photos";
     public final static String FAMILIES = "/families";
 
+    public final static String VERSION_2_0_0_a = "216a";
+    public final static String VERSION_2_0_0_b = "216b";
+
     public final static int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 0;
 
     public final static String OFFLINE_MODE_KEY = "offline_mode";

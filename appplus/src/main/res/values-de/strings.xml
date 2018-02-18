@@ -35,4 +35,8 @@
     <string name="subscription_intro2">Sie sind dabei, Ihre Fotos auf allen Ihren Geräten zu speichern und dauerhaft zu speichern. Mit dem Abonnement stimmen Sie zu, Ihre Beobachtungen mit anderen abonnierten Benutzern zu teilen. Sie werden auch ihre Beobachtungen sehen können. Alle gemeinsamen Beobachtungen sind anonym und ihre Notiz bleibt privat und wird nicht geteilt. Um den Prozess zu vereinfachen, werden Ihre Fotos unter der CC0-Lizenz (Creative Commons Zero) geteilt, also stimmen Sie auch zu.</string>
     <string name="subscription_intro3">Basierend auf diesen Beobachtungen werden Verbreitungskarten zusammen mit anderen, noch nicht implementierten Goodies erstellt, die nur für registrierte Benutzer zugänglich sind.</string>
     <string name="subscription_intro4">Wenn Sie immer noch zögern, den unten stehenden Button zu drücken, gibt es eine 30-tägige Probezeit für beide Abonnements.</string>
+    <string name="showcase_observation_title">Observations</string>
+    <string name="showcase_observation_message">Create and save your observation with date, location, photos and personal note.</string>
+    <string name="showcase_switch_title">Private/Shared</string>
+    <string name="showcase_switch_message">Switch between private and shared observations.</string>
 </resources>
