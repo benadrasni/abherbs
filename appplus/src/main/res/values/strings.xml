@@ -35,7 +35,15 @@
     <string name="subscription_intro3">Based on these observations distribution maps will be created along with other, not yet implemented, goodies which will be accessible only for subscribed users.</string>
     <string name="subscription_intro4">If you still hesitate to hit the button below, there is a 30 days trial period for both subscriptions.</string>
     <string name="showcase_observation_title">Observations</string>
-    <string name="showcase_observation_message">Create and save your observation with date, location, photos and personal note.</string>
-    <string name="showcase_switch_title">Private/Shared</string>
-    <string name="showcase_switch_message">Switch between private and shared observations.</string>
+    <string name="showcase_observation_message">Create and save your observation. Every observation must contain date, location and at least one photo. Personal note is not mandatory.</string>
+    <string name="showcase_switch_title">Own / Shared</string>
+    <string name="showcase_switch_message">Switch between your own and shared observations.</string>
+    <string name="showcase_camera_title">Camera</string>
+    <string name="showcase_camera_message">Use camera to take a picture of the flower. Every observation must contain at least one photo.</string>
+    <string name="showcase_gallery_title">Gallery</string>
+    <string name="showcase_gallery_message">Choose already taken photo from your device. You can add observation with photo you took couple years ago. Every observation must contain at least one photo.</string>
+    <string name="showcase_location_title">Location</string>
+    <string name="showcase_location_message">Set or adjust location manually.</string>
+    <string name="showcase_save_title">Save</string>
+    <string name="showcase_save_message">Save your observation. Every observation must contain date, location and at least one photo.</string>
 </resources>

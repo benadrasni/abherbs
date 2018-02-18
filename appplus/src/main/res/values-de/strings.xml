@@ -35,8 +35,16 @@
     <string name="subscription_intro2">Sie sind dabei, Ihre Fotos auf allen Ihren Geräten zu speichern und dauerhaft zu speichern. Mit dem Abonnement stimmen Sie zu, Ihre Beobachtungen mit anderen abonnierten Benutzern zu teilen. Sie werden auch ihre Beobachtungen sehen können. Alle gemeinsamen Beobachtungen sind anonym und ihre Notiz bleibt privat und wird nicht geteilt. Um den Prozess zu vereinfachen, werden Ihre Fotos unter der CC0-Lizenz (Creative Commons Zero) geteilt, also stimmen Sie auch zu.</string>
     <string name="subscription_intro3">Basierend auf diesen Beobachtungen werden Verbreitungskarten zusammen mit anderen, noch nicht implementierten Goodies erstellt, die nur für registrierte Benutzer zugänglich sind.</string>
     <string name="subscription_intro4">Wenn Sie immer noch zögern, den unten stehenden Button zu drücken, gibt es eine 30-tägige Probezeit für beide Abonnements.</string>
-    <string name="showcase_observation_title">Observations</string>
-    <string name="showcase_observation_message">Create and save your observation with date, location, photos and personal note.</string>
-    <string name="showcase_switch_title">Private/Shared</string>
-    <string name="showcase_switch_message">Switch between private and shared observations.</string>
+    <string name="showcase_observation_title">Beobachtungen</string>
+    <string name="showcase_observation_message">Erstellen und speichern Sie Ihre Beobachtung. Jede Beobachtung muss Datum, Ort und mindestens ein Foto enthalten. Persönliche Anmerkung ist nicht zwingend erforderlich.</string>
+    <string name="showcase_switch_title">Eigene / Gemeinsame</string>
+    <string name="showcase_switch_message">Wechseln Sie zwischen Ihren eigenen und gemeinsamen Beobachtungen.</string>
+    <string name="showcase_camera_title">Kamera</string>
+    <string name="showcase_camera_message">Benutze die Kamera, um ein Bild von der Blume zu machen. Jede Beobachtung muss mindestens ein Foto enthalten.</string>
+    <string name="showcase_gallery_title">Galerie</string>
+    <string name="showcase_gallery_message">Wählen Sie bereits aufgenommenes Foto von Ihrem Gerät. Sie können Beobachtungen mit Fotos hinzufügen, die Sie vor ein paar Jahren gemacht haben. Jede Beobachtung muss mindestens ein Foto enthalten.</string>
+    <string name="showcase_location_title">Ort</string>
+    <string name="showcase_location_message">Stellen Sie den Standort manuell ein oder passen Sie ihn an.</string>
+    <string name="showcase_save_title">Speichern</string>
+    <string name="showcase_save_message">Rette deine Beobachtung. Jede Beobachtung muss Datum, Ort und mindestens ein Foto enthalten.</string>
 </resources>

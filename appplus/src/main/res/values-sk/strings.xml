@@ -35,8 +35,16 @@
     <string name="subscription_intro2">Práve sa chystáte predplatiť si uchovávanie fotografií a ich zobrazenie na všetkých zariadeniach. Zároveň s predplatným súhlasíte so zdieľaním vašich pozorovaní s ostatnými platiacimi používateľmi. Ich pozorovania zároveň budú zobrazené aj vám. Zdieľané pozorovania sú anonymné, poznámky ostávajú súkromné a nezdieľajú sa. Pre zjednodušenie procesu všetky fotogiafie budú zdieľané pod licenciou Creative Commons Zero, takže zároveň súhlasíte aj s tým.</string>
     <string name="subscription_intro3">Na základe zdieľaných pozorovaní budú vytvorené mapy výskytu ako aj ďalšie, zatiaľ neimplementované, funkcie, ku ktorým budú mať prístup iba používatelia s predplatným.</string>
     <string name="subscription_intro4">Ak ešte stále váhate so stlačením tlačidla na konci stránky, tak predplatné obsahuje skúšobnú dobu 30 dní, počas ktorých bude zadarmo.</string>
-    <string name="showcase_observation_title">Observations</string>
-    <string name="showcase_observation_message">Create and save your observation with date, location, photos and personal note.</string>
-    <string name="showcase_switch_title">Private/Shared</string>
-    <string name="showcase_switch_message">Switch between private and shared observations.</string>
+    <string name="showcase_observation_title">Pozorovania</string>
+    <string name="showcase_observation_message">Zaznamenať pozorovanie. Každé pozorovanie musí obsahovať dátum, miesto a aspoň jednu fotografiu. Osobná poznámka je nepovinná.</string>
+    <string name="showcase_switch_title">Vlastné / Zdieľané</string>
+    <string name="showcase_switch_message">Prepnínač medzi vlastnými a zdieľanými pozorovaniami.</string>
+    <string name="showcase_camera_title">Fotoaparát</string>
+    <string name="showcase_camera_message">Použiť fotoaparát v mobile na vyfotografovanie kvetu. Každé pozorovanie musí obsahovať aspoň jednu fotografiu.</string>
+    <string name="showcase_gallery_title">Galéria</string>
+    <string name="showcase_gallery_message">Vybrať fotografiu uloženú lokálne na mobile. Zaznamenať sa dá aj pozorovanie, ktoré si spravil pred rokmi. Každé pozorovanie musí obsahovať aspoň jednu fotografiu.</string>
+    <string name="showcase_location_title">Poloha</string>
+    <string name="showcase_location_message">Manuálne nastaviť alebo upraviť polohu.</string>
+    <string name="showcase_save_title">Uložiť</string>
+    <string name="showcase_save_message">Uložiť pozorovanie. Každé pozorovanie musí obsahovať dátum, miesto a aspoň jednu fotografiu.</string>
 </resources>

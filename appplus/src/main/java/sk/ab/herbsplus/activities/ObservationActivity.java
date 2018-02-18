@@ -2,8 +2,10 @@ package sk.ab.herbsplus.activities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.location.Location;
@@ -27,14 +29,18 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.SimpleShowcaseEventListener;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -86,6 +92,11 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
     private Uri mCurrentPhotoUri;
     private int photoPosition;
 
+    private FloatingActionButton fabSave;
+    private ImageView observationCamera;
+    private ImageView observationGallery;
+    private ImageView observationLocation;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +113,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
 
         setContentView(R.layout.observation_activity);
 
-        FloatingActionButton fabSave = (FloatingActionButton) findViewById(R.id.fab_save);
+        fabSave = findViewById(R.id.fab_save);
         fabSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +121,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
-        ImageView observationCamera = (ImageView) findViewById(R.id.observation_camera);
+        observationCamera = findViewById(R.id.observation_camera);
         observationCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +129,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
-        ImageView observationGallery = (ImageView) findViewById(R.id.observation_gallery);
+        observationGallery = findViewById(R.id.observation_gallery);
         observationGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +137,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
-        ImageView observationLocation = (ImageView) findViewById(R.id.observation_location);
+        observationLocation = findViewById(R.id.observation_location);
         observationLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,6 +164,12 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        showWizard();
     }
 
     @Override
@@ -199,7 +216,6 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 if (resultCode == RESULT_OK) {
                     processPhoto(mCurrentPhotoUri);
                 } else {
-                    // Camera failed, check response for error code
                     Toast.makeText(this, R.string.camera_failed, Toast.LENGTH_LONG).show();
                 }
                 break;
@@ -207,7 +223,6 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 if (resultCode == RESULT_OK) {
                     processPhoto(data.getData());
                 } else {
-                    // Camera failed, check response for error code
                     Toast.makeText(this, R.string.gallery_failed, Toast.LENGTH_LONG).show();
                 }
                 break;
@@ -243,6 +258,18 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                             });
                 }
             }
+        }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        MapsInitializer.initialize(this);
+        map = googleMap;
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        if (observation.getLatitude() != null && observation.getLongitude() != null) {
+            LatLng latLong = new LatLng(observation.getLatitude(), observation.getLongitude());
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, 13f));
+            marker = map.addMarker(new MarkerOptions().position(latLong));
         }
     }
 
@@ -385,12 +412,12 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
         long elapsedTime = currentClickTime - mLastClickTime;
         mLastClickTime = currentClickTime;
         if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
-            saveObservation(true);
+            saveObservation();
             finish();
         }
     }
 
-    private void saveObservation(boolean withMessage) {
+    private void saveObservation() {
         if (observation != null && observation.getPhotoPaths() != null && observation.getPhotoPaths().size() > 0
                 && observation.getLatitude() != null && observation.getLongitude() != null)  {
             DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference();
@@ -415,13 +442,9 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                     .child(observation.getId())
                     .setValue(observation);
 
-            if (withMessage) {
-                Toast.makeText(this, R.string.observation_saved, Toast.LENGTH_LONG).show();
-            }
+            Toast.makeText(this, R.string.observation_saved, Toast.LENGTH_LONG).show();
         } else {
-            if (withMessage) {
-                Toast.makeText(this, R.string.observation_not_saved, Toast.LENGTH_LONG).show();
-            }
+            Toast.makeText(this, R.string.observation_not_saved, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -455,7 +478,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
     }
 
     private void refreshObservation() {
-        TextView observationDate = (TextView) findViewById(R.id.observation_date);
+        TextView observationDate = findViewById(R.id.observation_date);
         observationDate.setText(DateFormat.format(DateFormat.getBestDateTimePattern(Locale.getDefault(),
                 AndroidConstants.DATE_SKELETON), observation.getDate()));
 
@@ -466,7 +489,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
         displayPhoto(photoPosition);
 
         if (observation.getNote() != null) {
-            EditText observationNote = (EditText) findViewById(R.id.observation_note);
+            EditText observationNote = findViewById(R.id.observation_note);
             observationNote.setText(observation.getNote());
         }
     }
@@ -537,7 +560,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 mLastClickTime = currentClickTime;
                 if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
                     if (observation.getPhotoPaths().size() > 0) {
-                        AlertDialog dialogBox = DeletePhotoDialog(photoPosition);
+                        AlertDialog dialogBox = DeletePhotoDialog();
                         dialogBox.show();
                     }
                 }
@@ -611,7 +634,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 .create();
     }
 
-    private AlertDialog DeletePhotoDialog(final int position) {
+    private AlertDialog DeletePhotoDialog() {
         return new AlertDialog.Builder(this)
                 .setTitle(R.string.photo_delete)
                 .setMessage(R.string.photo_delete_question)
@@ -635,10 +658,8 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
     }
 
     private void displayPhoto(int position) {
-        final ImageView photo = (ImageView) findViewById(R.id.observation_photo);
-        final ImageButton prevPhoto = (ImageButton) findViewById(R.id.observation_prev_photo);
-        final ImageButton nextPhoto = (ImageButton) findViewById(R.id.observation_next_photo);
-        final TextView counter = (TextView) findViewById(R.id.observation_photo_counter);
+        final ImageView photo = findViewById(R.id.observation_photo);
+        final TextView counter = findViewById(R.id.observation_photo_counter);
 
         String counterText = (observation.getPhotoPaths().size() == 0 ? position : position + 1) + " / " + observation.getPhotoPaths().size();
         counter.setText(counterText);
@@ -663,18 +684,6 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
         displayPhoto(photoPosition);
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        MapsInitializer.initialize(this);
-        map = googleMap;
-        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        if (observation.getLatitude() != null && observation.getLongitude() != null) {
-            LatLng latLong = new LatLng(observation.getLatitude(), observation.getLongitude());
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLong, 13f));
-            marker = map.addMarker(new MarkerOptions().position(latLong));
-        }
-    }
-
     private void addMarkerToMap(Double latitude, Double longitude, boolean rewrite) {
         if (rewrite || observation.getLatitude() == null || observation.getLongitude() == null) {
             observation.setLatitude(latitude);
@@ -689,5 +698,88 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 marker.setPosition(latLong);
             }
         }
+    }
+
+    private void showWizard() {
+        final SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Boolean showWizard = !preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + SpecificConstants.VERSION_2_0_0, false);
+        if (showWizard) {
+            showWizardCamera();
+            editor.putBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + SpecificConstants.VERSION_2_0_0, true);
+            editor.apply();
+        }
+    }
+
+    private void showWizardCamera() {
+        new ShowcaseView.Builder(this)
+                .withMaterialShowcase()
+                .setStyle(sk.ab.herbsbase.R.style.CustomShowcaseTheme)
+                .setTarget(new ViewTarget(observationCamera))
+                .hideOnTouchOutside()
+                .setContentTitle(R.string.showcase_camera_title)
+                .setContentText(R.string.showcase_camera_message)
+                .setShowcaseEventListener(new SimpleShowcaseEventListener() {
+
+                    @Override
+                    public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+                        showWizardGallery();
+                    }
+                })
+                .build();
+    }
+
+    private void showWizardGallery() {
+        new ShowcaseView.Builder(this)
+                .withMaterialShowcase()
+                .setStyle(sk.ab.herbsbase.R.style.CustomShowcaseTheme)
+                .setTarget(new ViewTarget(observationGallery))
+                .hideOnTouchOutside()
+                .setContentTitle(R.string.showcase_gallery_title)
+                .setContentText(R.string.showcase_gallery_message)
+                .setShowcaseEventListener(new SimpleShowcaseEventListener() {
+
+                    @Override
+                    public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+                        showWizardLocation();
+                    }
+                })
+                .build();
+    }
+
+    private void showWizardLocation() {
+        new ShowcaseView.Builder(this)
+                .withMaterialShowcase()
+                .setStyle(sk.ab.herbsbase.R.style.CustomShowcaseTheme)
+                .setTarget(new ViewTarget(observationLocation))
+                .hideOnTouchOutside()
+                .setContentTitle(R.string.showcase_location_title)
+                .setContentText(R.string.showcase_location_message)
+                .setShowcaseEventListener(new SimpleShowcaseEventListener() {
+
+                    @Override
+                    public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+                        showWizardSave();
+                    }
+                })
+                .build();
+    }
+
+    private void showWizardSave() {
+        ShowcaseView showcaseView = new ShowcaseView.Builder(this)
+                .withMaterialShowcase()
+                .setStyle(sk.ab.herbsbase.R.style.CustomShowcaseTheme)
+                .setTarget(new ViewTarget(fabSave))
+                .hideOnTouchOutside()
+                .setContentTitle(R.string.showcase_save_title)
+                .setContentText(R.string.showcase_save_message)
+                .build();
+        RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        int margin = ((Number) (getResources().getDisplayMetrics().density * 16)).intValue();
+        lps.setMargins(margin, margin, margin, margin);
+        showcaseView.setButtonPosition(lps);
     }
 }

@@ -13,6 +13,7 @@ public class SpecificConstants {
     public final static String PHOTOS = "/photos";
     public final static String FAMILIES = "/families";
 
+    public final static String VERSION_2_0_0 = "216";
     public final static String VERSION_2_0_0_a = "216a";
     public final static String VERSION_2_0_0_b = "216b";
 
