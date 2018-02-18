@@ -31,6 +31,8 @@ import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
+import com.example.billingmodule.R;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -74,7 +76,7 @@ public class BillingManager implements PurchasesUpdatedListener {
      * want to make it easy for an attacker to replace the public key with one
      * of their own and then fake messages from the server.
      */
-    private static final String BASE_64_ENCODED_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl84bI7L1sMUHCH0I98HqNtaFE8DTCEBROyqdfA7O7O7lfbGDYD0GTvecnovrftx1OTnUy6z1k52eywXNXjdseyhyN8pMOmpUy5rxLCtdFpiwPY34wvmEvEEf3lA29AaT+praJzaLPD70a2evTTERofakRhjQBilhBhtGAp/5vT0W1mW27hSCiojvFoF4AG6g2eBGkKEnlSy1SVg+cYl6c2QIEjJhcuJzU6C6fZHw4nxjkLHMsIu3/NnIYancPJ1JeqxGhy2BIlmJ7qss5z6DZt6mIhVzu/b75RiJaQ5d7RSOpJWDA/gjVvbEmeKQacIGDp29u1JpxvCmfI7oqXaSdwIDAQAB";
+    private static String BASE_64_ENCODED_PUBLIC_KEY;
 
     /**
      * Listener to the updates that happen when purchases list was updated or consumption of the
@@ -90,6 +92,11 @@ public class BillingManager implements PurchasesUpdatedListener {
         mActivity = activity;
         mBillingUpdatesListener = updatesListener;
         mBillingClient = BillingClient.newBuilder(mActivity).setListener(this).build();
+        BASE_64_ENCODED_PUBLIC_KEY = getContext().getResources().getString(R.string.public_key2)
+                + getContext().getResources().getString(R.string.public_key4)
+                + getContext().getResources().getString(R.string.public_key5)
+                + getContext().getResources().getString(R.string.public_key1)
+                + getContext().getResources().getString(R.string.public_key3);
 
         Log.d(TAG, "Starting setup.");
 
