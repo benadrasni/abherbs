@@ -2,6 +2,7 @@ package sk.ab.herbsbase;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -44,7 +45,7 @@ public abstract class BaseApp extends Application {
         googleClient = new GoogleClient();
     }
 
-    public static void initImageLoader(Context context, int cacheSize) {
+    public void initImageLoader(Context context, int cacheSize) {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
                 .threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
@@ -61,6 +62,7 @@ public abstract class BaseApp extends Application {
                 .considerExifParams(true)
                 .showImageForEmptyUri(R.drawable.no_image_available)
                 .showImageOnFail(R.drawable.no_image_available)
+                .showImageOnLoading(R.drawable.loading_image)
                 .build();
     }
 

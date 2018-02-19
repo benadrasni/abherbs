@@ -153,7 +153,6 @@ public class InfoFragment extends Fragment {
                                             // add icon
                                             if ((int)sections[i][0] != 0) {
                                                 ImageSpan span = new ImageSpan(getContext(), (int)sections[i][0], ImageSpan.ALIGN_BOTTOM);
-                                                span.getDrawable().setAlpha(AndroidConstants.ICON_OPACITY);
                                                 ssb.setSpan(span, 0, 2, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                                             }
 
@@ -362,31 +361,31 @@ public class InfoFragment extends Fragment {
                 {0, plantTranslation != null && plantTranslation.getDescription() != null ? plantTranslation.getDescription()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getDescription() != null
                         ? plantTranslationGT.getDescription() : plantTranslationEn != null && plantTranslationEn.getDescription() != null ? plantTranslationEn.getDescription() : ""},
-                {R.drawable.ic_flower_black_24dp, plantTranslation != null && plantTranslation.getFlower() != null ? plantTranslation.getFlower()
+                {R.drawable.ic_flower_grey_24dp, plantTranslation != null && plantTranslation.getFlower() != null ? plantTranslation.getFlower()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getFlower() != null
                         ? plantTranslationGT.getFlower() : plantTranslationEn != null && plantTranslationEn.getFlower() != null ? plantTranslationEn.getFlower() : ""},
-                {R.drawable.ic_inflorescence_black_24dp, plantTranslation != null && plantTranslation.getInflorescence() != null ? plantTranslation.getInflorescence()
+                {R.drawable.ic_inflorescence_grey_24dp, plantTranslation != null && plantTranslation.getInflorescence() != null ? plantTranslation.getInflorescence()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getInflorescence() != null
                         ? plantTranslationGT.getInflorescence() : plantTranslationEn != null && plantTranslationEn.getInflorescence() != null ? plantTranslationEn.getInflorescence() : ""},
-                {R.drawable.ic_fruit_black_24dp, plantTranslation != null && plantTranslation.getFruit() != null ? plantTranslation.getFruit()
+                {R.drawable.ic_fruit_grey_24dp, plantTranslation != null && plantTranslation.getFruit() != null ? plantTranslation.getFruit()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getFruit() != null
                         ? plantTranslationGT.getFruit() : plantTranslationEn != null && plantTranslationEn.getFruit() != null ? plantTranslationEn.getFruit() : ""},
-                {R.drawable.ic_leaf_black_24dp, plantTranslation != null && plantTranslation.getLeaf() != null ? plantTranslation.getLeaf()
+                {R.drawable.ic_leaf_grey_24dp, plantTranslation != null && plantTranslation.getLeaf() != null ? plantTranslation.getLeaf()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getLeaf() != null
                         ? plantTranslationGT.getLeaf() : plantTranslationEn != null && plantTranslationEn.getLeaf() != null ? plantTranslationEn.getLeaf() : ""},
-                {R.drawable.ic_stem_black_24dp, plantTranslation != null && plantTranslation.getStem() != null ? plantTranslation.getStem()
+                {R.drawable.ic_stem_grey_24dp, plantTranslation != null && plantTranslation.getStem() != null ? plantTranslation.getStem()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getStem() != null
                         ? plantTranslationGT.getStem() : plantTranslationEn != null && plantTranslationEn.getStem() != null ? plantTranslationEn.getStem() : ""},
-                {R.drawable.ic_home_black_24dp, plantTranslation != null && plantTranslation.getHabitat() != null ? plantTranslation.getHabitat()
+                {R.drawable.ic_home_grey_24dp, plantTranslation != null && plantTranslation.getHabitat() != null ? plantTranslation.getHabitat()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getHabitat() != null
                         ? plantTranslationGT.getHabitat() : plantTranslationEn != null && plantTranslationEn.getHabitat() != null ? plantTranslationEn.getHabitat() : ""},
-                {R.drawable.ic_toxicity_black_24dp, plantTranslation != null && plantTranslation.getToxicity() != null ? plantTranslation.getToxicity()
+                {R.drawable.ic_toxicity_grey_24dp, plantTranslation != null && plantTranslation.getToxicity() != null ? plantTranslation.getToxicity()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getToxicity() != null
                         ? plantTranslationGT.getToxicity() : plantTranslationEn != null && plantTranslationEn.getToxicity() != null ? plantTranslationEn.getToxicity() : ""},
-                {R.drawable.ic_local_pharmacy_black_24dp, plantTranslation != null && plantTranslation.getHerbalism() != null ? plantTranslation.getHerbalism()
+                {R.drawable.ic_local_pharmacy_grey_24dp, plantTranslation != null && plantTranslation.getHerbalism() != null ? plantTranslation.getHerbalism()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getHerbalism() != null
                         ? plantTranslationGT.getHerbalism() : plantTranslationEn != null && plantTranslationEn.getHerbalism() != null ? plantTranslationEn.getHerbalism() : ""},
-                {R.drawable.ic_question_mark_black_24dp, plantTranslation != null && plantTranslation.getTrivia() != null ? plantTranslation.getTrivia()
+                {R.drawable.ic_question_mark_grey_24dp, plantTranslation != null && plantTranslation.getTrivia() != null ? plantTranslation.getTrivia()
                         : withTranslation && plantTranslationGT != null && plantTranslationGT.getTrivia() != null
                         ? plantTranslationGT.getTrivia() : plantTranslationEn != null && plantTranslationEn.getTrivia() != null ? plantTranslationEn.getTrivia() : ""}
         };
