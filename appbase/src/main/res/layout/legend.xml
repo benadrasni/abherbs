@@ -5,54 +5,196 @@
               android:layout_height="match_parent"
               android:weightSum="1">
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.03">
+        android:layout_margin="12dp"
+        android:columnCount="2"
+        android:rowCount="10">
 
         <ImageView
-            android:id="@+id/img_toxicity1"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/toxicity1"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:paddingTop="@dimen/list_padding"
-            />
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/toxicity1"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_gravity="center_vertical"
-            android:text="@string/toxicity1"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginBottom="12dp"
             android:paddingStart="50dp"
-            android:id="@+id/toxicity1"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/toxicity1"/>
 
         <ImageView
-            android:id="@+id/img_toxicity2"
             android:layout_width="70dp"
             android:layout_height="50dp"
-            android:background="@drawable/toxicity2"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:paddingTop="@dimen/list_padding"
-            />
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/toxicity2"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="start|center_vertical"
+            android:paddingStart="50dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_gravity="center_vertical"
-            android:text="@string/toxicity2"
-            android:paddingStart="40dp"
-            android:id="@+id/toxicity2"/>
-    </LinearLayout>
+            android:text="@string/toxicity2"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/ic_flower_black_24dp"
+            android:alpha="0.5"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_gravity="start|center_vertical"
+            android:paddingStart="50dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/plant_flowers"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/ic_inflorescence_black_24dp"
+            android:alpha="0.5"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_gravity="start|center_vertical"
+            android:paddingStart="50dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/plant_inflorescences"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/ic_fruit_black_24dp"
+            android:alpha="0.5"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_gravity="start|center_vertical"
+            android:paddingStart="50dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/plant_fruits"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/ic_leaf_black_24dp"
+            android:alpha="0.5"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_gravity="start|center_vertical"
+            android:paddingStart="50dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/plant_leaves"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/ic_stem_black_24dp"
+            android:alpha="0.5"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_gravity="start|center_vertical"
+            android:paddingStart="50dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/plant_stem"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/ic_home_black_24dp"
+            android:alpha="0.5"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_gravity="start|center_vertical"
+            android:paddingStart="50dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/plant_habitat"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/ic_toxicity_black_24dp"
+            android:alpha="0.5"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_gravity="start|center_vertical"
+            android:paddingStart="50dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/plant_toxicity"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/ic_local_pharmacy_black_24dp"
+            android:alpha="0.5"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_gravity="start|center_vertical"
+            android:paddingStart="50dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/plant_herbalism"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/ic_question_mark_black_24dp"
+            android:alpha="0.5"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_gravity="start|center_vertical"
+            android:paddingStart="50dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/plant_trivia"/>
+    </GridLayout>
 </LinearLayout>

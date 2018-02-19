@@ -28,7 +28,6 @@ import sk.ab.herbsbase.tools.Utils;
  * <p/>
  */
 public class GalleryFragment extends Fragment {
-    private static final String THUMBNAIL_DIR = "/.thumbnails";
 
     private int thumbnail_position;
 
@@ -59,7 +58,7 @@ public class GalleryFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
             final String url = urls[position];
-            Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + getThumbnailUrl(url),
+            Utils.displayImage(getActivity().getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + Utils.getThumbnailUrl(url),
                     holder.mImageView, ((BaseApp) getActivity().getApplication()).getOptions());
 
             final ImageView imageView = (ImageView) cardGallery.findViewById(R.id.plant_photo);
@@ -84,14 +83,6 @@ public class GalleryFragment extends Fragment {
         @Override
         public int getItemCount() {
             return urls.length;
-        }
-
-        private String getThumbnailUrl(String url) {
-            String result = url;
-            if (url.lastIndexOf('/') > -1) {
-                result = url.substring(0, url.lastIndexOf('/')) + THUMBNAIL_DIR + url.substring(url.lastIndexOf('/'));
-            }
-            return result;
         }
     }
 

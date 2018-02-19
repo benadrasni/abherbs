@@ -18,6 +18,8 @@ public class AndroidConstants {
 
     public final static int DEFAULT_CACHE_SIZE = 50;
 
+    public final static int ICON_OPACITY = 125;
+
     public static final long MIN_CLICK_INTERVAL = 600;
 
     public final static String EMAIL = "whatsthoseflowers@gmail.com";
@@ -48,6 +50,7 @@ public class AndroidConstants {
     public final static String STORAGE_FAMILIES = "families/";
     public final static String STORAGE_PHOTOS = "photos/";
     public final static String DEFAULT_EXTENSION = ".webp";
+    public static final String THUMBNAIL_DIR = "/.thumbnails";
 
     public final static String RES_TAXONOMY_PREFIX = "taxonomy_";
     public final static String ROOT_TAXON = "Eukaryota";
