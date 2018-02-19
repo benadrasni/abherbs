@@ -281,6 +281,9 @@ public class TaxonomyFragment extends Fragment {
 
     private void setHeader() {
         FirebasePlant plant = getPlant();
+        if (plant == null) {
+            return;
+        }
         PlantTranslation plantTranslation = getPlantTranslation();
 
         Integer toxicityClass = plant.getToxicityClass();
