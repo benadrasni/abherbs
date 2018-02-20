@@ -524,7 +524,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 long currentClickTime = SystemClock.uptimeMillis();
                 long elapsedTime = currentClickTime - mLastClickTime;
                 mLastClickTime = currentClickTime;
-                if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
+                if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL && observation.getPhotoPaths().size() > 0) {
                     photoPosition--;
                     if (photoPosition < 0) {
                         photoPosition = observation.getPhotoPaths().size() - 1;
@@ -541,7 +541,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 long currentClickTime = SystemClock.uptimeMillis();
                 long elapsedTime = currentClickTime - mLastClickTime;
                 mLastClickTime = currentClickTime;
-                if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
+                if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL && observation.getPhotoPaths().size() > 0) {
                     photoPosition++;
                     if (photoPosition == observation.getPhotoPaths().size()) {
                         photoPosition = 0;
@@ -558,11 +558,9 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                 long currentClickTime = SystemClock.uptimeMillis();
                 long elapsedTime = currentClickTime - mLastClickTime;
                 mLastClickTime = currentClickTime;
-                if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
-                    if (observation.getPhotoPaths().size() > 0) {
-                        AlertDialog dialogBox = DeletePhotoDialog();
-                        dialogBox.show();
-                    }
+                if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL && observation.getPhotoPaths().size() > 0) {
+                    AlertDialog dialogBox = DeletePhotoDialog();
+                    dialogBox.show();
                 }
             }
         });
