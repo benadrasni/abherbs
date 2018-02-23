@@ -20,6 +20,10 @@
     <string translatable="false" name="nop_5">5</string>
     <string translatable="false" name="nop_many">Many</string>
     <string translatable="false" name="nop_bisymmetric">Bisymetric</string>
+	
+    <string translatable="false" name="agpiii">APG III</string>
+    <string translatable="false" name="agpiv">APG IV</string>
+
 
     <string name="about">About</string>
     <string name="help">Help</string>
@@ -117,8 +121,6 @@
     <string name="legend">Legend</string>
     <string name="toxicity1">poisonous plant</string>
     <string name="toxicity2">slightly poisonous plant</string>
-    <string name="agpiii" translatable="false">APG III</string>
-    <string name="agpiv" translatable="false">APG IV</string>
     <string name="rate_question">Is this app helpful?</string>
     <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
     <string name="rate_never">Never</string>
