@@ -119,4 +119,9 @@
     <string name="subscribe_to_new">Interesting facts about flowers</string>
     <string name="subscribe_to_new_summary">Subscribe to occasional interesting fact about certain flower.</string>
     <string name="taxonomy_unknown">ismeretlen</string>
+    <string name="yes">Igen</string>
+    <string name="no">Nem</string>
+    <string name="update_version">Frissítse a verziót</string>
+    <string name="new_version_available">Új verzió elérhető, kérjük, frissítse.</string>
+    <string name="update">Frissítés</string>
 </resources>

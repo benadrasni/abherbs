@@ -120,4 +120,9 @@
     <string name="subscribe_to_new">Interesting facts about flowers</string>
     <string name="subscribe_to_new_summary">Subscribe to occasional interesting fact about certain flower.</string>
     <string name="taxonomy_unknown">desconocido</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="update_version">Versión actualizada</string>
+    <string name="new_version_available">La nueva versión está disponible, por favor actualice.</string>
+    <string name="update">Actualizar</string>
 </resources>

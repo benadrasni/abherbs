@@ -119,4 +119,9 @@
     <string name="subscribe_to_new">Interesting facts about flowers</string>
     <string name="subscribe_to_new_summary">Subscribe to occasional interesting fact about certain flower.</string>
     <string name="taxonomy_unknown">ਅਣਜਾਣ</string>
+    <string name="yes">ਹਾਂ</string>
+    <string name="no">ਨਹੀਂ</string>
+    <string name="update_version">ਵਰਜਨ ਅਪਡੇਟ ਕਰੋ</string>
+    <string name="new_version_available">ਨਵਾਂ ਵਰਜਨ ਉਪਲਬਧ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਅਪਡੇਟ ਕਰੋ</string>
+    <string name="update">ਅੱਪਡੇਟ ਕਰੋ</string>
 </resources>

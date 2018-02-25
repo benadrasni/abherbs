@@ -122,8 +122,8 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
     }
 
     @Override
-    public String getAppVersion() {
-        return SpecificConstants.PACKAGE.substring(SpecificConstants.PACKAGE.lastIndexOf(".")+1) + AndroidConstants.SEPARATOR + BuildConfig.VERSION_CODE;
+    public int getAppVersionCode() {
+        return BuildConfig.VERSION_CODE;
     }
 
     @Override

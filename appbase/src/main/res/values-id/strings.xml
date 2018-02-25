@@ -119,4 +119,9 @@
     <string name="subscribe_to_new">Interesting facts about flowers</string>
     <string name="subscribe_to_new_summary">Subscribe to occasional interesting fact about certain flower.</string>
     <string name="taxonomy_unknown">tidak diketahui</string>
+    <string name="yes">iya nih</string>
+    <string name="no">Tidak</string>
+    <string name="update_version">Perbarui versi</string>
+    <string name="new_version_available">Versi baru tersedia, silahkan update.</string>
+    <string name="update">Memperbarui</string>
 </resources>

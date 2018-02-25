@@ -119,4 +119,9 @@
     <string name="subscribe_to_new">Interesting facts about flowers</string>
     <string name="subscribe_to_new_summary">Subscribe to occasional interesting fact about certain flower.</string>
     <string name="taxonomy_unknown">teadmata</string>
+    <string name="yes">Jah</string>
+    <string name="no">Ei</string>
+    <string name="update_version">Uuenda versiooni</string>
+    <string name="new_version_available">Uus versioon on saadaval, palun uuendage.</string>
+    <string name="update">Uuenda</string>
 </resources>

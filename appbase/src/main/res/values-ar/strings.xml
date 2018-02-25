@@ -119,4 +119,9 @@
     <string name="subscribe_to_new">Interesting facts about flowers</string>
     <string name="subscribe_to_new_summary">Subscribe to occasional interesting fact about certain flower.</string>
     <string name="taxonomy_unknown">غير معروف</string>
+    <string name="yes">نعم فعلا</string>
+    <string name="no">لا</string>
+    <string name="update_version">تحديث الإصدار</string>
+    <string name="new_version_available">الإصدار الجديد هو متاح، يرجى تحديث.</string>
+    <string name="update">تحديث</string>
 </resources>

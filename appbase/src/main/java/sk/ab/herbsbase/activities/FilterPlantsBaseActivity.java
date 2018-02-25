@@ -2,6 +2,7 @@ package sk.ab.herbsbase.activities;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
@@ -11,11 +12,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +34,7 @@ import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.commons.BaseFilterFragment;
 import sk.ab.herbsbase.commons.RateDialogFragment;
+import sk.ab.herbsbase.tools.Utils;
 
 /**
  * Main activity which handles all filter fragments.
@@ -70,7 +79,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
             }
         });
 
-        countButton = (FloatingActionButton) findViewById(R.id.countButton);
+        countButton = findViewById(R.id.countButton);
         countButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +103,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
             }
         });
 
-        countText = (TextView) findViewById(R.id.countText);
+        countText = findViewById(R.id.countText);
 
         FragmentManager.enableDebugLogging(true);
         FragmentManager fm = getSupportFragmentManager();
@@ -105,7 +114,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         fragmentTransaction.replace(R.id.menu_content, mPropertyMenu);
         fragmentTransaction.commit();
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name) {
 
@@ -129,6 +138,8 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         getCount();
 
         showRateDialog();
+
+        updateVersionDialog();
     }
 
     @Override
@@ -285,7 +296,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
 
     protected abstract void getList();
 
-    protected abstract String getAppVersion();
+    protected abstract int getAppVersionCode();
 
     private List<BaseFilterFragment> getFilterAttributes() {
         return getApp().getFilterAttributes();
@@ -303,10 +314,10 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
 
         int rateState = preferences.getInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_NO);
         if (BaseApp.isNetworkAvailable(getApplicationContext()) && rateState == AndroidConstants.RATE_SHOW) {
-            final LinearLayout rateLayout = (LinearLayout)findViewById(R.id.ratingQuestion);
+            final LinearLayout rateLayout = findViewById(R.id.ratingQuestion);
             rateLayout.setVisibility(View.VISIBLE);
 
-            Button bYes = (Button)findViewById(R.id.likeYes);
+            Button bYes = findViewById(R.id.likeYes);
             bYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -315,7 +326,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
                     rateLayout.setVisibility(View.GONE);
                 }
             });
-            Button bNo = (Button)findViewById(R.id.likeNo);
+            Button bNo = findViewById(R.id.likeNo);
             bNo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -329,6 +340,31 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
                 }
             });
         }
+    }
+
+    private void updateVersionDialog() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        String packageName = this.getBaseContext().getPackageName();
+        DatabaseReference mFirebaseRefVersion = database.getReference(AndroidConstants.FIREBASE_VERSIONS + AndroidConstants.SEPARATOR
+                + packageName.substring(packageName.lastIndexOf('.') + 1) + AndroidConstants.SEPARATOR + Build.VERSION.SDK_INT);
+        mFirebaseRefVersion.keepSynced(true);
+        mFirebaseRefVersion.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    int currentVersion = ((Long) dataSnapshot.getValue()).intValue();
+                    if (getAppVersionCode() < currentVersion) {
+                        AlertDialog dialogBox = Utils.UpdateDialog(FilterPlantsBaseActivity.this);
+                        dialogBox.show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
 

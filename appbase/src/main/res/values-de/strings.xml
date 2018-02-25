@@ -119,4 +119,9 @@
     <string name="subscribe_to_new">Interessante Fakten über Blumen</string>
     <string name="subscribe_to_new_summary">Abonnieren Sie gelegentlich interessante Fakten über bestimmte Blumen.</string>
     <string name="taxonomy_unknown">unbekannte</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="update_version">Update-Version</string>
+    <string name="new_version_available">Neue Version ist verfügbar, bitte updaten.</string>
+    <string name="update">Aktualisieren</string>
 </resources>

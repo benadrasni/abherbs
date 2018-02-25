@@ -122,6 +122,7 @@ public class AndroidConstants {
     public final static String FIREBASE_OBSERVATIONS_STATUS = "status";
     public final static String FIREBASE_USERS = "users";
     public final static String FIREBASE_USERS_TOKEN = "token";
+    public final static String FIREBASE_VERSIONS = "versions";
 
     public final static String FIREBASE_APG_TYPE = "type";
     public final static String FIREBASE_APG_NAMES = "names";

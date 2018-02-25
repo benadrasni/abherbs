@@ -119,4 +119,9 @@
     <string name="subscribe_to_new">Interesting facts about flowers</string>
     <string name="subscribe_to_new_summary">Subscribe to occasional interesting fact about certain flower.</string>
     <string name="taxonomy_unknown">невідомий</string>
+    <string name="yes">Так</string>
+    <string name="no">Немає</string>
+    <string name="update_version">Оновити версію</string>
+    <string name="new_version_available">Нова версія доступна, будь ласка, оновіть.</string>
+    <string name="update">Оновити</string>
 </resources>
