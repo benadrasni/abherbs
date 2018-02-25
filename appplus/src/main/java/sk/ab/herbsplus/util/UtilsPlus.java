@@ -6,11 +6,16 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
 import java.util.List;
 
 import sk.ab.herbsbase.AndroidConstants;
+import sk.ab.herbsbase.activities.BaseActivity;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.activities.SubscriptionActivity;
 
@@ -19,7 +24,7 @@ import sk.ab.herbsplus.activities.SubscriptionActivity;
  * Created by adrian on 2/9/2018.
  */
 
-public class Utils {
+public class UtilsPlus {
 
     public static AlertDialog SubscriptionDialog(final Activity activity) {
         return new AlertDialog.Builder(activity)
@@ -81,5 +86,18 @@ public class Utils {
                         .setAvailableProviders(providers)
                         .build(),
                 AndroidConstants.REQUEST_SIGN_IN);
+    }
+
+    public static void saveToken(BaseActivity activity) {
+        String token = activity.getSharedPreferences().getString(AndroidConstants.TOKEN_KEY, null);
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (token != null && currentUser != null) {
+            DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference();
+            // by user, by date
+            mFirebaseRef.child(AndroidConstants.FIREBASE_USERS)
+                    .child(currentUser.getUid())
+                    .child(AndroidConstants.FIREBASE_USERS_TOKEN)
+                    .setValue(token);
+        }
     }
 }

@@ -25,7 +25,7 @@ import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.activities.DisplayPlantPlusActivity;
 import sk.ab.herbsplus.commons.ObservationAdapter;
 import sk.ab.herbsplus.commons.ObservationHolder;
-import sk.ab.herbsplus.util.Utils;
+import sk.ab.herbsplus.util.UtilsPlus;
 
 public class ObservationFragment extends Fragment {
 
@@ -73,7 +73,7 @@ public class ObservationFragment extends Fragment {
                             recyclerView.swapAdapter(adapterPublic, true);
                             adapterPublic.onDataChanged();
                         } else {
-                            AlertDialog dialogBox = Utils.SubscriptionDialog(getActivity());
+                            AlertDialog dialogBox = UtilsPlus.SubscriptionDialog(getActivity());
                             dialogBox.show();
                             buttonView.setChecked(false);
                         }

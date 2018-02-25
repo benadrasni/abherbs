@@ -26,7 +26,7 @@ import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.commons.ObservationAdapter;
 import sk.ab.herbsplus.commons.ObservationHolder;
-import sk.ab.herbsplus.util.Utils;
+import sk.ab.herbsplus.util.UtilsPlus;
 
 /**
  * Show private/public observations
@@ -106,7 +106,7 @@ public class ListObservationsActivity extends SearchBaseActivity {
                         recyclerView.swapAdapter(adapterPublic, true);
                         adapterPublic.onDataChanged();
                     } else {
-                        AlertDialog dialogBox = Utils.SubscriptionDialog(ListObservationsActivity.this);
+                        AlertDialog dialogBox = UtilsPlus.SubscriptionDialog(ListObservationsActivity.this);
                         dialogBox.show();
                         buttonView.setChecked(false);
                     }

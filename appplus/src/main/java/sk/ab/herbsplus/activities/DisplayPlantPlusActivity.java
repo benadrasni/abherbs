@@ -12,7 +12,6 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -22,8 +21,6 @@ import com.github.amlcurran.showcaseview.SimpleShowcaseEventListener;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,7 +38,7 @@ import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.entity.ObservationParcel;
 import sk.ab.herbsplus.fragments.ObservationFragment;
 import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
-import sk.ab.herbsplus.util.Utils;
+import sk.ab.herbsplus.util.UtilsPlus;
 
 /**
  * @see DisplayPlantBaseActivity
@@ -84,7 +81,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                     getMenuFragment().manageUserSettings();
                     currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     refreshObservations();
-                    saveToken();
+                    UtilsPlus.saveToken(this);
                     if (shouldOpenObservation) {
                         handleClickOnObservation();
                         shouldOpenObservation = false;
@@ -230,22 +227,10 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                 intent.putExtra(AndroidConstants.STATE_OBSERVATION, new ObservationParcel(observation));
                 startActivity(intent);
             } else {
-                AlertDialog dialogBox = Utils.LoginDialog(this);
+                AlertDialog dialogBox = UtilsPlus.LoginDialog(this);
                 dialogBox.show();
                 shouldOpenObservation = true;
             }
-        }
-    }
-
-    private void saveToken() {
-        String token = getSharedPreferences().getString(AndroidConstants.TOKEN_KEY, null);
-        if (token != null) {
-            DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference();
-            // by user, by date
-            mFirebaseRef.child(AndroidConstants.FIREBASE_USERS)
-                    .child(currentUser.getUid())
-                    .child(AndroidConstants.FIREBASE_USERS_TOKEN)
-                    .setValue(token);
         }
     }
 

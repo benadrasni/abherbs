@@ -20,7 +20,7 @@ import sk.ab.herbsplus.activities.FeedbackPlusActivity;
 import sk.ab.herbsplus.activities.FilterPlantsPlusActivity;
 import sk.ab.herbsplus.activities.SubscriptionActivity;
 import sk.ab.herbsplus.activities.UserPreferencePlusActivity;
-import sk.ab.herbsplus.util.Utils;
+import sk.ab.herbsplus.util.UtilsPlus;
 
 /**
  * @see PropertyListBaseFragment
@@ -56,7 +56,7 @@ public class PropertyListPlusFragment extends PropertyListBaseFragment {
         if (activity != null && !activity.isDestroyed()) {
             switch (setting.getName()) {
                 case AndroidConstants.ITEM_LOGIN:
-                    Utils.LoginActivity(activity);
+                    UtilsPlus.LoginActivity(activity);
                     break;
                 case AndroidConstants.ITEM_SUBSCRIPTION:
                     Intent intent = new Intent(activity, SubscriptionActivity.class);

@@ -26,6 +26,7 @@ import sk.ab.herbsplus.BuildConfig;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
+import sk.ab.herbsplus.util.UtilsPlus;
 
 /**
  * @see FilterPlantsBaseActivity
@@ -60,7 +61,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
                     intent = new Intent(this, ListObservationsActivity.class);
                     startActivity(intent);
                 } else {
-                    AlertDialog dialogBox = sk.ab.herbsplus.util.Utils.LoginDialog(this);
+                    AlertDialog dialogBox = UtilsPlus.LoginDialog(this);
                     dialogBox.show();
                 }
                 return true;
@@ -68,6 +69,25 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case AndroidConstants.REQUEST_SIGN_IN:
+                if (resultCode == RESULT_OK) {
+                    // Successfully signed in
+                    getMenuFragment().manageUserSettings();
+                    UtilsPlus.saveToken(this);
+                } else {
+                    // Sign in failed, check response for error code
+                    Toast.makeText(this, R.string.authentication_failed, Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
+    }
+
 
     @Override
     protected void getCount() {
