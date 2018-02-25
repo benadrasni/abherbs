@@ -105,7 +105,6 @@
     <string name="feedback_google_play">Google Play</string>
     <string name="feedback_title">How to contribute</string>
     <string name="feedback_translate">You can report any typo or mistake you found or submit new translation in your language.</string>
-    <string name="feedback_submit_translate">whatsthatflower.com</string>
     <string name="feedback_cash">You can support new development and database extension with cash.</string>
     <string name="feedback_submit_cash">Donate</string>
     <string name="taxonomy_subgenus">Subgenus</string>
@@ -124,4 +123,6 @@
     <string name="update_version">Ажурирај верзију</string>
     <string name="new_version_available">Нова верзија је доступна, молимо вас да ажурирате.</string>
     <string name="update">Ажурирање</string>
+    <string name="feedback_submit_translate_data">Improve flower\'s data</string>
+    <string name="feedback_submit_translate_app">Improve application\'s labels</string>
 </resources>

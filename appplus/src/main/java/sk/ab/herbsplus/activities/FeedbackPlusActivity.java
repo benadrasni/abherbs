@@ -78,12 +78,22 @@ public class FeedbackPlusActivity extends AppCompatActivity {
     }
 
     private void initializeTranslateButton() {
-        Button submitTranslate = (Button)findViewById(R.id.contribution_submit_email);
-        submitTranslate.setOnClickListener(new View.OnClickListener() {
+        Button submitTranslateData = findViewById(R.id.contribution_submit_translate_data);
+        submitTranslateData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
-                        + "#translate_flower"));
+                        + "translate_flower"));
+                startActivity(browserIntent);
+            }
+        });
+
+        Button submitTranslateApp = findViewById(R.id.contribution_submit_translate_app);
+        submitTranslateApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
+                        + "translate_app"));
                 startActivity(browserIntent);
             }
         });

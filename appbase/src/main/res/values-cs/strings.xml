@@ -105,8 +105,7 @@
     <string name="feedback_review">Můžete napsat pozitivní recenzi na Google Play.</string>
     <string name="feedback_google_play">Google Play</string>
     <string name="feedback_title">Jak přispět</string>
-    <string name="feedback_translate">Můžete upozornit na gramatické a faktické chyby v textu, případně navrhnout lepší překlad.</string>
-    <string name="feedback_submit_translate">whatsthatflower.com</string>
+    <string name="feedback_translate">Můžete upozornit na gramatické a faktické chyby v textu, případně navrhnout lepší překlad jednotlivých květin nebo aplikace samotné na stránce whatsthatflower.com.</string>
     <string name="feedback_cash">Můžete podpořit nový vývoj a rozšiřování databáze nějakou hotovostí.</string>
     <string name="feedback_submit_cash">Přispět</string>
     <string name="taxonomy_subgenus">Subgenus</string>
@@ -125,4 +124,6 @@
     <string name="update_version">Aktualizovat verzi</string>
     <string name="new_version_available">K dispozici je nová verze, aktualizujte prosím.</string>
     <string name="update">Aktualizace</string>
+    <string name="feedback_submit_translate_data">Opravit chyby datech</string>
+    <string name="feedback_submit_translate_app">Opravit chyby v aplikaci</string>
 </resources>
