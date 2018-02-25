@@ -20,7 +20,7 @@
     <string name="habitat_meadow">prati o pascoli</string>
     <string name="habitat_garden">giardini o campi</string>
     <string name="habitat_wetland">brughiere o zone umide</string>
-    <string name="habitat_forest">terreni boscosi o foreste</string>
+    <string name="habitat_forest">boschi o foreste</string>
     <string name="habitat_rock">rocce o montagne</string>
     <string name="habitat_tree">alberi o arbusti</string>
     <string name="habitat_message">Cosa c\'è intorno a te? Identifica l\'habitat della pianta.</string>
