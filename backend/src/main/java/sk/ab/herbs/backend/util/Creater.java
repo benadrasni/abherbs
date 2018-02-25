@@ -303,7 +303,7 @@ public class Creater {
             File file = new File(PATH_TO_PLANTS_TO_ADD);
 
             Scanner scan = new Scanner(file);
-            Integer plantId = 846;
+            Integer plantId = 847;
             while(scan.hasNextLine()){
                 final String plantName = scan.nextLine();
                 final String wikiSpeciesName = plantName;
@@ -644,7 +644,11 @@ public class Creater {
 
             for (int i = 0; i < 2; i++) {
                 Element p = ps.get(i);
-                taxonNames.addAll(p.textNodes());
+                for (TextNode textNode : p.textNodes()) {
+                    if (!textNode.getWholeText().trim().isEmpty()) {
+                        taxonNames.add(textNode);
+                    }
+                }
 
                 Elements aNodes = p.getElementsByTag("a");
 
