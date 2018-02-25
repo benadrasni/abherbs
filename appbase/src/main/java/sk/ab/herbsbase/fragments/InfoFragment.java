@@ -348,7 +348,7 @@ public class InfoFragment extends Fragment {
 
     private void improveTranslation() {
         Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
-                + "?plant=" + ((DisplayPlantBaseActivity) getActivity()).getPlant().getName() + "#translate_flower"));
+                + "translate_flower?plant=" + ((DisplayPlantBaseActivity) getActivity()).getPlant().getName()));
         startActivity(browserIntent);
     }
 
