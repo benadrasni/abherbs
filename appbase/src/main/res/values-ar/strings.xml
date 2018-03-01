@@ -119,4 +119,11 @@
     <string name="subscribe">Interesting facts about flowers</string>
     <string name="subscribe_summary">Subscribe to occasional interesting fact about certain flower.</string>
     <string name="taxonomy_unknown">غير معروف</string>
+    <string name="yes">نعم فعلا</string>
+    <string name="no">لا</string>
+    <string name="update_version">تحديث الإصدار</string>
+    <string name="new_version_available">الإصدار الجديد هو متاح، يرجى تحديث.</string>
+    <string name="update">تحديث</string>
+    <string name="feedback_submit_translate_data">Improve flower\'s data</string>
+    <string name="feedback_submit_translate_app">Improve application\'s labels</string>
 </resources>

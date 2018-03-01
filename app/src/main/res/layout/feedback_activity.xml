@@ -157,11 +157,22 @@
                     </LinearLayout>
 
                     <Button
-                        android:id="@+id/contribution_submit_email"
+                        android:id="@+id/contribution_submit_translate_data"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/feedback_submit_translate"/>
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:text="@string/feedback_submit_translate_data"/>
+
+                    <Button
+                        android:id="@+id/contribution_submit_translate_app"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:text="@string/feedback_submit_translate_app"/>
                 </LinearLayout>
 
                 <View

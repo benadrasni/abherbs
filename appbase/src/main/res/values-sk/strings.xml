@@ -119,4 +119,11 @@
     <string name="subscribe">Zaujímavé fakty o kvetoch</string>
     <string name="subscribe_summary">Z času na čas mi príde zaujímavý fakt o nejakom kvete.</string>
     <string name="taxonomy_unknown">neznámy</string>
+    <string name="no">Nie</string>
+    <string name="update_version">Aktualizovať verziu</string>
+    <string name="new_version_available">K dispozícii je nová verzia, aktualizujte, prosím.</string>
+    <string name="update">Aktualizovať</string>
+    <string name="yes">Áno</string>
+    <string name="feedback_submit_translate_data">Opraviť chyby v dátach</string>
+    <string name="feedback_submit_translate_app">Opraviť chyby v aplikácii</string>
 </resources>

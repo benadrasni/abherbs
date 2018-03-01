@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
+import sk.ab.herbsbase.tools.Utils;
 
 /**
  *
@@ -56,18 +57,7 @@ public class RateDialogFragment extends DialogFragment {
                         editor.putInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_DONE);
                         editor.apply();
 
-                        Uri uri = Uri.parse("market://details?id=" + getActivity().getBaseContext().getPackageName());
-                        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                        // To count with Play market backstack, After pressing back button,
-                        // to taken back to our application, we need to add following flags to intent.
-                        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                        try {
-                            startActivity(goToMarket);
-                        } catch (ActivityNotFoundException e) {
-                            startActivity(new Intent(Intent.ACTION_VIEW,
-                                    Uri.parse("http://play.google.com/store/apps/details?id=" + getActivity().getBaseContext().getPackageName())));
-                        }
+                        Utils.goToMarket(getActivity());
                     }
                 });
         return builder.create();

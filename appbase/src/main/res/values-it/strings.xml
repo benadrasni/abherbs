@@ -25,12 +25,12 @@
     <string name="habitat_tree">alberi o arbusti</string>
     <string name="habitat_message">Cosa c\'è intorno a te? Identifica l\'habitat della pianta.</string>
 
-    <string name="number_of_petals">numero dei petali</string>
+    <string name="number_of_petals">numero di petali</string>
     <string name="petal_4">4 o meno</string>
     <string name="petal_5">5</string>
     <string name="petal_many">più di 5</string>
-    <string name="petal_bisymmetric">asimmetrico</string>
-    <string name="number_of_petals_message">Il fiore è asimmetrico? In caso negativo, quanti petali ha?</string>
+    <string name="petal_bisymmetric">bisimmetrico</string>
+    <string name="number_of_petals_message">Il fiore è bisimmetrico? No? Allora quanti petali ha?</string>
 
     <string name="display_info">è questo?</string>
     <string name="list_info">Scegline uno</string>
@@ -39,14 +39,14 @@
     <string name="plant_gallery">Galleria</string>
     <string name="plant_taxonomy">Tassonomia</string>
     <string name="plant_sources">Bibliografia</string>
-    <string name="image_desc">Illustrazione delle piante</string>
+    <string name="image_desc">Illustrazione della pianta</string>
     <string name="translate_desc">Tradurre</string>
     <string name="email_desc">E-mail</string>
-    <string name="email_subject_prefix">Suggerimento una migliore traduzione / descrizione per</string>
+    <string name="email_subject_prefix">Suggerimenti per una traduzione migliore / descrizione di</string>
 
     <string name="plant_title">Nome</string>
-    <string name="plant_height_from">Altezza</string>
-    <string name="plant_height_to">-</string>
+    <string name="plant_height_from">Altezza da</string>
+    <string name="plant_height_to">a</string>
     <string name="plant_flowering_from">Fioritura da</string>
     <string name="plant_flowering_to">a</string>
     <string name="plant_flowers">Fiori</string>
@@ -86,11 +86,11 @@
     <string name="showcase_count_button_title">Numero di piante filtrate</string>
     <string name="showcase_count_button_message">Quando il numero è inferiore a 21 premere per passare direttamente all\'elenco. Premere a lungo per rimuovere il filtro.</string>
     <string name="showcase_taxonomy_title">Tassonomia secondo il sistema APG III</string>
-    <string name="showcase_taxonomy_message">Puoi mostrare / nascondere la tassonomia dei fiori cliccando il pulsante.</string>
+    <string name="showcase_taxonomy_message">Puoi mostrare / nascondere la tassonomia dei fiori cliccando sul loro nome.</string>
     <string name="legend">Legenda</string>
     <string name="toxicity1">pianta velenosa</string>
     <string name="toxicity2">pianta leggermente velenosa</string>
-    <string name="rate_text">L\'autore di questa applicazione è entusiasta di ricevere feedback da parte degli utentii. Ti preghiamo di inviargli qualche stella (alpina) attraverso Google Play Store.</string>
+    <string name="rate_text">L\'autore di questa applicazione è entusiasta di ricevere feedback da parte degli utenti. Ti preghiamo di inviargli qualche stella (alpina) attraverso Google Play Store.</string>
     <string name="rate_never">Mai</string>
     <string name="rate_later">Dopo</string>
     <string name="rate">Recensioni</string>
@@ -100,14 +100,13 @@
     <string name="improve_translation">Migliora la traduzione</string>
     <string name="show_translation">Mostra testo tradotto</string>
     <string name="rate_question">Trovi utile questa applicazione?</string>
-    <string name="feedback_intro">You have been contributing to this application since you have installed it on your device, thanks. If you are looking for something more, here are some options:</string>
-    <string name="feedback_review">You can write a positive review in Google Play.</string>
+    <string name="feedback_intro">Hai contribuito a questa applicazione scaricandola sul tuo dispositivo, grazie. Se stai cercando qualcos\'altro, ecco alcune opzioni:</string>
+    <string name="feedback_review">Puoi scrivere una recensione positiva su Google Play.</string>
     <string name="feedback_google_play">Google Play</string>
-    <string name="feedback_title">How to contribute</string>
-    <string name="feedback_translate">You can report any typo or mistake you found or submit new translation in your language.</string>
-    <string name="feedback_submit_translate">whatsthatflower.com</string>
+    <string name="feedback_title">Come contribuire</string>
+    <string name="feedback_translate">Puoi segnalare refusi ed errori o inviare una nuova traduzione nella tua lingua.</string>
     <string name="feedback_cash">You can support new development and database extension with cash.</string>
-    <string name="feedback_submit_cash">Donate</string>
+    <string name="feedback_submit_cash">Donare</string>
     <string name="taxonomy_subgenus">Subgenus</string>
     <string name="taxonomy_sectio">Sectio</string>
     <string name="taxonomy_subsectio">Subsectio</string>
@@ -116,7 +115,14 @@
     <string name="taxonomy_supersectio">Supersectio</string>
     <string name="subscribed_to_new">Subscribed.</string>
     <string name="unsubscribed_to_new">Unsubscribed.</string>
-    <string name="subscribe">Interesting facts about flowers</string>
-    <string name="subscribe_summary">Subscribe to occasional interesting fact about certain flower.</string>
+    <string name="subscribe_to_new">Fatti interessanti a proposito dei fiori</string>
+    <string name="subscribe_to_new_summary">Subscribe to occasional interesting fact about certain flower.</string>
     <string name="taxonomy_unknown">sconosciuto</string>
+    <string name="no">No</string>
+    <string name="update_version">Versione aggiornata</string>
+    <string name="new_version_available">È disponibile una nuova versione, aggiorna l\'applicazione.</string>
+    <string name="update">Aggiornare</string>
+    <string name="yes">Si</string>
+    <string name="feedback_submit_translate_data">Improve flower\'s data</string>
+    <string name="feedback_submit_translate_app">Improve application\'s labels</string>
 </resources>

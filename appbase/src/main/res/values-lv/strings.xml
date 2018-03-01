@@ -119,4 +119,11 @@
     <string name="subscribe">Interesting facts about flowers</string>
     <string name="subscribe_summary">Subscribe to occasional interesting fact about certain flower.</string>
     <string name="taxonomy_unknown">nezināms</string>
+    <string name="yes">Jā</string>
+    <string name="no">Nē</string>
+    <string name="update_version">Atjaunināt versiju</string>
+    <string name="new_version_available">Ir pieejama jauna versija, lūdzu, atjauniniet.</string>
+    <string name="update">Atjaunināt</string>
+    <string name="feedback_submit_translate_data">Improve flower\'s data</string>
+    <string name="feedback_submit_translate_app">Improve application\'s labels</string>
 </resources>

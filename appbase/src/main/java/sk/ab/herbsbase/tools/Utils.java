@@ -1,11 +1,16 @@
 package sk.ab.herbsbase.tools;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -29,6 +34,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import sk.ab.herbsbase.AndroidConstants;
+import sk.ab.herbsbase.R;
 
 /**
  * Created with IntelliJ IDEA.
@@ -214,5 +220,34 @@ public class Utils {
             //ok because chunk fits
             currentLine.add(chunk);
         }
+    }
+
+    public static AlertDialog UpdateDialog(final Activity activity) {
+        return new AlertDialog.Builder(activity)
+                .setTitle(R.string.update_version)
+                .setMessage(R.string.new_version_available)
+                .setIcon(R.drawable.color)
+
+                .setNeutralButton(R.string.close, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+
+                })
+                .setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                        goToMarket(activity);
+                    }
+                })
+                .create();
+    }
+
+    public static void goToMarket(Activity activity) {
+        Uri uri = Uri.parse("market://details?id=" + activity.getBaseContext().getPackageName());
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        activity.startActivity(goToMarket);
     }
 }

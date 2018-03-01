@@ -95,6 +95,7 @@ public class AndroidConstants {
     public final static String FIREBASE_APG_IV = "APG IV";
     public final static String FIREBASE_SEARCH = "search";
     public final static String FIREBASE_TRANSLATIONS = "translations";
+    public final static String FIREBASE_VERSIONS = "versions";
 
     public final static String FIREBASE_APG_TYPE = "type";
     public final static String FIREBASE_APG_NAMES = "names";

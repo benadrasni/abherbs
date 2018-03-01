@@ -119,4 +119,11 @@
     <string name="subscribe">Interessante Fakten über Blumen</string>
     <string name="subscribe_summary">Abonnieren Sie gelegentlich interessante Fakten über bestimmte Blumen.</string>
     <string name="taxonomy_unknown">unbekannte</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="update_version">Update-Version</string>
+    <string name="new_version_available">Neue Version ist verfügbar, bitte updaten.</string>
+    <string name="update">Aktualisieren</string>
+    <string name="feedback_submit_translate_data">Improve flower\'s data</string>
+    <string name="feedback_submit_translate_app">Improve application\'s labels</string>
 </resources>

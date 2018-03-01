@@ -2,6 +2,7 @@ package sk.ab.herbsbase.activities;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
@@ -11,11 +12,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +34,7 @@ import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.commons.BaseFilterFragment;
 import sk.ab.herbsbase.commons.RateDialogFragment;
+import sk.ab.herbsbase.tools.Utils;
 
 /**
  * Main activity which handles all filter fragments.
@@ -131,6 +140,8 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         getCount();
 
         showRateDialog();
+
+        updateVersionDialog();
     }
 
     @Override
@@ -281,7 +292,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
 
     protected abstract void getList();
 
-    protected abstract String getAppVersion();
+    protected abstract int getAppVersionCode();
 
     private List<BaseFilterFragment> getFilterAttributes() {
         return getApp().getFilterAttributes();
@@ -325,6 +336,31 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
                 }
             });
         }
+    }
+
+    private void updateVersionDialog() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        String packageName = this.getBaseContext().getPackageName();
+        DatabaseReference mFirebaseRefVersion = database.getReference(AndroidConstants.FIREBASE_VERSIONS + AndroidConstants.FIREBASE_SEPARATOR
+                + packageName.substring(packageName.lastIndexOf('.') + 1) + AndroidConstants.FIREBASE_SEPARATOR + Build.VERSION.SDK_INT);
+        mFirebaseRefVersion.keepSynced(true);
+        mFirebaseRefVersion.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    int currentVersion = ((Long) dataSnapshot.getValue()).intValue();
+                    if (getAppVersionCode() < currentVersion) {
+                        AlertDialog dialogBox = Utils.UpdateDialog(FilterPlantsBaseActivity.this);
+                        dialogBox.show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
 
