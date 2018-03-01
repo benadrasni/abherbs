@@ -70,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
+                android:visibility="invisible"
                 android:src="@drawable/ic_remove_red_eye_black_24dp"
                 app:backgroundTint="@color/MenuWhite"/>
 
