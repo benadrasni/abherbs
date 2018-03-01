@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import sk.ab.herbsbase.AndroidConstants;
+import sk.ab.herbsbase.tools.Utils;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 
@@ -61,18 +62,7 @@ public class FeedbackPlusActivity extends AppCompatActivity {
                 editor.putInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_DONE);
                 editor.apply();
 
-                Uri uri = Uri.parse("market://details?id=" + getBaseContext().getPackageName());
-                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                // To count with Play market backstack, After pressing back button,
-                // to taken back to our application, we need to add following flags to intent.
-                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                try {
-                    startActivity(goToMarket);
-                } catch (ActivityNotFoundException e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://play.google.com/store/apps/details?id=" + getBaseContext().getPackageName())));
-                }
+                Utils.goToMarket(FeedbackPlusActivity.this);
             }
         });
     }
