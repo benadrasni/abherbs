@@ -343,28 +343,30 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
     }
 
     private void updateVersionDialog() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        String packageName = this.getBaseContext().getPackageName();
-        DatabaseReference mFirebaseRefVersion = database.getReference(AndroidConstants.FIREBASE_VERSIONS + AndroidConstants.SEPARATOR
-                + packageName.substring(packageName.lastIndexOf('.') + 1) + AndroidConstants.SEPARATOR + Build.VERSION.SDK_INT);
-        mFirebaseRefVersion.keepSynced(true);
-        mFirebaseRefVersion.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null) {
-                    int currentVersion = ((Long) dataSnapshot.getValue()).intValue();
-                    if (getAppVersionCode() < currentVersion) {
-                        AlertDialog dialogBox = Utils.UpdateDialog(FilterPlantsBaseActivity.this);
-                        dialogBox.show();
+        if (BaseApp.isConnectedToWifi(this)) {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            String packageName = this.getBaseContext().getPackageName();
+            DatabaseReference mFirebaseRefVersion = database.getReference(AndroidConstants.FIREBASE_VERSIONS + AndroidConstants.SEPARATOR
+                    + packageName.substring(packageName.lastIndexOf('.') + 1) + AndroidConstants.SEPARATOR + Build.VERSION.SDK_INT);
+            mFirebaseRefVersion.keepSynced(true);
+            mFirebaseRefVersion.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        int currentVersion = ((Long) dataSnapshot.getValue()).intValue();
+                        if (getAppVersionCode() < currentVersion) {
+                            AlertDialog dialogBox = Utils.UpdateDialog(FilterPlantsBaseActivity.this);
+                            dialogBox.show();
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
     }
 }
 
