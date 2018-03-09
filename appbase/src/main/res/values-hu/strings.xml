@@ -125,4 +125,5 @@
     <string name="update">Frissítés</string>
     <string name="feedback_submit_translate_data">Improve flower\'s data</string>
     <string name="feedback_submit_translate_app">Improve application\'s labels</string>
+    <string name="improve_text">Improve text</string>
 </resources>

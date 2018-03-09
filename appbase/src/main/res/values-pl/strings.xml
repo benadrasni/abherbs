@@ -115,8 +115,8 @@
     <string name="taxonomy_supersectio">Supersectio</string>
     <string name="subscribed_to_new">Zasubskrybowano.</string>
     <string name="unsubscribed_to_new">Brak subskrypcji.</string>
-    <string name="subscribe_to_new">Ciekawostki dotyczące roślin</string>
-    <string name="subscribe_to_new_summary">Subskrybuj, aby otrzymywać okazjonalne ciekawostki dot. konkretnej rośliny.</string>
+    <string name="subscribe">Ciekawostki dotyczące roślin</string>
+    <string name="subscribe_summary">Subskrybuj, aby otrzymywać okazjonalne ciekawostki dot. konkretnej rośliny.</string>
     <string name="taxonomy_unknown">nieznane</string>
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
@@ -125,4 +125,5 @@
     <string name="update">Aktualizacja</string>
     <string name="feedback_submit_translate_data">Poprawienie informacji dot. kwiatów</string>
     <string name="feedback_submit_translate_app">Improve application\'s labels</string>
+    <string name="improve_text">Popraw tekst</string>
 </resources>
