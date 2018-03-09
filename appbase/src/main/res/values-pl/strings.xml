@@ -125,4 +125,5 @@
     <string name="update">Aktualizacja</string>
     <string name="feedback_submit_translate_data">Poprawienie informacji dot. kwiatów</string>
     <string name="feedback_submit_translate_app">Improve application\'s labels</string>
+    <string name="improve_text">Popraw tekst</string>
 </resources>

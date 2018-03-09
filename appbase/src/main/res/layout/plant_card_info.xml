@@ -11,14 +11,30 @@
         android:background="@color/CardsForeground"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/plant_description"
+        <RelativeLayout
+            android:id="@+id/description_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingEnd="@dimen/list_padding"
-            android:paddingStart="@dimen/list_padding"
-            android:paddingTop="@dimen/list_padding"
-            android:textSize="16sp"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/plant_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/list_padding"
+                android:paddingStart="@dimen/list_padding"
+                android:paddingTop="@dimen/list_padding"
+                android:textSize="16sp"/>
+
+            <Button
+                android:id="@+id/improve_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="@string/improve_text"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/CardSubTitle"/>
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

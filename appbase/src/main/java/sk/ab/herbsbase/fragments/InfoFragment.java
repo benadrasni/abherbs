@@ -83,7 +83,19 @@ public class InfoFragment extends Fragment {
     }
 
     private void setInfo(boolean withTranslation) {
+        if (getView() == null || getActivity() == null || getActivity().getResources() == null) {
+            return;
+        }
+
         final FirebasePlant plant = getPlant();
+
+        Button improveText = getView().findViewById(R.id.improve_text);
+        improveText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                improveTranslation();
+            }
+        });
 
         final StringBuilder text = new StringBuilder();
         text.append(displayPlantBaseActivity.getResources().getString(R.string.plant_height_from)).append(" <i>").append(plant.getHeightFrom())

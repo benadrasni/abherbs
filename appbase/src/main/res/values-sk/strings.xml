@@ -96,7 +96,7 @@
     <string name="your_text">váš text</string>
     <string name="google_translate">Preložené pomocou Google prekladača</string>
     <string name="show_original">Ukáž anglický text</string>
-    <string name="improve_translation">Vylepši preklad</string>
+    <string name="improve_translation">Vylepšiť preklad</string>
     <string name="show_translation">Ukáž preložený text</string>
     <string name="rate_question">Je táto aplikácia užitočná?</string>
 
@@ -107,12 +107,12 @@
     <string name="feedback_translate">Môžete upozorniť na gramatické a faktické chyby v texte alebo priamo v aplikácii na stránke whatsthatflower.com.</string>
     <string name="feedback_cash">Môžete podporiť nový vývoj a rozširovanie databázy nejakou hotovosťou.</string>
     <string name="feedback_submit_cash">Prispieť</string>
-    <string name="taxonomy_subgenus">Subgenus</string>
-    <string name="taxonomy_sectio">Sectio</string>
-    <string name="taxonomy_subsectio">Subsectio</string>
-    <string name="taxonomy_serie">Serie</string>
-    <string name="taxonomy_subserie">Subserie</string>
-    <string name="taxonomy_supersectio">Supersectio</string>
+    <string name="taxonomy_subgenus">Podrod</string>
+    <string name="taxonomy_sectio">Sekcia</string>
+    <string name="taxonomy_subsectio">Podsekcia</string>
+    <string name="taxonomy_serie">Séria</string>
+    <string name="taxonomy_subserie">Podséria</string>
+    <string name="taxonomy_supersectio">Nadsekcia</string>
     <string name="subscribed_to_new">Prihlásený k odberu.</string>
     <string name="unsubscribed_to_new">Odhlásený.</string>
     <string name="subscribe_to_new">Zaujímavé fakty o kvetoch</string>
@@ -125,4 +125,5 @@
     <string name="yes">Áno</string>
     <string name="feedback_submit_translate_data">Opraviť chyby v dátach</string>
     <string name="feedback_submit_translate_app">Opraviť chyby v aplikácii</string>
+    <string name="improve_text">Vylepšiť text</string>
 </resources>

@@ -97,7 +97,7 @@
     <string name="your_text">váš text</string>
     <string name="google_translate">Přeloženo pomocí Google překladače</string>
     <string name="show_original">Zobraz slovenský text</string>
-    <string name="improve_translation">Zlepšit překlad</string>
+    <string name="improve_translation">Vylepšit překlad</string>
     <string name="show_translation">Zobraz přeložený text</string>
     <string name="rate_question">Líbí se vám aplikace?</string>
 
@@ -126,4 +126,5 @@
     <string name="update">Aktualizace</string>
     <string name="feedback_submit_translate_data">Opravit chyby datech</string>
     <string name="feedback_submit_translate_app">Opravit chyby v aplikaci</string>
+    <string name="improve_text">Vylepšit text</string>
 </resources>
