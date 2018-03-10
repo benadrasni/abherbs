@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about">Over app</string>
+    <string name="about">Over de app</string>
     <string name="help">Help</string>
     <string name="settings">Instellingen</string>
     <string name="feedback">Terugkoppeling / Bijdrage</string>
@@ -14,40 +14,40 @@
     <string name="color_red">rood, roze</string>
     <string name="color_blue">blauw, paars</string>
     <string name="color_green">groen, bruin, zwart</string>
-    <string name="color_of_flower_message">What\'s the color of the flower? Choose the closest one.</string>
+    <string name="color_of_flower_message">Wat is de kleur van de bloem? Kies de kleur die er het dichtst bij komt.</string>
 
     <string name="habitats">standplaats</string>
     <string name="habitat_meadow">weiden of graslanden</string>
     <string name="habitat_garden">tuinen of velden</string>
-    <string name="habitat_wetland">heidevelden of wetlands</string>
+    <string name="habitat_wetland">heidevelden of moerassen</string>
     <string name="habitat_forest">bossen of wouden</string>
     <string name="habitat_rock">rotsen of bergen</string>
     <string name="habitat_tree">bomen of struiken</string>
-    <string name="habitat_message">What\'s around you? Identify plant\'s habitat.</string>
+    <string name="habitat_message">Hoe ziet de omgeving eruit? Identificeer de leefomgeving.</string>
 
     <string name="number_of_petals">aantal bloemblaadjes</string>
     <string name="petal_4">4 of minder</string>
     <string name="petal_5">5</string>
     <string name="petal_many">meer dan 5</string>
-    <string name="petal_bisymmetric">bisymmetrisch</string>
-    <string name="number_of_petals_message">Is the flower bisymmetric? No? Then how many petals does it have?</string>
+    <string name="petal_bisymmetric">Tweezijdig symmetrisch</string>
+    <string name="number_of_petals_message">Is de bloem tweezijdig symmetrisch? Zo niet: hoeveel bloemblaadjes heeft hij?</string>
 
-    <string name="display_info">Juiste?</string>
+    <string name="display_info">Is dit de goede?</string>
     <string name="list_info">Kies er een</string>
 
     <string name="plant_info">Info</string>
     <string name="plant_gallery">Galerij</string>
     <string name="plant_taxonomy">Taxonomie</string>
     <string name="plant_sources">Bronnen</string>
-    <string name="image_desc">Plant illustratie</string>
+    <string name="image_desc">Illustratie van de plant</string>
     <string name="translate_desc">Vertalen</string>
     <string name="email_desc">E-mail</string>
-    <string name="email_subject_prefix">"Suggestion of better translation / description for "</string>
+    <string name="email_subject_prefix">Tips voor een betere vertaling of beschrijving</string>
 
     <string name="plant_title">Naam</string>
     <string name="plant_height_from">Hoogte van</string>
     <string name="plant_height_to">tot</string>
-    <string name="plant_flowering_from">Bloei vanaf</string>
+    <string name="plant_flowering_from">Bloeit van</string>
     <string name="plant_flowering_to">-</string>
     <string name="plant_flowers">Bloemen</string>
     <string name="plant_inflorescences">Bloeiwijze</string>
@@ -64,9 +64,9 @@
     <string name="plant_stem">Stengel</string>
     <string name="plant_root">Wortel</string>
     <string name="plant_habitat">Standplaats</string>
-    <string name="plant_trivia">Trivia</string>
+    <string name="plant_trivia">Weetjes</string>
     <string name="plant_toxicity">Toxiciteit</string>
-    <string name="plant_herbalism">Kruidengeneeskunde</string>
+    <string name="plant_herbalism">Geneeskundige toepassingen</string>
 
     <string name="taxonomy_superregnum">Domein</string>
     <string name="taxonomy_regnum">Rijk</string>
@@ -79,7 +79,7 @@
     <string name="taxonomy_genus">Geslacht</string>
     <string name="taxonomy_species">Soort</string>
 
-    <string name="close">Dichtbij</string>
+    <string name="close">Sluiten</string>
 
     <string name="showcase_fullscreen_title">Larger illustration</string>
     <string name="showcase_fullscreen_message">You can display illustration on full screen by clicking on it.</string>
@@ -87,7 +87,7 @@
     <string name="showcase_count_button_message">When number is less than 21 press to jump directly to the list. Long press to clear filter.</string>
     <string name="showcase_taxonomy_title">Taxonomy according to APG III system</string>
     <string name="showcase_taxonomy_message">You can show / hide flower\'s taxonomy by clicking on the its name.</string>
-    <string name="legend">Legende</string>
+    <string name="legend">Legenda</string>
     <string name="toxicity1">giftige plant</string>
     <string name="toxicity2">lichtjes giftige plant</string>
     <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
@@ -100,13 +100,13 @@
     <string name="improve_translation">Verbeter vertaling</string>
     <string name="show_translation">Toon vertaalde tekst</string>
     <string name="rate_question">Is deze applicatie handig?</string>
-    <string name="feedback_intro">You have been contributing to this application since you have installed it on your device, thanks. If you are looking for something more, here are some options:</string>
-    <string name="feedback_review">You can write a positive review in Google Play.</string>
+    <string name="feedback_intro">Sinds u de app geïnstalleerd heeft, draagt u bij aan de app. Dank u wel. Als u ons nóg meer wilt helpen, kunt u de volgende opties overwegen:</string>
+    <string name="feedback_review">U kunt een positieve beoordeling in Google Play zetten.</string>
     <string name="feedback_google_play">Google Play</string>
-    <string name="feedback_title">How to contribute</string>
-    <string name="feedback_translate">You can report any typo or mistake you found or submit new translation in your language.</string>
-    <string name="feedback_cash">You can support new development and database extension with cash.</string>
-    <string name="feedback_submit_cash">Donate</string>
+    <string name="feedback_title">Hoe u kunt bijdragen</string>
+    <string name="feedback_translate">U kunt typefouten of verkeerde vertalingen melden of nieuwer vertalingen toevoegen op whatsthatflower.com</string>
+    <string name="feedback_cash">U kunt de ontwikkeling van de app en uitbreiding van de database financieel steunen.</string>
+    <string name="feedback_submit_cash">Doneren</string>
     <string name="taxonomy_subgenus">Subgenus</string>
     <string name="taxonomy_sectio">Sectio</string>
     <string name="taxonomy_subsectio">Subsectio</string>
@@ -121,9 +121,10 @@
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
     <string name="update_version">Update versie</string>
-    <string name="new_version_available">Nieuwe versie beschikbaar, update.</string>
+    <string name="new_version_available">Nieuwe versie beschikbaar, werk de app bij.</string>
     <string name="update">Bijwerken</string>
-    <string name="feedback_submit_translate_data">Improve flower\'s data</string>
-    <string name="feedback_submit_translate_app">Improve application\'s labels</string>
-    <string name="improve_text">Improve text</string>
+    <string name="feedback_submit_translate_data">Verbeter de gegevens over de bloemen</string>
+    <string name="feedback_submit_translate_app">Verbeter de kopjes in de app</string>
+    <string name="improve_text">Verbeter de tekst</string>
 </resources>
+
