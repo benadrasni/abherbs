@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -59,16 +58,7 @@ import sk.ab.herbsbase.tools.Utils;
  * <p/>
  */
 public class InfoFragment extends Fragment {
-
-    private DisplayPlantBaseActivity displayPlantBaseActivity;
     private boolean isTranslated;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        displayPlantBaseActivity = (DisplayPlantBaseActivity) getActivity();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -109,6 +99,9 @@ public class InfoFragment extends Fragment {
         }
 
         final FirebasePlant plant = getPlant();
+        if (plant == null) {
+            return;
+        }
 
         Button improveText = (Button) getView().findViewById(R.id.improve_text);
         improveText.setOnClickListener(new View.OnClickListener() {
@@ -119,12 +112,12 @@ public class InfoFragment extends Fragment {
         });
 
         final StringBuilder text = new StringBuilder();
-        text.append(displayPlantBaseActivity.getResources().getString(R.string.plant_height_from)).append(" <i>").append(plant.getHeightFrom())
-                .append("</i>").append(" ").append(displayPlantBaseActivity.getResources().getString(R.string.plant_height_to)).append(" ")
+        text.append(getDisplayPlantBaseActivity().getResources().getString(R.string.plant_height_from)).append(" <i>").append(plant.getHeightFrom())
+                .append("</i>").append(" ").append(getDisplayPlantBaseActivity().getResources().getString(R.string.plant_height_to)).append(" ")
                 .append("<i>").append(plant.getHeightTo()).append("</i>").append(" ").append(Constants.HEIGHT_UNIT)
-                .append(". <br/>").append(displayPlantBaseActivity.getResources().getString(R.string.plant_flowering_from)).append(" <i>")
+                .append(". <br/>").append(getDisplayPlantBaseActivity().getResources().getString(R.string.plant_flowering_from)).append(" <i>")
                 .append(Utils.getMonthName(plant.getFloweringFrom() - 1)).append("</i>").append(" ")
-                .append(displayPlantBaseActivity.getResources().getString(R.string.plant_flowering_to)).append(" ").append("<i>")
+                .append(getDisplayPlantBaseActivity().getResources().getString(R.string.plant_flowering_to)).append(" ").append("<i>")
                 .append(Utils.getMonthName(plant.getFloweringTo() - 1)).append("</i>.<br/>");
 
         final Object[][] sections = getSections(withTranslation);
@@ -161,7 +154,7 @@ public class InfoFragment extends Fragment {
                         @Override
                         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 
-                            if (!displayPlantBaseActivity.isDestroyed()) {
+                            if (!getDisplayPlantBaseActivity().isDestroyed()) {
                                 int width = (dm.widthPixels - Utils.convertDpToPx(25, dm)) / 2;
                                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                                     width = width / 2;
@@ -276,16 +269,16 @@ public class InfoFragment extends Fragment {
     }
 
     private void getTranslation(final String source, final String target, final List<String> textToTranslate) {
-        final BaseApp app = (BaseApp) displayPlantBaseActivity.getApplication();
+        final BaseApp app = (BaseApp) getDisplayPlantBaseActivity().getApplication();
 
-        displayPlantBaseActivity.startLoading();
-        displayPlantBaseActivity.countButton.setVisibility(View.VISIBLE);
+        getDisplayPlantBaseActivity().startLoading();
+        getDisplayPlantBaseActivity().countButton.setVisibility(View.VISIBLE);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference mTranslationGTRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.FIREBASE_SEPARATOR
                 + Locale.getDefault().getLanguage() + AndroidConstants.LANGUAGE_GT_SUFFIX + AndroidConstants.FIREBASE_SEPARATOR + getPlant().getName());
 
-        if (BaseApp.isNetworkAvailable(displayPlantBaseActivity.getApplicationContext())) {
+        if (BaseApp.isNetworkAvailable(getDisplayPlantBaseActivity().getApplicationContext())) {
             app.getGoogleClient().getApiService().translate(
                     Keys.TRANSLATE_API_KEY,
                     source,
@@ -293,7 +286,7 @@ public class InfoFragment extends Fragment {
                     textToTranslate).enqueue(new Callback<Map<String, Map<String, List<Map<String, String>>>>>() {
                 @Override
                 public void onResponse(Call<Map<String, Map<String, List<Map<String, String>>>>> call, Response<Map<String, Map<String, List<Map<String, String>>>>> response) {
-                    if (!displayPlantBaseActivity.isDestroyed()) {
+                    if (!getDisplayPlantBaseActivity().isDestroyed()) {
                         Map<String, Map<String, List<Map<String, String>>>> data = response.body();
 
                         if (data != null && data.get("data") != null && data.get("data").get("translations") != null) {
@@ -310,23 +303,23 @@ public class InfoFragment extends Fragment {
                             showGTSection();
                         }
 
-                        displayPlantBaseActivity.stopLoading();
-                        displayPlantBaseActivity.countButton.setVisibility(View.GONE);
+                        getDisplayPlantBaseActivity().stopLoading();
+                        getDisplayPlantBaseActivity().countButton.setVisibility(View.GONE);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Map<String, Map<String, List<Map<String, String>>>>> call, Throwable t) {
                     Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
-                    displayPlantBaseActivity.stopLoading();
-                    displayPlantBaseActivity.countButton.setVisibility(View.GONE);
+                    getDisplayPlantBaseActivity().stopLoading();
+                    getDisplayPlantBaseActivity().countButton.setVisibility(View.GONE);
                 }
             });
         } else {
             setInfo(false);
 
-            displayPlantBaseActivity.stopLoading();
-            displayPlantBaseActivity.countButton.setVisibility(View.GONE);
+            getDisplayPlantBaseActivity().stopLoading();
+            getDisplayPlantBaseActivity().countButton.setVisibility(View.GONE);
         }
     }
 
@@ -455,23 +448,27 @@ public class InfoFragment extends Fragment {
     }
 
     private FirebasePlant getPlant() {
-        return displayPlantBaseActivity.getPlant();
+        return getDisplayPlantBaseActivity().getPlant();
     }
 
     private PlantTranslation getPlantTranslation() {
-        return displayPlantBaseActivity.getPlantTranslation();
+        return getDisplayPlantBaseActivity().getPlantTranslation();
     }
 
     private PlantTranslation getPlantTranslationGT() {
-        return displayPlantBaseActivity.getPlantTranslationGT();
+        return getDisplayPlantBaseActivity().getPlantTranslationGT();
     }
 
     private void setPlantTranslationGT(PlantTranslation plantTranslation) {
-        displayPlantBaseActivity.setPlantTranslationGT(plantTranslation);
+        getDisplayPlantBaseActivity().setPlantTranslationGT(plantTranslation);
     }
 
     private PlantTranslation getPlantTranslationEn() {
-        return displayPlantBaseActivity.getPlantTranslationEn();
+        return getDisplayPlantBaseActivity().getPlantTranslationEn();
+    }
+
+    private DisplayPlantBaseActivity getDisplayPlantBaseActivity() {
+        return (DisplayPlantBaseActivity) getActivity();
     }
 }
 

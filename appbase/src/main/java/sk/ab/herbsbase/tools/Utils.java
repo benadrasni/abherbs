@@ -245,9 +245,11 @@ public class Utils {
     }
 
     public static void goToMarket(Activity activity) {
-        Uri uri = Uri.parse("market://details?id=" + activity.getBaseContext().getPackageName());
-        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        activity.startActivity(goToMarket);
+        if (!activity.isDestroyed()) {
+            Uri uri = Uri.parse("market://details?id=" + activity.getBaseContext().getPackageName());
+            Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+            goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            activity.startActivity(goToMarket);
+        }
     }
 }
