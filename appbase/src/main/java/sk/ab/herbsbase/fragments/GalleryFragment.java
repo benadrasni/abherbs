@@ -87,7 +87,10 @@ public class GalleryFragment extends Fragment {
         super.onStart();
         if (getView() != null) {
             final FirebasePlant plant = ((DisplayPlantBaseActivity) getActivity()).getPlant();
-            RecyclerView thumbnails = (RecyclerView) getView().findViewById(R.id.plant_thumbnails);
+            if (plant == null) {
+                return;
+            }
+            RecyclerView thumbnails = getView().findViewById(R.id.plant_thumbnails);
 
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);

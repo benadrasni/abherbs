@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -126,17 +127,21 @@ public class PlantListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list, null);
         ListPlantsBaseActivity activity = (ListPlantsBaseActivity) getActivity();
 
-        RecyclerView list = (RecyclerView) view.findViewById(R.id.plant_list);
+        RecyclerView list = view.findViewById(R.id.plant_list);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference plantsRef = database.getReference(AndroidConstants.FIREBASE_PLANTS);
-        DatabaseReference listRef = database.getReference(activity.getListPath());
+        if (activity.getListPath() != null) {
+            DatabaseReference listRef = database.getReference(activity.getListPath());
 
-        adapter = new PropertyAdapter(FirebasePlant.class, R.layout.plant_row, PlantViewHolder.class, listRef, plantsRef);
-        list.setAdapter(adapter);
+            adapter = new PropertyAdapter(FirebasePlant.class, R.layout.plant_row, PlantViewHolder.class, listRef, plantsRef);
+            list.setAdapter(adapter);
+        } else {
+            Crashlytics.log("Empty list path: " + activity.getFilter().toString());
+        }
 
         return view;
     }
@@ -147,7 +152,7 @@ public class PlantListFragment extends Fragment {
 
         if (getView() != null) {
             ListPlantsBaseActivity activity = (ListPlantsBaseActivity) getActivity();
-            RecyclerView list = (RecyclerView) getView().findViewById(R.id.plant_list);
+            RecyclerView list = getView().findViewById(R.id.plant_list);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity.getBaseContext());
 
             if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
