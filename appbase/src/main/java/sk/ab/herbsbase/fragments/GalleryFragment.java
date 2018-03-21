@@ -101,6 +101,9 @@ public class GalleryFragment extends Fragment {
 
     private void setGallery(View convertView) {
         final FirebasePlant plant = ((DisplayPlantBaseActivity) getActivity()).getPlant();
+        if (plant == null) {
+            return;
+        }
         RecyclerView thumbnails = (RecyclerView) convertView.findViewById(R.id.plant_thumbnails);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());

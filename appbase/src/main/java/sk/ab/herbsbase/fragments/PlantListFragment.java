@@ -133,10 +133,14 @@ public class PlantListFragment extends Fragment {
         RecyclerView list = (RecyclerView) view.findViewById(R.id.plant_list);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference plantsRef = database.getReference(AndroidConstants.FIREBASE_PLANTS);
-        DatabaseReference listRef = database.getReference(activity.getListPath());
+        if (activity.getListPath() != null) {
+            DatabaseReference listRef = database.getReference(activity.getListPath());
 
-        adapter = new PropertyAdapter(FirebasePlant.class, R.layout.plant_row, PlantViewHolder.class, listRef, plantsRef);
-        list.setAdapter(adapter);
+            adapter = new PropertyAdapter(FirebasePlant.class, R.layout.plant_row, PlantViewHolder.class, listRef, plantsRef);
+            list.setAdapter(adapter);
+        } else {
+            Crashlytics.log("Empty list path: " + activity.getFilter().toString());
+        }
 
         return view;
     }
