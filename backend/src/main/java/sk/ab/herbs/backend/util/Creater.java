@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -303,7 +304,7 @@ public class Creater {
             File file = new File(PATH_TO_PLANTS_TO_ADD);
 
             Scanner scan = new Scanner(file);
-            Integer plantId = 877;
+            Integer plantId = 890;
             while(scan.hasNextLine()){
                 final String plantName = scan.nextLine();
                 final String wikiSpeciesName = plantName;
@@ -343,46 +344,47 @@ public class Creater {
             String familia = getTaxon(plantBasic, "Familia");
 
             Map<String, List<String>> names = readNames(wikiSpeciesName, "/wiki/" + wikiSpeciesName);
-            Map<String, String> sitelinks = readWikilinks("/wiki/" + wikiSpeciesName);
+            Map<String, String> siteLinks = readWikilinks("/wiki/" + wikiSpeciesName);
 
-            for (String language : names.keySet()) {
+            Set<String> languages = new HashSet<>();
+            languages.addAll(names.keySet());
+            languages.addAll(siteLinks.keySet());
+
+            for (String language : languages) {
                 if (Constants.LANGUAGE_LA.equals(language)) {
                     continue;
                 }
                 PlantTranslation plantTranslation = new PlantTranslation();
+                if (Constants.LANGUAGE_EN.equals(language)) {
+                    plantTranslation.setDescription("...");
+                    plantTranslation.setFlower("...");
+                    plantTranslation.setInflorescence("...");
+                    plantTranslation.setFruit("...");
+                    plantTranslation.setLeaf("...");
+                    plantTranslation.setStem("...");
+                    plantTranslation.setHabitat("...");
+                } else if (Constants.LANGUAGE_SK.equals(language)) {
+                    plantTranslation.setDescription("...");
+                    plantTranslation.setFlower("...");
+                    plantTranslation.setInflorescence("...");
+                    plantTranslation.setFruit("...");
+                    plantTranslation.setLeaf("...");
+                    plantTranslation.setStem("...");
+                    plantTranslation.setHabitat("...");
+                }
 
                 ArrayList<String> namesInLanguage = (ArrayList)names.get(language);
-                if (namesInLanguage.size() > 0) {
+                if (namesInLanguage != null && namesInLanguage.size() > 0) {
                     plantTranslation.setLabel(namesInLanguage.get(0));
 
                     namesInLanguage.remove(0);
                     if (namesInLanguage.size() > 0) {
                         plantTranslation.setNames(namesInLanguage);
                     }
-
-                    if (Constants.LANGUAGE_EN.equals(language)) {
-                        plantTranslation.setDescription("...");
-                        plantTranslation.setFlower("...");
-                        plantTranslation.setInflorescence("...");
-                        plantTranslation.setFruit("...");
-                        plantTranslation.setLeaf("...");
-                        plantTranslation.setStem("...");
-                        plantTranslation.setHabitat("...");
-                    }
-
-                    if (Constants.LANGUAGE_SK.equals(language)) {
-                        plantTranslation.setDescription("...");
-                        plantTranslation.setFlower("...");
-                        plantTranslation.setInflorescence("...");
-                        plantTranslation.setFruit("...");
-                        plantTranslation.setLeaf("...");
-                        plantTranslation.setStem("...");
-                        plantTranslation.setHabitat("...");
-                    }
                 }
 
-                if (sitelinks.get(language) != null) {
-                    plantTranslation.setWikipedia(sitelinks.get(language));
+                if (siteLinks.get(language) != null) {
+                    plantTranslation.setWikipedia(siteLinks.get(language));
                 }
 
                 Call<Object> saveTranslationCall = firebaseClient.getApiService().saveTranslation(language, plantName, plantTranslation);
@@ -877,29 +879,31 @@ public class Creater {
 
             if (wikiPage.contains("{{VN")) {
                 String vn = wikiPage.substring(wikiPage.indexOf("{{VN"), wikiPage.indexOf("}}", wikiPage.indexOf("{{VN"))).replace("\n", "");
-                String[] vnItems = vn.substring(5, vn.length()).split("\\|");
+                if (vn.length() > 4) {
+                    String[] vnItems = vn.substring(5, vn.length()).split("\\|");
 
-                for (String vnItem : vnItems) {
-                    String[] hlp = vnItem.split("=");
-                    if (hlp.length > 1) {
-                        String language = hlp[0];
+                    for (String vnItem : vnItems) {
+                        String[] hlp = vnItem.split("=");
+                        if (hlp.length > 1) {
+                            String language = hlp[0];
 
-                        String[] names = hlp[1].trim().split(", ");
-                        if (names.length == 1) {
-                            names = hlp[1].split(" / ");
-                        }
-                        List<String> speciesValuesOld = new ArrayList<>(Arrays.asList(names));
-                        List<String> speciesValues = new ArrayList<>();
-                        for (String speciesValue : speciesValuesOld) {
-                            if (!taxonValue.toLowerCase().equals(speciesValue.toLowerCase())) {
-                                speciesValues.add(speciesValue.trim());
+                            String[] names = hlp[1].trim().split(", ");
+                            if (names.length == 1) {
+                                names = hlp[1].split(" / ");
                             }
-                        }
+                            List<String> speciesValuesOld = new ArrayList<>(Arrays.asList(names));
+                            List<String> speciesValues = new ArrayList<>();
+                            for (String speciesValue : speciesValuesOld) {
+                                if (!taxonValue.toLowerCase().equals(speciesValue.toLowerCase())) {
+                                    speciesValues.add(speciesValue.trim());
+                                }
+                            }
 
-                        if (speciesValues.size() > 0) {
-                            preresult.put(language, speciesValues);
-                        }
+                            if (speciesValues.size() > 0) {
+                                preresult.put(language, speciesValues);
+                            }
 
+                        }
                     }
                 }
             }
