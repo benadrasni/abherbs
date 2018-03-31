@@ -1,8 +1,15 @@
 package sk.ab.herbs.backend.util;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -26,6 +33,7 @@ public class Localizer {
         appTranslations.put("appbase", processResDir(PATH_TO_APPBASE));
         appTranslations.put("app", processResDir(PATH_TO_APP));
         appTranslations.put("appplus", processResDir(PATH_TO_APPPLUS));
+        appTranslations.put("web", processFirebaseNode());
 
         try {
             FirebaseClient firebaseClient = new FirebaseClient();
@@ -73,6 +81,34 @@ public class Localizer {
                 }
             }
         }
+        return appTranslations;
+    }
+
+    private static Map<String,Map<String,String>> processFirebaseNode() {
+        Map<String, Map<String, String>> appTranslations = new TreeMap<>();
+
+        try {
+            FirebaseClient firebaseClient = new FirebaseClient();
+            Call<Map<String, Map<String, String>>> callFirebaseWebTranslations = firebaseClient.getApiService().getWebTranslations();
+            Map<String, Map<String, String>> translations = callFirebaseWebTranslations.execute().body();
+
+            for (String langKey : translations.keySet()) {
+                Map<String, String> langValue = translations.get(langKey);
+                for(String itemKey : langValue.keySet()) {
+                    String value = langValue.get(itemKey);
+                    Map<String, String> appTranslation = appTranslations.get(itemKey);
+                    if (appTranslation == null) {
+                        appTranslation = new HashMap<>();
+                        appTranslations.put(itemKey, appTranslation);
+                    }
+                    appTranslation.put(langKey, value);
+                }
+            }
+
+        } catch (IOException ex) {
+
+        }
+
         return appTranslations;
     }
 }
