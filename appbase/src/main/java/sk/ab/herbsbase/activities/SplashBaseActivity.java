@@ -26,13 +26,25 @@ public abstract class SplashBaseActivity extends SearchBaseActivity {
     protected void startApplication() {
         if (getIntent().getExtras() != null) {
             String count = getIntent().getExtras().getString(AndroidConstants.FIREBASE_DATA_COUNT);
-            String path = getIntent().getExtras().getString(AndroidConstants.FIREBASE_DATA_PATH);
             if (count != null) {
+                String path = getIntent().getExtras().getString(AndroidConstants.FIREBASE_DATA_PATH);
                 Log.d(TAG, path + " (" + count + ")");
                 callProperActivity(Integer.parseInt(count), path);
             } else {
-                Intent intent = new Intent(this, getFilterPlantsActivityClass());
-                startActivity(intent);
+                String action = getIntent().getExtras().getString(AndroidConstants.ACTION);
+                if (AndroidConstants.ACTION_UPGRADE.equals(action)) {
+                    Uri uri = Uri.parse("market://details?id=sk.ab.herbsplus");
+                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                    try {
+                        startActivity(goToMarket);
+                    } catch (ActivityNotFoundException e) {
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("http://play.google.com/store/apps/details?id=sk.ab.herbsplus")));
+                    }
+                } else {
+                    Intent intent = new Intent(this, getFilterPlantsActivityClass());
+                    startActivity(intent);
+                }
             }
         } else {
             Intent intent = new Intent(this, getFilterPlantsActivityClass());
