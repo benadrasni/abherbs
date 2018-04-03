@@ -105,6 +105,8 @@ public class AndroidConstants {
     public final static String ITEM_SUBSCRIPTION = "Subscription";
 
     public final static String SEPARATOR = "/";
+    public final static String ACTION = "action";
+    public final static String ACTION_UPGRADE = "upgrade";
 
     public final static String FIREBASE_COUNTS = "counts";
     public final static String FIREBASE_LISTS = "lists";
