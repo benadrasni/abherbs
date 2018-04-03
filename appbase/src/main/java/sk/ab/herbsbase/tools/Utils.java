@@ -224,7 +224,12 @@ public class Utils {
             Uri uri = Uri.parse("market://details?id=" + activity.getBaseContext().getPackageName());
             Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
             goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-            activity.startActivity(goToMarket);
+            try {
+                activity.startActivity(goToMarket);
+            } catch (ActivityNotFoundException e) {
+                activity.startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://play.google.com/store/apps/details?id=" + activity.getBaseContext().getPackageName())));
+            }
         }
     }
 }
