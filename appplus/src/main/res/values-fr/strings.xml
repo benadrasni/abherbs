@@ -8,5 +8,43 @@
     <string name="offline_mode_summary">nécessite plus de 250+ MB d\'espace</string>
 
     <string name="search">Chercher</string>
-    <string name="wait_until_finish">Attendez que l\'opération soit terminée.</string>
+    <string name="delete">Retirer</string>
+    <string name="cancel">Annuler</string>
+    <string name="login">S\'identifier</string>
+    <string name="logout">Connectez - Out</string>
+
+    <string name="synchronization_on_background">La synchronisation commencera en arrière-plan après le redémarrage de l\'application sur le réseau Wi-Fi.</string>
+    <string name="authentication_failed">Authentification échouée.</string>
+    <string name="camera_failed">Aucune photo n\'a été prise.</string>
+    <string name="gallery_failed">Aucune image n\'a été ajoutée.</string>
+    <string name="observation_saved">L\'observation a été enregistrée.</string>
+    <string name="plant_observations">Observations</string>
+    <string name="observation_not_saved">L\'observation était incomplète, donc elle n\'a pas été sauvegardée. L\'emplacement de la photo est manquant.</string>
+    <string name="observation_delete">Retirer l\'observation</string>
+    <string name="observation_delete_question">Voulez-vous retirer l\'observation?</string>
+    <string name="no_observations">Il n\'y a pas encore d\'observation.</string>
+    <string name="no_observations_login">Les observations sont disponibles uniquement pour les utilisateurs connectés. Veuillez vous connecter</string>
+
+    <string name="photo_delete">Retirer photo</string>
+    <string name="photo_delete_question">Voulez-vous retirer la photo de l\'observation?</string>
+    <string name="photo_duplicate">Dupliquer une photo. Ignoré.</string>
+    <string name="subscription">Abonnement</string>
+    <string name="subscription_info">Les observations partagées sont visibles uniquement pour les utilisateurs abonnés.</string>
+    <string name="subscribe">Souscrire</string>
+    <string name="subscription_intro1">La date, l\'emplacement et la note de votre observation sont enregistrés et conservés sur tous les appareils sans abonnement, mais les photos sont stockées uniquement localement sur l\'appareil. Vous perdrez la connexion avec eux (même la photo elle-même lorsque vous l\'avez prise à partir de l\'application) lorsque vous effacez des données, réinstallez ou changez de périphérique.</string>
+    <string name="subscription_intro2">Vous êtes sur le point de vous abonner à l\'enregistrement et à la conservation de vos photos sur tous vos appareils. Avec l\'abonnement, vous acceptez de partager vos observations avec les autres utilisateurs abonnés. Vous pourrez également voir leurs observations. Toutes les observations partagées sont anonymes et sa note reste privée et ne sera pas partagée. Pour simplifier le processus, vos photos seront partagées sous licence CC0 (Creative Commons Zero), vous êtes donc d\'accord avec cela.</string>
+    <string name="subscription_intro3">Sur la base de ces observations, des cartes de distribution seront créées avec d\'autres goodies, non encore mis en œuvre, qui ne seront accessibles qu\'aux utilisateurs abonnés.</string>
+    <string name="subscription_intro4">Si vous hésitez encore à cliquer sur le bouton ci-dessous, il y a une période d\'essai de 30 jours pour les deux abonnements.</string>
+    <string name="showcase_observation_title">Observations</string>
+    <string name="showcase_observation_message">Créez et enregistrez votre observation. Chaque observation doit contenir la date, le lieu et au moins une photo. La note personnelle n\'est pas obligatoire.</string>
+    <string name="showcase_switch_title">Propre / Partagé</string>
+    <string name="showcase_switch_message">Basculez entre vos propres observations et celles partagées.</string>
+    <string name="showcase_camera_title">Caméra</string>
+    <string name="showcase_camera_message">Utilisez l\'appareil photo pour prendre une photo de la fleur. Chaque observation doit contenir au moins une photo.</string>
+    <string name="showcase_gallery_title">Galerie</string>
+    <string name="showcase_gallery_message">Choisissez la photo déjà prise depuis votre appareil. Vous pouvez ajouter une observation avec une photo que vous avez prise il y a quelques années. Chaque observation doit contenir au moins une photo.</string>
+    <string name="showcase_location_title">Emplacement</string>
+    <string name="showcase_location_message">Définissez ou ajustez l\'emplacement manuellement.</string>
+    <string name="showcase_save_title">Sauvegarder</string>
+    <string name="showcase_save_message">Sauvegardez votre observation. Chaque observation doit contenir la date, le lieu et au moins une photo.</string>
 </resources>

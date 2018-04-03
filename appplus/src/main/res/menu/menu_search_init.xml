@@ -3,8 +3,24 @@
       xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_search_init"
-        android:title="Search"
-        android:icon="@android:drawable/ic_menu_search"
+        android:id="@+id/menu_observations"
+        android:title="@string/plant_observations"
+        android:icon="@drawable/ic_remove_red_eye_black_24dp"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_search_init"
+        android:title="@string/search"
+        android:icon="@drawable/ic_search_black_24dp"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_synchronization_download"
+        android:title=""
+        android:visible="false"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_synchronization_upload"
+        android:title=""
+        android:visible="false"
+        app:showAsAction="always"/>
+
 </menu>

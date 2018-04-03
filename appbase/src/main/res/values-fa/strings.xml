@@ -84,8 +84,8 @@
   <string name="showcase_fullscreen_title">تصویر بزرگتر</string>
   <string name="showcase_taxonomy_message">شما می توانید طبقه بندی گل را با کلیک بر روی نام آن نشان دهید / مخفی کنید.</string>
   <string name="showcase_taxonomy_title">طبقه بندی با توجه به سیستم APG IV</string>
-  <string name="subscribe">حقایق جالب در مورد گل</string>
-  <string name="subscribe_summary">اشتراک در واقعیت جالبی جالب در مورد گل خاص.</string>
+  <string name="subscribe_to_new">حقایق جالب در مورد گل</string>
+  <string name="subscribe_to_new_summary">اشتراک در واقعیت جالبی جالب در مورد گل خاص.</string>
   <string name="subscribed_to_new">مشترک شده است</string>
   <string name="taxonomy_cladus">(clade)</string>
   <string name="taxonomy_familia">Family</string>

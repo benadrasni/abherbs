@@ -29,6 +29,8 @@ public class HerbsApp extends BaseApp {
         super.onCreate();
 
         SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
         boolean offline = preferences.getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
 
         // Firebase synchronization
@@ -63,10 +65,14 @@ public class HerbsApp extends BaseApp {
 
         // image cache
         int cacheSize = preferences.getInt(AndroidConstants.CACHE_SIZE_KEY, AndroidConstants.DEFAULT_CACHE_SIZE);
+        if (cacheSize <= 0) {
+            cacheSize = AndroidConstants.DEFAULT_CACHE_SIZE;
+            editor.putInt(AndroidConstants.CACHE_SIZE_KEY, cacheSize);
+            editor.apply();
+        }
         initImageLoader(getApplicationContext(), cacheSize);
 
         // rate counter
-        SharedPreferences.Editor editor = preferences.edit();
         int rateCounter = preferences.getInt(AndroidConstants.RATE_COUNT_KEY, AndroidConstants.RATE_COUNTER);
         rateCounter--;
         editor.putInt(AndroidConstants.RATE_COUNT_KEY, rateCounter);
@@ -76,7 +82,7 @@ public class HerbsApp extends BaseApp {
         }
 
         // version specific key
-        editor.putBoolean(sk.ab.herbsbase.AndroidConstants.RESET_KEY + BuildConfig.VERSION_CODE, true);
+        editor.putBoolean(AndroidConstants.RESET_KEY + BuildConfig.VERSION_CODE, true);
         editor.apply();
 
         filterAttributes = new ArrayList<>();
@@ -89,5 +95,13 @@ public class HerbsApp extends BaseApp {
     public boolean isOffline() {
         SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
         return preferences.getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
+    }
+
+    @Override
+    public void setToken(String token) {
+        SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(AndroidConstants.TOKEN_KEY, token);
+        editor.apply();
     }
 }

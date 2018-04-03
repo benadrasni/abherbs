@@ -1,26 +1,30 @@
 package sk.ab.herbsbase.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Locale;
 
 import sk.ab.common.Constants;
+import sk.ab.herbs.billingmodule.BasePlayActivity;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
@@ -34,7 +38,24 @@ import sk.ab.herbsbase.tools.Utils;
  * Base Activity
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends BasePlayActivity {
+
+    private class DownloadStateReceiver extends BroadcastReceiver
+    {
+        private DownloadStateReceiver() {
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Integer number = intent.getIntExtra(AndroidConstants.EXTENDED_DATA_COUNT_SYNCHONIZED, -1);
+            Integer countAll = intent.getIntExtra(AndroidConstants.EXTENDED_DATA_COUNT_ALL, -1);
+            if (AndroidConstants.BROADCAST_DOWNLOAD.equals(intent.getAction())) {
+                handleSynchronizationDownload(number, countAll);
+            } else {
+                handleSynchronizationUpload(number, countAll);
+            }
+        }
+    }
 
     private static final String TAG = "BaseActivity";
 
@@ -56,6 +77,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         changeLocale();
+
+        DownloadStateReceiver mDownloadStateReceiver = new DownloadStateReceiver();
+        IntentFilter downloadIntentFilter = new IntentFilter(AndroidConstants.BROADCAST_DOWNLOAD);
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                mDownloadStateReceiver,
+                downloadIntentFilter);
+        IntentFilter uploadIntentFilter = new IntentFilter(AndroidConstants.BROADCAST_UPLOAD);
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                mDownloadStateReceiver,
+                uploadIntentFilter);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -137,6 +168,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         return count;
     }
 
+    public PropertyListBaseFragment getMenuFragment() {
+        return mPropertyMenu;
+    }
+
     protected void setCountButton() {
         BaseApp app = (BaseApp)getApplication();
 
@@ -170,7 +205,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         return isLocaleChanged;
     }
 
+    public void handleLogout() {
+
+    }
+
     public abstract SharedPreferences getSharedPreferences();
 
-    protected abstract PropertyListBaseFragment getMenuFragment();
+    protected abstract PropertyListBaseFragment getNewMenuFragment();
+
+    protected void handleSynchronizationDownload(Integer number, Integer countAll) {
+
+    }
+
+    protected void handleSynchronizationUpload(Integer number, Integer countAll) {
+
+    }
+
 }

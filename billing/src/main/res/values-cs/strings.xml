@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_no_skus">Nenašli jsme žádné SKU k zobrazení&#8230; Zkontrolujte vaše internetové připojení a ujistěte se, že vaše Google Developer konzola byla nastavena správně.</string>
+    <string name="error_billing_unavailable">Platby nedostupné. Ujistěte se, že vaše aplikace v Google Obchodě je nastavena správně.</string>
+    <string name="error_billing_default">Platby nedostupné. Zkontrolujte své zařízení.</string>
+
+    <string name="button_purchase">Předplatit</string>
+    <string name="button_buy">Koupit</string>
+    <string name="button_own">Zaplacené</string>
+    <string name="button_update">Obnovit</string>
+    <string name="button_change">Změnit</string>
+
+    <string name="header_subscriptions">Předplatné</string>
+    <string name="header_inapp">Jednorázová koupě</string>
+    <string name="content_description_app_loading_image">App loading image</string>
+</resources>

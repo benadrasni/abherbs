@@ -3,7 +3,7 @@
     <string name="about">Info su applicazione</string>
     <string name="help">Aiuto</string>
     <string name="settings">Impostazioni</string>
-    <string name="feedback">Invia feedback / Contributo</string>
+    <string name="feedback">Invia un feedback / Contributo</string>
     <string name="pref_language">Lingua preferita</string>
     <string name="cache_size">Dimensione della cache in MB</string>
     <string name="cache_size_summary">per foto e illustrazioni</string>
@@ -42,7 +42,7 @@
     <string name="image_desc">Illustrazione della pianta</string>
     <string name="translate_desc">Tradurre</string>
     <string name="email_desc">E-mail</string>
-    <string name="email_subject_prefix">Suggerimenti per una traduzione migliore / descrizione di</string>
+    <string name="email_subject_prefix">Suggerimenti per migliorare la traduzione / descrizione di</string>
 
     <string name="plant_title">Nome</string>
     <string name="plant_height_from">Altezza da</string>
@@ -82,11 +82,11 @@
     <string name="close">Chiudi</string>
 
     <string name="showcase_fullscreen_title">Immagine più grande</string>
-    <string name="showcase_fullscreen_message">È possibile visualizzare l\'illustrazione a schermo intero cliccando sullo stesso.</string>
+    <string name="showcase_fullscreen_message">Clicca sull\'illustrazione per visualizzarla a schermo intero.</string>
     <string name="showcase_count_button_title">Numero di piante filtrate</string>
     <string name="showcase_count_button_message">Quando il numero è inferiore a 21 premere per passare direttamente all\'elenco. Premere a lungo per rimuovere il filtro.</string>
     <string name="showcase_taxonomy_title">Tassonomia secondo il sistema APG III</string>
-    <string name="showcase_taxonomy_message">Puoi mostrare / nascondere la tassonomia dei fiori cliccando sul loro nome.</string>
+    <string name="showcase_taxonomy_message">Clicca sul nome dei fiori per mostrare / nascondere la tassonomia.</string>
     <string name="legend">Legenda</string>
     <string name="toxicity1">pianta velenosa</string>
     <string name="toxicity2">pianta leggermente velenosa</string>
@@ -115,15 +115,15 @@
     <string name="taxonomy_supersectio">Supersectio</string>
     <string name="subscribed_to_new">Subscribed.</string>
     <string name="unsubscribed_to_new">Unsubscribed.</string>
-    <string name="subscribe">Fatti interessanti a proposito dei fiori</string>
-    <string name="subscribe_summary">Subscribe to occasional interesting fact about certain flower.</string>
+    <string name="subscribe_to_new">Fatti interessanti sui fiori</string>
+    <string name="subscribe_to_new_summary">Subscribe to occasional interesting fact about certain flower.</string>
     <string name="taxonomy_unknown">sconosciuto</string>
     <string name="no">No</string>
     <string name="update_version">Versione aggiornata</string>
     <string name="new_version_available">È disponibile una nuova versione, aggiorna l\'applicazione.</string>
     <string name="update">Aggiornare</string>
     <string name="yes">Si</string>
-    <string name="feedback_submit_translate_data">Improve flower\'s data</string>
+    <string name="feedback_submit_translate_data">Migliorare le informazioni sui fiori</string>
     <string name="feedback_submit_translate_app">Improve application\'s labels</string>
-    <string name="improve_text">Improve text</string>
+    <string name="improve_text">Migliora il testo</string>
 </resources>

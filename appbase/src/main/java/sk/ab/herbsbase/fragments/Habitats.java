@@ -1,6 +1,5 @@
 package sk.ab.herbsbase.fragments;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -9,9 +8,9 @@ import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import sk.ab.herbsbase.AndroidConstants;
-import sk.ab.herbsbase.commons.BaseFilterFragment;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
+import sk.ab.herbsbase.commons.BaseFilterFragment;
 
 public class Habitats extends BaseFilterFragment {
 

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import sk.ab.common.entity.FirebasePlant;
-import sk.ab.common.entity.Plant;
 
 /**
  * Wrapper for {@link FirebasePlant}

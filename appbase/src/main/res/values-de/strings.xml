@@ -29,8 +29,8 @@
     <string name="petal_4">höchstens 4</string>
     <string name="petal_5">5</string>
     <string name="petal_many">mehr als 5</string>
-    <string name="petal_bisymmetric">zweiseitig-symmetrische</string>
-    <string name="number_of_petals_message">Ist die Blume bisymmetrisch? Falls nicht, wieviele Blätter hat sie?</string>
+    <string name="petal_bisymmetric">radialsymmetrische</string>
+    <string name="number_of_petals_message">Ist die Blume radialsymmetrische? Falls nicht, wieviele Blätter hat sie?</string>
 
     <string name="display_info">Richtige?</string>
     <string name="list_info">Wähle eins</string>
@@ -115,8 +115,8 @@
     <string name="taxonomy_supersectio">Supersectio</string>
     <string name="subscribed_to_new">Gezeichnet.</string>
     <string name="unsubscribed_to_new">Abgemeldet.</string>
-    <string name="subscribe">Interessante Fakten über Blumen</string>
-    <string name="subscribe_summary">Abonnieren Sie gelegentlich interessante Fakten über bestimmte Blumen.</string>
+    <string name="subscribe_to_new">Interessante Fakten über Blumen</string>
+    <string name="subscribe_to_new_summary">Abonnieren Sie gelegentlich interessante Fakten über bestimmte Blumen.</string>
     <string name="taxonomy_unknown">unbekannte</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>

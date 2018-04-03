@@ -8,5 +8,43 @@
     <string name="offline_mode_summary">250 MB以上の追加容量が必要</string>
 
     <string name="search">サーチ</string>
-    <string name="wait_until_finish">操作が終了するまでお待ちください。</string>
+    <string name="delete">削除</string>
+    <string name="cancel">キャンセル</string>
+    <string name="login">ログイン</string>
+    <string name="logout">ログアウト</string>
+
+    <string name="synchronization_on_background">Wi-Fiネットワーク上でアプリケーションを再起動すると、バックグラウンドで同期が開始されます。</string>
+    <string name="authentication_failed">認証に失敗しました。</string>
+    <string name="camera_failed">写真は撮られませんでした。</string>
+    <string name="gallery_failed">画像が追加されませんでした。</string>
+    <string name="observation_saved">観測が保存されました。</string>
+    <string name="observation_not_saved">観察は不完全であり、したがって保存されなかった。 写真の場所がありません。</string>
+    <string name="observation_delete">観測を削除する</string>
+    <string name="observation_delete_question">観測を削除しますか？</string>
+    <string name="plant_observations">観察</string>
+    <string name="no_observations">まだ観察はありません。</string>
+    <string name="no_observations_login">観察は、ログに記録されたユーザーに対してのみ可能です。 ログインしてください。</string>
+
+    <string name="photo_delete">写真を削除する</string>
+    <string name="photo_delete_question">観察から写真を削除しますか？</string>
+    <string name="photo_duplicate">写真を複製する。 スキップしました。</string>
+    <string name="subscription">購読</string>
+    <string name="subscription_info">共有観察は、購読しているユーザーにのみ表示されます。</string>
+    <string name="subscribe">申し込む</string>
+    <string name="subscription_intro1">観測の日付、位置、メモは保存され、サブスクリプションなしでデバイス間で保存されますが、写真はデバイス上にローカルに保存されます。 データを消去したり、再インストールしたり、デバイスを切り替えると、それらのアプリケーションとの接続が失われます（アプリケーションから撮影した写真自体も）。</string>
+    <string name="subscription_intro2">すべてのデバイスに写真を保存して保存する予定です。 サブスクリプションを使用すると、他のサブスクライブされたユーザーとあなたの観測を共有することに同意します。 あなたも彼らの観察を見ることができます。 すべての共有観測は匿名であり、メモは非公開で共有されません。 プロセスを簡素化するため、写真はCC0（クリエイティブ・コモンズ・ゼロ）ライセンスで共有されるため、これに同意することもできます。</string>
+    <string name="subscription_intro3">これらの観測に基づいて、配布されたユーザーだけがアクセスできる他の、まだ実装されていないグッズと共に配布マップが作成されます。</string>
+    <string name="subscription_intro4">下のボタンを押すことをまだ躊躇している場合は、両方のサブスクリプションで30日間の試用期間があります。</string>
+    <string name="showcase_observation_title">観察</string>
+    <string name="showcase_observation_message">あなたの観測を作成して保存します。 すべての観測には、日付、場所、少なくとも1つの写真が含まれていなければなりません。 個人的なメモは必須ではありません。</string>
+    <string name="showcase_switch_title">自分/共有</string>
+    <string name="showcase_switch_message">自分の観測と共有観測を切り替えます。</string>
+    <string name="showcase_camera_title">カメラ</string>
+    <string name="showcase_camera_message">カメラを使って花を撮影する。 すべての観察には少なくとも1枚の写真が含まれている必要があります。</string>
+    <string name="showcase_gallery_title">ギャラリー</string>
+    <string name="showcase_gallery_message">あなたのデバイスからすでに撮影した写真を選択してください。 数年前に撮影した写真を使って観察を追加することができます。 すべての観察には少なくとも1枚の写真が含まれている必要があります。</string>
+    <string name="showcase_location_title">ロケーション</string>
+    <string name="showcase_location_message">手動で位置を設定または調整する。</string>
+    <string name="showcase_save_title">セーブ</string>
+    <string name="showcase_save_message">あなたの観察を保存します。 すべての観測には、日付、場所、少なくとも1つの写真が含まれていなければなりません。</string>
 </resources>

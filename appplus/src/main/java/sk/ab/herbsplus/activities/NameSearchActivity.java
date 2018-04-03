@@ -31,8 +31,8 @@ import java.util.Locale;
 
 import sk.ab.common.entity.PlantName;
 import sk.ab.common.util.Utils;
-import sk.ab.herbsbase.activities.SearchBaseActivity;
 import sk.ab.herbsbase.AndroidConstants;
+import sk.ab.herbsbase.activities.SearchBaseActivity;
 import sk.ab.herbsbase.tools.SynchronizedCounter;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
@@ -130,7 +130,6 @@ public class NameSearchActivity extends SearchBaseActivity {
             mSearchText = "";
         }
 
-        setContentView(R.layout.search_activity);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -238,6 +237,11 @@ public class NameSearchActivity extends SearchBaseActivity {
     public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.search_activity;
+    };
 
     private void loadNames() {
         final SynchronizedCounter counter = new SynchronizedCounter();

@@ -1,18 +1,20 @@
 package sk.ab.herbsbase.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.SimpleShowcaseEventListener;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.HashMap;
@@ -24,18 +26,12 @@ import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.entity.PlantParcel;
 import sk.ab.herbsbase.entity.PlantTranslationParcel;
-import sk.ab.herbsbase.fragments.GalleryFragment;
-import sk.ab.herbsbase.fragments.InfoFragment;
-import sk.ab.herbsbase.fragments.SourcesFragment;
-import sk.ab.herbsbase.fragments.TaxonomyFragment;
 
 /**
  * Activity for displaying selected plant
  *
  */
 public abstract class DisplayPlantBaseActivity extends BaseActivity {
-
-    private FirebaseAnalytics mFirebaseAnalytics;
 
     private boolean fromNotification;
     private PlantParcel plantParcel;
@@ -64,14 +60,12 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
         }
 
         if (plantParcel != null) {
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+            FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
             Bundle bundle = new Bundle();
             bundle.putString(FirebaseAnalytics.Param.ITEM_LOCATION_ID, Locale.getDefault().getLanguage());
             bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, plantParcel.getName());
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
         }
-
-        setContentView(R.layout.plant_activity);
 
         overlay = findViewById(R.id.overlay);
         overlay.setOnTouchListener(new View.OnTouchListener() {
@@ -81,17 +75,10 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
             }
         });
 
-        countButton = (FloatingActionButton) findViewById(R.id.countButton);
-        if (countButton != null) {
-            countButton.setVisibility(View.GONE);
-        }
+        countButton = findViewById(R.id.countButton);
+        countText = findViewById(R.id.countText);
 
-        countText = (TextView) findViewById(R.id.countText);
-        if (countText != null) {
-            countText.setVisibility(View.GONE);
-        }
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.plant_drawer_layout);
+        mDrawerLayout = findViewById(R.id.plant_drawer_layout);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.display_info, R.string.display_info) {
@@ -99,16 +86,12 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
 
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
-        mPropertyMenu = getMenuFragment();
+        mPropertyMenu = getNewMenuFragment();
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        TaxonomyFragment taxonomyFragment = (TaxonomyFragment) fm.findFragmentByTag("Taxonomy");
-        if (taxonomyFragment == null) {
-            ft.replace(R.id.taxonomy_fragment, new TaxonomyFragment(), "Taxonomy");
-            ft.replace(R.id.info_fragment, new InfoFragment(), "Info");
-            ft.replace(R.id.gallery_fragment, new GalleryFragment(), "Gallery");
-            ft.replace(R.id.sources_fragment, new SourcesFragment(), "Sources");
+        if (fm.getFragments().size() == 0) {
+            addFragments(ft);
         }
         ft.replace(R.id.menu_content, mPropertyMenu);
         ft.commit();
@@ -122,10 +105,12 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
             getSupportActionBar().setTitle(R.string.display_info);
         }
 
-        ScrollView scrollview = ((ScrollView) findViewById(R.id.scrollview));
+        ScrollView scrollview = findViewById(R.id.scrollview);
         if (scrollview != null) {
             scrollview.scrollTo(0, 0);
         }
+
+        showWizard();
     }
 
     @Override
@@ -158,6 +143,11 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.plant_activity;
+    }
+
     public FirebasePlant getPlant() {
         return plantParcel;
     }
@@ -179,4 +169,54 @@ public abstract class DisplayPlantBaseActivity extends BaseActivity {
     }
 
     protected abstract Class getFilterPlantActivityClass();
+
+    protected abstract void addFragments(FragmentTransaction ft);
+
+    protected abstract void showWizard();
+
+    protected void showSpecificWizard(SharedPreferences.Editor editor) {
+
+    };
+
+    protected void showWizardIllustration(final SharedPreferences.Editor editor) {
+        final ImageView drawing = findViewById(sk.ab.herbsbase.R.id.plant_background);
+        new ShowcaseView.Builder(this)
+                .withMaterialShowcase()
+                .setStyle(sk.ab.herbsbase.R.style.CustomShowcaseTheme)
+                .setTarget(new ViewTarget(drawing))
+                .hideOnTouchOutside()
+                .setContentTitle(sk.ab.herbsbase.R.string.showcase_fullscreen_title)
+                .setContentText(sk.ab.herbsbase.R.string.showcase_fullscreen_message)
+                .setShowcaseEventListener(new SimpleShowcaseEventListener() {
+
+                    @Override
+                    public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+                        showWizardTaxonomy(editor);
+                    }
+                })
+                .build();
+        editor.putBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_2_7, true);
+        editor.apply();
+    }
+
+    protected void showWizardTaxonomy(final SharedPreferences.Editor editor) {
+        final ImageView taxonomyView = findViewById(sk.ab.herbsbase.R.id.taxonomy);
+        new ShowcaseView.Builder(this)
+                .withMaterialShowcase()
+                .setStyle(sk.ab.herbsbase.R.style.CustomShowcaseTheme)
+                .setTarget(new ViewTarget(taxonomyView))
+                .hideOnTouchOutside()
+                .setContentTitle(sk.ab.herbsbase.R.string.showcase_taxonomy_title)
+                .setContentText(sk.ab.herbsbase.R.string.showcase_taxonomy_message)
+                .setShowcaseEventListener(new SimpleShowcaseEventListener() {
+
+                    @Override
+                    public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+                        showSpecificWizard(editor);
+                    }
+                })
+                .build();
+        editor.putBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_3_1, true);
+        editor.apply();
+    }
 }

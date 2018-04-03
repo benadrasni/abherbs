@@ -2,6 +2,7 @@ package sk.ab.herbsplus.activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.SplashBaseActivity;
 import sk.ab.herbsplus.SpecificConstants;
+import sk.ab.herbsplus.services.SynchronizationService;
 
 
 /**
@@ -27,7 +29,7 @@ public class SplashPlusActivity extends SplashBaseActivity {
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    AndroidConstants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                    AndroidConstants.PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
         } else {
             startApplication();
         }
@@ -36,12 +38,11 @@ public class SplashPlusActivity extends SplashBaseActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
-            case AndroidConstants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+            case AndroidConstants.PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startApplication();
-                } else {
-                    finish();
                 }
+                finish();
             }
         }
     }
@@ -64,5 +65,16 @@ public class SplashPlusActivity extends SplashBaseActivity {
     @Override
     public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+    }
+
+    @Override
+    public void showRefreshedUi() {
+        Intent intent = new Intent(this, SynchronizationService.class);
+        intent.putExtra(AndroidConstants.STATE_IS_SUBSCRIBED, isMonthlySubscribed() || isYearlySubscribed());
+        startService(intent);
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            finish();
+        }
     }
 }

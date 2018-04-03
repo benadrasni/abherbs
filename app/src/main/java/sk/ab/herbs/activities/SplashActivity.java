@@ -41,4 +41,10 @@ public class SplashActivity extends SplashBaseActivity {
     public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
+
+    @Override
+    public void showRefreshedUi() {
+        super.showRefreshedUi();
+        finish();
+    }
 }

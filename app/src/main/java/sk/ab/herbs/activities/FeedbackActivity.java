@@ -1,21 +1,16 @@
 package sk.ab.herbs.activities;
 
 import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.android.vending.billing.IInAppBillingService;
 
 import java.util.Locale;
 
@@ -30,9 +25,6 @@ import sk.ab.herbsbase.tools.Utils;
  */
 
 public class FeedbackActivity extends AppCompatActivity {
-
-    private IInAppBillingService mService;
-    private ServiceConnection mServiceConn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +43,6 @@ public class FeedbackActivity extends AppCompatActivity {
         initializeBuyButton();
 
         initializeAdsButton();
-
-        //initializeInAppBilling();
     }
 
     @Override
@@ -66,18 +56,10 @@ public class FeedbackActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mService != null) {
-            unbindService(mServiceConn);
-        }
-    }
-
     private void initializeReviewButton() {
         final SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
 
-        Button submitReview = (Button)findViewById(R.id.contribution_submit_review);
+        Button submitReview = findViewById(R.id.contribution_submit_review);
         submitReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +73,7 @@ public class FeedbackActivity extends AppCompatActivity {
     }
 
     private void initializeTranslateButton() {
-        Button submitTranslateData = (Button)findViewById(R.id.contribution_submit_translate_data);
+        Button submitTranslateData = findViewById(R.id.contribution_submit_translate_data);
         submitTranslateData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +83,7 @@ public class FeedbackActivity extends AppCompatActivity {
             }
         });
 
-        Button submitTranslateApp = (Button)findViewById(R.id.contribution_submit_translate_app);
+        Button submitTranslateApp = findViewById(R.id.contribution_submit_translate_app);
         submitTranslateApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +95,7 @@ public class FeedbackActivity extends AppCompatActivity {
     }
 
     private void initializeBuyButton() {
-        Button submitBuy = (Button)findViewById(R.id.contribution_submit_buy);
+        Button submitBuy = findViewById(R.id.contribution_submit_buy);
         submitBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,8 +118,8 @@ public class FeedbackActivity extends AppCompatActivity {
     private void initializeAdsButton() {
         final SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
 
-        final Button submitAds = (Button)findViewById(R.id.contribution_submit_ads);
-        final TextView adsText = (TextView) findViewById(R.id.contribution_ads);
+        final Button submitAds = findViewById(R.id.contribution_submit_ads);
+        final TextView adsText = findViewById(R.id.contribution_ads);
         boolean showAds = preferences.getBoolean(SpecificConstants.SHOW_ADS_KEY, true);
         if (showAds) {
             submitAds.setText(getResources().getText(R.string.feedback_disable_ads));
@@ -165,24 +147,5 @@ public class FeedbackActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void initializeInAppBilling() {
-        mServiceConn = new ServiceConnection() {
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                mService = null;
-            }
-
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                mService = IInAppBillingService.Stub.asInterface(service);
-            }
-        };
-
-        Intent serviceIntent =
-                new Intent("com.android.vending.billing.InAppBillingService.BIND");
-        serviceIntent.setPackage("com.android.vending");
-        bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
     }
 }

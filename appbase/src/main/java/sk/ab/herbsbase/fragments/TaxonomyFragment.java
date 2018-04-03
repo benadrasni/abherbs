@@ -1,10 +1,10 @@
 package sk.ab.herbsbase.fragments;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,8 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -66,7 +64,7 @@ public class TaxonomyFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return View.inflate(displayPlantBaseActivity.getBaseContext(), R.layout.plant_card_taxonomy, null);
     }
 
@@ -75,14 +73,14 @@ public class TaxonomyFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         if (getView() != null) {
-            toxicityClass1 = (ImageView) getView().findViewById(R.id.plant_toxicity_class1);
+            toxicityClass1 = getView().findViewById(R.id.plant_toxicity_class1);
             toxicityClass1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(displayPlantBaseActivity, displayPlantBaseActivity.getResources().getText(R.string.toxicity1), Toast.LENGTH_LONG).show();
                 }
             });
-            toxicityClass2 = (ImageView) getView().findViewById(R.id.plant_toxicity_class2);
+            toxicityClass2 = getView().findViewById(R.id.plant_toxicity_class2);
             toxicityClass2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -91,28 +89,10 @@ public class TaxonomyFragment extends Fragment {
             });
         }
 
-        final SharedPreferences preferences = displayPlantBaseActivity.getSharedPreferences();
-        SharedPreferences.Editor editor = preferences.edit();
-        Boolean showWizard = !preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_3_1, false)
-                && preferences.getBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_2_7, false);
-        final ImageView taxonomyView = (ImageView) getView().findViewById(R.id.taxonomy);
-
-        if (showWizard) {
-            new ShowcaseView.Builder(displayPlantBaseActivity)
-                    .withMaterialShowcase()
-                    .setStyle(R.style.CustomShowcaseTheme)
-                    .setTarget(new ViewTarget(taxonomyView))
-                    .hideOnTouchOutside()
-                    .setContentTitle(R.string.showcase_taxonomy_title)
-                    .setContentText(R.string.showcase_taxonomy_message)
-                    .build();
-            editor.putBoolean(AndroidConstants.SHOWCASE_DISPLAY_KEY + AndroidConstants.VERSION_1_3_1, true);
-            editor.apply();
-        }
-
         setHeader();
 
-        final LinearLayout layout = (LinearLayout) getView().findViewById(R.id.plant_taxonomy);
+        final LinearLayout layout = getView().findViewById(R.id.plant_taxonomy);
+        final ImageView taxonomyView = getView().findViewById(R.id.taxonomy);
         taxonomyView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -248,10 +228,10 @@ public class TaxonomyFragment extends Fragment {
 		LayoutInflater inflater = (LayoutInflater) displayPlantBaseActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		for (PlantTaxon taxon : taxons) {
 			View view = inflater.inflate(R.layout.taxon, null);
-			TextView textType = (TextView) view.findViewById(R.id.taxonType);
+			TextView textType = view.findViewById(R.id.taxonType);
 			textType.setText(Utils.getId(AndroidConstants.RES_TAXONOMY_PREFIX + taxon.getType().toLowerCase(), R.string.class));
 
-			TextView textName = (TextView) view.findViewById(R.id.taxonName);
+			TextView textName = view.findViewById(R.id.taxonName);
 			StringBuilder sbName = new StringBuilder();
 			if (taxon.getName() != null) {
 				for (String s : taxon.getName()) {
@@ -262,7 +242,7 @@ public class TaxonomyFragment extends Fragment {
 				}
 			}
 
-			TextView textLatinName = (TextView) view.findViewById(R.id.taxonLatinName);
+			TextView textLatinName = view.findViewById(R.id.taxonLatinName);
 			StringBuilder sbLatinName = new StringBuilder();
 			if (taxon.getLatinName() != null) {
 				for (String s : taxon.getLatinName()) {
@@ -301,9 +281,9 @@ public class TaxonomyFragment extends Fragment {
 
     private void setHeader() {
         FirebasePlant plant = getPlant();
-	if (plant == null) {
-	    return;	
-	}
+        if (plant == null) {
+            return;
+        }
         PlantTranslation plantTranslation = getPlantTranslation();
 
         Integer toxicityClass = plant.getToxicityClass();
@@ -334,16 +314,16 @@ public class TaxonomyFragment extends Fragment {
             isLatinName = true;
         }
 
-        TextView species = (TextView) getView().findViewById(R.id.plant_species);
+        TextView species = getView().findViewById(R.id.plant_species);
         species.setText(label);
         if (!isLatinName) {
-            TextView species_latin = (TextView) getView().findViewById(R.id.plant_species_latin);
+            TextView species_latin = getView().findViewById(R.id.plant_species_latin);
             species_latin.setText(plant.getName());
         }
 
         setAltNames(false);
 
-        TextView synonymsView = (TextView) getView().findViewById(R.id.synonyms);
+        TextView synonymsView = getView().findViewById(R.id.synonyms);
         List<String> synonyms = plant.getSynonyms();
         if (synonyms != null) {
             StringBuilder synonymsText = new StringBuilder();
@@ -365,7 +345,7 @@ public class TaxonomyFragment extends Fragment {
 
     private void setAltNames(boolean all) {
         PlantTranslation plantTranslation = getPlantTranslation();
-        TextView namesView = (TextView) getView().findViewById(R.id.plant_alt_names);
+        TextView namesView = getView().findViewById(R.id.plant_alt_names);
         if (plantTranslation != null) {
             List<String> names = plantTranslation.getNames();
             if (names != null) {

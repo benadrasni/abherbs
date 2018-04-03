@@ -3,7 +3,6 @@ package sk.ab.herbsbase.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -18,6 +17,7 @@ import java.util.Locale;
 
 import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.PlantTranslation;
+import sk.ab.herbs.billingmodule.BasePlayActivity;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.entity.PlantParcel;
@@ -30,7 +30,7 @@ import sk.ab.herbsbase.tools.Utils;
  * Created by adrian on 23. 3. 2017.
  */
 
-public abstract class SearchBaseActivity extends AppCompatActivity {
+public abstract class SearchBaseActivity extends BasePlayActivity {
     private final static int API_CALLS = 4;
 
     private FirebasePlant plant;
@@ -45,7 +45,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
         changeLocale();
     }
 
-    protected void callListActivity(String listPath, int count, boolean fromNotification) {
+    public void callListActivity(String listPath, int count, boolean fromNotification) {
         Intent intent = new Intent(getBaseContext(), getListPlantsActivityClass());
         intent.putExtra(AndroidConstants.STATE_FROM_NOTIFICATION, fromNotification);
         intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
@@ -54,7 +54,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
-    protected void callDetailActivity(final String plantName, final boolean fromNotification) {
+    public void callDetailActivity(final String plantName, final boolean fromNotification) {
         if (!((BaseApp)getApplication()).isOffline() && !BaseApp.isNetworkAvailable(getApplicationContext())) {
             Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -66,6 +66,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
 
         // load non-translatable attributes
         DatabaseReference mPlantRef = database.getReference(AndroidConstants.FIREBASE_PLANTS + AndroidConstants.SEPARATOR + plantName);
+        mPlantRef.keepSynced(true);
         mPlantRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -90,6 +91,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
         // load translations in language
         DatabaseReference mTranslationRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.SEPARATOR
                 + Locale.getDefault().getLanguage());
+        mTranslationRef.keepSynced(true);
         mTranslationRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -124,6 +126,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
             String baseLanguage = AndroidConstants.LANGUAGE_CS.equals(Locale.getDefault().getLanguage()) ? AndroidConstants.LANGUAGE_SK : AndroidConstants.LANGUAGE_EN;
             DatabaseReference mTranslationEnRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.SEPARATOR
                     + baseLanguage + AndroidConstants.SEPARATOR + plantName);
+            mTranslationEnRef.keepSynced(true);
             mTranslationEnRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -152,6 +155,7 @@ public abstract class SearchBaseActivity extends AppCompatActivity {
             // load translation in language (GT)
             DatabaseReference mTranslationGTRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.SEPARATOR
                     + Locale.getDefault().getLanguage() + AndroidConstants.LANGUAGE_GT_SUFFIX);
+            mTranslationGTRef.keepSynced(true);
             mTranslationGTRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

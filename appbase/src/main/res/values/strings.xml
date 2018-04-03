@@ -20,6 +20,9 @@
     <string translatable="false" name="nop_5">5</string>
     <string translatable="false" name="nop_many">Many</string>
     <string translatable="false" name="nop_bisymmetric">Bisymetric</string>
+	
+    <string translatable="false" name="agpiii">APG III</string>
+    <string translatable="false" name="agpiv">APG IV</string>
 
     <string name="about">About</string>
     <string name="help">Help</string>
@@ -65,7 +68,7 @@
     <string name="email_desc">Email</string>
     <string name="email_subject_prefix">Suggestion for better translation / description of </string>
 
-    <string name="plant_title">title</string>
+    <string name="plant_title">observationDate</string>
     <string name="plant_height_from">Height from</string>
     <string name="plant_height_to">to</string>
     <string name="plant_flowering_from">Flowering from</string>
@@ -117,8 +120,6 @@
     <string name="legend">Legend</string>
     <string name="toxicity1">poisonous plant</string>
     <string name="toxicity2">slightly poisonous plant</string>
-    <string name="agpiii" translatable="false">APG III</string>
-    <string name="agpiv" translatable="false">APG IV</string>
     <string name="rate_question">Is this app helpful?</string>
     <string name="rate_text">Author of this application is fueled by positive response from the users. Please send him some starflowers through Google Play Store.</string>
     <string name="rate_never">Never</string>
@@ -134,13 +135,13 @@
     <string name="feedback_review">You can write a positive review in Google Play.</string>
     <string name="feedback_google_play">Google Play</string>
     <string name="feedback_title">How to contribute</string>
-    <string name="feedback_translate">You can report any typo or mistake you found or submit new translation in your language.</string>
+    <string name="feedback_translate">You can report any typo or mistranslation you found or submit new translation for flower\'s data or application\'s labels at whatsthatflower.com.</string>
     <string name="feedback_cash">You can support new development and database extension with cash.</string>
     <string name="feedback_submit_cash">Donate</string>
     <string name="subscribed_to_new">Subscribed.</string>
     <string name="unsubscribed_to_new">Unsubscribed.</string>
-    <string name="subscribe">Interesting facts about flowers</string>
-    <string name="subscribe_summary">Subscribe to occasional interesting fact about certain flower.</string>
+    <string name="subscribe_to_new">Interesting facts about flowers</string>
+    <string name="subscribe_to_new_summary">Subscribe to occasional interesting fact about certain flower.</string>
     <string name="taxonomy_unknown">unknown</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>

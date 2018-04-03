@@ -92,7 +92,7 @@ public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
                         editor.putInt(AndroidConstants.CACHE_SIZE_KEY, newCacheSize);
                         editor.apply();
 
-                        BaseApp.initImageLoader(getActivity().getApplicationContext(), newCacheSize);
+                        ((BaseApp)getActivity().getApplication()).initImageLoader(getActivity().getApplicationContext(), newCacheSize);
                     } else {
                         Toast.makeText(getActivity().getApplicationContext(), "Cache size must be greater than 0", Toast.LENGTH_LONG).show();
                         prefCacheSize.setText("" + cacheSize);

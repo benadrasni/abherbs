@@ -4,6 +4,7 @@
     <color name="MenuLightGrey">#B5B4B4</color>
     <color name="MenuWhite">#F3F3F3</color>
     <color name="FABGreen">#4C924C</color>
+    <color name="FABBlue">#2196F3</color>
 
     <color name="CardsBackground">#e5e5e5</color>
     <color name="CardsForeground">#FFFFFF</color>

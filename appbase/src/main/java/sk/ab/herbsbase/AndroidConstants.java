@@ -2,9 +2,6 @@ package sk.ab.herbsbase;
 
 import android.content.res.Resources;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created with IntelliJ IDEA.
  * User: adrian
@@ -14,13 +11,23 @@ import java.util.Map;
 public class AndroidConstants {
     public final static String PACKAGE = "sk.ab.herbs";
 
-    public final static int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
+    public final static int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
+    public final static int REQUEST_SIGN_IN = 100;
+    public final static int REQUEST_TAKE_PHOTO = 101;
+    public final static int REQUEST_PICK_PHOTO = 102;
+    public final static int REQUEST_LOCATION = 103;
 
+    public static final String BROADCAST_DOWNLOAD = "BROADCAST_DOWNLOAD";
+    public static final String BROADCAST_UPLOAD = "BROADCAST_UPLOAD";
+    public static final String EXTENDED_DATA_COUNT_ALL = "count_all";
+    public static final String EXTENDED_DATA_COUNT_SYNCHONIZED = "count_synchronized";
+
+    public final static String DATE_SKELETON = "ddMMMyyyyHHmm";
     public final static int DEFAULT_CACHE_SIZE = 50;
-
+    public final static int IMAGE_SIZE = 512;
     public final static int ICON_OPACITY = 125;
 
-    public static final long MIN_CLICK_INTERVAL = 600;
+    public final static long MIN_CLICK_INTERVAL = 600;
 
     public final static String EMAIL = "whatsthoseflowers@gmail.com";
     public final static String WEB_URL = "https://whatsthatflower.com/";
@@ -38,6 +45,10 @@ public class AndroidConstants {
     public final static String STATE_TRANSLATION_IN_ENGLISH = "translation_in_english";
     public final static String STATE_FROM_NOTIFICATION = "from_notification";
     public final static String STATE_LIST_POSITION = "list_position";
+    public final static String STATE_OBSERVATION = "latitude";
+    public final static String STATE_LATITUDE = "latitude";
+    public final static String STATE_LONGITUDE = "longitude";
+    public final static String STATE_IS_SUBSCRIBED = "is_subscribed";
 
     public final static String RATE = "RATE";
     public final static int RATE_COUNTER = 5;
@@ -67,6 +78,8 @@ public class AndroidConstants {
     public final static String RATE_COUNT_KEY = "rate_count";
     public final static String SHOWCASE_FILTER_KEY = "showcase_filter";
     public final static String SHOWCASE_DISPLAY_KEY = "showcase_display";
+    public final static String TOKEN_KEY = "token";
+
     public final static String LANGUAGE_NOT_SUPPORTED = " (not supported)";
     public final static String LANGUAGE_EN = "en";
     public final static String LANGUAGE_SK = "sk";
@@ -86,6 +99,10 @@ public class AndroidConstants {
     public final static String ITEM_FEEDBACK = "Feedback";
     public final static String ITEM_HELP = "Help";
     public final static String ITEM_ABOUT = "About";
+    public final static String ITEM_CC0 = "Creative Commons Zero";
+    public final static String ITEM_LOGIN = "Login";
+    public final static String ITEM_LOGOUT = "Logout";
+    public final static String ITEM_SUBSCRIPTION = "Subscription";
 
     public final static String SEPARATOR = "/";
     public final static String ACTION = "action";
@@ -94,9 +111,19 @@ public class AndroidConstants {
     public final static String FIREBASE_COUNTS = "counts";
     public final static String FIREBASE_LISTS = "lists";
     public final static String FIREBASE_PLANTS = "plants";
+    public final static String FIREBASE_PLANTS_TO_UPDATE = "plants_to_update";
+    public final static String FIREBASE_FAMILIES_TO_UPDATE = "families_to_update";
     public final static String FIREBASE_APG_IV = "APG IV";
     public final static String FIREBASE_SEARCH = "search";
     public final static String FIREBASE_TRANSLATIONS = "translations";
+    public final static String FIREBASE_OBSERVATIONS = "observations";
+    public final static String FIREBASE_OBSERVATIONS_BY_USERS = "by users";
+    public final static String FIREBASE_OBSERVATIONS_BY_DATE = "by date";
+    public final static String FIREBASE_OBSERVATIONS_BY_PLANT = "by plant";
+    public final static String FIREBASE_OBSERVATIONS_PUBLIC = "public";
+    public final static String FIREBASE_OBSERVATIONS_STATUS = "status";
+    public final static String FIREBASE_USERS = "users";
+    public final static String FIREBASE_USERS_TOKEN = "token";
     public final static String FIREBASE_VERSIONS = "versions";
 
     public final static String FIREBASE_APG_TYPE = "type";
@@ -105,6 +132,7 @@ public class AndroidConstants {
     public final static String FIREBASE_APG_COUNT = "count";
 
     public final static String FIREBASE_DATA_COUNT = "count";
+    public final static String FIREBASE_DATA_LIST = "list";
     public final static String FIREBASE_DATA_PATH = "path";
 
     public final static String FIREBASE_APG_UNKNOWN_TYPE = "unknown";

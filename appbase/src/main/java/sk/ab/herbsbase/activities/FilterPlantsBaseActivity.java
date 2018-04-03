@@ -52,8 +52,6 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         setTheme(R.style.Theme_Application);
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.filter_activity);
-
         if (savedInstanceState != null) {
             filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
             filterPosition = savedInstanceState.getInt(AndroidConstants.STATE_FILTER_POSITION);
@@ -81,7 +79,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
             }
         });
 
-        countButton = (FloatingActionButton) findViewById(R.id.countButton);
+        countButton = findViewById(R.id.countButton);
         countButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,18 +103,18 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
             }
         });
 
-        countText = (TextView) findViewById(R.id.countText);
+        countText = findViewById(R.id.countText);
 
         FragmentManager.enableDebugLogging(true);
         FragmentManager fm = getSupportFragmentManager();
 
-        mPropertyMenu = getMenuFragment();
+        mPropertyMenu = getNewMenuFragment();
 
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.menu_content, mPropertyMenu);
         fragmentTransaction.commit();
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name) {
 
@@ -208,6 +206,12 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
             }
         }
     }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.filter_activity;
+    };
+
 
     public abstract boolean isAdsAllowed();
 
@@ -310,10 +314,10 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
 
         int rateState = preferences.getInt(AndroidConstants.RATE_STATE_KEY, AndroidConstants.RATE_NO);
         if (BaseApp.isNetworkAvailable(getApplicationContext()) && rateState == AndroidConstants.RATE_SHOW) {
-            final LinearLayout rateLayout = (LinearLayout)findViewById(R.id.ratingQuestion);
+            final LinearLayout rateLayout = findViewById(R.id.ratingQuestion);
             rateLayout.setVisibility(View.VISIBLE);
 
-            Button bYes = (Button)findViewById(R.id.likeYes);
+            Button bYes = findViewById(R.id.likeYes);
             bYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -322,7 +326,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
                     rateLayout.setVisibility(View.GONE);
                 }
             });
-            Button bNo = (Button)findViewById(R.id.likeNo);
+            Button bNo = findViewById(R.id.likeNo);
             bNo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

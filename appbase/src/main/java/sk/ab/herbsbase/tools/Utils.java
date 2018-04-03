@@ -9,8 +9,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Paint;
 import android.net.Uri;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.text.Spanned;
@@ -22,17 +20,17 @@ import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
@@ -71,30 +69,6 @@ public class Utils {
         return Math.round(pixels);
     }
 
-    // For writing to a Parcel
-    public static <K extends Parcelable,V extends Parcelable> void writeParcelableMap(
-            Parcel parcel, int flags, Map<K, V > map)
-    {
-        parcel.writeInt(map.size());
-        for(Map.Entry<K, V> e : map.entrySet()){
-            parcel.writeParcelable(e.getKey(), flags);
-            parcel.writeParcelable(e.getValue(), flags);
-        }
-    }
-
-    // For reading from a Parcel
-    public static <K extends Parcelable,V extends Parcelable> Map<K,V> readParcelableMap(
-            Parcel parcel, Class<K> kClass, Class<V> vClass)
-    {
-        int size = parcel.readInt();
-        Map<K, V> map = new HashMap<K, V>(size);
-        for(int i = 0; i < size; i++){
-            map.put(kClass.cast(parcel.readParcelable(kClass.getClassLoader())),
-                    vClass.cast(parcel.readParcelable(vClass.getClassLoader())));
-        }
-        return map;
-    }
-
     public static int getId(String resourceName, Class<?> c) {
         try {
             Field idField = c.getDeclaredField(resourceName);
@@ -113,7 +87,8 @@ public class Utils {
         } else {
             fileUri = AndroidConstants.STORAGE_ENDPOINT + fileName;
         }
-        ImageLoader.getInstance().displayImage(fileUri, imageView, options);
+
+        ImageLoader.getInstance().displayImage(fileUri, new ImageViewAware(imageView), options, new ImageSize(AndroidConstants.IMAGE_SIZE, AndroidConstants.IMAGE_SIZE), null, null);
     }
 
     public static void displayImage(File filesDir, String fileName, ImageView imageView, DisplayImageOptions options, ImageLoadingListener listener) {
@@ -185,7 +160,7 @@ public class Utils {
      */
     private static List<String> splitIntoStringsThatFit(String source, float maxWidthPx, Paint paint) {
         if(TextUtils.isEmpty(source) || paint.measureText(source) <= maxWidthPx) {
-            return Arrays.asList(source);
+            return Collections.singletonList(source);
         }
 
         ArrayList<String> result = new ArrayList<>();

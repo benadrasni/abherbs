@@ -35,8 +35,8 @@ import java.util.Map;
 
 import sk.ab.common.Constants;
 import sk.ab.common.entity.PlantTaxon;
-import sk.ab.herbsbase.activities.SearchBaseActivity;
 import sk.ab.herbsbase.AndroidConstants;
+import sk.ab.herbsbase.activities.SearchBaseActivity;
 import sk.ab.herbsbase.tools.Utils;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
@@ -199,7 +199,6 @@ public class TaxonomyActivity extends SearchBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.taxonomy_activity);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -272,6 +271,11 @@ public class TaxonomyActivity extends SearchBaseActivity {
     public SharedPreferences getSharedPreferences() {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.taxonomy_activity;
+    };
 
     private void loadTaxonomy() {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();

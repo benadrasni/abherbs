@@ -2,6 +2,7 @@ package sk.ab.herbsbase;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -14,9 +15,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Stack;
 
-import sk.ab.common.service.FirebaseClient;
 import sk.ab.common.service.GoogleClient;
-import sk.ab.common.service.HerbCloudClient;
 import sk.ab.herbsbase.commons.BaseFilterFragment;
 
 /**
@@ -33,8 +32,6 @@ public abstract class BaseApp extends Application {
     private Stack<BaseFilterFragment> backStack;
     private boolean isLoading;
 
-    private HerbCloudClient herbCloudClient;
-    private FirebaseClient firebaseClient;
     private GoogleClient googleClient;
 
     @Override
@@ -45,12 +42,10 @@ public abstract class BaseApp extends Application {
 
         backStack = new Stack<>();
 
-        herbCloudClient = new HerbCloudClient();
-        firebaseClient = new FirebaseClient();
         googleClient = new GoogleClient();
     }
 
-    public static void initImageLoader(Context context, int cacheSize) {
+    public void initImageLoader(Context context, int cacheSize) {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
                 .threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
@@ -65,6 +60,9 @@ public abstract class BaseApp extends Application {
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
+                .showImageForEmptyUri(R.drawable.no_image_available)
+                .showImageOnFail(R.drawable.no_image_available)
+                .showImageOnLoading(R.drawable.loading_image)
                 .build();
     }
 
@@ -87,14 +85,6 @@ public abstract class BaseApp extends Application {
         return options;
     }
 
-    public HerbCloudClient getHerbCloudClient() {
-        return herbCloudClient;
-    }
-
-    public FirebaseClient getFirebaseClient() {
-        return firebaseClient;
-    }
-
     public GoogleClient getGoogleClient() {
         return googleClient;
     }
@@ -114,4 +104,6 @@ public abstract class BaseApp extends Application {
     public void setLoading(boolean loading) {
         this.isLoading = loading;
     }
+
+    public abstract void setToken(String token);
 }

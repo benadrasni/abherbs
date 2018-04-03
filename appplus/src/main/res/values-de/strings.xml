@@ -8,5 +8,43 @@
     <string name="offline_mode_summary">Benötigt 250+ MB zusätzlichen Platz</string>
 
     <string name="search">Suche</string>
-    <string name="wait_until_finish">Bitte warten, bis der Betrieb beendet ist.</string>
+    <string name="delete">Löschen</string>
+    <string name="cancel">Stornieren</string>
+    <string name="login">Anmeldung</string>
+    <string name="logout">Ausloggen</string>
+    
+    <string name="synchronization_on_background">Bitte warten, bis der Betrieb beendet ist.</string>
+    <string name="authentication_failed">Authentifizierung fehlgeschlagen.</string>
+    <string name="camera_failed">Kein Foto wurde aufgenommen.</string>
+    <string name="gallery_failed">Kein Foto wurde hinzugefügt.</string>
+    <string name="observation_saved">Beobachtung wurde gespeichert.</string>
+    <string name="plant_observations">Beobachtungen</string>
+    <string name="observation_not_saved">Die Beobachtung wurde nicht abgeschlossen, so dass es nicht gespeichert wurde. Ort des Fotos fehlt.</string>
+    <string name="observation_delete">Beobachtung löschen</string>
+    <string name="observation_delete_question">Möchten Sie die Beobachtung löschen?</string>
+    <string name="no_observations">Es gibt noch keine Beobachtung.</string>
+    <string name="no_observations_login">Beobachtungen sind nur für angemeldete Benutzer verfügbar. Bitte loggen Sie sich ein.</string>
+
+    <string name="photo_delete">Foto entfernen</string>
+    <string name="photo_delete_question">Möchten Sie das Foto aus der Beobachtung entfernen?</string>
+    <string name="photo_duplicate">Das Foto wurde bereits hinzugefügt.</string>
+    <string name="subscription">Abonnement</string>
+    <string name="subscription_info">Gemeinsame Beobachtungen sind nur für abonnierte Benutzer sichtbar.</string>
+    <string name="subscribe">Abonnieren</string>
+    <string name="subscription_intro1">Das Datum, der Standort und die Notizen Ihrer Beobachtung werden auch ohne Abonnement auf allen Ihren Geräten gespeichert und synchronisiert, aber Fotos werden nur lokal gespeichert. Die Verbindung zu den Fotos wird verloren (das Foto selbst wird sogar gelöscht, wenn Sie es durch die Anwendung aufgenommen haben), wenn Sie Daten löschen, die Anwendung neu installieren oder Ihr Gerät wechseln.</string>
+    <string name="subscription_intro2">Sie sind gerade dabei, Ihre Fotos auf allen Ihren Geräten zu synchronisieren und dauerhaft zu speichern. Mit dem Abonnement stimmen Sie zu, Ihre Beobachtungen mit anderen abonnierten Benutzern zu teilen. Sie werden auch die Beobachtungen der anderen Nutzer sehen können. Alle gemeinsamen Beobachtungen sind anonym und ihre Notizen bleiben privat und werden nicht geteilt. Um den Prozess zu vereinfachen, werden Ihre Fotos unter der CC0-Lizenz (Creative Commons Zero) geteilt, also stimmen Sie auch damit zu.</string>
+    <string name="subscription_intro3">Basierend auf diesen Beobachtungen werden in Zukunft Verteilungskarten zusammen mit anderen, noch nicht implementierten Goodies erstellt, die nur für registrierte Benutzer zugänglich sind.</string>
+    <string name="subscription_intro4">Wenn Sie immer noch zögern, den unten stehenden Button zu drücken, gibt es eine 30-tägige Probezeit für beide Abonnements.</string>
+    <string name="showcase_observation_title">Beobachtungen</string>
+    <string name="showcase_observation_message">Erstellen und speichern Sie Ihre Beobachtung. Jede Beobachtung muss Datum, Ort und mindestens ein Foto enthalten. Persönliche Anmerkung ist nicht zwingend erforderlich.</string>
+    <string name="showcase_switch_title">Eigene / Gemeinsame</string>
+    <string name="showcase_switch_message">Wechseln Sie zwischen Ihren eigenen und gemeinsamen Beobachtungen.</string>
+    <string name="showcase_camera_title">Kamera</string>
+    <string name="showcase_camera_message">Benutze die Kamera, um ein Bild von der Blume zu machen. Jede Beobachtung muss mindestens ein Foto enthalten.</string>
+    <string name="showcase_gallery_title">Galerie</string>
+    <string name="showcase_gallery_message">Wählen Sie bereits aufgenommenes Foto von Ihrem Gerät. Sie können Beobachtungen mit Fotos hinzufügen, die Sie vor ein paar Jahren gemacht haben. Jede Beobachtung muss mindestens ein Foto enthalten.</string>
+    <string name="showcase_location_title">Ort</string>
+    <string name="showcase_location_message">Stellen Sie den Standort manuell ein oder passen Sie ihn an.</string>
+    <string name="showcase_save_title">Speichern</string>
+    <string name="showcase_save_message">Rette deine Beobachtung. Jede Beobachtung muss Datum, Ort und mindestens ein Foto enthalten.</string>
 </resources>

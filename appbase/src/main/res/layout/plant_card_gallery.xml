@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/thumbnails_height"
         android:background="@color/CardsForeground"
-        android:padding="@dimen/thumbnails_padding"/>
+        android:paddingTop="@dimen/thumbnails_padding"
+        android:paddingBottom="@dimen/thumbnails_padding"/>
 
     <ImageView
         android:id="@+id/plant_photo"

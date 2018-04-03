@@ -7,6 +7,44 @@
     <string name="offline_mode">Offline režim</string>
     <string name="offline_mode_summary">vyžaduje 250+ MB dalšího místa</string>
 
-    <string name="search">Hledej</string>
-    <string name="wait_until_finish">Počkejte, prosím, na dokončení operace.</string>
+    <string name="search">Hledat</string>
+    <string name="delete">Vymazat</string>
+    <string name="cancel">Zrušit</string>
+    <string name="login">Přihlásit</string>
+    <string name="logout">Odhlásit</string>
+    
+    <string name="synchronization_on_background">Počkejte, prosím, na dokončení operace.</string>
+    <string name="authentication_failed">Přihlášení bylo neúspěšné.</string>
+    <string name="camera_failed">Nebyla přidána žádna fotografie.</string>
+    <string name="gallery_failed">Nebyla přidána žádna fotografie.</string>
+    <string name="observation_saved">Pozorování bylo uloženo.</string>
+    <string name="plant_observations">Pozorování</string>
+    <string name="observation_not_saved">Pozorování bylo neúplné, takže nebylo uloženo. Chyběla poloha nebo fotka.</string>
+    <string name="observation_delete">Zmazat pozorování</string>
+    <string name="observation_delete_question">Chcete zmazat pozorování?</string>
+    <string name="no_observations">Zatím není žádné pozorování.</string>
+    <string name="no_observations_login">Pozorování jsou dostupné pouze přihlášeným uživatelům. Přihlaste se, prosím.</string>
+
+    <string name="photo_delete">Odstranit fotografii</string>
+    <string name="photo_delete_question">Chcete odstranit fotografii z Pozorování?</string>
+    <string name="photo_duplicate">Fotografie byla již jednou přidána.</string>
+    <string name="subscription">Předplatné</string>
+    <string name="subscription_info">Sdílené pozorování jsou přístupné pouze uživatelům s předplatným.</string>
+    <string name="subscribe">Předplatit</string>
+    <string name="subscription_intro1">Datum, místo a poznámka k Pozorování se automaticky ukládají a jsou dostupné na všech zařízeních bez předplatného. Na druhé straně fotografie jsou uloženy pouze lokálně. Po vymazání dat, přeinstalování aplikace nebo výměně mobilu se fotografie při pozorováních dále nezobrazují (ty, které byly provedeny přímo z aplikace se dokonce vymažou).</string>
+    <string name="subscription_intro2">Právě se chystáte předplatit si uchovávání fotografií a jejich zobrazení na všech zařízeních. Zároveň s předplatným souhlasíte se sdílením vašich pozorování s ostatními platícími uživateli. Jejich pozorování zároveň budou zobrazeny i vám. Sdílené pozorování jsou anonymní, poznámky zůstávají soukromé a nesdílejí se. Pro zjednodušení procesu všechny fotogiafie budou sdíleny pod licencí Creative Commons Zero, takže zároveň souhlasíte i s tím.</string>
+    <string name="subscription_intro3">Na základě sdílených pozorování budou vytvořeny mapy výskytu jakož i další, zatím neimplementované, funkce, ke kterým budou mít přístup pouze uživatelé s předplatným.</string>
+    <string name="subscription_intro4">Pokud ještě stále váháte se stisknutím tlačítka na konci stránky, tak předplatné obsahuje zkušební dobu 30 dní, během kterých bude zdarma.</string>
+    <string name="showcase_observation_title">Pozorování</string>
+    <string name="showcase_observation_message">Zaznamenat pozorování. Každé pozorování musí obsahovat datum, místo a alespoň jednu fotografii. Osobní poznámka je nepovinná.</string>
+    <string name="showcase_switch_title">Vlastní / Sdílené</string>
+    <string name="showcase_switch_message">Přepínač mezi vlastními a sdílenými pozorováními.</string>
+    <string name="showcase_camera_title">Fotoaparát</string>
+    <string name="showcase_camera_message">Použít fotoaparát v mobilu na vyfotografování květu. Každé pozorování musí obsahovat alespoň jednu fotografii.</string>
+    <string name="showcase_gallery_title">Galerie</string>
+    <string name="showcase_gallery_message">Vybrat fotografii uloženou lokálně na mobilu. Zaznamenat se dá i pozorování, které si udělal před lety. Každé pozorování musí obsahovat alespoň jednu fotografii.</string>
+    <string name="showcase_location_title">Poloha</string>
+    <string name="showcase_location_message">Manuálně nastavit nebo upravit polohu.</string>
+    <string name="showcase_save_title">Uložit</string>
+    <string name="showcase_save_message">Uložit pozorování. Každé pozorování musí obsahovat datum, místo a alespoň jednu fotografii.</string>
 </resources>
