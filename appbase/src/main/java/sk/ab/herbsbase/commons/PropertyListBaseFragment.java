@@ -2,6 +2,7 @@ package sk.ab.herbsbase.commons;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ListFragment;
@@ -12,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.Locale;
 
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
@@ -95,10 +98,14 @@ public abstract class PropertyListBaseFragment extends ListFragment {
                             startActivity(intent);
                             break;
                         case AndroidConstants.ITEM_HELP:
+                            Intent helpIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
+                                    + "help?lang=" + Locale.getDefault().getLanguage()));
+                            startActivity(helpIntent);
+                            break;
                         case AndroidConstants.ITEM_ABOUT:
-                            intent = new Intent(getActivity(), HtmlActivity.class);
-                            intent.putExtra("title", setting.getName());
-                            startActivity(intent);
+                            Intent aboutIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
+                                    + "about?lang=" + Locale.getDefault().getLanguage()));
+                            startActivity(aboutIntent);
                             break;
                         default:
                             handleUserSettings(setting);

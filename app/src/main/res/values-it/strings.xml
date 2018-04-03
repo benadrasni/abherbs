@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">E questo che fiore è?</string>
     <string name="feedback_ads_allowed">AdMob by Google mostrerà pubblicità nell\'applicazione. Grazie!</string>
-    <string name="feedback_ads_not_allowed">Puoi abilitare la pubblicità di Google\'s AdMob nell'applicazione.</string>
+    <string name="feedback_ads_not_allowed">Puoi abilitare la pubblicità di Google\'s AdMob nell\'applicazione.</string>
     <string name="feedback_enable_ads">Abilità pubblicità da AdMob</string>
     <string name="feedback_disable_ads">Disabilita pubblicità da AdMob</string>
     <string name="feedback_buy_extended">Puoi comprare la versione estesa (+) e utilizzare più funzionalità: modalità offline, ricerca per nome e per tassonomia.</string>

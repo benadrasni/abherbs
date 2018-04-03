@@ -19,8 +19,8 @@ android {
         applicationId "sk.ab.herbsplus"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 230
-        versionName "2.0.4"
+        versionCode 232
+        versionName "2.0.5"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
