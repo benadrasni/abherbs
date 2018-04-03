@@ -75,8 +75,8 @@ public class PlantListFragment extends Fragment {
             }
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference mTranslationRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.FIREBASE_SEPARATOR
-                    + Locale.getDefault().getLanguage() + AndroidConstants.FIREBASE_SEPARATOR + plant.getName());
+            DatabaseReference mTranslationRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.SEPARATOR
+                    + Locale.getDefault().getLanguage() + AndroidConstants.SEPARATOR + plant.getName());
             mTranslationRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

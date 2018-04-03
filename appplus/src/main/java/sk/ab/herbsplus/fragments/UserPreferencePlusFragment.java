@@ -70,19 +70,19 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
                 taxonomyRef.keepSynced(newOfflineMode);
                 String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
                 DatabaseReference searchInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
-                        + AndroidConstants.FIREBASE_SEPARATOR + language);
+                        + AndroidConstants.SEPARATOR + language);
                 searchInLanguageRef.keepSynced(newOfflineMode);
                 DatabaseReference searchInLatinRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
-                        + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.LANGUAGE_LA);
+                        + AndroidConstants.SEPARATOR + AndroidConstants.LANGUAGE_LA);
                 searchInLatinRef.keepSynced(newOfflineMode);
                 DatabaseReference translationsInLanguage = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
-                        + AndroidConstants.FIREBASE_SEPARATOR + language);
+                        + AndroidConstants.SEPARATOR + language);
                 translationsInLanguage.keepSynced(newOfflineMode);
                 DatabaseReference translationsInLanguageGT = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
-                        + AndroidConstants.FIREBASE_SEPARATOR + language + AndroidConstants.LANGUAGE_GT_SUFFIX);
+                        + AndroidConstants.SEPARATOR + language + AndroidConstants.LANGUAGE_GT_SUFFIX);
                 translationsInLanguageGT.keepSynced(newOfflineMode);
                 DatabaseReference translationsInEnglish = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
-                        + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.LANGUAGE_EN);
+                        + AndroidConstants.SEPARATOR + AndroidConstants.LANGUAGE_EN);
                 translationsInEnglish.keepSynced(newOfflineMode);
 
                 return true;
@@ -112,23 +112,23 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
         Boolean offlineMode = preferences.getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
         if (offlineMode) {
             DatabaseReference searchInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
-                    + AndroidConstants.FIREBASE_SEPARATOR + newLanguage);
+                    + AndroidConstants.SEPARATOR + newLanguage);
             searchInLanguageRef.keepSynced(true);
             searchInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
-                    + AndroidConstants.FIREBASE_SEPARATOR + oldLanguage);
+                    + AndroidConstants.SEPARATOR + oldLanguage);
             searchInLanguageRef.keepSynced(false);
 
             DatabaseReference translationsInLanguage = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
-                    + AndroidConstants.FIREBASE_SEPARATOR + newLanguage);
+                    + AndroidConstants.SEPARATOR + newLanguage);
             translationsInLanguage.keepSynced(true);
             translationsInLanguage = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
-                    + AndroidConstants.FIREBASE_SEPARATOR + oldLanguage);
+                    + AndroidConstants.SEPARATOR + oldLanguage);
             translationsInLanguage.keepSynced(false);
             DatabaseReference translationsInLanguageGT = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
-                    + AndroidConstants.FIREBASE_SEPARATOR + newLanguage + AndroidConstants.LANGUAGE_GT_SUFFIX);
+                    + AndroidConstants.SEPARATOR + newLanguage + AndroidConstants.LANGUAGE_GT_SUFFIX);
             translationsInLanguageGT.keepSynced(true);
             translationsInLanguageGT = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
-                    + AndroidConstants.FIREBASE_SEPARATOR + oldLanguage + AndroidConstants.LANGUAGE_GT_SUFFIX);
+                    + AndroidConstants.SEPARATOR + oldLanguage + AndroidConstants.LANGUAGE_GT_SUFFIX);
             translationsInLanguageGT.keepSynced(false);
         }
 

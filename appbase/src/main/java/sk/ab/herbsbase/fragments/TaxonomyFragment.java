@@ -166,7 +166,7 @@ public class TaxonomyFragment extends Fragment {
             taxons.add(taxon);
 			
 			// type
-			DatabaseReference taxonTypeRef = database.getReference(AndroidConstants.FIREBASE_APG_IV + taxonomy + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.FIREBASE_APG_TYPE);
+			DatabaseReference taxonTypeRef = database.getReference(AndroidConstants.FIREBASE_APG_IV + taxonomy + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_APG_TYPE);
 			taxonTypeRef.addListenerForSingleValueEvent(new ValueEventListener() {
 				@Override
 				public void onDataChange(DataSnapshot dataSnapshot) {
@@ -195,7 +195,7 @@ public class TaxonomyFragment extends Fragment {
 			});	
 			
 			// name
-			DatabaseReference taxonNameRef = database.getReference(AndroidConstants.FIREBASE_APG_IV + taxonomy + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.FIREBASE_APG_NAMES + AndroidConstants.FIREBASE_SEPARATOR + Locale.getDefault().getLanguage());
+			DatabaseReference taxonNameRef = database.getReference(AndroidConstants.FIREBASE_APG_IV + taxonomy + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_APG_NAMES + AndroidConstants.SEPARATOR + Locale.getDefault().getLanguage());
 			taxonNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
 				@Override
 				public void onDataChange(DataSnapshot dataSnapshot) {
@@ -218,7 +218,7 @@ public class TaxonomyFragment extends Fragment {
 			});	
 
 			// latin name
-			DatabaseReference taxonLatinNameRef = database.getReference(AndroidConstants.FIREBASE_APG_IV + taxonomy + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.FIREBASE_APG_NAMES + AndroidConstants.FIREBASE_SEPARATOR + Constants.LANGUAGE_LA);
+			DatabaseReference taxonLatinNameRef = database.getReference(AndroidConstants.FIREBASE_APG_IV + taxonomy + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_APG_NAMES + AndroidConstants.SEPARATOR + Constants.LANGUAGE_LA);
 			taxonLatinNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
 				@Override
 				public void onDataChange(DataSnapshot dataSnapshot) {

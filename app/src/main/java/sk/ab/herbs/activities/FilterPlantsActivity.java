@@ -5,13 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -67,7 +63,7 @@ public class FilterPlantsActivity extends FilterPlantsBaseActivity {
     protected void getCount() {
         isLoading = true;
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_COUNTS + AndroidConstants.FIREBASE_SEPARATOR
+        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_COUNTS + AndroidConstants.SEPARATOR
                 + Utils.getFilterKey(filter, SpecificConstants.FILTER_ATTRIBUTES));
 
         mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -97,7 +93,7 @@ public class FilterPlantsActivity extends FilterPlantsBaseActivity {
         Intent intent = new Intent(getBaseContext(), ListPlantsActivity.class);
         intent.putExtra(AndroidConstants.STATE_PLANT_LIST_COUNT, count);
         intent.putExtra(AndroidConstants.STATE_FILTER, filter);
-        intent.putExtra(AndroidConstants.STATE_LIST_PATH, AndroidConstants.FIREBASE_LISTS + AndroidConstants.FIREBASE_SEPARATOR
+        intent.putExtra(AndroidConstants.STATE_LIST_PATH, AndroidConstants.FIREBASE_LISTS + AndroidConstants.SEPARATOR
                 + Utils.getFilterKey(filter, SpecificConstants.FILTER_ATTRIBUTES));
         startActivity(intent);
         stopLoading();

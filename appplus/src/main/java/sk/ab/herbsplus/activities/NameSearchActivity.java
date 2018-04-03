@@ -87,8 +87,8 @@ public class NameSearchActivity extends SearchBaseActivity {
                     if (name.getCount() == 1) {
                         callDetailActivity(name.getPlantName(), false);
                     } else {
-                        callListActivity(SpecificConstants.FIREBASE_SEARCH + AndroidConstants.FIREBASE_SEPARATOR
-                                + language + AndroidConstants.FIREBASE_SEPARATOR + name.getName(), name.getCount(), false);
+                        callListActivity(SpecificConstants.FIREBASE_SEARCH + AndroidConstants.SEPARATOR
+                                + language + AndroidConstants.SEPARATOR + name.getName(), name.getCount(), false);
                     }
                 }
             });
@@ -244,7 +244,7 @@ public class NameSearchActivity extends SearchBaseActivity {
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference mFirebaseRef = database.getReference(SpecificConstants.FIREBASE_SEARCH + AndroidConstants.FIREBASE_SEPARATOR + Locale.getDefault().getLanguage());
+        DatabaseReference mFirebaseRef = database.getReference(SpecificConstants.FIREBASE_SEARCH + AndroidConstants.SEPARATOR + Locale.getDefault().getLanguage());
         mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -276,7 +276,7 @@ public class NameSearchActivity extends SearchBaseActivity {
             }
         });
 
-        DatabaseReference mFirebaseLatinRef = database.getReference(SpecificConstants.FIREBASE_SEARCH + AndroidConstants.FIREBASE_SEPARATOR + AndroidConstants.LANGUAGE_LA);
+        DatabaseReference mFirebaseLatinRef = database.getReference(SpecificConstants.FIREBASE_SEARCH + AndroidConstants.SEPARATOR + AndroidConstants.LANGUAGE_LA);
         mFirebaseLatinRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

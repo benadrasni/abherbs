@@ -1,6 +1,7 @@
 package sk.ab.herbsbase.tools;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -106,7 +107,7 @@ public class Utils {
 
     public static void displayImage(File filesDir, String fileName, ImageView imageView, DisplayImageOptions options) {
         String fileUri;
-        File imgFile = new File(filesDir.getPath() + AndroidConstants.FIREBASE_SEPARATOR + fileName);
+        File imgFile = new File(filesDir.getPath() + AndroidConstants.SEPARATOR + fileName);
         if (imgFile.exists()) {
             fileUri = "file:///" + imgFile.getPath();
         } else {
@@ -117,7 +118,7 @@ public class Utils {
 
     public static void displayImage(File filesDir, String fileName, ImageView imageView, DisplayImageOptions options, ImageLoadingListener listener) {
         String fileUri;
-        File imgFile = new File(filesDir.getPath() + AndroidConstants.FIREBASE_SEPARATOR + fileName);
+        File imgFile = new File(filesDir.getPath() + AndroidConstants.SEPARATOR + fileName);
         if (imgFile.exists()) {
             fileUri = "file:///" + imgFile.getPath();
         } else {
@@ -249,7 +250,12 @@ public class Utils {
             Uri uri = Uri.parse("market://details?id=" + activity.getBaseContext().getPackageName());
             Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
             goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-            activity.startActivity(goToMarket);
+            try {
+                activity.startActivity(goToMarket);
+            } catch (ActivityNotFoundException e) {
+                activity.startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://play.google.com/store/apps/details?id=" + activity.getBaseContext().getPackageName())));
+            }
         }
     }
 }

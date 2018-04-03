@@ -342,8 +342,8 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
         if (BaseApp.isConnectedToWifi(this)) {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             String packageName = this.getBaseContext().getPackageName();
-            DatabaseReference mFirebaseRefVersion = database.getReference(AndroidConstants.FIREBASE_VERSIONS + AndroidConstants.FIREBASE_SEPARATOR
-                    + packageName.substring(packageName.lastIndexOf('.') + 1) + AndroidConstants.FIREBASE_SEPARATOR + Build.VERSION.SDK_INT);
+            DatabaseReference mFirebaseRefVersion = database.getReference(AndroidConstants.FIREBASE_VERSIONS + AndroidConstants.SEPARATOR
+                    + packageName.substring(packageName.lastIndexOf('.') + 1) + AndroidConstants.SEPARATOR + Build.VERSION.SDK_INT);
             mFirebaseRefVersion.keepSynced(true);
             mFirebaseRefVersion.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
