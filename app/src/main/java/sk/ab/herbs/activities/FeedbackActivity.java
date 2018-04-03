@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.android.vending.billing.IInAppBillingService;
 
+import java.util.Locale;
+
 import sk.ab.herbs.R;
 import sk.ab.herbs.SpecificConstants;
 import sk.ab.herbsbase.AndroidConstants;
@@ -94,7 +96,7 @@ public class FeedbackActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
-                        + "translate_flower"));
+                        + "translate_flower?lang=" + Locale.getDefault().getLanguage()));
                 startActivity(browserIntent);
             }
         });
@@ -104,7 +106,7 @@ public class FeedbackActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
-                        + "translate_app"));
+                        + "translate_app?lang=" + Locale.getDefault().getLanguage()));
                 startActivity(browserIntent);
             }
         });

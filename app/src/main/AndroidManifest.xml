@@ -62,10 +62,6 @@
             android:theme="@style/Theme.Settings" >
         </activity>
         <activity
-            android:name="sk.ab.herbsbase.commons.HtmlActivity"
-            android:configChanges="orientation|screenSize|locale"
-            android:theme="@style/Theme.Settings" />
-        <activity
             android:name="sk.ab.herbs.activities.FeedbackActivity"
             android:configChanges="orientation|screenSize|locale"
             android:theme="@style/Theme.Settings" />

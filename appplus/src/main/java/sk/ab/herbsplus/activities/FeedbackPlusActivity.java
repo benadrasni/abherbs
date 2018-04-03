@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Locale;
+
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
@@ -81,7 +83,7 @@ public class FeedbackPlusActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
-                        + "translate_flower"));
+                        + "translate_flower?lang=" + Locale.getDefault().getLanguage()));
                 startActivity(browserIntent);
             }
         });
@@ -91,7 +93,7 @@ public class FeedbackPlusActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
-                        + "translate_app"));
+                        + "translate_app?lang=" + Locale.getDefault().getLanguage()));
                 startActivity(browserIntent);
             }
         });
