@@ -1,6 +1,5 @@
 package sk.ab.herbsplus.activities;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import java.util.Locale;
 
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.tools.Utils;
@@ -54,7 +55,7 @@ public class FeedbackPlusActivity extends AppCompatActivity {
     private void initializeReviewButton() {
         final SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
 
-        Button submitReview = (Button)findViewById(R.id.contribution_submit_review);
+        Button submitReview = findViewById(R.id.contribution_submit_review);
         submitReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +74,7 @@ public class FeedbackPlusActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
-                        + "translate_flower"));
+                        + "translate_flower?lang=" + Locale.getDefault().getLanguage()));
                 startActivity(browserIntent);
             }
         });
@@ -83,7 +84,7 @@ public class FeedbackPlusActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
-                        + "translate_app"));
+                        + "translate_app?lang=" + Locale.getDefault().getLanguage()));
                 startActivity(browserIntent);
             }
         });

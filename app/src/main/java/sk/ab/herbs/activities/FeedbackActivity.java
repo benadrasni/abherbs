@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import sk.ab.herbs.R;
 import sk.ab.herbs.SpecificConstants;
 import sk.ab.herbsbase.AndroidConstants;
@@ -57,7 +59,7 @@ public class FeedbackActivity extends AppCompatActivity {
     private void initializeReviewButton() {
         final SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
 
-        Button submitReview = (Button)findViewById(R.id.contribution_submit_review);
+        Button submitReview = findViewById(R.id.contribution_submit_review);
         submitReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +78,7 @@ public class FeedbackActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
-                        + "translate_flower"));
+                        + "translate_flower?lang=" + Locale.getDefault().getLanguage()));
                 startActivity(browserIntent);
             }
         });
@@ -86,14 +88,14 @@ public class FeedbackActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
-                        + "translate_app"));
+                        + "translate_app?lang=" + Locale.getDefault().getLanguage()));
                 startActivity(browserIntent);
             }
         });
     }
 
     private void initializeBuyButton() {
-        Button submitBuy = (Button)findViewById(R.id.contribution_submit_buy);
+        Button submitBuy = findViewById(R.id.contribution_submit_buy);
         submitBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,8 +118,8 @@ public class FeedbackActivity extends AppCompatActivity {
     private void initializeAdsButton() {
         final SharedPreferences preferences = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
 
-        final Button submitAds = (Button)findViewById(R.id.contribution_submit_ads);
-        final TextView adsText = (TextView) findViewById(R.id.contribution_ads);
+        final Button submitAds = findViewById(R.id.contribution_submit_ads);
+        final TextView adsText = findViewById(R.id.contribution_ads);
         boolean showAds = preferences.getBoolean(SpecificConstants.SHOW_ADS_KEY, true);
         if (showAds) {
             submitAds.setText(getResources().getText(R.string.feedback_disable_ads));
