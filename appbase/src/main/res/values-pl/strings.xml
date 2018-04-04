@@ -16,20 +16,20 @@
     <string name="color_green">zielony, brązowy, czarny</string>
     <string name="color_of_flower_message">Jakiego koloru jest kwiat? Wybierz najbliższy kolor.</string>
 
-    <string name="habitats">habitat</string>
-    <string name="habitat_meadow">łąki</string>
-    <string name="habitat_garden">ogrody lub pola</string>
-    <string name="habitat_wetland">wrzosowiska lub tereny podmokłe</string>
-    <string name="habitat_forest">lasy</string>
-    <string name="habitat_rock">skały lub góry</string>
-    <string name="habitat_tree">drzewa lub krzewy</string>
+    <string name="habitats">Habitat</string>
+    <string name="habitat_meadow">Łąki</string>
+    <string name="habitat_garden">Ogrody lub pola</string>
+    <string name="habitat_wetland">Wrzosowiska lub tereny podmokłe</string>
+    <string name="habitat_forest">Lasy</string>
+    <string name="habitat_rock">Skały lub góry</string>
+    <string name="habitat_tree">Drzewa lub krzewy</string>
     <string name="habitat_message">Co znajduje się wokół Ciebie? Zidentyfikuj otoczenie rośliny.</string>
 
-    <string name="number_of_petals">liczba płatków</string>
+    <string name="number_of_petals">Liczba płatków</string>
     <string name="petal_4">4 lub mniej</string>
     <string name="petal_5">5</string>
-    <string name="petal_many">więcej niż 5</string>
-    <string name="petal_bisymmetric">bisymetryczny</string>
+    <string name="petal_many">Więcej niż 5</string>
+    <string name="petal_bisymmetric">Bisymetryczny</string>
     <string name="number_of_petals_message">Czy kwiat jest bisymetryczny? Nie? Ile w takim razie ma płatków?</string>
 
     <string name="display_info">Czy to właściwy kwiat?</string>
@@ -88,8 +88,8 @@
     <string name="showcase_taxonomy_title">Nazewnictwo wg systemu APG IV</string>
     <string name="showcase_taxonomy_message">Możesz pokazać/ukryć nazewnictwo kwiatu przez dotknięcie jego nazwy.</string>
     <string name="legend">Legenda</string>
-    <string name="toxicity1">roślina trująca</string>
-    <string name="toxicity2">roślina niegroźnie trująca</string>
+    <string name="toxicity1">Roślina trująca</string>
+    <string name="toxicity2">Roślina umiarkowanie trująca</string>
     <string name="rate_text">Wyrażając swoją opinię, dajesz Autorowi aplikacji chęć i motywację do jej dalszego rozwijania. Napisz proszę kilka miłych słów w Sklepie Play.</string>
     <string name="rate_never">Nigdy</string>
     <string name="rate_later">Później</string>
@@ -99,9 +99,9 @@
     <string name="show_original">Pokaż angielski tekst</string>
     <string name="improve_translation">Popraw tłumaczenie</string>
     <string name="show_translation">Pokaż przetłumaczony tekst</string>
-    <string name="rate_question">Czy ta aplikacja jest pomocna?</string>
-    <string name="feedback_intro">Przyczyniasz się do rozwoju aplikacji, dziękuję. Jeśli chcesz dać od siebie coś jeszcze, jest kilka rzeczy do wyboru:</string>
-    <string name="feedback_review">Możesz napisać pozytywną recenzję w Sklepie Play.</string>
+    <string name="rate_question">Czy uważasz, że aplikacja jest pomocna?</string>
+    <string name="feedback_intro">Jeśli chcesz dać coś od siebie i przyczynić się do rozwoju aplikacji, masz kilka opcji do wyboru:</string>
+    <string name="feedback_review">Możesz przyznać aplikacji 5 gwiazdek i napisać pozytywną recenzję w Sklepie Play.</string>
     <string name="feedback_google_play">Google Play</string>
     <string name="feedback_title">Jak wnieść wkład?</string>
     <string name="feedback_translate">Możesz zgłosić literówkę, błąd lub stworzyć nowe tłumaczenie dla Twojego języka.</string>
@@ -112,7 +112,7 @@
     <string name="taxonomy_subsectio">Podsekcja</string>
     <string name="taxonomy_serie">Seria</string>
     <string name="taxonomy_subserie">Podseria</string>
-    <string name="taxonomy_supersectio">Supersectio</string>
+    <string name="taxonomy_supersectio">Supersekcja</string>
     <string name="subscribed_to_new">Zasubskrybowano.</string>
     <string name="unsubscribed_to_new">Brak subskrypcji.</string>
     <string name="subscribe_to_new">Ciekawostki dotyczące roślin</string>
@@ -121,9 +121,9 @@
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
     <string name="update_version">Zaktualizuj wersję</string>
-    <string name="new_version_available">Nowa wersja jest dostępna, proszę zaktualizować.</string>
+    <string name="new_version_available">Dostępna jest nowa wersja, proszę dokonać aktualizacji.</string>
     <string name="update">Aktualizacja</string>
     <string name="feedback_submit_translate_data">Poprawienie informacji dot. kwiatów</string>
-    <string name="feedback_submit_translate_app">Improve application\'s labels</string>
+    <string name="feedback_submit_translate_app">Poprawki tłumaczenia aplikacji</string>
     <string name="improve_text">Popraw tekst</string>
 </resources>
