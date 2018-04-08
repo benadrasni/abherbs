@@ -19,7 +19,7 @@
     <string name="gallery_failed">Kein Foto wurde hinzugefügt.</string>
     <string name="observation_saved">Beobachtung wurde gespeichert.</string>
     <string name="plant_observations">Beobachtungen</string>
-    <string name="observation_not_saved">Die Beobachtung wurde nicht abgeschlossen, so dass es nicht gespeichert wurde. Ort des Fotos fehlt.</string>
+    <string name="observation_not_saved">Die Beobachtung wurde nicht abgeschlossen, so dass nichts gespeichert wurde. Ort des Fotos fehlt.</string>
     <string name="observation_delete">Beobachtung löschen</string>
     <string name="observation_delete_question">Möchten Sie die Beobachtung löschen?</string>
     <string name="no_observations">Es gibt noch keine Beobachtung.</string>
@@ -42,9 +42,9 @@
     <string name="showcase_camera_title">Kamera</string>
     <string name="showcase_camera_message">Benutze die Kamera, um ein Bild von der Blume zu machen. Jede Beobachtung muss mindestens ein Foto enthalten.</string>
     <string name="showcase_gallery_title">Galerie</string>
-    <string name="showcase_gallery_message">Wählen Sie bereits aufgenommenes Foto von Ihrem Gerät. Sie können Beobachtungen mit Fotos hinzufügen, die Sie vor ein paar Jahren gemacht haben. Jede Beobachtung muss mindestens ein Foto enthalten.</string>
+    <string name="showcase_gallery_message">Wählen Sie ein bereits aufgenommenes Foto von Ihrem Gerät. Sie können Beobachtungen mit Fotos hinzufügen, die Sie vor ein paar Jahren gemacht haben. Jede Beobachtung muss mindestens ein Foto enthalten.</string>
     <string name="showcase_location_title">Ort</string>
     <string name="showcase_location_message">Stellen Sie den Standort manuell ein oder passen Sie ihn an.</string>
     <string name="showcase_save_title">Speichern</string>
-    <string name="showcase_save_message">Rette deine Beobachtung. Jede Beobachtung muss Datum, Ort und mindestens ein Foto enthalten.</string>
+    <string name="showcase_save_message">Halte deine Beobachtung fest. Jede Beobachtung muss Datum, Ort und mindestens ein Foto enthalten.</string>
 </resources>
