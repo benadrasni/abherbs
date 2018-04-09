@@ -29,11 +29,11 @@
     <string name="petal_4">4 o meno</string>
     <string name="petal_5">5</string>
     <string name="petal_many">più di 5</string>
-    <string name="petal_bisymmetric">bisimmetrico</string>
-    <string name="number_of_petals_message">Il fiore è bisimmetrico? No? Allora quanti petali ha?</string>
+    <string name="petal_bisymmetric">zigomorfi</string>
+    <string name="number_of_petals_message">Il fiore è zigomorfi? No? Allora quanti petali ha?</string>
 
     <string name="display_info">è questo?</string>
-    <string name="list_info">Scegline uno</string>
+    <string name="list_info">Scegli un fiore</string>
 
     <string name="plant_info">Informazioni</string>
     <string name="plant_gallery">Galleria</string>
@@ -85,7 +85,7 @@
     <string name="showcase_fullscreen_message">Clicca sull\'illustrazione per visualizzarla a schermo intero.</string>
     <string name="showcase_count_button_title">Numero di piante filtrate</string>
     <string name="showcase_count_button_message">Quando il numero è inferiore a 21 premere per passare direttamente all\'elenco. Premere a lungo per rimuovere il filtro.</string>
-    <string name="showcase_taxonomy_title">Tassonomia secondo il sistema APG III</string>
+    <string name="showcase_taxonomy_title">Tassonomia secondo il sistema APG IV</string>
     <string name="showcase_taxonomy_message">Clicca sul nome dei fiori per mostrare / nascondere la tassonomia.</string>
     <string name="legend">Legenda</string>
     <string name="toxicity1">pianta velenosa</string>

@@ -29,8 +29,8 @@
     <string name="petal_4">höchstens 4</string>
     <string name="petal_5">5</string>
     <string name="petal_many">mehr als 5</string>
-    <string name="petal_bisymmetric">radialsymmetrische</string>
-    <string name="number_of_petals_message">Ist die Blume radialsymmetrische? Falls nicht, wieviele Blätter hat sie?</string>
+    <string name="petal_bisymmetric">spiegelsymmetrisch</string>
+    <string name="number_of_petals_message">Ist die Blüte spiegelsymmetrisch? Falls nicht, wieviele Blütenblätter hat sie?</string>
 
     <string name="display_info">Richtige?</string>
     <string name="list_info">Wähle eins</string>
@@ -51,7 +51,7 @@
     <string name="plant_flowering_to">-</string>
     <string name="plant_flowers">Blüte</string>
     <string name="plant_inflorescences">Blütenstand</string>
-    <string name="plant_fruits">Fruits</string>
+    <string name="plant_fruits">Früchte</string>
     <string name="plant_leaves">Blätter</string>
     <string name="plant_inflorescence">Blütenstand</string>
     <string name="plant_color_of_flowers">Blütenfarbe</string>
@@ -84,15 +84,15 @@
     <string name="showcase_fullscreen_message">Sie können durch Klicken auf die Darstellung im Vollbild angezeigt werden soll.</string>
     <string name="showcase_count_button_title">Anzahl der gefilterten Blumen</string>
     <string name="showcase_count_button_message">Klicken Sie direkt auf die Liste zu springen. Werke für Zählungen weniger als 21. Lang Klick für klare Filter.</string>
-    <string name="showcase_taxonomy_title">Taxonomy gemäß APG III System</string>
-    <string name="showcase_taxonomy_message">Sie können durch Klicken auf die Namen zu anzeigen / verstecken Blumen Taxonomie.</string>
+    <string name="showcase_taxonomy_title">Taxonomy gemäß APG IV System</string>
+    <string name="showcase_taxonomy_message">Klicken Sie die Namen der Blumen an, um ihre Taxonomie anzuzeigen oder zu verbergen.</string>
     <string name="legend">Legende</string>
     <string name="toxicity1">giftige Pflanze</string>
     <string name="toxicity2">leicht giftige Pflanze</string>
     <string name="rate_never">Niemals </string>
     <string name="rate_later">Später</string>
     <string name="rate">Bewertung</string>
-    <string name="rate_text">Autor dieser Applikation wird durch positive Antwort von den Benutzern getankt. Bitte senden Sie ihm einige Siebensterne über Google Play Store.</string>
+    <string name="rate_text">Der Autor dieser App wird durch positive Rückmeldungen der Benutzer  beflügelt. Bitte senden Sie ihm doch einen Sterne-Blumenstrauß über den Google Play Store.</string>
     <string name="your_text">dein Text</string>
     <string name="google_translate">Übersetzt mit Google Translate</string>
     <string name="show_original">Englischer Text anzeigen</string>
@@ -113,10 +113,10 @@
     <string name="taxonomy_serie">Serie</string>
     <string name="taxonomy_subserie">Subserie</string>
     <string name="taxonomy_supersectio">Supersectio</string>
-    <string name="subscribed_to_new">Gezeichnet.</string>
+    <string name="subscribed_to_new">Eingetragen.</string>
     <string name="unsubscribed_to_new">Abgemeldet.</string>
     <string name="subscribe_to_new">Interessante Fakten über Blumen</string>
-    <string name="subscribe_to_new_summary">Abonnieren Sie gelegentlich interessante Fakten über bestimmte Blumen.</string>
+    <string name="subscribe_to_new_summary">Tragen Sie sich hier ein, um gelegentlich interessante Fakten über bestimmte Blumen zu erhalten.</string>
     <string name="taxonomy_unknown">unbekannte</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>

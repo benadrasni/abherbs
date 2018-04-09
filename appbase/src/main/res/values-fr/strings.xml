@@ -29,8 +29,8 @@
     <string name="petal_4">4 ou moins</string>
     <string name="petal_5">5</string>
     <string name="petal_many">plus de 5</string>
-    <string name="petal_bisymmetric">bisymétrique</string>
-    <string name="number_of_petals_message">Est-ce que la fleur est bisymétrique? Non? Alors combien de pétales a t\'elle ?</string>
+    <string name="petal_bisymmetric">zygomorphie</string>
+    <string name="number_of_petals_message">Est-ce que la fleur est zygomorphie? Non? Alors combien de pétales a t\'elle ?</string>
 
     <string name="display_info">Est-ce la bonne?</string>
     <string name="list_info">Sélectionnez en une</string>
@@ -85,7 +85,7 @@
     <string name="showcase_fullscreen_message">Vous pouvez afficher illustration en plein écran en cliquant dessus.</string>
     <string name="showcase_count_button_title">Nombre de plantes correspondantes</string>
     <string name="showcase_count_button_message">Lorsque le nombre est inférieur à 21 appuyez pour accéder directement à la liste. Appuyez longuement pour reinitialiser le filtre.</string>
-    <string name="showcase_taxonomy_title">Taxonomie selon le système APG III</string>
+    <string name="showcase_taxonomy_title">Taxonomie selon le système APG IV</string>
     <string name="showcase_taxonomy_message">Vous pouvez afficher / masquer la taxonomie des fleurs  en cliquant sur le nom de la fleur.</string>
     <string name="legend">Légende</string>
     <string name="toxicity2">plante légèrement toxique</string>

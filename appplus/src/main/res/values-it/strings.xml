@@ -15,10 +15,10 @@
 
     <string name="synchronization_on_background">La sincronizzazione verrà avviata sullo sfondo dopo il riavvio dell\'applicazione sulla rete Wi-Fi.</string>
     <string name="authentication_failed">Autenticazione fallita.</string>
-    <string name="camera_failed">Non è stata scattata alcuna foto</string>
+    <string name="camera_failed">Nessuna foto scattata.</string>
     <string name="gallery_failed">Nessuna foto aggiunta.</string>
     <string name="observation_saved">Osservazione salvata.</string>
-    <string name="observation_not_saved">L\'osservazione era incompleta quindi non è stata salvata. Manca la posizione della foto.</string>
+    <string name="observation_not_saved">L\'osservazione era incompleta quindi non è stata salvata. Posizione o foto mancanti.</string>
     <string name="observation_delete">Cancella osservazione</string>
     <string name="observation_delete_question">Vuoi cancellare l\'osservazione?</string>
     <string name="plant_observations">Osservazioni</string>
@@ -29,7 +29,7 @@
     <string name="photo_delete_question">Vuoi rimuovere la foto dall\'osservazione?</string>
     <string name="photo_duplicate">Foto duplicata. Saltato.</string>
     <string name="subscription">Iscrizione</string>
-    <string name="subscription_info">Le osservazioni condivise sono visibili solo per gli utenti iscritti.</string>
+    <string name="subscription_info">Le osservazioni condivise sono visibili solo agli utenti iscritti.</string>
     <string name="subscribe">Iscriviti</string>
     <string name="subscription_intro1">La data, la posizione e le note dell\'osservazione vengono salvate e sincronizzate su tutti i dispositivi anche senza abbonamento, ma le foto saranno memorizzate solo localmente. Il collegamento alle foto andrà perduto (anche le foto stesse qualora siano state riprese attraverso l\'applicazione) quando cancelli i dati, re-installi l\'applicazione o cambi dispositivo.</string>
     <string name="subscription_intro2">Stai per iscriverti per salvare e mantenere le tue foto su tutti i tuoi dispositivi. Con l\'abbonamento accetti di condividere le tue osservazioni con altri utenti iscritti. Sarai anche in grado di vedere le loro osservazioni. Tutte le osservazioni condivise sono anonime e le tue note rimarranno private e non verranno condivise. Per semplificare il processo, le tue foto saranno condivise sotto licenza CC0 (Creative Commons Zero), e completando l\'iscrizione accetti anche questo.</string>
