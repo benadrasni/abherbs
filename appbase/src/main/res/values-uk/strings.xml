@@ -29,7 +29,7 @@
     <string name="petal_4">4 або менш</string>
     <string name="petal_5">5</string>
     <string name="petal_many">більше 5</string>
-    <string name="petal_bisymmetric">бісімметріческой</string>
+    <string name="petal_bisymmetric">зигоморфной</string>
     <string name="number_of_petals_message">Is the flower bisymmetric? No? Then how many petals does it have?</string>
 
     <string name="display_info">Правий?</string>
@@ -85,7 +85,7 @@
     <string name="showcase_fullscreen_message">You can display illustration on full screen by clicking on it.</string>
     <string name="showcase_count_button_title">Number of filtered plants</string>
     <string name="showcase_count_button_message">When number is less than 21 press to jump directly to the list. Long press to clear filter.</string>
-    <string name="showcase_taxonomy_title">Taxonomy according to APG III system</string>
+    <string name="showcase_taxonomy_title">Taxonomy according to APG IV system</string>
     <string name="showcase_taxonomy_message">You can show / hide flower\'s taxonomy by clicking on the its name.</string>
     <string name="legend">Легенда</string>
     <string name="toxicity1">отруйна рослина</string>
