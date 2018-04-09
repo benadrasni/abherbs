@@ -29,8 +29,8 @@
     <string name="petal_4">4 o menos</string>
     <string name="petal_5">5</string>
     <string name="petal_many">más de 5</string>
-    <string name="petal_bisymmetric">simetría por un eje</string>
-    <string name="number_of_petals_message">¿Es la flor simétrica por un eje? ¿No? Pués, ¿cuántos pétalos tiene?</string>
+    <string name="petal_bisymmetric">zigomorfo</string>
+    <string name="number_of_petals_message">¿Es la flor zigomorfo? ¿No? Pués, ¿cuántos pétalos tiene?</string>
 
     <string name="display_info">¿Es esto lo que buscas?</string>
     <string name="list_info">Elige una</string>
@@ -84,7 +84,7 @@
     <string name="showcase_fullscreen_message">Se puede visualizar la ilustración en pantalla completa haciendo clic en él.</string>
     <string name="showcase_count_button_title">Número de flores filtrados</string>
     <string name="showcase_count_button_message">Haga clic para ir directamente a la lista. Obras para el recuento de menos de 21. Larga hacer clic para filtro claro.</string>
-    <string name="showcase_taxonomy_title">Taxonomía según el sistema APG III</string>
+    <string name="showcase_taxonomy_title">Taxonomía según el sistema APG IV</string>
     <string name="showcase_taxonomy_message">Puede mostrar / ocultar las flores taxonomía haciendo clic en el nombre de la flor.</string>
     <string name="legend">Leyenda</string>
     <string name="toxicity1">planta venenosa</string>
