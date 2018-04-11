@@ -81,7 +81,7 @@
 
     <string name="close">Schließen</string>
     <string name="showcase_fullscreen_title">Größere Abbildung</string>
-    <string name="showcase_fullscreen_message">Sie können durch Klicken auf die Darstellung im Vollbild angezeigt werden soll.</string>
+    <string name="showcase_fullscreen_message">Durch Klicken auf die Darstellung wird sie im Vollbild angezeigt.</string>
     <string name="showcase_count_button_title">Anzahl der gefilterten Blumen</string>
     <string name="showcase_count_button_message">Klicken Sie direkt auf die Liste zu springen. Werke für Zählungen weniger als 21. Lang Klick für klare Filter.</string>
     <string name="showcase_taxonomy_title">Taxonomy gemäß APG IV System</string>
@@ -95,7 +95,7 @@
     <string name="rate_text">Der Autor dieser App wird durch positive Rückmeldungen der Benutzer  beflügelt. Bitte senden Sie ihm doch einen Sterne-Blumenstrauß über den Google Play Store.</string>
     <string name="your_text">dein Text</string>
     <string name="google_translate">Übersetzt mit Google Translate</string>
-    <string name="show_original">Englischer Text anzeigen</string>
+    <string name="show_original">Englischen Text anzeigen</string>
     <string name="improve_translation">Übersetzung verbessern</string>
     <string name="show_translation">Übersetzten Text anzeigen</string>
     <string name="rate_question">Ist diese Anwendung hilfreich?</string>
