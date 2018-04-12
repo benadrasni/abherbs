@@ -10,6 +10,9 @@ import java.util.HashMap;
 public class FirebasePlant {
 
     @Id private Integer plantId;
+    private Integer gbifId;
+    private Integer kewId;
+    private String usdaId;
     private String name;
     private String wikiName;
     private String illustrationUrl;
@@ -25,6 +28,7 @@ public class FirebasePlant {
     private ArrayList<String> filterColor;
     private ArrayList<String> filterHabitat;
     private ArrayList<String> filterPetal;
+    private ArrayList<Integer> filterDistribution;
     private ArrayList<String> filterInflorescence;
     private ArrayList<String> filterSepal;
     private ArrayList<String> filterStem;
@@ -44,6 +48,9 @@ public class FirebasePlant {
 
     public FirebasePlant(Plant plant) {
         this.plantId = plant.getPlantId();
+        this.gbifId = plant.getGbifId();
+        this.kewId = plant.getKewId();
+        this.usdaId = plant.getUsdaId();
         this.name = plant.getName();
         this.wikiName = plant.getWikiName();
         this.illustrationUrl = plant.getIllustrationUrl();
@@ -58,6 +65,7 @@ public class FirebasePlant {
         this.filterColor = plant.getFilterColor();
         this.filterHabitat = plant.getFilterHabitat();
         this.filterPetal = plant.getFilterPetal();
+        this.filterDistribution = plant.getFilterDistribution();
         this.filterInflorescence = plant.getFilterInflorescence();
         this.filterSepal = plant.getFilterSepal();
         this.filterStem = plant.getFilterStem();
@@ -71,6 +79,9 @@ public class FirebasePlant {
         if (plant.getWikilinks().get("commons") != null) {
             this.wikilinks.put("commons", plant.getWikilinks().get("commons"));
         }
+        if (plant.getWikilinks().get("data") != null) {
+            this.wikilinks.put("data", plant.getWikilinks().get("data"));
+        }
         if (plant.getWikilinks().get("species") != null) {
             this.wikilinks.put("species", plant.getWikilinks().get("species"));
         }
@@ -83,6 +94,30 @@ public class FirebasePlant {
 
     public void setPlantId(Integer plantId) {
         this.plantId = plantId;
+    }
+
+    public Integer getGbifId() {
+        return gbifId;
+    }
+
+    public void setGbifId(Integer gbifId) {
+        this.gbifId = gbifId;
+    }
+
+    public Integer getKewId() {
+        return kewId;
+    }
+
+    public void setKewId(Integer kewId) {
+        this.kewId = kewId;
+    }
+
+    public String getUsdaId() {
+        return usdaId;
+    }
+
+    public void setUsdaId(String usdaId) {
+        this.usdaId = usdaId;
     }
 
     public String getName() {
@@ -195,6 +230,14 @@ public class FirebasePlant {
 
     public void setFilterPetal(ArrayList<String> filterPetal) {
         this.filterPetal = filterPetal;
+    }
+
+    public ArrayList<Integer> getFilterDistribution() {
+        return filterDistribution;
+    }
+
+    public void setFilterDistribution(ArrayList<Integer> filterDistribution) {
+        this.filterDistribution = filterDistribution;
     }
 
     public ArrayList<String> getFilterInflorescence() {

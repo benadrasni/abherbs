@@ -12,6 +12,9 @@ import sk.ab.common.Constants;
 public class Plant {
 
     @Id protected Integer plantId;
+    protected Integer gbifId;
+    protected Integer kewId;
+    protected String usdaId;
     protected String name;
     protected String wikiName;
     protected String illustrationUrl;
@@ -28,6 +31,7 @@ public class Plant {
     protected ArrayList<String> filterColor;
     protected ArrayList<String> filterHabitat;
     protected ArrayList<String> filterPetal;
+    protected ArrayList<Integer> filterDistribution;
     protected ArrayList<String> filterInflorescence;
     protected ArrayList<String> filterSepal;
     protected ArrayList<String> filterStem;
@@ -79,6 +83,30 @@ public class Plant {
 
     public void setPlantId(Integer plantId) {
         this.plantId = plantId;
+    }
+
+    public Integer getGbifId() {
+        return gbifId;
+    }
+
+    public void setGbifId(Integer gbifId) {
+        this.gbifId = gbifId;
+    }
+
+    public Integer getKewId() {
+        return kewId;
+    }
+
+    public void setKewId(Integer kewId) {
+        this.kewId = kewId;
+    }
+
+    public String getUsdaId() {
+        return usdaId;
+    }
+
+    public void setUsdaId(String usdaId) {
+        this.usdaId = usdaId;
     }
 
     public String getName() {
@@ -199,6 +227,14 @@ public class Plant {
 
     public void setFilterPetal(ArrayList<String> filterPetal) {
         this.filterPetal = filterPetal;
+    }
+
+    public ArrayList<Integer> getFilterDistribution() {
+        return filterDistribution;
+    }
+
+    public void setFilterDistribution(ArrayList<Integer> filterDistribution) {
+        this.filterDistribution = filterDistribution;
     }
 
     public ArrayList<String> getFilterInflorescence() {

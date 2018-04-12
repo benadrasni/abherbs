@@ -23,6 +23,7 @@ import java.util.Scanner;
 
 import retrofit2.Call;
 import retrofit2.Response;
+import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.Plant;
 import sk.ab.common.service.FirebaseClient;
 import sk.ab.common.service.HerbCloudClient;
@@ -36,7 +37,7 @@ public class Updater {
     public static String PLANTS_FILE = "plants.csv";
     public static String MISSING_FILE_SUFFIX = "_missing.txt";
 
-
+    private static ArrayList<Integer> DEFAULT_DISTRIBUTION = new ArrayList<>(Arrays.asList(10, 11, 12, 13, 14));
 
 
     public static String CELL_DELIMITER = ";";
@@ -44,11 +45,12 @@ public class Updater {
 
     public static void main(String[] params) {
 
-        missing();
+        //missing();
         //search();
+        update();
     }
 
-    private static void termini() {
+    private static void update() {
         File file = new File(PATH + PLANTS_FILE);
         final FirebaseClient firebaseClient = new FirebaseClient();
 
@@ -60,12 +62,51 @@ public class Updater {
 
                 System.out.println(plantLine[0]);
 
-                termini(firebaseClient, plantLine[0]);
+                update(firebaseClient, plantLine[0], plantLine[1]);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void update(FirebaseClient firebaseClient, String plantName, String wikiSpeciesName) throws IOException {
+        Call<FirebasePlant> plantCall = firebaseClient.getApiService().getPlant(plantName);
+        FirebasePlant plant = plantCall.execute().body();
+
+        if (plant.getGbifId() == null) {
+            plant.setGbifId(0);
+        }
+
+        String id = getWikidata("/wiki/" + wikiSpeciesName);
+        if (id != null && plant.getWikilinks().get("data") == null) {
+            plant.getWikilinks().put("data", "https://www.wikidata.org/wiki/" + id);
+        }
+
+        if (plant.getFilterDistribution() == null) {
+            plant.setFilterDistribution(DEFAULT_DISTRIBUTION);
+        }
+
+        Call<FirebasePlant> savePlant = firebaseClient.getApiService().savePlant(plantName, plant);
+        Response<FirebasePlant> response = savePlant.execute();
+    }
+
+    private static String getWikidata(String name) {
+        try {
+            Document doc = Jsoup.connect("https://species.wikimedia.org" + name).get();
+
+            String wikiPage = doc.getElementsByAttributeValue("title", "Edit interlanguage links").attr("href");
+
+            if (!wikiPage.isEmpty()) {
+                return wikiPage.substring(wikiPage.lastIndexOf("/") + 1, wikiPage.indexOf("#"));
+            }
+
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     private static void termini(FirebaseClient firebaseClient, String plantName) {
