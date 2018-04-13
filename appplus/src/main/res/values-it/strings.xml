@@ -5,7 +5,7 @@
     <string name="synchronizing">Sincronizzazione …</string>
 
     <string name="offline_mode">Modalità offline</string>
-    <string name="offline_mode_summary">richiede oltre 250+ MB di spazio aggiuntivo</string>
+    <string name="offline_mode_summary">richiede oltre 250 MB di spazio aggiuntivo</string>
 
     <string name="search">Ricerca</string>
     <string name="wait_until_finish">Si prega di attendere il tertmine dell\'operazione.</string>
