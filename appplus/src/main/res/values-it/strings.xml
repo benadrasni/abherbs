@@ -5,7 +5,7 @@
     <string name="synchronizing">Sincronizzazione …</string>
 
     <string name="offline_mode">Modalità offline</string>
-    <string name="offline_mode_summary">richiede oltre 250+ MB di spazio aggiuntivo</string>
+    <string name="offline_mode_summary">richiede oltre 300 MB di spazio aggiuntivo</string>
 
     <string name="search">Ricerca</string>
     <string name="delete">Elimina</string>
@@ -37,7 +37,7 @@
     <string name="subscription_intro4">Se hai ancora dei dubbi se premere il pulsante in basso, c\'è un periodo di prova di 30 giorni per entrambi gli abbonamenti.</string>
     <string name="showcase_observation_title">Osservazioni</string>
     <string name="showcase_observation_message">Crea e salva la tua osservazione. Le osservazioni devono riportare la data, la posizione e almeno una foto. Le note personali non sono obbligatorie.</string>
-    <string name="showcase_switch_title">Own / Shared</string>
+    <string name="showcase_switch_title">Mia / Condivisa</string>
     <string name="showcase_switch_message">Switch between your own and shared observations.</string>
     <string name="showcase_camera_title">Fotocamera</string>
     <string name="showcase_camera_message">Usa la fotocamera per scattare una foto al fiore. Le osservazioni devono contenere almeno una foto.</string>
