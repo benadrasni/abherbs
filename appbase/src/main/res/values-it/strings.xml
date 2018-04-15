@@ -89,7 +89,7 @@
     <string name="showcase_taxonomy_message">Puoi mostrare / nascondere la tassonomia dei fiori cliccando sul loro nome.</string>
     <string name="legend">Legenda</string>
     <string name="toxicity1">pianta velenosa</string>
-    <string name="toxicity2">pianta leggermente velenosa</string>
+    <string name="toxicity2">pianta poco velenosa</string>
     <string name="rate_text">L\'autore di questa applicazione è entusiasta di ricevere feedback da parte degli utenti. Ti preghiamo di inviargli qualche stella (alpina) attraverso Google Play Store.</string>
     <string name="rate_never">Mai</string>
     <string name="rate_later">Dopo</string>
