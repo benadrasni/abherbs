@@ -18,7 +18,7 @@
 
     <string name="habitats">Habitat</string>
     <string name="habitat_meadow">Wiesen oder Grünland</string>
-    <string name="habitat_garden">Gärten oder Feldern</string>
+    <string name="habitat_garden">Gärten oder Felder</string>
     <string name="habitat_wetland">Moorlandschaft oder Feuchtgebiete</string>
     <string name="habitat_forest">Wälder</string>
     <string name="habitat_rock">Felsen oder Berge</string>
@@ -32,8 +32,8 @@
     <string name="petal_bisymmetric">spiegelsymmetrisch</string>
     <string name="number_of_petals_message">Ist die Blüte spiegelsymmetrisch? Falls nicht, wieviele Blütenblätter hat sie?</string>
 
-    <string name="display_info">Richtige?</string>
-    <string name="list_info">Wähle eins</string>
+    <string name="display_info">Richtig?</string>
+    <string name="list_info">Wähle aus</string>
 
     <string name="plant_info">Info</string>
     <string name="plant_gallery">Gallery</string>
@@ -83,7 +83,7 @@
     <string name="showcase_fullscreen_title">Größere Abbildung</string>
     <string name="showcase_fullscreen_message">Durch Klicken auf die Darstellung wird sie im Vollbild angezeigt.</string>
     <string name="showcase_count_button_title">Anzahl der gefilterten Blumen</string>
-    <string name="showcase_count_button_message">Klicken Sie direkt auf die Liste zu springen. Werke für Zählungen weniger als 21. Lang Klick für klare Filter.</string>
+    <string name="showcase_count_button_message">Tippe um direkt zur Liste zu gelangen. Langes Tippen setzt die Filter zu zurück.</string>
     <string name="showcase_taxonomy_title">Taxonomy gemäß APG IV System</string>
     <string name="showcase_taxonomy_message">Klicken Sie die Namen der Blumen an, um ihre Taxonomie anzuzeigen oder zu verbergen.</string>
     <string name="legend">Legende</string>
@@ -104,7 +104,7 @@
     <string name="feedback_review">Sie können eine positive Bewertung in Google Play schreiben.</string>
     <string name="feedback_google_play">Google Play</string>
     <string name="feedback_title">Wie kann ich dazu beitragen?</string>
-    <string name="feedback_translate">Sie können irgendwelche Tippfehler oder Fehler melden, die Sie gefunden haben oder eine neue Übersetzung in Ihrer Sprache einreichen.</string>
+    <string name="feedback_translate">Sie können Tippfehler oder falsche Übersetzungen melden, oder eine neue Übersetzung in Ihrer Sprache einreichen.</string>
     <string name="feedback_cash">Sie können neue Entwicklung und Datenbankerweiterung mit Bargeld unterstützen.</string>
     <string name="feedback_submit_cash">Spenden</string>
     <string name="taxonomy_subgenus">Subgenus</string>
@@ -121,7 +121,7 @@
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="update_version">Update-Version</string>
-    <string name="new_version_available">Neue Version ist verfügbar, bitte updaten.</string>
+    <string name="new_version_available">Eine neue Version ist verfügbar, bitte updaten.</string>
     <string name="update">Aktualisieren</string>
     <string name="feedback_submit_translate_data">Verbessere die Daten der Blume</string>
     <string name="feedback_submit_translate_app">Verbessere den Text der Anwendung</string>
