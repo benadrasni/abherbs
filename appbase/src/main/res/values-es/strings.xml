@@ -5,7 +5,7 @@
     <string name="settings">Configuración</string>
     <string name="feedback">Sugerencias / Contribución</string>
     <string name="pref_language">Idioma preferido</string>
-    <string name="cache_size">Tamaño de caché en MB</string>
+    <string name="cache_size">Tamaño del caché en MB</string>
     <string name="cache_size_summary">para fotos e ilustraciones</string>
 
     <string name="color_of_flower">color de la flor</string>

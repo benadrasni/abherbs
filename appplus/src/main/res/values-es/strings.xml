@@ -5,7 +5,7 @@
     <string name="synchronizing">Sincronización …</string>
 
     <string name="offline_mode">Modo offline</string>
-    <string name="offline_mode_summary">requiere espacio adicional de 250 MB</string>
+    <string name="offline_mode_summary">requiere espacio adicional de 300 MB</string>
 
     <string name="search">Buscar</string>
     <string name="delete">Delete</string>
