@@ -623,10 +623,12 @@ public class Creater {
         plantBasic.setFilterColor(new ArrayList<String>(Arrays.asList("?")));
         plantBasic.setFilterHabitat(new ArrayList<String>(Arrays.asList("?")));
         plantBasic.setFilterPetal(new ArrayList<String>(Arrays.asList("?")));
+        plantBasic.setFilterDistribution(new ArrayList<Integer>(Arrays.asList(10,11,12,13,14)));
         plantBasic.setFloweringFrom(1);
         plantBasic.setFloweringTo(1);
         plantBasic.setHeightFrom(0);
         plantBasic.setHeightTo(0);
+        plantBasic.setGbifId(0);
 
         HashMap<String, String> wikilinks = new HashMap<>();
         wikilinks.put("commons", "https://commons.wikimedia.org/wiki/" + plantName.replace(" ", "_"));
