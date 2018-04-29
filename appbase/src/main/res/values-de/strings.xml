@@ -33,7 +33,7 @@
     <string name="number_of_petals_message">Ist die Blüte spiegelsymmetrisch? Falls nicht, wieviele Blütenblätter hat sie?</string>
 
     <string name="display_info">Richtig?</string>
-    <string name="list_info">Wähle aus</string>
+    <string name="list_info">Auswahl</string>
 
     <string name="plant_info">Info</string>
     <string name="plant_gallery">Gallery</string>
