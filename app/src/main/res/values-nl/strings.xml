@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Wat is deze bloem?</string>
+    <string name="app_name">Welke bloem is dit?</string>
     <string name="feedback_ads_allowed">AdMob by Google is displaying advertisement in the application. Thanks!</string>
     <string name="feedback_ads_not_allowed">You can enable advertisement by Google\'s AdMob in the application.</string>
     <string name="feedback_enable_ads">Enable advertisement by AdMob</string>
