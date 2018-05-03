@@ -46,7 +46,8 @@ public class Checker {
     public static void main(String[] params) {
 
         //checkNames();
-        checkSearch();
+        //checkSearch();
+        checkTranslation();
     }
 
     private static void checkNames() {
@@ -118,6 +119,26 @@ public class Checker {
 
         if (!plantName.equals(plant.getName())) {
             System.out.println("!!!!!!" + plantName + "!!!!!!");
+        }
+    }
+
+    private static void checkTranslation() {
+        String[] languages = {"cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
+        final FirebaseClient firebaseClient = new FirebaseClient();
+
+        try {
+            for (String language : languages) {
+
+                Call<Map<String, Object>> searchCall = firebaseClient.getApiService().getTranslation(language + "-GT");
+                Map<String, Object> search = searchCall.execute().body();
+
+                if (search != null) {
+                    System.out.println(language + ": " + search.entrySet().size());
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
