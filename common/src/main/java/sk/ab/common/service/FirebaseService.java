@@ -178,4 +178,12 @@ public interface FirebaseService {
     })
     @GET("web.json")
     Call<Map<String, Map<String, String>>> getWebTranslations();
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @GET("search/{language}.json")
+    Call<Map<String, Object>> getSearch(@Path("language") String language);
 }
