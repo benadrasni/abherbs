@@ -66,7 +66,7 @@
     <string name="plant_habitat">Habitat</string>
     <string name="plant_toxicity">Toxizität</string>
     <string name="plant_herbalism">Pflanzenheilkunde</string>
-    <string name="plant_trivia">Triviales</string>
+    <string name="plant_trivia">Wissenswertes</string>
 
     <string name="taxonomy_superregnum">Domäne</string>
     <string name="taxonomy_regnum">Reich</string>
@@ -74,17 +74,17 @@
     <string name="taxonomy_ordo">Ordnung</string>
     <string name="taxonomy_familia">Familie</string>
     <string name="taxonomy_subfamilia">Unterfamilie</string>
-    <string name="taxonomy_tribus">Tribus</string>
-    <string name="taxonomy_subtribus">Untertribus</string>
+    <string name="taxonomy_tribus">Stamm</string>
+    <string name="taxonomy_subtribus">Unterstamm</string>
     <string name="taxonomy_genus">Gattung</string>
     <string name="taxonomy_species">Art</string>
 
     <string name="close">Schließen</string>
     <string name="showcase_fullscreen_title">Größere Abbildung</string>
-    <string name="showcase_fullscreen_message">Durch Klicken auf die Darstellung wird sie im Vollbild angezeigt.</string>
+    <string name="showcase_fullscreen_message">Klick auf das Bild öffnet die Vollbildanzeige.</string>
     <string name="showcase_count_button_title">Anzahl der gefilterten Blumen</string>
     <string name="showcase_count_button_message">Tippe um direkt zur Liste zu gelangen. Langes Tippen setzt die Filter zu zurück.</string>
-    <string name="showcase_taxonomy_title">Taxonomy gemäß APG IV System</string>
+    <string name="showcase_taxonomy_title">Taxonomie gemäß APG IV System</string>
     <string name="showcase_taxonomy_message">Klicken Sie die Namen der Blumen an, um ihre Taxonomie anzuzeigen oder zu verbergen.</string>
     <string name="legend">Legende</string>
     <string name="toxicity1">giftige Pflanze</string>
@@ -100,7 +100,7 @@
     <string name="show_translation">Übersetzten Text anzeigen</string>
     <string name="rate_question">Ist diese Anwendung hilfreich?</string>
 
-    <string name="feedback_intro">Sie haben zu dieser Anwendung beigetragen, seit Sie es auf Ihrem Gerät installiert haben, danke. Wenn Sie nach etwas mehr suchen, hier sind einige Optionen:</string>
+    <string name="feedback_intro">Sie haben zu dieser Anwendung beigetragen, seit Sie diese auf Ihrem Gerät installiert haben, vielen Dank. Wenn Sie noch mehr tun möchten, haben Sie folgende Möglichkeiten:</string>
     <string name="feedback_review">Sie können eine positive Bewertung in Google Play schreiben.</string>
     <string name="feedback_google_play">Google Play</string>
     <string name="feedback_title">Wie kann ich dazu beitragen?</string>
@@ -117,7 +117,7 @@
     <string name="unsubscribed_to_new">Eingetragen.</string>
     <string name="subscribe">Interessante Fakten über Blumen</string>
     <string name="subscribe_summary">Tragen Sie sich hier ein, um gelegentlich interessante Fakten über bestimmte Blumen zu erhalten.</string>
-    <string name="taxonomy_unknown">unbekannte</string>
+    <string name="taxonomy_unknown">unbekannt</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="update_version">Update-Version</string>
