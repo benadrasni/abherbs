@@ -1,6 +1,5 @@
 package sk.ab.herbsbase.fragments;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
@@ -10,12 +9,20 @@ import android.widget.LinearLayout;
 import sk.ab.common.Constants;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
-import sk.ab.herbsbase.activities.BaseActivity;
-import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
 import sk.ab.herbsbase.commons.BaseFilterFragment;
 
 public class Distribution extends BaseFilterFragment {
+
+    private LinearLayout layoutEurope;
+    private LinearLayout layoutAfrica;
+    private LinearLayout layoutAsiaTemperate;
+    private LinearLayout layoutAsiaTropical;
+    private LinearLayout layoutAustralasia;
+    private LinearLayout layoutPacific;
+    private LinearLayout layoutNorthernAmerica;
+    private LinearLayout layoutSouthernAmerica;
+    private LinearLayout layoutAntarctic;
 
     public Distribution() {
         this.attribute = Constants.DISTRIBUTION;
@@ -46,7 +53,7 @@ public class Distribution extends BaseFilterFragment {
             });
 
             AppCompatButton acbEurope = getView().findViewById(R.id.acbEurope);
-            final LinearLayout layoutEurope = getView().findViewById(R.id.WGSRPD_Europe);
+            layoutEurope = getView().findViewById(R.id.WGSRPD_Europe);
 
             acbEurope.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -60,7 +67,7 @@ public class Distribution extends BaseFilterFragment {
             });
 
             AppCompatButton acbAfrica = getView().findViewById(R.id.acbAfrica);
-            final LinearLayout layoutAfrica = getView().findViewById(R.id.WGSRPD_Africa);
+            layoutAfrica = getView().findViewById(R.id.WGSRPD_Africa);
 
             acbAfrica.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -74,7 +81,7 @@ public class Distribution extends BaseFilterFragment {
             });
 
             AppCompatButton acbAsiaTemperate = getView().findViewById(R.id.acbAsiaTemperate);
-            final LinearLayout layoutAsiaTemperate = getView().findViewById(R.id.WGSRPD_Asia_Temperate);
+            layoutAsiaTemperate = getView().findViewById(R.id.WGSRPD_Asia_Temperate);
 
             acbAsiaTemperate.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -88,7 +95,7 @@ public class Distribution extends BaseFilterFragment {
             });
 
             AppCompatButton acbAsiaTropical = getView().findViewById(R.id.acbAsiaTropical);
-            final LinearLayout layoutAsiaTropical = getView().findViewById(R.id.WGSRPD_Asia_Tropical);
+            layoutAsiaTropical = getView().findViewById(R.id.WGSRPD_Asia_Tropical);
 
             acbAsiaTropical.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -102,7 +109,7 @@ public class Distribution extends BaseFilterFragment {
             });
 
             AppCompatButton acbAustralasia = getView().findViewById(R.id.acbAustralasia);
-            final LinearLayout layoutAustralasia = getView().findViewById(R.id.WGSRPD_Australasia);
+            layoutAustralasia = getView().findViewById(R.id.WGSRPD_Australasia);
 
             acbAustralasia.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -116,7 +123,7 @@ public class Distribution extends BaseFilterFragment {
             });
 
             AppCompatButton acbPacific = getView().findViewById(R.id.acbPacific);
-            final LinearLayout layoutPacific = getView().findViewById(R.id.WGSRPD_Pacific);
+            layoutPacific = getView().findViewById(R.id.WGSRPD_Pacific);
 
             acbPacific.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -130,7 +137,7 @@ public class Distribution extends BaseFilterFragment {
             });
 
             AppCompatButton acbNorthernAmerica = getView().findViewById(R.id.acbNorthernAmerica);
-            final LinearLayout layoutNorthernAmerica = getView().findViewById(R.id.WGSRPD_Northern_America);
+            layoutNorthernAmerica = getView().findViewById(R.id.WGSRPD_Northern_America);
 
             acbNorthernAmerica.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -144,7 +151,7 @@ public class Distribution extends BaseFilterFragment {
             });
 
             AppCompatButton acbSouthernAmerica = getView().findViewById(R.id.acbSouthernAmerica);
-            final LinearLayout layoutSouthernAmerica = getView().findViewById(R.id.WGSRPD_Southern_America);
+            layoutSouthernAmerica = getView().findViewById(R.id.WGSRPD_Southern_America);
 
             acbSouthernAmerica.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -158,7 +165,7 @@ public class Distribution extends BaseFilterFragment {
             });
 
             AppCompatButton acbAntarctic = getView().findViewById(R.id.acbAntarctic);
-            final LinearLayout layoutAntarctic = getView().findViewById(R.id.WGSRPD_Antarctic);
+            layoutAntarctic = getView().findViewById(R.id.WGSRPD_Antarctic);
 
             acbAntarctic.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -171,5 +178,20 @@ public class Distribution extends BaseFilterFragment {
                 }
             });
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        layoutEurope.setVisibility(View.GONE);
+        layoutAfrica.setVisibility(View.GONE);
+        layoutAsiaTemperate.setVisibility(View.GONE);
+        layoutAsiaTropical.setVisibility(View.GONE);
+        layoutAustralasia.setVisibility(View.GONE);
+        layoutPacific.setVisibility(View.GONE);
+        layoutNorthernAmerica.setVisibility(View.GONE);
+        layoutSouthernAmerica.setVisibility(View.GONE);
+        layoutAntarctic.setVisibility(View.GONE);
     }
 }

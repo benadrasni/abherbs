@@ -39,7 +39,8 @@
             android:value="@string/google_maps_key"/>
 
         <activity android:name="sk.ab.herbsplus.activities.SplashPlusActivity"
-            android:theme="@style/SplashScreenTheme">
+                  android:theme="@style/SplashScreenTheme"
+                  android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

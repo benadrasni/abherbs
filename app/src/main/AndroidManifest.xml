@@ -33,7 +33,8 @@
         <!-- [END fcm_default_channel] -->
 
         <activity android:name="sk.ab.herbs.activities.SplashActivity"
-            android:theme="@style/SplashScreenTheme">
+                  android:theme="@style/SplashScreenTheme"
+                  android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

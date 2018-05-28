@@ -5,19 +5,16 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
+import sk.ab.common.Constants;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
@@ -42,15 +40,22 @@ import sk.ab.herbsbase.tools.Utils;
  */
 public abstract class FilterPlantsBaseActivity extends BaseActivity {
 
-
     private long mLastClickTime;
     private Integer filterPosition;
     private BaseFilterFragment currentFragment;
+    private String myRegion;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_Application);
         super.onCreate(savedInstanceState);
+
+        SharedPreferences preferences = getSharedPreferences();
+        boolean alwaysMyRegion = preferences.getBoolean(AndroidConstants.ALWAYS_MY_REGION_KEY, false);
+        myRegion = null;
+        if (alwaysMyRegion) {
+            myRegion = preferences.getString(AndroidConstants.MY_REGION_KEY, null);
+        }
 
         if (savedInstanceState != null) {
             filter = (HashMap<String, String>)savedInstanceState.getSerializable(AndroidConstants.STATE_FILTER);
@@ -64,11 +69,17 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
             String clearFilter = getIntent().getExtras().getString(AndroidConstants.STATE_FILTER_CLEAR);
             if (clearFilter != null && filter != null) {
                 filter.clear();
+                if (myRegion != null) {
+                    filter.put(Constants.DISTRIBUTION, myRegion);
+                }
             }
         }
 
         if (filter == null) {
             filter = new HashMap<>();
+            if (myRegion != null) {
+                filter.put(Constants.DISTRIBUTION, myRegion);
+            }
         }
 
         overlay = findViewById(R.id.overlay);
@@ -145,6 +156,13 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
+
+        SharedPreferences preferences = getSharedPreferences();
+        boolean alwaysMyRegion = preferences.getBoolean(AndroidConstants.ALWAYS_MY_REGION_KEY, false);
+        myRegion = null;
+        if (alwaysMyRegion) {
+            myRegion = preferences.getString(AndroidConstants.MY_REGION_KEY, null);
+        }
 
         if (isLoading) {
             startLoading();
@@ -250,6 +268,9 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
     public void clearFilter() {
         startLoading();
         filter.clear();
+        if (myRegion != null) {
+            filter.put(Constants.DISTRIBUTION, myRegion);
+        }
         getCount();
 
         mPropertyMenu.getListView().invalidateViews();
