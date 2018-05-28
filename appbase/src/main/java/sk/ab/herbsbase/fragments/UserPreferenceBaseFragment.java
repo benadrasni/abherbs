@@ -1,5 +1,6 @@
 package sk.ab.herbsbase.fragments;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -34,6 +35,8 @@ public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
     private ListPreference prefLanguage;
     protected EditTextPreference prefCacheSize;
     private CheckBoxPreference prefSubscribe;
+    private Preference prefMyRegion;
+    private CheckBoxPreference prefAlwaysMyRegion;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,9 +131,39 @@ public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
                 return true;
             }
         });
+
+        prefMyRegion = findPreference("myRegion");
+        prefMyRegion.setIntent(getMyRegionIntent());
+
+        Boolean alwaysMyRegion = preferences.getBoolean(AndroidConstants.ALWAYS_MY_REGION_KEY, false);
+        prefAlwaysMyRegion = (CheckBoxPreference)findPreference("alwaysMyRegion");
+        prefAlwaysMyRegion.setChecked(alwaysMyRegion);
+        prefAlwaysMyRegion.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                Boolean newAlwaysMyRegion = (Boolean) newValue;
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(AndroidConstants.ALWAYS_MY_REGION_KEY, newAlwaysMyRegion);
+                editor.apply();
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        final SharedPreferences preferences = getSharedPreferences();
+        String myRegion = preferences.getString(AndroidConstants.MY_REGION_KEY, "");
+        prefMyRegion = findPreference("myRegion");
+        prefMyRegion.setSummary(AndroidConstants.filterResources.get(myRegion));
     }
 
     protected abstract SharedPreferences getSharedPreferences();
+
+    protected abstract Intent getMyRegionIntent();
 
     private void changeLocale(String language) {
         Utils.changeLocale(getActivity().getBaseContext(), language);
@@ -150,4 +183,5 @@ public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
     protected void updateLanguagePreferences(String oldLanguage, String newLanguage) {
 
     }
+
 }

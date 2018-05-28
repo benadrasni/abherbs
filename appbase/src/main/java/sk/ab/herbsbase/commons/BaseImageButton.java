@@ -21,20 +21,24 @@ import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
 public class BaseImageButton extends AppCompatButton {
     private long mLastClickTime;
     private String value;
+    private boolean addDefaultListener;
 
     public BaseImageButton(Context context) {
         super(context);
+        addDefaultListener = true;
         addListenerOnButton();
     }
 
     public BaseImageButton(Context context, AttributeSet attrs) {
         super(context, attrs);
+        addDefaultListener = true;
         setCustomAttributes(context, attrs);
         addListenerOnButton();
     }
 
     public BaseImageButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        addDefaultListener = true;
         setCustomAttributes(context, attrs);
         addListenerOnButton();
     }
@@ -48,32 +52,35 @@ public class BaseImageButton extends AppCompatButton {
         for (int i = 0; i < attributes.getIndexCount(); ++i) {
             if (attributes.getIndex(i) == R.styleable.BaseImageButton_value) {
                 this.value = attributes.getString(i);
-                break;
+            } else if (attributes.getIndex(i) == R.styleable.BaseImageButton_addDefaultListener) {
+                this.addDefaultListener = attributes.getBoolean(i, true);
             }
         }
         attributes.recycle();
     }
 
     private void addListenerOnButton() {
-        setClickable(true);
-        setOnClickListener(new OnClickListener() {
+        if (addDefaultListener) {
+            setClickable(true);
+            setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-                long currentClickTime = SystemClock.uptimeMillis();
-                long elapsedTime = currentClickTime - mLastClickTime;
-                mLastClickTime = currentClickTime;
-                if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
-                    if (((LinearLayout) view.getParent()).getContext() instanceof FilterPlantsBaseActivity) {
-                        FilterPlantsBaseActivity host = (FilterPlantsBaseActivity) ((LinearLayout) view.getParent()).getContext();
+                @Override
+                public void onClick(View view) {
+                    long currentClickTime = SystemClock.uptimeMillis();
+                    long elapsedTime = currentClickTime - mLastClickTime;
+                    mLastClickTime = currentClickTime;
+                    if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
+                        if (((LinearLayout) view.getParent()).getContext() instanceof FilterPlantsBaseActivity) {
+                            FilterPlantsBaseActivity host = (FilterPlantsBaseActivity) ((LinearLayout) view.getParent()).getContext();
 
-                        if (host.getCounter() > 0 || host.getFilter().get(host.getCurrentFragment().getAttribute()) != null) {
-                            host.addToFilter(value);
+                            if (host.getCounter() > 0 || host.getFilter().get(host.getCurrentFragment().getAttribute()) != null) {
+                                host.addToFilter(value);
+                            }
                         }
                     }
                 }
-            }
 
-        });
+            });
+        }
     }
 }

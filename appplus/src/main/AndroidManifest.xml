@@ -89,6 +89,15 @@
         <activity
             android:name=".activities.SubscriptionActivity"
             android:configChanges="orientation|screenSize|locale" />
+        <activity
+            android:name=".activities.MyRegionPlusActivity"
+            android:configChanges="orientation|screenSize|locale"
+            android:theme="@style/Theme.Settings">
+            <intent-filter>
+                <action android:name="sk.ab.herbs.activities.MyRegionPlusActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name="sk.ab.herbsbase.BaseFirebaseMessagingService">

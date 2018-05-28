@@ -12,6 +12,7 @@ import java.util.Locale;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.fragments.ColorOfFlowers;
+import sk.ab.herbsbase.fragments.Distribution;
 import sk.ab.herbsbase.fragments.Habitats;
 import sk.ab.herbsbase.fragments.NumberOfPetals;
 
@@ -89,6 +90,7 @@ public class HerbsApp extends BaseApp {
         filterAttributes.add(new ColorOfFlowers());
         filterAttributes.add(new Habitats());
         filterAttributes.add(new NumberOfPetals());
+        filterAttributes.add(new Distribution());
     }
 
     @Override

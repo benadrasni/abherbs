@@ -1,6 +1,7 @@
 package sk.ab.herbsplus.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.fragments.UserPreferenceBaseFragment;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
+import sk.ab.herbsplus.activities.MyRegionPlusActivity;
 
 /**
  * @see UserPreferenceBaseFragment
@@ -89,6 +91,11 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
     @Override
     protected SharedPreferences getSharedPreferences() {
         return getActivity().getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
+    }
+
+    @Override
+    protected Intent getMyRegionIntent() {
+        return new Intent(this.getActivity(), MyRegionPlusActivity.class);
     }
 
     @Override

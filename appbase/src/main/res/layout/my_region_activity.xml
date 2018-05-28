@@ -18,19 +18,6 @@
             android:orientation="vertical">
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/acbMyRegion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/wgsrpd_my_region"
-                android:text="@string/my_region"
-                android:textStyle="bold"
-                android:textSize="18sp"/>
-
-            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/acbEurope"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,6 +51,8 @@
                         android:layout_weight="1"
                         android:text="@string/northern_europe"
                         android:background="@drawable/wgsrpd_northern_europe"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_10"/>
 
 
@@ -75,6 +64,8 @@
                         android:layout_weight="1"
                         android:text="@string/middle_europe"
                         android:background="@drawable/wgsrpd_middle_europe"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_11"/>
 
                 </LinearLayout>
@@ -93,6 +84,8 @@
                         android:layout_weight="1"
                         android:text="@string/southwestern_europe"
                         android:background="@drawable/wgsrpd_southwestern_europe"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_12"/>
 
 
@@ -104,6 +97,8 @@
                         android:layout_weight="1"
                         android:text="@string/southeastern_europe"
                         android:background="@drawable/wgsrpd_southeastern_europe"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_13"/>
 
                 </LinearLayout>
@@ -128,6 +123,8 @@
                         android:layout_weight="2"
                         android:text="@string/eastern_europe"
                         android:background="@drawable/wgsrpd_eastern_europe"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_14"/>
 
                     <View
@@ -173,6 +170,8 @@
                         android:layout_weight="1"
                         android:text="@string/northern_africa"
                         android:background="@drawable/wgsrpd_northern_africa"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_20"/>
 
 
@@ -184,6 +183,8 @@
                         android:layout_weight="1"
                         android:text="@string/macaronesia"
                         android:background="@drawable/wgsrpd_macaronesia"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_21"/>
 
                 </LinearLayout>
@@ -202,6 +203,8 @@
                         android:layout_weight="1"
                         android:text="@string/west_tropical_africa"
                         android:background="@drawable/wgsrpd_west_tropical_africa"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_22"/>
 
 
@@ -213,6 +216,8 @@
                         android:layout_weight="1"
                         android:text="@string/west_central_tropical_africa"
                         android:background="@drawable/wgsrpd_central_tropical_africa"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_23"/>
 
                 </LinearLayout>
@@ -232,6 +237,8 @@
                         android:layout_weight="1"
                         android:text="@string/northeast_tropical_africa"
                         android:background="@drawable/wgsrpd_northeast_tropical_africa"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_24"/>
 
                     <sk.ab.herbsbase.commons.SquareBaseImageButton
@@ -243,6 +250,8 @@
                         android:layout_weight="1"
                         android:text="@string/east_tropical_africa"
                         android:background="@drawable/wgsrpd_east_tropical_africa"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_25"/>
 
                  </LinearLayout>
@@ -262,6 +271,8 @@
                         android:layout_weight="1"
                         android:text="@string/south_tropical_africa"
                         android:background="@drawable/wgsrpd_south_tropical_africa"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_26"/>
 
                     <sk.ab.herbsbase.commons.SquareBaseImageButton
@@ -273,6 +284,8 @@
                         android:layout_weight="1"
                         android:text="@string/southern_africa"
                         android:background="@drawable/wgsrpd_southern_africa"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_27"/>
 
                 </LinearLayout>
@@ -292,6 +305,8 @@
                         android:layout_weight="1"
                         android:text="@string/middle_atlantic_ocean"
                         android:background="@drawable/wgsrpd_middle_atlantic_ocean"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_28"/>
 
                     <sk.ab.herbsbase.commons.SquareBaseImageButton
@@ -303,6 +318,8 @@
                         android:layout_weight="1"
                         android:text="@string/western_indian_ocean"
                         android:background="@drawable/wgsrpd_western_indian_ocean"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_29"/>
 
                 </LinearLayout>
@@ -343,6 +360,8 @@
                         android:layout_weight="1"
                         android:text="@string/siberia"
                         android:background="@drawable/wgsrpd_siberia"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_30"/>
 
 
@@ -354,6 +373,8 @@
                         android:layout_weight="1"
                         android:text="@string/russian_far_east"
                         android:background="@drawable/wgsrpd_russian_far_east"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_31"/>
 
                 </LinearLayout>
@@ -372,6 +393,8 @@
                         android:layout_weight="1"
                         android:text="@string/middle_asia"
                         android:background="@drawable/wgsrpd_middle_asia"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_32"/>
 
 
@@ -383,6 +406,8 @@
                         android:layout_weight="1"
                         android:text="@string/caucasus"
                         android:background="@drawable/wgsrpd_caucasus"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_33"/>
 
                 </LinearLayout>
@@ -402,6 +427,8 @@
                         android:layout_weight="1"
                         android:text="@string/western_asia"
                         android:background="@drawable/wgsrpd_western_asia"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_34"/>
 
                     <sk.ab.herbsbase.commons.SquareBaseImageButton
@@ -413,6 +440,8 @@
                         android:layout_weight="1"
                         android:text="@string/arabian_peninsula"
                         android:background="@drawable/wgsrpd_arabian_peninsula"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_35"/>
 
                 </LinearLayout>
@@ -432,6 +461,8 @@
                         android:layout_weight="1"
                         android:text="@string/china"
                         android:background="@drawable/wgsrpd_china"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_36"/>
 
                     <sk.ab.herbsbase.commons.SquareBaseImageButton
@@ -443,6 +474,8 @@
                         android:layout_weight="1"
                         android:text="@string/mongolia"
                         android:background="@drawable/wgsrpd_mongolia"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_37"/>
 
                 </LinearLayout>
@@ -467,6 +500,8 @@
                         android:layout_weight="2"
                         android:text="@string/eastern_asia"
                         android:background="@drawable/wgsrpd_east_asia"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_38"/>
 
                     <View
@@ -512,6 +547,8 @@
                         android:layout_weight="1"
                         android:text="@string/indian_subcontinent"
                         android:background="@drawable/wgsrpd_indian_subcontinent"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_40"/>
 
 
@@ -523,6 +560,8 @@
                         android:layout_weight="1"
                         android:text="@string/indochina"
                         android:background="@drawable/wgsrpd_indochina"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_41"/>
 
                 </LinearLayout>
@@ -541,6 +580,8 @@
                         android:layout_weight="1"
                         android:text="@string/malesia"
                         android:background="@drawable/wgsrpd_malesia"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_42"/>
 
 
@@ -552,6 +593,8 @@
                         android:layout_weight="1"
                         android:text="@string/papuasia"
                         android:background="@drawable/wgsrpd_papuasia"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_43"/>
 
                 </LinearLayout>
@@ -592,6 +635,8 @@
                         android:layout_weight="1"
                         android:text="@string/australia"
                         android:background="@drawable/wgsrpd_australia"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_40"/>
 
 
@@ -603,6 +648,8 @@
                         android:layout_weight="1"
                         android:text="@string/new_zealand"
                         android:background="@drawable/wgsrpd_new_zealand"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_51"/>
 
                 </LinearLayout>
@@ -643,6 +690,8 @@
                         android:layout_weight="1"
                         android:text="@string/southwestern_pacific"
                         android:background="@drawable/wgsrpd_southwestern_pacific"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_60"/>
 
 
@@ -654,6 +703,8 @@
                         android:layout_weight="1"
                         android:text="@string/south_central_pacific"
                         android:background="@drawable/wgsrpd_south_central_pacific"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_61"/>
 
                 </LinearLayout>
@@ -672,6 +723,8 @@
                         android:layout_weight="1"
                         android:text="@string/northwestern_pacific"
                         android:background="@drawable/wgsrpd_northwestern_pacific"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_62"/>
 
 
@@ -683,6 +736,8 @@
                         android:layout_weight="1"
                         android:text="@string/north_central_pacific"
                         android:background="@drawable/wgsrpd_north_central_pacific"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_63"/>
 
                 </LinearLayout>
@@ -723,6 +778,8 @@
                         android:layout_weight="1"
                         android:text="@string/subarctic_america"
                         android:background="@drawable/wgsrpd_subarctic_america"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_70"/>
 
 
@@ -734,6 +791,8 @@
                         android:layout_weight="1"
                         android:text="@string/western_canada"
                         android:background="@drawable/wgsrpd_western_canada"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_71"/>
 
                 </LinearLayout>
@@ -752,6 +811,8 @@
                         android:layout_weight="1"
                         android:text="@string/eastern_canada"
                         android:background="@drawable/wgsrpd_eastern_canada"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_72"/>
 
 
@@ -763,6 +824,8 @@
                         android:layout_weight="1"
                         android:text="@string/northwestern_usa"
                         android:background="@drawable/wgsrpd_northwestern_united_states"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_73"/>
 
                 </LinearLayout>
@@ -782,6 +845,8 @@
                         android:layout_weight="1"
                         android:text="@string/north_central_usa"
                         android:background="@drawable/wgsrpd_north_central_united_states"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_74"/>
 
                     <sk.ab.herbsbase.commons.SquareBaseImageButton
@@ -793,6 +858,8 @@
                         android:layout_weight="1"
                         android:text="@string/northeastern_usa"
                         android:background="@drawable/wgsrpd_northeastern_united_states"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_75"/>
 
                 </LinearLayout>
@@ -812,6 +879,8 @@
                         android:layout_weight="1"
                         android:text="@string/southwestern_usa"
                         android:background="@drawable/wgsrpd_southeastern_united_states"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_76"/>
 
                     <sk.ab.herbsbase.commons.SquareBaseImageButton
@@ -823,6 +892,8 @@
                         android:layout_weight="1"
                         android:text="@string/south_central_usa"
                         android:background="@drawable/wgsrpd_south_central_united_states"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_77"/>
 
                 </LinearLayout>
@@ -842,6 +913,8 @@
                         android:layout_weight="1"
                         android:text="@string/southeastern_usa"
                         android:background="@drawable/wgsrpd_southeastern_united_states"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_78"/>
 
                     <sk.ab.herbsbase.commons.SquareBaseImageButton
@@ -853,6 +926,8 @@
                         android:layout_weight="1"
                         android:text="@string/mexico"
                         android:background="@drawable/wgsrpd_mexico"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_79"/>
 
                 </LinearLayout>
@@ -893,6 +968,8 @@
                         android:layout_weight="1"
                         android:text="@string/central_america"
                         android:background="@drawable/wgsrpd_central_america"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_80"/>
 
 
@@ -904,6 +981,8 @@
                         android:layout_weight="1"
                         android:text="@string/caribbean"
                         android:background="@drawable/wgsrpd_caribbean"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_81"/>
 
                 </LinearLayout>
@@ -922,6 +1001,8 @@
                         android:layout_weight="1"
                         android:text="@string/northern_south_america"
                         android:background="@drawable/wgsrpd_northern_south_america"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_82"/>
 
 
@@ -933,6 +1014,8 @@
                         android:layout_weight="1"
                         android:text="@string/western_south_america"
                         android:background="@drawable/wgsrpd_western_south_america"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_83"/>
 
                 </LinearLayout>
@@ -952,6 +1035,8 @@
                         android:layout_weight="1"
                         android:text="@string/brazil"
                         android:background="@drawable/wgsrpd_brazil"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_84"/>
 
                     <sk.ab.herbsbase.commons.SquareBaseImageButton
@@ -963,6 +1048,8 @@
                         android:layout_weight="1"
                         android:text="@string/southern_south_america"
                         android:background="@drawable/wgsrpd_southern_south_america"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_85"/>
 
                 </LinearLayout>
@@ -1003,6 +1090,8 @@
                         android:layout_weight="1"
                         android:text="@string/subantarctic_islands"
                         android:background="@drawable/wgsrpd_subantarctic_islands"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_90"/>
 
 
@@ -1014,41 +1103,15 @@
                         android:layout_weight="1"
                         android:text="@string/antarctic_continent"
                         android:background="@drawable/wgsrpd_antarctic_continent"
+                        android:onClick="setMyRegion"
+                        custom:addDefaultListener="false"
                         custom:value="@string/wgsrpd_91"/>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="64dp"/>
-
         </LinearLayout>
 
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:paddingEnd="10dp"
-        android:paddingStart="10dp">
-
-        <TextView
-            android:id="@+id/filter_info"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:lines="2"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
-            android:text="@string/distribution_message"
-            android:textSize="16sp"
-            android:textStyle="italic">
-
-        </TextView>
-    </LinearLayout>
-
 </FrameLayout>

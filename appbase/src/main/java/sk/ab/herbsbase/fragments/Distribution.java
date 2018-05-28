@@ -1,13 +1,18 @@
 package sk.ab.herbsbase.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import sk.ab.common.Constants;
+import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
+import sk.ab.herbsbase.activities.BaseActivity;
 import sk.ab.herbsbase.activities.DisplayPlantBaseActivity;
+import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
 import sk.ab.herbsbase.commons.BaseFilterFragment;
 
 public class Distribution extends BaseFilterFragment {
@@ -24,6 +29,22 @@ public class Distribution extends BaseFilterFragment {
         super.onActivityCreated(savedInstanceState);
 
         if (getView() != null) {
+            AppCompatButton acbMyRegion = getView().findViewById(R.id.acbMyRegion);
+            acbMyRegion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FilterPlantsBaseActivity activity = (FilterPlantsBaseActivity)getActivity();
+                    if (activity != null) {
+                        SharedPreferences preferences = activity.getSharedPreferences();
+                        String myRegion = preferences.getString(AndroidConstants.MY_REGION_KEY, null);
+
+                        if (myRegion != null) {
+                            activity.addToFilter(myRegion);
+                        }
+                    }
+                }
+            });
+
             AppCompatButton acbEurope = getView().findViewById(R.id.acbEurope);
             final LinearLayout layoutEurope = getView().findViewById(R.id.WGSRPD_Europe);
 

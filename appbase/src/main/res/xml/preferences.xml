@@ -17,4 +17,14 @@
         android:summary="@string/subscribe_to_new_summary"
         android:title="@string/subscribe_to_new" />
 
+    <Preference
+        android:key="myRegion"
+        android:title="@string/my_region_title"
+        android:summary=""/>
+
+    <CheckBoxPreference
+        android:key="alwaysMyRegion"
+        android:summary="@string/always_my_region_summary"
+        android:title="@string/always_my_region_title" />
+
 </PreferenceScreen>

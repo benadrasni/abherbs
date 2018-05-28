@@ -68,6 +68,15 @@
         <activity
             android:name="sk.ab.herbsbase.commons.FullScreenImageActivity"
             android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="sk.ab.herbs.activities.MyRegionActivity"
+            android:configChanges="orientation|screenSize|locale"
+            android:theme="@style/Theme.Settings">
+            <intent-filter>
+                <action android:name="sk.ab.herbs.activities.MyRegionActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <!-- [START firebase_service] -->
         <service

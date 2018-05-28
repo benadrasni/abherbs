@@ -83,6 +83,8 @@ public class AndroidConstants {
     public final static String SHOWCASE_FILTER_KEY = "showcase_filter";
     public final static String SHOWCASE_DISPLAY_KEY = "showcase_display";
     public final static String TOKEN_KEY = "token";
+    public final static String MY_REGION_KEY = "my_region";
+    public final static String ALWAYS_MY_REGION_KEY = "always_my_region";
 
     public final static String LANGUAGE_NOT_SUPPORTED = " (not supported)";
     public final static String LANGUAGE_EN = "en";

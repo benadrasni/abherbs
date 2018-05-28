@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="BaseImageButton">
         <attr name="value" format="string" />
+        <attr name="addDefaultListener" format="boolean" />
     </declare-styleable>
 </resources>

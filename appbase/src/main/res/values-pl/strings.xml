@@ -189,4 +189,8 @@
     <string name="eastern_canada">Eastern Canada</string>
     <string name="subantarctic_islands">Subantarctic Islands</string>
     <string name="antarctic_continent">Antarctic Continent</string>
+    <string name="my_region">My Region</string>
+    <string name="my_region_title">My Region</string>
+    <string name="always_my_region_title">Always add my region to the filter</string>
+    <string name="always_my_region_summary">Your region will be pre-set to the filter</string>
 </resources>
