@@ -156,9 +156,11 @@ public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
         super.onStart();
 
         final SharedPreferences preferences = getSharedPreferences();
-        String myRegion = preferences.getString(AndroidConstants.MY_REGION_KEY, "");
-        prefMyRegion = findPreference("myRegion");
-        prefMyRegion.setSummary(AndroidConstants.filterResources.get(myRegion));
+        String myRegion = preferences.getString(AndroidConstants.MY_REGION_KEY, null);
+        if (myRegion != null) {
+            prefMyRegion = findPreference("myRegion");
+            prefMyRegion.setSummary(AndroidConstants.filterResources.get(myRegion));
+        }
     }
 
     protected abstract SharedPreferences getSharedPreferences();

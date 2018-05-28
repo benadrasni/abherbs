@@ -142,6 +142,11 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
     }
 
     @Override
+    public Class getUserPreferenceActivityClass() {
+        return UserPreferencePlusActivity.class;
+    }
+
+    @Override
     public int getAppVersionCode() {
         return BuildConfig.VERSION_CODE;
     }

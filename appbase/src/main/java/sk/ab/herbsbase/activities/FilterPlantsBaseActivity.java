@@ -319,6 +319,8 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
 
     protected abstract int getAppVersionCode();
 
+    public abstract Class getUserPreferenceActivityClass();
+
     private List<BaseFilterFragment> getFilterAttributes() {
         return getApp().getFilterAttributes();
     }

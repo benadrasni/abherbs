@@ -107,6 +107,11 @@ public class FilterPlantsActivity extends FilterPlantsBaseActivity {
     }
 
     @Override
+    public Class getUserPreferenceActivityClass() {
+        return UserPreferenceActivity.class;
+    }
+
+    @Override
     protected PropertyListBaseFragment getNewMenuFragment() {
         return new PropertyListFragment();
     }

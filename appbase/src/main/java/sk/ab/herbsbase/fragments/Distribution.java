@@ -1,10 +1,12 @@
 package sk.ab.herbsbase.fragments;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import sk.ab.common.Constants;
 import sk.ab.herbsbase.AndroidConstants;
@@ -37,16 +39,26 @@ public class Distribution extends BaseFilterFragment {
 
         if (getView() != null) {
             AppCompatButton acbMyRegion = getView().findViewById(R.id.acbMyRegion);
+            TextView myRegionText = getView().findViewById(R.id.my_region_value);
+
+            final SharedPreferences preferences = ((FilterPlantsBaseActivity)getActivity()).getSharedPreferences();
+            final String myRegion = preferences.getString(AndroidConstants.MY_REGION_KEY, null);
+            if (myRegion != null) {
+                myRegionText.setText(AndroidConstants.filterResources.get(myRegion));
+            }
+
             acbMyRegion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     FilterPlantsBaseActivity activity = (FilterPlantsBaseActivity)getActivity();
                     if (activity != null) {
-                        SharedPreferences preferences = activity.getSharedPreferences();
                         String myRegion = preferences.getString(AndroidConstants.MY_REGION_KEY, null);
 
                         if (myRegion != null) {
                             activity.addToFilter(myRegion);
+                        } else {
+                            Intent intent = new Intent(activity, activity.getUserPreferenceActivityClass());
+                            startActivity(intent);
                         }
                     }
                 }
