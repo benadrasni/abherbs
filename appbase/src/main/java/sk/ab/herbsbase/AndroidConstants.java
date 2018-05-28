@@ -2,6 +2,10 @@ package sk.ab.herbsbase;
 
 import android.content.res.Resources;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: adrian
@@ -137,40 +141,80 @@ public class AndroidConstants {
 
     public final static String FIREBASE_APG_UNKNOWN_TYPE = "unknown";
 
-    public static int getValueResource(Resources resources, String value) {
-        int result = 0;
-        if (value.equals(resources.getString(R.string.cof_white))) {
-            result = R.string.color_white;
-        } else if (value.equals(resources.getString(R.string.cof_yellow))) {
-            result = R.string.color_yellow;
-        } else if (value.equals(resources.getString(R.string.cof_red))) {
-            result = R.string.color_red;
-        } else if (value.equals(resources.getString(R.string.cof_blue))) {
-            result = R.string.color_blue;
-        } else if (value.equals(resources.getString(R.string.cof_green))) {
-            result = R.string.color_green;
-        } else if (value.equals(resources.getString(R.string.ph_meadows))) {
-            result = R.string.habitat_meadow;
-        } else if (value.equals(resources.getString(R.string.ph_gardens))) {
-            result = R.string.habitat_garden;
-        } else if (value.equals(resources.getString(R.string.ph_moorlands))) {
-            result = R.string.habitat_wetland;
-        } else if (value.equals(resources.getString(R.string.ph_woodlands))) {
-            result = R.string.habitat_forest;
-        } else if (value.equals(resources.getString(R.string.ph_rocks))) {
-            result = R.string.habitat_rock;
-        } else if (value.equals(resources.getString(R.string.ph_trees))) {
-            result = R.string.habitat_tree;
-        } else if (value.equals(resources.getString(R.string.nop_4))) {
-            result = R.string.petal_4;
-        } else if (value.equals(resources.getString(R.string.nop_5))) {
-            result = R.string.petal_5;
-        } else if (value.equals(resources.getString(R.string.nop_many))) {
-            result = R.string.petal_many;
-        } else if (value.equals(resources.getString(R.string.nop_bisymmetric))) {
-            result = R.string.petal_bisymmetric;
-        }
+    public static final Map<String, Integer> filterResources;
+    static {
+        Map<String, Integer> aMap = new HashMap<>();
+        aMap.put("white", R.string.color_white);
+        aMap.put("yellow", R.string.color_yellow);
+        aMap.put("red", R.string.color_red);
+        aMap.put("blue", R.string.color_blue);
+        aMap.put("green", R.string.color_green);
 
-        return result;
+        aMap.put("meadows or grassland", R.string.habitat_meadow);
+        aMap.put("gardens or fields", R.string.habitat_garden);
+        aMap.put("moorlands or wetlands", R.string.habitat_wetland);
+        aMap.put("woodlands or forests", R.string.habitat_forest);
+        aMap.put("rocks or mountains", R.string.habitat_rock);
+        aMap.put("trees or bushes", R.string.habitat_tree);
+
+        aMap.put("4 or less", R.string.petal_4);
+        aMap.put("5", R.string.petal_5);
+        aMap.put("Many", R.string.petal_many);
+        aMap.put("Bisymetric", R.string.petal_bisymmetric);
+
+        aMap.put("10", R.string.northern_europe);
+        aMap.put("11", R.string.middle_europe);
+        aMap.put("12", R.string.southwestern_europe);
+        aMap.put("13", R.string.southeastern_europe);
+        aMap.put("14", R.string.eastern_europe);
+        aMap.put("20", R.string.northern_africa);
+        aMap.put("21", R.string.macaronesia);
+        aMap.put("22", R.string.west_tropical_africa);
+        aMap.put("23", R.string.west_central_tropical_africa);
+        aMap.put("24", R.string.northeast_tropical_africa);
+        aMap.put("25", R.string.east_tropical_africa);
+        aMap.put("26", R.string.south_tropical_africa);
+        aMap.put("27", R.string.southern_africa);
+        aMap.put("28", R.string.middle_atlantic_ocean);
+        aMap.put("29", R.string.western_indian_ocean);
+        aMap.put("30", R.string.siberia);
+        aMap.put("31", R.string.russian_far_east);
+        aMap.put("32", R.string.middle_asia);
+        aMap.put("33", R.string.caucasus);
+        aMap.put("34", R.string.western_asia);
+        aMap.put("35", R.string.arabian_peninsula);
+        aMap.put("36", R.string.china);
+        aMap.put("37", R.string.mongolia);
+        aMap.put("38", R.string.eastern_asia);
+        aMap.put("40", R.string.indian_subcontinent);
+        aMap.put("41", R.string.indochina);
+        aMap.put("42", R.string.malesia);
+        aMap.put("43", R.string.papuasia);
+        aMap.put("50", R.string.australia);
+        aMap.put("51", R.string.new_zealand);
+        aMap.put("60", R.string.southwestern_pacific);
+        aMap.put("61", R.string.south_central_pacific);
+        aMap.put("62", R.string.northwestern_pacific);
+        aMap.put("63", R.string.north_central_pacific);
+        aMap.put("70", R.string.subarctic_america);
+        aMap.put("71", R.string.western_canada);
+        aMap.put("72", R.string.eastern_canada);
+        aMap.put("73", R.string.northwestern_usa);
+        aMap.put("74", R.string.north_central_usa);
+        aMap.put("75", R.string.northeastern_usa);
+        aMap.put("76", R.string.southwestern_usa);
+        aMap.put("77", R.string.south_central_usa);
+        aMap.put("78", R.string.southeastern_usa);
+        aMap.put("79", R.string.mexico);
+        aMap.put("80", R.string.central_america);
+        aMap.put("81", R.string.caribbean);
+        aMap.put("82", R.string.northern_south_america);
+        aMap.put("83", R.string.western_south_america);
+        aMap.put("84", R.string.brazil);
+        aMap.put("85", R.string.southern_south_america);
+        aMap.put("90", R.string.subantarctic_islands);
+        aMap.put("91", R.string.antarctic_continent);
+
+        filterResources = Collections.unmodifiableMap(aMap);
     }
 }

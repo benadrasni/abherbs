@@ -767,7 +767,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
-                        android:text="@string/north_central_uas"
+                        android:text="@string/north_central_usa"
                         android:background="@drawable/wgsrpd_north_central_united_states"
                         custom:value="@string/wgsrpd_74"/>
 
@@ -1006,6 +1006,10 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="64dp"/>
 
         </LinearLayout>
 

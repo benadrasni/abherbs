@@ -130,21 +130,21 @@ public abstract class PropertyListBaseFragment extends ListFragment {
                 switch (item.getType()) {
                     case PropertyItem.TYPE_FILTER:
                         BaseFilterFragment filterFragment = (BaseFilterFragment) item;
-                        ImageView icon = (ImageView) convertView.findViewById(R.id.row_icon);
+                        ImageView icon = convertView.findViewById(R.id.row_icon);
                         if (icon != null) {
                             icon.setImageResource(filterFragment.getIconRes());
                         }
-                        TextView title = (TextView) convertView.findViewById(R.id.row_title);
+                        TextView title = convertView.findViewById(R.id.row_title);
                         if (title != null) {
                             title.setText(filterFragment.getTitle());
                         }
-                        TextView value = (TextView) convertView.findViewById(R.id.row_value);
+                        TextView value = convertView.findViewById(R.id.row_value);
                         if (value != null) {
                             String valueText = "";
                             if (((BaseActivity) getActivity()).getFilter() != null){
                                 String valueId = ((BaseActivity) getActivity()).getFilter().get(filterFragment.getAttribute());
                                 if (valueId != null) {
-                                    int resId = AndroidConstants.getValueResource(getResources(), valueId);
+                                    int resId = AndroidConstants.filterResources.get(valueId);
                                     if (resId > 0) {
                                         valueText = getResources().getText(resId).toString();
                                     }
