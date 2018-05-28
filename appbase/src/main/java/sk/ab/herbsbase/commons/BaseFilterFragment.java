@@ -37,7 +37,7 @@ public abstract class BaseFilterFragment extends Fragment implements PropertyIte
 
         View view = inflater.inflate(layout, null);
         if (((FilterPlantsBaseActivity)getActivity()).isAdsAllowed()) {
-            TextView infoText = (TextView)view.findViewById(R.id.filter_info);
+            TextView infoText = view.findViewById(R.id.filter_info);
             infoText.setVisibility(View.INVISIBLE);
         }
 

@@ -20,7 +20,60 @@
     <string translatable="false" name="nop_5">5</string>
     <string translatable="false" name="nop_many">Many</string>
     <string translatable="false" name="nop_bisymmetric">Bisymetric</string>
-	
+
+    <string translatable="false" name="wgsrpd_10">10</string>
+    <string translatable="false" name="wgsrpd_11">11</string>
+    <string translatable="false" name="wgsrpd_12">12</string>
+    <string translatable="false" name="wgsrpd_13">13</string>
+    <string translatable="false" name="wgsrpd_14">14</string>
+    <string translatable="false" name="wgsrpd_20">20</string>
+    <string translatable="false" name="wgsrpd_21">21</string>
+    <string translatable="false" name="wgsrpd_22">22</string>
+    <string translatable="false" name="wgsrpd_23">23</string>
+    <string translatable="false" name="wgsrpd_24">24</string>
+    <string translatable="false" name="wgsrpd_25">25</string>
+    <string translatable="false" name="wgsrpd_26">26</string>
+    <string translatable="false" name="wgsrpd_27">27</string>
+    <string translatable="false" name="wgsrpd_28">28</string>
+    <string translatable="false" name="wgsrpd_29">29</string>
+    <string translatable="false" name="wgsrpd_30">30</string>
+    <string translatable="false" name="wgsrpd_31">31</string>
+    <string translatable="false" name="wgsrpd_32">32</string>
+    <string translatable="false" name="wgsrpd_33">33</string>
+    <string translatable="false" name="wgsrpd_34">34</string>
+    <string translatable="false" name="wgsrpd_35">35</string>
+    <string translatable="false" name="wgsrpd_36">36</string>
+    <string translatable="false" name="wgsrpd_37">37</string>
+    <string translatable="false" name="wgsrpd_38">38</string>
+    <string translatable="false" name="wgsrpd_40">40</string>
+    <string translatable="false" name="wgsrpd_41">41</string>
+    <string translatable="false" name="wgsrpd_42">42</string>
+    <string translatable="false" name="wgsrpd_43">43</string>
+    <string translatable="false" name="wgsrpd_50">50</string>
+    <string translatable="false" name="wgsrpd_51">51</string>
+    <string translatable="false" name="wgsrpd_60">60</string>
+    <string translatable="false" name="wgsrpd_61">61</string>
+    <string translatable="false" name="wgsrpd_62">62</string>
+    <string translatable="false" name="wgsrpd_63">63</string>
+    <string translatable="false" name="wgsrpd_70">70</string>
+    <string translatable="false" name="wgsrpd_71">71</string>
+    <string translatable="false" name="wgsrpd_72">72</string>
+    <string translatable="false" name="wgsrpd_73">73</string>
+    <string translatable="false" name="wgsrpd_74">74</string>
+    <string translatable="false" name="wgsrpd_75">75</string>
+    <string translatable="false" name="wgsrpd_76">76</string>
+    <string translatable="false" name="wgsrpd_77">77</string>
+    <string translatable="false" name="wgsrpd_78">78</string>
+    <string translatable="false" name="wgsrpd_79">79</string>
+    <string translatable="false" name="wgsrpd_80">80</string>
+    <string translatable="false" name="wgsrpd_81">81</string>
+    <string translatable="false" name="wgsrpd_82">82</string>
+    <string translatable="false" name="wgsrpd_83">83</string>
+    <string translatable="false" name="wgsrpd_84">84</string>
+    <string translatable="false" name="wgsrpd_85">85</string>
+    <string translatable="false" name="wgsrpd_90">90</string>
+    <string translatable="false" name="wgsrpd_91">91</string>
+
     <string translatable="false" name="agpiii">APG III</string>
     <string translatable="false" name="agpiv">APG IV</string>
 
@@ -151,4 +204,15 @@
     <string name="feedback_submit_translate_data">Improve flower\'s data</string>
     <string name="feedback_submit_translate_app">Improve application\'s labels</string>
     <string name="improve_text">Improve text</string>
+    <string name="distribution">distribution</string>
+    <string name="distribution_message">What\'s the region?</string>
+    <string name="europe">Europe</string>
+    <string name="africa">Africa</string>
+    <string name="asia_temperate">Asia-Temperate</string>
+    <string name="asia_tropical">Asia-Tropical</string>
+    <string name="australasia">Australasia</string>
+    <string name="pacific">Pacific</string>
+    <string name="northern_america">Northern America</string>
+    <string name="southern_america">Southern America</string>
+    <string name="antarctic">Antarctic</string>
 </resources>

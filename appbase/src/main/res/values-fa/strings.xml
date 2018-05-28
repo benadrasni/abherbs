@@ -102,5 +102,16 @@
   <string name="translate_desc">ترجمه کردن</string>
   <string name="unsubscribed_to_new">لغو اشتراک</string>
   <string name="your_text">نوشته ی تو</string>
+    <string name="distribution">distribution</string>
+    <string name="distribution_message">What\'s the region?</string>
+    <string name="europe">Europe</string>
+  <string name="africa">Africa</string>
+  <string name="asia_temperate">Asia-Temperate</string>
+  <string name="asia_tropical">Asia-Tropical</string>
+  <string name="australasia">Australasia</string>
+  <string name="pacific">Pacific</string>
+  <string name="northern_america">Northern America</string>
+  <string name="southern_america">Southern America</string>
+    <string name="antarctic">Antarctic</string>
 </resources>
 

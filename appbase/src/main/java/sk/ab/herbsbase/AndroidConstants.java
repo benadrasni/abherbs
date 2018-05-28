@@ -108,8 +108,8 @@ public class AndroidConstants {
     public final static String ACTION = "action";
     public final static String ACTION_UPGRADE = "upgrade";
 
-    public final static String FIREBASE_COUNTS = "counts";
-    public final static String FIREBASE_LISTS = "lists";
+    public final static String FIREBASE_COUNTS = "counts_4";
+    public final static String FIREBASE_LISTS = "lists_4";
     public final static String FIREBASE_PLANTS = "plants";
     public final static String FIREBASE_PLANTS_TO_UPDATE = "plants_to_update";
     public final static String FIREBASE_FAMILIES_TO_UPDATE = "families_to_update";

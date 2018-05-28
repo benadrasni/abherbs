@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/acbEurope"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/wgsrpd_europe"
+                android:text="@string/europe"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <LinearLayout
+                android:id="@+id/WGSRPD_Europe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <sk.ab.herbsbase.commons.SquareBaseImageButton
+                        android:id="@+id/ibWGSRPD_10"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+
+                        android:background="@drawable/wgsrpd_northern_europe"
+                        custom:value="@string/wgsrpd_10"/>
+
+
+                    <sk.ab.herbsbase.commons.SquareBaseImageButton
+                        android:id="@+id/ibWGSRPD_11"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+
+                        android:background="@drawable/wgsrpd_middle_europe"
+                        custom:value="@string/wgsrpd_11"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <sk.ab.herbsbase.commons.SquareBaseImageButton
+                        android:id="@+id/ibWGSRPD_12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/wgsrpd_southwestern_europe"
+                        android:scaleType="centerInside"
+                        custom:value="@string/wgsrpd_12"/>
+
+
+                    <sk.ab.herbsbase.commons.SquareBaseImageButton
+                        android:id="@+id/ibWGSRPD_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/wgsrpd_southeastern_europe"
+                        android:scaleType="centerInside"
+                        custom:value="@string/wgsrpd_13"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+                    <sk.ab.herbsbase.commons.SquareBaseImageButton
+                        android:id="@+id/ibWGSRPD_14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="10dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/wgsrpd_eastern_europe"
+                        android:scaleType="centerInside"
+                        custom:value="@string/wgsrpd_14"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/ibAfrica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/wgsrpd_africa"
+                android:text="@string/africa"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/ibAsiaTemperate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/wgsrpd_asia_temperate"
+                android:text="@string/asia_temperate"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/ibAsiaTropical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/wgsrpd_asia_tropical"
+                android:text="@string/asia_tropical"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/ibAustralasia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/wgsrpd_australasia"
+                android:text="@string/australasia"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/ibPacific"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/wgsrpd_pacific"
+                android:text="@string/pacific"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/ibNorthernAmerica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/wgsrpd_northern_america"
+                android:text="@string/northern_america"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/ibSouthernAmerica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/wgsrpd_southern_america"
+                android:text="@string/southern_america"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/ibAntarctic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/wgsrpd_antarctic"
+                android:text="@string/antarctic"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp">
+
+        <TextView
+            android:id="@+id/filter_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:lines="2"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:text="@string/distribution_message"
+            android:textSize="16sp"
+            android:textStyle="italic">
+
+        </TextView>
+    </LinearLayout>
+
+</FrameLayout>

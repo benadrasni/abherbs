@@ -42,6 +42,7 @@ public class Constants {
     public final static String COLOR_OF_FLOWERS = "filterColor";
     public final static String HABITAT = "filterHabitat";
     public final static String NUMBER_OF_PETALS = "filterPetal";
+    public final static String DISTRIBUTION = "filterDistribution";
 
     public final static int PLANT_FILTER_COLOR = 294;
     public final static int PLANT_FILTER_HABITAT = 297;
