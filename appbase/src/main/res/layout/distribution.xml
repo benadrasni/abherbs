@@ -830,7 +830,7 @@
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:text="@string/southwestern_usa"
-                        android:background="@drawable/wgsrpd_southeastern_united_states"
+                        android:background="@drawable/wgsrpd_southwestern_united_states"
                         custom:value="@string/wgsrpd_76"/>
 
                     <sk.ab.herbsbase.commons.SquareBaseImageButton
