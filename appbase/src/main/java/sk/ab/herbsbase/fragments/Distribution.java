@@ -4,15 +4,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.Map;
 
 import sk.ab.common.Constants;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
 import sk.ab.herbsbase.commons.BaseFilterFragment;
+import sk.ab.herbsbase.commons.SquareBaseImageButton;
 
 public class Distribution extends BaseFilterFragment {
 
@@ -39,13 +43,7 @@ public class Distribution extends BaseFilterFragment {
 
         if (getView() != null) {
             AppCompatButton acbMyRegion = getView().findViewById(R.id.acbMyRegion);
-            TextView myRegionText = getView().findViewById(R.id.my_region_value);
-
             final SharedPreferences preferences = ((FilterPlantsBaseActivity)getActivity()).getSharedPreferences();
-            final String myRegion = preferences.getString(AndroidConstants.MY_REGION_KEY, null);
-            if (myRegion != null) {
-                myRegionText.setText(AndroidConstants.filterResources.get(myRegion));
-            }
 
             acbMyRegion.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,11 +68,7 @@ public class Distribution extends BaseFilterFragment {
             acbEurope.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (layoutEurope.getVisibility() == View.GONE) {
-                        layoutEurope.setVisibility(View.VISIBLE);
-                    } else {
-                        layoutEurope.setVisibility(View.GONE);
-                    }
+                    handleClick(layoutEurope, 1);
                 }
             });
 
@@ -84,11 +78,7 @@ public class Distribution extends BaseFilterFragment {
             acbAfrica.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (layoutAfrica.getVisibility() == View.GONE) {
-                        layoutAfrica.setVisibility(View.VISIBLE);
-                    } else {
-                        layoutAfrica.setVisibility(View.GONE);
-                    }
+                    handleClick(layoutAfrica, 2);
                 }
             });
 
@@ -98,11 +88,7 @@ public class Distribution extends BaseFilterFragment {
             acbAsiaTemperate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (layoutAsiaTemperate.getVisibility() == View.GONE) {
-                        layoutAsiaTemperate.setVisibility(View.VISIBLE);
-                    } else {
-                        layoutAsiaTemperate.setVisibility(View.GONE);
-                    }
+                    handleClick(layoutAsiaTemperate, 3);
                 }
             });
 
@@ -112,11 +98,7 @@ public class Distribution extends BaseFilterFragment {
             acbAsiaTropical.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (layoutAsiaTropical.getVisibility() == View.GONE) {
-                        layoutAsiaTropical.setVisibility(View.VISIBLE);
-                    } else {
-                        layoutAsiaTropical.setVisibility(View.GONE);
-                    }
+                    handleClick(layoutAsiaTropical, 4);
                 }
             });
 
@@ -126,11 +108,7 @@ public class Distribution extends BaseFilterFragment {
             acbAustralasia.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (layoutAustralasia.getVisibility() == View.GONE) {
-                        layoutAustralasia.setVisibility(View.VISIBLE);
-                    } else {
-                        layoutAustralasia.setVisibility(View.GONE);
-                    }
+                    handleClick(layoutAustralasia, 5);
                 }
             });
 
@@ -140,11 +118,7 @@ public class Distribution extends BaseFilterFragment {
             acbPacific.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (layoutPacific.getVisibility() == View.GONE) {
-                        layoutPacific.setVisibility(View.VISIBLE);
-                    } else {
-                        layoutPacific.setVisibility(View.GONE);
-                    }
+                    handleClick(layoutPacific, 6);
                 }
             });
 
@@ -154,11 +128,7 @@ public class Distribution extends BaseFilterFragment {
             acbNorthernAmerica.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (layoutNorthernAmerica.getVisibility() == View.GONE) {
-                        layoutNorthernAmerica.setVisibility(View.VISIBLE);
-                    } else {
-                        layoutNorthernAmerica.setVisibility(View.GONE);
-                    }
+                    handleClick(layoutNorthernAmerica, 7);
                 }
             });
 
@@ -168,11 +138,7 @@ public class Distribution extends BaseFilterFragment {
             acbSouthernAmerica.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (layoutSouthernAmerica.getVisibility() == View.GONE) {
-                        layoutSouthernAmerica.setVisibility(View.VISIBLE);
-                    } else {
-                        layoutSouthernAmerica.setVisibility(View.GONE);
-                    }
+                    handleClick(layoutSouthernAmerica, 8);
                 }
             });
 
@@ -182,11 +148,7 @@ public class Distribution extends BaseFilterFragment {
             acbAntarctic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (layoutAntarctic.getVisibility() == View.GONE) {
-                        layoutAntarctic.setVisibility(View.VISIBLE);
-                    } else {
-                        layoutAntarctic.setVisibility(View.GONE);
-                    }
+                    handleClick(layoutAntarctic, 9);
                 }
             });
         }
@@ -196,14 +158,118 @@ public class Distribution extends BaseFilterFragment {
     public void onStart() {
         super.onStart();
 
-        layoutEurope.setVisibility(View.GONE);
-        layoutAfrica.setVisibility(View.GONE);
-        layoutAsiaTemperate.setVisibility(View.GONE);
-        layoutAsiaTropical.setVisibility(View.GONE);
-        layoutAustralasia.setVisibility(View.GONE);
-        layoutPacific.setVisibility(View.GONE);
-        layoutNorthernAmerica.setVisibility(View.GONE);
-        layoutSouthernAmerica.setVisibility(View.GONE);
-        layoutAntarctic.setVisibility(View.GONE);
+        TextView myRegionText = getView().findViewById(R.id.my_region_value);
+
+        SharedPreferences preferences = ((FilterPlantsBaseActivity)getActivity()).getSharedPreferences();
+        String myRegion = preferences.getString(AndroidConstants.MY_REGION_KEY, null);
+        if (myRegion != null) {
+            myRegionText.setText(AndroidConstants.filterResources.get(myRegion));
+        }
+
+        closeSecondLevel(null);
+    }
+
+    private void handleClick(LinearLayout layoutFirstLevel, int region) {
+        closeSecondLevel(layoutFirstLevel);
+        if (layoutFirstLevel.getChildCount() > 0) {
+            layoutFirstLevel.removeAllViews();
+        } else {
+
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0,
+                    LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+            int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
+            lp.setMargins(margin, margin, margin, margin);
+
+            Map<String, Integer> secondLevel1 = null;
+            int i = 0;
+            for (Map<String, Integer> secondLevel : AndroidConstants.wgsrpd.get(region)) {
+                i++;
+                if (i%2 == 1) {
+                    secondLevel1 = secondLevel;
+                } else {
+
+                    LinearLayout ll = new LinearLayout(layoutEurope.getContext());
+                    ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT));
+                    ll.setWeightSum(2);
+
+                    SquareBaseImageButton sbib1 = new SquareBaseImageButton(ll.getContext());
+                    sbib1.setLayoutParams(lp);
+                    sbib1.setText(secondLevel1.get("text"));
+                    sbib1.setBackgroundResource(secondLevel1.get("drawable"));
+                    sbib1.setValue(getResources().getString(secondLevel1.get("value")));
+
+                    SquareBaseImageButton sbib2 = new SquareBaseImageButton(ll.getContext());
+                    sbib2.setLayoutParams(lp);
+                    sbib2.setText(secondLevel.get("text"));
+                    sbib2.setBackgroundResource(secondLevel.get("drawable"));
+                    sbib2.setValue(getResources().getString(secondLevel.get("value")));
+
+                    ll.addView(sbib1);
+                    ll.addView(sbib2);
+
+                    layoutFirstLevel.addView(ll);
+                }
+            }
+
+            if (i%2 == 1) {
+                LinearLayout.LayoutParams lpButton = new LinearLayout.LayoutParams(0,
+                        LinearLayout.LayoutParams.WRAP_CONTENT, 2);
+                lpButton.setMargins(margin, margin, margin, margin);
+
+                LinearLayout ll = new LinearLayout(layoutFirstLevel.getContext());
+                ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                ll.setWeightSum(4);
+
+                View viewBefore = new View(ll.getContext());
+                viewBefore.setLayoutParams(lp);
+
+                SquareBaseImageButton sbib1 = new SquareBaseImageButton(ll.getContext());
+                sbib1.setLayoutParams(lpButton);
+                sbib1.setText(secondLevel1.get("text"));
+                sbib1.setBackgroundResource(secondLevel1.get("drawable"));
+                sbib1.setValue(getResources().getString(secondLevel1.get("value")));
+
+                View viewAfter = new View(ll.getContext());
+                viewAfter.setLayoutParams(lp);
+
+                ll.addView(viewBefore);
+                ll.addView(sbib1);
+                ll.addView(viewAfter);
+
+                layoutFirstLevel.addView(ll);
+            }
+        }
+    }
+
+    private void closeSecondLevel(LinearLayout currentLayout) {
+        if (layoutEurope != currentLayout && layoutEurope.getChildCount() > 0) {
+            layoutEurope.removeAllViews();
+        }
+        if (layoutAfrica != currentLayout && layoutAfrica.getChildCount() > 0) {
+            layoutAfrica.removeAllViews();
+        }
+        if (layoutAsiaTemperate != currentLayout && layoutAsiaTemperate.getChildCount() > 0) {
+            layoutAsiaTemperate.removeAllViews();
+        }
+        if (layoutAsiaTropical != currentLayout && layoutAsiaTropical.getChildCount() > 0) {
+            layoutAsiaTropical.removeAllViews();
+        }
+        if (layoutAustralasia != currentLayout && layoutAustralasia.getChildCount() > 0) {
+            layoutAustralasia.removeAllViews();
+        }
+        if (layoutPacific != currentLayout && layoutPacific.getChildCount() > 0) {
+            layoutPacific.removeAllViews();
+        }
+        if (layoutNorthernAmerica != currentLayout && layoutNorthernAmerica.getChildCount() > 0) {
+            layoutNorthernAmerica.removeAllViews();
+        }
+        if (layoutSouthernAmerica != currentLayout && layoutSouthernAmerica.getChildCount() > 0) {
+            layoutSouthernAmerica.removeAllViews();
+        }
+        if (layoutAntarctic != currentLayout && layoutAntarctic.getChildCount() > 0) {
+            layoutAntarctic.removeAllViews();
+        }
     }
 }

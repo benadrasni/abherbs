@@ -47,6 +47,14 @@ public class BaseImageButton extends AppCompatButton {
         return value;
     }
 
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public void setAddDefaultListener(boolean addDefaultListener) {
+        this.addDefaultListener = addDefaultListener;
+    }
+
     private void setCustomAttributes(Context context, AttributeSet attrs) {
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.BaseImageButton);
         for (int i = 0; i < attributes.getIndexCount(); ++i) {

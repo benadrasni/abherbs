@@ -1,9 +1,9 @@
 package sk.ab.herbsbase;
 
-import android.content.res.Resources;
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -218,5 +218,351 @@ public class AndroidConstants {
         aMap.put("91", R.string.antarctic_continent);
 
         filterResources = Collections.unmodifiableMap(aMap);
+    }
+
+    public static final Map<Integer, List<Map<String, Integer>>> wgsrpd;
+    static {
+        Map<Integer, List<Map<String, Integer>>> aMap = new HashMap<>();
+
+        List<Map<String, Integer>> wgsrpdFirstLevel1 = new ArrayList<>();
+        Map<String, Integer> wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.northern_europe);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_northern_europe);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_10);
+        wgsrpdFirstLevel1.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.middle_europe);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_middle_europe);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_11);
+        wgsrpdFirstLevel1.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.southwestern_europe);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_southwestern_europe);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_12);
+        wgsrpdFirstLevel1.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.southeastern_europe);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_southeastern_europe);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_13);
+        wgsrpdFirstLevel1.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.eastern_europe);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_eastern_europe);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_14);
+        wgsrpdFirstLevel1.add(wgsrpdSecondLevel);
+
+        aMap.put(1, wgsrpdFirstLevel1);
+
+        List<Map<String, Integer>> wgsrpdFirstLevel2 = new ArrayList<>();
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.northern_africa);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_northern_africa);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_20);
+        wgsrpdFirstLevel2.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.macaronesia);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_macaronesia);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_21);
+        wgsrpdFirstLevel2.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.west_tropical_africa);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_west_tropical_africa);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_22);
+        wgsrpdFirstLevel2.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.west_central_tropical_africa);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_central_tropical_africa);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_23);
+        wgsrpdFirstLevel2.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.northeast_tropical_africa);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_northeast_tropical_africa);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_24);
+        wgsrpdFirstLevel2.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.east_tropical_africa);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_east_tropical_africa);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_25);
+        wgsrpdFirstLevel2.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.south_tropical_africa);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_south_tropical_africa);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_26);
+        wgsrpdFirstLevel2.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.southern_africa);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_southern_africa);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_27);
+        wgsrpdFirstLevel2.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.middle_atlantic_ocean);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_middle_atlantic_ocean);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_28);
+        wgsrpdFirstLevel2.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.western_indian_ocean);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_western_indian_ocean);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_29);
+        wgsrpdFirstLevel2.add(wgsrpdSecondLevel);
+
+        aMap.put(2, wgsrpdFirstLevel2);
+
+        List<Map<String, Integer>> wgsrpdFirstLevel3 = new ArrayList<>();
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.siberia);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_siberia);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_30);
+        wgsrpdFirstLevel3.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.russian_far_east);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_russian_far_east);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_31);
+        wgsrpdFirstLevel3.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.middle_asia);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_middle_asia);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_32);
+        wgsrpdFirstLevel3.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.caucasus);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_caucasus);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_33);
+        wgsrpdFirstLevel3.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.western_asia);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_western_asia);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_34);
+        wgsrpdFirstLevel3.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.arabian_peninsula);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_arabian_peninsula);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_35);
+        wgsrpdFirstLevel3.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.china);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_china);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_36);
+        wgsrpdFirstLevel3.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.mongolia);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_mongolia);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_37);
+        wgsrpdFirstLevel3.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.eastern_asia);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_east_asia);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_38);
+        wgsrpdFirstLevel3.add(wgsrpdSecondLevel);
+
+        aMap.put(3, wgsrpdFirstLevel3);
+
+        List<Map<String, Integer>> wgsrpdFirstLevel4 = new ArrayList<>();
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.indian_subcontinent);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_indian_subcontinent);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_40);
+        wgsrpdFirstLevel4.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.indochina);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_indochina);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_41);
+        wgsrpdFirstLevel4.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.malesia);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_malesia);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_42);
+        wgsrpdFirstLevel4.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.papuasia);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_papuasia);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_43);
+        wgsrpdFirstLevel4.add(wgsrpdSecondLevel);
+
+        aMap.put(4, wgsrpdFirstLevel4);
+
+        List<Map<String, Integer>> wgsrpdFirstLevel5 = new ArrayList<>();
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.australia);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_australia);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_50);
+        wgsrpdFirstLevel5.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.new_zealand);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_new_zealand);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_51);
+        wgsrpdFirstLevel5.add(wgsrpdSecondLevel);
+
+        aMap.put(5, wgsrpdFirstLevel5);
+
+        List<Map<String, Integer>> wgsrpdFirstLevel6 = new ArrayList<>();
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.southwestern_pacific);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_southwestern_pacific);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_60);
+        wgsrpdFirstLevel6.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.south_central_pacific);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_south_central_pacific);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_61);
+        wgsrpdFirstLevel6.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.northwestern_pacific);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_northwestern_pacific);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_62);
+        wgsrpdFirstLevel6.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.north_central_pacific);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_north_central_pacific);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_63);
+        wgsrpdFirstLevel6.add(wgsrpdSecondLevel);
+
+        aMap.put(6, wgsrpdFirstLevel6);
+
+        List<Map<String, Integer>> wgsrpdFirstLevel7 = new ArrayList<>();
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.subarctic_america);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_subarctic_america);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_70);
+        wgsrpdFirstLevel7.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.western_canada);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_western_canada);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_71);
+        wgsrpdFirstLevel7.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.eastern_canada);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_eastern_canada);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_72);
+        wgsrpdFirstLevel7.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.northwestern_usa);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_northwestern_united_states);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_73);
+        wgsrpdFirstLevel7.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.north_central_usa);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_north_central_united_states);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_74);
+        wgsrpdFirstLevel7.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.northeastern_usa);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_northeastern_united_states);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_75);
+        wgsrpdFirstLevel7.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.southwestern_usa);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_southwestern_united_states);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_76);
+        wgsrpdFirstLevel7.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.south_central_usa);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_south_central_united_states);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_77);
+        wgsrpdFirstLevel7.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.southeastern_usa);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_southeastern_united_states);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_78);
+        wgsrpdFirstLevel7.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.mexico);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_mexico);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_79);
+        wgsrpdFirstLevel7.add(wgsrpdSecondLevel);
+
+        aMap.put(7, wgsrpdFirstLevel7);
+
+        List<Map<String, Integer>> wgsrpdFirstLevel8 = new ArrayList<>();
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.central_america);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_central_america);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_80);
+        wgsrpdFirstLevel8.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.caribbean);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_caribbean);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_81);
+        wgsrpdFirstLevel8.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.northern_south_america);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_northern_south_america);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_82);
+        wgsrpdFirstLevel8.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.western_south_america);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_western_south_america);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_83);
+        wgsrpdFirstLevel8.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.brazil);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_brazil);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_84);
+        wgsrpdFirstLevel8.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.southern_south_america);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_southern_south_america);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_85);
+        wgsrpdFirstLevel8.add(wgsrpdSecondLevel);
+
+        aMap.put(8, wgsrpdFirstLevel8);
+
+        List<Map<String, Integer>> wgsrpdFirstLevel9 = new ArrayList<>();
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.subantarctic_islands);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_subantarctic_islands);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_90);
+        wgsrpdFirstLevel9.add(wgsrpdSecondLevel);
+
+        wgsrpdSecondLevel =  new HashMap<>();
+        wgsrpdSecondLevel.put("text", R.string.antarctic_continent);
+        wgsrpdSecondLevel.put("drawable", R.drawable.wgsrpd_antarctic_continent);
+        wgsrpdSecondLevel.put("value", R.string.wgsrpd_91);
+        wgsrpdFirstLevel9.add(wgsrpdSecondLevel);
+
+        aMap.put(9, wgsrpdFirstLevel9);
+
+        wgsrpd = Collections.unmodifiableMap(aMap);
     }
 }
