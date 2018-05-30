@@ -4,7 +4,6 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -12,8 +11,6 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,12 +20,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 
 import sk.ab.common.entity.FirebasePlant;
-import sk.ab.common.entity.Observation;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.tools.SynchronizedCounter;
@@ -36,20 +31,20 @@ import sk.ab.herbsbase.tools.Utils;
 import sk.ab.herbsplus.SpecificConstants;
 
 /**
- * Service to synchronize offline photos (download) and observations (upload)
+ * Service to synchronize offline photos and family's icons
  *
  * Created by adrian on 2/4/2018.
  */
 
-public class SynchronizationService extends IntentService {
+public class OfflineService extends IntentService {
 
-    private static final String TAG = "SynchronizationService";
+    private static final String TAG = "OfflineService";
     private static final String FIRST_FLOWER = "Acer campestre";
     private static final String FIRST_FAMILY = "Acanthaceae";
 
     private FirebaseDatabase database;
 
-    public SynchronizationService() {
+    public OfflineService() {
         super(TAG);
     }
 
@@ -61,7 +56,6 @@ public class SynchronizationService extends IntentService {
 
         database = FirebaseDatabase.getInstance();
 
-        boolean isSubscribed = intent.getBooleanExtra(AndroidConstants.STATE_IS_SUBSCRIBED, false);
         boolean offlineMode = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
         if (offlineMode) {
             // download photos and family icons
@@ -84,7 +78,7 @@ public class SynchronizationService extends IntentService {
                                     FirebasePlant plant = dataSnapshot.getValue(FirebasePlant.class);
 
                                     assert plant != null;
-                                    File photoIllustration = new File(SynchronizationService.this.getApplicationContext().getFilesDir()
+                                    File photoIllustration = new File(OfflineService.this.getApplicationContext().getFilesDir()
                                             + AndroidConstants.SEPARATOR + AndroidConstants.STORAGE_PHOTOS + plant.getIllustrationUrl());
                                     if (photoIllustration.exists()) {
                                         int from = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getInt(SpecificConstants.OFFLINE_PLANT_KEY, -1);
@@ -93,7 +87,7 @@ public class SynchronizationService extends IntentService {
                                         synchronizePlant(0, countAll);
                                     }
 
-                                    File familyIcon = new File(SynchronizationService.this.getApplicationContext().getFilesDir()
+                                    File familyIcon = new File(OfflineService.this.getApplicationContext().getFilesDir()
                                             + AndroidConstants.SEPARATOR + AndroidConstants.STORAGE_FAMILIES + FIRST_FAMILY + AndroidConstants.DEFAULT_EXTENSION);
                                     if (familyIcon.exists()) {
                                         int from = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getInt(SpecificConstants.OFFLINE_FAMILY_KEY, -1);
@@ -115,39 +109,6 @@ public class SynchronizationService extends IntentService {
                         public void onCancelled(DatabaseError databaseError) {
                             Log.e(TAG, databaseError.getMessage());
                             broadcastDownload(-1, -1);
-                        }
-                    });
-                }
-            });
-        }
-
-            // upload observations
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null && isSubscribed) {
-            DatabaseReference mFirebaseRefObservations = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS
-                    + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS
-                    + AndroidConstants.SEPARATOR + currentUser.getUid() + AndroidConstants.SEPARATOR
-                    + AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE);
-            mFirebaseRefObservations.keepSynced(true);
-            final Query queryPrivate = mFirebaseRefObservations.child(AndroidConstants.FIREBASE_DATA_LIST)
-                    .orderByChild(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
-                    .equalTo(SpecificConstants.FIREBASE_STATUS_PRIVATE);
-            mFirebaseRefObservations.child("refreshMock").setValue("mock", new DatabaseReference.CompletionListener() {
-                @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                    queryPrivate.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.getChildrenCount() > 0) {
-                                uploadOneObservation(1, (int) dataSnapshot.getChildrenCount());
-                            } else {
-                                revertStatus();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            revertStatus();
                         }
                     });
                 }
@@ -346,201 +307,6 @@ public class SynchronizationService extends IntentService {
             if (offlineMode && BaseApp.isConnectedToWifi(getApplicationContext())) {
                 synchronizeFamily(number + 1);
             }
-        }
-    }
-
-    private void uploadOneObservation(final Integer number, final Integer countAll) {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            DatabaseReference mFirebaseRefObservations = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS
-                    + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS
-                    + AndroidConstants.SEPARATOR + currentUser.getUid() + AndroidConstants.SEPARATOR
-                    + AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE);
-            mFirebaseRefObservations.keepSynced(true);
-            final Query query = mFirebaseRefObservations.child(AndroidConstants.FIREBASE_DATA_LIST)
-                    .orderByChild(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
-                    .equalTo(SpecificConstants.FIREBASE_STATUS_PRIVATE)
-                    .limitToFirst(1);
-            mFirebaseRefObservations.child("refreshMock").setValue("mock", new DatabaseReference.CompletionListener() {
-                @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.getChildrenCount() > 0) {
-                                final Observation observation = dataSnapshot.getChildren().iterator().next().getValue(Observation.class);
-                                assert observation != null;
-                                if (observation.getPhotoPaths().size() > 0) {
-                                    final SynchronizedCounter counter = new SynchronizedCounter();
-
-                                    for (String photoPath : observation.getPhotoPaths()) {
-                                        File photoFile = new File(getApplicationContext().getFilesDir()
-                                                + AndroidConstants.SEPARATOR + photoPath);
-                                        if (photoFile.exists()) {
-                                            FirebaseStorage storage = FirebaseStorage.getInstance(SpecificConstants.STORAGE);
-                                            StorageReference imagesRef = storage.getReference().child(photoPath);
-                                            UploadTask uploadTask = imagesRef.putFile(Uri.fromFile(photoFile));
-                                            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                                @Override
-                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                    counter.increment();
-                                                    if (counter.value() == observation.getPhotoPaths().size()) {
-                                                        savePublicObservation(observation, number, countAll);
-                                                    }
-                                                }
-                                            });
-                                        } else {
-                                            markObservation(observation, SpecificConstants.FIREBASE_STATUS_INCOMPLETE);
-                                            continueUpload(number, countAll);
-                                            break;
-                                        }
-                                    }
-                                } else {
-                                    markObservation(observation, SpecificConstants.FIREBASE_STATUS_INCOMPLETE);
-                                    continueUpload(number, countAll);
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            });
-        }
-    }
-
-    private void savePublicObservation(Observation observation, Integer number, Integer countAll) {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-
-            observation.setStatus(SpecificConstants.FIREBASE_STATUS_REVIEW);
-
-            // by date
-            database.getReference().child(AndroidConstants.FIREBASE_OBSERVATIONS)
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_PUBLIC)
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE)
-                    .child(AndroidConstants.FIREBASE_DATA_LIST)
-                    .child("" + observation.getDate().getTime())
-                    .setValue(observation);
-
-            // by plant
-            database.getReference().child(AndroidConstants.FIREBASE_OBSERVATIONS)
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_PUBLIC)
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT)
-                    .child(observation.getPlant())
-                    .child(AndroidConstants.FIREBASE_DATA_LIST)
-                    .child("" + observation.getDate().getTime())
-                    .setValue(observation);
-
-            // update "published" to true
-            // by user, by date
-            database.getReference().child(AndroidConstants.FIREBASE_OBSERVATIONS)
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
-                    .child(currentUser.getUid())
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE)
-                    .child(AndroidConstants.FIREBASE_DATA_LIST)
-                    .child(observation.getId())
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
-                    .setValue(SpecificConstants.FIREBASE_STATUS_PUBLIC);
-            // by user, by plant, by date
-            database.getReference().child(AndroidConstants.FIREBASE_OBSERVATIONS)
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
-                    .child(currentUser.getUid())
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT)
-                    .child(observation.getPlant())
-                    .child(AndroidConstants.FIREBASE_DATA_LIST)
-                    .child(observation.getId())
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
-                    .setValue(SpecificConstants.FIREBASE_STATUS_PUBLIC);
-
-            continueUpload(number, countAll);
-        }
-    }
-
-    private void continueUpload(Integer number, Integer countAll) {
-        broadcastUpload(number, countAll);
-        if (number + 1 <= countAll) {
-            if (BaseApp.isConnectedToWifi(getApplicationContext())) {
-                uploadOneObservation(number + 1, countAll);
-            } else {
-                revertStatus();
-            }
-        } else {
-            revertStatus();
-        }
-    }
-
-    private void markObservation(Observation observation, String status) {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-
-            // update "status" to "missing_data"
-            // by user, by date
-            database.getReference().child(AndroidConstants.FIREBASE_OBSERVATIONS)
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
-                    .child(currentUser.getUid())
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE)
-                    .child(AndroidConstants.FIREBASE_DATA_LIST)
-                    .child(observation.getId())
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
-                    .setValue(status);
-
-            // by user, by plant, by date
-            database.getReference().child(AndroidConstants.FIREBASE_OBSERVATIONS)
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
-                    .child(currentUser.getUid())
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_PLANT)
-                    .child(AndroidConstants.FIREBASE_DATA_LIST)
-                    .child(observation.getPlant())
-                    .child(observation.getId())
-                    .child(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
-                    .setValue(status);
-        }
-    }
-
-    private void broadcastUpload(Integer number, Integer countAll) {
-        Intent localIntent = new Intent(AndroidConstants.BROADCAST_UPLOAD)
-                .putExtra(AndroidConstants.EXTENDED_DATA_COUNT_ALL, countAll)
-                .putExtra(AndroidConstants.EXTENDED_DATA_COUNT_SYNCHONIZED, number);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
-    }
-
-    private void revertStatus() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            DatabaseReference mFirebaseRefObservations = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS
-                    + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS
-                    + AndroidConstants.SEPARATOR + currentUser.getUid() + AndroidConstants.SEPARATOR
-                    + AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE);
-            mFirebaseRefObservations.keepSynced(true);
-            final Query query = mFirebaseRefObservations.child(AndroidConstants.FIREBASE_DATA_LIST)
-                    .orderByChild(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
-                    .equalTo(SpecificConstants.FIREBASE_STATUS_INCOMPLETE);
-            mFirebaseRefObservations.child("refreshMock").setValue("mock", new DatabaseReference.CompletionListener() {
-                @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.getChildrenCount() > 0) {
-                                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                                    Observation observation = data.getValue(Observation.class);
-                                    markObservation(observation, SpecificConstants.FIREBASE_STATUS_PRIVATE);
-                                }
-                            }
-                            broadcastUpload(-1, -1);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            broadcastUpload(-1, -1);
-                        }
-                    });
-                }
-            });
         }
     }
 }

@@ -86,7 +86,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
 
             View rowView = inflater.inflate(R.layout.taxon_row, parent, false);
 
-            LinearLayout namesLayout = (LinearLayout)rowView.findViewById(R.id.taxonNames);
+            LinearLayout namesLayout = rowView.findViewById(R.id.taxonNames);
             namesLayout.setPadding(taxon.getOffset()*20, 0, 0, 0);
             if (taxon.getCount() > 0) {
                 namesLayout.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +97,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
                 });
             }
 
-            TextView textCount = (TextView) rowView.findViewById(R.id.taxonCount);
+            TextView textCount = rowView.findViewById(R.id.taxonCount);
             if (taxon.getCount() > 0) {
                 textCount.setText("(" + taxon.getCount() + ")");
                 textCount.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +110,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
                 textCount.setVisibility(View.GONE);
             }
 
-            TextView textType = (TextView)rowView.findViewById(R.id.taxonType);
+            TextView textType = rowView.findViewById(R.id.taxonType);
             textType.setText(Utils.getId(AndroidConstants.RES_TAXONOMY_PREFIX + taxon.getType().toLowerCase(), sk.ab.herbsbase.R.string.class));
             textType.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -119,7 +119,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
                 }
             });
 
-            TextView textName = (TextView)rowView.findViewById(R.id.taxonName);
+            TextView textName = rowView.findViewById(R.id.taxonName);
             StringBuilder sbName = new StringBuilder();
             if (taxon.getName() != null) {
                 for (String s : taxon.getName()) {
@@ -130,7 +130,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
                 }
             }
 
-            TextView textLatinName = (TextView)rowView.findViewById(R.id.taxonLatinName);
+            TextView textLatinName = rowView.findViewById(R.id.taxonLatinName);
             StringBuilder sbLatinName = new StringBuilder();
             if (taxon.getLatinName() != null) {
                 for (String s : taxon.getLatinName()) {
@@ -205,7 +205,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
         }
 
-        taxonomyListView = (ListView) findViewById(R.id.taxonomy_view);
+        taxonomyListView = findViewById(R.id.taxonomy_view);
 
         taxons = new ArrayList<>();
     }
@@ -220,7 +220,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
         mSearchView.setIconified(false);
         int options = mSearchView.getImeOptions();
         mSearchView.setImeOptions(options | EditorInfo.IME_FLAG_NO_EXTRACT_UI);
-        EditText searchViewEditText = (EditText) mSearchView.findViewById(R.id.search_src_text);
+        EditText searchViewEditText = mSearchView.findViewById(R.id.search_src_text);
         searchViewEditText.setEnabled(false);
         menuItem.expandActionView();
 
@@ -275,7 +275,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
     @Override
     protected int getLayoutResId() {
         return R.layout.taxonomy_activity;
-    };
+    }
 
     private void loadTaxonomy() {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -289,7 +289,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
 
                 TaxonAdapter adapter = new TaxonAdapter(getApplicationContext(), taxons);
                 taxonomyListView.setAdapter(adapter);
-                EditText searchViewEditText = (EditText) mSearchView.findViewById(R.id.search_src_text);
+                EditText searchViewEditText = mSearchView.findViewById(R.id.search_src_text);
                 searchViewEditText.setEnabled(true);
             }
 
@@ -311,9 +311,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
         Long count = (Long)taxonomy.get(AndroidConstants.FIREBASE_APG_COUNT);
         if (count != null && count > 0) {
             taxon.setCount(count.intValue());
-            Map<String, Object> plants = (HashMap<String, Object>)taxonomy.get(AndroidConstants.FIREBASE_APG_LIST);
-            Map.Entry<String, Object> entry = plants.entrySet().iterator().next();
-            taxon.setPlantName(entry.getKey());
+            taxon.setPlantName(((HashMap<String, Object>)taxonomy.get(AndroidConstants.FIREBASE_APG_LIST)).entrySet().iterator().next().getKey());
         }
         taxons.add(taxon);
 

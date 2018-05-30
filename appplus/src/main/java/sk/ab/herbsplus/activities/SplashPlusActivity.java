@@ -13,7 +13,8 @@ import android.support.v4.content.ContextCompat;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.SplashBaseActivity;
 import sk.ab.herbsplus.SpecificConstants;
-import sk.ab.herbsplus.services.SynchronizationService;
+import sk.ab.herbsplus.services.ObservationService;
+import sk.ab.herbsplus.services.OfflineService;
 
 
 /**
@@ -31,7 +32,9 @@ public class SplashPlusActivity extends SplashBaseActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     AndroidConstants.PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
         } else {
+            startOfflineService();
             startApplication();
+            finish();
         }
     }
 
@@ -42,9 +45,9 @@ public class SplashPlusActivity extends SplashBaseActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startApplication();
                 }
-                finish();
             }
         }
+        finish();
     }
 
     @Override
@@ -67,14 +70,8 @@ public class SplashPlusActivity extends SplashBaseActivity {
         return getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE);
     }
 
-    @Override
-    public void showRefreshedUi() {
-        Intent intent = new Intent(this, SynchronizationService.class);
-        intent.putExtra(AndroidConstants.STATE_IS_SUBSCRIBED, isMonthlySubscribed() || isYearlySubscribed());
+    private void startOfflineService() {
+        Intent intent = new Intent(this, OfflineService.class);
         startService(intent);
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            finish();
-        }
     }
 }

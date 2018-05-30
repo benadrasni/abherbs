@@ -3,6 +3,7 @@ package sk.ab.herbsbase.activities;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
 
@@ -22,8 +23,7 @@ public abstract class SplashBaseActivity extends SearchBaseActivity {
     @Override
     protected int getLayoutResId() {
         return R.layout.splash_activity;
-    };
-
+    }
 
     protected void startApplication() {
         if (getIntent().getExtras() != null) {

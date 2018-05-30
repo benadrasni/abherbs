@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import sk.ab.common.entity.Observation;
 import sk.ab.common.util.Utils;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
@@ -26,6 +27,8 @@ import sk.ab.herbsplus.BuildConfig;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
+import sk.ab.herbsplus.services.ObservationService;
+import sk.ab.herbsplus.services.OfflineService;
 import sk.ab.herbsplus.util.UtilsPlus;
 
 /**
@@ -183,6 +186,15 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
                 synchronizationMenuItem.setVisible(false);
                 synchronizationMenuItem.setTitle("");
             }
+        }
+    }
+
+    @Override
+    public void showRefreshedUi() {
+        if (!isDestroyed()) {
+            Intent intent = new Intent(this, ObservationService.class);
+            intent.putExtra(AndroidConstants.STATE_IS_SUBSCRIBED, isMonthlySubscribed() || isYearlySubscribed());
+            startService(intent);
         }
     }
 

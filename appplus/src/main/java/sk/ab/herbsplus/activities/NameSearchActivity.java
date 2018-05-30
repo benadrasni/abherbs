@@ -136,10 +136,10 @@ public class NameSearchActivity extends SearchBaseActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
         }
 
-        namesInLanguage = (RecyclerView) findViewById(R.id.nameInLanguage);
+        namesInLanguage = findViewById(R.id.nameInLanguage);
         namesInLanguage.setLayoutManager(new LinearLayoutManager(this));
 
-        namesInLatin = (RecyclerView)findViewById(R.id.namesInLatin);
+        namesInLatin = findViewById(R.id.namesInLatin);
         namesInLatin.setLayoutManager(new LinearLayoutManager(this));
 
         names = new ArrayList<>();
@@ -241,7 +241,7 @@ public class NameSearchActivity extends SearchBaseActivity {
     @Override
     protected int getLayoutResId() {
         return R.layout.search_activity;
-    };
+    }
 
     private void loadNames() {
         final SynchronizedCounter counter = new SynchronizedCounter();

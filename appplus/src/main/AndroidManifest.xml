@@ -39,8 +39,7 @@
             android:value="@string/google_maps_key"/>
 
         <activity android:name="sk.ab.herbsplus.activities.SplashPlusActivity"
-                  android:theme="@style/SplashScreenTheme"
-                  android:noHistory="true">
+                  android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -113,7 +112,10 @@
             </intent-filter>
         </service>
         <service
-            android:name=".services.SynchronizationService"
+            android:name=".services.OfflineService"
+            android:exported="false"/>
+        <service
+            android:name=".services.ObservationService"
             android:exported="false"/>
 
         <provider
