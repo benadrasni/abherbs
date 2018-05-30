@@ -21,6 +21,7 @@ import sk.ab.herbsbase.fragments.UserPreferenceBaseFragment;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.activities.MyRegionPlusActivity;
+import sk.ab.herbsplus.services.OfflineService;
 
 /**
  * @see UserPreferenceBaseFragment
@@ -50,7 +51,6 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
 
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                Toast.makeText(getActivity(), R.string.synchronization_on_background, Toast.LENGTH_LONG).show();
                 Boolean newOfflineMode = (Boolean) newValue;
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean(SpecificConstants.OFFLINE_MODE_KEY, newOfflineMode);
@@ -62,6 +62,10 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
                     editor.remove(SpecificConstants.OFFLINE_PLANT_KEY);
                     editor.remove(SpecificConstants.OFFLINE_FAMILY_KEY);
                     editor.apply();
+                } else {
+                    Toast.makeText(getActivity(), R.string.synchronization_on_background, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getActivity(), OfflineService.class);
+                    OfflineService.enqueueWork(getActivity().getApplicationContext(), intent);
                 }
 
                 DatabaseReference taxonomyRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_APG_IV);
