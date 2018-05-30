@@ -194,7 +194,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
         if (!isDestroyed()) {
             Intent intent = new Intent(this, ObservationService.class);
             intent.putExtra(AndroidConstants.STATE_IS_SUBSCRIBED, isMonthlySubscribed() || isYearlySubscribed());
-            startService(intent);
+            ObservationService.enqueueWork(getApplicationContext(), intent);
         }
     }
 

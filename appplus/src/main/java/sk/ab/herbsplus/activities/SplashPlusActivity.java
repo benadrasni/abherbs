@@ -72,6 +72,6 @@ public class SplashPlusActivity extends SplashBaseActivity {
 
     private void startOfflineService() {
         Intent intent = new Intent(this, OfflineService.class);
-        startService(intent);
+        OfflineService.enqueueWork(getApplicationContext(), intent);
     }
 }

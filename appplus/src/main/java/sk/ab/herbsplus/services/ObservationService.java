@@ -1,9 +1,11 @@
 package sk.ab.herbsplus.services;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.v4.app.JobIntentService;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,18 +35,19 @@ import sk.ab.herbsplus.SpecificConstants;
  * Created by adrian on 5/30/2018.
  */
 
-public class ObservationService extends IntentService {
+public class ObservationService extends JobIntentService {
 
+    public static final int JOB_ID = 2;
     private static final String TAG = "ObservationService";
 
     private FirebaseDatabase database;
 
-    public ObservationService() {
-        super(TAG);
+    public static void enqueueWork(Context context, Intent work) {
+        enqueueWork(context, ObservationService.class, JOB_ID, work);
     }
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
+    protected void onHandleWork(@Nullable Intent intent) {
         if (!BaseApp.isConnectedToWifi(getApplicationContext())) {
             return;
         }

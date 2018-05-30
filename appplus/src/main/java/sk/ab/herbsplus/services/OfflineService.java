@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.JobIntentService;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -36,7 +37,9 @@ import sk.ab.herbsplus.SpecificConstants;
  * Created by adrian on 2/4/2018.
  */
 
-public class OfflineService extends IntentService {
+public class OfflineService extends JobIntentService {
+
+    public static final int JOB_ID = 1;
 
     private static final String TAG = "OfflineService";
     private static final String FIRST_FLOWER = "Acer campestre";
@@ -44,12 +47,12 @@ public class OfflineService extends IntentService {
 
     private FirebaseDatabase database;
 
-    public OfflineService() {
-        super(TAG);
+    public static void enqueueWork(Context context, Intent work) {
+        enqueueWork(context, OfflineService.class, JOB_ID, work);
     }
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
+    protected void onHandleWork(@Nullable Intent intent) {
         if (!BaseApp.isConnectedToWifi(getApplicationContext())) {
             return;
         }
