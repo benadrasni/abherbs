@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about">Info su applicazione</string>
+    <string name="about">Info sull\'applicazione</string>
     <string name="help">Aiuto</string>
     <string name="settings">Impostazioni</string>
     <string name="feedback">Invia feedback / Contributo</string>
@@ -23,17 +23,17 @@
     <string name="habitat_forest">boschi o foreste</string>
     <string name="habitat_rock">rocce o montagne</string>
     <string name="habitat_tree">alberi o arbusti</string>
-    <string name="habitat_message">Cosa c\'è intorno a te? Identifica l\'habitat della pianta.</string>
+    <string name="habitat_message">Cosa c\'è intorno a te? Identifica l\'habitat.</string>
 
     <string name="number_of_petals">numero di petali</string>
     <string name="petal_4">4 o meno</string>
     <string name="petal_5">5</string>
     <string name="petal_many">più di 5</string>
-    <string name="petal_bisymmetric">bisimmetrico</string>
-    <string name="number_of_petals_message">Il fiore è bisimmetrico? No? Allora quanti petali ha?</string>
+    <string name="petal_bisymmetric">zigomorfi</string>
+    <string name="number_of_petals_message">Il fiore è zigomorfi? No? Allora quanti petali ha?</string>
 
     <string name="display_info">è questo?</string>
-    <string name="list_info">Scegline uno</string>
+    <string name="list_info">Scegli un fiore</string>
 
     <string name="plant_info">Informazioni</string>
     <string name="plant_gallery">Galleria</string>
@@ -85,27 +85,27 @@
     <string name="showcase_fullscreen_message">È possibile visualizzare l\'illustrazione a schermo intero cliccando sullo stesso.</string>
     <string name="showcase_count_button_title">Numero di piante filtrate</string>
     <string name="showcase_count_button_message">Quando il numero è inferiore a 21 premere per passare direttamente all\'elenco. Premere a lungo per rimuovere il filtro.</string>
-    <string name="showcase_taxonomy_title">Tassonomia secondo il sistema APG III</string>
+    <string name="showcase_taxonomy_title">Tassonomia secondo il sistema APG IV</string>
     <string name="showcase_taxonomy_message">Puoi mostrare / nascondere la tassonomia dei fiori cliccando sul loro nome.</string>
     <string name="legend">Legenda</string>
     <string name="toxicity1">pianta velenosa</string>
-    <string name="toxicity2">pianta leggermente velenosa</string>
+    <string name="toxicity2">pianta poco velenosa</string>
     <string name="rate_text">L\'autore di questa applicazione è entusiasta di ricevere feedback da parte degli utenti. Ti preghiamo di inviargli qualche stella (alpina) attraverso Google Play Store.</string>
     <string name="rate_never">Mai</string>
     <string name="rate_later">Dopo</string>
     <string name="rate">Recensioni</string>
     <string name="your_text">il tuo testo</string>
-    <string name="google_translate">Tradotto con Google Traduttore</string>
-    <string name="show_original">Mostra testo inglese</string>
+    <string name="google_translate">Tradotto con Google Translate</string>
+    <string name="show_original">Mostra il testo in inglese</string>
     <string name="improve_translation">Migliora la traduzione</string>
-    <string name="show_translation">Mostra testo tradotto</string>
+    <string name="show_translation">Mostra il testo tradotto</string>
     <string name="rate_question">Trovi utile questa applicazione?</string>
     <string name="feedback_intro">Hai contribuito a questa applicazione scaricandola sul tuo dispositivo, grazie. Se stai cercando qualcos\'altro, ecco alcune opzioni:</string>
     <string name="feedback_review">Puoi scrivere una recensione positiva su Google Play.</string>
     <string name="feedback_google_play">Google Play</string>
     <string name="feedback_title">Come contribuire</string>
     <string name="feedback_translate">Puoi segnalare refusi ed errori o inviare una nuova traduzione nella tua lingua.</string>
-    <string name="feedback_cash">You can support new development and database extension with cash.</string>
+    <string name="feedback_cash">Puoi supportare un nuovo sviluppo e l\'estensione del database con una donazione.</string>
     <string name="feedback_submit_cash">Donare</string>
     <string name="taxonomy_subgenus">Subgenus</string>
     <string name="taxonomy_sectio">Sectio</string>
@@ -114,14 +114,14 @@
     <string name="taxonomy_subserie">Subserie</string>
     <string name="taxonomy_supersectio">Supersectio</string>
     <string name="subscribed_to_new">Subscribed.</string>
-    <string name="unsubscribed_to_new">Unsubscribed.</string>
+    <string name="unsubscribed_to_new">Disiscritto.</string>
     <string name="subscribe">Fatti interessanti a proposito dei fiori</string>
     <string name="subscribe_summary">Subscribe to occasional interesting fact about certain flower.</string>
     <string name="taxonomy_unknown">sconosciuto</string>
     <string name="no">No</string>
     <string name="update_version">Versione aggiornata</string>
     <string name="new_version_available">È disponibile una nuova versione, aggiorna l\'applicazione.</string>
-    <string name="update">Aggiornare</string>
+    <string name="update">Aggiorna</string>
     <string name="yes">Si</string>
     <string name="feedback_submit_translate_data">Improve flower\'s data</string>
     <string name="feedback_submit_translate_app">Improve application\'s labels</string>

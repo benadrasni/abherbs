@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about">A cerca de</string>
+    <string name="about">Acerca de</string>
     <string name="help">Ayuda</string>
     <string name="settings">Configuración</string>
     <string name="feedback">Sugerencias / Contribución</string>
     <string name="pref_language">Idioma preferido</string>
-    <string name="cache_size">Tamaño de caché en MB</string>
+    <string name="cache_size">Tamaño del caché en MB</string>
     <string name="cache_size_summary">para fotos e ilustraciones</string>
 
     <string name="color_of_flower">color de la flor</string>
     <string name="color_white">blanco</string>
     <string name="color_yellow">amarillo</string>
-    <string name="color_red">rojo, roso</string>
-    <string name="color_blue">azul, púrpuro</string>
+    <string name="color_red">rojo, rosa</string>
+    <string name="color_blue">azul, púrpura</string>
     <string name="color_green">verde, marrón, negro</string>
-    <string name="color_of_flower_message">¿Qué es el color de la flor? Elige el más cercano. Puedes volver a cambiar la selección cuando sea.</string>
+    <string name="color_of_flower_message">¿Cuál es el color de la flor? Elige el más cercano. Puedes volver a cambiar la selección cuando sea.</string>
 
     <string name="habitats">localidad</string>
     <string name="habitat_meadow">prado o pradera</string>
@@ -29,8 +29,8 @@
     <string name="petal_4">4 o menos</string>
     <string name="petal_5">5</string>
     <string name="petal_many">más de 5</string>
-    <string name="petal_bisymmetric">simetría por un eje</string>
-    <string name="number_of_petals_message">¿Es la flor simétrica por un eje? ¿No? Pués, ¿cuántos pétalos tiene?</string>
+    <string name="petal_bisymmetric">zigomorfo</string>
+    <string name="number_of_petals_message">¿Es la flor zigomorfo? ¿No? Pués, ¿cuántos pétalos tiene?</string>
 
     <string name="display_info">¿Es esto lo que buscas?</string>
     <string name="list_info">Elige una</string>
@@ -84,7 +84,7 @@
     <string name="showcase_fullscreen_message">Se puede visualizar la ilustración en pantalla completa haciendo clic en él.</string>
     <string name="showcase_count_button_title">Número de flores filtrados</string>
     <string name="showcase_count_button_message">Haga clic para ir directamente a la lista. Obras para el recuento de menos de 21. Larga hacer clic para filtro claro.</string>
-    <string name="showcase_taxonomy_title">Taxonomía según el sistema APG III</string>
+    <string name="showcase_taxonomy_title">Taxonomía según el sistema APG IV</string>
     <string name="showcase_taxonomy_message">Puede mostrar / ocultar las flores taxonomía haciendo clic en el nombre de la flor.</string>
     <string name="legend">Leyenda</string>
     <string name="toxicity1">planta venenosa</string>
