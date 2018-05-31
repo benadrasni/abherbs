@@ -19,7 +19,7 @@ android {
         applicationId 'sk.ab.herbs'
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 201
+        versionCode 203
         versionName "4.0.0"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
