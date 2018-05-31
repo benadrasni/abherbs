@@ -18,9 +18,10 @@ android {
     defaultConfig {
         applicationId 'sk.ab.herbs'
         minSdkVersion 17
-        targetSdkVersion 27
-        versionCode 129
-        versionName "3.3.12"
+        maxSdkVersion 20
+        targetSdkVersion 20
+        versionCode 131
+        versionName "3.3.13"
         vectorDrawables.useSupportLibrary = true
     }
 
