@@ -2,6 +2,7 @@ package sk.ab.herbsbase;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 
@@ -57,7 +58,8 @@ public abstract class BaseApp extends Application {
         ImageLoader.getInstance().init(config);
 
         options = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .cacheInMemory(false)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
                 .showImageForEmptyUri(R.drawable.no_image_available)

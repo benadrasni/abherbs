@@ -54,7 +54,6 @@ public class PlantListFragment extends Fragment {
             final ListPlantsBaseActivity activity = (ListPlantsBaseActivity) getActivity();
             activity.setListPosition(holder.getAdapterPosition());
             DisplayMetrics dm = activity.getResources().getDisplayMetrics();
-            holder.getPhoto().setImageResource(android.R.color.transparent);
             if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 int size = dm.widthPixels;
                 holder.getPhoto().getLayoutParams().width = size;

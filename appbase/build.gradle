@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "25.0.3"
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion 21
@@ -22,23 +22,23 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':common')
-    compile project(':billing')
-    compile 'com.google.firebase:firebase-database:12.0.1'
-    compile 'com.google.firebase:firebase-messaging:12.0.1'
-    compile 'com.google.firebase:firebase-core:12.0.1'
-    compile 'com.firebaseui:firebase-ui-database:1.2.0'
-    compile 'com.android.support:appcompat-v7:27.1.1'
-    compile 'com.android.support:recyclerview-v7:27.1.1'
-    compile 'com.android.support:design:27.1.1'
-    compile 'com.android.support:exifinterface:27.1.1'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.github.amlcurran.showcaseview:library:5.4.3'
-    compile 'com.crashlytics.sdk.android:crashlytics:2.9.3'
-    compile 'com.android.billingclient:billing:1.0'
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api project(':common')
+    api project(':billing')
+    api 'com.google.firebase:firebase-database:12.0.1'
+    api 'com.google.firebase:firebase-messaging:12.0.1'
+    api 'com.google.firebase:firebase-core:12.0.1'
+    api 'com.firebaseui:firebase-ui-database:1.2.0'
+    api 'com.android.support:appcompat-v7:27.1.1'
+    api 'com.android.support:recyclerview-v7:27.1.1'
+    api 'com.android.support:design:27.1.1'
+    api 'com.android.support:exifinterface:27.1.1'
+    api 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    api 'com.squareup.retrofit2:retrofit:2.1.0'
+    api 'com.squareup.retrofit2:converter-gson:2.1.0'
+    api 'com.github.amlcurran.showcaseview:library:5.4.3'
+    api 'com.crashlytics.sdk.android:crashlytics:2.9.3'
+    api 'com.android.billingclient:billing:1.0'
 }
 
 repositories {

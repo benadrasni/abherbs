@@ -275,10 +275,10 @@ public class BillingManager implements PurchasesUpdatedListener {
                     Log.i(TAG, "Querying purchases and subscriptions elapsed time: "
                             + (System.currentTimeMillis() - time) + "ms");
                     Log.i(TAG, "Querying subscriptions result code: "
-                            + subscriptionResult.getResponseCode()
-                            + " res: " + subscriptionResult.getPurchasesList().size());
+                            + subscriptionResult.getResponseCode());
 
                     if (subscriptionResult.getResponseCode() == BillingResponse.OK) {
+                        Log.i(TAG, " res: " + subscriptionResult.getPurchasesList().size());
                         purchasesResult.getPurchasesList().addAll(
                                 subscriptionResult.getPurchasesList());
                     } else {

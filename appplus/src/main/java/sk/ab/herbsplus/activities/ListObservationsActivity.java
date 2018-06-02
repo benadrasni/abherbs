@@ -39,6 +39,7 @@ public class ListObservationsActivity extends SearchBaseActivity {
     private RecyclerView recyclerView;
     private ObservationAdapter adapterPrivate;
     private ObservationAdapter adapterPublic;
+    private TextView noObservations;
 
     private FirebaseUser currentUser;
 
@@ -55,7 +56,7 @@ public class ListObservationsActivity extends SearchBaseActivity {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         recyclerView = findViewById(R.id.observations);
-        TextView noObservations = findViewById(R.id.no_observations);
+        noObservations = findViewById(R.id.no_observations);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference privateObservationsRef = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS + AndroidConstants.SEPARATOR
@@ -63,15 +64,9 @@ public class ListObservationsActivity extends SearchBaseActivity {
                 + currentUser.getUid() + AndroidConstants.SEPARATOR
                 + AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE + AndroidConstants.SEPARATOR
                 + AndroidConstants.FIREBASE_DATA_LIST);
-        final DatabaseReference publicObservationsRef = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS + AndroidConstants.SEPARATOR
-                + AndroidConstants.FIREBASE_OBSERVATIONS_PUBLIC + AndroidConstants.SEPARATOR
-                + AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE + AndroidConstants.SEPARATOR
-                + AndroidConstants.FIREBASE_DATA_LIST);
 
         adapterPrivate = new ObservationAdapter(this, noObservations, Observation.class,
                 R.layout.observation_row, ObservationHolder.class, privateObservationsRef, true, true);
-        adapterPublic = new ObservationAdapter(this, noObservations, Observation.class,
-                R.layout.observation_row, ObservationHolder.class, publicObservationsRef, true, false);
         recyclerView.setAdapter(adapterPrivate);
     }
 
@@ -103,6 +98,15 @@ public class ListObservationsActivity extends SearchBaseActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     if (isMonthlySubscribed() || isYearlySubscribed()) {
+                        if (adapterPublic == null) {
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            final DatabaseReference publicObservationsRef = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS + AndroidConstants.SEPARATOR
+                                    + AndroidConstants.FIREBASE_OBSERVATIONS_PUBLIC + AndroidConstants.SEPARATOR
+                                    + AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE + AndroidConstants.SEPARATOR
+                                    + AndroidConstants.FIREBASE_DATA_LIST);
+                            adapterPublic = new ObservationAdapter(ListObservationsActivity.this, noObservations, Observation.class,
+                                    R.layout.observation_row, ObservationHolder.class, publicObservationsRef, true, false);
+                        }
                         recyclerView.swapAdapter(adapterPublic, true);
                         adapterPublic.onDataChanged();
                     } else {
