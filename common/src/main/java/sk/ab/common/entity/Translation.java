@@ -1,17 +1,12 @@
 package sk.ab.common.entity;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Index;
-
 import java.util.List;
 
-@Entity
 public class Translation {
 
-    @Id String translationId;
-    @Index Integer plantId;
-    @Index String language;
+    String translationId;
+    Integer plantId;
+    String language;
     List<String> texts;
 
     public Translation() {

@@ -1,17 +1,13 @@
 package sk.ab.common.entity;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import sk.ab.common.Constants;
 
-@Entity
 public class Plant {
 
-    @Id protected Integer plantId;
+    protected Integer plantId;
     protected Integer gbifId;
     protected Integer kewId;
     protected String usdaId;

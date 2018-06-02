@@ -1,14 +1,10 @@
 package sk.ab.common.entity;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-
 import java.util.Date;
 
-@Entity
 public class Rate {
 
-    @Id Long id;
+    Long id;
     String date;
     String status;
     String country;

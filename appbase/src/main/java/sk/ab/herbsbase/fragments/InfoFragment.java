@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -23,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.common.base.Strings;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -194,43 +194,43 @@ public class InfoFragment extends Fragment {
         if (plantTranslationGT == null && plantTranslationEn != null) {
             List<String> textToTranslate = new ArrayList<>();
 
-            if ((plantTranslation == null || plantTranslation.getDescription() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getDescription())) {
+            if ((plantTranslation == null || plantTranslation.getDescription() == null) && !TextUtils.isEmpty(plantTranslationEn.getDescription())) {
                 textToTranslate.add(removeHtmlTags(plantTranslationEn.getDescription()));
             }
 
-            if ((plantTranslation == null || plantTranslation.getFlower() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getFlower())) {
+            if ((plantTranslation == null || plantTranslation.getFlower() == null) && !TextUtils.isEmpty(plantTranslationEn.getFlower())) {
                 textToTranslate.add(removeHtmlTags(plantTranslationEn.getFlower()));
             }
 
-            if ((plantTranslation == null || plantTranslation.getInflorescence() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getInflorescence())) {
+            if ((plantTranslation == null || plantTranslation.getInflorescence() == null) && !TextUtils.isEmpty(plantTranslationEn.getInflorescence())) {
                 textToTranslate.add(removeHtmlTags(plantTranslationEn.getInflorescence()));
             }
 
-            if ((plantTranslation == null || plantTranslation.getFruit() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getFruit())) {
+            if ((plantTranslation == null || plantTranslation.getFruit() == null) && !TextUtils.isEmpty(plantTranslationEn.getFruit())) {
                 textToTranslate.add(removeHtmlTags(plantTranslationEn.getFruit()));
             }
 
-            if ((plantTranslation == null || plantTranslation.getLeaf() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getLeaf())) {
+            if ((plantTranslation == null || plantTranslation.getLeaf() == null) && !TextUtils.isEmpty(plantTranslationEn.getLeaf())) {
                 textToTranslate.add(removeHtmlTags(plantTranslationEn.getLeaf()));
             }
 
-            if ((plantTranslation == null || plantTranslation.getStem() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getStem())) {
+            if ((plantTranslation == null || plantTranslation.getStem() == null) && !TextUtils.isEmpty(plantTranslationEn.getStem())) {
                 textToTranslate.add(removeHtmlTags(plantTranslationEn.getStem()));
             }
 
-            if ((plantTranslation == null || plantTranslation.getHabitat() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getHabitat())) {
+            if ((plantTranslation == null || plantTranslation.getHabitat() == null) && !TextUtils.isEmpty(plantTranslationEn.getHabitat())) {
                 textToTranslate.add(removeHtmlTags(plantTranslationEn.getHabitat()));
             }
 
-            if ((plantTranslation == null || plantTranslation.getToxicity() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getToxicity())) {
+            if ((plantTranslation == null || plantTranslation.getToxicity() == null) && !TextUtils.isEmpty(plantTranslationEn.getToxicity())) {
                 textToTranslate.add(removeHtmlTags(plantTranslationEn.getToxicity()));
             }
 
-            if ((plantTranslation == null || plantTranslation.getHerbalism() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getHerbalism())) {
+            if ((plantTranslation == null || plantTranslation.getHerbalism() == null) && !TextUtils.isEmpty(plantTranslationEn.getHerbalism())) {
                 textToTranslate.add(removeHtmlTags(plantTranslationEn.getHerbalism()));
             }
 
-            if ((plantTranslation == null || plantTranslation.getTrivia() == null) && !Strings.isNullOrEmpty(plantTranslationEn.getTrivia())) {
+            if ((plantTranslation == null || plantTranslation.getTrivia() == null) && !TextUtils.isEmpty(plantTranslationEn.getTrivia())) {
                 textToTranslate.add(removeHtmlTags(plantTranslationEn.getTrivia()));
             }
 

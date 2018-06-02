@@ -1,15 +1,12 @@
 package sk.ab.common.entity;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@Entity
+
 public class FirebasePlant {
 
-    @Id private Integer plantId;
+    private Integer plantId;
     private Integer gbifId;
     private Integer kewId;
     private String usdaId;
