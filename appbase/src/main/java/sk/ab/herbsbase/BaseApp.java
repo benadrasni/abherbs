@@ -62,7 +62,8 @@ public abstract class BaseApp extends Application {
         ImageLoader.getInstance().init(config);
 
         options = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .cacheInMemory(false)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
                 .build();
