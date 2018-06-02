@@ -56,15 +56,14 @@ public class BaseImageButton extends AppCompatButton {
     }
 
     private void setCustomAttributes(Context context, AttributeSet attrs) {
-        TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.BaseImageButton);
-        for (int i = 0; i < attributes.getIndexCount(); ++i) {
-            if (attributes.getIndex(i) == R.styleable.BaseImageButton_value) {
-                this.value = attributes.getString(i);
-            } else if (attributes.getIndex(i) == R.styleable.BaseImageButton_addDefaultListener) {
-                this.addDefaultListener = attributes.getBoolean(i, true);
-            }
+        TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.BaseImageButton,0,0);
+
+        try {
+            this.value = attributes.getString(R.styleable.BaseImageButton_value);
+            this.addDefaultListener = attributes.getBoolean(R.styleable.BaseImageButton_addDefaultListener, true);
+        } finally {
+            attributes.recycle();
         }
-        attributes.recycle();
     }
 
     private void addListenerOnButton() {
