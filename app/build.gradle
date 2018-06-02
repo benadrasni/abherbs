@@ -20,8 +20,8 @@ android {
         minSdkVersion 17
         maxSdkVersion 20
         targetSdkVersion 27
-        versionCode 131
-        versionName "3.3.13"
+        versionCode 133
+        versionName "3.3.14"
         vectorDrawables.useSupportLibrary = true
     }
 
