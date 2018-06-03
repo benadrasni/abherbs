@@ -8,7 +8,7 @@
     <string name="cache_size">Rozmiar pamięci podręcznej w MB</string>
     <string name="cache_size_summary">dla zdjęć i ilustracji</string>
 
-    <string name="color_of_flower">kolor kwiatów</string>
+    <string name="color_of_flower">Kolor kwiatów</string>
     <string name="color_white">biały</string>
     <string name="color_yellow">żółty</string>
     <string name="color_red">czerwony, różowy</string>
@@ -23,7 +23,7 @@
     <string name="habitat_forest">Lasy</string>
     <string name="habitat_rock">Skały lub góry</string>
     <string name="habitat_tree">Drzewa lub krzewy</string>
-    <string name="habitat_message">Co znajduje się wokół Ciebie? Zidentyfikuj otoczenie rośliny.</string>
+    <string name="habitat_message">Co znajduje się wokół Ciebie? Zidentyfikuj otoczenie.</string>
 
     <string name="number_of_petals">Liczba płatków</string>
     <string name="petal_4">4 lub mniej</string>
@@ -180,7 +180,7 @@
     <string name="south_central_usa">Południowo-środkowe USA</string>
     <string name="southeastern_usa">Południowo-wschodnie USA</string>
     <string name="mexico">Meksyk</string>
-    <string name="central_america">Ameryka środkowa</string>
+    <string name="central_america">Ameryka Środkowa</string>
     <string name="caribbean">Karaiby</string>
     <string name="northern_south_america">Północna Ameryka Południowa</string>
     <string name="western_south_america">Zachodnia Ameryka Południowa</string>
@@ -191,6 +191,6 @@
     <string name="antarctic_continent">Kontynent Antarktyczny</string>
     <string name="my_region">Mój region</string>
     <string name="my_region_title">Mój region</string>
-    <string name="always_my_region_title">Zawsze dodawaj mój region do filtra</string>
-    <string name="always_my_region_summary">Twój region zostanie wstępnie ustawiony na filtr</string>
+    <string name="always_my_region_title">Zawsze filtruj wg mojego wybranego regionu</string>
+    <string name="always_my_region_summary">Twój region zostanie wstępnie ustawiony jako filtr</string>
 </resources>

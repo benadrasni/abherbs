@@ -36,7 +36,7 @@
     <string name="list_info">Auswahl</string>
 
     <string name="plant_info">Info</string>
-    <string name="plant_gallery">Gallery</string>
+    <string name="plant_gallery">Gallerie</string>
     <string name="plant_taxonomy">Taxonomy</string>
     <string name="plant_sources">Quellen</string>
     <string name="image_desc">Werk Illustration</string>
@@ -126,7 +126,7 @@
     <string name="feedback_submit_translate_data">Verbessere die Daten der Blume</string>
     <string name="feedback_submit_translate_app">Verbessere den Text der Anwendung</string>
     <string name="improve_text">Text verbessern</string>
-    <string name="distribution">distribution</string>
+    <string name="distribution">Vorkommen</string>
     <string name="distribution_message">Auf welches geografische Gebiet sollten Sie sich konzentrieren?</string>
     <string name="europe">Europa</string>
     <string name="africa">Afrika</string>

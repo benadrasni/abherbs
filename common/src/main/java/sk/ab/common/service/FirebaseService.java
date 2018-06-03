@@ -82,7 +82,7 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
-    @PATCH("counts_new.json")
+    @PUT("counts_new.json")
     Call<Map> saveCount(@Body Map<String, Integer> count);
 
     @Headers({
@@ -90,7 +90,7 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
-    @PATCH("lists_new.json")
+    @PUT("lists_new.json")
     Call<Map> saveList(@Body Map<String, Map<String, Boolean>> list);
 
     @Headers({

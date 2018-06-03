@@ -33,15 +33,17 @@ public class Refresher {
     private static final String[] PETALS = {null,"4 or less", "5", "Many", "Bisymetric"};
     private static final String[] DISTRIBUTION = {null, "10", "11", "12", "13", "14", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "40", "41", "42", "43", "50", "51", "60", "61", "62", "63", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "90", "91"};
 
-    private static final String[] FILTER_ATTRIBUTES = {Constants.COLOR_OF_FLOWERS, Constants.HABITAT, Constants.NUMBER_OF_PETALS, Constants.DISTRIBUTION};
+    private static final String[] FILTER_3_ATTRIBUTES = {Constants.COLOR_OF_FLOWERS, Constants.HABITAT, Constants.NUMBER_OF_PETALS};
+    private static final String[] FILTER_4_ATTRIBUTES = {Constants.COLOR_OF_FLOWERS, Constants.HABITAT, Constants.NUMBER_OF_PETALS, Constants.DISTRIBUTION};
 
     public static void main(String[] params) {
 
+        //countAndList3();
         countAndList4();
         //search();
     }
 
-    private static void countAndList() {
+    private static void countAndList3() {
         Map<String, Integer> counts = new HashMap<>();
         Map<String, Map<String, Boolean>> lists = new HashMap<>();
 
@@ -287,7 +289,7 @@ public class Refresher {
 
                     for (String distribution : DISTRIBUTION) {
                         filter.put(Constants.DISTRIBUTION, distribution);
-                        result.add(Utils.getFilterKey(filter, FILTER_ATTRIBUTES));
+                        result.add(Utils.getFilterKey(filter, FILTER_4_ATTRIBUTES));
 
                     }
                     filter.remove(Constants.DISTRIBUTION);
@@ -312,7 +314,7 @@ public class Refresher {
 
                 for (String petal : PETALS) {
                     filter.put(Constants.NUMBER_OF_PETALS, petal);
-                    result.add(Utils.getFilterKey(filter, FILTER_ATTRIBUTES));
+                    result.add(Utils.getFilterKey(filter, FILTER_3_ATTRIBUTES));
 
                 }
                 filter.remove(Constants.NUMBER_OF_PETALS);
