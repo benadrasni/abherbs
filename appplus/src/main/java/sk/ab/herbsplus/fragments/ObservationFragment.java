@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +25,6 @@ import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.activities.DisplayPlantPlusActivity;
 import sk.ab.herbsplus.commons.ObservationAdapter;
-import sk.ab.herbsplus.commons.ObservationHolder;
 import sk.ab.herbsplus.util.UtilsPlus;
 
 public class ObservationFragment extends Fragment {
@@ -57,10 +57,14 @@ public class ObservationFragment extends Fragment {
                     + activity.getPlant().getName() + AndroidConstants.SEPARATOR
                     + AndroidConstants.FIREBASE_DATA_LIST);
 
-            adapterPublic = new ObservationAdapter(activity, noObservations, Observation.class,
-                    R.layout.observation_row, ObservationHolder.class, publicObservationsRef, false, false);
-            adapterPrivate = new ObservationAdapter(activity, noObservations, Observation.class,
-                    R.layout.observation_row, ObservationHolder.class, privateObservationsRef, false, true);
+            FirebaseRecyclerOptions<Observation> optionsPublic = new FirebaseRecyclerOptions.Builder<Observation>()
+                    .setQuery(publicObservationsRef, Observation.class)
+                    .build();
+            adapterPublic = new ObservationAdapter(activity, noObservations, optionsPublic, false, false);
+            FirebaseRecyclerOptions<Observation> optionsPrivate = new FirebaseRecyclerOptions.Builder<Observation>()
+                    .setQuery(privateObservationsRef, Observation.class)
+                    .build();
+            adapterPrivate = new ObservationAdapter(activity, noObservations, optionsPrivate, false, true);
             recyclerView.setAdapter(adapterPrivate);
 
             SwitchCompat privatePublicSwitch = view.findViewById(R.id.private_public_switch_button);
@@ -95,6 +99,12 @@ public class ObservationFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        if (adapterPrivate != null) {
+            adapterPrivate.startListening();
+        }
+        if (adapterPublic != null) {
+            adapterPublic.startListening();
+        }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -104,13 +114,13 @@ public class ObservationFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
         if (adapterPrivate != null) {
-            adapterPrivate.cleanup();
+            adapterPrivate.stopListening();
         }
         if (adapterPublic != null) {
-            adapterPublic.cleanup();
+            adapterPublic.stopListening();
         }
     }
 }

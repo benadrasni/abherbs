@@ -69,9 +69,10 @@ public class SourcesFragment extends Fragment {
     }
 
     private void setSources(View convertView) {
-        FirebasePlant plant = getPlant();
-        PlantTranslation plantTranslation = getPlantTranslation();
-        PlantTranslation plantTranslationEn = getPlantTranslationEn();
+        DisplayPlantBaseActivity activity = (DisplayPlantBaseActivity)getActivity();
+        FirebasePlant plant = activity.getPlant();
+        PlantTranslation plantTranslation = activity.getPlantTranslation();
+        PlantTranslation plantTranslationEn = activity.getPlantTranslationEn();
 
         List<String> sourceUrls = new ArrayList<>();
 
@@ -90,7 +91,7 @@ public class SourcesFragment extends Fragment {
         // add link to commons
         String commonsLink = null;
         String speciesLink = null;
-        if (plant.getWikilinks() != null) {
+        if (plant != null && plant.getWikilinks() != null) {
             commonsLink = plant.getWikilinks().get(Constants.COMMONS);
             speciesLink = plant.getWikilinks().get(Constants.SPECIES);
         }
@@ -121,9 +122,8 @@ public class SourcesFragment extends Fragment {
         }
 
         // add links to common sources
-        sources = plant.getSourceUrls();
-        if (sources != null) {
-            sourceUrls.addAll(sources);
+        if (plant != null && plant.getSourceUrls() != null) {
+            sourceUrls.addAll(plant.getSourceUrls());
         }
 
         GridLayout grid = (GridLayout) convertView.findViewById(R.id.plant_source_grid);
@@ -190,18 +190,6 @@ public class SourcesFragment extends Fragment {
 
             grid.addView(view);
         }
-    }
-
-    private FirebasePlant getPlant() {
-        return ((DisplayPlantBaseActivity)getActivity()).getPlant();
-    }
-
-    private PlantTranslation getPlantTranslation() {
-        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslation();
-    }
-
-    private PlantTranslation getPlantTranslationEn() {
-        return ((DisplayPlantBaseActivity)getActivity()).getPlantTranslationEn();
     }
 }
 

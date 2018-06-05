@@ -5,20 +5,22 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.SystemClock;
-import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 import java.io.File;
 import java.util.Locale;
@@ -46,10 +48,9 @@ public class ObservationAdapter extends FirebaseRecyclerAdapter<Observation, Obs
     private boolean isPlant;
     private boolean isPrivate;
 
-    public ObservationAdapter(Activity activity, TextView noObservations, Class<Observation> modelClass,
-                              @LayoutRes int modelLayout, Class<ObservationHolder> viewHolderClass, Query dataRef,
+    public ObservationAdapter(Activity activity, TextView noObservations, @NonNull FirebaseRecyclerOptions<Observation> options,
                               boolean isPlant, boolean isPrivate) {
-        super(modelClass, modelLayout, viewHolderClass, dataRef);
+        super(options);
         this.activity = activity;
         this.isPlant = isPlant;
         this.isPrivate = isPrivate;
@@ -58,7 +59,14 @@ public class ObservationAdapter extends FirebaseRecyclerAdapter<Observation, Obs
     }
 
     @Override
-    protected void populateViewHolder(final ObservationHolder holder, final Observation observation, int position) {
+    public ObservationHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.observation_row, parent, false);
+
+        return new ObservationHolder(view);
+    }
+
+    @Override
+    protected void onBindViewHolder(final ObservationHolder holder, int position, final Observation observation) {
         if (isPlant) {
             holder.getPlantName().setText(observation.getPlant());
             holder.getPlantName().setOnClickListener(new View.OnClickListener() {

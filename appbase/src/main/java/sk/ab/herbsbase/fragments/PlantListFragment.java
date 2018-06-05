@@ -3,7 +3,6 @@ package sk.ab.herbsbase.fragments;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,13 +15,13 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.crashlytics.android.Crashlytics;
-import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
@@ -43,14 +42,21 @@ public class PlantListFragment extends Fragment {
 
     private PropertyAdapter adapter;
 
-    private class PropertyAdapter extends FirebaseIndexRecyclerAdapter<FirebasePlant, PlantViewHolder> {
+    private class PropertyAdapter extends FirebaseRecyclerAdapter<FirebasePlant, PlantViewHolder> {
 
-        PropertyAdapter(Class<FirebasePlant> modelClass, @LayoutRes int modelLayout, Class<PlantViewHolder> viewHolderClass, Query keyRef, Query dataRef) {
-            super(modelClass, modelLayout, viewHolderClass, keyRef, dataRef);
+        PropertyAdapter(@NonNull FirebaseRecyclerOptions<FirebasePlant> options) {
+            super(options);
         }
 
         @Override
-        protected void populateViewHolder(final PlantViewHolder holder, final FirebasePlant plant, int position) {
+        public PlantViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plant_row, parent, false);
+
+            return new PlantViewHolder(view);
+        }
+
+        @Override
+        protected void onBindViewHolder(final PlantViewHolder holder, int position, final FirebasePlant plant) {
             final ListPlantsBaseActivity activity = (ListPlantsBaseActivity) getActivity();
             activity.setListPosition(holder.getAdapterPosition());
             DisplayMetrics dm = activity.getResources().getDisplayMetrics();
@@ -136,7 +142,10 @@ public class PlantListFragment extends Fragment {
         if (activity.getListPath() != null) {
             DatabaseReference listRef = database.getReference(activity.getListPath());
 
-            adapter = new PropertyAdapter(FirebasePlant.class, R.layout.plant_row, PlantViewHolder.class, listRef, plantsRef);
+            FirebaseRecyclerOptions<FirebasePlant> options = new FirebaseRecyclerOptions.Builder<FirebasePlant>()
+                    .setIndexedQuery(listRef, plantsRef, FirebasePlant.class)
+                    .build();
+            adapter = new PropertyAdapter(options);
             list.setAdapter(adapter);
         } else {
             Crashlytics.log("Empty list path: " + activity.getFilter().toString());
@@ -148,6 +157,7 @@ public class PlantListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        adapter.startListening();
 
         if (getView() != null) {
             ListPlantsBaseActivity activity = (ListPlantsBaseActivity) getActivity();
@@ -165,8 +175,8 @@ public class PlantListFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        adapter.cleanup();
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 }

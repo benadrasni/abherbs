@@ -14,11 +14,13 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.Observation;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.SearchBaseActivity;
@@ -65,14 +67,20 @@ public class ListObservationsActivity extends SearchBaseActivity {
                 + AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE + AndroidConstants.SEPARATOR
                 + AndroidConstants.FIREBASE_DATA_LIST);
 
-        adapterPrivate = new ObservationAdapter(this, noObservations, Observation.class,
-                R.layout.observation_row, ObservationHolder.class, privateObservationsRef, true, true);
+        FirebaseRecyclerOptions<Observation> options = new FirebaseRecyclerOptions.Builder<Observation>()
+                .setQuery(privateObservationsRef, Observation.class)
+                .build();
+        adapterPrivate = new ObservationAdapter(this, noObservations, options, true, true);
         recyclerView.setAdapter(adapterPrivate);
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        adapterPrivate.startListening();
+        if (adapterPublic != null) {
+            adapterPublic.startListening();
+        }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -104,8 +112,11 @@ public class ListObservationsActivity extends SearchBaseActivity {
                                     + AndroidConstants.FIREBASE_OBSERVATIONS_PUBLIC + AndroidConstants.SEPARATOR
                                     + AndroidConstants.FIREBASE_OBSERVATIONS_BY_DATE + AndroidConstants.SEPARATOR
                                     + AndroidConstants.FIREBASE_DATA_LIST);
-                            adapterPublic = new ObservationAdapter(ListObservationsActivity.this, noObservations, Observation.class,
-                                    R.layout.observation_row, ObservationHolder.class, publicObservationsRef, true, false);
+                            FirebaseRecyclerOptions<Observation> options = new FirebaseRecyclerOptions.Builder<Observation>()
+                                    .setQuery(publicObservationsRef, Observation.class)
+                                    .build();
+                            adapterPublic = new ObservationAdapter(ListObservationsActivity.this, noObservations, options, true, false);
+                            adapterPublic.startListening();
                         }
                         recyclerView.swapAdapter(adapterPublic, true);
                         adapterPublic.onDataChanged();
@@ -135,13 +146,13 @@ public class ListObservationsActivity extends SearchBaseActivity {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
         if (adapterPrivate != null) {
-            adapterPrivate.cleanup();
+            adapterPrivate.stopListening();
         }
         if (adapterPublic != null) {
-            adapterPublic.cleanup();
+            adapterPublic.stopListening();
         }
     }
 
