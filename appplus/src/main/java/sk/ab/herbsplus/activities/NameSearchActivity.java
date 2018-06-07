@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -45,6 +46,7 @@ import sk.ab.herbsplus.commons.NameViewHolder;
 
 public class NameSearchActivity extends SearchBaseActivity {
     private final static int API_CALLS = 2;
+    private long mLastClickTime;
 
     private SearchView mSearchView;
     private String mSearchText;
@@ -82,12 +84,13 @@ public class NameSearchActivity extends SearchBaseActivity {
             holder.getName().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    if (name.getCount() == 1) {
-                        callDetailActivity(name.getPlantName(), false);
-                    } else {
-                        callListActivity(SpecificConstants.FIREBASE_SEARCH + AndroidConstants.SEPARATOR
+                    long currentClickTime = SystemClock.uptimeMillis();
+                    long elapsedTime = currentClickTime - mLastClickTime;
+                    mLastClickTime = currentClickTime;
+                    if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
+                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        callListActivity(AndroidConstants.FIREBASE_SEARCH + AndroidConstants.SEPARATOR
                                 + language + AndroidConstants.SEPARATOR + name.getName(), name.getCount(), false);
                     }
                 }
@@ -125,7 +128,7 @@ public class NameSearchActivity extends SearchBaseActivity {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            mSearchText = savedInstanceState.getString(SpecificConstants.STATE_SEARCH_TEXT, "");
+            mSearchText = savedInstanceState.getString(AndroidConstants.STATE_SEARCH_TEXT, "");
         } else {
             mSearchText = "";
         }
@@ -151,7 +154,7 @@ public class NameSearchActivity extends SearchBaseActivity {
         if (mSearchView != null) {
             String searchText = mSearchView.getQuery().toString();
             if (!searchText.isEmpty()) {
-                outState.putString(SpecificConstants.STATE_SEARCH_TEXT, searchText);
+                outState.putString(AndroidConstants.STATE_SEARCH_TEXT, searchText);
             }
         }
 
@@ -248,7 +251,7 @@ public class NameSearchActivity extends SearchBaseActivity {
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference mFirebaseRef = database.getReference(SpecificConstants.FIREBASE_SEARCH + AndroidConstants.SEPARATOR + Locale.getDefault().getLanguage());
+        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_SEARCH + AndroidConstants.SEPARATOR + Locale.getDefault().getLanguage());
         mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -280,7 +283,7 @@ public class NameSearchActivity extends SearchBaseActivity {
             }
         });
 
-        DatabaseReference mFirebaseLatinRef = database.getReference(SpecificConstants.FIREBASE_SEARCH + AndroidConstants.SEPARATOR + AndroidConstants.LANGUAGE_LA);
+        DatabaseReference mFirebaseLatinRef = database.getReference(AndroidConstants.FIREBASE_SEARCH + AndroidConstants.SEPARATOR + AndroidConstants.LANGUAGE_LA);
         mFirebaseLatinRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

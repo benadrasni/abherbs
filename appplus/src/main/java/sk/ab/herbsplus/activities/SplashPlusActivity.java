@@ -13,7 +13,6 @@ import android.support.v4.content.ContextCompat;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.SplashBaseActivity;
 import sk.ab.herbsplus.SpecificConstants;
-import sk.ab.herbsplus.services.ObservationService;
 import sk.ab.herbsplus.services.OfflineService;
 
 

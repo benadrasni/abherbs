@@ -218,7 +218,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
             if (currentUser != null) {
                 Date date =  new Date();
                 Observation observation = new Observation();
-                observation.setStatus(SpecificConstants.FIREBASE_STATUS_PRIVATE);
+                observation.setStatus(AndroidConstants.FIREBASE_STATUS_PRIVATE);
                 observation.setDate(date);
                 observation.setPlant(getPlant().getName());
                 observation.setPhotoPaths(new ArrayList<String>());

@@ -123,21 +123,25 @@ public class AndroidConstants {
     public final static String FIREBASE_PLANTS_TO_UPDATE = "plants_to_update";
     public final static String FIREBASE_FAMILIES_TO_UPDATE = "families_to_update";
     public final static String FIREBASE_APG_IV = "APG IV_v2";
-    public final static String FIREBASE_SEARCH = "search_v2";
     public final static String FIREBASE_TRANSLATIONS = "translations";
     public final static String FIREBASE_TRANSLATIONS_TAXONOMY = "translations_taxonomy";
+    public final static String FIREBASE_SEARCH = "search_v2";
     public final static String FIREBASE_OBSERVATIONS = "observations";
     public final static String FIREBASE_OBSERVATIONS_BY_USERS = "by users";
     public final static String FIREBASE_OBSERVATIONS_BY_DATE = "by date";
     public final static String FIREBASE_OBSERVATIONS_BY_PLANT = "by plant";
     public final static String FIREBASE_OBSERVATIONS_PUBLIC = "public";
     public final static String FIREBASE_OBSERVATIONS_STATUS = "status";
+    public final static String FIREBASE_STATUS_PRIVATE = "private";
+    public final static String FIREBASE_STATUS_PUBLIC = "public";
+    public final static String FIREBASE_STATUS_INCOMPLETE = "incomplete";
+    public final static String FIREBASE_STATUS_REVIEW = "review";
+    public final static String STATE_SEARCH_TEXT = "search_text";
     public final static String FIREBASE_USERS = "users";
     public final static String FIREBASE_USERS_TOKEN = "token";
     public final static String FIREBASE_VERSIONS = "versions";
 
     public final static String FIREBASE_APG_TYPE = "type";
-    public final static String FIREBASE_APG_NAMES = "names";
     public final static String FIREBASE_APG_LIST = "list";
     public final static String FIREBASE_APG_COUNT = "count";
 

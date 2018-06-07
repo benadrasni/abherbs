@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,7 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -46,7 +47,7 @@ import sk.ab.herbsplus.SpecificConstants;
  */
 
 public class TaxonomyActivity extends SearchBaseActivity {
-
+    private long mLastClickTime;
     private SearchView mSearchView;
 
     private List<PlantTaxon> taxons;
@@ -258,12 +259,12 @@ public class TaxonomyActivity extends SearchBaseActivity {
         DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_APG_IV);
         mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final Map apg = (Map)dataSnapshot.getValue();
                 DatabaseReference mFirebaseRefTranslations = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS_TAXONOMY + AndroidConstants.SEPARATOR + Locale.getDefault().getLanguage());
                 mFirebaseRefTranslations.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         buildTaxonomy((Map)dataSnapshot.getValue(), (Map)apg.get(AndroidConstants.ROOT_TAXON), 0, AndroidConstants.FIREBASE_APG_IV
                                 + AndroidConstants.SEPARATOR, AndroidConstants.ROOT_TAXON);
 
@@ -274,7 +275,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
                         Log.e(this.getClass().getName(), databaseError.getMessage());
                         Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
                     }
@@ -282,7 +283,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e(this.getClass().getName(), databaseError.getMessage());
                 Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
             }
@@ -297,40 +298,27 @@ public class TaxonomyActivity extends SearchBaseActivity {
         taxon.setLatinName(taxonName);
         taxon.setName((ArrayList<String>)dictionary.get(taxonName));
         Long count = (Long)taxonomy.get(AndroidConstants.FIREBASE_APG_COUNT);
-        if (count != null && count > 0) {
+        if (count != null) {
             taxon.setCount(count.intValue());
-            Object plantList = taxonomy.get(AndroidConstants.FIREBASE_APG_LIST);
-            if (plantList instanceof ArrayList) {
-                int i = 0;
-                for (Long name : (ArrayList<Long>) plantList) {
-                    if (name != null) {
-                        taxon.setPlantName(""+i);
-                        break;
-                    }
-                    i++;
-                }
-            } else {
-                taxon.setPlantName(((HashMap<String, Object>) plantList).entrySet().iterator().next().getKey());
-            }
         }
         taxons.add(taxon);
 
         final List<String> keys = new ArrayList<>(taxonomy.keySet());
         for (String key : keys) {
-            if (AndroidConstants.FIREBASE_APG_TYPE.equals(key) || AndroidConstants.FIREBASE_APG_NAMES.equals(key)
-                    || AndroidConstants.FIREBASE_APG_LIST.equals(key) || AndroidConstants.FIREBASE_APG_COUNT.equals(key)) {
-                continue;
+            if (!AndroidConstants.FIREBASE_APG_TYPE.equals(key) && !AndroidConstants.FIREBASE_APG_LIST.equals(key)
+                    && !AndroidConstants.FIREBASE_APG_COUNT.equals(key)) {
+                buildTaxonomy(dictionary, (Map)taxonomy.get(key), offset + 1, path + taxonName + AndroidConstants.SEPARATOR, key);
             }
-            buildTaxonomy(dictionary, (Map)taxonomy.get(key), offset + 1, path + taxonName + AndroidConstants.SEPARATOR, key);
         }
     }
 
     private void callProperActivity(PlantTaxon taxon) {
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        if (taxon.getCount() == 1) {
-            callDetailActivity(taxon.getPlantName(), false);
-        } else {
+        long currentClickTime = SystemClock.uptimeMillis();
+        long elapsedTime = currentClickTime - mLastClickTime;
+        mLastClickTime = currentClickTime;
+        if (elapsedTime > AndroidConstants.MIN_CLICK_INTERVAL) {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             callListActivity(taxon.getPath(), taxon.getCount(), false);
         }
     }

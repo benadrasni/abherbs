@@ -23,12 +23,5 @@ public class SpecificConstants {
     public final static String OFFLINE_PLANT_KEY = "offline_plant";
     public final static String OFFLINE_FAMILY_KEY = "offline_family";
 
-    public final static String FIREBASE_SEARCH = "search";
-    public final static String FIREBASE_STATUS_PRIVATE = "private";
-    public final static String FIREBASE_STATUS_PUBLIC = "public";
-    public final static String FIREBASE_STATUS_INCOMPLETE = "incomplete";
-    public final static String FIREBASE_STATUS_REVIEW = "review";
-    public final static String STATE_SEARCH_TEXT = "search_text";
-
     public static final String[] FILTER_ATTRIBUTES = {Constants.COLOR_OF_FLOWERS, Constants.HABITAT, Constants.NUMBER_OF_PETALS, Constants.DISTRIBUTION};
 }

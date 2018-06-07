@@ -3,6 +3,7 @@ package sk.ab.herbsplus.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
@@ -18,7 +19,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import sk.ab.common.entity.Observation;
 import sk.ab.common.util.Utils;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
@@ -28,7 +28,6 @@ import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.fragments.PropertyListPlusFragment;
 import sk.ab.herbsplus.services.ObservationService;
-import sk.ab.herbsplus.services.OfflineService;
 import sk.ab.herbsplus.util.UtilsPlus;
 
 /**
@@ -101,7 +100,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
 
         mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Integer count = dataSnapshot.getValue(Integer.class);
                 if (count != null && !FilterPlantsPlusActivity.this.isDestroyed()) {
                     setCount(count);
@@ -112,7 +111,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e(this.getClass().getName(), databaseError.getMessage());
                 Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
                 stopLoading();

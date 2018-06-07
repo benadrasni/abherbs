@@ -20,14 +20,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.Observation;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.SearchBaseActivity;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.commons.ObservationAdapter;
-import sk.ab.herbsplus.commons.ObservationHolder;
 import sk.ab.herbsplus.util.UtilsPlus;
 
 /**

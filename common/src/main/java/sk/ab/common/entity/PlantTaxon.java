@@ -13,7 +13,6 @@ public class PlantTaxon {
     private String latinName;
     private String path;
     private int count;
-    private String plantName;
 
     public int getOffset() {
         return offset;
@@ -53,14 +52,6 @@ public class PlantTaxon {
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    public String getPlantName() {
-        return plantName;
-    }
-
-    public void setPlantName(String plantName) {
-        this.plantName = plantName;
     }
 
     public String getPath() {

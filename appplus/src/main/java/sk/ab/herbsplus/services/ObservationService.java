@@ -64,7 +64,7 @@ public class ObservationService extends JobIntentService {
             mFirebaseRefObservations.keepSynced(true);
             final Query queryPrivate = mFirebaseRefObservations.child(AndroidConstants.FIREBASE_DATA_LIST)
                     .orderByChild(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
-                    .equalTo(SpecificConstants.FIREBASE_STATUS_PRIVATE);
+                    .equalTo(AndroidConstants.FIREBASE_STATUS_PRIVATE);
             mFirebaseRefObservations.child("refreshMock").setValue("mock", new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -98,7 +98,7 @@ public class ObservationService extends JobIntentService {
             mFirebaseRefObservations.keepSynced(true);
             final Query query = mFirebaseRefObservations.child(AndroidConstants.FIREBASE_DATA_LIST)
                     .orderByChild(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
-                    .equalTo(SpecificConstants.FIREBASE_STATUS_PRIVATE)
+                    .equalTo(AndroidConstants.FIREBASE_STATUS_PRIVATE)
                     .limitToFirst(1);
             mFirebaseRefObservations.child("refreshMock").setValue("mock", new DatabaseReference.CompletionListener() {
                 @Override
@@ -129,13 +129,13 @@ public class ObservationService extends JobIntentService {
                                                 }
                                             });
                                         } else {
-                                            markObservation(observation, SpecificConstants.FIREBASE_STATUS_INCOMPLETE);
+                                            markObservation(observation, AndroidConstants.FIREBASE_STATUS_INCOMPLETE);
                                             continueUpload(number, countAll);
                                             break;
                                         }
                                     }
                                 } else {
-                                    markObservation(observation, SpecificConstants.FIREBASE_STATUS_INCOMPLETE);
+                                    markObservation(observation, AndroidConstants.FIREBASE_STATUS_INCOMPLETE);
                                     continueUpload(number, countAll);
                                 }
                             }
@@ -155,7 +155,7 @@ public class ObservationService extends JobIntentService {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
 
-            observation.setStatus(SpecificConstants.FIREBASE_STATUS_REVIEW);
+            observation.setStatus(AndroidConstants.FIREBASE_STATUS_REVIEW);
 
             // by date
             database.getReference().child(AndroidConstants.FIREBASE_OBSERVATIONS)
@@ -183,7 +183,7 @@ public class ObservationService extends JobIntentService {
                     .child(AndroidConstants.FIREBASE_DATA_LIST)
                     .child(observation.getId())
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
-                    .setValue(SpecificConstants.FIREBASE_STATUS_PUBLIC);
+                    .setValue(AndroidConstants.FIREBASE_STATUS_PUBLIC);
             // by user, by plant, by date
             database.getReference().child(AndroidConstants.FIREBASE_OBSERVATIONS)
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
@@ -193,7 +193,7 @@ public class ObservationService extends JobIntentService {
                     .child(AndroidConstants.FIREBASE_DATA_LIST)
                     .child(observation.getId())
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
-                    .setValue(SpecificConstants.FIREBASE_STATUS_PUBLIC);
+                    .setValue(AndroidConstants.FIREBASE_STATUS_PUBLIC);
 
             continueUpload(number, countAll);
         }
@@ -257,7 +257,7 @@ public class ObservationService extends JobIntentService {
             mFirebaseRefObservations.keepSynced(true);
             final Query query = mFirebaseRefObservations.child(AndroidConstants.FIREBASE_DATA_LIST)
                     .orderByChild(AndroidConstants.FIREBASE_OBSERVATIONS_STATUS)
-                    .equalTo(SpecificConstants.FIREBASE_STATUS_INCOMPLETE);
+                    .equalTo(AndroidConstants.FIREBASE_STATUS_INCOMPLETE);
             mFirebaseRefObservations.child("refreshMock").setValue("mock", new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -267,7 +267,7 @@ public class ObservationService extends JobIntentService {
                             if (dataSnapshot.getChildrenCount() > 0) {
                                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                                     Observation observation = data.getValue(Observation.class);
-                                    markObservation(observation, SpecificConstants.FIREBASE_STATUS_PRIVATE);
+                                    markObservation(observation, AndroidConstants.FIREBASE_STATUS_PRIVATE);
                                 }
                             }
                             broadcastUpload(-1, -1);
