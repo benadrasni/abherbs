@@ -1,32 +1,16 @@
 package sk.ab.herbs.backend.util;
 
-import com.google.appengine.repackaged.com.google.gson.JsonArray;
-import com.google.appengine.repackaged.com.google.gson.JsonElement;
-import com.google.appengine.repackaged.com.google.gson.JsonParser;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
-import org.jsoup.select.Elements;
-
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 import retrofit2.Call;
-import retrofit2.Response;
 import sk.ab.common.entity.FirebasePlant;
-import sk.ab.common.entity.Plant;
 import sk.ab.common.service.FirebaseClient;
-import sk.ab.common.service.HerbCloudClient;
 
 /**
  * Created by adrian on 4.5.2016.
@@ -45,8 +29,8 @@ public class Checker {
 
     public static void main(String[] params) {
 
-        //checkNames();
-        //checkSearch();
+        checkNames();
+        checkSearch();
         checkTranslation();
     }
 

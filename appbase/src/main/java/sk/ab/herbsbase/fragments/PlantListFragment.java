@@ -25,10 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
-import java.util.Map;
 
-import sk.ab.common.Constants;
-import sk.ab.common.entity.FirebasePlant;
+import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.entity.PlantTranslation;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
@@ -42,9 +40,9 @@ public class PlantListFragment extends Fragment {
 
     private PropertyAdapter adapter;
 
-    private class PropertyAdapter extends FirebaseRecyclerAdapter<FirebasePlant, PlantViewHolder> {
+    private class PropertyAdapter extends FirebaseRecyclerAdapter<PlantHeader, PlantViewHolder> {
 
-        PropertyAdapter(@NonNull FirebaseRecyclerOptions<FirebasePlant> options) {
+        PropertyAdapter(@NonNull FirebaseRecyclerOptions<PlantHeader> options) {
             super(options);
         }
 
@@ -56,7 +54,7 @@ public class PlantListFragment extends Fragment {
         }
 
         @Override
-        protected void onBindViewHolder(final PlantViewHolder holder, int position, final FirebasePlant plant) {
+        protected void onBindViewHolder(final PlantViewHolder holder, int position, final PlantHeader plant) {
             final ListPlantsBaseActivity activity = (ListPlantsBaseActivity) getActivity();
             activity.setListPosition(holder.getAdapterPosition());
             DisplayMetrics dm = activity.getResources().getDisplayMetrics();
@@ -73,8 +71,8 @@ public class PlantListFragment extends Fragment {
                     .setMargins(holder.getPhoto().getLayoutParams().width - Utils.convertDpToPx(55, dm),
                             holder.getPhoto().getLayoutParams().height - Utils.convertDpToPx(25, dm), 0, 0);
 
-            if (plant.getPhotoUrls() != null && plant.getPhotoUrls().size() > 0) {
-                Utils.displayImage(activity.getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + plant.getPhotoUrls().get(0),
+            if (plant.getUrl() != null) {
+                Utils.displayImage(activity.getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_PHOTOS + plant.getUrl(),
                         holder.getPhoto(), ((BaseApp) activity.getApplication()).getOptions());
             } else {
                 Crashlytics.log("Empty photoUrls: " + plant.getName());
@@ -85,7 +83,7 @@ public class PlantListFragment extends Fragment {
                     + Locale.getDefault().getLanguage() + AndroidConstants.SEPARATOR + plant.getName());
             mTranslationRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     try {
                         PlantTranslation plantTranslation = dataSnapshot.getValue(PlantTranslation.class);
 
@@ -101,20 +99,14 @@ public class PlantListFragment extends Fragment {
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
                     Log.e(this.getClass().getName(), databaseError.getMessage());
                 }
             });
 
-            for(Map.Entry<String, String> entry : plant.getTaxonomy().entrySet()) {
-                if (entry.getKey().endsWith(Constants.TAXONOMY_FAMILY)) {
-                    String family = entry.getValue();
-                    holder.getFamily().setText(family);
-                    Utils.displayImage(activity.getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_FAMILIES + family
-                            + AndroidConstants.DEFAULT_EXTENSION, holder.getFamilyIcon(), ((BaseApp) activity.getApplication()).getOptions());
-                    break;
-                }
-            }
+            holder.getFamily().setText(plant.getFamily());
+            Utils.displayImage(activity.getApplicationContext().getFilesDir(), AndroidConstants.STORAGE_FAMILIES + plant.getFamily()
+                    + AndroidConstants.DEFAULT_EXTENSION, holder.getFamilyIcon(), ((BaseApp) activity.getApplication()).getOptions());
 
             holder.getPhoto().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -138,12 +130,12 @@ public class PlantListFragment extends Fragment {
 
         RecyclerView list = view.findViewById(R.id.plant_list);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference plantsRef = database.getReference(AndroidConstants.FIREBASE_PLANTS);
+        DatabaseReference plantsRef = database.getReference(AndroidConstants.FIREBASE_PLANTS_HEADERS);
         if (activity.getListPath() != null) {
             DatabaseReference listRef = database.getReference(activity.getListPath());
 
-            FirebaseRecyclerOptions<FirebasePlant> options = new FirebaseRecyclerOptions.Builder<FirebasePlant>()
-                    .setIndexedQuery(listRef, plantsRef, FirebasePlant.class)
+            FirebaseRecyclerOptions<PlantHeader> options = new FirebaseRecyclerOptions.Builder<PlantHeader>()
+                    .setIndexedQuery(listRef, plantsRef, PlantHeader.class)
                     .build();
             adapter = new PropertyAdapter(options);
             list.setAdapter(adapter);

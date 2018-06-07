@@ -71,6 +71,9 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
                 DatabaseReference taxonomyRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_APG_IV);
                 taxonomyRef.keepSynced(newOfflineMode);
                 String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
+                DatabaseReference taxonomyInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS_TAXONOMY
+                        + AndroidConstants.SEPARATOR + language);
+                taxonomyInLanguageRef.keepSynced(newOfflineMode);
                 DatabaseReference searchInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
                         + AndroidConstants.SEPARATOR + language);
                 searchInLanguageRef.keepSynced(newOfflineMode);

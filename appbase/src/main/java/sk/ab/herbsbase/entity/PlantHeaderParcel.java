@@ -3,6 +3,7 @@ package sk.ab.herbsbase.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import sk.ab.common.entity.PlantHeader;
@@ -26,17 +27,23 @@ public class PlantHeaderParcel extends PlantHeader implements Parcelable {
     };
 
     public PlantHeaderParcel(PlantHeader plantHeader) {
-        id = plantHeader.getId();
-        label = plantHeader.getLabel();
-        url = plantHeader.getUrl();
+        name = plantHeader.getName();
         family = plantHeader.getFamily();
+        url = plantHeader.getUrl();
+        filterColor = plantHeader.getFilterColor();
+        filterDistribution = plantHeader.getFilterDistribution();
+        filterHabitat = plantHeader.getFilterHabitat();
+        filterPetal = plantHeader.getFilterPetal();
     }
 
     public PlantHeaderParcel(Parcel in) {
-        id = in.readString();
+        name = in.readString();
+        family = in.readString();
         url = in.readString();
-        label = (HashMap<String, String>) in.readSerializable();
-        family = (HashMap<String, String>) in.readSerializable();
+        filterColor = (ArrayList<Integer>) in.readSerializable();
+        filterDistribution = (ArrayList<Integer>) in.readSerializable();
+        filterHabitat = (ArrayList<Integer>) in.readSerializable();
+        filterPetal = (ArrayList<Integer>) in.readSerializable();
     }
 
     @Override
@@ -46,9 +53,12 @@ public class PlantHeaderParcel extends PlantHeader implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
+        parcel.writeString(name);
+        parcel.writeString(family);
         parcel.writeString(url);
-        parcel.writeSerializable(label);
-        parcel.writeSerializable(family);
+        parcel.writeSerializable(filterColor);
+        parcel.writeSerializable(filterDistribution);
+        parcel.writeSerializable(filterHabitat);
+        parcel.writeSerializable(filterPetal);
     }
 }

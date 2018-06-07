@@ -10,10 +10,8 @@ import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import sk.ab.common.entity.Count;
 import sk.ab.common.entity.FirebasePlant;
-import sk.ab.common.entity.Plant;
-import sk.ab.common.entity.PlantList;
+import sk.ab.common.entity.PlantHeader;
 
 
 /**
@@ -26,24 +24,8 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
-    @GET("filters/{filter}/count.json")
-    Call<Count> getCount(@Path("filter") String filter);
-
-    @Headers({
-            "Content-Type: application/json",
-            "Accept-Charset: UTF-8",
-            "charset: UTF-8"
-    })
-    @GET("filters/{filter}/list.json")
-    Call<PlantList> getList(@Path("filter") String filter);
-
-    @Headers({
-            "Content-Type: application/json",
-            "Accept-Charset: UTF-8",
-            "charset: UTF-8"
-    })
     @GET("plants/{name}.json")
-    Call<Plant> getDetail(@Path("name") String name);
+    Call<FirebasePlant> getDetail(@Path("name") String name);
 
     @Headers({
             "Content-Type: application/json",
@@ -82,6 +64,14 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
+    @GET("plants_headers/{id}.json")
+    Call<PlantHeader> getPlantHeader(@Path("id") Integer id);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
     @PUT("counts_new.json")
     Call<Map> saveCount(@Body Map<String, Integer> count);
 
@@ -91,7 +81,15 @@ public interface FirebaseService {
             "charset: UTF-8"
     })
     @PUT("lists_new.json")
-    Call<Map> saveList(@Body Map<String, Map<String, Boolean>> list);
+    Call<Map> saveList3(@Body Map<String, Map<String, Integer>> list);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @PUT("lists_new.json")
+    Call<Map> saveList4(@Body Map<String, Map<Integer, Integer>> list);
 
     @Headers({
             "Content-Type: application/json",
@@ -107,7 +105,7 @@ public interface FirebaseService {
             "charset: UTF-8"
     })
     @PUT("search_new/{language}.json")
-    Call<Object> saveSearch(@Path("language") String language, @Body Map<String, Map<String, Boolean>> plants);
+    Call<Object> saveSearch(@Path("language") String language, @Body Map<String, Map<Integer, Integer>> plants);
 
     @Headers({
             "Content-Type: application/json",

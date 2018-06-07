@@ -12,6 +12,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 import sk.ab.common.Constants;
 import sk.ab.common.entity.FirebasePlant;
+import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.service.FirebaseClient;
 import sk.ab.common.util.Utils;
 
@@ -28,9 +29,9 @@ public class Refresher {
     private static String CELL_DELIMITER = ";";
     private static String FILTER_DELIMITER = "\\_";
 
-    private static final String[] COLORS = {null, "white", "yellow", "red", "blue", "green"};
-    private static final String[] HABITATS = {null, "meadows or grassland", "gardens or fields", "moorlands or wetlands", "woodlands or forests", "rocks or mountains", "trees or bushes"};
-    private static final String[] PETALS = {null,"4 or less", "5", "Many", "Bisymetric"};
+    private static final String[] COLORS = {null, "1", "2", "3", "4", "5"};
+    private static final String[] HABITATS = {null, "1", "2", "3", "4", "5", "6"};
+    private static final String[] PETALS = {null,"1", "2", "3", "4"};
     private static final String[] DISTRIBUTION = {null, "10", "11", "12", "13", "14", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "40", "41", "42", "43", "50", "51", "60", "61", "62", "63", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "90", "91"};
 
     private static final String[] FILTER_3_ATTRIBUTES = {Constants.COLOR_OF_FLOWERS, Constants.HABITAT, Constants.NUMBER_OF_PETALS};
@@ -45,13 +46,13 @@ public class Refresher {
 
     private static void countAndList3() {
         Map<String, Integer> counts = new HashMap<>();
-        Map<String, Map<String, Boolean>> lists = new HashMap<>();
+        Map<String, Map<String, Integer>> lists = new HashMap<>();
 
         List<String> filtersWith3Attributes = generateCountsAndLists3();
 
         for (String filter : filtersWith3Attributes) {
             counts.put(filter, 0);
-            lists.put(filter, new HashMap<String, Boolean>());
+            lists.put(filter, new HashMap<String, Integer>());
         }
 
         File file = new File(PATH + PLANTS_FILE);
@@ -65,8 +66,8 @@ public class Refresher {
 
                 //System.out.println(plantLine[0]);
 
-                Call<FirebasePlant> plantCall = firebaseClient.getApiService().getPlant(plantLine[0]);
-                FirebasePlant plant = plantCall.execute().body();
+                Call<PlantHeader> plantCall = firebaseClient.getApiService().getPlantHeader(Integer.parseInt(plantLine[2])-1);
+                PlantHeader plant = plantCall.execute().body();
 
                 for (String filter : filtersWith3Attributes) {
 
@@ -76,7 +77,7 @@ public class Refresher {
                             && (filterParts[1].isEmpty() || plant.getFilterHabitat().contains(filterParts[1]))
                             && (filterParts[2].isEmpty() || plant.getFilterPetal().contains(filterParts[2]))) {
                         counts.put(filter, counts.get(filter) + 1);
-                        lists.get(filter).put(plantLine[0], true);
+                        lists.get(filter).put(plantLine[0], 1);
                     }
                 }
 
@@ -85,7 +86,7 @@ public class Refresher {
             Call<Map> callFirebaseCount = firebaseClient.getApiService().saveCount(counts);
             callFirebaseCount.execute().body();
 
-            Call<Map> callFirebaseList = firebaseClient.getApiService().saveList(lists);
+            Call<Map> callFirebaseList = firebaseClient.getApiService().saveList3(lists);
             callFirebaseList.execute().body();
 
         } catch (IOException e) {
@@ -95,13 +96,13 @@ public class Refresher {
 
     private static void countAndList4() {
         Map<String, Integer> counts = new HashMap<>();
-        Map<String, Map<String, Boolean>> lists = new HashMap<>();
+        Map<String, Map<Integer, Integer>> lists = new HashMap<>();
 
         List<String> filtersWith4Attributes = generateCountsAndLists4();
 
         for (String filter : filtersWith4Attributes) {
             counts.put(filter, 0);
-            lists.put(filter, new HashMap<String, Boolean>());
+            lists.put(filter, new HashMap<Integer, Integer>());
         }
 
         File file = new File(PATH + PLANTS_FILE);
@@ -112,31 +113,33 @@ public class Refresher {
             while(scan.hasNextLine()) {
 
                 final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
+                Integer id = Integer.parseInt(plantLine[2]) - 1;
 
-                //System.out.println(plantLine[0]);
+                System.out.println(id + ": " + plantLine[0]);
 
-                Call<FirebasePlant> plantCall = firebaseClient.getApiService().getPlant(plantLine[0]);
-                FirebasePlant plant = plantCall.execute().body();
+                Call<PlantHeader> plantCall = firebaseClient.getApiService().getPlantHeader(id);
+                PlantHeader plant = plantCall.execute().body();
 
                 for (String filter : filtersWith4Attributes) {
 
                     String[] filterParts = filter.split(FILTER_DELIMITER, -1);
 
-                    if ((filterParts[0].isEmpty() || plant.getFilterColor().contains(filterParts[0]))
-                            && (filterParts[1].isEmpty() || plant.getFilterHabitat().contains(filterParts[1]))
-                            && (filterParts[2].isEmpty() || plant.getFilterPetal().contains(filterParts[2]))
+                    if ((filterParts[0].isEmpty() || plant.getFilterColor().contains(Integer.parseInt(filterParts[0])))
+                            && (filterParts[1].isEmpty() || plant.getFilterHabitat().contains(Integer.parseInt(filterParts[1])))
+                            && (filterParts[2].isEmpty() || plant.getFilterPetal().contains(Integer.parseInt(filterParts[2])))
                             && (filterParts[3].isEmpty() || plant.getFilterDistribution().contains(Integer.parseInt(filterParts[3])))) {
                         counts.put(filter, counts.get(filter) + 1);
-                        lists.get(filter).put(plantLine[0], true);
+                        lists.get(filter).put(id, 1);
                     }
                 }
 
             }
+            scan.close();
 
             Call<Map> callFirebaseCount = firebaseClient.getApiService().saveCount(counts);
             callFirebaseCount.execute().body();
 
-            Call<Map> callFirebaseList = firebaseClient.getApiService().saveList(lists);
+            Call<Map> callFirebaseList = firebaseClient.getApiService().saveList4(lists);
             callFirebaseList.execute().body();
 
         } catch (IOException e) {
@@ -150,20 +153,31 @@ public class Refresher {
         final FirebaseClient firebaseClient = new FirebaseClient();
 
         try {
+            File file = new File(PATH + PLANTS_FILE);
+            Map<String, Integer> plants =  new HashMap<>();
+            Scanner scan = new Scanner(file);
+            while(scan.hasNextLine()) {
+
+                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
+                plants.put(plantLine[0], Integer.parseInt(plantLine[2])-1);
+            }
+            scan.close();
+
+
             for (String language : languages) {
                 System.out.println(language);
 
-                Map<String, Map<String, Boolean>> searchMap = new HashMap<>();
+                Map<String, Map<Integer, Integer>> searchMap = new HashMap<>();
 
                 Call<Map<String, Object>> translationCall = firebaseClient.getApiService().getTranslation(language);
                 Map<String, Object> translation = translationCall.execute().body();
 
                 for (Map.Entry<String, Object> entry : translation.entrySet()) {
-                    String plantName = entry.getKey();
+                    Integer plantName = plants.get(entry.getKey());
 
                     Map<String, Object> plant = (Map<String, Object>) entry.getValue();
 
-                    Map<String, Boolean> searchForLabel = null;
+                    Map<Integer, Integer> searchForLabel = null;
                     String label = (String)plant.get("label");
                     if (label != null) {
                         label = label.toLowerCase();
@@ -176,7 +190,7 @@ public class Refresher {
                             searchForLabel = new HashMap<>();
                             searchMap.put(label, searchForLabel);
                         }
-                        searchForLabel.put(plantName, true);
+                        searchForLabel.put(plantName, 1);
                     }
 
                     List<String> names = (List<String>)plant.get("names");
@@ -192,7 +206,7 @@ public class Refresher {
                                 searchForLabel = new HashMap<>();
                                 searchMap.put(name, searchForLabel);
                             }
-                            searchForLabel.put(plantName, true);
+                            searchForLabel.put(plantName, 1);
                         }
                     }
                 }
@@ -217,20 +231,20 @@ public class Refresher {
             }
 
             // latin
-            Map<String, Map<String, Boolean>> searchMap = new HashMap<>();
+            Map<String, Map<Integer, Integer>> searchMap = new HashMap<>();
 
-            File file = new File(PATH + PLANTS_FILE);
-            Scanner scan = new Scanner(file);
+            scan = new Scanner(file);
             while(scan.hasNextLine()) {
 
                 final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
+                Integer plantName = plants.get(plantLine[0]);
 
                 //System.out.println(plantLine[0]);
 
                 Call<FirebasePlant> plantCall = firebaseClient.getApiService().getPlant(plantLine[0]);
                 FirebasePlant plant = plantCall.execute().body();
 
-                Map<String, Boolean> searchForLabel = null;
+                Map<Integer, Integer> searchForLabel = null;
                 String label = plant.getName();
                 if (label != null) {
                     label = label.toLowerCase();
@@ -240,7 +254,7 @@ public class Refresher {
                         searchForLabel = new HashMap<>();
                         searchMap.put(label, searchForLabel);
                     }
-                    searchForLabel.put(plantLine[0], true);
+                    searchForLabel.put(plantName, 1);
                 }
 
                 List<String> names = plant.getSynonyms();
@@ -261,10 +275,11 @@ public class Refresher {
                             searchForLabel = new HashMap<>();
                             searchMap.put(name, searchForLabel);
                         }
-                        searchForLabel.put(plantLine[0], true);
+                        searchForLabel.put(plantName, 1);
                     }
                 }
             }
+            scan.close();
 
             Call<Object> callFirebaseSearch = firebaseClient.getApiService().saveSearch("la", searchMap);
             Response<Object> response = callFirebaseSearch.execute();

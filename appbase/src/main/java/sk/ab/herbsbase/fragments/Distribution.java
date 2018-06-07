@@ -163,7 +163,7 @@ public class Distribution extends BaseFilterFragment {
         SharedPreferences preferences = ((FilterPlantsBaseActivity)getActivity()).getSharedPreferences();
         String myRegion = preferences.getString(AndroidConstants.MY_REGION_KEY, null);
         if (myRegion != null) {
-            myRegionText.setText(AndroidConstants.filterResources.get(myRegion));
+            myRegionText.setText(AndroidConstants.filterResources.get(Constants.DISTRIBUTION + "_" + myRegion));
         }
 
         closeSecondLevel(null);

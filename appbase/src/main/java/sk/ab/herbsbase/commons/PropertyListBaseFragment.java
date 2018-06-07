@@ -144,7 +144,7 @@ public abstract class PropertyListBaseFragment extends ListFragment {
                             if (((BaseActivity) getActivity()).getFilter() != null){
                                 String valueId = ((BaseActivity) getActivity()).getFilter().get(filterFragment.getAttribute());
                                 if (valueId != null) {
-                                    int resId = AndroidConstants.filterResources.get(valueId);
+                                    int resId = AndroidConstants.filterResources.get(filterFragment.getAttribute()+"_"+valueId);
                                     if (resId > 0) {
                                         valueText = getResources().getText(resId).toString();
                                     }

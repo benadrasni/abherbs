@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 public class FirebasePlant {
 
-    private Integer plantId;
     private Integer gbifId;
     private Integer kewId;
     private String usdaId;
@@ -22,75 +21,12 @@ public class FirebasePlant {
     private ArrayList<String> photoUrls = new ArrayList<>();
     private ArrayList<String> sourceUrls = new ArrayList<>();
 
-    private ArrayList<String> filterColor;
-    private ArrayList<String> filterHabitat;
-    private ArrayList<String> filterPetal;
-    private ArrayList<Integer> filterDistribution;
-    private ArrayList<String> filterInflorescence;
-    private ArrayList<String> filterSepal;
-    private ArrayList<String> filterStem;
-    private ArrayList<String> filterLeafShape;
-    private ArrayList<String> filterLeafMargin;
-    private ArrayList<String> filterLeafVenetation;
-    private ArrayList<String> filterLeafArrangement;
-    private ArrayList<String> filterRoot;
-
     private HashMap<String, String> wikilinks = new HashMap<>();
     private HashMap<String, String> taxonomy = new HashMap<>();
     private HashMap<String, String> APGIV = new HashMap<>();
 
     public FirebasePlant() {
 
-    }
-
-    public FirebasePlant(Plant plant) {
-        this.plantId = plant.getPlantId();
-        this.gbifId = plant.getGbifId();
-        this.kewId = plant.getKewId();
-        this.usdaId = plant.getUsdaId();
-        this.name = plant.getName();
-        this.wikiName = plant.getWikiName();
-        this.illustrationUrl = plant.getIllustrationUrl();
-        this.heightFrom = plant.getHeightFrom();
-        this.heightTo = plant.getHeightTo();
-        this.floweringFrom = plant.getFloweringFrom();
-        this.floweringTo = plant.getFloweringTo();
-        this.toxicityClass = plant.getToxicityClass();
-        this.synonyms = plant.getSynonyms();
-        this.photoUrls = plant.getPhotoUrls();
-        this.sourceUrls = plant.getSourceUrls().get("");
-        this.filterColor = plant.getFilterColor();
-        this.filterHabitat = plant.getFilterHabitat();
-        this.filterPetal = plant.getFilterPetal();
-        this.filterDistribution = plant.getFilterDistribution();
-        this.filterInflorescence = plant.getFilterInflorescence();
-        this.filterSepal = plant.getFilterSepal();
-        this.filterStem = plant.getFilterStem();
-        this.filterLeafShape = plant.getFilterLeafShape();
-        this.filterLeafMargin = plant.getFilterLeafMargin();
-        this.filterLeafVenetation = plant.getFilterLeafVenetation();
-        this.filterLeafArrangement = plant.getFilterLeafArrangement();
-        this.filterRoot = plant.getFilterRoot();
-        this.taxonomy = plant.getTaxonomy();
-        this.wikilinks = new HashMap<>();
-        if (plant.getWikilinks().get("commons") != null) {
-            this.wikilinks.put("commons", plant.getWikilinks().get("commons"));
-        }
-        if (plant.getWikilinks().get("data") != null) {
-            this.wikilinks.put("data", plant.getWikilinks().get("data"));
-        }
-        if (plant.getWikilinks().get("species") != null) {
-            this.wikilinks.put("species", plant.getWikilinks().get("species"));
-        }
-
-    }
-
-    public Integer getPlantId() {
-        return plantId;
-    }
-
-    public void setPlantId(Integer plantId) {
-        this.plantId = plantId;
     }
 
     public Integer getGbifId() {
@@ -203,102 +139,6 @@ public class FirebasePlant {
 
     public void setSourceUrls(ArrayList<String> sourceUrls) {
         this.sourceUrls = sourceUrls;
-    }
-
-    public ArrayList<String> getFilterColor() {
-        return filterColor;
-    }
-
-    public void setFilterColor(ArrayList<String> filterColor) {
-        this.filterColor = filterColor;
-    }
-
-    public ArrayList<String> getFilterHabitat() {
-        return filterHabitat;
-    }
-
-    public void setFilterHabitat(ArrayList<String> filterHabitat) {
-        this.filterHabitat = filterHabitat;
-    }
-
-    public ArrayList<String> getFilterPetal() {
-        return filterPetal;
-    }
-
-    public void setFilterPetal(ArrayList<String> filterPetal) {
-        this.filterPetal = filterPetal;
-    }
-
-    public ArrayList<Integer> getFilterDistribution() {
-        return filterDistribution;
-    }
-
-    public void setFilterDistribution(ArrayList<Integer> filterDistribution) {
-        this.filterDistribution = filterDistribution;
-    }
-
-    public ArrayList<String> getFilterInflorescence() {
-        return filterInflorescence;
-    }
-
-    public void setFilterInflorescence(ArrayList<String> filterInflorescence) {
-        this.filterInflorescence = filterInflorescence;
-    }
-
-    public ArrayList<String> getFilterSepal() {
-        return filterSepal;
-    }
-
-    public void setFilterSepal(ArrayList<String> filterSepal) {
-        this.filterSepal = filterSepal;
-    }
-
-    public ArrayList<String> getFilterStem() {
-        return filterStem;
-    }
-
-    public void setFilterStem(ArrayList<String> filterStem) {
-        this.filterStem = filterStem;
-    }
-
-    public ArrayList<String> getFilterLeafShape() {
-        return filterLeafShape;
-    }
-
-    public void setFilterLeafShape(ArrayList<String> filterLeafShape) {
-        this.filterLeafShape = filterLeafShape;
-    }
-
-    public ArrayList<String> getFilterLeafMargin() {
-        return filterLeafMargin;
-    }
-
-    public void setFilterLeafMargin(ArrayList<String> filterLeafMargin) {
-        this.filterLeafMargin = filterLeafMargin;
-    }
-
-    public ArrayList<String> getFilterLeafVenetation() {
-        return filterLeafVenetation;
-    }
-
-    public void setFilterLeafVenetation(ArrayList<String> filterLeafVenetation) {
-        this.filterLeafVenetation = filterLeafVenetation;
-    }
-
-    public ArrayList<String> getFilterLeafArrangement() {
-        return filterLeafArrangement;
-    }
-
-    public void setFilterLeafArrangement(ArrayList<String> filterLeafArrangement) {
-        this.filterLeafArrangement = filterLeafArrangement;
-    }
-
-    public ArrayList<String> getFilterRoot() {
-        return filterRoot;
-    }
-
-    public void setFilterRoot(ArrayList<String> filterRoot) {
-        this.filterRoot = filterRoot;
     }
 
     public HashMap<String, String> getWikilinks() {

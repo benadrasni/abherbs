@@ -3,23 +3,23 @@
     <string translatable="false" name="app_name"></string>
     <string translatable="false" name="default_notification_channel_id">new_plants</string>
 
-    <string translatable="false" name="cof_white">white</string>
-    <string translatable="false" name="cof_yellow">yellow</string>
-    <string translatable="false" name="cof_red">red</string>
-    <string translatable="false" name="cof_blue">blue</string>
-    <string translatable="false" name="cof_green">green</string>
+    <string translatable="false" name="cof_white">1</string>
+    <string translatable="false" name="cof_yellow">2</string>
+    <string translatable="false" name="cof_red">3</string>
+    <string translatable="false" name="cof_blue">4</string>
+    <string translatable="false" name="cof_green">5</string>
 
-    <string translatable="false" name="ph_meadows">meadows or grassland</string>
-    <string translatable="false" name="ph_gardens">gardens or fields</string>
-    <string translatable="false" name="ph_moorlands">moorlands or wetlands</string>
-    <string translatable="false" name="ph_woodlands">woodlands or forests</string>
-    <string translatable="false" name="ph_rocks">rocks or mountains</string>
-    <string translatable="false" name="ph_trees">trees or bushes</string>
+    <string translatable="false" name="ph_meadows">1</string>
+    <string translatable="false" name="ph_gardens">2</string>
+    <string translatable="false" name="ph_moorlands">3</string>
+    <string translatable="false" name="ph_woodlands">4</string>
+    <string translatable="false" name="ph_rocks">5</string>
+    <string translatable="false" name="ph_trees">6</string>
 
-    <string translatable="false" name="nop_4">4 or less</string>
-    <string translatable="false" name="nop_5">5</string>
-    <string translatable="false" name="nop_many">Many</string>
-    <string translatable="false" name="nop_bisymmetric">Bisymetric</string>
+    <string translatable="false" name="nop_4">1</string>
+    <string translatable="false" name="nop_5">2</string>
+    <string translatable="false" name="nop_many">3</string>
+    <string translatable="false" name="nop_bisymmetric">4</string>
 
     <string translatable="false" name="wgsrpd_10">10</string>
     <string translatable="false" name="wgsrpd_11">11</string>

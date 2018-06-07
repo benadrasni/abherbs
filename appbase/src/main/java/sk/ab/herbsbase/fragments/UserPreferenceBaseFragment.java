@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import sk.ab.common.Constants;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.R;
@@ -159,7 +160,7 @@ public abstract class UserPreferenceBaseFragment extends PreferenceFragment {
         String myRegion = preferences.getString(AndroidConstants.MY_REGION_KEY, null);
         if (myRegion != null) {
             prefMyRegion = findPreference("myRegion");
-            prefMyRegion.setSummary(AndroidConstants.filterResources.get(myRegion));
+            prefMyRegion.setSummary(AndroidConstants.filterResources.get(Constants.DISTRIBUTION + "_" + myRegion));
         }
     }
 

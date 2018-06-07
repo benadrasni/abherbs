@@ -135,14 +135,15 @@ public class TaxonomyFragment extends Fragment {
 		}
 		
 		final SynchronizedCounter counter = new SynchronizedCounter();
-		final int maxCounter = sortedKeys.size() * 3;
+		final int maxCounter = sortedKeys.size() * 2;
 		
 		FirebaseDatabase database = FirebaseDatabase.getInstance();
 		
 		final List<PlantTaxon> taxons = new ArrayList<>();
 		String taxonomy = taxonomyPath.toString();
-		for (int i = 0; i < sortedKeys.size(); i++) {
+		for (int i = sortedKeys.size() -1; i >=0; i--) {
 			final PlantTaxon taxon = new PlantTaxon();
+			taxon.setLatinName(plant.getAPGIV().get(sortedKeys.get(i)));
             taxons.add(taxon);
 			
 			// type
@@ -175,7 +176,7 @@ public class TaxonomyFragment extends Fragment {
 			});	
 			
 			// name
-			DatabaseReference taxonNameRef = database.getReference(AndroidConstants.FIREBASE_APG_IV + taxonomy + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_APG_NAMES + AndroidConstants.SEPARATOR + Locale.getDefault().getLanguage());
+			DatabaseReference taxonNameRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS_TAXONOMY + AndroidConstants.SEPARATOR + Locale.getDefault().getLanguage() + AndroidConstants.SEPARATOR + taxon.getLatinName());
 			taxonNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
 				@Override
 				public void onDataChange(DataSnapshot dataSnapshot) {
@@ -196,29 +197,6 @@ public class TaxonomyFragment extends Fragment {
 					displayPlantBaseActivity.countButton.setVisibility(View.GONE);
 				}
 			});	
-
-			// latin name
-			DatabaseReference taxonLatinNameRef = database.getReference(AndroidConstants.FIREBASE_APG_IV + taxonomy + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_APG_NAMES + AndroidConstants.SEPARATOR + Constants.LANGUAGE_LA);
-			taxonLatinNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
-				@Override
-				public void onDataChange(DataSnapshot dataSnapshot) {
-					taxon.setLatinName((List<String>) dataSnapshot.getValue());
-				
-					counter.increment();
-				
-					if (counter.value() == maxCounter) {
-						printTaxonomy(layout, taxons);
-					}
-				}
-				
-				@Override
-				public void onCancelled(DatabaseError databaseError) {
-					Log.e(this.getClass().getName(), databaseError.getMessage());
-					Toast.makeText(displayPlantBaseActivity.getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
-					displayPlantBaseActivity.stopLoading();
-					displayPlantBaseActivity.countButton.setVisibility(View.GONE);
-				}
-			});
 
 			taxonomy = taxonomy.substring(0, taxonomy.lastIndexOf("/"));
 		}
@@ -243,29 +221,11 @@ public class TaxonomyFragment extends Fragment {
 			}
 
 			TextView textLatinName = view.findViewById(R.id.taxonLatinName);
-			StringBuilder sbLatinName = new StringBuilder();
-			if (taxon.getLatinName() != null) {
-				for (String s : taxon.getLatinName()) {
-					if (sbLatinName.length() > 0) {
-						sbLatinName.append(", ");
-					}
-					sbLatinName.append(s);
-				}
-			}
-
 			if (sbName.length() > 0) {
 				textName.setText(sbName.toString());
-				if (sbLatinName.length() > 0) {
-					textLatinName.setText(sbLatinName.toString());
-				} else {
-					textLatinName.setVisibility(View.GONE);
-				}
+    			textLatinName.setText(taxon.getLatinName());
 			} else {
-				if (sbLatinName.length() > 0) {
-					textName.setText(sbLatinName.toString());
-				} else {
-					textName.setVisibility(View.GONE);
-				}
+				textName.setText(taxon.getLatinName());
 				textLatinName.setVisibility(View.GONE);
 			}
 

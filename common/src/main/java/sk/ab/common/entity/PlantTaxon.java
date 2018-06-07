@@ -10,7 +10,7 @@ public class PlantTaxon {
     private int offset;
     private String type;
     private List<String> name;
-    private List<String> latinName;
+    private String latinName;
     private String path;
     private int count;
     private String plantName;
@@ -39,11 +39,11 @@ public class PlantTaxon {
         this.name = name;
     }
 
-    public List<String> getLatinName() {
+    public String getLatinName() {
         return latinName;
     }
 
-    public void setLatinName(List<String> latinName) {
+    public void setLatinName(String latinName) {
         this.latinName = latinName;
     }
 

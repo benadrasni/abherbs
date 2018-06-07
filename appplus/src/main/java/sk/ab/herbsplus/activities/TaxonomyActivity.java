@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import sk.ab.common.Constants;
 import sk.ab.common.entity.PlantTaxon;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.activities.SearchBaseActivity;
@@ -131,29 +130,11 @@ public class TaxonomyActivity extends SearchBaseActivity {
             }
 
             TextView textLatinName = rowView.findViewById(R.id.taxonLatinName);
-            StringBuilder sbLatinName = new StringBuilder();
-            if (taxon.getLatinName() != null) {
-                for (String s : taxon.getLatinName()) {
-                    if (sbLatinName.length() > 0) {
-                        sbLatinName.append(", ");
-                    }
-                    sbLatinName.append(s);
-                }
-            }
-
             if (sbName.length() > 0) {
                 textName.setText(sbName.toString());
-                if (sbLatinName.length() > 0) {
-                    textLatinName.setText(sbLatinName.toString());
-                } else {
-                    textLatinName.setVisibility(View.GONE);
-                }
+                textLatinName.setText(taxon.getLatinName());
             } else {
-                if (sbLatinName.length() > 0) {
-                    textName.setText(sbLatinName.toString());
-                } else {
-                    textName.setVisibility(View.GONE);
-                }
+                textName.setText(taxon.getLatinName());
                 textLatinName.setVisibility(View.GONE);
             }
 
@@ -179,15 +160,9 @@ public class TaxonomyActivity extends SearchBaseActivity {
                             }
                         }
                     }
-                    if (taxon.getLatinName() != null) {
-                        for (String latinName : taxon.getLatinName()) {
-                            if (latinName.toLowerCase().contains(constraint)) {
-                                taxons.add(taxon);
-                                break;
-                            }
-                        }
-                    } else {
-                        Log.w("TAXONOMY", "Missing latin name for " + taxon.getType());
+                    if (taxon.getLatinName().toLowerCase().contains(constraint)) {
+                        taxons.add(taxon);
+                        break;
                     }
                 }
             }
@@ -279,18 +254,31 @@ public class TaxonomyActivity extends SearchBaseActivity {
 
     private void loadTaxonomy() {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_APG_IV);
 
+        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_APG_IV);
         mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                buildTaxonomy((Map)((Map)dataSnapshot.getValue()).get(AndroidConstants.ROOT_TAXON), 0, AndroidConstants.FIREBASE_APG_IV
-                        + AndroidConstants.SEPARATOR + AndroidConstants.ROOT_TAXON);
+                final Map apg = (Map)dataSnapshot.getValue();
+                DatabaseReference mFirebaseRefTranslations = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS_TAXONOMY + AndroidConstants.SEPARATOR + Locale.getDefault().getLanguage());
+                mFirebaseRefTranslations.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        buildTaxonomy((Map)dataSnapshot.getValue(), (Map)apg.get(AndroidConstants.ROOT_TAXON), 0, AndroidConstants.FIREBASE_APG_IV
+                                + AndroidConstants.SEPARATOR, AndroidConstants.ROOT_TAXON);
 
-                TaxonAdapter adapter = new TaxonAdapter(getApplicationContext(), taxons);
-                taxonomyListView.setAdapter(adapter);
-                EditText searchViewEditText = mSearchView.findViewById(R.id.search_src_text);
-                searchViewEditText.setEnabled(true);
+                        TaxonAdapter adapter = new TaxonAdapter(getApplicationContext(), taxons);
+                        taxonomyListView.setAdapter(adapter);
+                        EditText searchViewEditText = mSearchView.findViewById(R.id.search_src_text);
+                        searchViewEditText.setEnabled(true);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e(this.getClass().getName(), databaseError.getMessage());
+                        Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override
@@ -301,17 +289,29 @@ public class TaxonomyActivity extends SearchBaseActivity {
         });
     }
 
-    private void buildTaxonomy(Map taxonomy, int offset, String path) {
+    private void buildTaxonomy(Map dictionary, Map taxonomy, int offset, String path, String taxonName) {
         PlantTaxon taxon = new PlantTaxon();
-        taxon.setPath(path + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_APG_LIST);
+        taxon.setPath(path + taxonName + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_APG_LIST);
         taxon.setOffset(offset);
         taxon.setType((String) taxonomy.get(AndroidConstants.FIREBASE_APG_TYPE));
-        taxon.setLatinName((List<String>) ((HashMap<String, Object>) taxonomy.get(AndroidConstants.FIREBASE_APG_NAMES)).get(Constants.LANGUAGE_LA));
-        taxon.setName((List<String>) ((HashMap<String, Object>)taxonomy.get(AndroidConstants.FIREBASE_APG_NAMES)).get(Locale.getDefault().getLanguage()));
+        taxon.setLatinName(taxonName);
+        taxon.setName((ArrayList<String>)dictionary.get(taxonName));
         Long count = (Long)taxonomy.get(AndroidConstants.FIREBASE_APG_COUNT);
         if (count != null && count > 0) {
             taxon.setCount(count.intValue());
-            taxon.setPlantName(((HashMap<String, Object>)taxonomy.get(AndroidConstants.FIREBASE_APG_LIST)).entrySet().iterator().next().getKey());
+            Object plantList = taxonomy.get(AndroidConstants.FIREBASE_APG_LIST);
+            if (plantList instanceof ArrayList) {
+                int i = 0;
+                for (Long name : (ArrayList<Long>) plantList) {
+                    if (name != null) {
+                        taxon.setPlantName(""+i);
+                        break;
+                    }
+                    i++;
+                }
+            } else {
+                taxon.setPlantName(((HashMap<String, Object>) plantList).entrySet().iterator().next().getKey());
+            }
         }
         taxons.add(taxon);
 
@@ -321,7 +321,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
                     || AndroidConstants.FIREBASE_APG_LIST.equals(key) || AndroidConstants.FIREBASE_APG_COUNT.equals(key)) {
                 continue;
             }
-            buildTaxonomy((Map)taxonomy.get(key), offset + 1, path + AndroidConstants.SEPARATOR + key);
+            buildTaxonomy(dictionary, (Map)taxonomy.get(key), offset + 1, path + taxonName + AndroidConstants.SEPARATOR, key);
         }
     }
 

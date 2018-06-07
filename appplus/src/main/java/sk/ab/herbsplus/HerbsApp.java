@@ -43,10 +43,15 @@ public class HerbsApp extends BaseApp {
         listsRef.keepSynced(true);
         DatabaseReference plantsRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_PLANTS);
         plantsRef.keepSynced(true);
+        DatabaseReference plantsHeadersRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_PLANTS_HEADERS);
+        plantsHeadersRef.keepSynced(true);
         if (offline) {
             DatabaseReference taxonomyRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_APG_IV);
             taxonomyRef.keepSynced(true);
             String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
+            DatabaseReference taxonomyInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS_TAXONOMY
+                    + AndroidConstants.SEPARATOR + language);
+            taxonomyInLanguageRef.keepSynced(true);
             DatabaseReference searchInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
                     + AndroidConstants.SEPARATOR + language);
             searchInLanguageRef.keepSynced(true);

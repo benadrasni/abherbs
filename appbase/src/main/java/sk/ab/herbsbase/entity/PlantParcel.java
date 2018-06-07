@@ -26,7 +26,6 @@ public class PlantParcel extends FirebasePlant implements Parcelable {
     };
 
     public PlantParcel(FirebasePlant plant) {
-        setPlantId(plant.getPlantId());
         setName(plant.getName());
         setWikiName(plant.getWikiName());
         setIllustrationUrl(plant.getIllustrationUrl());
@@ -41,22 +40,9 @@ public class PlantParcel extends FirebasePlant implements Parcelable {
         setTaxonomy(plant.getTaxonomy());
         setAPGIV(plant.getAPGIV());
         setWikilinks(plant.getWikilinks());
-
-        setFilterColor(plant.getFilterColor());
-        setFilterHabitat(plant.getFilterHabitat());
-        setFilterPetal(plant.getFilterPetal());
-        setFilterInflorescence(plant.getFilterInflorescence());
-        setFilterSepal(plant.getFilterSepal());
-        setFilterStem(plant.getFilterStem());
-        setFilterLeafShape(plant.getFilterLeafShape());
-        setFilterLeafMargin(plant.getFilterLeafMargin());
-        setFilterLeafVenetation(plant.getFilterLeafVenetation());
-        setFilterLeafArrangement(plant.getFilterLeafArrangement());
-        setFilterRoot(plant.getFilterRoot());
     }
 
     public PlantParcel(Parcel in) {
-        setPlantId((Integer)in.readSerializable());
         setName(in.readString());
         setWikiName(in.readString());
         setIllustrationUrl(in.readString());
@@ -71,18 +57,6 @@ public class PlantParcel extends FirebasePlant implements Parcelable {
         setTaxonomy((HashMap<String, String>)in.readSerializable());
         setAPGIV((HashMap<String, String>)in.readSerializable());
         setWikilinks((HashMap<String, String>)in.readSerializable());
-
-        setFilterColor((ArrayList<String>)in.readSerializable());
-        setFilterHabitat((ArrayList<String>)in.readSerializable());
-        setFilterPetal((ArrayList<String>)in.readSerializable());
-        setFilterInflorescence((ArrayList<String>)in.readSerializable());
-        setFilterSepal((ArrayList<String>)in.readSerializable());
-        setFilterStem((ArrayList<String>)in.readSerializable());
-        setFilterLeafShape((ArrayList<String>)in.readSerializable());
-        setFilterLeafMargin((ArrayList<String>)in.readSerializable());
-        setFilterLeafVenetation((ArrayList<String>)in.readSerializable());
-        setFilterLeafArrangement((ArrayList<String>)in.readSerializable());
-        setFilterRoot((ArrayList<String>)in.readSerializable());
     }
 
 
@@ -93,7 +67,6 @@ public class PlantParcel extends FirebasePlant implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeSerializable(getPlantId());
         parcel.writeString(getName());
         parcel.writeString(getWikiName());
         parcel.writeString(getIllustrationUrl());
@@ -108,17 +81,5 @@ public class PlantParcel extends FirebasePlant implements Parcelable {
         parcel.writeSerializable(getTaxonomy());
         parcel.writeSerializable(getAPGIV());
         parcel.writeSerializable(getWikilinks());
-
-        parcel.writeSerializable(getFilterColor());
-        parcel.writeSerializable(getFilterHabitat());
-        parcel.writeSerializable(getFilterPetal());
-        parcel.writeSerializable(getFilterInflorescence());
-        parcel.writeSerializable(getFilterSepal());
-        parcel.writeSerializable(getFilterStem());
-        parcel.writeSerializable(getFilterLeafShape());
-        parcel.writeSerializable(getFilterLeafMargin());
-        parcel.writeSerializable(getFilterLeafVenetation());
-        parcel.writeSerializable(getFilterLeafArrangement());
-        parcel.writeSerializable(getFilterRoot());
     }
 }
