@@ -24,6 +24,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import sk.ab.common.entity.FirebasePlant;
 import sk.ab.common.entity.PlantHeader;
@@ -143,6 +144,29 @@ public class OfflineService extends JobIntentService {
                                     queryHeader.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            Object listOrMap = dataSnapshot.getValue();
+                                            if (listOrMap != null) {
+                                                if (listOrMap instanceof ArrayList) {
+                                                    ArrayList<PlantHeader> plantHeaders = (ArrayList<PlantHeader>) listOrMap;
+                                                    int i = 0;
+                                                    while(plantHeaders.get(i) == null) {
+                                                        i++;
+                                                    }
+                                                    if (i+1 == plantHeaders.size()) {
+                                                        downloadPlant(from, plantHeaders.get(i), plant, countAll);
+                                                    } else {
+                                                        broadcastDownload(-1, -1);
+                                                    }
+                                                } else {
+                                                    HashMap<String, PlantHeader> plantHeaders = (HashMap<String, PlantHeader>) listOrMap;
+                                                    if (plantHeaders.values().size() == 1) {
+                                                        downloadPlant(from, plantHeaders.values().iterator().next(), plant, countAll);
+                                                    } else {
+                                                        broadcastDownload(-1, -1);
+                                                    }
+                                                }
+                                            }
+
                                             GenericTypeIndicator<ArrayList<PlantHeader>> t = new GenericTypeIndicator<ArrayList<PlantHeader>>() {};
                                             ArrayList<PlantHeader> plantHeaders = dataSnapshot.getValue(t);
                                             if (plantHeaders != null) {
