@@ -11,12 +11,11 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -24,8 +23,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import sk.ab.common.entity.FirebasePlant;
+import sk.ab.common.entity.PlantHeader;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.tools.SynchronizedCounter;
@@ -59,11 +60,6 @@ public class OfflineService extends JobIntentService {
         }
 
         database = FirebaseDatabase.getInstance();
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user == null) {
-            mAuth.signInAnonymously();
-        }
 
         boolean offlineMode = getSharedPreferences(SpecificConstants.PACKAGE, Context.MODE_PRIVATE).getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
         if (offlineMode) {
@@ -73,17 +69,17 @@ public class OfflineService extends JobIntentService {
             final Query queryCount = mFirebaseRefCount.child(AndroidConstants.FIREBASE_DATA_COUNT);
             mFirebaseRefCount.child("refreshMock").setValue("mock", new DatabaseReference.CompletionListener() {
                 @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                public void onComplete(DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                     queryCount.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             assert dataSnapshot.getValue() != null;
                             final Integer countAll = ((Long) dataSnapshot.getValue()).intValue();
 
                             DatabaseReference mFirebaseRefPlant = database.getReference(AndroidConstants.FIREBASE_PLANTS + AndroidConstants.SEPARATOR + FIRST_FLOWER);
                             mFirebaseRefPlant.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     FirebasePlant plant = dataSnapshot.getValue(FirebasePlant.class);
 
                                     assert plant != null;
@@ -107,7 +103,7 @@ public class OfflineService extends JobIntentService {
                                 }
 
                                 @Override
-                                public void onCancelled(DatabaseError databaseError) {
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
                                     Log.e(TAG, databaseError.getMessage());
                                     broadcastDownload(-1, -1);
                                 }
@@ -115,7 +111,7 @@ public class OfflineService extends JobIntentService {
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
                             Log.e(TAG, databaseError.getMessage());
                             broadcastDownload(-1, -1);
                         }
@@ -130,24 +126,48 @@ public class OfflineService extends JobIntentService {
                 + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_DATA_LIST + AndroidConstants.SEPARATOR + from);
         mFirebaseRefPlant.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
                     String plantName = dataSnapshot.getValue(String.class);
 
                     DatabaseReference mFirebaseRefPlant = database.getReference(AndroidConstants.FIREBASE_PLANTS + AndroidConstants.SEPARATOR + plantName);
                     mFirebaseRefPlant.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getValue() != null) {
-                                FirebasePlant plant = dataSnapshot.getValue(FirebasePlant.class);
-                                downloadPlant(from, plant, countAll);
+                                final FirebasePlant plant = dataSnapshot.getValue(FirebasePlant.class);
+                                if (plant != null) {
+
+                                    final Query queryHeader = database.getReference().child(AndroidConstants.FIREBASE_PLANTS_HEADERS)
+                                            .orderByChild(AndroidConstants.FIREBASE_NAME).equalTo(plant.getName());
+                                    queryHeader.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            GenericTypeIndicator<ArrayList<PlantHeader>> t = new GenericTypeIndicator<ArrayList<PlantHeader>>() {};
+                                            ArrayList<PlantHeader> plantHeaders = dataSnapshot.getValue(t);
+                                            if (plantHeaders != null && plantHeaders.size() == 1) {
+                                                downloadPlant(from, plantHeaders.get(0), plant, countAll);
+                                            } else {
+                                                broadcastDownload(-1, -1);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            Log.e(TAG, databaseError.getMessage());
+                                            broadcastDownload(-1, -1);
+                                        }
+                                    });
+                                } else {
+                                    broadcastDownload(-1, -1);
+                                }
                             } else {
                                 broadcastDownload(-1, -1);
                             }
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
                             Log.e(TAG, databaseError.getMessage());
                             broadcastDownload(-1, -1);
                         }
@@ -158,18 +178,18 @@ public class OfflineService extends JobIntentService {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e(TAG, databaseError.getMessage());
                 broadcastDownload(-1, -1);
             }
         });
     }
 
-    private void downloadPlant(final int number, FirebasePlant firebasePlant, final Integer countAll) {
+    private void downloadPlant(final int number, PlantHeader plantHeader, FirebasePlant firebasePlant, final Integer countAll) {
         FirebaseStorage storage = FirebaseStorage.getInstance(SpecificConstants.STORAGE);
 
         String localPath = getApplicationContext().getFilesDir() + AndroidConstants.SEPARATOR + AndroidConstants.STORAGE_PHOTOS;
-        final int numberOfFiles = 1 + firebasePlant.getPhotoUrls().size() * 2;
+        final int numberOfFiles = 2 + firebasePlant.getPhotoUrls().size() * 2;
 
         File plantDir = new File(localPath + firebasePlant.getIllustrationUrl().substring(0, firebasePlant.getIllustrationUrl().lastIndexOf('/')));
         if (plantDir.exists()) {
@@ -196,6 +216,30 @@ public class OfflineService extends JobIntentService {
                 broadcastDownload(-1, -1);
             }
         });
+
+        if (!plantHeader.getUrl().equals(firebasePlant.getPhotoUrls().get(0))) {
+            File photoFile = new File(localPath + plantHeader.getUrl());
+            StorageReference storageRefPhoto = storage.getReference(SpecificConstants.PHOTOS + AndroidConstants.SEPARATOR + plantHeader.getUrl());
+            storageRefPhoto.getFile(photoFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    counter.increment();
+                    if (counter.value() == numberOfFiles) {
+                        savePlantOffline(number, countAll);
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    broadcastDownload(-1, -1);
+                }
+            });
+        } else {
+            counter.increment();
+            if (counter.value() == numberOfFiles) {
+                savePlantOffline(number, countAll);
+            }
+        }
 
         for (String photoPath : firebasePlant.getPhotoUrls()) {
             File photoFile = new File(localPath + photoPath);
@@ -266,7 +310,7 @@ public class OfflineService extends JobIntentService {
                 + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_DATA_LIST + AndroidConstants.SEPARATOR + from);
         mFirebaseRefPlant.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
                     String familyName = dataSnapshot.getValue(String.class);
                     downloadFamily(from, familyName);
@@ -274,7 +318,7 @@ public class OfflineService extends JobIntentService {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e(TAG, databaseError.getMessage());
             }
         });

@@ -68,25 +68,37 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
                     OfflineService.enqueueWork(getActivity().getApplicationContext(), intent);
                 }
 
-                DatabaseReference taxonomyRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_APG_IV);
+                // Firebase synchronization
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference countsRef = database.getReference(AndroidConstants.FIREBASE_COUNTS);
+                countsRef.keepSynced(newOfflineMode);
+                DatabaseReference listsRef = database.getReference(AndroidConstants.FIREBASE_LISTS);
+                listsRef.keepSynced(newOfflineMode);
+                DatabaseReference plantsRef = database.getReference(AndroidConstants.FIREBASE_PLANTS);
+                plantsRef.keepSynced(newOfflineMode);
+                DatabaseReference plantsHeadersRef = database.getReference(AndroidConstants.FIREBASE_PLANTS_HEADERS);
+                plantsHeadersRef.keepSynced(newOfflineMode);
+                DatabaseReference taxonomyRef = database.getReference(AndroidConstants.FIREBASE_APG_IV);
                 taxonomyRef.keepSynced(newOfflineMode);
+
+                // language dependent
                 String language = preferences.getString(AndroidConstants.LANGUAGE_DEFAULT_KEY, Locale.getDefault().getLanguage());
-                DatabaseReference taxonomyInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS_TAXONOMY
+                DatabaseReference taxonomyInLanguageRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS_TAXONOMY
                         + AndroidConstants.SEPARATOR + language);
                 taxonomyInLanguageRef.keepSynced(newOfflineMode);
-                DatabaseReference searchInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
+                DatabaseReference searchInLanguageRef = database.getReference(AndroidConstants.FIREBASE_SEARCH
                         + AndroidConstants.SEPARATOR + language);
                 searchInLanguageRef.keepSynced(newOfflineMode);
-                DatabaseReference searchInLatinRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
+                DatabaseReference searchInLatinRef = database.getReference(AndroidConstants.FIREBASE_SEARCH
                         + AndroidConstants.SEPARATOR + AndroidConstants.LANGUAGE_LA);
                 searchInLatinRef.keepSynced(newOfflineMode);
-                DatabaseReference translationsInLanguage = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+                DatabaseReference translationsInLanguage = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS
                    + AndroidConstants.SEPARATOR + language);
                 translationsInLanguage.keepSynced(newOfflineMode);
-                DatabaseReference translationsInLanguageGT = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+                DatabaseReference translationsInLanguageGT = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS
                         + AndroidConstants.SEPARATOR + language + AndroidConstants.LANGUAGE_GT_SUFFIX);
                 translationsInLanguageGT.keepSynced(newOfflineMode);
-                DatabaseReference translationsInEnglish = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+                DatabaseReference translationsInEnglish = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS
                         + AndroidConstants.SEPARATOR + AndroidConstants.LANGUAGE_EN);
                 translationsInEnglish.keepSynced(newOfflineMode);
 

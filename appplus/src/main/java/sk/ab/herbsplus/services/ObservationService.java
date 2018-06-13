@@ -1,6 +1,5 @@
 package sk.ab.herbsplus.services;
 
-import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -52,11 +51,10 @@ public class ObservationService extends JobIntentService {
             return;
         }
 
-        database = FirebaseDatabase.getInstance();
-
         boolean isSubscribed = intent.getBooleanExtra(AndroidConstants.STATE_IS_SUBSCRIBED, false);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null && isSubscribed) {
+            database = FirebaseDatabase.getInstance();
             DatabaseReference mFirebaseRefObservations = database.getReference(AndroidConstants.FIREBASE_OBSERVATIONS
                     + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS
                     + AndroidConstants.SEPARATOR + currentUser.getUid() + AndroidConstants.SEPARATOR
