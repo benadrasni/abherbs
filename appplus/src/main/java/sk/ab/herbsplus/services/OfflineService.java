@@ -145,8 +145,16 @@ public class OfflineService extends JobIntentService {
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             GenericTypeIndicator<ArrayList<PlantHeader>> t = new GenericTypeIndicator<ArrayList<PlantHeader>>() {};
                                             ArrayList<PlantHeader> plantHeaders = dataSnapshot.getValue(t);
-                                            if (plantHeaders != null && plantHeaders.size() == 1) {
-                                                downloadPlant(from, plantHeaders.get(0), plant, countAll);
+                                            if (plantHeaders != null) {
+                                                int i = 0;
+                                                while(plantHeaders.get(i) == null) {
+                                                    i++;
+                                                }
+                                                if (i+1 == plantHeaders.size()) {
+                                                    downloadPlant(from, plantHeaders.get(i), plant, countAll);
+                                                } else {
+                                                    broadcastDownload(-1, -1);
+                                                }
                                             } else {
                                                 broadcastDownload(-1, -1);
                                             }
