@@ -303,15 +303,12 @@ public class Creater {
             File file = new File(PATH_TO_PLANTS_TO_ADD);
 
             Scanner scan = new Scanner(file);
-            Integer plantId = 914;
             while(scan.hasNextLine()){
                 final String plantName = scan.nextLine();
                 final String wikiSpeciesName = plantName;
                 System.out.println(plantName);
 
-                addOrUpdateBasic(firebaseClient, plantId, plantName, wikiSpeciesName);
-
-                plantId++;
+                addOrUpdateBasic(firebaseClient, plantName, wikiSpeciesName);
 
 //                updateTaxonomy(apgiiiOrdoMap, apgIII, plantName, wikiSpeciesName, true);
 //                updateTaxonomy(apgivOrdoMap, apgIV, plantName, wikiSpeciesName, false);
@@ -614,7 +611,7 @@ public class Creater {
         }
     }
 
-    private static void addOrUpdateBasic(FirebaseClient firebaseClient, Integer plantId, String plantName, String wikiSpeciesName) throws IOException {
+    private static void addOrUpdateBasic(FirebaseClient firebaseClient, String plantName, String wikiSpeciesName) throws IOException {
         FirebasePlant plantBasic = new FirebasePlant();
         plantBasic.setName(plantName);
         plantBasic.setWikiName(plantName);
