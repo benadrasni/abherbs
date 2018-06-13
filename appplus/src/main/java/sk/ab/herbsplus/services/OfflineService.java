@@ -147,7 +147,8 @@ public class OfflineService extends JobIntentService {
                                             Object listOrMap = dataSnapshot.getValue();
                                             if (listOrMap != null) {
                                                 if (listOrMap instanceof ArrayList) {
-                                                    ArrayList<PlantHeader> plantHeaders = (ArrayList<PlantHeader>) listOrMap;
+                                                    GenericTypeIndicator<ArrayList<PlantHeader>> t = new GenericTypeIndicator<ArrayList<PlantHeader>>() {};
+                                                    ArrayList<PlantHeader> plantHeaders = dataSnapshot.getValue(t);
                                                     int i = 0;
                                                     while(plantHeaders.get(i) == null) {
                                                         i++;
@@ -158,29 +159,14 @@ public class OfflineService extends JobIntentService {
                                                         broadcastDownload(-1, -1);
                                                     }
                                                 } else {
-                                                    HashMap<String, PlantHeader> plantHeaders = (HashMap<String, PlantHeader>) listOrMap;
+                                                    GenericTypeIndicator<HashMap<String, PlantHeader>> t = new GenericTypeIndicator<HashMap<String, PlantHeader>>() {};
+                                                    HashMap<String, PlantHeader> plantHeaders = dataSnapshot.getValue(t);
                                                     if (plantHeaders.values().size() == 1) {
                                                         downloadPlant(from, plantHeaders.values().iterator().next(), plant, countAll);
                                                     } else {
                                                         broadcastDownload(-1, -1);
                                                     }
                                                 }
-                                            }
-
-                                            GenericTypeIndicator<ArrayList<PlantHeader>> t = new GenericTypeIndicator<ArrayList<PlantHeader>>() {};
-                                            ArrayList<PlantHeader> plantHeaders = dataSnapshot.getValue(t);
-                                            if (plantHeaders != null) {
-                                                int i = 0;
-                                                while(plantHeaders.get(i) == null) {
-                                                    i++;
-                                                }
-                                                if (i+1 == plantHeaders.size()) {
-                                                    downloadPlant(from, plantHeaders.get(i), plant, countAll);
-                                                } else {
-                                                    broadcastDownload(-1, -1);
-                                                }
-                                            } else {
-                                                broadcastDownload(-1, -1);
                                             }
                                         }
 
