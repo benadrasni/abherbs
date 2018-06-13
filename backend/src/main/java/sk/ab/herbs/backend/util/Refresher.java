@@ -12,6 +12,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 import sk.ab.common.Constants;
 import sk.ab.common.entity.FirebasePlant;
+import sk.ab.common.entity.PlantFilter;
 import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.service.FirebaseClient;
 import sk.ab.common.util.Utils;
@@ -29,9 +30,12 @@ public class Refresher {
     private static String CELL_DELIMITER = ";";
     private static String FILTER_DELIMITER = "\\_";
 
-    private static final String[] COLORS = {null, "1", "2", "3", "4", "5"};
-    private static final String[] HABITATS = {null, "1", "2", "3", "4", "5", "6"};
-    private static final String[] PETALS = {null,"1", "2", "3", "4"};
+    private static final String[] COLORS = {null, "white", "yellow", "red", "blue", "green"};
+    private static final String[] COLORS_IDS = {null, "1", "2", "3", "4", "5"};
+    private static final String[] HABITATS = {null, "meadows or grassland", "gardens or fields", "moorlands or wetlands", "woodlands or forests", "rocks or mountains", "trees or bushes"};
+    private static final String[] HABITATS_IDS = {null, "1", "2", "3", "4", "5", "6"};
+    private static final String[] PETALS = {null,"4 or less", "5", "Many", "Bisymetric"};
+    private static final String[] PETALS_IDS = {null,"1", "2", "3", "4"};
     private static final String[] DISTRIBUTION = {null, "10", "11", "12", "13", "14", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "40", "41", "42", "43", "50", "51", "60", "61", "62", "63", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "90", "91"};
 
     private static final String[] FILTER_3_ATTRIBUTES = {Constants.COLOR_OF_FLOWERS, Constants.HABITAT, Constants.NUMBER_OF_PETALS};
@@ -41,18 +45,19 @@ public class Refresher {
 
         //countAndList3();
         countAndList4();
+        //countAndList4Ids();
         //search();
     }
 
     private static void countAndList3() {
         Map<String, Integer> counts = new HashMap<>();
-        Map<String, Map<String, Integer>> lists = new HashMap<>();
+        Map<String, Map<String, Boolean>> lists = new HashMap<>();
 
         List<String> filtersWith3Attributes = generateCountsAndLists3();
 
         for (String filter : filtersWith3Attributes) {
             counts.put(filter, 0);
-            lists.put(filter, new HashMap<String, Integer>());
+            lists.put(filter, new HashMap<String, Boolean>());
         }
 
         File file = new File(PATH + PLANTS_FILE);
@@ -66,8 +71,8 @@ public class Refresher {
 
                 //System.out.println(plantLine[0]);
 
-                Call<PlantHeader> plantCall = firebaseClient.getApiService().getPlantHeader(Integer.parseInt(plantLine[2])-1);
-                PlantHeader plant = plantCall.execute().body();
+                Call<PlantFilter> plantCall = firebaseClient.getApiService().getPlantFilter(plantLine[0]);
+                PlantFilter plant = plantCall.execute().body();
 
                 for (String filter : filtersWith3Attributes) {
 
@@ -77,7 +82,7 @@ public class Refresher {
                             && (filterParts[1].isEmpty() || plant.getFilterHabitat().contains(filterParts[1]))
                             && (filterParts[2].isEmpty() || plant.getFilterPetal().contains(filterParts[2]))) {
                         counts.put(filter, counts.get(filter) + 1);
-                        lists.get(filter).put(plantLine[0], 1);
+                        lists.get(filter).put(plantLine[0], true);
                     }
                 }
 
@@ -86,7 +91,7 @@ public class Refresher {
             Call<Map> callFirebaseCount = firebaseClient.getApiService().saveCount(counts);
             callFirebaseCount.execute().body();
 
-            Call<Map> callFirebaseList = firebaseClient.getApiService().saveList3(lists);
+            Call<Map> callFirebaseList = firebaseClient.getApiService().saveList(lists);
             callFirebaseList.execute().body();
 
         } catch (IOException e) {
@@ -96,9 +101,61 @@ public class Refresher {
 
     private static void countAndList4() {
         Map<String, Integer> counts = new HashMap<>();
-        Map<String, Map<Integer, Integer>> lists = new HashMap<>();
+        Map<String, Map<String, Boolean>> lists = new HashMap<>();
 
         List<String> filtersWith4Attributes = generateCountsAndLists4();
+
+        for (String filter : filtersWith4Attributes) {
+            counts.put(filter, 0);
+            lists.put(filter, new HashMap<String, Boolean>());
+        }
+
+        File file = new File(PATH + PLANTS_FILE);
+        final FirebaseClient firebaseClient = new FirebaseClient();
+
+        try {
+            Scanner scan = new Scanner(file);
+            while(scan.hasNextLine()) {
+
+                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
+
+                System.out.println(plantLine[0]);
+
+                Call<PlantFilter> plantCall = firebaseClient.getApiService().getPlantFilter(plantLine[0]);
+                PlantFilter plant = plantCall.execute().body();
+
+                for (String filter : filtersWith4Attributes) {
+
+                    String[] filterParts = filter.split(FILTER_DELIMITER, -1);
+
+                    if ((filterParts[0].isEmpty() || plant.getFilterColor().contains(filterParts[0]))
+                            && (filterParts[1].isEmpty() || plant.getFilterHabitat().contains(filterParts[1]))
+                            && (filterParts[2].isEmpty() || plant.getFilterPetal().contains(filterParts[2]))
+                            && (filterParts[3].isEmpty() || plant.getFilterDistribution().contains(Integer.parseInt(filterParts[3])))) {
+                        counts.put(filter, counts.get(filter) + 1);
+                        lists.get(filter).put(plantLine[0], true);
+                    }
+                }
+
+            }
+            scan.close();
+
+            Call<Map> callFirebaseCount = firebaseClient.getApiService().saveCount(counts);
+            callFirebaseCount.execute().body();
+
+            Call<Map> callFirebaseList = firebaseClient.getApiService().saveList(lists);
+            callFirebaseList.execute().body();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void countAndList4Ids() {
+        Map<String, Integer> counts = new HashMap<>();
+        Map<String, Map<Integer, Integer>> lists = new HashMap<>();
+
+        List<String> filtersWith4Attributes = generateCountsAndLists4Ids();
 
         for (String filter : filtersWith4Attributes) {
             counts.put(filter, 0);
@@ -139,13 +196,14 @@ public class Refresher {
             Call<Map> callFirebaseCount = firebaseClient.getApiService().saveCount(counts);
             callFirebaseCount.execute().body();
 
-            Call<Map> callFirebaseList = firebaseClient.getApiService().saveList4(lists);
+            Call<Map> callFirebaseList = firebaseClient.getApiService().saveListIds(lists);
             callFirebaseList.execute().body();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     private static void search() {
         // {"cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
@@ -300,6 +358,34 @@ public class Refresher {
                 filter.put(Constants.HABITAT, habitat);
 
                 for (String petal : PETALS) {
+                    filter.put(Constants.NUMBER_OF_PETALS, petal);
+
+                    for (String distribution : DISTRIBUTION) {
+                        filter.put(Constants.DISTRIBUTION, distribution);
+                        result.add(Utils.getFilterKey(filter, FILTER_4_ATTRIBUTES));
+
+                    }
+                    filter.remove(Constants.DISTRIBUTION);
+                }
+                filter.remove(Constants.NUMBER_OF_PETALS);
+            }
+            filter.remove(Constants.HABITAT);
+        }
+
+        return result;
+    }
+
+    private static List<String> generateCountsAndLists4Ids() {
+        List<String> result = new ArrayList<>();
+        Map<String, String> filter = new HashMap<>();
+
+        for (String color : COLORS_IDS) {
+            filter.put(Constants.COLOR_OF_FLOWERS, color);
+
+            for (String habitat : HABITATS_IDS) {
+                filter.put(Constants.HABITAT, habitat);
+
+                for (String petal : PETALS_IDS) {
                     filter.put(Constants.NUMBER_OF_PETALS, petal);
 
                     for (String distribution : DISTRIBUTION) {

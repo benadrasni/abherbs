@@ -11,6 +11,7 @@ import retrofit2.http.PATCH;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import sk.ab.common.entity.FirebasePlant;
+import sk.ab.common.entity.PlantFilter;
 import sk.ab.common.entity.PlantHeader;
 
 
@@ -64,6 +65,14 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
+    @GET("plants/{name}.json")
+    Call<PlantFilter> getPlantFilter(@Path("name") String name);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
     @GET("plants_headers/{id}.json")
     Call<PlantHeader> getPlantHeader(@Path("id") Integer id);
 
@@ -81,7 +90,7 @@ public interface FirebaseService {
             "charset: UTF-8"
     })
     @PUT("lists_new.json")
-    Call<Map> saveList3(@Body Map<String, Map<String, Integer>> list);
+    Call<Map> saveList(@Body Map<String, Map<String, Boolean>> list);
 
     @Headers({
             "Content-Type: application/json",
@@ -89,7 +98,7 @@ public interface FirebaseService {
             "charset: UTF-8"
     })
     @PUT("lists_new.json")
-    Call<Map> saveList4(@Body Map<String, Map<Integer, Integer>> list);
+    Call<Map> saveListIds(@Body Map<String, Map<Integer, Integer>> list);
 
     @Headers({
             "Content-Type: application/json",
