@@ -62,7 +62,7 @@ public abstract class PropertyListBaseFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView lv, View v, int position, long id) {
         PropertyItem item = adapter.getItem(position);
-        if (item != null) {
+        if (getActivity() != null && !getActivity().isDestroyed() && item != null) {
             switch (item.getType()) {
                 case PropertyItem.TYPE_FILTER:
                     if (getActivity() instanceof FilterPlantsBaseActivity) {
@@ -141,8 +141,9 @@ public abstract class PropertyListBaseFragment extends ListFragment {
                         TextView value = convertView.findViewById(R.id.row_value);
                         if (value != null) {
                             String valueText = "";
-                            if (((BaseActivity) getActivity()).getFilter() != null){
-                                String valueId = ((BaseActivity) getActivity()).getFilter().get(filterFragment.getAttribute());
+                            BaseActivity activity = (BaseActivity) getActivity();
+                            if ((activity != null && !activity.isDestroyed()) && activity.getFilter() != null){
+                                String valueId = activity.getFilter().get(filterFragment.getAttribute());
                                 if (valueId != null) {
                                     int resId = AndroidConstants.filterResources.get(filterFragment.getAttribute()+"_"+valueId);
                                     if (resId > 0) {
