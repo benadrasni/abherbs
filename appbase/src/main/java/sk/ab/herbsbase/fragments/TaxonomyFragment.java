@@ -277,8 +277,8 @@ public class TaxonomyFragment extends Fragment {
         TextView species = getView().findViewById(R.id.plant_species);
         species.setText(label);
         if (!isLatinName) {
-            TextView species_latin = getView().findViewById(R.id.plant_species_latin);
-            species_latin.setText(plant.getName());
+            TextView speciesLatin = getView().findViewById(R.id.plant_species_latin);
+            speciesLatin.setText(plant.getName());
         }
 
         setAltNames(false);
