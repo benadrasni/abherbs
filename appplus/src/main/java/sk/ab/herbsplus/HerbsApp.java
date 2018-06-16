@@ -7,10 +7,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
+import sk.ab.common.Constants;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
+import sk.ab.herbsbase.commons.BaseFilterFragment;
 import sk.ab.herbsbase.fragments.ColorOfFlowers;
 import sk.ab.herbsbase.fragments.Distribution;
 import sk.ab.herbsbase.fragments.Habitats;
@@ -93,10 +97,18 @@ public class HerbsApp extends BaseApp {
         editor.apply();
 
         filterAttributes = new ArrayList<>();
-        filterAttributes.add(new ColorOfFlowers());
-        filterAttributes.add(new Habitats());
-        filterAttributes.add(new NumberOfPetals());
-        filterAttributes.add(new Distribution());
+
+        List<String> filters = new ArrayList<>();
+        for (String filterTag : SpecificConstants.FILTERS) {
+            String filter = preferences.getString(filterTag, null);
+            if (filter != null) {
+                filters.add(filter);
+            }
+        }
+        if (filters.isEmpty()) {
+            filters = new ArrayList<>(Arrays.asList(SpecificConstants.FILTER_ATTRIBUTES));
+        }
+        setFilters(filters);
     }
 
     @Override
@@ -111,5 +123,26 @@ public class HerbsApp extends BaseApp {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(AndroidConstants.TOKEN_KEY, token);
         editor.apply();
+    }
+
+    public void setFilters(List<String> filters) {
+        filterAttributes.clear();
+        for (final String filter : filters) {
+            switch (filter) {
+                case Constants.COLOR_OF_FLOWERS:
+                    filterAttributes.add(new ColorOfFlowers());
+                    break;
+                case Constants.HABITAT:
+                    filterAttributes.add(new Habitats());
+                    break;
+                case Constants.NUMBER_OF_PETALS:
+                    filterAttributes.add(new NumberOfPetals());
+                    break;
+                case Constants.DISTRIBUTION:
+                    filterAttributes.add(new Distribution());
+                    break;
+            }
+        }
+
     }
 }

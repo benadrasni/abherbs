@@ -5,4 +5,9 @@
         android:summary="@string/offline_mode_summary"
         android:title="@string/offline_mode" />
 
+    <Preference
+        android:key="myFilter"
+        android:title="@string/my_filter_title"
+        android:summary=""/>
+
 </PreferenceScreen>

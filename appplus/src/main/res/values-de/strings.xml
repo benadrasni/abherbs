@@ -47,4 +47,5 @@
     <string name="showcase_location_message">Stellen Sie den Standort manuell ein oder passen Sie ihn an.</string>
     <string name="showcase_save_title">Speichern</string>
     <string name="showcase_save_message">Halte deine Beobachtung fest. Jede Beobachtung muss Datum, Ort und mindestens ein Foto enthalten.</string>
+    <string name="my_filter_title">My filter</string>
 </resources>

@@ -153,17 +153,18 @@ public class TaxonomyActivity extends SearchBaseActivity {
                 taxons.addAll(allTaxons);
             } else {
                 for (PlantTaxon taxon : allTaxons) {
+                    boolean taxonAdded = false;
                     if (taxon.getName() != null) {
                         for (String name : taxon.getName()) {
                             if (name.toLowerCase().contains(constraint)) {
                                 taxons.add(taxon);
+                                taxonAdded = true;
                                 break;
                             }
                         }
                     }
-                    if (taxon.getLatinName().toLowerCase().contains(constraint)) {
+                    if (!taxonAdded && taxon.getLatinName().toLowerCase().contains(constraint)) {
                         taxons.add(taxon);
-                        break;
                     }
                 }
             }

@@ -4,7 +4,7 @@
     <string name="synchronizing">Synchronizing …</string>
 
     <string name="offline_mode">Offline mode</string>
-    <string name="offline_mode_summary">requires 250+ MB additional space</string>
+    <string name="offline_mode_summary">requires 300+ MB additional space</string>
 
     <string name="search">Search</string>
     <string name="delete">Delete</string>
@@ -46,4 +46,5 @@
     <string name="showcase_location_message">Set or adjust location manually.</string>
     <string name="showcase_save_title">Save</string>
     <string name="showcase_save_message">Save your observation. Every observation must contain date, location and at least one photo.</string>
+    <string name="my_filter_title">My filter</string>
 </resources>

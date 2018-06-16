@@ -20,6 +20,7 @@ import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.fragments.UserPreferenceBaseFragment;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
+import sk.ab.herbsplus.activities.MyFilterActivity;
 import sk.ab.herbsplus.activities.MyRegionPlusActivity;
 import sk.ab.herbsplus.services.OfflineService;
 
@@ -35,6 +36,7 @@ import sk.ab.herbsplus.services.OfflineService;
 public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
 
     private CheckBoxPreference prefOfflineMode;
+    private Preference prefMyFilter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,6 +107,9 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
                 return true;
             }
         });
+
+        prefMyFilter = findPreference("myFilter");
+        prefMyFilter.setIntent(new Intent(this.getActivity(), MyFilterActivity.class));
     }
 
     @Override
@@ -133,23 +138,30 @@ public class UserPreferencePlusFragment extends UserPreferenceBaseFragment {
 
         Boolean offlineMode = preferences.getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
         if (offlineMode) {
-            DatabaseReference searchInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference taxonomyInLanguageRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS_TAXONOMY
+                    + AndroidConstants.SEPARATOR + newLanguage);
+            taxonomyInLanguageRef.keepSynced(true);
+            taxonomyInLanguageRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS_TAXONOMY
+                    + AndroidConstants.SEPARATOR + oldLanguage);
+            taxonomyInLanguageRef.keepSynced(false);
+            DatabaseReference searchInLanguageRef = database.getReference(AndroidConstants.FIREBASE_SEARCH
                     + AndroidConstants.SEPARATOR + newLanguage);
             searchInLanguageRef.keepSynced(true);
-            searchInLanguageRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_SEARCH
+            searchInLanguageRef = database.getReference(AndroidConstants.FIREBASE_SEARCH
                     + AndroidConstants.SEPARATOR + oldLanguage);
             searchInLanguageRef.keepSynced(false);
 
-            DatabaseReference translationsInLanguage = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+            DatabaseReference translationsInLanguage = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS
                     + AndroidConstants.SEPARATOR + newLanguage);
             translationsInLanguage.keepSynced(true);
-            translationsInLanguage = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+            translationsInLanguage = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS
                     + AndroidConstants.SEPARATOR + oldLanguage);
             translationsInLanguage.keepSynced(false);
-            DatabaseReference translationsInLanguageGT = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+            DatabaseReference translationsInLanguageGT = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS
                     + AndroidConstants.SEPARATOR + newLanguage + AndroidConstants.LANGUAGE_GT_SUFFIX);
             translationsInLanguageGT.keepSynced(true);
-            translationsInLanguageGT = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_TRANSLATIONS
+            translationsInLanguageGT = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS
                     + AndroidConstants.SEPARATOR + oldLanguage + AndroidConstants.LANGUAGE_GT_SUFFIX);
             translationsInLanguageGT.keepSynced(false);
         }

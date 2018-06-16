@@ -41,4 +41,5 @@
     <string name="subscription_intro4">اگر هنوز هم تردید دارید که دکمه زیر را فشار دهید، یک دوره آزمایشی 30 روزه برای هر دو اشتراک وجود دارد.</string>
     <string name="synchronization_on_background">همگام سازی در پس زمینه شروع می شود پس از برنامه در شبکه wi-fi راه اندازی مجدد.</string>
     <string name="synchronizing">همزمان سازی ...</string>
+    <string name="my_filter_title">My filter</string>
 </resources>
