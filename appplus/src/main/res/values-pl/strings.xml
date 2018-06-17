@@ -21,7 +21,7 @@
     <string name="observation_not_saved">Observation was incomplete thus it wasn\'t saved. Location or photo is misssing.</string>
     <string name="observation_delete">Delete observation</string>
     <string name="observation_delete_question">Do you want to delete the observation?</string>
-    <string name="plant_observations">Observations</string>
+    <string name="plant_observations">Zaobserwowane okazy</string>
     <string name="no_observations">There is no observation yet.</string>
     <string name="no_observations_login">Observations are available only for logged users. Please log in.</string>
 
