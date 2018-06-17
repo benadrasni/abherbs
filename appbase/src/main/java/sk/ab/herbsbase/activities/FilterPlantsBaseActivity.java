@@ -174,6 +174,10 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
             filterPosition = 0;
         }
 
+        if (filterPosition > getFilterAttributes().size() - 1) {
+            filterPosition = getFilterAttributes().size() - 1;
+        }
+
         switchContent(getFilterAttributes().get(filterPosition));
         removeFromFilter(currentFragment.getAttribute());
     }
