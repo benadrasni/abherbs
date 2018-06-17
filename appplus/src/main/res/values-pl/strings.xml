@@ -47,5 +47,5 @@
     <string name="showcase_location_message">Ustaw lub zmień lokalizację ręcznie.</string>
     <string name="showcase_save_title">Zapisz</string>
     <string name="showcase_save_message">Save your observation. Every observation must contain date, location and at least one photo.</string>
-    <string name="my_filter_title">My filter</string>
+    <string name="my_filter_title">Mój filtr</string>
 </resources>

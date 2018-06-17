@@ -47,5 +47,5 @@
     <string name="showcase_location_message">Manuálne nastaviť alebo upraviť polohu.</string>
     <string name="showcase_save_title">Uložiť</string>
     <string name="showcase_save_message">Uložiť pozorovanie. Každé pozorovanie musí obsahovať dátum, miesto a aspoň jednu fotografiu.</string>
-    <string name="my_filter_title">My filter</string>
+    <string name="my_filter_title">Môj filter</string>
 </resources>
