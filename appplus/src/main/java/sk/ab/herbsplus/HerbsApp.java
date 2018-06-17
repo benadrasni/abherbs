@@ -29,6 +29,11 @@ import sk.ab.herbsbase.fragments.NumberOfPetals;
  */
 public class HerbsApp extends BaseApp {
 
+    private BaseFilterFragment colorOfFlowers;
+    private BaseFilterFragment habitats;
+    private BaseFilterFragment numberOfPetals;
+    private BaseFilterFragment distribution;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -130,16 +135,28 @@ public class HerbsApp extends BaseApp {
         for (final String filter : filters) {
             switch (filter) {
                 case Constants.COLOR_OF_FLOWERS:
-                    filterAttributes.add(new ColorOfFlowers());
+                    if (colorOfFlowers == null) {
+                        colorOfFlowers = new ColorOfFlowers();
+                    }
+                    filterAttributes.add(colorOfFlowers);
                     break;
                 case Constants.HABITAT:
-                    filterAttributes.add(new Habitats());
+                    if (habitats == null) {
+                        habitats = new Habitats();
+                    }
+                    filterAttributes.add(habitats);
                     break;
                 case Constants.NUMBER_OF_PETALS:
-                    filterAttributes.add(new NumberOfPetals());
+                    if (numberOfPetals == null) {
+                        numberOfPetals = new NumberOfPetals();
+                    }
+                    filterAttributes.add(numberOfPetals);
                     break;
                 case Constants.DISTRIBUTION:
-                    filterAttributes.add(new Distribution());
+                    if (distribution == null) {
+                        distribution = new Distribution();
+                    }
+                    filterAttributes.add(distribution);
                     break;
             }
         }

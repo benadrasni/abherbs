@@ -118,7 +118,7 @@ public class MyFilterActivity extends AppCompatActivity {
             }
 
             ImageView filterDown = inflatedLayout.findViewById(R.id.btn_filter_down);
-            filterDown.setEnabled(i < filters.size() - 1);
+            filterDown.setEnabled(i < filters.size() - 1 && filters.size() > 1);
             if (i < filters.size() - 1) {
                 filterDown.setOnClickListener(new View.OnClickListener() {
                     @Override
