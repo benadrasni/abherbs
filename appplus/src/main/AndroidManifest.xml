@@ -38,6 +38,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
 
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="label" />
+
         <activity android:name="sk.ab.herbsplus.activities.SplashPlusActivity"
                   android:theme="@style/SplashScreenTheme">
             <intent-filter>
@@ -75,7 +79,10 @@
             android:name=".activities.NameSearchActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
-            android:name=".activities.TaxonomyActivity"
+            android:name=".activities.TaxonomySearchActivity"
+            android:configChanges="orientation|screenSize|locale" />
+        <activity
+            android:name=".activities.PhotoSearchActivity"
             android:configChanges="orientation|screenSize|locale" />
         <activity
             android:name=".activities.ObservationActivity"

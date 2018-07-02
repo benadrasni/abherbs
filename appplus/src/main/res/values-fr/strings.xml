@@ -48,4 +48,9 @@
     <string name="showcase_save_title">Sauvegarder</string>
     <string name="showcase_save_message">Sauvegardez votre observation. Chaque observation doit contenir la date, le lieu et au moins une photo.</string>
     <string name="my_filter_title">Mon filtre</string>
+    <string name="search_by_photo">Recherche par photo</string>
+    <string name="no_photo_search_login">La recherche par photo est disponible uniquement pour les utilisateurs connectés. Veuillez vous connecter</string>
+    <string name="photo_search_failed">La recherche par photo a échoué. Vérifiez votre connexion Internet et réessayez.</string>
+    <string name="photo_to_search_by">Photo à rechercher par</string>
+    <string name="photo_search_note">Ceci est une fonctionnalité expérimentale qui ne fonctionne qu\'en ligne. Parfois, il trouve exactement ce que vous cherchez, parfois même pas proche. Je compte totalement sur Google ici car ils font tout le travail. Au fil du temps, il devrait être de mieux en mieux, mais il n\'a pas été construit principalement pour la reconnaissance des fleurs. Utilisez-le judicieusement et ne jugez pas l\'ensemble de l\'application en fonction de cette expérience. Pour des raisons de qualité, tous les résultats de recherche (pas les photos) seront enregistrés.</string>
 </resources>

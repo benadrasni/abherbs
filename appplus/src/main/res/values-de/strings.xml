@@ -15,11 +15,11 @@
     
     <string name="synchronization_on_background">Die Synchronisation wird im Hintergrund ausgeführt. Aktivieren Sie WLAN und starten Sie anschließend die App neu. Während des Downloads sehen sie einen Zähler in der rechten oberen Ecke der App.</string>
     <string name="authentication_failed">Authentifizierung fehlgeschlagen.</string>
-    <string name="camera_failed">Kein Foto wurde aufgenommen.</string>
-    <string name="gallery_failed">Kein Foto wurde hinzugefügt.</string>
+    <string name="camera_failed">Es wurde kein Foto aufgenommen.</string>
+    <string name="gallery_failed">Kein Foto hinzugefügt.</string>
     <string name="observation_saved">Beobachtung wurde gespeichert.</string>
     <string name="plant_observations">Beobachtungen</string>
-    <string name="observation_not_saved">Die Beobachtung wurde nicht abgeschlossen, so dass nichts gespeichert wurde. Ort des Fotos fehlt.</string>
+    <string name="observation_not_saved">Die Beobachtung wurde nicht abgeschlossen, so dass nichts gespeichert wurde. Ort oder Foto fehlt.</string>
     <string name="observation_delete">Beobachtung löschen</string>
     <string name="observation_delete_question">Möchten Sie die Beobachtung löschen?</string>
     <string name="no_observations">Es gibt noch keine Beobachtung.</string>
@@ -48,4 +48,9 @@
     <string name="showcase_save_title">Speichern</string>
     <string name="showcase_save_message">Halte deine Beobachtung fest. Jede Beobachtung muss Datum, Ort und mindestens ein Foto enthalten.</string>
     <string name="my_filter_title">Mein Filter</string>
+    <string name="search_by_photo">Suche nach Foto</string>
+    <string name="no_photo_search_login">Die Suche nach Fotos ist nur für angemeldete Benutzer verfügbar. Bitte loggen Sie sich ein.</string>
+    <string name="photo_search_failed">Suche nach Foto fehlgeschlagen. Überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.</string>
+    <string name="photo_to_search_by">Foto zum Suchen nach</string>
+    <string name="photo_search_note">Dies ist ein experimentelles Feature, das nur online funktioniert. Manchmal findet es genau das, wonach Sie suchen, manchmal nicht einmal in der Nähe. Ich bin völlig auf Google angewiesen, da sie die ganze harte Arbeit machen. Mit der Zeit sollte es besser und besser werden, aber es wurde nicht in erster Linie für die Anerkennung der Blume gebaut. Verwende es mit Bedacht und beurteile bitte nicht die gesamte Anwendung basierend auf diesem Experiment. Aus Qualitätsgründen werden alle Suchergebnisse (nicht Fotos) gespeichert.</string>
 </resources>

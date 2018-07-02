@@ -42,4 +42,9 @@
     <string name="synchronization_on_background">همگام سازی در پس زمینه شروع می شود پس از برنامه در شبکه wi-fi راه اندازی مجدد.</string>
     <string name="synchronizing">همزمان سازی ...</string>
     <string name="my_filter_title">My filter</string>
+    <string name="search_by_photo">Search by photo</string>
+    <string name="no_photo_search_login">Search by photo is available only for logged users. Please log in.</string>
+    <string name="photo_search_failed">Search by photo failed. Check your internet connection and try again.</string>
+    <string name="photo_to_search_by">Photo to search by</string>
+    <string name="photo_search_note">This is an experimental feature which works only online. Sometimes it finds exactly what you\'re looking for, sometimes not even close. I\'m totally rely on Google here. As time goes it should be better and better, but it wasn\'t primarily built for flower\'s recognition. Use it wisely and please don\'t judge whole application based on this experiment. For quality purposes all search results (not photos) will be saved.</string>
 </resources>

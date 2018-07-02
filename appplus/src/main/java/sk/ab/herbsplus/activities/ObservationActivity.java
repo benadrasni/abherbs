@@ -11,14 +11,11 @@ import android.content.res.Configuration;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.SystemClock;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.media.ExifInterface;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -74,6 +71,7 @@ import sk.ab.herbsbase.tools.Utils;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.entity.ObservationParcel;
+import sk.ab.herbsplus.util.UtilsPlus;
 
 /**
  *
@@ -125,7 +123,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
         observationCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addCameraPhoto();
+                mCurrentPhotoUri = UtilsPlus.addCameraPhoto(ObservationActivity.this, observation.getPlant());
             }
         });
 
@@ -133,7 +131,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
         observationGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addGalleryPhoto();
+                mCurrentPhotoUri = UtilsPlus.addGalleryPhoto(ObservationActivity.this, observation.getPlant());
             }
         });
 
@@ -213,7 +211,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
 
         switch (requestCode) {
             case AndroidConstants.REQUEST_TAKE_PHOTO:
-                if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK && mCurrentPhotoUri != null) {
                     processPhoto(mCurrentPhotoUri);
                 } else {
                     Toast.makeText(this, R.string.camera_failed, Toast.LENGTH_LONG).show();
@@ -273,49 +271,6 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
         }
     }
 
-    private void addCameraPhoto() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                mCurrentPhotoUri = FileProvider.getUriForFile(this, "sk.ab.herbsplus.fileprovider", photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mCurrentPhotoUri);
-                startActivityForResult(takePictureIntent, AndroidConstants.REQUEST_TAKE_PHOTO);
-            }
-        }
-    }
-
-    private void addGalleryPhoto() {
-        Intent pickPictureIntent = new Intent();
-        pickPictureIntent.setType("image/*");
-        pickPictureIntent.setAction(Intent.ACTION_GET_CONTENT);
-        pickPictureIntent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-        if (pickPictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this, "sk.ab.herbsplus.fileprovider", photoFile);
-                pickPictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                mCurrentPhotoUri = photoURI;
-                startActivityForResult(pickPictureIntent, AndroidConstants.REQUEST_PICK_PHOTO);
-            }
-        }
-    }
-
     private void addLocation() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -341,18 +296,6 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
                         }
                     });
         }
-    }
-
-    private File createImageFile() throws IOException {
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        String prefix = "unknown_";
-        if (observation.getPlant() != null) {
-            String[] names = observation.getPlant().toLowerCase().split(" ");
-            if (names.length > 1) {
-                prefix = names[0].substring(0, 1) + names[1].substring(0, 1) + "_";
-            }
-        }
-        return File.createTempFile(prefix, ".jpg", storageDir);
     }
 
     private void processPhoto(Uri uri) {

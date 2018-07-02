@@ -23,15 +23,17 @@ public class Checker {
 
     private static ArrayList<Integer> DEFAULT_DISTRIBUTION = new ArrayList<>(Arrays.asList(10, 11, 12, 13, 14));
 
+    private static String[] languages = {"cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
 
     public static String CELL_DELIMITER = ";";
     public static String ALIAS_DELIMITER = ",";
 
     public static void main(String[] params) {
 
-        checkNames();
-        checkSearch();
-        checkTranslation();
+        //checkNames();
+        checkNameTranslations();
+        //checkSearch();
+        //checkTranslation();
     }
 
     private static void checkNames() {
@@ -54,8 +56,27 @@ public class Checker {
         }
     }
 
+    private static void checkNameTranslations() {
+        File file = new File(PATH + PLANTS_FILE);
+        final FirebaseClient firebaseClient = new FirebaseClient();
+
+        try {
+            Scanner scan = new Scanner(file);
+            while(scan.hasNextLine()) {
+
+                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
+
+                //System.out.println(plantLine[0]);
+
+                checkNameTranslations(firebaseClient, plantLine[0]);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void checkSearch() {
-        String[] languages = {"cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
         final FirebaseClient firebaseClient = new FirebaseClient();
 
         List<String> plants = new ArrayList<>();
@@ -106,8 +127,20 @@ public class Checker {
         }
     }
 
+    private static void checkNameTranslations(FirebaseClient firebaseClient, String plantName) throws IOException {
+        String[] languages = {"pl"};
+        for (String language : languages) {
+
+            Call<Map<String, Object>> plantTranslationCall = firebaseClient.getApiService().getTranslation(language, plantName);
+            Map<String, Object> plantTranslation = plantTranslationCall.execute().body();
+
+            if (plantTranslation == null || plantTranslation.get("label") == null) {
+                System.out.println(plantName);
+            }
+        }
+    }
+
     private static void checkTranslation() {
-        String[] languages = {"cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
         final FirebaseClient firebaseClient = new FirebaseClient();
 
         try {

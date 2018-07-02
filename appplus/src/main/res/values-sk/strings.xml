@@ -48,4 +48,9 @@
     <string name="showcase_save_title">Uložiť</string>
     <string name="showcase_save_message">Uložiť pozorovanie. Každé pozorovanie musí obsahovať dátum, miesto a aspoň jednu fotografiu.</string>
     <string name="my_filter_title">Môj filter</string>
+    <string name="search_by_photo">Hľadať podľa fotky</string>
+    <string name="no_photo_search_login">Vyhľadávanie podľa fotografie je dostupné iba pre prihlásených používateľov. Prihláste sa, prosím.</string>
+    <string name="photo_search_failed">Vyhľadávanie bolo neúspešné. Skontrolujte svoje pripojenie na internet.</string>
+    <string name="photo_to_search_by">Fotka, podľa ktorej sa vyhľadáva</string>
+    <string name="photo_search_note">Toto je experimentálna funkcia, ktorá funguje iba online. Niekedy nájde presne to, čo hľadáte, niekedy sa ani nepriblíži. Úplne sa v tom spolieham na Google, keďže ide o ich softvér. Časom by to malo byť lepšie a lepšie, ale táto funkcia nie je primárne určená na rozpoznávanie kvetín. Používajte ju uvážlivo a, prosím, nehodnoťte celú aplikáciu na základe tohto experimentu. Za účelom zvyšovania kvality budú všetky výsledky vyhľadávania (nie fotografie) uložené.</string>
 </resources>

@@ -3,6 +3,7 @@ package sk.ab.herbsplus.services;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.JobIntentService;
 import android.support.v4.content.LocalBroadcastManager;
@@ -37,7 +38,6 @@ import sk.ab.herbsplus.SpecificConstants;
 public class ObservationService extends JobIntentService {
 
     public static final int JOB_ID = 2;
-    private static final String TAG = "ObservationService";
 
     private FirebaseDatabase database;
 
@@ -47,7 +47,7 @@ public class ObservationService extends JobIntentService {
 
     @Override
     protected void onHandleWork(@Nullable Intent intent) {
-        if (!BaseApp.isConnectedToWifi(getApplicationContext())) {
+        if (!BaseApp.isConnectedToWifi(getApplicationContext()) || intent == null) {
             return;
         }
 
@@ -65,10 +65,10 @@ public class ObservationService extends JobIntentService {
                     .equalTo(AndroidConstants.FIREBASE_STATUS_PRIVATE);
             mFirebaseRefObservations.child("refreshMock").setValue("mock", new DatabaseReference.CompletionListener() {
                 @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                public void onComplete(DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                     queryPrivate.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getChildrenCount() > 0) {
                                 uploadOneObservation(1, (int) dataSnapshot.getChildrenCount());
                             } else {
@@ -77,7 +77,7 @@ public class ObservationService extends JobIntentService {
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
                             revertStatus();
                         }
                     });
@@ -100,10 +100,10 @@ public class ObservationService extends JobIntentService {
                     .limitToFirst(1);
             mFirebaseRefObservations.child("refreshMock").setValue("mock", new DatabaseReference.CompletionListener() {
                 @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                public void onComplete(DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getChildrenCount() > 0) {
                                 final Observation observation = dataSnapshot.getChildren().iterator().next().getValue(Observation.class);
                                 assert observation != null;
@@ -140,7 +140,7 @@ public class ObservationService extends JobIntentService {
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
                         }
                     });
@@ -258,10 +258,10 @@ public class ObservationService extends JobIntentService {
                     .equalTo(AndroidConstants.FIREBASE_STATUS_INCOMPLETE);
             mFirebaseRefObservations.child("refreshMock").setValue("mock", new DatabaseReference.CompletionListener() {
                 @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                public void onComplete(DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getChildrenCount() > 0) {
                                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                                     Observation observation = data.getValue(Observation.class);
@@ -272,7 +272,7 @@ public class ObservationService extends JobIntentService {
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
                             broadcastUpload(-1, -1);
                         }
                     });

@@ -214,7 +214,7 @@ public class NameSearchActivity extends SearchBaseActivity {
                 finish();
                 break;
             case R.id.menu_taxonomy:
-                Intent intent = new Intent(this, TaxonomyActivity.class);
+                Intent intent = new Intent(this, TaxonomySearchActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -243,7 +243,7 @@ public class NameSearchActivity extends SearchBaseActivity {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.search_activity;
+        return R.layout.name_search_activity;
     }
 
     private void loadNames() {

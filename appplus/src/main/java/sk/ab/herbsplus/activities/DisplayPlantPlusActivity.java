@@ -227,7 +227,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                 intent.putExtra(AndroidConstants.STATE_OBSERVATION, new ObservationParcel(observation));
                 startActivity(intent);
             } else {
-                AlertDialog dialogBox = UtilsPlus.LoginDialog(this);
+                AlertDialog dialogBox = UtilsPlus.LoginDialog(this, R.string.no_observations_login);
                 dialogBox.show();
                 shouldOpenObservation = true;
             }

@@ -132,16 +132,16 @@ public class MyFilterActivity extends AppCompatActivity {
 
             switch (filter) {
                 case Constants.COLOR_OF_FLOWERS:
-                    filterName.setText(R.string.color_of_flower);
+                    filterName.setText(getResources().getString(R.string.color_of_flower));
                     break;
                 case Constants.HABITAT:
-                    filterName.setText(R.string.habitats);
+                    filterName.setText(getResources().getString(R.string.habitats));
                     break;
                 case Constants.NUMBER_OF_PETALS:
-                    filterName.setText(R.string.number_of_petals);
+                    filterName.setText(getResources().getString(R.string.number_of_petals));
                     break;
                 case Constants.DISTRIBUTION:
-                    filterName.setText(R.string.distribution);
+                    filterName.setText(getResources().getString(R.string.distribution));
                     break;
             }
             layout.addView(inflatedLayout);

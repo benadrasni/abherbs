@@ -48,4 +48,9 @@
     <string name="showcase_save_title">Zapisz</string>
     <string name="showcase_save_message">Save your observation. Every observation must contain date, location and at least one photo.</string>
     <string name="my_filter_title">Mój filtr</string>
+    <string name="search_by_photo">Wyszukaj według zdjęcia</string>
+    <string name="no_photo_search_login">Wyszukiwanie według zdjęcia jest dostępne tylko dla zalogowanych użytkowników. Proszę się zalogować.</string>
+    <string name="photo_search_failed">Wyszukiwanie według zdjęcia nie powiodło się. Sprawdź połączenie internetowe i spróbuj ponownie.</string>
+    <string name="photo_to_search_by">Zdjęcie do wyszukiwania według</string>
+    <string name="photo_search_note">To jest funkcja eksperymentalna, która działa tylko online. Czasami znajdzie dokładnie to, czego szukasz, czasami niedaleko. Jestem całkowicie uzależniony od Google, ponieważ jest to ich oprogramowanie. Z czasem powinno być coraz lepiej, ale ta funkcja nie jest przeznaczona głównie do rozpoznawania kwiatów. Używaj go mądrze i nie oceniaj całej aplikacji na podstawie tego eksperymentu. Aby poprawić jakość, wszystkie wyniki wyszukiwania (nie zdjęcia) zostaną zapisane.</string>
 </resources>

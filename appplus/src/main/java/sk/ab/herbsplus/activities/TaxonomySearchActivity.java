@@ -46,7 +46,7 @@ import sk.ab.herbsplus.SpecificConstants;
  * Created by adrian on 1. 4. 2017.
  */
 
-public class TaxonomyActivity extends SearchBaseActivity {
+public class TaxonomySearchActivity extends SearchBaseActivity {
     private long mLastClickTime;
     private SearchView mSearchView;
 
@@ -251,7 +251,7 @@ public class TaxonomyActivity extends SearchBaseActivity {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.taxonomy_activity;
+        return R.layout.taxonomy_search_activity;
     }
 
     private void loadTaxonomy() {

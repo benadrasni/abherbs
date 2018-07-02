@@ -43,7 +43,7 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_search_init, menu);
+        inflater.inflate(R.menu.menu_init, menu);
         this.menu = menu;
 
         return super.onCreateOptionsMenu(menu);
@@ -52,18 +52,27 @@ public class FilterPlantsPlusActivity extends FilterPlantsBaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         switch (item.getItemId()) {
             case R.id.menu_search_init:
                 intent = new Intent(this, NameSearchActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.menu_observations:
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 if (currentUser != null) {
                     intent = new Intent(this, ListObservationsActivity.class);
                     startActivity(intent);
                 } else {
-                    AlertDialog dialogBox = UtilsPlus.LoginDialog(this);
+                    AlertDialog dialogBox = UtilsPlus.LoginDialog(this, R.string.no_observations_login);
+                    dialogBox.show();
+                }
+                return true;
+            case R.id.menu_search_photo:
+                if (currentUser != null) {
+                    intent = new Intent(this, PhotoSearchActivity.class);
+                    startActivity(intent);
+                } else {
+                    AlertDialog dialogBox = UtilsPlus.LoginDialog(this, R.string.no_photo_search_login);
                     dialogBox.show();
                 }
                 return true;

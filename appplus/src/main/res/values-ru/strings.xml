@@ -48,4 +48,9 @@
     <string name="showcase_save_title">Save</string>
     <string name="showcase_save_message">Save your observation. Every observation must contain date, location and at least one photo.</string>
     <string name="my_filter_title">Мой фильтр</string>
+    <string name="search_by_photo">Поиск по фотографиям</string>
+    <string name="no_photo_search_login">Поиск по фотографиям доступен только для зарегистрированных пользователей. Пожалуйста, войдите.</string>
+    <string name="photo_search_failed">Поиск по фото не удался. Проверьте подключение к Интернету и повторите попытку.</string>
+    <string name="photo_to_search_by">Фото для поиска по</string>
+    <string name="photo_search_note">Это экспериментальная функция, которая работает только в Интернете. Иногда он находит именно то, что вы ищете, иногда даже близко. Я полностью полагаюсь на Google здесь, так как они делают всю тяжелую работу. Со временем это должно быть лучше и лучше, но оно не было в основном построено для распознавания цветов. Используйте его с умом и, пожалуйста, не судите о целом заявлении на основе этого эксперимента. Для целей качества все результаты поиска (а не фотографии) будут сохранены.</string>
 </resources>

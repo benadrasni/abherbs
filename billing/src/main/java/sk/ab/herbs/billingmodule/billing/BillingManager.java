@@ -264,33 +264,35 @@ public class BillingManager implements PurchasesUpdatedListener {
         Runnable queryToExecute = new Runnable() {
             @Override
             public void run() {
-                long time = System.currentTimeMillis();
-                PurchasesResult purchasesResult = mBillingClient.queryPurchases(SkuType.INAPP);
-                Log.i(TAG, "Querying purchases elapsed time: " + (System.currentTimeMillis() - time)
-                        + "ms");
-                // If there are subscriptions supported, we add subscription rows as well
-                if (areSubscriptionsSupported()) {
-                    PurchasesResult subscriptionResult
-                            = mBillingClient.queryPurchases(SkuType.SUBS);
-                    Log.i(TAG, "Querying purchases and subscriptions elapsed time: "
-                            + (System.currentTimeMillis() - time) + "ms");
-                    Log.i(TAG, "Querying subscriptions result code: "
-                            + subscriptionResult.getResponseCode());
+                if (mBillingClient != null) {
+                    long time = System.currentTimeMillis();
+                    PurchasesResult purchasesResult = mBillingClient.queryPurchases(SkuType.INAPP);
+                    Log.i(TAG, "Querying purchases elapsed time: " + (System.currentTimeMillis() - time)
+                            + "ms");
+                    // If there are subscriptions supported, we add subscription rows as well
+                    if (areSubscriptionsSupported()) {
+                        PurchasesResult subscriptionResult
+                                = mBillingClient.queryPurchases(SkuType.SUBS);
+                        Log.i(TAG, "Querying purchases and subscriptions elapsed time: "
+                                + (System.currentTimeMillis() - time) + "ms");
+                        Log.i(TAG, "Querying subscriptions result code: "
+                                + subscriptionResult.getResponseCode());
 
-                    if (subscriptionResult.getResponseCode() == BillingResponse.OK) {
-                        Log.i(TAG, " res: " + subscriptionResult.getPurchasesList().size());
-                        purchasesResult.getPurchasesList().addAll(
-                                subscriptionResult.getPurchasesList());
+                        if (subscriptionResult.getResponseCode() == BillingResponse.OK) {
+                            Log.i(TAG, " res: " + subscriptionResult.getPurchasesList().size());
+                            purchasesResult.getPurchasesList().addAll(
+                                    subscriptionResult.getPurchasesList());
+                        } else {
+                            Log.e(TAG, "Got an error response trying to query subscription purchases");
+                        }
+                    } else if (purchasesResult.getResponseCode() == BillingResponse.OK) {
+                        Log.i(TAG, "Skipped subscription purchases query since they are not supported");
                     } else {
-                        Log.e(TAG, "Got an error response trying to query subscription purchases");
+                        Log.w(TAG, "queryPurchases() got an error response code: "
+                                + purchasesResult.getResponseCode());
                     }
-                } else if (purchasesResult.getResponseCode() == BillingResponse.OK) {
-                    Log.i(TAG, "Skipped subscription purchases query since they are not supported");
-                } else {
-                    Log.w(TAG, "queryPurchases() got an error response code: "
-                            + purchasesResult.getResponseCode());
+                    onQueryPurchasesFinished(purchasesResult);
                 }
-                onQueryPurchasesFinished(purchasesResult);
             }
         };
 

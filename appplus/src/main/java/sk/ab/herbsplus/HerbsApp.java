@@ -81,7 +81,7 @@ public class HerbsApp extends BaseApp {
 
         // image cache
         int cacheSize = preferences.getInt(AndroidConstants.CACHE_SIZE_KEY, AndroidConstants.DEFAULT_CACHE_SIZE);
-        if (cacheSize <= 0) {
+        if (cacheSize <= 0 || cacheSize * 1024 * 1024 > Integer.MAX_VALUE) {
             cacheSize = AndroidConstants.DEFAULT_CACHE_SIZE;
             editor.putInt(AndroidConstants.CACHE_SIZE_KEY, cacheSize);
             editor.apply();
