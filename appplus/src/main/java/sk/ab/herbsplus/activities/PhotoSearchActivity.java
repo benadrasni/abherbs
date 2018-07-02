@@ -3,6 +3,7 @@ package sk.ab.herbsplus.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,19 +16,21 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
-import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions;
 import com.google.firebase.ml.vision.cloud.label.FirebaseVisionCloudLabel;
 import com.google.firebase.ml.vision.cloud.label.FirebaseVisionCloudLabelDetector;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.List;
 import java.util.Locale;
@@ -179,33 +182,56 @@ public class PhotoSearchActivity extends SearchBaseActivity {
 
     private void processPhoto(Uri uri) {
         ImageView photoView = findViewById(R.id.iwPhoto);
-        ImageLoader.getInstance().displayImage(uri.toString(), photoView, ((BaseApp) getApplication()).getOptions());
+        ImageLoader.getInstance().displayImage(uri.toString(), new ImageViewAware(photoView), ((BaseApp) getApplication()).getOptions(),
+                new ImageSize(AndroidConstants.IMAGE_SIZE, AndroidConstants.IMAGE_SIZE),
+                new ImageLoadingListener() {
+                    @Override
+                    public void onLoadingStarted(String imageUri, View view) {
 
+                    }
+
+                    @Override
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+
+                    }
+
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        getLabels(loadedImage);
+                    }
+
+                    @Override
+                    public void onLoadingCancelled(String imageUri, View view) {
+
+                    }
+                }, null);
+    }
+
+    private void getLabels(Bitmap loadedImage) {
         FirebaseVisionCloudDetectorOptions options =
                 new FirebaseVisionCloudDetectorOptions.Builder()
                         .setModelType(FirebaseVisionCloudDetectorOptions.LATEST_MODEL)
                         .setMaxResults(10)
                         .build();
-        FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(UtilsPlus.drawableToBitmap(photoView.getDrawable()));
+        FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(loadedImage);
         FirebaseVisionCloudLabelDetector detector = FirebaseVision.getInstance().getVisionCloudLabelDetector(options);
 
-        Task<List<FirebaseVisionCloudLabel>> result =
-                detector.detectInImage(image)
-                        .addOnSuccessListener(
-                                new OnSuccessListener<List<FirebaseVisionCloudLabel>>() {
-                                    @Override
-                                    public void onSuccess(List<FirebaseVisionCloudLabel> labels) {
-                                        saveLabels(labels);
-                                        processLabels(labels);
-                                    }
-                                })
-                        .addOnFailureListener(
-                                new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(PhotoSearchActivity.this, R.string.photo_search_failed, Toast.LENGTH_LONG).show();
-                                    }
-                                });
+        detector.detectInImage(image)
+                .addOnSuccessListener(
+                        new OnSuccessListener<List<FirebaseVisionCloudLabel>>() {
+                            @Override
+                            public void onSuccess(List<FirebaseVisionCloudLabel> labels) {
+                                saveLabels(labels);
+                                processLabels(labels);
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(PhotoSearchActivity.this, R.string.photo_search_failed, Toast.LENGTH_LONG).show();
+                            }
+                        });
     }
 
     private void saveLabels(List<FirebaseVisionCloudLabel> labels) {
