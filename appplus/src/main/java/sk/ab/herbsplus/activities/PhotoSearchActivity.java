@@ -13,8 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -97,37 +97,66 @@ public class PhotoSearchActivity extends SearchBaseActivity {
             ((TextView) convertView.findViewById(R.id.tvConfidence))
                     .setText(String.format(Locale.getDefault(), "%.2f", label.getConfidence()));
 
-            final Button bGo = convertView.findViewById(R.id.bGo);
+            final TextView tvCount = convertView.findViewById(R.id.tvCount);
+            final LinearLayout llResult = convertView.findViewById(R.id.llResult);
 
-            final String path = AndroidConstants.FIREBASE_SEARCH
+            final String pathEn = AndroidConstants.FIREBASE_SEARCH
                     + AndroidConstants.SEPARATOR + AndroidConstants.LANGUAGE_EN
                     + AndroidConstants.SEPARATOR + label.getLabel();
-            DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference(path);
+            DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference(pathEn);
             mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        bGo.setVisibility(View.VISIBLE);
-                        bGo.setOnClickListener(new View.OnClickListener() {
+                        final int count = (int)dataSnapshot.getChildrenCount();
+                        tvCount.setText("" + count);
+                        llResult.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                        llResult.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                callListActivity(path, 1, false);
+                                callListActivity(pathEn, count, false);
                             }
                         });
                     } else {
-                        DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_PHOTO_SEARCH
-                                + AndroidConstants.SEPARATOR + label.getLabel());
+                        final String pathLa = AndroidConstants.FIREBASE_SEARCH
+                                + AndroidConstants.SEPARATOR + AndroidConstants.LANGUAGE_LA
+                                + AndroidConstants.SEPARATOR + label.getLabel();
+                        DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference(pathLa);
                         mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
-                                    final Map<String, Object> photoSearch = (Map<String, Object>)dataSnapshot.getValue();
-                                    bGo.setVisibility(View.VISIBLE);
-                                    bGo.setOnClickListener(new View.OnClickListener() {
+                                    final int count = (int)dataSnapshot.getChildrenCount();
+                                    tvCount.setText("" + count);
+                                    llResult.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                                    llResult.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            Long count = (Long)photoSearch.get("count");
-                                            callListActivity((String)photoSearch.get("path"), count.intValue(), false);
+                                            callListActivity(pathLa, count, false);
+                                        }
+                                    });
+                                } else {
+                                    DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_PHOTO_SEARCH
+                                            + AndroidConstants.SEPARATOR + label.getLabel());
+                                    mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if (dataSnapshot.exists()) {
+                                                final Map<String, Object> photoSearch = (Map<String, Object>)dataSnapshot.getValue();
+                                                final Long count = (Long)photoSearch.get("count");
+                                                tvCount.setText("" + count);
+                                                llResult.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                                                llResult.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View view) {
+                                                        callListActivity((String)photoSearch.get("path"), count.intValue(), false);
+                                                    }
+                                                });
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
                                         }
                                     });
                                 }

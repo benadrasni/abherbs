@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/llResult"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
               android:orientation="horizontal">
     <TextView
         android:id="@+id/tvLabel"
@@ -15,12 +16,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.25"/>
 
-    <Button
-        android:id="@+id/bGo"
+    <TextView
+        android:id="@+id/tvCount"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.25"
-        android:visibility="invisible"
-        android:background="@drawable/ic_keyboard_arrow_right_black_24dp"/>
-
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:layout_weight="0.25"/>
 </LinearLayout>

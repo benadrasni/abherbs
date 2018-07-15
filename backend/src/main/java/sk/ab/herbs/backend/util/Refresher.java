@@ -435,7 +435,7 @@ public class Refresher {
             Map<String, Object> apgiv = apgivCall.execute().body();
             Map<String, Map<String, Object>> photoSearch = new HashMap<>();
 
-            parseAPGIV("", apgiv, photoSearch, "");
+            parseAPGIV("", apgiv, photoSearch, "APG IV_v2/");
 
             Call<Object> callFirebaseSearch = firebaseClient.getApiService().savePhotoSearch(photoSearch);
             Response<Object> response = callFirebaseSearch.execute();
