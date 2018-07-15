@@ -126,7 +126,7 @@ public class AndroidConstants {
     public final static String FIREBASE_TRANSLATIONS = "translations";
     public final static String FIREBASE_TRANSLATIONS_TAXONOMY = "translations_taxonomy";
     public final static String FIREBASE_SEARCH = "search_v2";
-    public final static String FIREBASE_PHOTO_SEARCH = "photo_search";
+    public final static String FIREBASE_PHOTO_SEARCH = "search_photo";
     public final static String FIREBASE_OBSERVATIONS = "observations";
     public final static String FIREBASE_OBSERVATIONS_BY_USERS = "by users";
     public final static String FIREBASE_OBSERVATIONS_BY_DATE = "by date";
