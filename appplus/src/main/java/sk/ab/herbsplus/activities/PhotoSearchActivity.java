@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -21,6 +22,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions;
 import com.google.firebase.ml.vision.cloud.label.FirebaseVisionCloudLabel;
@@ -32,8 +40,11 @@ import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
@@ -79,12 +90,61 @@ public class PhotoSearchActivity extends SearchBaseActivity {
                 convertView = getLayoutInflater().inflate(R.layout.photo_search_label, container, false);
             }
 
-            FirebaseVisionCloudLabel label = (FirebaseVisionCloudLabel) getItem(position);
+            final FirebaseVisionCloudLabel label = (FirebaseVisionCloudLabel) getItem(position);
 
             ((TextView) convertView.findViewById(R.id.tvLabel))
                     .setText(label.getLabel());
             ((TextView) convertView.findViewById(R.id.tvConfidence))
                     .setText(String.format(Locale.getDefault(), "%.2f", label.getConfidence()));
+
+            final Button bGo = convertView.findViewById(R.id.bGo);
+
+            final String path = AndroidConstants.FIREBASE_SEARCH
+                    + AndroidConstants.SEPARATOR + AndroidConstants.LANGUAGE_EN
+                    + AndroidConstants.SEPARATOR + label.getLabel();
+            DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference(path);
+            mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        bGo.setVisibility(View.VISIBLE);
+                        bGo.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                callListActivity(path, 1, false);
+                            }
+                        });
+                    } else {
+                        DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference(AndroidConstants.FIREBASE_PHOTO_SEARCH
+                                + AndroidConstants.SEPARATOR + label.getLabel());
+                        mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    final Map<String, Object> photoSearch = (Map<String, Object>)dataSnapshot.getValue();
+                                    bGo.setVisibility(View.VISIBLE);
+                                    bGo.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Long count = (Long)photoSearch.get("count");
+                                            callListActivity((String)photoSearch.get("path"), count.intValue(), false);
+                                        }
+                                    });
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+
             return convertView;
         }
     }
@@ -146,7 +206,7 @@ public class PhotoSearchActivity extends SearchBaseActivity {
                 }
                 break;
             case AndroidConstants.REQUEST_PICK_PHOTO:
-                if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK && data.getData() !=null) {
                     processPhoto(data.getData());
                 } else {
                     Toast.makeText(this, R.string.gallery_failed, Toast.LENGTH_LONG).show();
@@ -222,6 +282,8 @@ public class PhotoSearchActivity extends SearchBaseActivity {
                             @Override
                             public void onSuccess(List<FirebaseVisionCloudLabel> labels) {
                                 saveLabels(labels);
+                                photoSearchNoteScrollView.setVisibility(View.GONE);
+                                photoSearchScrollView.setVisibility(View.VISIBLE);
                                 processLabels(labels);
                             }
                         })
@@ -235,12 +297,26 @@ public class PhotoSearchActivity extends SearchBaseActivity {
     }
 
     private void saveLabels(List<FirebaseVisionCloudLabel> labels) {
-        photoSearchNoteScrollView.setVisibility(View.GONE);
-        photoSearchScrollView.setVisibility(View.VISIBLE);
-
+        Date date = new Date();
+        DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            mFirebaseRef.child(AndroidConstants.FIREBASE_USERS)
+                    .child(currentUser.getUid())
+                    .child(AndroidConstants.FIREBASE_SEARCH_BY_PHOTO)
+                    .child("" + date.getTime())
+                    .setValue(labels);
+        }
     }
 
     private void processLabels(List<FirebaseVisionCloudLabel> labels) {
-        photoSearchListView.setAdapter(new LabelsAdapter(labels));
+        List<FirebaseVisionCloudLabel> filteredList = new ArrayList<>();
+        for (FirebaseVisionCloudLabel label : labels) {
+            if (!SpecificConstants.GENERIC_LABELS.contains(label.getLabel())) {
+                filteredList.add(label);
+            }
+        }
+
+        photoSearchListView.setAdapter(new LabelsAdapter(filteredList));
     }
 }

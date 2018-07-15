@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -44,9 +45,10 @@ public class Refresher {
     public static void main(String[] params) {
 
         //countAndList3();
-        countAndList4();
-        //countAndList4Ids();
-        //search();
+        //countAndList4();
+//        countAndList4Ids();
+//        search();
+        photoSearch();
     }
 
     private static void countAndList3() {
@@ -424,6 +426,61 @@ public class Refresher {
         }
 
         return result;
+    }
+
+    private static void photoSearch() {
+        try {
+            final FirebaseClient firebaseClient = new FirebaseClient();
+            Call<Map<String, Object>> apgivCall = firebaseClient.getApiService().getAPGIV2();
+            Map<String, Object> apgiv = apgivCall.execute().body();
+            Map<String, Map<String, Object>> photoSearch = new HashMap<>();
+
+            parseAPGIV("", apgiv, photoSearch, "");
+
+            Call<Object> callFirebaseSearch = firebaseClient.getApiService().savePhotoSearch(photoSearch);
+            Response<Object> response = callFirebaseSearch.execute();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void parseAPGIV(String taxon, Map<String, Object> apgiv, Map<String, Map<String, Object>> photoSearch, String path) {
+
+        Map<String, Object> item = new HashMap<>();
+        boolean isDesiredType = false;
+        for (String key : apgiv.keySet()) {
+
+            if ("type".equals(key)) {
+                String type = (String)apgiv.get(key);
+                isDesiredType = "Genus".equals(type) || "Familia".equals(type);
+            } else if ("count".equals(key)) {
+                String count = String.format("%.0f", apgiv.get(key));
+                item.put("count", Integer.parseInt(count));
+            } else if ("list".equals(key)) {
+                item.put("path", path + "list");
+            } else {
+                parseAPGIV(key, (Map<String, Object>)apgiv.get(key), photoSearch, path + key + "/");
+            }
+        }
+
+        if (isDesiredType) {
+            photoSearch.put(taxon.toLowerCase(), item);
+
+            final FirebaseClient firebaseClient = new FirebaseClient();
+            Call<List<String>> translationTaxonomyCall = firebaseClient.getApiService().getTranslationTaxonomy("en", taxon);
+            try {
+                List<String> enNames = translationTaxonomyCall.execute().body();
+                if (enNames != null) {
+                    for (String name : enNames) {
+                        photoSearch.put(name.toLowerCase(), item);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

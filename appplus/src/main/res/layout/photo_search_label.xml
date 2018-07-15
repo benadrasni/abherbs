@@ -13,6 +13,14 @@
         android:id="@+id/tvConfidence"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"/>
+        android:layout_weight="0.25"/>
+
+    <Button
+        android:id="@+id/bGo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.25"
+        android:visibility="invisible"
+        android:background="@drawable/ic_keyboard_arrow_right_black_24dp"/>
 
 </LinearLayout>

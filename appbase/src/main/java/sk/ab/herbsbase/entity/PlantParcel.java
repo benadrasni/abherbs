@@ -37,7 +37,6 @@ public class PlantParcel extends FirebasePlant implements Parcelable {
         setSynonyms(plant.getSynonyms());
         setPhotoUrls(plant.getPhotoUrls());
         setSourceUrls(plant.getSourceUrls());
-        setTaxonomy(plant.getTaxonomy());
         setAPGIV(plant.getAPGIV());
         setWikilinks(plant.getWikilinks());
     }
@@ -54,7 +53,6 @@ public class PlantParcel extends FirebasePlant implements Parcelable {
         setSynonyms((ArrayList<String>)in.readSerializable());
         setPhotoUrls((ArrayList<String>)in.readSerializable());
         setSourceUrls((ArrayList<String>)in.readSerializable());
-        setTaxonomy((HashMap<String, String>)in.readSerializable());
         setAPGIV((HashMap<String, String>)in.readSerializable());
         setWikilinks((HashMap<String, String>)in.readSerializable());
     }
@@ -78,7 +76,6 @@ public class PlantParcel extends FirebasePlant implements Parcelable {
         parcel.writeSerializable(getSynonyms());
         parcel.writeSerializable(getPhotoUrls());
         parcel.writeSerializable(getSourceUrls());
-        parcel.writeSerializable(getTaxonomy());
         parcel.writeSerializable(getAPGIV());
         parcel.writeSerializable(getWikilinks());
     }

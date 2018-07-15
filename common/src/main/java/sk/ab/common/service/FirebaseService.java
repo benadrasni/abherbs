@@ -1,6 +1,7 @@
 package sk.ab.common.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -137,11 +138,17 @@ public interface FirebaseService {
     @GET("APG IV.json")
     Call<Map<String, Object>> getAPGIV();
 
+    @GET("APG IV_v2.json")
+    Call<Map<String, Object>> getAPGIV2();
+
     @PUT("APG IV.json")
     Call<Object> saveAPGIV(@Body Object object);
 
     @PUT("translations.json")
     Call<Object> saveTranslations(@Body Object object);
+
+    @PUT("search_photo.json")
+    Call<Object> savePhotoSearch(@Body Object object);
 
     @PUT("translations/{language}/{name}.json")
     Call<Object> saveTranslation(@Path("language") String language, @Path("name") String name, @Body Object object);
@@ -153,6 +160,14 @@ public interface FirebaseService {
     })
     @GET("translations/{language}/{name}.json")
     Call<Map<String, Object>> getTranslation(@Path("language") String language, @Path("name") String name);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @GET("translations_taxonomy/{language}/{name}.json")
+    Call<List<String>> getTranslationTaxonomy(@Path("language") String language, @Path("name") String name);
 
     @Headers({
             "Content-Type: application/json",
