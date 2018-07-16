@@ -128,6 +128,8 @@ public class AndroidConstants {
     public final static String FIREBASE_SEARCH = "search_v2";
     public final static String FIREBASE_PHOTO_SEARCH = "search_photo";
     public final static String FIREBASE_OBSERVATIONS = "observations";
+    public final static String FIREBASE_SETTINGS = "settings";
+    public final static String FIREBASE_SETTINGS_GENERIC_LABELS = "generic_labels";
     public final static String FIREBASE_OBSERVATIONS_BY_USERS = "by users";
     public final static String FIREBASE_OBSERVATIONS_BY_DATE = "by date";
     public final static String FIREBASE_OBSERVATIONS_BY_PLANT = "by plant";

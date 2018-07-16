@@ -29,6 +29,4 @@ public class SpecificConstants {
     public final static String[] FILTERS = {"filter_1", "filter_2", "filter_3", "filter_4"};
     public final static String[] AVAILABLE_FILTERS = {"available_filter_1", "available_filter_2", "available_filter_3"};
     public static final String[] FILTER_ATTRIBUTES = {Constants.COLOR_OF_FLOWERS, Constants.HABITAT, Constants.NUMBER_OF_PETALS, Constants.DISTRIBUTION};
-
-    public final static List<String> GENERIC_LABELS = Arrays.asList("plant", "flower", "flora", "terrestrial plant", "flowering plant", "annual plant", "wildflower", "yellow", "pink", "petal", "spring");
 }

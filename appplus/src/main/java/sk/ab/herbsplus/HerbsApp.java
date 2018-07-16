@@ -2,9 +2,13 @@ package sk.ab.herbsplus;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +32,7 @@ import sk.ab.herbsbase.fragments.NumberOfPetals;
  * <p/>
  */
 public class HerbsApp extends BaseApp {
+    public static List<String> GENERIC_LABELS;
 
     private BaseFilterFragment colorOfFlowers;
     private BaseFilterFragment habitats;
@@ -43,6 +48,25 @@ public class HerbsApp extends BaseApp {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         database.setPersistenceEnabled(true);
+
+        // settings
+        GENERIC_LABELS = new ArrayList<>();
+        DatabaseReference mFirebaseRef = database.getReference(AndroidConstants.FIREBASE_SETTINGS
+                + AndroidConstants.SEPARATOR + AndroidConstants.FIREBASE_SETTINGS_GENERIC_LABELS);
+        mFirebaseRef.keepSynced(true);
+        mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    GENERIC_LABELS = (List<String>) dataSnapshot.getValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
         boolean offline = preferences.getBoolean(SpecificConstants.OFFLINE_MODE_KEY, false);
         if (offline) {
             // Firebase synchronization

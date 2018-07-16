@@ -49,6 +49,7 @@ import java.util.Map;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.BaseApp;
 import sk.ab.herbsbase.activities.SearchBaseActivity;
+import sk.ab.herbsplus.HerbsApp;
 import sk.ab.herbsplus.R;
 import sk.ab.herbsplus.SpecificConstants;
 import sk.ab.herbsplus.util.UtilsPlus;
@@ -341,7 +342,7 @@ public class PhotoSearchActivity extends SearchBaseActivity {
     private void processLabels(List<FirebaseVisionCloudLabel> labels) {
         List<FirebaseVisionCloudLabel> filteredList = new ArrayList<>();
         for (FirebaseVisionCloudLabel label : labels) {
-            if (!SpecificConstants.GENERIC_LABELS.contains(label.getLabel())) {
+            if (!HerbsApp.GENERIC_LABELS.contains(label.getLabel())) {
                 filteredList.add(label);
             }
         }
