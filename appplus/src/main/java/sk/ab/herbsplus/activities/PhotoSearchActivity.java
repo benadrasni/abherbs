@@ -146,7 +146,7 @@ public class PhotoSearchActivity extends SearchBaseActivity {
                                                 final Map<String, Object> photoSearch = (Map<String, Object>)dataSnapshot.getValue();
                                                 final Long count = (Long)photoSearch.get("count");
                                                 tvCount.setText("" + count);
-                                                llResult.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                                                llResult.setBackgroundColor(getResources().getColor(R.color.FABGreen));
                                                 llResult.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {
