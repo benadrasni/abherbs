@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="color_of_flower">color of flowers</string>
+  <string name="color_of_flower_message">What\'s the color of the flower? Choose the closest one.</string>
+  <string name="plant_color_of_flowers">Color of flowers</string>
+</resources>
