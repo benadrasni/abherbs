@@ -159,6 +159,7 @@ public class Creater {
         aMap.put("Malvales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Cladus/Cladus/Ordo");
         aMap.put("Myrtales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Cladus/Cladus/Ordo");
         aMap.put("Sapindales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Cladus/Cladus/Ordo");
+        aMap.put("Fagales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Cladus/Cladus/Ordo");
 
         apgiiiOrdoNameMap = Collections.unmodifiableMap(aMap);
     }
