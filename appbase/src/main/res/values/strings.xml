@@ -85,13 +85,13 @@
     <string name="cache_size">Cache size in MB</string>
     <string name="cache_size_summary">for photos and illustrations</string>
 
-    <string name="color_of_flower">color of flowers</string>
+    <string name="color_of_flower">colour of flowers</string>
     <string name="color_white">white</string>
     <string name="color_yellow">yellow</string>
     <string name="color_red">red, pink</string>
     <string name="color_blue">blue, purple</string>
     <string name="color_green">green, brown, black</string>
-    <string name="color_of_flower_message">What\'s the color of the flower? Choose the closest one.</string>
+    <string name="color_of_flower_message">What\'s the colour of the flower? Choose the closest one.</string>
 
     <string name="habitats">habitats</string>
     <string name="habitat_meadow">meadows or grasslands</string>
@@ -131,7 +131,7 @@
     <string name="plant_fruits">Fruits</string>
     <string name="plant_leaves">Leaves</string>
     <string name="plant_inflorescence">Inflorescence</string>
-    <string name="plant_color_of_flowers">Color of flowers</string>
+    <string name="plant_color_of_flowers">Colour of flowers</string>
     <string name="plant_number_of_petals">Number of petals</string>
     <string name="plant_sepal">Sepal</string>
     <string name="plant_leaf_shape">Leaf shape</string>
