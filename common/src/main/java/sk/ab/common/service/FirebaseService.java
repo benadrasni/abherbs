@@ -58,7 +58,7 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
-    @GET("plants/{name}.json")
+    @GET("plants_v2/{name}.json")
     Call<FirebasePlant> getPlant(@Path("name") String name);
 
     @Headers({
