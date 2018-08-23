@@ -308,12 +308,14 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 FirebasePlant plant = dataSnapshot.getValue(FirebasePlant.class);
 
-                setPlant(new PlantParcel(plant));
+                if (plant != null) {
+                    setPlant(new PlantParcel(plant));
 
-                counter.increment();
+                    counter.increment();
 
-                if (counter.value() == API_CALLS) {
-                    displayPlant();
+                    if (counter.value() == API_CALLS) {
+                        displayPlant();
+                    }
                 }
             }
 
@@ -328,19 +330,15 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
 
         // load translations in language
         DatabaseReference mTranslationRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.SEPARATOR
-                + Locale.getDefault().getLanguage());
+                + Locale.getDefault().getLanguage() + AndroidConstants.SEPARATOR + plantName);
         mTranslationRef.keepSynced(true);
         mTranslationRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(plantName)) {
-                    PlantTranslation plantTranslation = dataSnapshot.child(plantName).getValue(PlantTranslation.class);
+                PlantTranslation plantTranslation = dataSnapshot.getValue(PlantTranslation.class);
 
-                    if (plantTranslation != null) {
-                        setTranslationInLanguage(new PlantTranslationParcel(plantTranslation));
-                    } else {
-                        setTranslationInLanguage(null);
-                    }
+                if (plantTranslation != null) {
+                    setTranslationInLanguage(new PlantTranslationParcel(plantTranslation));
                 } else {
                     setTranslationInLanguage(null);
                 }
@@ -396,19 +394,15 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
 
             // load translation in language (GT)
             DatabaseReference mTranslationGTRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.SEPARATOR
-                    + Locale.getDefault().getLanguage() + AndroidConstants.LANGUAGE_GT_SUFFIX);
+                    + Locale.getDefault().getLanguage() + AndroidConstants.LANGUAGE_GT_SUFFIX  + AndroidConstants.SEPARATOR + plantName);
             mTranslationGTRef.keepSynced(true);
             mTranslationGTRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.hasChild(plantName)) {
-                        PlantTranslation plantTranslation = dataSnapshot.child(plantName).getValue(PlantTranslation.class);
+                    PlantTranslation plantTranslation = dataSnapshot.getValue(PlantTranslation.class);
 
-                        if (plantTranslation != null) {
-                            setTranslationInLanguageGT(new PlantTranslationParcel(plantTranslation));
-                        } else {
-                            setTranslationInLanguageGT(null);
-                        }
+                    if (plantTranslation != null) {
+                        setTranslationInLanguageGT(new PlantTranslationParcel(plantTranslation));
                     } else {
                         setTranslationInLanguageGT(null);
                     }
