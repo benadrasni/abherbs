@@ -183,6 +183,7 @@ public class PhotoSearchActivity extends SearchBaseActivity {
     private ListView photoSearchListView;
     private ScrollView photoSearchScrollView;
     private ScrollView photoSearchNoteScrollView;
+    private TextView photoSearchNoteTextView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -197,6 +198,7 @@ public class PhotoSearchActivity extends SearchBaseActivity {
         photoSearchListView = findViewById(R.id.lvPhotoSearchResults);
         photoSearchScrollView = findViewById(R.id.svPhotoSearchResults);
         photoSearchNoteScrollView = findViewById(R.id.svPhotoSearchNote);
+        photoSearchNoteTextView = findViewById(R.id.tvPhotoSearchNote);
     }
 
     @Override
@@ -312,8 +314,6 @@ public class PhotoSearchActivity extends SearchBaseActivity {
                             @Override
                             public void onSuccess(List<FirebaseVisionCloudLabel> labels) {
                                 saveLabels(labels);
-                                photoSearchNoteScrollView.setVisibility(View.GONE);
-                                photoSearchScrollView.setVisibility(View.VISIBLE);
                                 processLabels(labels);
                             }
                         })
@@ -347,6 +347,14 @@ public class PhotoSearchActivity extends SearchBaseActivity {
             }
         }
 
-        photoSearchListView.setAdapter(new LabelsAdapter(filteredList));
+        if (filteredList.size() > 0) {
+            photoSearchNoteScrollView.setVisibility(View.GONE);
+            photoSearchScrollView.setVisibility(View.VISIBLE);
+            photoSearchListView.setAdapter(new LabelsAdapter(filteredList));
+        } else {
+            photoSearchNoteScrollView.setVisibility(View.VISIBLE);
+            photoSearchScrollView.setVisibility(View.GONE);
+            photoSearchNoteTextView.setText(R.string.photo_search_empty);
+        }
     }
 }

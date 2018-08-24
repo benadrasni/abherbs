@@ -44,6 +44,8 @@ public abstract class SearchBaseActivity extends BasePlayActivity {
         super.onCreate(savedInstanceState);
 
         changeLocale();
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     public void callListActivity(String listPath, int count, boolean fromNotification) {

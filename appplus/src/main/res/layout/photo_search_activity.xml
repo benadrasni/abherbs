@@ -41,6 +41,7 @@
             android:scrollbars="vertical">
 
             <TextView
+                android:id="@+id/tvPhotoSearchNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -59,7 +60,7 @@
             <ListView
                 android:id="@+id/lvPhotoSearchResults"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"/>
 
         </ScrollView>
     </LinearLayout>
