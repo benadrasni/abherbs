@@ -316,6 +316,9 @@ public abstract class ListPlantsBaseActivity extends BaseActivity {
                     if (counter.value() == API_CALLS) {
                         displayPlant();
                     }
+                } else {
+                    stopLoading();
+                    setCountButton();
                 }
             }
 

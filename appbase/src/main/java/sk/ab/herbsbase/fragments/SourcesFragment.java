@@ -2,6 +2,8 @@ package sk.ab.herbsbase.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -183,8 +185,14 @@ public class SourcesFragment extends Fragment {
 
             image.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(url));
-                    startActivity(browserIntent);
+                    if (!getActivity().isDestroyed()) {
+                        Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(url));
+                        List<ResolveInfo> activities = getActivity().getPackageManager().queryIntentActivities(browserIntent,
+                                PackageManager.MATCH_DEFAULT_ONLY);
+                        if (activities.size() > 0) {
+                            startActivity(browserIntent);
+                        }
+                    }
                 }
             });
 

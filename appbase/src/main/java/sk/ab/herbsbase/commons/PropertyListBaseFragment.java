@@ -2,6 +2,8 @@ package sk.ab.herbsbase.commons;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.List;
 import java.util.Locale;
 
 import sk.ab.herbsbase.AndroidConstants;
@@ -100,12 +103,20 @@ public abstract class PropertyListBaseFragment extends ListFragment {
                         case AndroidConstants.ITEM_HELP:
                             Intent helpIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
                                     + "help?lang=" + Locale.getDefault().getLanguage()));
-                            startActivity(helpIntent);
+                            List<ResolveInfo> activitiesHelp = getActivity().getPackageManager().queryIntentActivities(helpIntent,
+                                    PackageManager.MATCH_DEFAULT_ONLY);
+                            if (activitiesHelp.size() > 0) {
+                                startActivity(helpIntent);
+                            }
                             break;
                         case AndroidConstants.ITEM_ABOUT:
                             Intent aboutIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
                                     + "about?lang=" + Locale.getDefault().getLanguage()));
-                            startActivity(aboutIntent);
+                            List<ResolveInfo> activitiesAbout = getActivity().getPackageManager().queryIntentActivities(aboutIntent,
+                                    PackageManager.MATCH_DEFAULT_ONLY);
+                            if (activitiesAbout.size() > 0) {
+                                startActivity(aboutIntent);
+                            }
                             break;
                         default:
                             handleUserSettings(setting);
@@ -145,8 +156,8 @@ public abstract class PropertyListBaseFragment extends ListFragment {
                             if ((activity != null && !activity.isDestroyed()) && activity.getFilter() != null){
                                 String valueId = activity.getFilter().get(filterFragment.getAttribute());
                                 if (valueId != null) {
-                                    int resId = AndroidConstants.filterResources.get(filterFragment.getAttribute()+"_"+valueId);
-                                    if (resId > 0) {
+                                    Integer resId = AndroidConstants.filterResources.get(filterFragment.getAttribute()+"_"+valueId);
+                                    if (resId != null) {
                                         valueText = getResources().getText(resId).toString();
                                     }
                                 }

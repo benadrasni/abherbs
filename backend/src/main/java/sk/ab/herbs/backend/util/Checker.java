@@ -10,18 +10,22 @@ import java.util.Scanner;
 
 import retrofit2.Call;
 import sk.ab.common.entity.FirebasePlant;
+import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.service.FirebaseClient;
 
 /**
  * Created by adrian on 4.5.2016.
  */
 public class Checker {
+    public static int PLANTS_COUNT = 937;
+
     public static String PATH = "C:/Dev/Projects/abherbs/backend/txt/";
 //    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
     public static String PLANTS_FILE = "plants.csv";
     public static String MISSING_FILE_SUFFIX = "_missing.txt";
 
     private static ArrayList<Integer> DEFAULT_DISTRIBUTION = new ArrayList<>(Arrays.asList(10, 11, 12, 13, 14));
+    private static ArrayList<Integer> DISTRIBUTION = new ArrayList<>(Arrays.asList(10, 11, 12, 13, 14, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 40, 41, 42, 43, 50, 51, 60, 61, 62, 63, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 90, 91));
 
     private static String[] languages = {"cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
 
@@ -31,9 +35,50 @@ public class Checker {
     public static void main(String[] params) {
 
         //checkNames();
-        checkNameTranslations();
+        //checkNameTranslations();
         //checkSearch();
         //checkTranslation();
+        checkFilter();
+    }
+
+    private static void checkFilter() {
+        final FirebaseClient firebaseClient = new FirebaseClient();
+
+        try {
+            for (int i = 0; i < PLANTS_COUNT; i++) {
+
+                Call<PlantHeader> plantHeaderCall = firebaseClient.getApiService().getPlantHeader(i);
+                PlantHeader plantHeader = plantHeaderCall.execute().body();
+
+                for(Integer color : plantHeader.getFilterColor()) {
+                    if (color < 1 || color > 5) {
+                        System.out.println("ERROR at " + i + "(color: " + color + ")");
+                    }
+                }
+
+                for(Integer habitat : plantHeader.getFilterHabitat()) {
+                    if (habitat < 1 || habitat > 6) {
+                        System.out.println("ERROR at " + i + "(habitat: " + habitat + ")");
+                    }
+                }
+
+                for(Integer petal : plantHeader.getFilterPetal()) {
+                    if (petal < 1 || petal > 4) {
+                        System.out.println("ERROR at " + i + "(petal: " + petal + ")");
+                    }
+                }
+
+                for(Integer distribution : plantHeader.getFilterDistribution()) {
+                    if (!DISTRIBUTION.contains(distribution)) {
+                        System.out.println("ERROR at " + i + "(distribution: " + distribution + ")");
+                    }
+                }
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void checkNames() {

@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
+import sk.ab.common.Constants;
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
 import sk.ab.herbsbase.activities.FilterPlantsBaseActivity;
@@ -15,7 +16,7 @@ import sk.ab.herbsbase.commons.BaseFilterFragment;
 public class Habitats extends BaseFilterFragment {
 
     public Habitats() {
-        this.attribute = sk.ab.common.Constants.HABITAT;
+        this.attribute = Constants.HABITAT;
         this.title = R.string.habitats;
         this.iconRes = R.drawable.habitats;
         this.layout = R.layout.habitats;
