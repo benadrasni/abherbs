@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Locale;
@@ -107,6 +108,8 @@ public abstract class PropertyListBaseFragment extends ListFragment {
                                     PackageManager.MATCH_DEFAULT_ONLY);
                             if (activitiesHelp.size() > 0) {
                                 startActivity(helpIntent);
+                            } else {
+                                Toast.makeText(getActivity().getApplicationContext(), "There is no application installed for web browsing.", Toast.LENGTH_SHORT).show();
                             }
                             break;
                         case AndroidConstants.ITEM_ABOUT:
@@ -116,6 +119,8 @@ public abstract class PropertyListBaseFragment extends ListFragment {
                                     PackageManager.MATCH_DEFAULT_ONLY);
                             if (activitiesAbout.size() > 0) {
                                 startActivity(aboutIntent);
+                            } else {
+                                Toast.makeText(getActivity().getApplicationContext(), "There is no application installed for web browsing.", Toast.LENGTH_SHORT).show();
                             }
                             break;
                         default:

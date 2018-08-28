@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -191,6 +192,8 @@ public class SourcesFragment extends Fragment {
                                 PackageManager.MATCH_DEFAULT_ONLY);
                         if (activities.size() > 0) {
                             startActivity(browserIntent);
+                        } else {
+                            Toast.makeText(getActivity().getApplicationContext(), "There is no application installed for web browsing.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
