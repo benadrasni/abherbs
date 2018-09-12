@@ -5,6 +5,6 @@
     <string name="feedback_ads_not_allowed">Sie können die Werbung von Google AdMob in der Anwendung aktivieren.</string>
     <string name="feedback_enable_ads">AdMob Werbung aktivieren</string>
     <string name="feedback_disable_ads">AdMob Werbung deaktivieren</string>
-    <string name="feedback_buy_extended">Sie können eine erweiterte (+) Version kaufen. Diese beinhaltet zusätzliche Funktionalitäten wie Offline-Modus, Suche nach Namen und Suche in Taxonomie.</string>
+    <string name="feedback_buy_extended">Sie können eine erweiterte (+) Version kaufen. Diese beinhaltet zusätzliche Funktionen wie Offline-Modus, Suche nach Namen und Suche nach Aussehen (Taxonomie).</string>
     <string name="feedback_submit_buy">Gehen Sie zur erweiterten (+) Version</string>
 </resources>
