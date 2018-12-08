@@ -1,5 +1,8 @@
 package sk.ab.herbs.backend.util;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +49,7 @@ public class Refresher {
 
         //countAndList3();
         //countAndList4();
-        //countAndList4Ids();
+        countAndList4Ids();
         search();
         photoSearch();
     }
@@ -239,6 +242,7 @@ public class Refresher {
 
                     Map<Integer, Integer> searchForLabel = null;
                     String label = (String)plant.get("label");
+                    System.out.println(label);
                     if (label != null) {
                         label = label.toLowerCase();
                         if (label.isEmpty() || label.contains(".") || label.contains("/") || label.contains("#") || label.contains("$") || label.contains("[") || label.contains("]")) {
@@ -437,8 +441,11 @@ public class Refresher {
 
             parseAPGIV("", apgiv, photoSearch, "APG IV_v2/");
 
-            Call<Object> callFirebaseSearch = firebaseClient.getApiService().savePhotoSearch(photoSearch);
-            Response<Object> response = callFirebaseSearch.execute();
+            Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().serializeNulls().create();
+            System.out.println(gson.toJson(photoSearch));
+
+//            Call<Object> callFirebaseSearch = firebaseClient.getApiService().savePhotoSearch(photoSearch);
+//            Response<Object> response = callFirebaseSearch.execute();
 
         } catch (IOException e) {
             e.printStackTrace();
