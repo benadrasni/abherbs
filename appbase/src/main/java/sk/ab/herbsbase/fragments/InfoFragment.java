@@ -1,6 +1,8 @@
 package sk.ab.herbsbase.fragments;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
@@ -23,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -253,7 +256,7 @@ public class InfoFragment extends Fragment {
         final BaseApp app = (BaseApp) activity.getApplication();
 
         activity.startLoading();
-        activity.countButton.setVisibility(View.VISIBLE);
+        activity.countButton.show();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference mTranslationGTRef = database.getReference(AndroidConstants.FIREBASE_TRANSLATIONS + AndroidConstants.SEPARATOR
@@ -266,7 +269,8 @@ public class InfoFragment extends Fragment {
                     target,
                     textToTranslate).enqueue(new Callback<Map<String, Map<String, List<Map<String, String>>>>>() {
                 @Override
-                public void onResponse(Call<Map<String, Map<String, List<Map<String, String>>>>> call, Response<Map<String, Map<String, List<Map<String, String>>>>> response) {
+                public void onResponse(@NonNull Call<Map<String, Map<String, List<Map<String, String>>>>> call,
+                                       @NonNull Response<Map<String, Map<String, List<Map<String, String>>>>> response) {
                     if (!activity.isDestroyed()) {
                         Map<String, Map<String, List<Map<String, String>>>> data = response.body();
 
@@ -285,22 +289,22 @@ public class InfoFragment extends Fragment {
                         }
 
                         activity.stopLoading();
-                        activity.countButton.setVisibility(View.GONE);
+                        activity.countButton.hide();
                     }
                 }
 
                 @Override
-                public void onFailure(Call<Map<String, Map<String, List<Map<String, String>>>>> call, Throwable t) {
+                public void onFailure(@NonNull Call<Map<String, Map<String, List<Map<String, String>>>>> call, @NonNull Throwable t) {
                     Log.e(this.getClass().getName(), "Failed to load data. Check your internet settings.", t);
                     activity.stopLoading();
-                    activity.countButton.setVisibility(View.GONE);
+                    activity.countButton.hide();
                 }
             });
         } else {
             setInfo(false);
 
             activity.stopLoading();
-            activity.countButton.setVisibility(View.GONE);
+            activity.countButton.hide();
         }
     }
 
@@ -355,9 +359,17 @@ public class InfoFragment extends Fragment {
     }
 
     private void improveTranslation(String plantName) {
-        Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
-                + "translate_flower?lang=" + Locale.getDefault().getLanguage() + "&plant=" + plantName));
-        startActivity(browserIntent);
+        if (getActivity() != null && !getActivity().isDestroyed()) {
+            Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(AndroidConstants.WEB_URL
+                    + "translate_flower?lang=" + Locale.getDefault().getLanguage() + "&plant=" + plantName));
+            List<ResolveInfo> activities = getActivity().getPackageManager().queryIntentActivities(browserIntent,
+                    PackageManager.MATCH_DEFAULT_ONLY);
+            if (activities.size() > 0) {
+                startActivity(browserIntent);
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "There is no application installed for web browsing.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private Object[][] getSections(DisplayPlantBaseActivity activity, boolean withTranslation) {

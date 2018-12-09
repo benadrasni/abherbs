@@ -7,6 +7,7 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.DisplayMetrics;
@@ -51,9 +52,10 @@ public class SourcesFragment extends Fragment {
     private static final String SOURCE_HORTIPEDIA = "hortipedia.com";
     private static final String SOURCE_USDA = "plants.usda.gov";
     private static final String SOURCE_USFS = "forestryimages.org";
+    private static final String SOURCE_TELABOTANICA = "tela-botanica.org";
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return View.inflate(getActivity().getBaseContext(), R.layout.plant_card_sources, null);
     }
 
@@ -72,7 +74,7 @@ public class SourcesFragment extends Fragment {
     }
 
     private void setSources(View convertView) {
-        DisplayPlantBaseActivity activity = (DisplayPlantBaseActivity)getActivity();
+        final DisplayPlantBaseActivity activity = (DisplayPlantBaseActivity)getActivity();
         FirebasePlant plant = activity.getPlant();
         PlantTranslation plantTranslation = activity.getPlantTranslation();
         PlantTranslation plantTranslationEn = activity.getPlantTranslationEn();
@@ -129,23 +131,23 @@ public class SourcesFragment extends Fragment {
             sourceUrls.addAll(plant.getSourceUrls());
         }
 
-        GridLayout grid = (GridLayout) convertView.findViewById(R.id.plant_source_grid);
+        GridLayout grid = convertView.findViewById(R.id.plant_source_grid);
         grid.removeAllViews();
 
-        DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
+        DisplayMetrics dm = activity.getResources().getDisplayMetrics();
         int width = dm.widthPixels - Utils.convertDpToPx(45, dm);
-        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             width = width / 2;
         }
 
         int columns = width / (Utils.convertDpToPx(100, dm));
         grid.setColumnCount(columns);
 
-        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         for (final String url : sourceUrls) {
             View view = inflater.inflate(R.layout.source, null);
-            ImageView image = (ImageView) view.findViewById(R.id.source_icon);
-            TextView text = (TextView) view.findViewById(R.id.source_title);
+            ImageView image = view.findViewById(R.id.source_icon);
+            TextView text = view.findViewById(R.id.source_title);
 
             if (url.contains(SOURCE_WIKIPEDIA)) {
                 image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.wikipedia, null));
@@ -180,20 +182,23 @@ public class SourcesFragment extends Fragment {
             } else if (url.contains(SOURCE_USFS)) {
                 image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.usfs, null));
                 text.setText(SOURCE_USFS);
+            } else if (url.contains(SOURCE_TELABOTANICA)) {
+                image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.tela_botanica, null));
+                text.setText(SOURCE_TELABOTANICA);
             } else {
                 image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.internet, null));
             }
 
             image.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if (!getActivity().isDestroyed()) {
+                    if (!activity.isDestroyed()) {
                         Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(url));
-                        List<ResolveInfo> activities = getActivity().getPackageManager().queryIntentActivities(browserIntent,
+                        List<ResolveInfo> activities = activity.getPackageManager().queryIntentActivities(browserIntent,
                                 PackageManager.MATCH_DEFAULT_ONLY);
                         if (activities.size() > 0) {
                             startActivity(browserIntent);
                         } else {
-                            Toast.makeText(getActivity().getApplicationContext(), "There is no application installed for web browsing.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity.getApplicationContext(), "There is no application installed for web browsing.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
