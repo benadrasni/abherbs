@@ -41,6 +41,11 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+        exclude 'META-INF/androidx.exifinterface_exifinterface.version'
+    }
 }
 
 dependencies {
@@ -55,7 +60,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-ml-vision-image-label-model:17.0.2'
     api 'com.firebaseui:firebase-ui-auth:4.2.1'
     api('com.facebook.android:facebook-android-sdk:4.+')
-    api("com.twitter.sdk.android:twitter-core:3.3.0@aar") { transitive = true }
+    api("com.twitter.sdk.android:twitter-core:3.0.0@aar") { transitive = true }
     api 'com.google.guava:guava:25.1-android'
 }
 
