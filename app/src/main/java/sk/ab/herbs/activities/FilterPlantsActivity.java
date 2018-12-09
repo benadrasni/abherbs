@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -42,8 +43,8 @@ public class FilterPlantsActivity extends FilterPlantsBaseActivity {
         super.onCreate(savedInstanceState);
 
         if (isAdsAllowed()) {
-            FrameLayout frameLayout = (FrameLayout)findViewById(sk.ab.herbsbase.R.id.filter_ads);
-            MobileAds.initialize(getApplicationContext(), getResources().getString(R.string.banner_ad_unit_id));
+            FrameLayout frameLayout = findViewById(sk.ab.herbsbase.R.id.filter_ads);
+            MobileAds.initialize(getApplicationContext(), getResources().getString(R.string.ad_app_id));
 
             AdView mAdView = new AdView(getApplicationContext());
             mAdView.setAdSize(AdSize.BANNER);
@@ -68,7 +69,7 @@ public class FilterPlantsActivity extends FilterPlantsBaseActivity {
 
         mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Integer count = dataSnapshot.getValue(Integer.class);
                 if (count != null && !FilterPlantsActivity.this.isDestroyed()) {
                     setCount(count);
@@ -79,7 +80,7 @@ public class FilterPlantsActivity extends FilterPlantsBaseActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e(this.getClass().getName(), databaseError.getMessage());
                 Toast.makeText(getApplicationContext(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
                 stopLoading();

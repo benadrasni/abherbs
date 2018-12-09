@@ -1,4 +1,5 @@
 <resources>
+    <string translatable="false" name="ad_app_id">ca-app-pub-4417568961191754~2951136021</string>
     <string translatable="false" name="banner_ad_unit_id">ca-app-pub-4417568961191754/4427869221</string>
 
     <string name="app_name">What\'s that flower?</string>

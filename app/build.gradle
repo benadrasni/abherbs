@@ -48,7 +48,7 @@ dependencies {
     api('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
         transitive = true
     }
-    api 'com.google.firebase:firebase-ads:15.0.1'
+    api 'com.google.firebase:firebase-ads:17.1.2'
 }
 
 configurations {
