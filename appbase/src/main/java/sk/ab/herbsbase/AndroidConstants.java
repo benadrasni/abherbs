@@ -114,7 +114,8 @@ public class AndroidConstants {
 
     public final static String SEPARATOR = "/";
     public final static String ACTION = "action";
-    public final static String ACTION_UPGRADE = "upgrade";
+    public final static String ACTION_BROWSE = "browse";
+    public final static String ACTION_BROWSE_URI = "uri";
 
     public final static String FIREBASE_COUNTS = "counts_4_v2";
     public final static String FIREBASE_LISTS = "lists_4_v2";

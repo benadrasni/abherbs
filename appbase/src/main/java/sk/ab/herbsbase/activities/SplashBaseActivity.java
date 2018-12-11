@@ -1,11 +1,13 @@
 package sk.ab.herbsbase.activities;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
+
+import java.util.List;
 
 import sk.ab.herbsbase.AndroidConstants;
 import sk.ab.herbsbase.R;
@@ -14,7 +16,7 @@ import sk.ab.herbsbase.R;
 /**
  * Splash activity
  *
- * Created by adrian on 11.3.2017.
+ * Created by adrian on 11. 3. 2017.
  */
 public abstract class SplashBaseActivity extends SearchBaseActivity {
 
@@ -26,32 +28,32 @@ public abstract class SplashBaseActivity extends SearchBaseActivity {
     }
 
     protected void startApplication() {
+        Intent intent = new Intent(this, getFilterPlantsActivityClass());
+
         if (getIntent().getExtras() != null) {
             String count = getIntent().getExtras().getString(AndroidConstants.FIREBASE_DATA_COUNT);
             if (count != null) {
                 String path = getIntent().getExtras().getString(AndroidConstants.FIREBASE_DATA_PATH);
                 Log.d(TAG, path + " (" + count + ")");
                 callProperActivity(Integer.parseInt(count), path);
+                return;
             } else {
                 String action = getIntent().getExtras().getString(AndroidConstants.ACTION);
-                if (AndroidConstants.ACTION_UPGRADE.equals(action)) {
-                    Uri uri = Uri.parse("market://details?id=sk.ab.herbsplus");
-                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                    try {
-                        startActivity(goToMarket);
-                    } catch (ActivityNotFoundException e) {
-                        startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("http://play.google.com/store/apps/details?id=sk.ab.herbsplus")));
+                if (AndroidConstants.ACTION_BROWSE.equals(action)) {
+                    String uriPath = getIntent().getExtras().getString(AndroidConstants.ACTION_BROWSE_URI);
+                    if (uriPath != null) {
+                        Uri uri = Uri.parse(uriPath);
+                        Intent newIntent = new Intent(Intent.ACTION_VIEW, uri);
+                        List<ResolveInfo> activities = this.getPackageManager().queryIntentActivities(intent,
+                                PackageManager.MATCH_DEFAULT_ONLY);
+                        if (activities.size() > 0) {
+                            intent = newIntent;
+                        }
                     }
-                } else {
-                    Intent intent = new Intent(this, getFilterPlantsActivityClass());
-                    startActivity(intent);
                 }
             }
-        } else {
-            Intent intent = new Intent(this, getFilterPlantsActivityClass());
-            startActivity(intent);
         }
+        startActivity(intent);
     }
 
     private void callProperActivity(Integer count, String path) {

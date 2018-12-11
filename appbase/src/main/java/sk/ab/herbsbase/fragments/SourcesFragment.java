@@ -192,7 +192,7 @@ public class SourcesFragment extends Fragment {
             image.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     if (!activity.isDestroyed()) {
-                        Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(url));
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                         List<ResolveInfo> activities = activity.getPackageManager().queryIntentActivities(browserIntent,
                                 PackageManager.MATCH_DEFAULT_ONLY);
                         if (activities.size() > 0) {
