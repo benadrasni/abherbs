@@ -13,49 +13,42 @@
         android:paddingBottom="@dimen/list_padding"
         android:paddingTop="@dimen/list_padding">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/private_public_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:text="@string/plant_observations"
                 android:textAppearance="@android:style/TextAppearance.Large"
                 android:textColor="@color/CardTitle" />
 
-            <LinearLayout
-                android:id="@+id/private_public_switch"
+            <ImageView
+                android:id="@+id/observation_private"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:orientation="horizontal">
+                android:paddingStart="@dimen/button_margin"
+                android:src="@drawable/ic_person_black_24dp" />
 
-                <ImageView
-                    android:id="@+id/observation_private"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/button_margin"
-                    android:src="@drawable/ic_person_black_24dp" />
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/private_public_switch_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
 
-                <android.support.v7.widget.SwitchCompat
-                    android:id="@+id/private_public_switch_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+            <ImageView
+                android:id="@+id/observation_public"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingEnd="@dimen/button_margin"
+                android:src="@drawable/ic_people_black_24dp" />
 
-                <ImageView
-                    android:id="@+id/observation_public"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingEnd="@dimen/button_margin"
-                    android:src="@drawable/ic_people_black_24dp" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/no_observations"
