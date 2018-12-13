@@ -42,6 +42,10 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="label" />
 
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <activity android:name="sk.ab.herbsplus.activities.SplashPlusActivity"
                   android:theme="@style/SplashScreenTheme">
             <intent-filter>
