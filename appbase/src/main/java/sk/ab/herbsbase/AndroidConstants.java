@@ -36,7 +36,6 @@ public class AndroidConstants {
 
     public final static long MIN_CLICK_INTERVAL = 600;
 
-    public final static String EMAIL = "whatsthoseflowers@gmail.com";
     public final static String WEB_URL = "https://whatsthatflower.com/";
     public final static int VERSION_1_2_7 = 36;
     public final static int VERSION_1_3_1 = 42;
@@ -57,14 +56,13 @@ public class AndroidConstants {
     public final static String STATE_LONGITUDE = "longitude";
     public final static String STATE_IS_SUBSCRIBED = "is_subscribed";
 
-    public final static String RATE = "RATE";
     public final static int RATE_COUNTER = 5;
     public final static int RATE_NEVER = -1;
     public final static int RATE_NO = 0;
     public final static int RATE_SHOW = 1;
     public final static int RATE_DONE = 2;
 
-    public final static String STORAGE_ENDPOINT = "http://storage.googleapis.com/abherbs-resources/";
+    public final static String STORAGE_ENDPOINT = "https://storage.googleapis.com/abherbs-resources/";
     public final static String STORAGE_FAMILIES = "families/";
     public final static String STORAGE_PHOTOS = "photos/";
     public final static String DEFAULT_EXTENSION = ".webp";
