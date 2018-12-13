@@ -273,30 +273,32 @@ public class PhotoSearchActivity extends SearchBaseActivity {
     }
 
     private void processPhoto(Uri uri) {
-        ImageView photoView = findViewById(R.id.iwPhoto);
-        ImageLoader.getInstance().displayImage(uri.toString(), new ImageViewAware(photoView), ((BaseApp) getApplication()).getOptions(),
-                new ImageSize(AndroidConstants.IMAGE_SIZE, AndroidConstants.IMAGE_SIZE),
-                new ImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String imageUri, View view) {
+        if (uri != null) {
+            ImageView photoView = findViewById(R.id.iwPhoto);
+            ImageLoader.getInstance().displayImage(uri.toString(), new ImageViewAware(photoView), ((BaseApp) getApplication()).getOptions(),
+                    new ImageSize(AndroidConstants.IMAGE_SIZE, AndroidConstants.IMAGE_SIZE),
+                    new ImageLoadingListener() {
+                        @Override
+                        public void onLoadingStarted(String imageUri, View view) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                        @Override
+                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        getLabels(loadedImage);
-                    }
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            getLabels(loadedImage);
+                        }
 
-                    @Override
-                    public void onLoadingCancelled(String imageUri, View view) {
+                        @Override
+                        public void onLoadingCancelled(String imageUri, View view) {
 
-                    }
-                }, null);
+                        }
+                    }, null);
+        }
     }
 
     private void getLabels(Bitmap loadedImage) {

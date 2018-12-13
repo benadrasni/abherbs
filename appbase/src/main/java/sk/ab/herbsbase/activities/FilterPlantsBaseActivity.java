@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -232,7 +233,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
     @Override
     protected int getLayoutResId() {
         return R.layout.filter_activity;
-    };
+    }
 
 
     public abstract boolean isAdsAllowed();
@@ -348,9 +349,11 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
             bYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogFragment dialog = new RateDialogFragment();
-                    dialog.show(getSupportFragmentManager(), "RateDialogFragment");
-                    rateLayout.setVisibility(View.GONE);
+                    if (!FilterPlantsBaseActivity.this.isDestroyed()) {
+                        DialogFragment dialog = new RateDialogFragment();
+                        dialog.show(getSupportFragmentManager(), "RateDialogFragment");
+                        rateLayout.setVisibility(View.GONE);
+                    }
                 }
             });
             Button bNo = findViewById(R.id.likeNo);
@@ -378,7 +381,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
             mFirebaseRefVersion.keepSynced(true);
             mFirebaseRefVersion.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getValue() != null) {
                         int currentVersion = ((Long) dataSnapshot.getValue()).intValue();
                         if (getAppVersionCode() < currentVersion) {
@@ -389,7 +392,7 @@ public abstract class FilterPlantsBaseActivity extends BaseActivity {
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });

@@ -30,6 +30,7 @@ public class AndroidConstants {
 
     public final static String DATE_SKELETON = "ddMMMyyyyHHmm";
     public final static int DEFAULT_CACHE_SIZE = 50;
+    public final static int MAX_CACHE_SIZE = 2047;
     public final static int IMAGE_SIZE = 512;
     public final static int ICON_OPACITY = 125;
 

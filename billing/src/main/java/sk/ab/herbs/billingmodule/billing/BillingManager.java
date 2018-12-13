@@ -269,8 +269,11 @@ public class BillingManager implements PurchasesUpdatedListener {
                     PurchasesResult purchasesResult = mBillingClient.queryPurchases(SkuType.INAPP);
                     Log.i(TAG, "Querying purchases elapsed time: " + (System.currentTimeMillis() - time)
                             + "ms");
-                    // If there are subscriptions supported, we add subscription rows as well
-                    if (areSubscriptionsSupported()) {
+
+                    if (purchasesResult.getResponseCode() != BillingResponse.OK) {
+                        Log.w(TAG, "queryPurchases() got an error response code: " + purchasesResult.getResponseCode());
+                    } else if (areSubscriptionsSupported()) {
+                        // If there are subscriptions supported, we add subscription rows as well
                         PurchasesResult subscriptionResult
                                 = mBillingClient.queryPurchases(SkuType.SUBS);
                         Log.i(TAG, "Querying purchases and subscriptions elapsed time: "
@@ -285,11 +288,8 @@ public class BillingManager implements PurchasesUpdatedListener {
                         } else {
                             Log.e(TAG, "Got an error response trying to query subscription purchases");
                         }
-                    } else if (purchasesResult.getResponseCode() == BillingResponse.OK) {
-                        Log.i(TAG, "Skipped subscription purchases query since they are not supported");
                     } else {
-                        Log.w(TAG, "queryPurchases() got an error response code: "
-                                + purchasesResult.getResponseCode());
+                        Log.i(TAG, "Skipped subscription purchases query since they are not supported");
                     }
                     onQueryPurchasesFinished(purchasesResult);
                 }
