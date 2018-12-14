@@ -36,6 +36,10 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ad_app_id"/>
 
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <activity android:name="sk.ab.herbs.activities.SplashActivity"
                   android:theme="@style/SplashScreenTheme">
             <intent-filter>
