@@ -1,6 +1,5 @@
 package sk.ab.herbs.backend.util;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -26,12 +25,14 @@ import sk.ab.common.service.FirebaseClient;
 public class Localizer {
     private static String PATH_TO_APPBASE = "C:/Dev/Projects/abherbs/appbase/src/main/res";
     private static String PATH_TO_APP = "C:/Dev/Projects/abherbs/app/src/main/res";
+    private static String PATH_TO_FLUTTER_APP = "C:/Dev/Projects/abherbs_flutter/res/values";
     private static String PATH_TO_APPPLUS = "C:/Dev/Projects/abherbs/appplus/src/main/res";
 
     public static void main(String[] params) {
         Map<String, Map<String, Map<String, String>>> appTranslations = new TreeMap<>();
         appTranslations.put("appbase", processResDir(PATH_TO_APPBASE));
-        appTranslations.put("app", processResDir(PATH_TO_APP));
+        //appTranslations.put("app", processResDir(PATH_TO_APP));
+        appTranslations.put("app", processResJsonDir(PATH_TO_FLUTTER_APP));
         appTranslations.put("appplus", processResDir(PATH_TO_APPPLUS));
         appTranslations.put("web", processFirebaseNode());
 
@@ -42,6 +43,40 @@ public class Localizer {
         } catch (IOException ex) {
 
         }
+    }
+
+    private static Map<String, Map<String, String>> processResJsonDir(String path) {
+        Map<String, Map<String, String>> appTranslations = new TreeMap<>();
+
+        try {
+            File dir = new File(path);
+            for (File resource : dir.listFiles()) {
+                String resourceName = resource.getName();
+
+                if (resourceName == "strings_en_US.arb") continue;
+
+                String language = resourceName.substring(8,10);
+                String content = new String(Files.readAllBytes(Paths.get(resource.getAbsolutePath())), "UTF-8");
+
+                JsonParser parser = new JsonParser();
+                JsonObject labels = parser.parse(content).getAsJsonObject();
+
+                for (Map.Entry<String, JsonElement> entry : labels.entrySet()) {
+                    String value = entry.getValue().getAsString();
+
+                    Map<String, String> translation = appTranslations.get(entry.getKey());
+                    if (translation == null) {
+                        translation = new HashMap<>();
+                        appTranslations.put(entry.getKey(), translation);
+                    }
+                    translation.put(language, value);
+                }
+            }
+        }  catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return appTranslations;
     }
 
     private static Map<String, Map<String, String>> processResDir(String path) {
