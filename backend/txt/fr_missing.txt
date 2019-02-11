@@ -4,7 +4,6 @@ Ratibida columnifera
 Nothoscordum bivalve
 Calyptocarpus vialis
 Oxalis violacea
-Oxalis stricta
 Geranium carolinianum
 Oenothera speciosa
 Rudbeckia amplexicaulis
@@ -50,11 +49,9 @@ Chamaecrista fasciculata
 Chamaelirium luteum
 Crataegus mollis
 Crataegus succulenta
-Cuscuta gronovii
 Cypripedium parviflorum
 Epifagus virginiana
 Conoclinium coelestinum
-Gelsemium sempervirens
 Gentiana andrewsii
 Geranium maculatum
 Heuchera sanguinea
@@ -80,8 +77,6 @@ Ipomoea cordatotriloba
 Symphyotrichum laeve
 Symphyotrichum novi-belgii
 Clematis integrifolia
-Clematis recta
-Clematis tangutica
 Clematis crispa
 Callianthemum coriandrifolium
 Callianthemum anemonoides

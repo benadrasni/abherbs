@@ -35,10 +35,10 @@ public class Checker {
     public static void main(String[] params) {
 
         //checkNames();
-        //checkNameTranslations();
+        checkNameTranslations();
         //checkSearch();
         //checkTranslation();
-        checkFilter();
+        //checkFilter();
     }
 
     private static void checkFilter() {
