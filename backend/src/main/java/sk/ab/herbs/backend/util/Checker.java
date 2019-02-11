@@ -2,6 +2,7 @@ package sk.ab.herbs.backend.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +29,7 @@ public class Checker {
     private static ArrayList<Integer> DISTRIBUTION = new ArrayList<>(Arrays.asList(10, 11, 12, 13, 14, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 40, 41, 42, 43, 50, 51, 60, 61, 62, 63, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 90, 91));
 
     private static String[] languages = {"cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
+    private static String[] languagesWithLabel = {"ar", "bg", "cs", "da", "de", "el", "en", "es", "et", "fa", "fi", "fr", "he", "hr", "hu", "is", "it", "ja", "lt", "lv", "mt", "nl", "no", "pa", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "tr", "uk", "zh"};
 
     public static String CELL_DELIMITER = ";";
     public static String ALIAS_DELIMITER = ",";
@@ -106,15 +108,31 @@ public class Checker {
         final FirebaseClient firebaseClient = new FirebaseClient();
 
         try {
-            Scanner scan = new Scanner(file);
-            while(scan.hasNextLine()) {
+            PrintWriter writerSummary = new PrintWriter(PATH + "count_missing_new.txt", "UTF-8");
 
-                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
+            for (String language : languagesWithLabel) {
+                int count = 0;
+                PrintWriter writer = new PrintWriter(PATH + language + "_missing.txt", "UTF-8");
 
-                //System.out.println(plantLine[0]);
+                Scanner scan = new Scanner(file);
+                while (scan.hasNextLine()) {
 
-                checkNameTranslations(firebaseClient, plantLine[0]);
+                    final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
+
+                    //System.out.println(plantLine[0]);
+
+                    if (checkNameTranslations(firebaseClient, writer, language, plantLine[0])) {
+                        count++;
+                    }
+                }
+                scan.close();
+
+                writer.close();
+
+                writerSummary.println(language + "..." + count);
             }
+
+            writerSummary.close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -172,17 +190,15 @@ public class Checker {
         }
     }
 
-    private static void checkNameTranslations(FirebaseClient firebaseClient, String plantName) throws IOException {
-        String[] languages = {"pl"};
-        for (String language : languages) {
+    private static boolean checkNameTranslations(FirebaseClient firebaseClient, PrintWriter writer, String language, String plantName) throws IOException {
+        Call<Map<String, Object>> plantTranslationCall = firebaseClient.getApiService().getTranslation(language, plantName);
+        Map<String, Object> plantTranslation = plantTranslationCall.execute().body();
 
-            Call<Map<String, Object>> plantTranslationCall = firebaseClient.getApiService().getTranslation(language, plantName);
-            Map<String, Object> plantTranslation = plantTranslationCall.execute().body();
-
-            if (plantTranslation == null || plantTranslation.get("label") == null) {
-                System.out.println(plantName);
-            }
+        if (plantTranslation == null || plantTranslation.get("label") == null) {
+            writer.println(plantName);
+            return true;
         }
+        return false;
     }
 
     private static void checkTranslation() {

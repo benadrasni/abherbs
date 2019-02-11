@@ -26,13 +26,14 @@ public class Namer {
     public static String PATH = "C:/Dev/Projects/abherbs/backend/txt/";
 //    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
     public static String PLANTS_NAMES_FILE = "plant_names.csv";
+    public static String PLANTS_FILE = "plants.csv";
 
     public static String CELL_DELIMITER = ",";
     public static String ALIAS_DELIMITER = "\\|";
 
     public static void main(String[] params) {
 
-        addNameTranslations();
+        //addNameTranslations();
     }
 
     private static void addNameTranslations() {

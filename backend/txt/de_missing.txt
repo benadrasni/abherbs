@@ -21,7 +21,6 @@ Rhexia mariana
 Eucnide bartonioides
 Teucrium cubense
 Liatris squarrosa
-Chelone lyonii
 Epifagus virginiana
 Epigaea repens
 Conoclinium coelestinum
@@ -54,3 +53,6 @@ Verbena halei
 Indigofera miniata
 Strophostyles helvola
 Oenothera drummondii
+Phalaenopsis sanderiana
+Ruellia simplex
+Ipomoea violacea
