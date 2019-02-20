@@ -142,6 +142,7 @@ public class AndroidConstants {
     public final static String STATE_SEARCH_TEXT = "search_text";
     public final static String FIREBASE_USERS = "users";
     public final static String FIREBASE_USERS_TOKEN = "token";
+    public final static String FIREBASE_USERS_OLD_VERSION = "old version";
     public final static String FIREBASE_VERSIONS = "versions";
     public final static String FIREBASE_SEARCH_BY_PHOTO = "search by photo";
 

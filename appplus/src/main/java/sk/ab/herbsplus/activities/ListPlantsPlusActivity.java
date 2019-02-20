@@ -31,6 +31,7 @@ public class ListPlantsPlusActivity extends ListPlantsBaseActivity {
                     // Successfully signed in
                     getMenuFragment().manageUserSettings();
                     UtilsPlus.saveToken(this);
+                    UtilsPlus.saveOldVersion(this);
                 } else {
                     // Sign in failed, check response for error code
                     Toast.makeText(this, R.string.authentication_failed, Toast.LENGTH_LONG).show();

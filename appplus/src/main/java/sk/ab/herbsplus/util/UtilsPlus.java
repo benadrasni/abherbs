@@ -112,6 +112,18 @@ public class UtilsPlus {
         }
     }
 
+    public static void saveOldVersion(BaseActivity activity) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            DatabaseReference mFirebaseRef = FirebaseDatabase.getInstance().getReference();
+            // by user, by date
+            mFirebaseRef.child(AndroidConstants.FIREBASE_USERS)
+                    .child(currentUser.getUid())
+                    .child(AndroidConstants.FIREBASE_USERS_OLD_VERSION)
+                    .setValue(true);
+        }
+    }
+
     public static Uri addCameraPhoto(AppCompatActivity activity, String plantName) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent

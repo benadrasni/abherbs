@@ -82,6 +82,7 @@ public class DisplayPlantPlusActivity extends DisplayPlantBaseActivity {
                     currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     refreshObservations();
                     UtilsPlus.saveToken(this);
+                    UtilsPlus.saveOldVersion(this);
                     if (shouldOpenObservation) {
                         handleClickOnObservation();
                         shouldOpenObservation = false;

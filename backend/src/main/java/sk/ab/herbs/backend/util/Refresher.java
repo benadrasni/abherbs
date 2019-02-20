@@ -49,9 +49,9 @@ public class Refresher {
 
         //countAndList3();
         //countAndList4();
-        countAndList4Ids();
+        //countAndList4Ids();
         search();
-        photoSearch();
+        //photoSearch();
     }
 
     private static void countAndList3() {
@@ -242,7 +242,6 @@ public class Refresher {
 
                     Map<Integer, Integer> searchForLabel = null;
                     String label = (String)plant.get("label");
-                    System.out.println(label);
                     if (label != null) {
                         label = label.toLowerCase();
                         if (label.isEmpty() || label.contains(".") || label.contains("/") || label.contains("#") || label.contains("$") || label.contains("[") || label.contains("]")) {
