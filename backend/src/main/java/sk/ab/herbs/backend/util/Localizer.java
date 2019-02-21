@@ -53,10 +53,12 @@ public class Localizer {
             for (File resource : dir.listFiles()) {
                 String resourceName = resource.getName();
 
-                if (resourceName == "strings_en_US.arb") continue;
+                if (resourceName == "strings_en_US.arb" || resourceName == "strings_en_UK.arb") continue;
 
                 String language = resourceName.substring(8,10);
                 String content = new String(Files.readAllBytes(Paths.get(resource.getAbsolutePath())), "UTF-8");
+
+                System.out.println(resourceName);
 
                 JsonParser parser = new JsonParser();
                 JsonObject labels = parser.parse(content).getAsJsonObject();
