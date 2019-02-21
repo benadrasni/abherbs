@@ -19,6 +19,7 @@ public class Observation {
     private String note;
     private ArrayList<String> photoPaths;
     private String status;
+    private long order;
 
     public String getId() {
         return id;
@@ -82,5 +83,13 @@ public class Observation {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public long getOrder() {
+        return order;
+    }
+
+    public void setOrder(long order) {
+        this.order = order;
     }
 }

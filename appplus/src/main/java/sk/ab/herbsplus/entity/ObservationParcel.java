@@ -35,6 +35,7 @@ public class ObservationParcel extends Observation implements Parcelable {
         setLongitude(observation.getLongitude());
         setNote(observation.getNote());
         setStatus(observation.getStatus());
+        setOrder(observation.getOrder());
         setPhotoPaths(observation.getPhotoPaths());
     }
 
@@ -46,6 +47,7 @@ public class ObservationParcel extends Observation implements Parcelable {
         setLongitude((Double)in.readSerializable());
         setNote(in.readString());
         setStatus(in.readString());
+        setOrder(in.readLong());
         setPhotoPaths((ArrayList<String>)in.readSerializable());
     }
 
@@ -63,6 +65,7 @@ public class ObservationParcel extends Observation implements Parcelable {
         parcel.writeSerializable(getLongitude());
         parcel.writeString(getNote());
         parcel.writeString(getStatus());
+        parcel.writeLong(getOrder());
         parcel.writeSerializable(getPhotoPaths());
     }
 }

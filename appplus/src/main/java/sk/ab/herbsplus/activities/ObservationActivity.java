@@ -367,6 +367,7 @@ public class ObservationActivity extends AppCompatActivity implements OnMapReady
             if (observation.getId() == null) {
                 observation.setId(currentUser.getUid() + "_" + observation.getDate().getTime());
             }
+            observation.setOrder(-1*observation.getDate().getTime());
             // by user, by date
             mFirebaseRef.child(AndroidConstants.FIREBASE_OBSERVATIONS)
                     .child(AndroidConstants.FIREBASE_OBSERVATIONS_BY_USERS)
