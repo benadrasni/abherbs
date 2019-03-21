@@ -49,8 +49,8 @@ public class Refresher {
 
         //countAndList3();
         //countAndList4();
-        countAndList4Ids();
-        search();
+        //countAndList4Ids();
+        //search();
         photoSearch();
     }
 
@@ -440,6 +440,8 @@ public class Refresher {
 
             parseAPGIV("", apgiv, photoSearch, "APG IV_v2/");
 
+            parsePlants(photoSearch);
+
             Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().serializeNulls().create();
             System.out.println(gson.toJson(photoSearch));
 
@@ -452,6 +454,38 @@ public class Refresher {
 
     }
 
+    private static void parsePlants(Map<String, Map<String, Object>> photoSearch) {
+        File file = new File(PATH + PLANTS_FILE);
+        final FirebaseClient firebaseClient = new FirebaseClient();
+
+        try {
+            Scanner scan = new Scanner(file);
+            while(scan.hasNextLine()) {
+
+                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
+                System.out.println(plantLine[0]);
+
+                Map<String, Object> plant = new HashMap<>();
+                plant.put("count", 1);
+                plant.put("path", plantLine[0]);
+                photoSearch.put(plantLine[0].toLowerCase(), plant);
+
+                Call<Map<String, Object>> enCall = firebaseClient.getApiService().getTranslation("en", plantLine[0]);
+                Map<String, Object> en = enCall.execute().body();
+                if (!photoSearch.containsKey(en.get("label"))) {
+                    Map<String, Object> plantEn = new HashMap<>();
+                    plant.put("count", 1);
+                    plant.put("path", plantLine[0]);
+                    photoSearch.put(((String)en.get("label")).toLowerCase(), plant);
+                }
+            }
+            scan.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void parseAPGIV(String taxon, Map<String, Object> apgiv, Map<String, Map<String, Object>> photoSearch, String path) {
 
         Map<String, Object> item = new HashMap<>();
@@ -460,7 +494,7 @@ public class Refresher {
 
             if ("type".equals(key)) {
                 String type = (String)apgiv.get(key);
-                isDesiredType = "Genus".equals(type) || "Familia".equals(type);
+                isDesiredType = "Genus".equals(type) || "Familia".equals(type) || "Subfamilia".equals(type);
             } else if ("count".equals(key)) {
                 String count = String.format("%.0f", apgiv.get(key));
                 item.put("count", Integer.parseInt(count));
