@@ -37,10 +37,11 @@ public class Checker {
     public static void main(String[] params) {
 
         //checkNames();
-        checkNameTranslations();
+        //checkNameTranslations();
         //checkSearch();
         //checkTranslation();
         //checkFilter();
+        checkSources();
     }
 
     private static void checkFilter() {
@@ -171,6 +172,57 @@ public class Checker {
                         String plantName = entry1.getKey();
                         if (!plants.contains(plantName)) {
                             System.out.println("!!!!!!" + plantName + "!!!!!!");
+                        }
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void checkSources() {
+        final FirebaseClient firebaseClient = new FirebaseClient();
+
+        try {
+            for (String language : languages) {
+                System.out.println(language);
+
+                Call<Map<String, Object>> translationCall = firebaseClient.getApiService().getTranslation(language);
+                Map<String, Object> translation = translationCall.execute().body();
+
+                for (Map.Entry<String, Object> entry : translation.entrySet()) {
+                    Map<String, Object> plant = (Map<String, Object>) entry.getValue();
+
+                    if (plant.get("sourceUrls") != null) {
+                        for (String url : (List<String>) plant.get("sourceUrls")) {
+                            if (!url.contains("//") || url.indexOf("/", url.indexOf("//") + 2) == -1) {
+                                System.out.println("language: " + language + ", plant: " + plant.get("label") + ",  src: " + url);
+                            }
+                        }
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        File file = new File(PATH + PLANTS_FILE);
+        try {
+            Scanner scan = new Scanner(file);
+            while(scan.hasNextLine()) {
+
+                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
+
+                Call<FirebasePlant> plantCall = firebaseClient.getApiService().getPlant(plantLine[0]);
+                FirebasePlant plant = plantCall.execute().body();
+
+                if (plant.getSourceUrls() != null) {
+                    for (String url : plant.getSourceUrls()) {
+                        if (!url.contains("//") || url.indexOf("/", url.indexOf("//") + 2) == -1) {
+                            System.out.println("plant: " + plant.getName() + ",  src: " + url);
                         }
                     }
                 }
