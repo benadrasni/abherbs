@@ -208,4 +208,7 @@ public interface FirebaseService {
     })
     @GET("search/{language}.json")
     Call<Map<String, Object>> getSearch(@Path("language") String language);
+
+    @PUT("plants_v2/{name}/id.json")
+    Call<Integer> savePlantId(@Path("name") String name, @Body Integer id);
 }

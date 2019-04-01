@@ -41,7 +41,8 @@ public class Checker {
         //checkSearch();
         //checkTranslation();
         //checkFilter();
-        checkSources();
+        //checkSources();
+        addIds();
     }
 
     private static void checkFilter() {
@@ -97,6 +98,30 @@ public class Checker {
                 //System.out.println(plantLine[0]);
 
                 check(firebaseClient, plantLine[0]);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void addIds() {
+        File file = new File(PATH + PLANTS_FILE);
+        final FirebaseClient firebaseClient = new FirebaseClient();
+
+        try {
+            Scanner scan = new Scanner(file);
+            int i = 0;
+            while(scan.hasNextLine()) {
+
+                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
+
+                //System.out.println(plantLine[0]);
+
+                Call<Integer> savePlantId = firebaseClient.getApiService().savePlantId(plantLine[0], i);
+                savePlantId.execute();
+
+                i++;
             }
 
         } catch (IOException e) {
