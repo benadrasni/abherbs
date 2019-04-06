@@ -49,8 +49,8 @@ public class Refresher {
 
         //countAndList3();
         //countAndList4();
-        countAndList4Ids();
-        search();
+        //countAndList4Ids();
+        //search();
         photoSearch();
     }
 
@@ -494,7 +494,9 @@ public class Refresher {
 
             if ("type".equals(key)) {
                 String type = (String)apgiv.get(key);
-                isDesiredType = "Ordo".equals(type) || "Genus".equals(type) || "Familia".equals(type) || "Subfamilia".equals(type);
+                isDesiredType = "Ordo".equals(type) || "Genus".equals(type) || "Familia".equals(type) || "Subfamilia".equals(type)
+                        || "Subgenus".equals(type) || "Tribus".equals(type) || "Subtribus".equals(type) || "Sectio".equals(type)
+                        || "Subsectio".equals(type) || "Serie".equals(type) || "Subserie".equals(type);
             } else if ("count".equals(key)) {
                 String count = String.format("%.0f", apgiv.get(key));
                 item.put("count", Integer.parseInt(count));
