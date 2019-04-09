@@ -141,6 +141,9 @@ public interface FirebaseService {
     @GET("APG IV_v2.json")
     Call<Map<String, Object>> getAPGIV2();
 
+    @GET("APG IV_v3.json")
+    Call<Map<String, Object>> getAPGIV3();
+
     @PUT("APG IV.json")
     Call<Object> saveAPGIV(@Body Object object);
 
@@ -211,4 +214,7 @@ public interface FirebaseService {
 
     @PUT("plants_v2/{name}/id.json")
     Call<Integer> savePlantId(@Path("name") String name, @Body Integer id);
+
+    @PUT("{path}{attribute}.json")
+    Call<String> saveStringAttribute(@Path("path") String path, @Path("attribute") String attribute, @Body String value);
 }

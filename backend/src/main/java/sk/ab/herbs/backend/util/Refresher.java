@@ -434,11 +434,11 @@ public class Refresher {
     private static void photoSearch() {
         try {
             final FirebaseClient firebaseClient = new FirebaseClient();
-            Call<Map<String, Object>> apgivCall = firebaseClient.getApiService().getAPGIV2();
+            Call<Map<String, Object>> apgivCall = firebaseClient.getApiService().getAPGIV3();
             Map<String, Object> apgiv = apgivCall.execute().body();
             Map<String, Map<String, Object>> photoSearch = new HashMap<>();
 
-            parseAPGIV("", apgiv, photoSearch, "APG IV_v2/");
+            parseAPGIV("", apgiv, photoSearch, "APG IV_v3/");
 
             parsePlants(photoSearch);
 
@@ -470,6 +470,18 @@ public class Refresher {
                 plant.put("path", plantLine[0]);
                 photoSearch.put(plantLine[0].toLowerCase(), plant);
 
+                Call<FirebasePlant> plantCall = firebaseClient.getApiService().getPlant(plantLine[0]);
+                FirebasePlant firebasePlant = plantCall.execute().body();
+
+                if (firebasePlant.getFreebaseId() != null) {
+                    Map<String, Object> m = photoSearch.get("m");
+                    if (m == null) {
+                        m = new HashMap<>();
+                        photoSearch.put("m",  m);
+                    }
+                    m.put(firebasePlant.getFreebaseId().substring(firebasePlant.getFreebaseId().lastIndexOf("/") + 1), plant);
+                }
+
                 Call<Map<String, Object>> enCall = firebaseClient.getApiService().getTranslation("en", plantLine[0]);
                 Map<String, Object> en = enCall.execute().body();
                 if (!photoSearch.containsKey(en.get("label"))) {
@@ -490,6 +502,7 @@ public class Refresher {
 
         Map<String, Object> item = new HashMap<>();
         boolean isDesiredType = false;
+        String freebaseId = null;
         for (String key : apgiv.keySet()) {
 
             if ("type".equals(key)) {
@@ -502,6 +515,8 @@ public class Refresher {
                 item.put("count", Integer.parseInt(count));
             } else if ("list".equals(key)) {
                 item.put("path", path + "list");
+            } else if ("freebase".equals(key)) {
+                freebaseId = (String)apgiv.get(key);
             } else {
                 parseAPGIV(key, (Map<String, Object>)apgiv.get(key), photoSearch, path + key + "/");
             }
@@ -509,6 +524,16 @@ public class Refresher {
 
         if (isDesiredType) {
             photoSearch.put(taxon.toLowerCase(), item);
+
+            if (freebaseId != null) {
+                Map<String, Object> m = photoSearch.get("m");
+                if (m == null) {
+                    m = new HashMap<>();
+                    photoSearch.put("m",  m);
+                }
+                m.put(freebaseId.substring(freebaseId.lastIndexOf("/") + 1), item);
+            }
+
 
             final FirebaseClient firebaseClient = new FirebaseClient();
             Call<List<String>> translationTaxonomyCall = firebaseClient.getApiService().getTranslationTaxonomy("en", taxon);

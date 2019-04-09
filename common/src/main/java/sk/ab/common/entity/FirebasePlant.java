@@ -6,9 +6,11 @@ import java.util.HashMap;
 
 public class FirebasePlant {
 
+    private Integer id;
     private Integer gbifId;
     private Integer kewId;
     private String usdaId;
+    private String freebaseId;
     private String name;
     private String wikiName;
     private String illustrationUrl;
@@ -27,6 +29,15 @@ public class FirebasePlant {
 
     public FirebasePlant() {
 
+    }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getGbifId() {
@@ -51,6 +62,14 @@ public class FirebasePlant {
 
     public void setUsdaId(String usdaId) {
         this.usdaId = usdaId;
+    }
+
+    public String getFreebaseId() {
+        return freebaseId;
+    }
+
+    public void setFreebaseId(String freebaseId) {
+        this.freebaseId = freebaseId;
     }
 
     public String getName() {
