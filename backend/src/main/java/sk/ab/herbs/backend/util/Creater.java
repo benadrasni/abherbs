@@ -303,14 +303,16 @@ public class Creater {
 
             File file = new File(PATH_TO_PLANTS_TO_ADD);
 
+            int id = 963;
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()){
                 final String plantName = scan.nextLine();
                 final String wikiSpeciesName = plantName;
                 System.out.println(plantName);
 
-                addOrUpdateBasic(firebaseClient, plantName, wikiSpeciesName);
+                addOrUpdateBasic(firebaseClient, plantName, wikiSpeciesName, id);
 
+                id++;
 //                updateTaxonomy(apgiiiOrdoMap, apgIII, plantName, wikiSpeciesName, true);
 //                updateTaxonomy(apgivOrdoMap, apgIV, plantName, wikiSpeciesName, false);
 
@@ -612,7 +614,7 @@ public class Creater {
         }
     }
 
-    private static void addOrUpdateBasic(FirebaseClient firebaseClient, String plantName, String wikiSpeciesName) throws IOException {
+    private static void addOrUpdateBasic(FirebaseClient firebaseClient, String plantName, String wikiSpeciesName, int id) throws IOException {
         FirebasePlant plantBasic = new FirebasePlant();
         plantBasic.setName(plantName);
         plantBasic.setWikiName(plantName);
@@ -621,6 +623,7 @@ public class Creater {
         plantBasic.setHeightFrom(0);
         plantBasic.setHeightTo(0);
         plantBasic.setGbifId(0);
+        plantBasic.setId(id);
 
         HashMap<String, String> wikilinks = new HashMap<>();
         wikilinks.put("commons", "https://commons.wikimedia.org/wiki/" + plantName.replace(" ", "_"));
@@ -713,21 +716,45 @@ public class Creater {
                 }
             }
 
-            String[] names = pathNameAPGIII.split("/");
-            String[] values = pathAPGIII.split("/");
-            HashMap<String, String> apgIII = new HashMap<>();
-            for (int k = values.length - 1; k >= 0; k--) {
-                apgIII.put((k < 10 ? "0" : "") + k + "_" + names[values.length-1-k], values[values.length-1-k]);
-            }
-            plantBasic.setTaxonomy(apgIII);
+//            String[] names = pathNameAPGIII.split("/");
+//            String[] values = pathAPGIII.split("/");
+//            HashMap<String, String> apgIII = new HashMap<>();
+//            for (int k = values.length - 1; k >= 0; k--) {
+//                apgIII.put((k < 10 ? "0" : "") + k + "_" + names[values.length-1-k], values[values.length-1-k]);
+//            }
+//            plantBasic.setTaxonomy(apgIII);
 
-            names = pathNameAPGIV.split("/");
-            values = pathAPGIV.split("/");
+            String[] names = pathNameAPGIV.split("/");
+            String[] values = pathAPGIV.split("/");
             HashMap<String, String> apgIV = new HashMap<>();
             for (int k = values.length - 1; k >= 0; k--) {
                 apgIV.put((k < 10 ? "0" : "") + k + "_" + names[values.length-1-k], values[values.length-1-k]);
             }
             plantBasic.setAPGIV(apgIV);
+
+
+            String wikiPage = doc.getElementsByAttributeValue("title", "Edit interlanguage links").attr("href");
+
+            if (wikiPage.lastIndexOf("/") > -1) {
+                String wikiData = wikiPage.substring(wikiPage.lastIndexOf("/") + 1, wikiPage.indexOf("#"));
+                plantBasic.getWikilinks().put("data", "https://www.wikidata.org/wiki/" + wikiData);
+
+                URL url = new URL("https://www.wikidata.org/wiki/Special:EntityData/" + wikiData + ".json");
+                HttpURLConnection request = (HttpURLConnection) url.openConnection();
+                request.connect();
+
+                JsonParser jp = new JsonParser();
+                JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+                JsonObject wikidata = root.getAsJsonObject().getAsJsonObject("entities").getAsJsonObject(wikiData);
+
+                JsonObject claims = wikidata.getAsJsonObject("claims");
+
+                if (claims.get("P646") != null) {
+
+                    String freebaseId = claims.get("P646").getAsJsonArray().get(0).getAsJsonObject().get("mainsnak").getAsJsonObject().get("datavalue").getAsJsonObject().get("value").getAsString();
+                    plantBasic.setFreebaseId(freebaseId);
+                }
+            }
 
         } catch (IOException e) {
 
