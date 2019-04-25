@@ -303,7 +303,7 @@ public class Creater {
 
             File file = new File(PATH_TO_PLANTS_TO_ADD);
 
-            int id = 963;
+            int id = 971;
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()){
                 final String plantName = scan.nextLine();

@@ -177,6 +177,14 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
+    @GET("translations_taxonomy/{language}.json")
+    Call<Map<String, List<String>>> getTranslationTaxonomy(@Path("language") String language);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
     @GET("translations.json")
     Call<Map<String, Object>> getTranslation();
 

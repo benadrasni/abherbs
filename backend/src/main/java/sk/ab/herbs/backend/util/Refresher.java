@@ -50,7 +50,8 @@ public class Refresher {
         //countAndList3();
         //countAndList4();
         //countAndList4Ids();
-        //search();
+        //
+        // search();
         photoSearch();
     }
 
@@ -438,7 +439,11 @@ public class Refresher {
             Map<String, Object> apgiv = apgivCall.execute().body();
             Map<String, Map<String, Object>> photoSearch = new HashMap<>();
 
-            parseAPGIV("", apgiv, photoSearch, "APG IV_v3/");
+
+            Call<Map<String, List<String>>> translationTaxonomyCall = firebaseClient.getApiService().getTranslationTaxonomy("en");
+            Map<String, List<String>> enNames = translationTaxonomyCall.execute().body();
+
+            parseAPGIV("", apgiv, photoSearch, "APG IV_v3/", enNames);
 
             parsePlants(photoSearch);
 
@@ -498,11 +503,11 @@ public class Refresher {
         }
     }
 
-    private static void parseAPGIV(String taxon, Map<String, Object> apgiv, Map<String, Map<String, Object>> photoSearch, String path) {
+    private static void parseAPGIV(String taxon, Map<String, Object> apgiv, Map<String, Map<String, Object>> photoSearch, String path, Map<String, List<String>> enNames) {
 
         Map<String, Object> item = new HashMap<>();
         boolean isDesiredType = false;
-        String freebaseId = null;
+        List<String> freebaseId = new ArrayList<>();
         for (String key : apgiv.keySet()) {
 
             if ("type".equals(key)) {
@@ -516,9 +521,16 @@ public class Refresher {
             } else if ("list".equals(key)) {
                 item.put("path", path + "list");
             } else if ("freebase".equals(key)) {
-                freebaseId = (String)apgiv.get(key);
+                Object freebase = apgiv.get(key);
+                if (freebase instanceof List) {
+                    for (Object freebaseItem : (List)freebase) {
+                        freebaseId.add((String) freebaseItem);
+                    }
+                } else {
+                    freebaseId.add((String) apgiv.get(key));
+                }
             } else {
-                parseAPGIV(key, (Map<String, Object>)apgiv.get(key), photoSearch, path + key + "/");
+                parseAPGIV(key, (Map<String, Object>)apgiv.get(key), photoSearch, path + key + "/", enNames);
             }
         }
 
@@ -531,21 +543,16 @@ public class Refresher {
                     m = new HashMap<>();
                     photoSearch.put("m",  m);
                 }
-                m.put(freebaseId.substring(freebaseId.lastIndexOf("/") + 1), item);
+                for (String freebaseItem : freebaseId) {
+                    m.put(freebaseItem.substring(freebaseItem.lastIndexOf("/") + 1), item);
+                }
             }
 
-
-            final FirebaseClient firebaseClient = new FirebaseClient();
-            Call<List<String>> translationTaxonomyCall = firebaseClient.getApiService().getTranslationTaxonomy("en", taxon);
-            try {
-                List<String> enNames = translationTaxonomyCall.execute().body();
-                if (enNames != null) {
-                    for (String name : enNames) {
-                        photoSearch.put(name.toLowerCase(), item);
-                    }
+            List<String> enTaxonNames = enNames.get(taxon);
+            if (enTaxonNames != null) {
+                for (String name : enTaxonNames) {
+                    photoSearch.put(name.toLowerCase(), item);
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }
