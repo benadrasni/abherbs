@@ -115,7 +115,7 @@ public interface FirebaseService {
             "charset: UTF-8"
     })
     @PUT("search_new/{language}.json")
-    Call<Object> saveSearch(@Path("language") String language, @Body Map<String, Map<Integer, Integer>> plants);
+    Call<Object> saveSearch(@Path("language") String language, @Body Map<String, Map<String, Object>> plants);
 
     @Headers({
             "Content-Type: application/json",

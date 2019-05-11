@@ -49,9 +49,8 @@ public class Refresher {
 
         //countAndList3();
         //countAndList4();
-        //countAndList4Ids();
-        //
-        // search();
+        countAndList4Ids();
+        search();
         photoSearch();
     }
 
@@ -231,7 +230,7 @@ public class Refresher {
             for (String language : languages) {
                 System.out.println(language);
 
-                Map<String, Map<Integer, Integer>> searchMap = new HashMap<>();
+                Map<String, Map<String, Object>> searchMap = new HashMap<>();
 
                 Call<Map<String, Object>> translationCall = firebaseClient.getApiService().getTranslation(language);
                 Map<String, Object> translation = translationCall.execute().body();
@@ -241,7 +240,7 @@ public class Refresher {
 
                     Map<String, Object> plant = (Map<String, Object>) entry.getValue();
 
-                    Map<Integer, Integer> searchForLabel = null;
+                    Map<String, Object> searchForLabel = null;
                     String label = (String)plant.get("label");
                     if (label != null) {
                         label = label.toLowerCase();
@@ -252,41 +251,40 @@ public class Refresher {
                         searchForLabel = searchMap.get(label);
                         if (searchForLabel == null) {
                             searchForLabel = new HashMap<>();
+                            searchForLabel.put("is_label", true);
                             searchMap.put(label, searchForLabel);
                         }
-                        searchForLabel.put(plantName, 1);
+                        Map<Integer, Integer> plantList = (Map<Integer, Integer>)searchForLabel.get("list");
+                        if (plantList == null) {
+                            plantList = new HashMap<>();
+                            searchForLabel.put("list", plantList);
+                        }
+                        plantList.put(plantName, 1);
                     }
 
                     List<String> names = (List<String>)plant.get("names");
                     if (names != null) {
                         for (String name : names) {
+                            name = name.toLowerCase();
                             if (name.isEmpty() || name.contains(".") || name.contains("/") || name.contains("#") || name.contains("$") || name.contains("[") || name.contains("]")) {
                                 System.out.println(plantName);
                             }
 
-                            name = name.toLowerCase();
                             searchForLabel = searchMap.get(name);
                             if (searchForLabel == null) {
                                 searchForLabel = new HashMap<>();
                                 searchMap.put(name, searchForLabel);
                             }
-                            searchForLabel.put(plantName, 1);
+                            Map<Integer, Integer> plantList = (Map<Integer, Integer>)searchForLabel.get("list");
+                            if (plantList == null) {
+                                plantList =  new HashMap();
+                                searchForLabel.put("list", plantList);
+                            }
+                            plantList.put(plantName, 1);
                         }
                     }
                 }
 
-                // name
-//                for (Map.Entry<String, Map<String,Boolean>> entry : searchMap.entrySet()) {
-//                    String key = entry.getKey();
-//                    Map<String,Boolean> value = entry.getValue();
-//
-//                    System.out.println(key);
-//                    Call<Object> callFirebaseSearch = firebaseClient.getApiService().savePartialSearch(language, key, value);
-//                    Response<Object> response = callFirebaseSearch.execute();
-//                    if (response.errorBody() != null) {
-//                        System.out.println(response.errorBody().string());
-//                    }
-//                }
                 Call<Object> callFirebaseSearch = firebaseClient.getApiService().saveSearch(language, searchMap);
                 Response<Object> response = callFirebaseSearch.execute();
                 if (response.errorBody() != null) {
@@ -295,7 +293,7 @@ public class Refresher {
             }
 
             // latin
-            Map<String, Map<Integer, Integer>> searchMap = new HashMap<>();
+            Map<String, Map<String, Object>> searchMap = new HashMap<>();
 
             scan = new Scanner(file);
             while(scan.hasNextLine()) {
@@ -308,7 +306,7 @@ public class Refresher {
                 Call<FirebasePlant> plantCall = firebaseClient.getApiService().getPlant(plantLine[0]);
                 FirebasePlant plant = plantCall.execute().body();
 
-                Map<Integer, Integer> searchForLabel = null;
+                Map<String, Object> searchForLabel = null;
                 String label = plant.getName();
                 if (label != null) {
                     label = label.toLowerCase();
@@ -316,9 +314,15 @@ public class Refresher {
                     searchForLabel = searchMap.get(label);
                     if (searchForLabel == null) {
                         searchForLabel = new HashMap<>();
+                        searchForLabel.put("is_label", true);
                         searchMap.put(label, searchForLabel);
                     }
-                    searchForLabel.put(plantName, 1);
+                    Map<Integer, Integer> plantList = (Map<Integer, Integer>)searchForLabel.get("list");
+                    if (plantList == null) {
+                        plantList =  new HashMap();
+                        searchForLabel.put("list", plantList);
+                    }
+                    plantList.put(plantName, 1);
                 }
 
                 List<String> names = plant.getSynonyms();
@@ -334,12 +338,18 @@ public class Refresher {
                         }
 
                         name = name.toLowerCase();
+
                         searchForLabel = searchMap.get(name);
                         if (searchForLabel == null) {
                             searchForLabel = new HashMap<>();
                             searchMap.put(name, searchForLabel);
                         }
-                        searchForLabel.put(plantName, 1);
+                        Map<Integer, Integer> plantList = (Map<Integer, Integer>)searchForLabel.get("list");
+                        if (plantList == null) {
+                            plantList =  new HashMap();
+                            searchForLabel.put("list", plantList);
+                        }
+                        plantList.put(plantName, 1);
                     }
                 }
             }

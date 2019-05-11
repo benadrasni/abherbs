@@ -122,6 +122,7 @@ public class Creater {
     private static final Map<String, String> apgiiiOrdoNameMap;
     static {
         Map<String, String> aMap = new HashMap<>();
+        aMap.put("Zingiberales", "Superregnum/Regnum/Cladus/Cladus/Cladus/Ordo");
         aMap.put("Ceratophyllales", "Superregnum/Regnum/Cladus/Ordo");
         aMap.put("Nymphaeales", "Superregnum/Regnum/Cladus/Ordo");
         aMap.put("Magnoliales", "Superregnum/Regnum/Cladus/Cladus/Ordo");
@@ -237,6 +238,7 @@ public class Creater {
     private static final Map<String, String> apgiiiOrdoMap;
     static {
         Map<String, String> aMap = new HashMap<>();
+        aMap.put("Zingiberales", "Eukaryota/Plantae/Angiosperms/Mesangiosperms/Monocots/Zingiberales");
         aMap.put("Ceratophyllales", "Eukaryota/Plantae/Angiosperms/Ceratophyllales");
         aMap.put("Nymphaeales", "Eukaryota/Plantae/Angiosperms/Nymphaeales");
         aMap.put("Magnoliales", "Eukaryota/Plantae/Angiosperms/Magnoliids/Magnoliales");
@@ -303,7 +305,7 @@ public class Creater {
 
             File file = new File(PATH_TO_PLANTS_TO_ADD);
 
-            int id = 971;
+            int id = 981;
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()){
                 final String plantName = scan.nextLine();
