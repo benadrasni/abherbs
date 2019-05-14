@@ -82,6 +82,14 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
+    @PUT("plants_headers/{id}.json")
+    Call<PlantHeader> savePlantHeader(@Path("id") String id, @Body PlantHeader plantHeader);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
     @PUT("counts_new.json")
     Call<Map> saveCount(@Body Map<String, Integer> count);
 

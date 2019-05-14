@@ -35,6 +35,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 import sk.ab.common.Constants;
 import sk.ab.common.entity.FirebasePlant;
+import sk.ab.common.entity.PlantHeader;
 import sk.ab.common.entity.PlantTranslation;
 import sk.ab.common.service.FirebaseClient;
 import sk.ab.common.util.Utils;
@@ -305,7 +306,7 @@ public class Creater {
 
             File file = new File(PATH_TO_PLANTS_TO_ADD);
 
-            int id = 981;
+            int id = 987;
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()){
                 final String plantName = scan.nextLine();
@@ -617,6 +618,13 @@ public class Creater {
     }
 
     private static void addOrUpdateBasic(FirebaseClient firebaseClient, String plantName, String wikiSpeciesName, int id) throws IOException {
+        PlantHeader plantHeader = new PlantHeader();
+        plantHeader.setName(plantName);
+        plantHeader.setFilterColor(new ArrayList<>(Collections.singletonList(1)));
+        plantHeader.setFilterHabitat(new ArrayList<>(Collections.singletonList(1)));
+        plantHeader.setFilterPetal(new ArrayList<>(Collections.singletonList(1)));
+        plantHeader.setFilterDistribution(new ArrayList<>(Collections.singletonList(10)));
+
         FirebasePlant plantBasic = new FirebasePlant();
         plantBasic.setName(plantName);
         plantBasic.setWikiName(plantName);
@@ -718,6 +726,8 @@ public class Creater {
                 }
             }
 
+            plantHeader.setFamily(familia);
+
 //            String[] names = pathNameAPGIII.split("/");
 //            String[] values = pathAPGIII.split("/");
 //            HashMap<String, String> apgIII = new HashMap<>();
@@ -768,7 +778,11 @@ public class Creater {
         for (int i = 1; i < 10; i++) {
             File file = new File("C:/Dev/Storage/storage/photos/" + ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantName.substring(0,1).toLowerCase() + plantName.substring(plantName.indexOf(" ") + 1, plantName.indexOf(" ") + 2) + i + ".webp");
             if (file.exists()) {
-                urls.add(ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantName.substring(0,1).toLowerCase() + plantName.substring(plantName.indexOf(" ") + 1, plantName.indexOf(" ") + 2) + i + ".webp");
+                String url = ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantName.substring(0,1).toLowerCase() + plantName.substring(plantName.indexOf(" ") + 1, plantName.indexOf(" ") + 2) + i + ".webp";
+                if (i == 1) {
+                    plantHeader.setUrl(url);
+                }
+                urls.add(url);
             } else {
                 break;
             }
@@ -791,7 +805,11 @@ public class Creater {
         }
 
         Call<FirebasePlant> savePlant = firebaseClient.getApiService().savePlant(plantName, plantBasic);
-        Response<FirebasePlant> response = savePlant.execute();
+        savePlant.execute();
+
+        Call<PlantHeader> savePlantHeader = firebaseClient.getApiService().savePlantHeader("" + id, plantHeader);
+        savePlantHeader.execute();
+
     }
 
     private static ArrayList<String> getSynonyms(String wikiSpeciesName) {
