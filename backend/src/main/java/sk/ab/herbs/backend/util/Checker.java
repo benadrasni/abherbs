@@ -42,7 +42,8 @@ public class Checker {
         //checkTranslation();
         //checkFilter();
         //checkSources();
-        addIds();
+        //addIds();
+        checkFruit();
     }
 
     private static void checkFilter() {
@@ -165,6 +166,28 @@ public class Checker {
         }
     }
 
+    private static void checkFruit() {
+        File file = new File(PATH + PLANTS_FILE);
+        final FirebaseClient firebaseClient = new FirebaseClient();
+
+        try {
+                Scanner scan = new Scanner(file);
+                while (scan.hasNextLine()) {
+
+                    final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
+
+                    //System.out.println(plantLine[0]);
+
+                    checkFruitTranslations(firebaseClient,"sk", plantLine[0]);
+                }
+                scan.close();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void checkSearch() {
         final FirebaseClient firebaseClient = new FirebaseClient();
 
@@ -273,6 +296,17 @@ public class Checker {
 
         if (plantTranslation == null || plantTranslation.get("label") == null) {
             writer.println(plantName);
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean checkFruitTranslations(FirebaseClient firebaseClient, String language, String plantName) throws IOException {
+        Call<Map<String, Object>> plantTranslationCall = firebaseClient.getApiService().getTranslation(language, plantName);
+        Map<String, Object> plantTranslation = plantTranslationCall.execute().body();
+
+        if (plantTranslation == null || plantTranslation.get("fruit") == null) {
+            System.out.println(plantName);
             return true;
         }
         return false;

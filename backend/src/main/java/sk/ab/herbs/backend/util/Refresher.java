@@ -49,7 +49,7 @@ public class Refresher {
 
         //countAndList3();
         //countAndList4();
-        countAndList4Ids();
+        //countAndList4Ids();
         search();
         photoSearch();
     }
@@ -237,7 +237,6 @@ public class Refresher {
 
                 for (Map.Entry<String, Object> entry : translation.entrySet()) {
                     Integer plantName = plants.get(entry.getKey());
-
                     Map<String, Object> plant = (Map<String, Object>) entry.getValue();
 
                     Map<String, Object> searchForLabel = null;
