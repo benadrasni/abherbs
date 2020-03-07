@@ -49,8 +49,8 @@ public class Refresher {
 
         //countAndList3();
         //countAndList4();
-        //countAndList4Ids();
-        //search();
+        countAndList4Ids();
+        search();
         photoSearch();
     }
 
