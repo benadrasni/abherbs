@@ -3,7 +3,6 @@ Lupinus texensis
 Nothoscordum bivalve
 Calyptocarpus vialis
 Geranium carolinianum
-Oenothera speciosa
 Rudbeckia amplexicaulis
 Glandularia bipinnatifida
 Triodanis perfoliata
@@ -37,7 +36,6 @@ Crataegus succulenta
 Cypripedium parviflorum
 Epifagus virginiana
 Conoclinium coelestinum
-Geranium maculatum
 Heuchera sanguinea
 Hypericum frondosum
 Impatiens pallida
@@ -85,3 +83,19 @@ Oenothera drummondii
 Phalaenopsis sanderiana
 Ruellia simplex
 Oenothera lindheimeri
+Zeuxine strateumatica
+Balsamorhiza sagittata
+Penstemon digitalis
+Begonia cucullata
+Plectranthus fruticosus
+Crassocephalum crepidioides
+Cattleya trianae
+Petunia integrifolia
+Alstroemeria pelegrina
+Vernonia arkansana
+Ipomoea pandurata
+Eriophyllum lanatum
+Spathoglottis plicata
+Puschkinia scilloides
+Erythronium grandiflorum
+Ramonda serbica

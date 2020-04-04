@@ -22,7 +22,6 @@ Eucnide bartonioides
 Teucrium cubense
 Liatris squarrosa
 Epifagus virginiana
-Epigaea repens
 Conoclinium coelestinum
 Gentianopsis crinita
 Lewisia rediviva
@@ -56,3 +55,12 @@ Oenothera drummondii
 Phalaenopsis sanderiana
 Ruellia simplex
 Ipomoea violacea
+Zeuxine strateumatica
+Kaempferia rotunda
+Begonia cucullata
+Crassocephalum crepidioides
+Cattleya trianae
+Alstroemeria pelegrina
+Ipomoea pandurata
+Spathoglottis plicata
+Dendrobium kingianum

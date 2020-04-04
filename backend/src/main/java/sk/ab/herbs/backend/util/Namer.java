@@ -1,5 +1,8 @@
 package sk.ab.herbs.backend.util;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ import sk.ab.common.service.FirebaseClient;
  * Created by adrian on 4.5.2016.
  */
 public class Namer {
-    public static String PATH = "C:/Dev/Projects/abherbs/backend/txt/";
+    public static String PATH = "D:/Dev/Projects/abherbs/backend/txt/";
 //    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
     public static String PLANTS_NAMES_FILE = "plant_names.csv";
     public static String PLANTS_FILE = "plants.csv";
@@ -34,6 +37,36 @@ public class Namer {
     public static void main(String[] params) {
 
         //addNameTranslations();
+        addGoogleNameTranslations("ko");
+    }
+
+    private static void addGoogleNameTranslations(String language) {
+        File file = new File(PATH + language + "_missing.txt");
+        final FirebaseClient firebaseClient = new FirebaseClient();
+
+        try {
+            Scanner scan = new Scanner(file);
+
+            while(scan.hasNextLine()) {
+                final String plantName = scan.nextLine();
+                System.out.println(plantName);
+                addGoogleNameTranslation(firebaseClient, plantName, language);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void addGoogleNameTranslation(FirebaseClient firebaseClient, String planName, String language) {
+        try {
+            Document doc = Jsoup.connect("https://www.google.com/search?lr=lang_" + language + "&q=" + planName + "&gs_lcp=CgZwc3ktYWIQAzICCAAyAggAMgIIADIGCAAQFhAeMgYIABAWEB4yBggAEBYQHjIGCAAQFhAeMgYIABAWEB4yBggAEBYQHjIGCAAQFhAeOgQIIxAnOgQIABAeOgYIABAIEB5Q8ihY8ihgiS5oAHAAeACAAVOIAaABkgEBMpgBAKABAqABAaoBB2d3cy13aXo&sclient=psy-ab&ved=0ahUKEwi7ru-brMroAhUKKqwKHQZkBy4Q4dUDCAs&uact=5").get();
+            String name = doc.getElementsByClass("SPZz6b").val();
+
+            System.out.println(name);
+
+        } catch (Exception ex) {
+            System.out.println(language + " - " + planName);
+        }
     }
 
     private static void addNameTranslations() {

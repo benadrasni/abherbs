@@ -20,7 +20,7 @@ import sk.ab.common.service.FirebaseClient;
 public class Checker {
     public static int PLANTS_COUNT = 937;
 
-    public static String PATH = "C:/Dev/Projects/abherbs/backend/txt/";
+    public static String PATH = "D:/Dev/Projects/abherbs/backend/txt/";
 //    public static String PATH = "/home/adrian/Dev/projects/abherbs/backend/txt/";
     public static String PLANTS_FILE = "plants.csv";
     public static String MISSING_FILE_SUFFIX = "_missing.txt";
@@ -28,8 +28,8 @@ public class Checker {
     private static ArrayList<Integer> DEFAULT_DISTRIBUTION = new ArrayList<>(Arrays.asList(10, 11, 12, 13, 14));
     private static ArrayList<Integer> DISTRIBUTION = new ArrayList<>(Arrays.asList(10, 11, 12, 13, 14, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 40, 41, 42, 43, 50, 51, 60, 61, 62, 63, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 90, 91));
 
-    private static String[] languages = {"cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
-    private static String[] languagesWithLabel = {"ar", "bg", "cs", "da", "de", "el", "en", "es", "et", "fa", "fi", "fr", "he", "hr", "hu", "is", "it", "ja", "lt", "lv", "mt", "nl", "no", "pa", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "tr", "uk", "zh"};
+    private static String[] languages = {"cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "ko", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
+    private static String[] languagesWithLabel = {"ar", "bg", "cs", "da", "de", "el", "en", "es", "et", "fa", "fi", "fr", "he", "hr", "hu", "is", "it", "ja", "ko", "lt", "lv", "mt", "nl", "no", "pa", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "tr", "uk", "zh"};
 
     public static String CELL_DELIMITER = ";";
     public static String ALIAS_DELIMITER = ",";
@@ -37,13 +37,13 @@ public class Checker {
     public static void main(String[] params) {
 
         //checkNames();
-        //checkNameTranslations();
+        checkNameTranslations();
         //checkSearch();
         //checkTranslation();
         //checkFilter();
         //checkSources();
         //addIds();
-        checkFruit();
+        //checkFruit();
     }
 
     private static void checkFilter() {
@@ -290,24 +290,32 @@ public class Checker {
         }
     }
 
-    private static boolean checkNameTranslations(FirebaseClient firebaseClient, PrintWriter writer, String language, String plantName) throws IOException {
-        Call<Map<String, Object>> plantTranslationCall = firebaseClient.getApiService().getTranslation(language, plantName);
-        Map<String, Object> plantTranslation = plantTranslationCall.execute().body();
+    private static boolean checkNameTranslations(FirebaseClient firebaseClient, PrintWriter writer, String language, String plantName) {
+        try {
+            Call<Map<String, Object>> plantTranslationCall = firebaseClient.getApiService().getTranslation(language, plantName);
+            Map<String, Object> plantTranslation = plantTranslationCall.execute().body();
 
-        if (plantTranslation == null || plantTranslation.get("label") == null) {
-            writer.println(plantName);
-            return true;
+            if (plantTranslation == null || plantTranslation.get("label") == null) {
+                writer.println(plantName);
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println(language + " - " + plantName);
         }
         return false;
     }
 
-    private static boolean checkFruitTranslations(FirebaseClient firebaseClient, String language, String plantName) throws IOException {
-        Call<Map<String, Object>> plantTranslationCall = firebaseClient.getApiService().getTranslation(language, plantName);
-        Map<String, Object> plantTranslation = plantTranslationCall.execute().body();
+    private static boolean checkFruitTranslations(FirebaseClient firebaseClient, String language, String plantName) {
+        try {
+            Call<Map<String, Object>> plantTranslationCall = firebaseClient.getApiService().getTranslation(language, plantName);
+            Map<String, Object> plantTranslation = plantTranslationCall.execute().body();
 
-        if (plantTranslation == null || plantTranslation.get("fruit") == null) {
-            System.out.println(plantName);
-            return true;
+            if (plantTranslation == null || plantTranslation.get("fruit") == null) {
+                System.out.println(plantName);
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println(language + " - " + plantName);
         }
         return false;
     }

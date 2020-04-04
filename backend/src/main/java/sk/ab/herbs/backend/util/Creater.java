@@ -47,8 +47,8 @@ import sk.ab.common.util.Utils;
 
 public class Creater {
 
-    private static String PATH_TO_PLANTS_TO_ADD = "C:/Dev/Projects/abherbs/backend/txt/plants_to_add.txt";
-    private static String PATH_TO_PLANTS = "C:/Dev/Projects/abherbs/backend/txt/plants.csv";
+    private static String PATH_TO_PLANTS_TO_ADD = "D:/Dev/Projects/abherbs/backend/txt/plants_to_add.txt";
+    private static String PATH_TO_PLANTS = "D:/Dev/Projects/abherbs/backend/txt/plants.csv";
 
     private static final Map<String, String> apgivOrdoNameMap;
     static {
@@ -306,7 +306,7 @@ public class Creater {
 
             File file = new File(PATH_TO_PLANTS_TO_ADD);
 
-            int id = 1015;
+            int id = 1059;
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()){
                 final String plantName = scan.nextLine();
@@ -776,7 +776,7 @@ public class Creater {
 
         ArrayList<String> urls = new ArrayList<>();
         for (int i = 1; i < 10; i++) {
-            File file = new File("C:/Dev/Storage/storage/photos/" + ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantName.substring(0,1).toLowerCase() + plantName.substring(plantName.indexOf(" ") + 1, plantName.indexOf(" ") + 2) + i + ".webp");
+            File file = new File("D:/Dev/Storage/photos/" + ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantName.substring(0,1).toLowerCase() + plantName.substring(plantName.indexOf(" ") + 1, plantName.indexOf(" ") + 2) + i + ".webp");
             if (file.exists()) {
                 String url = ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantName.substring(0,1).toLowerCase() + plantName.substring(plantName.indexOf(" ") + 1, plantName.indexOf(" ") + 2) + i + ".webp";
                 if (i == 1) {
@@ -795,7 +795,7 @@ public class Creater {
         }
 
         ArrayList<String> sources = new ArrayList<>();
-        File file = new File("C:/Dev/Plants/" + familia + "/" + plantName+ "/sources.txt");
+        File file = new File("D:/Dev/Plants/" + familia + "/" + plantName+ "/sources.txt");
         if (file.exists()) {
             Scanner scan = new Scanner(file);
             while (scan.hasNextLine()) {

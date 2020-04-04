@@ -23,17 +23,17 @@ import sk.ab.common.service.FirebaseClient;
  */
 
 public class Localizer {
-    private static String PATH_TO_APPBASE = "C:/Dev/Projects/abherbs/appbase/src/main/res";
-    private static String PATH_TO_APP = "C:/Dev/Projects/abherbs/app/src/main/res";
-    private static String PATH_TO_FLUTTER_APP = "C:/Dev/Projects/abherbs_flutter/res/values";
-    private static String PATH_TO_APPPLUS = "C:/Dev/Projects/abherbs/appplus/src/main/res";
+    private static String PATH_TO_APPBASE = "D:/Dev/Projects/abherbs/appbase/src/main/res";
+    private static String PATH_TO_APP = "D:/Dev/Projects/abherbs/app/src/main/res";
+    private static String PATH_TO_FLUTTER_APP = "D:/Dev/Projects/abherbs_flutter/res/values";
+    private static String PATH_TO_APPPLUS = "D:/Dev/Projects/abherbs/appplus/src/main/res";
 
     public static void main(String[] params) {
         Map<String, Map<String, Map<String, String>>> appTranslations = new TreeMap<>();
-        appTranslations.put("appbase", processResDir(PATH_TO_APPBASE));
+        //appTranslations.put("appbase", processResDir(PATH_TO_APPBASE));
         //appTranslations.put("app", processResDir(PATH_TO_APP));
         appTranslations.put("app", processResJsonDir(PATH_TO_FLUTTER_APP));
-        appTranslations.put("appplus", processResDir(PATH_TO_APPPLUS));
+        //appTranslations.put("appplus", processResDir(PATH_TO_APPPLUS));
         appTranslations.put("web", processFirebaseNode());
 
         try {

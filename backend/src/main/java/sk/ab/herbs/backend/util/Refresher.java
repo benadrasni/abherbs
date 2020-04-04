@@ -28,7 +28,7 @@ import sk.ab.common.util.Utils;
 
 public class Refresher {
 
-    private static String PATH = "c:/Dev/Projects/abherbs/backend/txt/";
+    private static String PATH = "d:/Dev/Projects/abherbs/backend/txt/";
     private static String PLANTS_FILE = "plants.csv";
 
     private static String CELL_DELIMITER = ";";
@@ -212,7 +212,7 @@ public class Refresher {
 
     private static void search() {
         // {"cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
-        String[] languages = {"cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
+        String[] languages = {"cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "ko", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
         final FirebaseClient firebaseClient = new FirebaseClient();
 
         try {
@@ -493,7 +493,10 @@ public class Refresher {
                         m = new HashMap<>();
                         photoSearch.put("m",  m);
                     }
-                    m.put(firebasePlant.getFreebaseId().substring(firebasePlant.getFreebaseId().lastIndexOf("/") + 1), plant);
+                    String[] freebaseIds = firebasePlant.getFreebaseId().split(",");
+                    for (String freebaseId : freebaseIds) {
+                        m.put(freebaseId.substring(freebaseId.lastIndexOf("/") + 1), plant);
+                    }
                 }
 
                 Call<Map<String, Object>> enCall = firebaseClient.getApiService().getTranslation("en", plantLine[0]);
