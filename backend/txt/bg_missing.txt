@@ -18,6 +18,7 @@ Drosera anglica
 Erica tetralix
 Euphorbia verrucosa
 Gagea villosa
+Genista sagittalis
 Gentianopsis ciliata
 Gnaphalium sylvaticum
 Helleborus foetidus
@@ -81,6 +82,7 @@ Oenothera speciosa
 Rudbeckia amplexicaulis
 Glandularia bipinnatifida
 Triodanis perfoliata
+Pseudofumaria lutea
 Jacaranda mimosifolia
 Monarda citriodora
 Callirhoe involucrata
@@ -195,6 +197,7 @@ Amorpha canescens
 Potentilla norvegica
 Youngia japonica
 Mirabilis nyctaginea
+Dermatophyllum secundiflorum
 Prunus caroliniana
 Melampyrum nemorosum
 Anemone berlandieri
@@ -248,7 +251,10 @@ Lepidium virginicum
 Zeuxine strateumatica
 Balsamorhiza sagittata
 Euryops pectinatus
+Gerbera jamesonii
+Scilla luciliae
 Oenothera fruticosa
+Hieracium umbellatum
 Hydrangea involucrata
 Penstemon digitalis
 Ceanothus thyrsiflorus
@@ -286,3 +292,17 @@ Crinum asiaticum
 Mertensia maritima
 Lilium bulbiferum
 Lobelia erinus
+Rhododendron macrophyllum
+Geranium cinereum
+Iris japonica
+Brugmansia sanguinea
+Hymenocallis littoralis
+Pontederia cordata
+Garrya elliptica
+Aquilegia atrata
+Aronia melanocarpa
+Sempervivum montanum
+Thlaspi caerulescens
+Kalanchoe crenata
+Camassia quamash
+Lobularia maritima

@@ -174,7 +174,6 @@ Phlox pilosa
 Phlox amplifolia
 Phlox divaricata
 Phlox glaberrima
-Phlox subulata
 Lithospermum incisum
 Hypoxis hirsuta
 Baptisia bracteata
@@ -263,3 +262,17 @@ Dicentra formosa
 Crinum asiaticum
 Mertensia maritima
 Lobelia inflata
+Rhododendron macrophyllum
+Geranium cinereum
+Iris japonica
+Brugmansia sanguinea
+Hymenocallis littoralis
+Pontederia cordata
+Garrya elliptica
+Aquilegia atrata
+Scilla siberica
+Thlaspi caerulescens
+Kalanchoe crenata
+Camassia quamash
+Cardamine bulbifera
+Lantana camara

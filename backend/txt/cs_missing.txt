@@ -26,7 +26,6 @@ Alternanthera philoxeroides
 Froelichia floridana
 Malvastrum coromandelianum
 Bacopa monnieri
-Linum lewisii
 Kosteletzkya virginica
 Rhexia mariana
 Proboscidea louisianica
@@ -36,7 +35,6 @@ Teucrium cubense
 Liatris squarrosa
 Chelone lyonii
 Arisaema triphyllum
-Artemisia tridentata
 Moricandia arvensis
 Chamaecrista fasciculata
 Chamaelirium luteum
@@ -44,7 +42,6 @@ Vincetoxicum nigrum
 Cypripedium parviflorum
 Dicentra cucullaria
 Epifagus virginiana
-Epigaea repens
 Conoclinium coelestinum
 Gentiana andrewsii
 Gentianopsis crinita
@@ -53,20 +50,14 @@ Impatiens pallida
 Lilium grayi
 Linum medium
 Monarda media
-Pedicularis canadensis
 Phoradendron leucarpum
 Plantago rugelii
 Polygala lutea
 Polygaloides paucifolia
 Sabatia angularis
-Sanguisorba canadensis
-Sidalcea malviflora
 Ipomoea cordatotriloba
-Clematis crispa
 Callianthemum anemonoides
 Callianthemum angustifolium
-Aconitum lasiocarpum
-Amorpha canescens
 Youngia japonica
 Dermatophyllum secundiflorum
 Prunus caroliniana
@@ -97,11 +88,8 @@ Strophostyles helvola
 Oenothera drummondii
 Phalaenopsis sanderiana
 Ruellia simplex
-Oenothera lindheimeri
 Leucophyllum frutescens
-Ipomoea violacea
 Nepeta nepetella
-Duranta erecta
 Zeuxine strateumatica
 Balsamorhiza sagittata
 Euryops pectinatus
@@ -109,10 +97,7 @@ Gerbera jamesonii
 Penstemon digitalis
 Ceanothus thyrsiflorus
 Kaempferia rotunda
-Begonia cucullata
-Plectranthus fruticosus
 Crassocephalum crepidioides
-Cattleya trianae
 Alstroemeria pelegrina
 Vernonia arkansana
 Ipomoea pandurata
@@ -120,3 +105,7 @@ Eriophyllum lanatum
 Spathoglottis plicata
 Dendrobium kingianum
 Erythronium grandiflorum
+Hymenocallis littoralis
+Garrya elliptica
+Kalanchoe crenata
+Camassia quamash

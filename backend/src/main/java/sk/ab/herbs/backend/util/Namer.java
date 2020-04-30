@@ -1,10 +1,18 @@
 package sk.ab.herbs.backend.util;
 
+import com.google.appengine.repackaged.com.google.gson.JsonElement;
+import com.google.appengine.repackaged.com.google.gson.JsonObject;
+import com.google.appengine.repackaged.com.google.gson.JsonParser;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -37,7 +45,57 @@ public class Namer {
     public static void main(String[] params) {
 
         //addNameTranslations();
-        addGoogleNameTranslations("ko");
+        //addGoogleNameTranslations("ko");
+        addTaxonTranslation("Astilbe");
+    }
+
+    private static void addTaxonTranslation(String taxon) {
+        final FirebaseClient firebaseClient = new FirebaseClient();
+
+        try {
+            Document doc = Jsoup.connect("https://species.wikimedia.org/wiki/" + taxon).get();
+
+            String wikiPage = doc.getElementsByAttributeValue("title", "Edit interlanguage links").attr("href");
+
+            if (wikiPage.lastIndexOf("/") > -1) {
+                String wikiData = wikiPage.substring(wikiPage.lastIndexOf("/") + 1, wikiPage.indexOf("#"));
+
+                URL url = new URL("https://www.wikidata.org/wiki/Special:EntityData/" + wikiData + ".json");
+                HttpURLConnection request = (HttpURLConnection) url.openConnection();
+
+                request.connect();
+
+                JsonParser jp = new JsonParser();
+                JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+                JsonObject wikidata = root.getAsJsonObject().getAsJsonObject("entities").getAsJsonObject(wikiData);
+
+                JsonObject labels = wikidata.getAsJsonObject("labels");
+                for (Map.Entry<String, JsonElement> label : labels.entrySet()) {
+                    String language = label.getKey();
+                    String value = label.getValue().getAsJsonObject().get("value").getAsString();
+
+                    System.out.println(language + ": " + value);
+
+                    if (!value.equals(taxon)) {
+                        Call<List<String>> plantTranslationCall = firebaseClient.getApiService().getTranslationTaxonomy(language, taxon);
+                        List<String> taxonTranslation = plantTranslationCall.execute().body();
+                        if (taxonTranslation == null) {
+                            taxonTranslation = new ArrayList<>();
+                        }
+
+                        if (!taxonTranslation.contains(value) && !taxonTranslation.contains(value.toLowerCase())) {
+                            taxonTranslation.add(language.equals("de") ? value : value.toLowerCase());
+
+                            Call<Object> saveTaxon = firebaseClient.getApiService().saveTranslationTaxonomy(language, taxon, taxonTranslation);
+                            saveTaxon.execute();
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
+
     }
 
     private static void addGoogleNameTranslations(String language) {

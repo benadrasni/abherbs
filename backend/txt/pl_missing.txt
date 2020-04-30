@@ -10,7 +10,6 @@ Triodanis perfoliata
 Callirhoe involucrata
 Ruellia caroliniensis
 Mimosa strigillosa
-Trachelospermum jasminoides
 Castilleja indivisa
 Eustoma exaltatum
 Melampodium leucanthum
@@ -26,7 +25,6 @@ Hymenocallis liriosme
 Lantana urticoides
 Malvaviscus arboreus
 Berlandiera lyrata
-Hesperaloe parviflora
 Justicia americana
 Sagittaria platyphylla
 Froelichia floridana
@@ -40,7 +38,6 @@ Phyla nodiflora
 Eucnide bartonioides
 Teucrium cubense
 Liatris squarrosa
-Artemisia tridentata
 Moricandia arvensis
 Chamaecrista fasciculata
 Chamaelirium luteum
@@ -99,13 +96,15 @@ Oenothera rosea
 Crassocephalum crepidioides
 Cattleya trianae
 Petunia integrifolia
-Vernonia arkansana
 Ipomoea pandurata
-Eriophyllum lanatum
 Gynostemma pentaphyllum
 Spathoglottis plicata
 Dendrobium kingianum
 Stevia rebaudiana
-Gilia tricolor
 Erythronium grandiflorum
 Ramonda serbica
+Iris japonica
+Brugmansia sanguinea
+Hymenocallis littoralis
+Garrya elliptica
+Kalanchoe crenata

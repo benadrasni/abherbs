@@ -51,11 +51,8 @@ Cypripedium parviflorum
 Dicentra cucullaria
 Echinacea purpurea
 Epifagus virginiana
-Epigaea repens
 Conoclinium coelestinum
-Fragaria virginiana
 Gaultheria procumbens
-Gelsemium sempervirens
 Gentiana andrewsii
 Gentianopsis crinita
 Geranium maculatum
@@ -72,7 +69,6 @@ Mitchella repens
 Monarda media
 Monarda fistulosa
 Nymphaea odorata
-Panax trifolius
 Pedicularis canadensis
 Phoradendron leucarpum
 Plantago rugelii
@@ -84,7 +80,6 @@ Rosa carolina
 Sabatia angularis
 Salix discolor
 Sambucus canadensis
-Sanguisorba canadensis
 Scutellaria integrifolia
 Sidalcea malviflora
 Ipomoea cordatotriloba
@@ -92,7 +87,6 @@ Caesalpinia pulcherrima
 Clematis crispa
 Callianthemum anemonoides
 Callianthemum angustifolium
-Aesculus glabra
 Amorpha canescens
 Youngia japonica
 Bougainvillea glabra
@@ -164,3 +158,7 @@ Erythronium grandiflorum
 Ramonda serbica
 Crinum asiaticum
 Mertensia maritima
+Hymenocallis littoralis
+Garrya elliptica
+Kalanchoe crenata
+Camassia quamash

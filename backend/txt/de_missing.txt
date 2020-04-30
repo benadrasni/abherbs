@@ -16,13 +16,11 @@ Justicia americana
 Sagittaria platyphylla
 Froelichia floridana
 Malvastrum coromandelianum
-Linum lewisii
 Rhexia mariana
 Eucnide bartonioides
 Teucrium cubense
 Liatris squarrosa
 Epifagus virginiana
-Conoclinium coelestinum
 Gentianopsis crinita
 Lewisia rediviva
 Linum medium
@@ -32,7 +30,6 @@ Phoradendron leucarpum
 Polygaloides paucifolia
 Sabatia angularis
 Scutellaria integrifolia
-Sidalcea malviflora
 Ipomoea cordatotriloba
 Callianthemum angustifolium
 Aconitum firmum
@@ -47,7 +44,6 @@ Lithospermum incisum
 Cirsium horridulum
 Hymenopappus scabiosaeus
 Mazus pumilus
-Verbena brasiliensis
 Verbena halei
 Indigofera miniata
 Strophostyles helvola
@@ -64,3 +60,5 @@ Alstroemeria pelegrina
 Ipomoea pandurata
 Spathoglottis plicata
 Dendrobium kingianum
+Hymenocallis littoralis
+Kalanchoe crenata

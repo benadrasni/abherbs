@@ -28,7 +28,7 @@ public class Checker {
     private static ArrayList<Integer> DEFAULT_DISTRIBUTION = new ArrayList<>(Arrays.asList(10, 11, 12, 13, 14));
     private static ArrayList<Integer> DISTRIBUTION = new ArrayList<>(Arrays.asList(10, 11, 12, 13, 14, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 40, 41, 42, 43, 50, 51, 60, 61, 62, 63, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 90, 91));
 
-    private static String[] languages = {"cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "ko", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
+    private static String[] languages = {"bg", "cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "ko", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
     private static String[] languagesWithLabel = {"ar", "bg", "cs", "da", "de", "el", "en", "es", "et", "fa", "fi", "fr", "he", "hr", "hu", "is", "it", "ja", "ko", "lt", "lv", "mt", "nl", "no", "pa", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "tr", "uk", "zh"};
 
     public static String CELL_DELIMITER = ";";
@@ -38,7 +38,7 @@ public class Checker {
 
         //checkNames();
         checkNameTranslations();
-        //checkSearch();
+        //checkPlantTranslation();
         //checkTranslation();
         //checkFilter();
         //checkSources();
@@ -47,6 +47,8 @@ public class Checker {
     }
 
     private static void checkFilter() {
+        System.out.println("########### Checking filter ##############");
+
         final FirebaseClient firebaseClient = new FirebaseClient();
 
         try {
@@ -62,7 +64,7 @@ public class Checker {
                 }
 
                 for(Integer habitat : plantHeader.getFilterHabitat()) {
-                    if (habitat < 1 || habitat > 6) {
+                    if (habitat < 1 || habitat > 8) {
                         System.out.println("ERROR at " + i + "(habitat: " + habitat + ")");
                     }
                 }
@@ -87,6 +89,7 @@ public class Checker {
     }
 
     private static void checkNames() {
+        System.out.println("########### Checking names ##############");
         File file = new File(PATH + PLANTS_FILE);
         final FirebaseClient firebaseClient = new FirebaseClient();
 
@@ -167,6 +170,8 @@ public class Checker {
     }
 
     private static void checkFruit() {
+        System.out.println("########### Checking fruit ##############");
+
         File file = new File(PATH + PLANTS_FILE);
         final FirebaseClient firebaseClient = new FirebaseClient();
 
@@ -188,39 +193,22 @@ public class Checker {
         }
     }
 
-    private static void checkSearch() {
+    private static void checkPlantTranslation() {
+        System.out.println("########### Checking plant translation ##############");
+
         final FirebaseClient firebaseClient = new FirebaseClient();
 
-        List<String> plants = new ArrayList<>();
-        File file = new File(PATH + PLANTS_FILE);
         try {
-            Scanner scan = new Scanner(file);
-            while(scan.hasNextLine()) {
+            for (String language : languagesWithLabel) {
 
-                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
-
-                plants.add(plantLine[0]);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            for (String language : languages) {
-                System.out.println(language);
-
-                Call<Map<String, Object>> searchCall = firebaseClient.getApiService().getSearch(language);
+                Call<Map<String, Object>> searchCall = firebaseClient.getApiService().getTranslation(language);
                 Map<String, Object> search = searchCall.execute().body();
 
                 for (Map.Entry<String, Object> entry : search.entrySet()) {
-                    Map<String, Boolean> plantNames = (Map<String, Boolean>) entry.getValue();
+                    Object plant = entry.getValue();
 
-                    for (Map.Entry<String, Boolean> entry1 : plantNames.entrySet()) {
-                        String plantName = entry1.getKey();
-                        if (!plants.contains(plantName)) {
-                            System.out.println("!!!!!!" + plantName + "!!!!!!");
-                        }
+                    if (plant instanceof List) {
+                        System.out.println("!!!!!!" + language + ": " + entry.getKey() + "!!!!!!");
                     }
                 }
             }
@@ -231,6 +219,8 @@ public class Checker {
     }
 
     private static void checkSources() {
+        System.out.println("########### Checking sources ##############");
+
         final FirebaseClient firebaseClient = new FirebaseClient();
 
         try {
@@ -321,6 +311,8 @@ public class Checker {
     }
 
     private static void checkTranslation() {
+        System.out.println("########### Checking translation ##############");
+
         final FirebaseClient firebaseClient = new FirebaseClient();
 
         try {

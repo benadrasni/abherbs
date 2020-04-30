@@ -306,11 +306,13 @@ public class Creater {
 
             File file = new File(PATH_TO_PLANTS_TO_ADD);
 
-            int id = 1059;
+            int id = 1107;
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()){
-                final String plantName = scan.nextLine();
-                final String wikiSpeciesName = plantName;
+                final String[] plantNames = scan.nextLine().split(";");
+
+                final String plantName = plantNames[0];
+                final String wikiSpeciesName = plantNames.length > 1 ? plantNames[1] : plantNames[0];
                 System.out.println(plantName);
 
                 addOrUpdateBasic(firebaseClient, plantName, wikiSpeciesName, id);
@@ -708,12 +710,16 @@ public class Creater {
                     taxonValue = taxonValue.substring(taxonValue.lastIndexOf("\u00A0") + 1);
                 }
 
-                if (!pathNameAPGIII.isEmpty()) {
-                    pathNameAPGIII = pathNameAPGIII + "/" + taxonName;
-                    pathAPGIII = pathAPGIII + "/" + taxonValue;
+//                if (!pathNameAPGIII.isEmpty()) {
+//                    pathNameAPGIII = pathNameAPGIII + "/" + taxonName;
+//                    pathAPGIII = pathAPGIII + "/" + taxonValue;
+//                }
+
+                if (!pathNameAPGIV.isEmpty()) {
                     pathNameAPGIV = pathNameAPGIV + "/" + taxonName;
                     pathAPGIV = pathAPGIV + "/" + taxonValue;
                 }
+
 
                 if ("Ordo".equals(taxonName)) {
                     pathNameAPGIII = apgiiiOrdoNameMap.get(taxonValue);

@@ -11,7 +11,6 @@ Agave americana
 Lupinus texensis
 Ratibida columnifera
 Nothoscordum bivalve
-Gaillardia pulchella
 Calyptocarpus vialis
 Oxalis violacea
 Geranium carolinianum
@@ -21,7 +20,6 @@ Triodanis perfoliata
 Nymphaea caerulea
 Jacaranda mimosifolia
 Monarda citriodora
-Magnolia grandiflora
 Callirhoe involucrata
 Ruellia caroliniensis
 Coreopsis lanceolata
@@ -269,3 +267,13 @@ Ramonda serbica
 Ranunculus asiaticus
 Crinum asiaticum
 Lobelia inflata
+Rhododendron macrophyllum
+Iris japonica
+Chrysanthemum indicum
+Brugmansia sanguinea
+Hymenocallis littoralis
+Ornithogalum pyrenaicum
+Garrya elliptica
+Aquilegia atrata
+Geum reptans
+Kalanchoe crenata

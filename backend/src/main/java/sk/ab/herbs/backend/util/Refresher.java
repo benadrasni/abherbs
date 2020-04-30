@@ -49,9 +49,9 @@ public class Refresher {
 
         //countAndList3();
         //countAndList4();
-        countAndList4Ids();
+        //countAndList4Ids();
         search();
-        photoSearch();
+        //photoSearch();
     }
 
     private static void countAndList3() {
@@ -212,7 +212,7 @@ public class Refresher {
 
     private static void search() {
         // {"cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
-        String[] languages = {"cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "ko", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk"};
+        String[] languages = {"bg", "cs", "da", "de", "en", "es", "et", "fi", "fr", "hr", "hu", "it", "ja", "ko", "lt", "lv", "nl", "no", "pl", "pt", "ro", "ru", "sk", "sl", "sr", "sv", "uk", "zh"};
         final FirebaseClient firebaseClient = new FirebaseClient();
 
         try {
@@ -499,13 +499,13 @@ public class Refresher {
                     }
                 }
 
-                Call<Map<String, Object>> enCall = firebaseClient.getApiService().getTranslation("en", plantLine[0]);
-                Map<String, Object> en = enCall.execute().body();
-                if (!photoSearch.containsKey(en.get("label"))) {
-                    Map<String, Object> plantEn = new HashMap<>();
-                    plant.put("count", 1);
-                    plant.put("path", plantLine[0]);
-                    photoSearch.put(((String)en.get("label")).toLowerCase(), plant);
+                if (firebasePlant.getSynonyms() != null) {
+                    for (String synomym : firebasePlant.getSynonyms()) {
+                        Map<String, Object> plantSynonym = new HashMap<>();
+                        plantSynonym.put("count", 1);
+                        plantSynonym.put("path", plantLine[0]);
+                        photoSearch.put(synomym.toLowerCase(), plantSynonym);
+                    }
                 }
             }
             scan.close();

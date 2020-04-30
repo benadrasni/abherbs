@@ -110,7 +110,6 @@ Sabatia angularis
 Salix discolor
 Sanguisorba canadensis
 Scutellaria integrifolia
-Sidalcea malviflora
 Ipomoea cordatotriloba
 Doronicum austriacum
 Clematis integrifolia
@@ -186,7 +185,6 @@ Plectranthus fruticosus
 Echium candicans
 Gladiolus palustris
 Clivia miniata
-Symphyotrichum ericoides
 Crassocephalum crepidioides
 Cosmos sulphureus
 Petunia integrifolia
@@ -210,3 +208,12 @@ Ranunculus asiaticus
 Dicentra formosa
 Billbergia nutans
 Crinum asiaticum
+Rhododendron macrophyllum
+Geranium cinereum
+Brugmansia sanguinea
+Hymenocallis littoralis
+Ornithogalum pyrenaicum
+Garrya elliptica
+Cistus salviifolius
+Kalanchoe crenata
+Camassia quamash

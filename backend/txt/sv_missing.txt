@@ -60,7 +60,6 @@ Artemisia tridentata
 Asarum canadense
 Chamaecrista fasciculata
 Celastrus scandens
-Chamaelirium luteum
 Cornus florida
 Crataegus mollis
 Crataegus succulenta
@@ -177,3 +176,11 @@ Stevia rebaudiana
 Sesbania grandiflora
 Erythronium grandiflorum
 Ramonda serbica
+Rhododendron macrophyllum
+Iris japonica
+Chrysanthemum indicum
+Garrya elliptica
+Geum reptans
+Cistus salviifolius
+Kalanchoe crenata
+Camassia quamash

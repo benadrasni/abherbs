@@ -7,6 +7,7 @@ Ratibida columnifera
 Nothoscordum bivalve
 Gaillardia pulchella
 Calyptocarpus vialis
+Oxalis violacea
 Geranium carolinianum
 Oenothera speciosa
 Rudbeckia amplexicaulis
@@ -81,7 +82,6 @@ Monarda media
 Monarda fistulosa
 Nymphaea odorata
 Panax trifolius
-Pedicularis canadensis
 Phoradendron leucarpum
 Plantago rugelii
 Polygala lutea
@@ -169,7 +169,6 @@ Petunia integrifolia
 Alstroemeria pelegrina
 Vernonia arkansana
 Eutrochium maculatum
-Amaryllis belladonna
 Ipomoea pandurata
 Perilla frutescens
 Eriophyllum lanatum
@@ -186,3 +185,11 @@ Ramonda serbica
 Dicentra formosa
 Crinum asiaticum
 Mertensia maritima
+Rhododendron macrophyllum
+Brugmansia sanguinea
+Hymenocallis littoralis
+Garrya elliptica
+Scilla siberica
+Aronia melanocarpa
+Brunnera macrophylla
+Kalanchoe crenata

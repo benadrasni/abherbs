@@ -58,7 +58,6 @@ Cuscuta gronovii
 Vincetoxicum nigrum
 Cypripedium acaule
 Cypripedium parviflorum
-Dicentra cucullaria
 Epifagus virginiana
 Epigaea repens
 Conoclinium coelestinum
@@ -161,7 +160,14 @@ Eriophyllum lanatum
 Gynostemma pentaphyllum
 Spathoglottis plicata
 Dendrobium kingianum
-Mentha suaveolens
 Erythronium grandiflorum
 Ramonda serbica
 Mertensia maritima
+Rhododendron macrophyllum
+Geranium cinereum
+Iris japonica
+Chrysanthemum indicum
+Linnaea borealis
+Hymenocallis littoralis
+Spiraea chamaedryfolia
+Kalanchoe crenata

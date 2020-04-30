@@ -6,7 +6,6 @@ Geranium carolinianum
 Rudbeckia amplexicaulis
 Glandularia bipinnatifida
 Triodanis perfoliata
-Monarda citriodora
 Ruellia caroliniensis
 Mimosa strigillosa
 Castilleja indivisa
@@ -14,7 +13,6 @@ Liatris punctata
 Melampodium leucanthum
 Argemone albiflora
 Plectocephalus americanus
-Helianthus maximiliani
 Helianthus angustifolius
 Eryngium leavenworthii
 Zephyranthes drummondii
@@ -63,7 +61,6 @@ Anemone berlandieri
 Melampyrum barbatum
 Nemophila menziesii
 Senecio ampullaceus
-Salvia lyrata
 Phlox pilosa
 Phlox amplifolia
 Phlox glaberrima
@@ -75,7 +72,6 @@ Sisyrinchium bellum
 Cirsium horridulum
 Hymenopappus scabiosaeus
 Mazus pumilus
-Verbena brasiliensis
 Verbena halei
 Romneya coulteri
 Indigofera miniata
@@ -96,6 +92,6 @@ Vernonia arkansana
 Ipomoea pandurata
 Eriophyllum lanatum
 Spathoglottis plicata
-Puschkinia scilloides
 Erythronium grandiflorum
 Ramonda serbica
+Kalanchoe crenata
