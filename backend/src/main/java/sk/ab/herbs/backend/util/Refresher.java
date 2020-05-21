@@ -49,9 +49,9 @@ public class Refresher {
 
         //countAndList3();
         //countAndList4();
-        //countAndList4Ids();
+        countAndList4Ids();
         search();
-        //photoSearch();
+        photoSearch();
     }
 
     private static void countAndList3() {
@@ -171,15 +171,15 @@ public class Refresher {
         final FirebaseClient firebaseClient = new FirebaseClient();
 
         try {
-            Scanner scan = new Scanner(file);
-            while(scan.hasNextLine()) {
+            Call<List<String>> plantListCall = firebaseClient.getApiService().getPlantToUpdate();
+            List<String> plantsList = plantListCall.execute().body();
 
-                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
-                Integer id = Integer.parseInt(plantLine[2]) - 1;
+            int i = 0;
+            for (String plantName : plantsList) {
 
-                System.out.println(id + ": " + plantLine[0]);
+                System.out.println(i + ": " + plantName);
 
-                Call<PlantHeader> plantCall = firebaseClient.getApiService().getPlantHeader(id);
+                Call<PlantHeader> plantCall = firebaseClient.getApiService().getPlantHeader(i);
                 PlantHeader plant = plantCall.execute().body();
 
                 for (String filter : filtersWith4Attributes) {
@@ -191,12 +191,11 @@ public class Refresher {
                             && (filterParts[2].isEmpty() || plant.getFilterPetal().contains(Integer.parseInt(filterParts[2])))
                             && (filterParts[3].isEmpty() || plant.getFilterDistribution().contains(Integer.parseInt(filterParts[3])))) {
                         counts.put(filter, counts.get(filter) + 1);
-                        lists.get(filter).put(id, 1);
+                        lists.get(filter).put(i, 1);
                     }
                 }
-
+                i++;
             }
-            scan.close();
 
             Call<Map> callFirebaseCount = firebaseClient.getApiService().saveCount(counts);
             callFirebaseCount.execute().body();
@@ -216,16 +215,15 @@ public class Refresher {
         final FirebaseClient firebaseClient = new FirebaseClient();
 
         try {
-            File file = new File(PATH + PLANTS_FILE);
             Map<String, Integer> plants =  new HashMap<>();
-            Scanner scan = new Scanner(file);
-            while(scan.hasNextLine()) {
 
-                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
-                plants.put(plantLine[0], Integer.parseInt(plantLine[2])-1);
+            Call<List<String>> plantListCall = firebaseClient.getApiService().getPlantToUpdate();
+            List<String> plantsList = plantListCall.execute().body();
+
+            int i = 0;
+            for (String plantName : plantsList) {
+                plants.put(plantName, i++);
             }
-            scan.close();
-
 
             for (String language : languages) {
                 System.out.println(language);
@@ -294,15 +292,13 @@ public class Refresher {
             // latin
             Map<String, Map<String, Object>> searchMap = new HashMap<>();
 
-            scan = new Scanner(file);
-            while(scan.hasNextLine()) {
+            for (String plantName : plantsList) {
 
-                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
-                Integer plantName = plants.get(plantLine[0]);
+                Integer plantId = plants.get(plantName);
 
                 //System.out.println(plantLine[0]);
 
-                Call<FirebasePlant> plantCall = firebaseClient.getApiService().getPlant(plantLine[0]);
+                Call<FirebasePlant> plantCall = firebaseClient.getApiService().getPlant(plantName);
                 FirebasePlant plant = plantCall.execute().body();
 
                 Map<String, Object> searchForLabel = null;
@@ -321,7 +317,7 @@ public class Refresher {
                         plantList =  new HashMap();
                         searchForLabel.put("list", plantList);
                     }
-                    plantList.put(plantName, 1);
+                    plantList.put(plantId, 1);
                 }
 
                 List<String> names = plant.getSynonyms();
@@ -348,11 +344,10 @@ public class Refresher {
                             plantList =  new HashMap();
                             searchForLabel.put("list", plantList);
                         }
-                        plantList.put(plantName, 1);
+                        plantList.put(plantId, 1);
                     }
                 }
             }
-            scan.close();
 
             Call<Object> callFirebaseSearch = firebaseClient.getApiService().saveSearch("la", searchMap);
             Response<Object> response = callFirebaseSearch.execute();
@@ -448,19 +443,15 @@ public class Refresher {
             Map<String, Object> apgiv = apgivCall.execute().body();
             Map<String, Map<String, Object>> photoSearch = new HashMap<>();
 
-
-            Call<Map<String, List<String>>> translationTaxonomyCall = firebaseClient.getApiService().getTranslationTaxonomy("en");
-            Map<String, List<String>> enNames = translationTaxonomyCall.execute().body();
-
-            parseAPGIV("", apgiv, photoSearch, "APG IV_v3/", enNames);
+            parseAPGIV("", apgiv, photoSearch, "APG IV_v3/");
 
             parsePlants(photoSearch);
 
-            Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().serializeNulls().create();
-            System.out.println(gson.toJson(photoSearch));
+//            Gson gson = new GsonBuilder().serializeSpecialFloatingPointValues().serializeNulls().create();
+//            System.out.println(gson.toJson(photoSearch));
 
-//            Call<Object> callFirebaseSearch = firebaseClient.getApiService().savePhotoSearch(photoSearch);
-//            Response<Object> response = callFirebaseSearch.execute();
+            Call<Object> callFirebaseSearch = firebaseClient.getApiService().savePhotoSearch(photoSearch);
+            Response<Object> response = callFirebaseSearch.execute();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -473,18 +464,19 @@ public class Refresher {
         final FirebaseClient firebaseClient = new FirebaseClient();
 
         try {
-            Scanner scan = new Scanner(file);
-            while(scan.hasNextLine()) {
+            Call<List<String>> plantListCall = firebaseClient.getApiService().getPlantToUpdate();
+            List<String> plants = plantListCall.execute().body();
 
-                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
-                System.out.println(plantLine[0]);
+            for (String plantName : plants) {
+
+                System.out.println(plantName);
 
                 Map<String, Object> plant = new HashMap<>();
                 plant.put("count", 1);
-                plant.put("path", plantLine[0]);
-                photoSearch.put(plantLine[0].toLowerCase(), plant);
+                plant.put("path", plantName);
+                photoSearch.put(plantName.toLowerCase(), plant);
 
-                Call<FirebasePlant> plantCall = firebaseClient.getApiService().getPlant(plantLine[0]);
+                Call<FirebasePlant> plantCall = firebaseClient.getApiService().getPlant(plantName);
                 FirebasePlant firebasePlant = plantCall.execute().body();
 
                 if (firebasePlant.getFreebaseId() != null) {
@@ -501,21 +493,22 @@ public class Refresher {
 
                 if (firebasePlant.getSynonyms() != null) {
                     for (String synomym : firebasePlant.getSynonyms()) {
-                        Map<String, Object> plantSynonym = new HashMap<>();
-                        plantSynonym.put("count", 1);
-                        plantSynonym.put("path", plantLine[0]);
-                        photoSearch.put(synomym.toLowerCase(), plantSynonym);
+                        if (photoSearch.get(synomym.toLowerCase()) == null) {
+                            Map<String, Object> plantSynonym = new HashMap<>();
+                            plantSynonym.put("count", 1);
+                            plantSynonym.put("path", plantName);
+                            photoSearch.put(synomym.toLowerCase(), plantSynonym);
+                        }
                     }
                 }
             }
-            scan.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void parseAPGIV(String taxon, Map<String, Object> apgiv, Map<String, Map<String, Object>> photoSearch, String path, Map<String, List<String>> enNames) {
+    private static void parseAPGIV(String taxon, Map<String, Object> apgiv, Map<String, Map<String, Object>> photoSearch, String path) {
 
         Map<String, Object> item = new HashMap<>();
         boolean isDesiredType = false;
@@ -542,7 +535,7 @@ public class Refresher {
                     freebaseId.add((String) apgiv.get(key));
                 }
             } else {
-                parseAPGIV(key, (Map<String, Object>)apgiv.get(key), photoSearch, path + key + "/", enNames);
+                parseAPGIV(key, (Map<String, Object>)apgiv.get(key), photoSearch, path + key + "/");
             }
         }
 
@@ -557,13 +550,6 @@ public class Refresher {
                 }
                 for (String freebaseItem : freebaseId) {
                     m.put(freebaseItem.substring(freebaseItem.lastIndexOf("/") + 1), item);
-                }
-            }
-
-            List<String> enTaxonNames = enNames.get(taxon);
-            if (enTaxonNames != null) {
-                for (String name : enTaxonNames) {
-                    photoSearch.put(name.toLowerCase(), item);
                 }
             }
         }

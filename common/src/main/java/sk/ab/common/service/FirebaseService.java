@@ -66,6 +66,14 @@ public interface FirebaseService {
             "Accept-Charset: UTF-8",
             "charset: UTF-8"
     })
+    @GET("plants_to_update/list.json")
+    Call<List<String>> getPlantToUpdate();
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
     @GET("plants/{name}.json")
     Call<PlantFilter> getPlantFilter(@Path("name") String name);
 
@@ -158,7 +166,7 @@ public interface FirebaseService {
     @PUT("translations.json")
     Call<Object> saveTranslations(@Body Object object);
 
-    @PUT("search_photo.json")
+    @PUT("search_photo_new.json")
     Call<Object> savePhotoSearch(@Body Object object);
 
     @PUT("translations/{language}/{name}.json")

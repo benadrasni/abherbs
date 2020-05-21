@@ -37,11 +37,11 @@ public class Checker {
     public static void main(String[] params) {
 
         //checkNames();
-        checkNameTranslations();
+        //checkNameTranslations();
         //checkPlantTranslation();
         //checkTranslation();
         //checkFilter();
-        //checkSources();
+        checkSources();
         //addIds();
         //checkFruit();
     }
@@ -248,12 +248,15 @@ public class Checker {
         }
 
         File file = new File(PATH + PLANTS_FILE);
+        String plantName = "";
         try {
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()) {
 
                 final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
 
+                plantName = plantLine[0];
+                System.out.println(plantName);
                 Call<FirebasePlant> plantCall = firebaseClient.getApiService().getPlant(plantLine[0]);
                 FirebasePlant plant = plantCall.execute().body();
 
@@ -267,6 +270,7 @@ public class Checker {
             }
 
         } catch (IOException e) {
+            System.out.println(plantName);
             e.printStackTrace();
         }
     }

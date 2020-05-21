@@ -306,7 +306,7 @@ public class Creater {
 
             File file = new File(PATH_TO_PLANTS_TO_ADD);
 
-            int id = 1107;
+            int id = 1149;
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()){
                 final String[] plantNames = scan.nextLine().split(";");
@@ -359,23 +359,6 @@ public class Creater {
                     continue;
                 }
                 PlantTranslation plantTranslation = new PlantTranslation();
-                if (Constants.LANGUAGE_EN.equals(language)) {
-                    plantTranslation.setDescription("...");
-                    plantTranslation.setFlower("...");
-                    plantTranslation.setInflorescence("...");
-                    plantTranslation.setFruit("...");
-                    plantTranslation.setLeaf("...");
-                    plantTranslation.setStem("...");
-                    plantTranslation.setHabitat("...");
-                } else if (Constants.LANGUAGE_SK.equals(language)) {
-                    plantTranslation.setDescription("...");
-                    plantTranslation.setFlower("...");
-                    plantTranslation.setInflorescence("...");
-                    plantTranslation.setFruit("...");
-                    plantTranslation.setLeaf("...");
-                    plantTranslation.setStem("...");
-                    plantTranslation.setHabitat("...");
-                }
 
                 ArrayList<String> namesInLanguage = (ArrayList)names.get(language);
                 if (namesInLanguage != null && namesInLanguage.size() > 0) {
@@ -781,10 +764,11 @@ public class Creater {
         plantBasic.setIllustrationUrl(ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantName.replace(" ", "_") + ".webp");
 
         ArrayList<String> urls = new ArrayList<>();
+        String[] plantNames = plantName.split(" ");
         for (int i = 1; i < 10; i++) {
-            File file = new File("D:/Dev/Storage/photos/" + ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantName.substring(0,1).toLowerCase() + plantName.substring(plantName.indexOf(" ") + 1, plantName.indexOf(" ") + 2) + i + ".webp");
+            File file = new File("D:/Dev/Storage/photos/" + ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantNames[0].substring(0,1).toLowerCase() + plantNames[plantNames.length-1].substring(0,1).toLowerCase() + i + ".webp");
             if (file.exists()) {
-                String url = ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantName.substring(0,1).toLowerCase() + plantName.substring(plantName.indexOf(" ") + 1, plantName.indexOf(" ") + 2) + i + ".webp";
+                String url = ordo + "/" + familia + "/" + plantName.replace(" ", "_") + "/" + plantNames[0].substring(0,1).toLowerCase() + plantNames[plantNames.length-1].substring(0,1).toLowerCase() + i + ".webp";
                 if (i == 1) {
                     plantHeader.setUrl(url);
                 }
