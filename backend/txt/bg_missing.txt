@@ -72,7 +72,6 @@ Argemone mexicana
 Lupinus texensis
 Ratibida columnifera
 Nothoscordum bivalve
-Gaillardia pulchella
 Calyptocarpus vialis
 Tulipa sylvestris
 Oxalis violacea
@@ -306,3 +305,21 @@ Thlaspi caerulescens
 Kalanchoe crenata
 Camassia quamash
 Lobularia maritima
+Dietes bicolor
+Polemonium pulcherrimum
+Astilbe rubra
+Magnolia Ã— soulangeana
+Nepeta racemosa
+Limonium sinuatum
+Brassica oleracea
+Skimmia japonica
+Jacobaea maritima
+Ornithogalum dubium
+Androsace septentrionalis
+Nemophila maculata
+Doronicum pardalianches
+Crossandra infundibuliformis
+Strelitzia reginae
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica

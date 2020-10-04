@@ -39,7 +39,6 @@ Youngia japonica
 Prunus caroliniana
 Anemone berlandieri
 Senecio ampullaceus
-Phlox pilosa
 Lithospermum incisum
 Cirsium horridulum
 Hymenopappus scabiosaeus
@@ -62,3 +61,7 @@ Spathoglottis plicata
 Dendrobium kingianum
 Hymenocallis littoralis
 Kalanchoe crenata
+Dietes bicolor
+Polemonium pulcherrimum
+Magnolia Ã— soulangeana
+Dahlia Ã— pinnata

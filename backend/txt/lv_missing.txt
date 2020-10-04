@@ -98,7 +98,6 @@ Leontopodium nivale
 Eranthis hyemalis
 Oxalis violacea
 Geranium carolinianum
-Oenothera speciosa
 Rudbeckia amplexicaulis
 Glandularia bipinnatifida
 Triodanis perfoliata
@@ -216,7 +215,6 @@ Phytolacca americana
 Plantago rugelii
 Polygala lutea
 Polygaloides paucifolia
-Prunus americana
 Prunus serotina
 Rhus glabra
 Rosa carolina
@@ -227,7 +225,6 @@ Sambucus canadensis
 Sanguisorba canadensis
 Sarracenia purpurea
 Scutellaria integrifolia
-Sidalcea malviflora
 Ipomoea cordatotriloba
 Caesalpinia pulcherrima
 Amaranthus hybridus
@@ -327,7 +324,6 @@ Salvia glutinosa
 Utricularia australis
 Phalaenopsis sanderiana
 Lagerstroemia indica
-Dianthus barbatus
 Ostrya carpinifolia
 Ruellia simplex
 Oenothera lindheimeri
@@ -449,3 +445,26 @@ Cistus salviifolius
 Kalanchoe crenata
 Camassia quamash
 Silene gallica
+Dietes bicolor
+Polemonium pulcherrimum
+Torilis arvensis
+Astilbe rubra
+Magnolia Ã— soulangeana
+Nepeta racemosa
+Limonium sinuatum
+Skimmia japonica
+Ornithogalum dubium
+Symphytum tuberosum
+Potentilla indica
+Nemophila maculata
+Centranthus ruber
+Melaleuca citrina
+Crepis setosa
+Valeriana tuberosa
+Doronicum pardalianches
+Crossandra infundibuliformis
+Orobanche gracilis
+Dahlia Ã— pinnata
+Freesia laxa
+Fuchsia magellanica
+Dianella tasmanica

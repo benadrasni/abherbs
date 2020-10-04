@@ -78,7 +78,6 @@ Hypericum tetrapterum
 Jacobaea erucifolia
 Jasione montana
 Knautia dipsacifolia
-Lathraea squamaria
 Lathyrus aphaca
 Lathyrus linifolius
 Lathyrus sylvestris
@@ -391,3 +390,20 @@ Cistus salviifolius
 Kalanchoe crenata
 Asphodeline lutea
 Cardamine bulbifera
+Polemonium pulcherrimum
+Torilis arvensis
+Cerinthe major
+Magnolia Ã— soulangeana
+Erica carnea
+Nepeta racemosa
+Jacobaea maritima
+Symphytum tuberosum
+Nemophila maculata
+Crepis setosa
+Valeriana tuberosa
+Doronicum pardalianches
+Anthriscus caucalis
+Orobanche gracilis
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica

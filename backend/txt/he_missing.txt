@@ -1,5 +1,4 @@
 Acer campestre
-Acer platanoides
 Acer pseudoplatanus
 Achillea ptarmica
 Aconitum napellus
@@ -104,9 +103,7 @@ Clematis vitalba
 Clinopodium acinos
 Colchicum autumnale
 Comarum palustre
-Consolida regalis
 Convallaria majalis
-Cornus mas
 Cornus sanguinea
 Corydalis cava
 Corydalis solida
@@ -222,7 +219,6 @@ Impatiens glandulifera
 Impatiens noli-tangere
 Impatiens parviflora
 Inula salicina
-Iris sibirica
 Isatis tinctoria
 Jacobaea erucifolia
 Jasione montana
@@ -242,7 +238,6 @@ Lathyrus vernus
 Leontodon hispidus
 Lepidium campestre
 Lepidium draba
-Leucanthemum vulgare
 Leucojum aestivum
 Leucojum vernum
 Ligustrum vulgare
@@ -291,7 +286,6 @@ Neottia ovata
 Neslia paniculata
 Nuphar pumila
 Oenanthe aquatica
-Oenothera biennis
 Oenothera parviflora
 Onobrychis viciifolia
 Ophrys insectifera
@@ -300,7 +294,6 @@ Orchis militaris
 Orchis pallens
 Orthilia secunda
 Oxalis acetosella
-Papaver rhoeas
 Paris quadrifolia
 Parnassia palustris
 Pedicularis palustris
@@ -400,20 +393,16 @@ Securigera varia
 Sedum acre
 Sedum album
 Sedum sexangulare
-Jacobaea vulgaris
 Senecio ovatus
 Senecio viscosus
 Serratula tinctoria
 Silaum silaus
 Silene dioica
-Silene latifolia
 Silene nutans
 Silene viscaria
 Soldanella carpatica
 Solidago canadensis
 Solidago virgaurea
-Sonchus arvensis
-Sonchus asper
 Sorbus aria
 Sorbus aucuparia
 Stachys germanica
@@ -448,7 +437,6 @@ Tripleurospermum inodorum
 Trollius europaeus
 Turritis glabra
 Tussilago farfara
-Ulex europaeus
 Ulmus glabra
 Ulmus laevis
 Ulmus minor
@@ -464,7 +452,6 @@ Verbascum densiflorum
 Verbascum lychnitis
 Verbascum nigrum
 Verbascum phoeniceum
-Verbascum thapsus
 Veronica austriaca
 Veronica beccabunga
 Veronica chamaedrys
@@ -481,7 +468,6 @@ Viola canina
 Viola hirta
 Viola palustris
 Viola reichenbachiana
-Viola tricolor
 Viscum album
 Crocosmia aurea
 Lupinus texensis
@@ -501,7 +487,6 @@ Triodanis perfoliata
 Pseudofumaria lutea
 Aconitum lycoctonum
 Monarda citriodora
-Magnolia grandiflora
 Callirhoe involucrata
 Ruellia caroliniensis
 Coreopsis lanceolata
@@ -526,7 +511,6 @@ Tradescantia virginiana
 Physostegia virginiana
 Hymenocallis liriosme
 Lantana urticoides
-Malvaviscus arboreus
 Cephalanthus occidentalis
 Berlandiera lyrata
 Hesperaloe parviflora
@@ -575,7 +559,6 @@ Epigaea repens
 Conoclinium coelestinum
 Fragaria virginiana
 Gaultheria procumbens
-Gelsemium sempervirens
 Gentiana andrewsii
 Gentianopsis crinita
 Geranium maculatum
@@ -584,9 +567,7 @@ Heuchera sanguinea
 Hibiscus moscheutos
 Hypericum frondosum
 Impatiens pallida
-Iris versicolor
 Kalmia angustifolia
-Kalmia latifolia
 Lewisia rediviva
 Lilium grayi
 Linum medium
@@ -603,7 +584,6 @@ Phoradendron leucarpum
 Plantago rugelii
 Polygala lutea
 Polygaloides paucifolia
-Prunus serotina
 Rhus glabra
 Rhus typhina
 Rosa carolina
@@ -638,11 +618,9 @@ Callianthemum coriandrifolium
 Callianthemum anemonoides
 Callianthemum angustifolium
 Helleborus purpurascens
-Calendula officinalis
 Nigella damascena
 Isopyrum thalictroides
 Actaea europaea
-Consolida ajacis
 Delphinium elatum
 Delphinium oxysepalum
 Aconitum anthora
@@ -658,7 +636,6 @@ Amorpha fruticosa
 Veronica longifolia
 Potentilla norvegica
 Youngia japonica
-Mirabilis jalapa
 Mirabilis nyctaginea
 Dermatophyllum secundiflorum
 Prunus caroliniana
@@ -675,7 +652,6 @@ Phlox pilosa
 Phlox amplifolia
 Phlox divaricata
 Phlox glaberrima
-Phlox paniculata
 Phlox subulata
 Lithospermum incisum
 Hypoxis hirsuta
@@ -721,13 +697,11 @@ Bunias orientalis
 Carlina vulgaris
 Salvia glutinosa
 Phalaenopsis sanderiana
-Dianthus barbatus
 Ostrya carpinifolia
 Ruellia simplex
 Oenothera lindheimeri
 Leucophyllum frutescens
 Swertia perennis
-Tecoma stans
 Chrysosplenium oppositifolium
 Ambrosia artemisiifolia
 Himantoglossum hircinum
@@ -745,11 +719,9 @@ Euryops pectinatus
 Chamaemelum nobile
 Gerbera jamesonii
 Scilla luciliae
-Callistephus chinensis
 Oenothera fruticosa
 Hieracium umbellatum
 Hydrangea involucrata
-Pelargonium peltatum
 Podophyllum peltatum
 Penstemon digitalis
 Anthurium andraeanum
@@ -769,7 +741,6 @@ Symphyotrichum ericoides
 Aubrieta deltoidea
 Crassocephalum crepidioides
 Cattleya trianae
-Tagetes erecta
 Myosotis alpestris
 Claytonia perfoliata
 Lobelia siphilitica
@@ -816,7 +787,6 @@ Crinum asiaticum
 Fritillaria imperialis
 Mertensia maritima
 Lilium bulbiferum
-Lobelia erinus
 Lobelia inflata
 Solidago gigantea
 Pilosella aurantiaca
@@ -850,3 +820,36 @@ Berteroa incana
 Camassia quamash
 Cardamine bulbifera
 Lobularia maritima
+Dietes bicolor
+Polemonium pulcherrimum
+Aurinia saxatilis
+Alnus glutinosa
+Astilbe rubra
+Cerinthe major
+Magnolia Ã— soulangeana
+Erica carnea
+Nepeta racemosa
+Onopordum acanthium
+Aristolochia macrophylla
+Skimmia japonica
+Ornithogalum dubium
+Symphytum tuberosum
+Salvia yangii
+Androsace septentrionalis
+Potentilla indica
+Nemophila maculata
+Lithospermum officinale
+Pyracantha coccinea
+Crepis setosa
+Valeriana tuberosa
+Aster alpinus
+Doronicum pardalianches
+Anthriscus caucalis
+Iberis amara
+Crossandra infundibuliformis
+Rudbeckia laciniata
+Chaenomeles japonica
+Orobanche gracilis
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica

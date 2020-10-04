@@ -1,14 +1,10 @@
 package sk.ab.herbs.backend.util;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -28,9 +24,6 @@ import sk.ab.common.util.Utils;
 
 public class Refresher {
 
-    private static String PATH = "d:/Dev/Projects/abherbs/backend/txt/";
-    private static String PLANTS_FILE = "plants.csv";
-
     private static String CELL_DELIMITER = ";";
     private static String FILTER_DELIMITER = "\\_";
 
@@ -42,118 +35,12 @@ public class Refresher {
     private static final String[] PETALS_IDS = {null,"1", "2", "3", "4"};
     private static final String[] DISTRIBUTION = {null, "10", "11", "12", "13", "14", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "40", "41", "42", "43", "50", "51", "60", "61", "62", "63", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "90", "91"};
 
-    private static final String[] FILTER_3_ATTRIBUTES = {Constants.COLOR_OF_FLOWERS, Constants.HABITAT, Constants.NUMBER_OF_PETALS};
     private static final String[] FILTER_4_ATTRIBUTES = {Constants.COLOR_OF_FLOWERS, Constants.HABITAT, Constants.NUMBER_OF_PETALS, Constants.DISTRIBUTION};
 
     public static void main(String[] params) {
-
-        //countAndList3();
-        //countAndList4();
         countAndList4Ids();
         search();
         photoSearch();
-    }
-
-    private static void countAndList3() {
-        Map<String, Integer> counts = new HashMap<>();
-        Map<String, Map<String, Boolean>> lists = new HashMap<>();
-
-        List<String> filtersWith3Attributes = generateCountsAndLists3();
-
-        for (String filter : filtersWith3Attributes) {
-            counts.put(filter, 0);
-            lists.put(filter, new HashMap<String, Boolean>());
-        }
-
-        File file = new File(PATH + PLANTS_FILE);
-        final FirebaseClient firebaseClient = new FirebaseClient();
-
-        try {
-            Scanner scan = new Scanner(file);
-            while(scan.hasNextLine()) {
-
-                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
-
-                //System.out.println(plantLine[0]);
-
-                Call<PlantFilter> plantCall = firebaseClient.getApiService().getPlantFilter(plantLine[0]);
-                PlantFilter plant = plantCall.execute().body();
-
-                for (String filter : filtersWith3Attributes) {
-
-                    String[] filterParts = filter.split(FILTER_DELIMITER, -1);
-
-                    if ((filterParts[0].isEmpty() || plant.getFilterColor().contains(filterParts[0]))
-                            && (filterParts[1].isEmpty() || plant.getFilterHabitat().contains(filterParts[1]))
-                            && (filterParts[2].isEmpty() || plant.getFilterPetal().contains(filterParts[2]))) {
-                        counts.put(filter, counts.get(filter) + 1);
-                        lists.get(filter).put(plantLine[0], true);
-                    }
-                }
-
-            }
-
-            Call<Map> callFirebaseCount = firebaseClient.getApiService().saveCount(counts);
-            callFirebaseCount.execute().body();
-
-            Call<Map> callFirebaseList = firebaseClient.getApiService().saveList(lists);
-            callFirebaseList.execute().body();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void countAndList4() {
-        Map<String, Integer> counts = new HashMap<>();
-        Map<String, Map<String, Boolean>> lists = new HashMap<>();
-
-        List<String> filtersWith4Attributes = generateCountsAndLists4();
-
-        for (String filter : filtersWith4Attributes) {
-            counts.put(filter, 0);
-            lists.put(filter, new HashMap<String, Boolean>());
-        }
-
-        File file = new File(PATH + PLANTS_FILE);
-        final FirebaseClient firebaseClient = new FirebaseClient();
-
-        try {
-            Scanner scan = new Scanner(file);
-            while(scan.hasNextLine()) {
-
-                final String[] plantLine = scan.nextLine().split(CELL_DELIMITER);
-
-                System.out.println(plantLine[0]);
-
-                Call<PlantFilter> plantCall = firebaseClient.getApiService().getPlantFilter(plantLine[0]);
-                PlantFilter plant = plantCall.execute().body();
-
-                for (String filter : filtersWith4Attributes) {
-
-                    String[] filterParts = filter.split(FILTER_DELIMITER, -1);
-
-                    if ((filterParts[0].isEmpty() || plant.getFilterColor().contains(filterParts[0]))
-                            && (filterParts[1].isEmpty() || plant.getFilterHabitat().contains(filterParts[1]))
-                            && (filterParts[2].isEmpty() || plant.getFilterPetal().contains(filterParts[2]))
-                            && (filterParts[3].isEmpty() || plant.getFilterDistribution().contains(Integer.parseInt(filterParts[3])))) {
-                        counts.put(filter, counts.get(filter) + 1);
-                        lists.get(filter).put(plantLine[0], true);
-                    }
-                }
-
-            }
-            scan.close();
-
-            Call<Map> callFirebaseCount = firebaseClient.getApiService().saveCount(counts);
-            callFirebaseCount.execute().body();
-
-            Call<Map> callFirebaseList = firebaseClient.getApiService().saveList(lists);
-            callFirebaseList.execute().body();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private static void countAndList4Ids() {
@@ -167,11 +54,10 @@ public class Refresher {
             lists.put(filter, new HashMap<Integer, Integer>());
         }
 
-        File file = new File(PATH + PLANTS_FILE);
         final FirebaseClient firebaseClient = new FirebaseClient();
 
         try {
-            Call<List<String>> plantListCall = firebaseClient.getApiService().getPlantToUpdate();
+            Call<List<String>> plantListCall = firebaseClient.getApiService().getPlantsToUpdate();
             List<String> plantsList = plantListCall.execute().body();
 
             int i = 0;
@@ -217,7 +103,7 @@ public class Refresher {
         try {
             Map<String, Integer> plants =  new HashMap<>();
 
-            Call<List<String>> plantListCall = firebaseClient.getApiService().getPlantToUpdate();
+            Call<List<String>> plantListCall = firebaseClient.getApiService().getPlantsToUpdate();
             List<String> plantsList = plantListCall.execute().body();
 
             int i = 0;
@@ -235,7 +121,13 @@ public class Refresher {
 
                 for (Map.Entry<String, Object> entry : translation.entrySet()) {
                     Integer plantName = plants.get(entry.getKey());
-                    Map<String, Object> plant = (Map<String, Object>) entry.getValue();
+                    Map<String, Object> plant;
+                    try {
+                        plant = (Map<String, Object>) entry.getValue();
+                    } catch (Exception ex) {
+                        System.out.println(plantName);
+                        continue;
+                    }
 
                     Map<String, Object> searchForLabel = null;
                     String label = (String)plant.get("label");
@@ -357,34 +249,6 @@ public class Refresher {
 
     }
 
-    private static List<String> generateCountsAndLists4() {
-        List<String> result = new ArrayList<>();
-        Map<String, String> filter = new HashMap<>();
-
-        for (String color : COLORS) {
-            filter.put(Constants.COLOR_OF_FLOWERS, color);
-
-            for (String habitat : HABITATS) {
-                filter.put(Constants.HABITAT, habitat);
-
-                for (String petal : PETALS) {
-                    filter.put(Constants.NUMBER_OF_PETALS, petal);
-
-                    for (String distribution : DISTRIBUTION) {
-                        filter.put(Constants.DISTRIBUTION, distribution);
-                        result.add(Utils.getFilterKey(filter, FILTER_4_ATTRIBUTES));
-
-                    }
-                    filter.remove(Constants.DISTRIBUTION);
-                }
-                filter.remove(Constants.NUMBER_OF_PETALS);
-            }
-            filter.remove(Constants.HABITAT);
-        }
-
-        return result;
-    }
-
     private static List<String> generateCountsAndLists4Ids() {
         List<String> result = new ArrayList<>();
         Map<String, String> filter = new HashMap<>();
@@ -404,29 +268,6 @@ public class Refresher {
 
                     }
                     filter.remove(Constants.DISTRIBUTION);
-                }
-                filter.remove(Constants.NUMBER_OF_PETALS);
-            }
-            filter.remove(Constants.HABITAT);
-        }
-
-        return result;
-    }
-
-    private static List<String> generateCountsAndLists3() {
-        List<String> result = new ArrayList<>();
-        Map<String, String> filter = new HashMap<>();
-
-        for (String color : COLORS) {
-            filter.put(Constants.COLOR_OF_FLOWERS, color);
-
-            for (String habitat : HABITATS) {
-                filter.put(Constants.HABITAT, habitat);
-
-                for (String petal : PETALS) {
-                    filter.put(Constants.NUMBER_OF_PETALS, petal);
-                    result.add(Utils.getFilterKey(filter, FILTER_3_ATTRIBUTES));
-
                 }
                 filter.remove(Constants.NUMBER_OF_PETALS);
             }
@@ -460,11 +301,10 @@ public class Refresher {
     }
 
     private static void parsePlants(Map<String, Map<String, Object>> photoSearch) {
-        File file = new File(PATH + PLANTS_FILE);
         final FirebaseClient firebaseClient = new FirebaseClient();
 
         try {
-            Call<List<String>> plantListCall = firebaseClient.getApiService().getPlantToUpdate();
+            Call<List<String>> plantListCall = firebaseClient.getApiService().getPlantsToUpdate();
             List<String> plants = plantListCall.execute().body();
 
             for (String plantName : plants) {

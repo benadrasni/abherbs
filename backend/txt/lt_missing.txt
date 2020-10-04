@@ -51,7 +51,6 @@ Leucojum aestivum
 Leucojum vernum
 Ligustrum vulgare
 Lotus maritimus
-Malva moschata
 Melampyrum arvense
 Muscari neglectum
 Oenothera parviflora
@@ -133,7 +132,6 @@ Helianthus angustifolius
 Eryngium leavenworthii
 Ipomoea imperati
 Zephyranthes drummondii
-Erigeron philadelphicus
 Asclepias tuberosa
 Tradescantia virginiana
 Physostegia virginiana
@@ -189,7 +187,6 @@ Gaultheria procumbens
 Gelsemium sempervirens
 Gentiana andrewsii
 Gentianopsis crinita
-Geranium maculatum
 Heuchera sanguinea
 Hibiscus moscheutos
 Hypericum frondosum
@@ -233,7 +230,6 @@ Symphyotrichum laeve
 Symphyotrichum novae-angliae
 Symphyotrichum lanceolatum
 Adonis flammea
-Adonis annua
 Clematis integrifolia
 Clematis recta
 Clematis tangutica
@@ -360,7 +356,6 @@ Lobelia siphilitica
 Cosmos sulphureus
 Petunia integrifolia
 Rosa spinosissima
-Alcea rosea
 Alstroemeria pelegrina
 Salvia sclarea
 Vernonia arkansana
@@ -384,7 +379,6 @@ Satureja hortensis
 Glebionis coronaria
 Gilia tricolor
 Oenothera glazioviana
-Lavandula dentata
 Puschkinia scilloides
 Sesbania grandiflora
 Erythronium grandiflorum
@@ -392,7 +386,6 @@ Erythronium dens-canis
 Camellia sasanqua
 Ramonda serbica
 Dicentra formosa
-Pilosella aurantiaca
 Rhododendron macrophyllum
 Geranium cinereum
 Iris japonica
@@ -409,3 +402,16 @@ Centaurea solstitialis
 Spiraea chamaedryfolia
 Leopoldia comosa
 Kalanchoe crenata
+Dietes bicolor
+Polemonium pulcherrimum
+Torilis arvensis
+Magnolia Ã— soulangeana
+Ornithogalum dubium
+Crepis setosa
+Valeriana tuberosa
+Doronicum pardalianches
+Anthriscus caucalis
+Orobanche gracilis
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica

@@ -14,7 +14,6 @@ Genista germanica
 Gentianopsis ciliata
 Geranium palustre
 Geranium phaeum
-Hylotelephium telephium
 Impatiens parviflora
 Iris sibirica
 Lathyrus linifolius
@@ -148,7 +147,6 @@ Clematis integrifolia
 Clematis tangutica
 Clematis viticella
 Clematis crispa
-Paeonia suffruticosa
 Paeonia officinalis
 Paeonia delavayi
 Callianthemum coriandrifolium
@@ -179,7 +177,6 @@ Phlox pilosa
 Phlox amplifolia
 Phlox divaricata
 Phlox glaberrima
-Phlox paniculata
 Phlox subulata
 Lithospermum incisum
 Hypoxis hirsuta
@@ -234,8 +231,6 @@ Dicentra formosa
 Crinum asiaticum
 Lobelia erinus
 Lobelia inflata
-Pilosella aurantiaca
-Rhododendron macrophyllum
 Geranium cinereum
 Iris japonica
 Chrysanthemum indicum
@@ -250,5 +245,16 @@ Geum reptans
 Spiraea chamaedryfolia
 Berteroa incana
 Camassia quamash
-Asphodeline lutea
 Cardamine bulbifera
+Polemonium pulcherrimum
+Astilbe rubra
+Magnolia Ã— soulangeana
+Nepeta racemosa
+Aristolochia macrophylla
+Androsace septentrionalis
+Nemophila maculata
+Crepis setosa
+Rudbeckia laciniata
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica

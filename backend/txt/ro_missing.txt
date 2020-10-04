@@ -273,7 +273,6 @@ Bougainvillea glabra
 Mirabilis nyctaginea
 Dermatophyllum secundiflorum
 Prunus caroliniana
-Melampyrum nemorosum
 Anemone berlandieri
 Paulownia tomentosa
 Melampyrum barbatum
@@ -354,7 +353,6 @@ Philadelphus coronarius
 Ceanothus thyrsiflorus
 Kaempferia rotunda
 Begonia cucullata
-Iberis sempervirens
 Plectranthus fruticosus
 Wisteria frutescens
 Echium candicans
@@ -446,3 +444,29 @@ Lobularia maritima
 Silene gallica
 Camellia japonica
 Lantana camara
+Dietes bicolor
+Polemonium pulcherrimum
+Astilbe rubra
+Catharanthus roseus
+Magnolia Ã— soulangeana
+Nepeta racemosa
+Limonium sinuatum
+Hydrangea macrophylla
+Androsace septentrionalis
+Anemone coronaria
+Nemophila maculata
+Lithospermum officinale
+Centranthus ruber
+Pyracantha coccinea
+Weigela florida
+Melaleuca citrina
+Valeriana tuberosa
+Doronicum pardalianches
+Anthriscus caucalis
+Iberis amara
+Crossandra infundibuliformis
+Orobanche gracilis
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica
+Lavandula stoechas

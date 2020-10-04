@@ -4,7 +4,6 @@ Crocosmia aurea
 Lupinus texensis
 Ratibida columnifera
 Nothoscordum bivalve
-Gaillardia pulchella
 Calyptocarpus vialis
 Oxalis violacea
 Geranium carolinianum
@@ -33,7 +32,6 @@ Malvaviscus arboreus
 Cephalanthus occidentalis
 Hesperaloe parviflora
 Justicia americana
-Alternanthera philoxeroides
 Froelichia floridana
 Saururus cernuus
 Malvastrum coromandelianum
@@ -47,7 +45,6 @@ Solanum carolinense
 Teucrium cubense
 Liatris squarrosa
 Chelone lyonii
-Artemisia tridentata
 Asarum canadense
 Moricandia arvensis
 Chamaecrista fasciculata
@@ -69,7 +66,6 @@ Kalmia angustifolia
 Lewisia rediviva
 Lilium grayi
 Linum medium
-Lobelia cardinalis
 Menispermum canadense
 Monarda media
 Monarda fistulosa
@@ -81,7 +77,6 @@ Plantago rugelii
 Polygala lutea
 Polygaloides paucifolia
 Sabatia angularis
-Salix discolor
 Sambucus canadensis
 Sanguisorba canadensis
 Scutellaria integrifolia
@@ -119,7 +114,6 @@ Sisyrinchium bellum
 Cirsium horridulum
 Galeopsis angustifolia
 Hymenopappus scabiosaeus
-Acca sellowiana
 Mazus pumilus
 Verbena halei
 Sabatia campestris
@@ -130,9 +124,7 @@ Strophostyles helvola
 Oenothera drummondii
 Phalaenopsis sanderiana
 Leucophyllum frutescens
-Tecoma stans
 Nepeta nepetella
-Lepidium virginicum
 Zeuxine strateumatica
 Balsamorhiza sagittata
 Euryops pectinatus
@@ -142,7 +134,6 @@ Podophyllum peltatum
 Penstemon digitalis
 Ceanothus thyrsiflorus
 Kaempferia rotunda
-Begonia cucullata
 Plectranthus fruticosus
 Wisteria frutescens
 Echium candicans
@@ -171,3 +162,12 @@ Linnaea borealis
 Hymenocallis littoralis
 Spiraea chamaedryfolia
 Kalanchoe crenata
+Polemonium pulcherrimum
+Astilbe rubra
+Cerinthe major
+Magnolia Ã— soulangeana
+Androsace septentrionalis
+Valeriana tuberosa
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica

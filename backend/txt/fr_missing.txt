@@ -33,7 +33,6 @@ Crataegus mollis
 Crataegus succulenta
 Cypripedium parviflorum
 Epifagus virginiana
-Conoclinium coelestinum
 Heuchera sanguinea
 Hypericum frondosum
 Impatiens pallida
@@ -46,7 +45,6 @@ Pedicularis canadensis
 Plantago rugelii
 Polygala lutea
 Polygaloides paucifolia
-Rosa carolina
 Sabatia angularis
 Scutellaria integrifolia
 Ipomoea cordatotriloba
@@ -56,12 +54,10 @@ Helleborus purpurascens
 Delphinium oxysepalum
 Aconitum firmum
 Aconitum moldavicum
-Prunus caroliniana
 Anemone berlandieri
 Melampyrum barbatum
 Nemophila menziesii
 Senecio ampullaceus
-Phlox pilosa
 Phlox amplifolia
 Phlox glaberrima
 Lithospermum incisum
@@ -78,7 +74,6 @@ Indigofera miniata
 Oenothera drummondii
 Phalaenopsis sanderiana
 Ruellia simplex
-Oenothera lindheimeri
 Zeuxine strateumatica
 Balsamorhiza sagittata
 Penstemon digitalis
@@ -95,3 +90,9 @@ Spathoglottis plicata
 Erythronium grandiflorum
 Ramonda serbica
 Kalanchoe crenata
+Dietes bicolor
+Polemonium pulcherrimum
+Magnolia Ã— soulangeana
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica

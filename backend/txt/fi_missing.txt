@@ -13,7 +13,6 @@ Gagea villosa
 Gentianopsis ciliata
 Globularia vulgaris
 Gratiola officinalis
-Knautia dipsacifolia
 Lotus maritimus
 Ophrys fuciflora
 Ophrys sphegodes
@@ -25,7 +24,6 @@ Rhododendron ferrugineum
 Rhododendron hirsutum
 Ribes petraeum
 Rosa arvensis
-Rubus plicatus
 Scrophularia umbrosa
 Scutellaria minor
 Soldanella carpatica
@@ -42,7 +40,6 @@ Glandularia bipinnatifida
 Triodanis perfoliata
 Callirhoe involucrata
 Ruellia caroliniensis
-Coreopsis lanceolata
 Mimosa strigillosa
 Trachelospermum jasminoides
 Castilleja indivisa
@@ -96,7 +93,6 @@ Epigaea repens
 Conoclinium coelestinum
 Gentiana andrewsii
 Gentianopsis crinita
-Geranium maculatum
 Heuchera sanguinea
 Hibiscus moscheutos
 Hypericum frondosum
@@ -111,7 +107,6 @@ Nymphaea odorata
 Panax trifolius
 Pedicularis canadensis
 Phoradendron leucarpum
-Phytolacca americana
 Plantago rugelii
 Polygala lutea
 Polygaloides paucifolia
@@ -129,7 +124,6 @@ Doronicum austriacum
 Symphyotrichum laeve
 Adonis flammea
 Clematis crispa
-Paeonia suffruticosa
 Paeonia delavayi
 Callianthemum coriandrifolium
 Callianthemum anemonoides
@@ -142,7 +136,6 @@ Aconitum variegatum
 Aconitum lasiocarpum
 Aesculus flava
 Aesculus parviflora
-Aesculus pavia
 Amorpha canescens
 Youngia japonica
 Bougainvillea glabra
@@ -225,3 +218,11 @@ Ornithogalum pyrenaicum
 Garrya elliptica
 Sempervivum montanum
 Geum reptans
+Dietes bicolor
+Polemonium pulcherrimum
+Magnolia Ã— soulangeana
+Valeriana tuberosa
+Orobanche gracilis
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica

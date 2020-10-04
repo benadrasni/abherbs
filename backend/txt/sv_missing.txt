@@ -12,23 +12,19 @@ Soldanella carpatica
 Thesium pyrenaicum
 Crocosmia aurea
 Lupinus texensis
-Ratibida columnifera
 Nothoscordum bivalve
-Gaillardia pulchella
 Calyptocarpus vialis
 Oxalis violacea
 Rudbeckia amplexicaulis
 Glandularia bipinnatifida
 Callirhoe involucrata
 Ruellia caroliniensis
-Albizia julibrissin
 Mimosa strigillosa
 Castilleja indivisa
 Liatris punctata
 Melampodium leucanthum
 Sisyrinchium angustifolium
 Argemone albiflora
-Plectocephalus americanus
 Helianthus maximiliani
 Helianthus angustifolius
 Eryngium leavenworthii
@@ -47,7 +43,6 @@ Sagittaria platyphylla
 Alternanthera philoxeroides
 Froelichia floridana
 Malvastrum coromandelianum
-Linum lewisii
 Kosteletzkya virginica
 Rhexia mariana
 Phyla nodiflora
@@ -73,13 +68,11 @@ Conoclinium coelestinum
 Gelsemium sempervirens
 Gentiana andrewsii
 Gentianopsis crinita
-Geranium maculatum
 Hypericum frondosum
 Impatiens pallida
 Lewisia rediviva
 Lilium grayi
 Linum medium
-Lobelia cardinalis
 Mitchella repens
 Monarda media
 Panax trifolius
@@ -88,7 +81,6 @@ Phoradendron leucarpum
 Polygala lutea
 Polygaloides paucifolia
 Prunus americana
-Rhus glabra
 Sabatia angularis
 Salix discolor
 Sambucus canadensis
@@ -106,7 +98,6 @@ Aconitum anthora
 Aconitum firmum
 Aconitum moldavicum
 Aconitum lasiocarpum
-Aesculus glabra
 Amorpha canescens
 Youngia japonica
 Bougainvillea glabra
@@ -139,9 +130,9 @@ Indigofera miniata
 Globularia punctata
 Phalaenopsis sanderiana
 Lagerstroemia indica
+Ruellia simplex
 Leucophyllum frutescens
 Swertia perennis
-Vitex agnus-castus
 Himantoglossum hircinum
 Ipomoea violacea
 Zeuxine strateumatica
@@ -150,21 +141,17 @@ Euryops pectinatus
 Gerbera jamesonii
 Hydrangea involucrata
 Podophyllum peltatum
-Anthurium andraeanum
 Ceanothus thyrsiflorus
 Kaempferia rotunda
 Begonia cucullata
 Plectranthus fruticosus
 Wisteria frutescens
-Echium candicans
 Jasminum officinale
 Limbarda crithmoides
 Oenothera rosea
-Symphyotrichum ericoides
 Aubrieta deltoidea
 Crassocephalum crepidioides
 Cattleya trianae
-Lobelia siphilitica
 Alstroemeria pelegrina
 Vernonia arkansana
 Ipomoea pandurata
@@ -184,3 +171,11 @@ Geum reptans
 Cistus salviifolius
 Kalanchoe crenata
 Camassia quamash
+Dietes bicolor
+Polemonium pulcherrimum
+Astilbe rubra
+Magnolia Ã— soulangeana
+Orobanche gracilis
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica

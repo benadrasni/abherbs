@@ -10,7 +10,6 @@ Ruellia caroliniensis
 Mimosa strigillosa
 Castilleja indivisa
 Eustoma exaltatum
-Liatris punctata
 Melampodium leucanthum
 Argemone albiflora
 Helianthus angustifolius
@@ -28,7 +27,6 @@ Alternanthera philoxeroides
 Froelichia floridana
 Saururus cernuus
 Malvastrum coromandelianum
-Linum lewisii
 Kosteletzkya virginica
 Rhexia mariana
 Proboscidea louisianica
@@ -49,7 +47,6 @@ Vincetoxicum nigrum
 Cypripedium acaule
 Cypripedium parviflorum
 Dicentra cucullaria
-Echinacea purpurea
 Epifagus virginiana
 Conoclinium coelestinum
 Gaultheria procumbens
@@ -87,13 +84,11 @@ Caesalpinia pulcherrima
 Clematis crispa
 Callianthemum anemonoides
 Callianthemum angustifolium
-Amorpha canescens
 Youngia japonica
 Bougainvillea glabra
 Dermatophyllum secundiflorum
 Prunus caroliniana
 Anemone berlandieri
-Nemophila menziesii
 Oenothera laciniata
 Senecio ampullaceus
 Salvia lyrata
@@ -122,7 +117,6 @@ Strophostyles helvola
 Oenothera drummondii
 Phalaenopsis sanderiana
 Ruellia simplex
-Oenothera lindheimeri
 Leucophyllum frutescens
 Tecoma stans
 Ipomoea violacea
@@ -145,7 +139,6 @@ Oenothera rosea
 Symphyotrichum ericoides
 Crassocephalum crepidioides
 Cattleya trianae
-Cosmos sulphureus
 Petunia integrifolia
 Alstroemeria pelegrina
 Vernonia arkansana
@@ -162,3 +155,11 @@ Hymenocallis littoralis
 Garrya elliptica
 Kalanchoe crenata
 Camassia quamash
+Dietes bicolor
+Polemonium pulcherrimum
+Magnolia Ã— soulangeana
+Salvia yangii
+Crossandra infundibuliformis
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica

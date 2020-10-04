@@ -1,6 +1,5 @@
 Aphanes arvensis
 Buddleja davidii
-Chlorophytum comosum
 Dianthus gratianopolitanus
 Dianthus seguieri
 Erica tetralix
@@ -123,7 +122,6 @@ Monarda media
 Monarda fistulosa
 Nymphaea odorata
 Panax trifolius
-Passiflora incarnata
 Pedicularis canadensis
 Phoradendron leucarpum
 Plantago rugelii
@@ -197,7 +195,6 @@ Indigofera miniata
 Strophostyles helvola
 Oenothera drummondii
 Phalaenopsis sanderiana
-Lagerstroemia indica
 Ruellia simplex
 Oenothera lindheimeri
 Leucophyllum frutescens
@@ -210,7 +207,6 @@ Duranta erecta
 Lepidium virginicum
 Zeuxine strateumatica
 Balsamorhiza sagittata
-Hibiscus rosa-sinensis
 Euryops pectinatus
 Chamaemelum nobile
 Gerbera jamesonii
@@ -250,7 +246,6 @@ Stevia rebaudiana
 Gilia tricolor
 Potentilla recta
 Oenothera glazioviana
-Celosia argentea
 Puschkinia scilloides
 Sesbania grandiflora
 Monstera deliciosa
@@ -275,4 +270,15 @@ Thlaspi caerulescens
 Kalanchoe crenata
 Camassia quamash
 Cardamine bulbifera
-Lantana camara
+Dietes bicolor
+Polemonium pulcherrimum
+Astilbe rubra
+Magnolia Ã— soulangeana
+Nepeta racemosa
+Aristolochia macrophylla
+Androsace septentrionalis
+Nemophila maculata
+Doronicum pardalianches
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica

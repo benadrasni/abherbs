@@ -6,7 +6,6 @@ Globularia vulgaris
 Hylotelephium telephium
 Hypericum pulchrum
 Knautia dipsacifolia
-Lepidium draba
 Lonicera periclymenum
 Lysimachia europaea
 Pedicularis sylvatica
@@ -17,7 +16,6 @@ Scutellaria minor
 Soldanella carpatica
 Stellaria alsine
 Teesdalia nudicaulis
-Thymus serpyllum
 Veronica austriaca
 Crocosmia aurea
 Agave americana
@@ -54,15 +52,12 @@ Ipomoea imperati
 Zephyranthes drummondii
 Erigeron philadelphicus
 Opuntia aciculata
-Asclepias tuberosa
 Hymenocallis liriosme
 Lantana urticoides
 Malvaviscus arboreus
-Cephalanthus occidentalis
 Berlandiera lyrata
 Hesperaloe parviflora
 Justicia americana
-Sagittaria latifolia
 Sagittaria platyphylla
 Alternanthera philoxeroides
 Froelichia floridana
@@ -81,7 +76,6 @@ Arisaema triphyllum
 Artemisia tridentata
 Asarum canadense
 Moricandia arvensis
-Campsis radicans
 Chamaecrista fasciculata
 Celastrus scandens
 Chamaelirium luteum
@@ -97,7 +91,6 @@ Dicentra cucullaria
 Epifagus virginiana
 Epigaea repens
 Conoclinium coelestinum
-Fragaria virginiana
 Gentiana andrewsii
 Gentianopsis crinita
 Geranium maculatum
@@ -106,18 +99,15 @@ Heuchera sanguinea
 Hibiscus moscheutos
 Hypericum frondosum
 Impatiens pallida
-Iris versicolor
 Kalmia angustifolia
 Kalmia latifolia
 Lewisia rediviva
 Lilium grayi
 Linum medium
-Lobelia cardinalis
 Berberis aquifolium
 Menispermum canadense
 Mitchella repens
 Monarda media
-Monarda fistulosa
 Panax trifolius
 Pedicularis canadensis
 Phoradendron leucarpum
@@ -125,13 +115,10 @@ Plantago rugelii
 Polygala lutea
 Polygaloides paucifolia
 Prunus americana
-Rhus glabra
 Rosa carolina
 Sabatia angularis
 Salix discolor
-Sambucus canadensis
 Sanguisorba canadensis
-Sarracenia purpurea
 Scutellaria integrifolia
 Sidalcea malviflora
 Ipomoea cordatotriloba
@@ -139,7 +126,6 @@ Caesalpinia pulcherrima
 Clematis tangutica
 Clematis crispa
 Paeonia suffruticosa
-Paeonia lactiflora
 Paeonia delavayi
 Callianthemum coriandrifolium
 Callianthemum anemonoides
@@ -155,7 +141,6 @@ Aconitum lasiocarpum
 Aesculus flava
 Aesculus glabra
 Aesculus parviflora
-Aesculus pavia
 Amorpha canescens
 Youngia japonica
 Bougainvillea glabra
@@ -199,9 +184,7 @@ Pulmonaria obscura
 Phyteuma nigrum
 Utricularia australis
 Phalaenopsis sanderiana
-Lagerstroemia indica
 Ruellia simplex
-Oenothera lindheimeri
 Leucophyllum frutescens
 Tecoma stans
 Ipomoea violacea
@@ -209,7 +192,6 @@ Nepeta nepetella
 Duranta erecta
 Zeuxine strateumatica
 Balsamorhiza sagittata
-Hibiscus rosa-sinensis
 Euryops pectinatus
 Gerbera jamesonii
 Callistephus chinensis
@@ -223,7 +205,6 @@ Begonia cucullata
 Plectranthus fruticosus
 Wisteria frutescens
 Echium candicans
-Tragopogon porrifolius
 Clivia miniata
 Oenothera rosea
 Symphyotrichum ericoides
@@ -232,7 +213,6 @@ Crassocephalum crepidioides
 Cattleya trianae
 Claytonia perfoliata
 Lobelia siphilitica
-Cosmos sulphureus
 Petunia integrifolia
 Alstroemeria pelegrina
 Vernonia arkansana
@@ -241,22 +221,17 @@ Lathyrus palustris
 Amaryllis belladonna
 Ipomoea pandurata
 Zinnia elegans
-Centella asiatica
 Eriophyllum lanatum
 Gynostemma pentaphyllum
-Kniphofia uvaria
-Canna indica
 Spathoglottis plicata
 Dendrobium kingianum
 Stevia rebaudiana
-Glebionis coronaria
 Lavatera thuringiaca
 Gilia tricolor
 Lavandula dentata
 Puschkinia scilloides
 Sesbania grandiflora
 Monstera deliciosa
-Mentha suaveolens
 Lablab purpureus
 Erythronium grandiflorum
 Camellia sasanqua
@@ -264,7 +239,6 @@ Ramonda serbica
 Dicentra formosa
 Billbergia nutans
 Crinum asiaticum
-Crassula ovata
 Rhododendron macrophyllum
 Geranium cinereum
 Iris japonica
@@ -274,9 +248,17 @@ Tanacetum balsamita
 Hymenocallis littoralis
 Pontederia cordata
 Garrya elliptica
-Aronia melanocarpa
 Sempervivum montanum
-Anchusa azurea
 Kalanchoe crenata
 Camassia quamash
-Lobularia maritima
+Dietes bicolor
+Polemonium pulcherrimum
+Magnolia Ã— soulangeana
+Nepeta racemosa
+Androsace septentrionalis
+Melaleuca citrina
+Doronicum pardalianches
+Crossandra infundibuliformis
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica

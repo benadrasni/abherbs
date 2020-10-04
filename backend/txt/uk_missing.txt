@@ -4,7 +4,6 @@ Euphorbia verrucosa
 Globularia vulgaris
 Ophrys fuciflora
 Polygala chamaebuxus
-Potentilla pusilla
 Potentilla sterilis
 Scutellaria minor
 Thesium pyrenaicum
@@ -32,7 +31,6 @@ Trachelospermum jasminoides
 Castilleja indivisa
 Phlox drummondii
 Eustoma exaltatum
-Rudbeckia hirta
 Liatris punctata
 Melampodium leucanthum
 Sisyrinchium angustifolium
@@ -119,7 +117,6 @@ Polygala lutea
 Polygaloides paucifolia
 Sabatia angularis
 Salix discolor
-Sambucus canadensis
 Sanguisorba canadensis
 Scutellaria integrifolia
 Sidalcea malviflora
@@ -136,7 +133,6 @@ Callianthemum coriandrifolium
 Callianthemum anemonoides
 Callianthemum angustifolium
 Actaea europaea
-Consolida ajacis
 Consolida orientalis
 Delphinium elatum
 Delphinium oxysepalum
@@ -145,7 +141,6 @@ Youngia japonica
 Dermatophyllum secundiflorum
 Prunus caroliniana
 Anemone berlandieri
-Paulownia tomentosa
 Melampyrum barbatum
 Nemophila menziesii
 Oenothera laciniata
@@ -166,7 +161,6 @@ Cirsium eriophorum
 Galeopsis angustifolia
 Hymenopappus scabiosaeus
 Stratiotes aloides
-Reynoutria japonica
 Mazus pumilus
 Bergenia crassifolia
 Verbena brasiliensis
@@ -213,7 +207,6 @@ Ipomoea pandurata
 Centella asiatica
 Eriophyllum lanatum
 Gynostemma pentaphyllum
-Kniphofia uvaria
 Spathoglottis plicata
 Dendrobium kingianum
 Stevia rebaudiana
@@ -221,7 +214,6 @@ Gilia tricolor
 Lavandula dentata
 Puschkinia scilloides
 Sesbania grandiflora
-Mentha suaveolens
 Erythronium grandiflorum
 Camellia sasanqua
 Ramonda serbica
@@ -233,3 +225,13 @@ Aquilegia atrata
 Kalanchoe crenata
 Camassia quamash
 Lantana camara
+Dietes bicolor
+Magnolia Ã— soulangeana
+Erica carnea
+Nepeta racemosa
+Hydrangea macrophylla
+Ornithogalum dubium
+Nemophila maculata
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica

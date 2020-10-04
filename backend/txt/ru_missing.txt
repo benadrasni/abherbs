@@ -3,7 +3,6 @@ Thesium pyrenaicum
 Lupinus texensis
 Calyptocarpus vialis
 Glandularia bipinnatifida
-Triodanis perfoliata
 Mimosa strigillosa
 Castilleja indivisa
 Eustoma exaltatum
@@ -13,7 +12,6 @@ Argemone albiflora
 Helianthus maximiliani
 Eryngium leavenworthii
 Zephyranthes drummondii
-Erigeron philadelphicus
 Hymenocallis liriosme
 Lantana urticoides
 Berlandiera lyrata
@@ -23,13 +21,11 @@ Malvastrum coromandelianum
 Rhexia mariana
 Eucnide bartonioides
 Teucrium cubense
-Liatris squarrosa
 Chelone lyonii
 Chamaecrista fasciculata
 Epifagus virginiana
 Conoclinium coelestinum
 Gentianopsis crinita
-Geranium maculatum
 Impatiens pallida
 Linum medium
 Mitchella repens
@@ -52,3 +48,7 @@ Nepeta nepetella
 Crassocephalum crepidioides
 Ipomoea pandurata
 Brugmansia sanguinea
+Polemonium pulcherrimum
+Magnolia Ã— soulangeana
+Symphytum tuberosum
+Dahlia Ã— pinnata

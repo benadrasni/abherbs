@@ -67,7 +67,23 @@ public interface FirebaseService {
             "charset: UTF-8"
     })
     @GET("plants_to_update/list.json")
-    Call<List<String>> getPlantToUpdate();
+    Call<List<String>> getPlantsToUpdate();
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @GET("plants_to_update/list/{id}.json")
+    Call<String> getPlantToUpdate(@Path("id") int id);
+
+    @Headers({
+            "Content-Type: application/json",
+            "Accept-Charset: UTF-8",
+            "charset: UTF-8"
+    })
+    @GET("plants_to_update/count.json")
+    Call<Integer> getPlantsToUpdateCount();
 
     @Headers({
             "Content-Type: application/json",

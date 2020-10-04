@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -285,57 +286,37 @@ public class Creater {
 
         try {
             final FirebaseClient firebaseClient = new FirebaseClient();
-//            Call<Map<String, Object>> callFirebaseAPGIII = firebaseClient.getApiService().getAPGIIINew();
-//            Map<String, Object> apgIII = callFirebaseAPGIII.execute().body();
-//
-//            Call<Map<String, Object>> callFirebaseAPGIV = firebaseClient.getApiService().getAPGIV();
-//            Map<String, Object> apgIV = callFirebaseAPGIV.execute().body();
-//
-//            File fileOld = new File(PATH_TO_PLANTS);
-//
-//            Scanner scannerOld = new Scanner(fileOld);
-//
-//            while (scannerOld.hasNextLine()) {
-//                final String[] plantLine = scannerOld.nextLine().split(";");
-//                System.out.println(plantLine[0]);
-//
-//                //updateTaxonomy(apgivOrdoMap, apgIV, plantLine[0], plantLine[1]);
-//                updatePlantTaxonomy(firebaseClient, plantLine[0], plantLine[1]);
-//            }
-//            scannerOld.close();
 
-            File file = new File(PATH_TO_PLANTS_TO_ADD);
+            Call<Integer> plantsCountCall = firebaseClient.getApiService().getPlantsToUpdateCount();
+            int id = plantsCountCall.execute().body();
 
-            int id = 1149;
-            Scanner scan = new Scanner(file);
-            while(scan.hasNextLine()){
-                final String[] plantNames = scan.nextLine().split(";");
+            Call<String> plantNameCall = firebaseClient.getApiService().getPlantToUpdate(id);
+            String plantNameLine = plantNameCall.execute().body();
+            String[] plantNames = plantNameLine.split(";");
+            String plantName = plantNames[0];
+            String wikiSpeciesName = plantNames.length > 1 ? plantNames[1] : plantNames[0];
+            wikiSpeciesName = wikiSpeciesName.replace(Character.toString ((char) 215), "%C3%97");
+            if ("Myrtus communis".equals(wikiSpeciesName)) {
+                wikiSpeciesName = "Myrtus communis L.";
+            }
 
-                final String plantName = plantNames[0];
-                final String wikiSpeciesName = plantNames.length > 1 ? plantNames[1] : plantNames[0];
+            while (true) {
                 System.out.println(plantName);
 
                 addOrUpdateBasic(firebaseClient, plantName, wikiSpeciesName, id);
+                addOrUpdateTranslations(firebaseClient, plantName, wikiSpeciesName);
 
                 id++;
-//                updateTaxonomy(apgiiiOrdoMap, apgIII, plantName, wikiSpeciesName, true);
-//                updateTaxonomy(apgivOrdoMap, apgIV, plantName, wikiSpeciesName, false);
-
-//                updatePlantTaxonomy(firebaseClient, plantName, wikiSpeciesName);
-                addOrUpdateTranslations(firebaseClient, plantName, wikiSpeciesName);
+                plantNameCall = firebaseClient.getApiService().getPlantToUpdate(id);
+                plantNameLine = plantNameCall.execute().body();
+                if (plantNameLine == null) {
+                    break;
+                }
+                plantNames = plantNameLine.split(";");
+                plantName = plantNames[0];
+                wikiSpeciesName = plantNames.length > 1 ? plantNames[1] : plantNames[0];
+                wikiSpeciesName = wikiSpeciesName.replace(Character.toString ((char) 215), "%C3%97");
             }
-            scan.close();
-
-//            ObjectMapper mapper = new ObjectMapper();
-//            mapper.writeValue(new File("c:/Dev/APGIV.json"), apgIV);
-//
-//            Call<Object> saveAPGIV = firebaseClient.getApiService().saveAPGIV(apgIV);
-//            Response<Object> responseAPGIV = saveAPGIV.execute();
-//
-//            Call<Object> saveAPGIII = firebaseClient.getApiService().saveAPGIIINew(apgIII);
-//            Response<Object> responseAPGIII = saveAPGIII.execute();
-
-//            System.out.println(response.body());
         } catch (IOException ex) {
 
         }
@@ -343,10 +324,6 @@ public class Creater {
 
     private static void addOrUpdateTranslations(FirebaseClient firebaseClient, String plantName, String wikiSpeciesName) {
         try {
-            Call<FirebasePlant> getPlantCall = firebaseClient.getApiService().getPlant(plantName);
-            FirebasePlant plantBasic = getPlantCall.execute().body();
-            String familia = getTaxon(plantBasic, "Familia");
-
             Map<String, List<String>> names = readNames(wikiSpeciesName, "/wiki/" + wikiSpeciesName);
             Map<String, String> siteLinks = readWikilinks("/wiki/" + wikiSpeciesName);
 

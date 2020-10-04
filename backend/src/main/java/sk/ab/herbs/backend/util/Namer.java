@@ -46,14 +46,14 @@ public class Namer {
 
         //addNameTranslations();
         //addGoogleNameTranslations("ko");
-        addTaxonTranslation("Iberis");
+        addTaxonTranslation("Saxifraga", "Saxifraga");
     }
 
-    private static void addTaxonTranslation(String taxon) {
+    private static void addTaxonTranslation(String taxon, String wikiname) {
         final FirebaseClient firebaseClient = new FirebaseClient();
 
         try {
-            Document doc = Jsoup.connect("https://species.wikimedia.org/wiki/" + taxon).get();
+            Document doc = Jsoup.connect("https://species.wikimedia.org/wiki/" + wikiname).get();
 
             String wikiPage = doc.getElementsByAttributeValue("title", "Edit interlanguage links").attr("href");
 

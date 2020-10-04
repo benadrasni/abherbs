@@ -3,7 +3,6 @@ Crocosmia aurea
 Nothoscordum bivalve
 Calyptocarpus vialis
 Oxalis violacea
-Geranium carolinianum
 Rudbeckia amplexicaulis
 Glandularia bipinnatifida
 Triodanis perfoliata
@@ -45,7 +44,6 @@ Crataegus succulenta
 Cypripedium acaule
 Epifagus virginiana
 Epigaea repens
-Conoclinium coelestinum
 Gelsemium sempervirens
 Gentianopsis crinita
 Hypericum frondosum
@@ -55,7 +53,6 @@ Monarda media
 Nymphaea odorata
 Pedicularis canadensis
 Phoradendron leucarpum
-Polygala lutea
 Polygaloides paucifolia
 Sabatia angularis
 Scutellaria integrifolia
@@ -66,7 +63,6 @@ Dermatophyllum secundiflorum
 Anemone berlandieri
 Oenothera laciniata
 Senecio ampullaceus
-Phlox pilosa
 Lithospermum incisum
 Hypoxis hirsuta
 Baptisia bracteata
@@ -74,7 +70,6 @@ Lindheimera texana
 Cirsium horridulum
 Hymenopappus scabiosaeus
 Mazus pumilus
-Verbena brasiliensis
 Verbena halei
 Neptunia plena
 Indigofera miniata
@@ -83,13 +78,11 @@ Phalaenopsis sanderiana
 Ruellia simplex
 Leucophyllum frutescens
 Ipomoea violacea
-Duranta erecta
 Zeuxine strateumatica
 Balsamorhiza sagittata
 Euryops pectinatus
 Ceanothus thyrsiflorus
 Kaempferia rotunda
-Begonia cucullata
 Plectranthus fruticosus
 Limbarda crithmoides
 Oenothera rosea
@@ -108,3 +101,10 @@ Brugmansia sanguinea
 Hymenocallis littoralis
 Garrya elliptica
 Kalanchoe crenata
+Dietes bicolor
+Polemonium pulcherrimum
+Magnolia Ã— soulangeana
+Valeriana tuberosa
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica

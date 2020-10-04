@@ -37,11 +37,11 @@ public class Checker {
     public static void main(String[] params) {
 
         //checkNames();
-        //checkNameTranslations();
+        checkNameTranslations();
         //checkPlantTranslation();
         //checkTranslation();
         //checkFilter();
-        checkSources();
+        //checkSources();
         //addIds();
         //checkFruit();
     }

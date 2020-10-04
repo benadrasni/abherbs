@@ -16,7 +16,6 @@ Helianthus angustifolius
 Eryngium leavenworthii
 Ipomoea imperati
 Zephyranthes drummondii
-Erigeron philadelphicus
 Opuntia aciculata
 Hymenocallis liriosme
 Lantana urticoides
@@ -38,12 +37,10 @@ Arisaema triphyllum
 Moricandia arvensis
 Chamaecrista fasciculata
 Chamaelirium luteum
-Vincetoxicum nigrum
 Cypripedium parviflorum
 Dicentra cucullaria
 Epifagus virginiana
 Conoclinium coelestinum
-Gentiana andrewsii
 Gentianopsis crinita
 Hypericum frondosum
 Impatiens pallida
@@ -109,3 +106,9 @@ Hymenocallis littoralis
 Garrya elliptica
 Kalanchoe crenata
 Camassia quamash
+Dietes bicolor
+Magnolia Ã— soulangeana
+Ornithogalum dubium
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica

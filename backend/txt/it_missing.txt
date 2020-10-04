@@ -61,13 +61,11 @@ Echinacea purpurea
 Epifagus virginiana
 Epigaea repens
 Conoclinium coelestinum
-Fragaria virginiana
 Gaultheria procumbens
 Gentiana andrewsii
 Gentianopsis crinita
 Geranium maculatum
 Heuchera sanguinea
-Hibiscus moscheutos
 Hypericum frondosum
 Impatiens pallida
 Iris versicolor
@@ -75,7 +73,6 @@ Lewisia rediviva
 Lilium grayi
 Linum medium
 Lobelia cardinalis
-Berberis aquifolium
 Menispermum canadense
 Mitchella repens
 Monarda media
@@ -96,7 +93,6 @@ Scutellaria integrifolia
 Sidalcea malviflora
 Ipomoea cordatotriloba
 Caesalpinia pulcherrima
-Rhodiola rosea
 Symphyotrichum laeve
 Clematis tangutica
 Clematis crispa
@@ -131,7 +127,6 @@ Lindheimera texana
 Sisyrinchium bellum
 Cirsium horridulum
 Hymenopappus scabiosaeus
-Reynoutria japonica
 Mazus pumilus
 Verbena brasiliensis
 Verbena halei
@@ -157,13 +152,13 @@ Penstemon digitalis
 Anthurium andraeanum
 Ceanothus thyrsiflorus
 Kaempferia rotunda
-Begonia cucullata
 Plectranthus fruticosus
 Echium candicans
 Clivia miniata
 Symphyotrichum ericoides
 Crassocephalum crepidioides
 Cattleya trianae
+Tagetes erecta
 Lobelia siphilitica
 Petunia integrifolia
 Alstroemeria pelegrina
@@ -190,6 +185,16 @@ Brugmansia sanguinea
 Hymenocallis littoralis
 Garrya elliptica
 Scilla siberica
-Aronia melanocarpa
 Brunnera macrophylla
 Kalanchoe crenata
+Dietes bicolor
+Polemonium pulcherrimum
+Astilbe rubra
+Magnolia Ã— soulangeana
+Nepeta racemosa
+Ornithogalum dubium
+Nemophila maculata
+Lithospermum officinale
+Crossandra infundibuliformis
+Dahlia Ã— pinnata
+Dianella tasmanica

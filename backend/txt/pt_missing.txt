@@ -315,7 +315,6 @@ Epigaea repens
 Conoclinium coelestinum
 Fragaria virginiana
 Gaultheria procumbens
-Gelsemium sempervirens
 Gentiana andrewsii
 Gentianopsis crinita
 Geranium maculatum
@@ -539,3 +538,21 @@ Berteroa incana
 Camassia quamash
 Asphodeline lutea
 Cardamine bulbifera
+Polemonium pulcherrimum
+Astilbe rubra
+Magnolia Ã— soulangeana
+Erica carnea
+Nepeta racemosa
+Aristolochia macrophylla
+Skimmia japonica
+Ornithogalum dubium
+Symphytum tuberosum
+Androsace septentrionalis
+Anemone coronaria
+Nemophila maculata
+Crepis setosa
+Aster alpinus
+Crossandra infundibuliformis
+Dahlia Ã— pinnata
+Fuchsia magellanica
+Dianella tasmanica

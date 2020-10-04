@@ -15,7 +15,6 @@ Daphne striata
 Dianthus seguieri
 Diplotaxis muralis
 Epilobium roseum
-Erigeron acris
 Euphorbia dulcis
 Euphorbia verrucosa
 Euphrasia rostkoviana
@@ -23,9 +22,7 @@ Filago minima
 Gagea pratensis
 Gagea villosa
 Galium palustre
-Genista sagittalis
 Gentianopsis ciliata
-Hieracium murorum
 Holosteum umbellatum
 Hypericum hirsutum
 Hypericum humifusum
@@ -42,7 +39,6 @@ Mycelis muralis
 Neottia ovata
 Neslia paniculata
 Orchis pallens
-Orobanche ramosa
 Papaver argemone
 Pedicularis palustris
 Pedicularis sylvatica
@@ -56,13 +52,11 @@ Prenanthes purpurea
 Pulsatilla patens
 Pulsatilla pratensis
 Pyrola media
-Ranunculus lanuginosus
 Ranunculus trichophyllus
 Rhinanthus angustifolius
 Rhinanthus minor
 Ribes alpinum
 Ribes petraeum
-Rorippa amphibia
 Rubus saxatilis
 Scleranthus annuus
 Scorzoneroides autumnalis
@@ -104,7 +98,6 @@ Ipomoea imperati
 Opuntia aciculata
 Hymenocallis liriosme
 Lantana urticoides
-Hesperaloe parviflora
 Justicia americana
 Sagittaria latifolia
 Sagittaria platyphylla
@@ -125,15 +118,12 @@ Crataegus mollis
 Crataegus succulenta
 Cuscuta gronovii
 Vincetoxicum nigrum
-Cypripedium acaule
 Cypripedium parviflorum
 Dicentra cucullaria
 Epifagus virginiana
-Conoclinium coelestinum
 Gentiana andrewsii
 Gentianopsis crinita
 Geranium maculatum
-Heuchera sanguinea
 Hypericum frondosum
 Impatiens pallida
 Lilium grayi
@@ -146,7 +136,6 @@ Phoradendron leucarpum
 Plantago rugelii
 Polygala lutea
 Polygaloides paucifolia
-Prunus americana
 Sabatia angularis
 Salix discolor
 Sanguisorba canadensis
@@ -158,7 +147,6 @@ Symphyotrichum lanceolatum
 Adonis flammea
 Adonis annua
 Clematis recta
-Clematis crispa
 Paeonia mascula
 Paeonia delavayi
 Callianthemum coriandrifolium
@@ -176,7 +164,6 @@ Aconitum moldavicum
 Aconitum variegatum
 Aconitum lasiocarpum
 Aesculus flava
-Aesculus pavia
 Amorpha canescens
 Mirabilis nyctaginea
 Dermatophyllum secundiflorum
@@ -193,7 +180,6 @@ Lithospermum incisum
 Hypoxis hirsuta
 Baptisia bracteata
 Lindheimera texana
-Sisyrinchium bellum
 Cirsium horridulum
 Gentianella germanica
 Cirsium eriophorum
@@ -220,9 +206,7 @@ Carlina vulgaris
 Salvia glutinosa
 Phalaenopsis sanderiana
 Ostrya carpinifolia
-Leucophyllum frutescens
 Swertia perennis
-Tecoma stans
 Chrysosplenium oppositifolium
 Himantoglossum hircinum
 Nepeta nepetella
@@ -250,19 +234,27 @@ Puschkinia scilloides
 Erythronium grandiflorum
 Erythronium dens-canis
 Ramonda serbica
-Dicentra formosa
-Rhododendron macrophyllum
 Geranium cinereum
 Brugmansia sanguinea
-Hymenocallis littoralis
 Ornithogalum pyrenaicum
 Garrya elliptica
 Scandix pecten-veneris
-Aquilegia atrata
-Aronia melanocarpa
 Sempervivum montanum
 Anchusa azurea
 Thlaspi caerulescens
 Geum reptans
-Cistus salviifolius
 Cardamine bulbifera
+Dietes bicolor
+Polemonium pulcherrimum
+Astilbe rubra
+Magnolia Ã— soulangeana
+Aristolochia macrophylla
+Symphytum tuberosum
+Nemophila maculata
+Crepis setosa
+Valeriana tuberosa
+Doronicum pardalianches
+Orobanche gracilis
+Dahlia Ã— pinnata
+Freesia laxa
+Dianella tasmanica
