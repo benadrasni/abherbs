@@ -244,7 +244,7 @@ public class Refresher {
             Call<Object> callFirebaseSearch = firebaseClient.getApiService().saveSearch("la", searchMap);
             Response<Object> response = callFirebaseSearch.execute();
         } catch (IOException ex) {
-
+            System.out.println(ex);
         }
 
     }

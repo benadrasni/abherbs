@@ -46,7 +46,7 @@ public class Namer {
 
         //addNameTranslations();
         //addGoogleNameTranslations("ko");
-        addTaxonTranslation("Saxifraga", "Saxifraga");
+        addTaxonTranslation("Gloriosa", "Gloriosa");
     }
 
     private static void addTaxonTranslation(String taxon, String wikiname) {
